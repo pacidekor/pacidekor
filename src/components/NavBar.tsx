@@ -68,7 +68,7 @@ export function NavBar() {
                 aria-expanded={open}
                 aria-haspopup="true"
                 aria-controls={menuId}
-                className="relative inline-flex cursor-pointer items-center gap-1.5 py-1 text-base font-medium text-white/85 transition-colors hover:text-white"
+                className="relative inline-flex cursor-pointer items-center gap-1.5 py-1 text-base font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
               >
                 Kategórie
                 <ChevronDown
@@ -83,7 +83,7 @@ export function NavBar() {
                 <Link
                   href={item.href}
                   prefetch={false}
-                  className="relative inline-flex cursor-pointer py-1 text-base font-medium text-white/85 transition-colors hover:text-white after:absolute after:right-0 after:bottom-0 after:left-0 after:h-px after:origin-left after:scale-x-0 after:bg-white after:transition-transform after:duration-200 hover:after:scale-x-100"
+                  className="relative inline-flex cursor-pointer py-1 text-base font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
                 >
                   {item.label}
                 </Link>
@@ -92,19 +92,19 @@ export function NavBar() {
           </ul>
 
           <div
-            className="flex shrink-0 items-center gap-6 text-sm font-medium text-white/90"
+            className="flex shrink-0 items-center gap-6 text-sm"
             onMouseEnter={scheduleClose}
           >
             <a
               href="tel:+421900123456"
-              className="inline-flex cursor-pointer items-center gap-2 transition-colors hover:text-white"
+              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
             >
               <Phone className="size-4" strokeWidth={1.75} aria-hidden />
               <span>0900 123 456</span>
             </a>
             <a
               href="mailto:info@pacidekor.sk"
-              className="inline-flex cursor-pointer items-center gap-2 transition-colors hover:text-white"
+              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
             >
               <Mail className="size-4" strokeWidth={1.75} aria-hidden />
               <span>info@pacidekor.sk</span>
