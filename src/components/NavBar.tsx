@@ -68,7 +68,7 @@ export function NavBar() {
                 aria-expanded={open}
                 aria-haspopup="true"
                 aria-controls={menuId}
-                className="relative inline-flex cursor-pointer items-center gap-1.5 py-1 text-base font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
+                className="relative inline-flex cursor-pointer items-center gap-1.5 py-1 text-base font-medium text-white/85 transition-[color,text-shadow] duration-200 hover:text-white hover:[text-shadow:0_0_0.35px_currentcolor]"
               >
                 Kategórie
                 <ChevronDown
@@ -83,7 +83,7 @@ export function NavBar() {
                 <Link
                   href={item.href}
                   prefetch={false}
-                  className="relative inline-flex cursor-pointer py-1 text-base font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
+                  className="relative inline-flex cursor-pointer py-1 text-base font-medium text-white/85 transition-[color,text-shadow] duration-200 hover:text-white hover:[text-shadow:0_0_0.35px_currentcolor]"
                 >
                   {item.label}
                 </Link>
@@ -97,14 +97,14 @@ export function NavBar() {
           >
             <a
               href="tel:+421900123456"
-              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
+              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,text-shadow] duration-200 hover:text-white hover:[text-shadow:0_0_0.35px_currentcolor]"
             >
               <Phone className="size-4" strokeWidth={1.75} aria-hidden />
               <span>0900 123 456</span>
             </a>
             <a
               href="mailto:info@pacidekor.sk"
-              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,font-weight] duration-200 hover:font-semibold hover:text-white"
+              className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,text-shadow] duration-200 hover:text-white hover:[text-shadow:0_0_0.35px_currentcolor]"
             >
               <Mail className="size-4" strokeWidth={1.75} aria-hidden />
               <span>info@pacidekor.sk</span>
