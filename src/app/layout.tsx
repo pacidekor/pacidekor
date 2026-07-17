@@ -17,7 +17,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "PACIDEKOR",
-  description: "E-shop PACIDEKOR",
+  description: "E-shop PACIDEKOR – umelé kvety a dekorácie",
 };
 
 export default function RootLayout({
