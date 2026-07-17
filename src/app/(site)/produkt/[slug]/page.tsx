@@ -27,11 +27,11 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
 
   if (!product) {
-    return { title: "Produkt nenájdený | PACIDEKOR" };
+    return { title: "Produkt nenájdený" };
   }
 
   return {
-    title: `${product.name} | PACIDEKOR`,
+    title: product.name,
     description: product.description,
   };
 }

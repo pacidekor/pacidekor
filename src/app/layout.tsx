@@ -16,8 +16,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "PACIDEKOR",
-  description: "E-shop PACIDEKOR – umelé kvety a dekorácie",
+  title: {
+    default: "PACIDEKOR | Veľkoobchod a dodávateľ kvetov",
+    template: "%s | PACIDEKOR",
+  },
+  description:
+    "Veľkoobchod a dodávateľ umelých kvetov, dekorácií a aranžérskeho materiálu.",
 };
 
 export default function RootLayout({

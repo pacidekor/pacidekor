@@ -5,7 +5,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { akciaSlugs, getProductsBySlugs } from "@/lib/products";
 
 export const metadata: Metadata = {
-  title: "Akcia | PACIDEKOR",
+  title: "Akcia",
   description: "Aktuálne akciové produkty z ponuky PACIDEKOR.",
 };
 

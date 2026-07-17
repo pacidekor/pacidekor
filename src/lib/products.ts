@@ -38,7 +38,7 @@ const flowerDetails = (
   {
     title: "Doprava",
     content:
-      "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1–2 pracovných dní na Slovensku.",
+      "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
   },
 ];
 
@@ -48,7 +48,7 @@ export const products: Product[] = [
     slug: "umela-ruza-bozska",
     name: "Umelá ruža božská",
     description:
-      "Realistická umelá ruža s jemnými okvetnými lístkami. Ideálna do vázy, aranžmánov aj svadobných dekorácií — vždy krásna, bez údržby.",
+      "Realistická umelá ruža s jemnými okvetnými lístkami. Ideálna do vázy, aranžmánov aj svadobných dekorácií - vždy krásna, bez údržby.",
     price: "4,90 €",
     image: "/produkty/produkt1.webp",
     category: "Umelé kvety",
@@ -62,7 +62,7 @@ export const products: Product[] = [
     slug: "umela-pivonia-biela",
     name: "Umelá pivónia biela",
     description:
-      "Bujná biela pivónia s bohatým kvetom. Dodá aranžmánu jemnosť a romantický charakter — perfektná do svadieb aj domova.",
+      "Bujná biela pivónia s bohatým kvetom. Dodá aranžmánu jemnosť a romantický charakter - perfektná do svadieb aj domova.",
     price: "6,50 €",
     image: "/produkty/produkt2.webp",
     category: "Umelé kvety",
@@ -90,7 +90,7 @@ export const products: Product[] = [
     slug: "umela-hortenzia",
     name: "Umelá hortenzia",
     description:
-      "Veľká umelá hortenzia s plným kvetom. Dominanta každej kytice — bohatý objem a dlhodobá krása.",
+      "Veľká umelá hortenzia s plným kvetom. Dominanta každej kytice - bohatý objem a dlhodobá krása.",
     price: "8,90 €",
     image: "/produkty/produkt4.webp",
     category: "Umelé kvety",
@@ -134,7 +134,7 @@ export const products: Product[] = [
     slug: "umely-tulipan-kremovy",
     name: "Umelý tulipán krémový",
     description:
-      "Jemný krémový tulipán — jar v každom aranžmáne. Jednoduchý, elegantný tvar, ktorý nikdy nevyjde z módy.",
+      "Jemný krémový tulipán - jar v každom aranžmáne. Jednoduchý, elegantný tvar, ktorý nikdy nevyjde z módy.",
     price: "3,60 €",
     originalPrice: "5,40 €",
     discount: 33,
@@ -193,7 +193,7 @@ export const products: Product[] = [
       {
         title: "Doprava",
         content:
-          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1–2 pracovných dní na Slovensku.",
+          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
       },
     ],
   },
@@ -222,7 +222,7 @@ export const products: Product[] = [
       {
         title: "Doprava",
         content:
-          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1–2 pracovných dní na Slovensku.",
+          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
       },
     ],
   },

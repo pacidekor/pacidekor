@@ -21,11 +21,11 @@ export async function generateMetadata({
   const category = getCategoryBySlug(slug);
 
   if (!category) {
-    return { title: "Kategória nenájdená | PACIDEKOR" };
+    return { title: "Kategória nenájdená" };
   }
 
   return {
-    title: `${category.label} | PACIDEKOR`,
+    title: category.label,
     description: category.description,
   };
 }

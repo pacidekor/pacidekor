@@ -5,7 +5,7 @@ export function HeroBanner() {
   return (
     <Link
       href="/"
-      aria-label="Paci Dekor – domovská stránka"
+      aria-label="Paci Dekor - domovská stránka"
       className="relative block w-full cursor-pointer overflow-hidden rounded-3xl"
     >
       <Image

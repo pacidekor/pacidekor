@@ -58,7 +58,7 @@ const categoryDescriptions: Record<CategoryLabel, string> = {
     "Papier, fólie a obaly na kytice, darčeky a sezónne balenie.",
   Keramika: "Keramické vázy, misky a nádoby, ktoré dotvoria každý aranžmán.",
   "Vencové základy":
-    "Základy a polotovary na vence — pripravené na vašu dekoráciu.",
+    "Základy a polotovary na vence - pripravené na vašu dekoráciu.",
   Košíky: "Prútené a dekoračné košíky na aranžmány, dary aj sezónnu výzdobu.",
   Plechy: "Plechové nádoby a dekorácie s industriálnym aj rustikálnym nádychom.",
   Svietniky: "Svietniky a stojany na sviečky pre atmosféru každého priestoru.",
