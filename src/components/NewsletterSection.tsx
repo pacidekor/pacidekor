@@ -4,16 +4,15 @@ export function NewsletterSection() {
   return (
     <section
       aria-labelledby="newsletter-heading"
-      className="relative mt-14 w-full overflow-hidden rounded-3xl px-6 py-8 sm:px-10 sm:py-9"
+      className="cv-auto relative mt-14 w-full overflow-hidden rounded-3xl px-6 py-8 sm:px-10 sm:py-9"
     >
       <div className="pointer-events-none absolute inset-0 select-none" aria-hidden>
         <Image
           src="/nlcta.webp"
           alt=""
           fill
-          unoptimized
           draggable={false}
-          sizes="100vw"
+          sizes="80vw"
           className="object-cover"
         />
       </div>

@@ -14,7 +14,7 @@ export function HeroBanner() {
         width={1920}
         height={640}
         priority
-        unoptimized
+        sizes="80vw"
         className="h-auto w-full object-cover"
       />
 

@@ -32,7 +32,7 @@ export function BenefitsBar() {
   return (
     <section
       aria-label="Výhody nákupu"
-      className="mt-14 w-full overflow-hidden rounded-3xl bg-[#e8ebe2] py-8 sm:py-9"
+      className="cv-auto mt-14 w-full overflow-hidden rounded-3xl bg-[#e8ebe2] py-8 sm:py-9"
     >
       <div className="grid grid-cols-1 gap-6 px-6 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-7 sm:px-8 lg:grid-cols-4 lg:gap-8">
         {benefits.map((benefit) => {

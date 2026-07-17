@@ -7,7 +7,7 @@ export function AkciaSection() {
   const products = getProductsBySlugs(akciaSlugs);
 
   return (
-    <section className="mt-14 w-full">
+    <section className="cv-auto mt-14 w-full">
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 className="text-3xl text-[#2f2924] sm:text-4xl">Akcia</h2>
 

@@ -37,3 +37,8 @@ button,
   font-family: var(--font-sans);
   font-weight: 500;
 }
+
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 480px;
+}
