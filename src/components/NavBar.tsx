@@ -58,7 +58,7 @@ export function NavBar() {
   }, [open]);
 
   return (
-    <nav aria-label="Hlavní navigace" className="relative">
+    <nav aria-label="Hlavní navigace" className="relative hidden md:block">
       <div className="relative z-20 bg-[#75825B]">
         <div className="mx-auto flex h-14 w-[var(--content-width)] items-center justify-between gap-8">
           <ul className="flex items-center gap-10">
@@ -136,12 +136,13 @@ export function NavBar() {
                   onClick={closeMenu}
                   className="group flex cursor-pointer flex-col items-center gap-2 text-center transition-transform duration-200 hover:-translate-y-0.5"
                 >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-white shadow-sm transition-shadow duration-200 group-hover:shadow-md">
+                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#f3efe9] shadow-sm transition-shadow duration-200 group-hover:shadow-md">
                     <Image
                       src={image}
                       alt=""
                       fill
                       sizes="(max-width: 768px) 30vw, 8vw"
+                      quality={90}
                       className="object-cover"
                     />
                   </div>

@@ -13,6 +13,7 @@ export function NewsletterSection() {
           fill
           draggable={false}
           sizes="80vw"
+          quality={90}
           className="object-cover"
         />
       </div>

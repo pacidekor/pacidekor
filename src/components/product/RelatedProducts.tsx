@@ -1,4 +1,4 @@
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCarousel } from "@/components/ProductCarousel";
 import type { Product } from "@/lib/products";
 
 type RelatedProductsProps = {
@@ -14,10 +14,12 @@ export function RelatedProducts({ products }: RelatedProductsProps) {
         Mohlo by sa vám páčiť
       </h2>
 
-      <div className="mt-6 grid grid-cols-2 gap-6 md:grid-cols-4 md:gap-7">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
+      <div className="mt-6">
+        <ProductCarousel
+          products={products}
+          enableHoverImage
+          desktopCols="related"
+        />
       </div>
     </section>
   );

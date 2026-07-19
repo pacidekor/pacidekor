@@ -1,0 +1,78 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { ChevronRight, ExternalLink, LogOut } from "lucide-react";
+import { adminNavItems } from "@/lib/admin-nav";
+import { setAdminAuthenticated } from "@/lib/admin-auth";
+
+export function AdminSidebar() {
+  const pathname = usePathname();
+  const router = useRouter();
+
+  function handleLogout() {
+    setAdminAuthenticated(false);
+    router.replace("/admin/login");
+  }
+
+  return (
+    <aside className="flex w-64 shrink-0 flex-col border-r border-black/[0.06] bg-white">
+      <div className="flex items-center justify-center px-5 py-7">
+        <Link
+          href="/admin"
+          className="font-heading text-2xl tracking-[0.08em] text-foreground transition-opacity hover:opacity-80"
+        >
+          PACIDEKOR
+        </Link>
+      </div>
+
+      <nav aria-label="Administrácia" className="flex flex-1 flex-col px-3 pb-5">
+        <ul className="space-y-1">
+          {adminNavItems.map(({ href, label, icon: Icon }) => {
+            const active =
+              href === "/admin"
+                ? pathname === "/admin"
+                : pathname === href || pathname.startsWith(`${href}/`);
+
+            return (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`flex h-11 items-center gap-3 rounded-xl px-3 text-[0.95rem] transition-colors ${
+                    active
+                      ? "bg-[#75825B] font-medium text-white"
+                      : "text-[#2f2924]/70 hover:bg-[#faf8f5] hover:text-[#2f2924]"
+                  }`}
+                >
+                  <Icon className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
+                  <span className="flex-1 truncate">{label}</span>
+                  {active ? (
+                    <ChevronRight className="size-4 shrink-0 opacity-80" aria-hidden />
+                  ) : null}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+
+        <div className="mt-auto space-y-1 border-t border-black/[0.06] pt-4">
+          <Link
+            href="/"
+            className="flex h-11 items-center gap-3 rounded-xl px-3 text-[0.95rem] text-[#2f2924]/70 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
+          >
+            <ExternalLink className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
+            Späť na eshop
+          </Link>
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="flex h-11 w-full cursor-pointer items-center gap-3 rounded-xl px-3 text-[0.95rem] text-[#2f2924]/70 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
+          >
+            <LogOut className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
+            Odhlásiť sa
+          </button>
+        </div>
+      </nav>
+    </aside>
+  );
+}

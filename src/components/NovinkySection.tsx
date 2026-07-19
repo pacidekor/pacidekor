@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCarousel } from "@/components/ProductCarousel";
 import { getProductsBySlugs, novinkySlugs } from "@/lib/products";
 
 export function NovinkySection() {
   const products = getProductsBySlugs(novinkySlugs);
 
   return (
-    <section className="cv-auto mt-14 w-full">
+    <section className="mt-14 w-full">
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 className="text-3xl text-[#2f2924] sm:text-4xl">Novinky</h2>
 
@@ -20,11 +20,7 @@ export function NovinkySection() {
         </Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-7 lg:grid-cols-5 lg:gap-8">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ProductCarousel products={products} enableHoverImage />
     </section>
   );
 }

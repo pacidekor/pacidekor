@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductDetailsCards } from "@/components/product/ProductDetailsCards";
+import { ProductImageGallery } from "@/components/product/ProductImageGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import {
   getProductBySlug,
+  getProductGallery,
   getRelatedProducts,
   products,
 } from "@/lib/products";
@@ -45,6 +46,7 @@ export default async function ProductPage({ params }: PageProps) {
   }
 
   const related = getRelatedProducts(product.slug);
+  const gallery = getProductGallery(product);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -67,28 +69,18 @@ export default async function ProductPage({ params }: PageProps) {
         <span className="text-[#2f2924]">{product.name}</span>
       </nav>
 
-      <div className="grid gap-8 lg:grid-cols-2 lg:gap-12 lg:items-start">
-        <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
-          <Image
-            src={product.image}
-            alt={product.name}
-            fill
-            priority
-            sizes="(max-width: 1024px) 100vw, 40vw"
-            className="object-cover"
-          />
-          {product.discount ? (
-            <span className="absolute top-4 left-4 rounded-full bg-[#c45c4a] px-3 py-1.5 text-sm font-bold text-white">
-              -{product.discount}%
-            </span>
-          ) : null}
-        </div>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
+        <ProductImageGallery
+          images={gallery}
+          alt={product.name}
+          discount={product.discount}
+        />
 
         <div>
           <h1 className="text-3xl text-[#2f2924] sm:text-4xl lg:text-5xl">
             {product.name}
           </h1>
-          <p className="mt-4 max-w-xl text-base leading-relaxed text-[#2f2924]/70 sm:text-lg">
+          <p className="mt-4 text-base leading-relaxed text-[#2f2924]/70 sm:text-lg">
             {product.description}
           </p>
           <ProductPurchase product={product} />

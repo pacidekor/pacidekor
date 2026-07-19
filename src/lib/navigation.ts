@@ -40,7 +40,7 @@ const categoryImages: Record<CategoryLabel, string> = {
   Stuhy: "/kategorie/stuhy.webp",
   Aranžérstvo: "/kategorie/aranzerskymaterial.webp",
   "Obalový materiál": "/kategorie/obalovymaterial.webp",
-  Keramika: "/kategorie/keramika.webp",
+  Keramika: "/kategorie/keramika-new.webp",
   "Vencové základy": "/kategorie/vencovezaklady.webp",
   Košíky: "/kategorie/kosiky.webp",
   Plechy: "/kategorie/plechy.webp",

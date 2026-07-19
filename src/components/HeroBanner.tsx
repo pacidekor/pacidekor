@@ -6,16 +6,27 @@ export function HeroBanner() {
     <Link
       href="/"
       aria-label="Paci Dekor - domovská stránka"
-      className="relative block w-full cursor-pointer overflow-hidden rounded-3xl"
+      className="relative block aspect-[2/1] w-full cursor-pointer overflow-hidden rounded-3xl md:aspect-auto"
     >
+      <Image
+        src="/bannermobile.webp"
+        alt="Paci Dekor"
+        width={1200}
+        height={600}
+        priority
+        quality={90}
+        sizes="94vw"
+        className="h-full w-full object-cover md:hidden"
+      />
       <Image
         src="/banner1.webp"
         alt="Paci Dekor"
         width={1920}
         height={640}
         priority
+        quality={90}
         sizes="80vw"
-        className="h-auto w-full object-cover"
+        className="hidden h-auto w-full object-cover md:block"
       />
 
       <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2.5 sm:bottom-5">

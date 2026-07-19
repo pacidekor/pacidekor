@@ -1,6 +1,7 @@
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { NavBar } from "@/components/NavBar";
+import { ScrollToTop } from "@/components/ScrollToTop";
 
 export default function SiteLayout({
   children,
@@ -9,6 +10,7 @@ export default function SiteLayout({
 }>) {
   return (
     <>
+      <ScrollToTop />
       <div className="sticky top-0 z-50">
         <Header />
         <NavBar />

@@ -18,6 +18,8 @@ export type Product = {
   originalPrice?: string;
   discount?: number;
   image: string;
+  hoverImage?: string;
+  extraImages?: string[];
   category: string;
   colors?: ProductColor[];
   details: ProductDetail[];
@@ -45,191 +47,186 @@ const flowerDetails = (
 export const products: Product[] = [
   {
     id: "1",
-    slug: "umela-ruza-bozska",
-    name: "Umelá ruža božská",
+    slug: "kytica-cerveny-ruzi",
+    name: "Kytica červených ruží",
     description:
-      "Realistická umelá ruža s jemnými okvetnými lístkami. Ideálna do vázy, aranžmánov aj svadobných dekorácií - vždy krásna, bez údržby.",
-    price: "4,90 €",
-    image: "/produkty/produkt1.webp",
+      "Hutná kytica realistických umelých červených ruží s tmavozelenými listami. Bohatý objem a sýta farba - ideálna do vázy, výkladu aj svadobných dekorácií.",
+    price: "18,90 €",
+    image: "/produkty_new/1.jpg",
+    hoverImage: "/produkty_new/1_2.jpg",
+    extraImages: ["/produkty_new/1_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonka s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, vencov, svadobných kytic aj celoročných dekorácií.",
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
     ),
   },
   {
     id: "2",
-    slug: "umela-pivonia-biela",
-    name: "Umelá pivónia biela",
+    slug: "kytica-bielych-pivonii",
+    name: "Kytica bielych pivónií",
     description:
-      "Bujná biela pivónia s bohatým kvetom. Dodá aranžmánu jemnosť a romantický charakter - perfektná do svadieb aj domova.",
-    price: "6,50 €",
-    image: "/produkty/produkt2.webp",
+      "Romantická kytica umelých bielych pivónií s bohatými okvetnými lístkami a zeleným lístím. Jemná, luxusná a vždy svieža - ideálna do vázy aj svadobných aranžmánov.",
+    price: "21,90 €",
+    image: "/produkty_new/2.jpg",
+    hoverImage: "/produkty_new/2_2.jpg",
+    extraImages: ["/produkty_new/2_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Textilné okvetné lístky s jemnou textúrou, stonka s ohybným drôtom.",
-      "Skvelá do svadobných aranžmánov, stolových dekorácií a sezónnych výzdob.",
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
     ),
   },
   {
     id: "3",
-    slug: "umely-eukalyptus",
-    name: "Umelý eukalyptus",
+    slug: "kytica-staroruzovych-ruzi",
+    name: "Kytica staroružových ruží",
     description:
-      "Zelený eukalyptus na vyplnenie aranžmánov a vencov. Prirodzený vzhľad, ktorý ladí s kvetmi aj sušinou.",
-    price: "3,20 €",
-    image: "/produkty/produkt3.webp",
+      "Jemná kytica drobných umelých ruží v staroružovom odtieni s bobuľkami a zelenými listami. Vintage charakter, ktorý ladí do vázy aj romantických aranžmánov.",
+    price: "16,90 €",
+    image: "/produkty_new/3.jpg",
+    hoverImage: "/produkty_new/3_2.jpg",
+    extraImages: ["/produkty_new/3_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Listy z odolného plastu s realistickou kresbou, ohybná stonka.",
-      "Výplň do kytic, vencov a moderných zelených aranžmánov.",
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
     ),
   },
   {
     id: "4",
-    slug: "umela-hortenzia",
-    name: "Umelá hortenzia",
+    slug: "umely-vres-fialovy",
+    name: "Umelý vres fialový",
     description:
-      "Veľká umelá hortenzia s plným kvetom. Dominanta každej kytice - bohatý objem a dlhodobá krása.",
-    price: "8,90 €",
-    image: "/produkty/produkt4.webp",
+      "Previsnutá vetvička umelého fialového vresu s drobnými kvetmi a jemným lístím. Ideálna výplň do aranžmánov, vencov aj do vázy - romantický, prírodný vzhľad bez údržby.",
+    price: "9,90 €",
+    image: "/produkty_new/4.jpg",
+    hoverImage: "/produkty_new/4_2.jpg",
+    extraImages: ["/produkty_new/4_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Kombinácia textilu a plastu pre realistický vzhľad a trvanlivosť.",
-      "Hlavný kvet do veľkých aranžmánov, váz a svadobných dekorácií.",
+      "Drobné kvety a ihličkovité lístie z odolného plastu, ohybná stonka pre jednoduché tvarovanie.",
+      "Výplň do kytic, vencov, výkladov a celoročných dekorácií.",
     ),
   },
   {
     id: "5",
-    slug: "umela-orchidea",
-    name: "Umelá orchidea",
+    slug: "kytica-zelene-s-bielymi-kvietkami",
+    name: "Kytica zelene s bielymi kvietkami",
     description:
-      "Elegantná umelá orchidea pre moderný interiér. Sofistikovaný vzhľad bez starostlivosti o živú rastlinu.",
-    price: "7,40 €",
-    image: "/produkty/produkt5.webp",
+      "Svieža umelá kytica zelene so sukulentmi, eukalyptom a drobnými bielymi kvietkami. Moderný, prírodný vzhľad - ideálna do vázy aj ako výplň do aranžmánov.",
+    price: "14,90 €",
+    image: "/produkty_new/5.jpg",
+    hoverImage: "/produkty_new/5_2.jpg",
+    extraImages: ["/produkty_new/5_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Okvetné lístky z kvalitného plastu, stonka s ohybným drôtom.",
-      "Vhodná do váz, hotelových a kancelárskych priestorov aj domácností.",
+      "Listy a kvety z kvalitného plastu a textilu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, stolových dekorácií a moderných zelených aranžmánov.",
     ),
   },
   {
     id: "6",
-    slug: "umela-ruza-cervena",
-    name: "Umelá ruža červená",
+    slug: "kytica-staroruzovych-pivonii",
+    name: "Kytica staroružových pivónií",
     description:
-      "Klasická červená umelá ruža s realistickým detailom. Nadčasová voľba do romantických aj formálnych aranžmánov.",
-    price: "4,90 €",
-    originalPrice: "6,90 €",
-    discount: 29,
-    image: "/produkty/akcie/akcia1.webp",
+      "Bohatá kytica umelých pivónií v staroružovom odtieni s plnými okvetnými lístkami. Romantická a luxusná - ideálna do vázy aj svadobných dekorácií.",
+    price: "17,90 €",
+    originalPrice: "24,90 €",
+    discount: 28,
+    image: "/akcie_new/1.jpg",
+    hoverImage: "/akcie_new/1_2.jpg",
+    extraImages: ["/akcie_new/1_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Textilné okvetné lístky, stonka s ohybným drôtom.",
-      "Ideálna do kytic, vencov a celoročných dekorácií.",
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
     ),
   },
   {
     id: "7",
-    slug: "umely-tulipan-kremovy",
-    name: "Umelý tulipán krémový",
+    slug: "umely-eukalyptus-vetvicka",
+    name: "Umelý eukalyptus",
     description:
-      "Jemný krémový tulipán - jar v každom aranžmáne. Jednoduchý, elegantný tvar, ktorý nikdy nevyjde z módy.",
-    price: "3,60 €",
-    originalPrice: "5,40 €",
-    discount: 33,
-    image: "/produkty/akcie/akcia2.webp",
+      "Zväzok umelého eukalyptu s okrúhlymi listami v sivozelenom odtieni. Prirodzený vzhľad - ideálna výplň do aranžmánov, vencov aj samostatne do vázy.",
+    price: "7,90 €",
+    originalPrice: "11,90 €",
+    discount: 34,
+    image: "/akcie_new/2.jpg",
+    hoverImage: "/akcie_new/2_2.jpg",
+    extraImages: ["/akcie_new/2_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Kvalitný plast a textil, ohybná stonka na tvarovanie.",
-      "Jarné aranžmány, stolové dekorácie a sezónne výzdoby.",
+      "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
+      "Výplň do kytic, vencov, výkladov a moderných zelených aranžmánov.",
     ),
   },
   {
     id: "8",
-    slug: "umela-slnecnica-zlta",
-    name: "Umelá slnečnica žltá",
+    slug: "umela-paprad",
+    name: "Umelá papraď",
     description:
-      "Veselá žltá slnečnica, ktorá rozjasní každý priestor. Silný vizuálny akcent do letných a jesenných dekorácií.",
-    price: "4,80 €",
-    originalPrice: "7,20 €",
-    discount: 33,
-    image: "/produkty/akcie/akcia3.webp",
+      "Svieža umelá papraď s jemnými perovitými listami a realistickými závitkami. Bohatá zelená výplň do aranžmánov, vencov aj samostatne do vázy.",
+    price: "6,90 €",
+    originalPrice: "9,90 €",
+    discount: 30,
+    image: "/akcie_new/3.jpg",
+    hoverImage: "/akcie_new/3_2.jpg",
+    extraImages: ["/akcie_new/3_3.jpg"],
     category: "Umelé kvety",
     details: flowerDetails(
-      "Odolný plast s realistickou textúrou, pevná stonka.",
-      "Letné a jesenné aranžmány, farmárske a rustikálne dekorácie.",
+      "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
+      "Výplň do kytic, vencov, výkladov a zelených aranžmánov.",
     ),
   },
   {
     id: "9",
-    slug: "satenova-stuha-bordo-5cm",
-    name: "Saténová stuha 5 cm",
+    slug: "kytica-bordovych-dalii",
+    name: "Kytica bordových dálií",
     description:
-      "Lesklá saténová stuha šírky 5 cm na balenie darčekov, mašle a aranžérske práce. Vyberte si farbu podľa vášho projektu.",
-    price: "2,50 €",
-    originalPrice: "3,90 €",
-    discount: 36,
-    image: "/produkty/akcie/akcia4.webp",
-    category: "Stuhy",
-    colors: [
-      { id: "bordo", label: "Bordó", hex: "#6B2D3C" },
-      { id: "zlata", label: "Zlatá", hex: "#C4A35A" },
-      { id: "kremova", label: "Krémová", hex: "#E8DCC8" },
-      { id: "zelena", label: "Olivová", hex: "#75825B" },
-      { id: "cierna", label: "Čierna", hex: "#2f2924" },
-    ],
-    details: [
-      {
-        title: "Materiál",
-        content:
-          "Saténová stuha so saténovým leskom, šírka 5 cm. Pevná, dobre sa viaže a drží tvar mašle.",
-      },
-      {
-        title: "Použitie",
-        content:
-          "Balenie darčekov, svadobné mašle, aranžmány, vencové dekorácie a sezónne výzdoby.",
-      },
-      {
-        title: "Doprava",
-        content:
-          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
-      },
-    ],
+      "Hutná kytica umelých bordových dálií s jemnými doplnkovými kvietkami a zeleným lístím. Bohatý objem a sýta farba - ideálna do vázy aj formálnych aranžmánov.",
+    price: "15,90 €",
+    originalPrice: "22,90 €",
+    discount: 31,
+    image: "/akcie_new/4.jpg",
+    hoverImage: "/akcie_new/4_2.jpg",
+    extraImages: ["/akcie_new/4_3.jpg"],
+    category: "Umelé kvety",
+    details: flowerDetails(
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
+    ),
   },
   {
     id: "10",
-    slug: "darkovy-papier-kraft-10ks",
-    name: "Dárkový papier kraft 10 ks",
+    slug: "kytica-ruzovych-pivonii",
+    name: "Kytica ružových pivónií",
     description:
-      "Balenie 10 hárkov kraftového darčekového papiera. Prirodzený vzhľad, ideálny na balenie aj kreatívne projekty.",
-    price: "5,90 €",
-    originalPrice: "8,50 €",
-    discount: 31,
-    image: "/produkty/akcie/akcia5.webp",
-    category: "Obalový materiál",
-    details: [
-      {
-        title: "Materiál",
-        content:
-          "Kvalitný kraftový papier v prírodnom odtieni. Balenie obsahuje 10 hárkov.",
-      },
-      {
-        title: "Použitie",
-        content:
-          "Balenie darčekov, floristické balenie kytic a DIY projekty.",
-      },
-      {
-        title: "Doprava",
-        content:
-          "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
-      },
-    ],
+      "Romantická kytica umelých pivónií v jemných ružových a broskyňových odtieňoch. Bohaté kvety s doplnkovými kvietkami - ideálna do vázy aj svadobných dekorácií.",
+    price: "18,90 €",
+    originalPrice: "26,90 €",
+    discount: 30,
+    image: "/akcie_new/5.jpg",
+    hoverImage: "/akcie_new/5_2.jpg",
+    extraImages: ["/akcie_new/5_3.jpg"],
+    category: "Umelé kvety",
+    details: flowerDetails(
+      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
+      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
+    ),
   },
 ];
 
 export function getProductBySlug(slug: string) {
   return products.find((product) => product.slug === slug);
+}
+
+export function getProductGallery(product: Product): string[] {
+  return [
+    product.image,
+    ...(product.hoverImage ? [product.hoverImage] : []),
+    ...(product.extraImages ?? []),
+  ];
 }
 
 export function getRelatedProducts(slug: string, count = 4) {
@@ -250,19 +247,19 @@ export function productHref(slug: string) {
 }
 
 export const novinkySlugs = [
-  "umela-ruza-bozska",
-  "umela-pivonia-biela",
-  "umely-eukalyptus",
-  "umela-hortenzia",
-  "umela-orchidea",
+  "kytica-cerveny-ruzi",
+  "kytica-bielych-pivonii",
+  "kytica-staroruzovych-ruzi",
+  "umely-vres-fialovy",
+  "kytica-zelene-s-bielymi-kvietkami",
 ] as const;
 
 export const akciaSlugs = [
-  "umela-ruza-cervena",
-  "umely-tulipan-kremovy",
-  "umela-slnecnica-zlta",
-  "satenova-stuha-bordo-5cm",
-  "darkovy-papier-kraft-10ks",
+  "kytica-staroruzovych-pivonii",
+  "umely-eukalyptus-vetvicka",
+  "umela-paprad",
+  "kytica-bordovych-dalii",
+  "kytica-ruzovych-pivonii",
 ] as const;
 
 export function getProductsBySlugs(slugs: readonly string[]) {
