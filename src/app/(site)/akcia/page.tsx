@@ -36,7 +36,7 @@ export default function AkciaPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-6 md:grid-cols-3 md:gap-7 lg:grid-cols-4 lg:gap-8">
+      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} enableHoverImage />
         ))}
