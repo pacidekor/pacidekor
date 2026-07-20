@@ -68,11 +68,11 @@ export function MobileHeader() {
   const closeMenu = () => setMenuOpen(false);
 
   const linkClass =
-    "flex items-center justify-between gap-3 rounded-2xl px-3 py-[clamp(0.85rem,2.8vw,1.15rem)] text-[clamp(1.2rem,4.6vw,1.55rem)] font-medium leading-snug text-[#2f2924] transition-colors hover:bg-[#e8ebe2]";
+    "flex items-center justify-between gap-3 rounded-2xl px-3 py-[clamp(0.85rem,2.8vw,1.15rem)] text-[clamp(1.2rem,4.6vw,1.55rem)] font-medium leading-snug text-[#2f2924] transition-colors hover:bg-black/5";
 
   return (
     <>
-      <header className="relative z-50 border-b border-black/8 bg-[#e8ebe2] md:hidden">
+      <header className="relative z-50 bg-[#e8ebe2] md:hidden">
         <div className="mx-auto flex h-16 w-[var(--content-width)] items-center justify-between gap-2">
           <div className="flex items-center gap-1">
             <button
@@ -149,11 +149,16 @@ export function MobileHeader() {
             />
           </div>
         </div>
+        {/* Above cart overlay (rendered inside header) so the divider stays visible */}
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-[60] h-px bg-black/8"
+          aria-hidden
+        />
       </header>
 
       <div
         id={menuId}
-        className={`fixed inset-x-0 top-16 bottom-0 z-40 bg-[#faf8f5] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        className={`fixed inset-x-0 top-16 bottom-0 z-40 bg-[#e8ebe2] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
           menuOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-2 opacity-0"
@@ -204,17 +209,17 @@ export function MobileHeader() {
               </ul>
             </nav>
 
-            <div className="shrink-0 border-t border-black/8 bg-[#faf8f5] px-[calc((100vw-var(--content-width))/2)] py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
+            <div className="shrink-0 border-t border-black/8 bg-[#e8ebe2] px-[calc((100vw-var(--content-width))/2)] py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
               <a
                 href="tel:+421900123456"
-                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.6vw,1.1rem)] font-medium text-[#2f2924]/75 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.6vw,1.1rem)] font-medium text-[#2f2924]/75 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
               >
                 <Phone className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
                 <span>0900 123 456</span>
               </a>
               <a
                 href="mailto:info@pacidekor.sk"
-                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.6vw,1.1rem)] font-medium text-[#2f2924]/75 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+                className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.6vw,1.1rem)] font-medium text-[#2f2924]/75 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
               >
                 <Mail className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
                 <span>info@pacidekor.sk</span>
@@ -224,7 +229,7 @@ export function MobileHeader() {
 
           {/* Categories submenu */}
           <div
-            className={`absolute inset-0 overflow-y-auto bg-[#faf8f5] px-[calc((100vw-var(--content-width))/2)] py-[clamp(1.25rem,4vw,2rem)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`absolute inset-0 overflow-y-auto bg-[#e8ebe2] px-[calc((100vw-var(--content-width))/2)] py-[clamp(1.25rem,4vw,2rem)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               menuView === "categories"
                 ? "translate-x-0"
                 : "pointer-events-none translate-x-full"
@@ -234,7 +239,7 @@ export function MobileHeader() {
             <button
               type="button"
               onClick={() => setMenuView("main")}
-              className="mb-2 inline-flex cursor-pointer items-center gap-1.5 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.5vw,1.1rem)] font-medium text-[#2f2924]/65 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+              className="mb-2 inline-flex cursor-pointer items-center gap-1.5 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.5vw,1.1rem)] font-medium text-[#2f2924]/65 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
             >
               <ChevronLeft className="size-5" strokeWidth={1.75} aria-hidden />
               Späť
@@ -274,7 +279,7 @@ export function MobileHeader() {
         />
         <div
           id={searchId}
-          className={`relative border-b border-black/8 bg-[#e8ebe2] shadow-[0_12px_32px_rgba(45,35,25,0.12)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          className={`relative border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
             searchOpen ? "translate-y-0" : "-translate-y-3 opacity-0"
           }`}
         >

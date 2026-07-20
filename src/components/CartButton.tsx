@@ -189,12 +189,12 @@ export function CartButton({
             role="dialog"
             aria-label="Košík"
             aria-hidden={!open}
-            className={`relative border-b border-black/8 bg-[#e8ebe2] shadow-[0_12px_32px_rgba(45,35,25,0.12)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`relative flex max-h-[calc(100dvh-4rem)] flex-col border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               open ? "translate-y-0" : "-translate-y-3 opacity-0"
             }`}
           >
-            <div className="mx-auto w-[var(--content-width)] py-5">
-              <div className="mb-4 flex items-start justify-between gap-3">
+            <div className="mx-auto flex min-h-0 w-[var(--content-width)] flex-1 flex-col py-5">
+              <div className="mb-4 flex shrink-0 items-start justify-between gap-3">
                 <div>
                   <p className="font-heading text-xl font-semibold text-[#2f2924]">
                     Košík
@@ -213,14 +213,14 @@ export function CartButton({
                 </button>
               </div>
 
-              <div className="rounded-2xl border border-black/8 bg-white/90 px-3.5">
+              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-2xl border border-black/8 bg-white/90 px-3.5">
                 <CartItems
                   items={items}
                   onSelect={() => setOpenState(false)}
                 />
               </div>
 
-              <div className="mt-4">
+              <div className="mt-4 shrink-0">
                 <CartFooter
                   subtotal={subtotal}
                   onSelect={() => setOpenState(false)}
