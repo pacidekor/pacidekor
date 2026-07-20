@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
 import { Search } from "lucide-react";
-import { popularSearches } from "@/lib/search";
+import { ProductSearchResults } from "@/components/ProductSearchResults";
+import { popularSearches, searchProducts } from "@/lib/search";
 
 function ClearIcon() {
   return (
@@ -16,10 +17,15 @@ function ClearIcon() {
 export function DesktopSearch() {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const panelId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const trimmed = deferredQuery.trim();
+  const isTyping = trimmed.length > 0;
+  const suggestions = isTyping ? searchProducts(trimmed) : [];
 
   useEffect(() => {
     return () => {
@@ -104,36 +110,50 @@ export function DesktopSearch() {
       <div
         id={panelId}
         role="listbox"
-        aria-label="Odporúčané hľadania"
+        aria-label={isTyping ? "Nájdené produkty" : "Odporúčané hľadania"}
         className={`absolute inset-x-0 top-[calc(100%+0.5rem)] z-50 overflow-hidden rounded-2xl border border-black/6 bg-white/95 shadow-[0_12px_28px_rgba(45,35,25,0.1)] backdrop-blur-sm transition-all duration-200 ease-out ${
           open
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-1 opacity-0"
         }`}
       >
-        <div className="px-4 py-3.5">
-          <p className="mb-2.5 text-[11px] font-medium tracking-[0.12em] text-[#2f2924]/40 uppercase">
-            Odporúčané
-          </p>
-          <div className="flex flex-wrap gap-1.5">
-            {popularSearches.map((term) => (
-              <button
-                key={term}
-                type="button"
-                role="option"
-                onMouseDown={(event) => event.preventDefault()}
-                onClick={() => {
-                  setQuery(term);
-                  inputRef.current?.focus();
-                  setOpen(false);
-                }}
-                className="inline-flex cursor-pointer items-center rounded-full bg-[#f4f1ec] px-3 py-1.5 text-sm text-[#2f2924]/75 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-              >
-                {term}
-              </button>
-            ))}
+        {isTyping ? (
+          <div className="search-scroll max-h-[min(24rem,70vh)] overflow-y-auto py-1">
+            <p className="px-4 pt-3 pb-1.5 text-[11px] font-medium tracking-[0.12em] text-[#2f2924]/40 uppercase">
+              Produkty
+            </p>
+            <ProductSearchResults
+              products={suggestions}
+              query={trimmed}
+              preventMouseDownBlur
+              onSelect={() => setOpen(false)}
+              variant="desktop"
+            />
           </div>
-        </div>
+        ) : (
+          <div className="px-4 py-3.5">
+            <p className="mb-2.5 text-[11px] font-medium tracking-[0.12em] text-[#2f2924]/40 uppercase">
+              Odporúčané
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {popularSearches.map((term) => (
+                <button
+                  key={term}
+                  type="button"
+                  role="option"
+                  onMouseDown={(event) => event.preventDefault()}
+                  onClick={() => {
+                    setQuery(term);
+                    inputRef.current?.focus();
+                  }}
+                  className="inline-flex cursor-pointer items-center rounded-full bg-[#f4f1ec] px-3 py-1.5 text-sm text-[#2f2924]/75 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -22,7 +22,7 @@ export function Header() {
 
           <div className="relative z-40 ml-auto flex items-center gap-3">
             <AccountMenu />
-            <CartButton count={0} />
+            <CartButton />
           </div>
         </div>
       </header>

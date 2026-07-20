@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useDeferredValue, useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Mail, Phone, Search, ShoppingCart, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, Phone, Search, User } from "lucide-react";
+import { CartButton } from "@/components/CartButton";
+import { ProductSearchResults } from "@/components/ProductSearchResults";
 import { categoryHref, categoryList, navItems } from "@/lib/navigation";
-import { popularSearches } from "@/lib/search";
+import { popularSearches, searchProducts } from "@/lib/search";
 
 type MenuView = "main" | "categories";
 
@@ -14,13 +16,20 @@ export function MobileHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuView, setMenuView] = useState<MenuView>("main");
   const [searchOpen, setSearchOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const deferredQuery = useDeferredValue(query);
   const menuId = useId();
   const searchId = useId();
+
+  const trimmedQuery = deferredQuery.trim();
+  const isTyping = trimmedQuery.length > 0;
+  const suggestions = isTyping ? searchProducts(trimmedQuery) : [];
 
   useEffect(() => {
     setMenuOpen(false);
     setSearchOpen(false);
+    setCartOpen(false);
     setMenuView("main");
   }, [pathname]);
 
@@ -32,7 +41,7 @@ export function MobileHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (!menuOpen && !searchOpen) return;
+    if (!menuOpen && !searchOpen && !cartOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -45,6 +54,7 @@ export function MobileHeader() {
         }
         setMenuOpen(false);
         setSearchOpen(false);
+        setCartOpen(false);
       }
     };
 
@@ -53,7 +63,7 @@ export function MobileHeader() {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [menuOpen, menuView, searchOpen]);
+  }, [menuOpen, menuView, searchOpen, cartOpen]);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -72,6 +82,7 @@ export function MobileHeader() {
               aria-controls={menuId}
               onClick={() => {
                 setSearchOpen(false);
+                setCartOpen(false);
                 setMenuOpen((value) => !value);
               }}
               className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
@@ -100,6 +111,7 @@ export function MobileHeader() {
               aria-controls={searchId}
               onClick={() => {
                 setMenuOpen(false);
+                setCartOpen(false);
                 setSearchOpen((value) => !value);
               }}
               className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
@@ -124,13 +136,17 @@ export function MobileHeader() {
               <User className="size-6" strokeWidth={1.75} aria-hidden />
             </button>
 
-            <Link
-              href="/kosik"
-              aria-label="Košík"
-              className="relative inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
-            >
-              <ShoppingCart className="size-6" strokeWidth={1.75} aria-hidden />
-            </Link>
+            <CartButton
+              variant="mobile"
+              open={cartOpen}
+              onOpenChange={(next) => {
+                setCartOpen(next);
+                if (next) {
+                  setMenuOpen(false);
+                  setSearchOpen(false);
+                }
+              }}
+            />
           </div>
         </div>
       </header>
@@ -299,21 +315,39 @@ export function MobileHeader() {
             </form>
 
             <div className="mt-4">
-              <p className="mb-2.5 text-[11px] font-semibold tracking-[0.14em] text-[#2f2924]/45 uppercase">
-                Populárne hľadania
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {popularSearches.map((term) => (
-                  <button
-                    key={term}
-                    type="button"
-                    onClick={() => setQuery(term)}
-                    className="inline-flex cursor-pointer items-center rounded-full border border-black/10 bg-white px-3.5 py-2 text-sm text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
-                  >
-                    {term}
-                  </button>
-                ))}
-              </div>
+              {isTyping ? (
+                <>
+                  <p className="mb-2.5 text-[11px] font-semibold tracking-[0.14em] text-[#2f2924]/45 uppercase">
+                    Produkty
+                  </p>
+                  <div className="search-scroll max-h-[min(22rem,55vh)] overflow-y-auto rounded-2xl border border-black/8 bg-white/90 p-1">
+                    <ProductSearchResults
+                      products={suggestions}
+                      query={trimmedQuery}
+                      onSelect={() => setSearchOpen(false)}
+                      variant="mobile"
+                    />
+                  </div>
+                </>
+              ) : (
+                <>
+                  <p className="mb-2.5 text-[11px] font-semibold tracking-[0.14em] text-[#2f2924]/45 uppercase">
+                    Populárne hľadania
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {popularSearches.map((term) => (
+                      <button
+                        key={term}
+                        type="button"
+                        onClick={() => setQuery(term)}
+                        className="inline-flex cursor-pointer items-center rounded-full border border-black/10 bg-white px-3.5 py-2 text-sm text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
+                      >
+                        {term}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

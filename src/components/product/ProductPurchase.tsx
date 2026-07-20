@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Minus, Plus, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+import { QuantityStepper } from "@/components/QuantityStepper";
 import type { Product } from "@/lib/products";
 
 type ProductPurchaseProps = {
@@ -13,14 +14,6 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
   const [selectedColor, setSelectedColor] = useState(
     product.colors?.[0]?.id ?? "",
   );
-
-  function decrease() {
-    setQuantity((value) => Math.max(1, value - 1));
-  }
-
-  function increase() {
-    setQuantity((value) => value + 1);
-  }
 
   return (
     <div className="mt-8 flex flex-col gap-6">
@@ -75,27 +68,7 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
         )}
 
         <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
-          <div className="inline-flex h-12 items-center rounded-full border border-[#2f2924]/15 bg-white">
-            <button
-              type="button"
-              onClick={decrease}
-              aria-label="Znížiť množstvo"
-              className="flex size-12 cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70"
-            >
-              <Minus className="size-4" strokeWidth={2} aria-hidden />
-            </button>
-            <span className="min-w-8 text-center font-sans text-base font-semibold text-[#2f2924]">
-              {quantity}
-            </span>
-            <button
-              type="button"
-              onClick={increase}
-              aria-label="Zvýšiť množstvo"
-              className="flex size-12 cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70"
-            >
-              <Plus className="size-4" strokeWidth={2} aria-hidden />
-            </button>
-          </div>
+          <QuantityStepper value={quantity} onChange={setQuantity} />
 
           <button
             type="button"
