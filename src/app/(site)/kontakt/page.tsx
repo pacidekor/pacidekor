@@ -9,7 +9,7 @@ import {
 export const metadata: Metadata = {
   title: "Kontakt",
   description:
-    "Kontaktujte PACIDEKOR – formulár, telefón, e-mail a adresy našich predajní.",
+    "Kontaktujte PACIDEKOR - formulár, telefón, e-mail a adresy našich predajní.",
 };
 
 export default function KontaktPage() {

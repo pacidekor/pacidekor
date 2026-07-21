@@ -115,7 +115,7 @@ export function ChatFab() {
               </button>
             </div>
             <p className="mt-2 px-1 text-center text-[11px] text-[#2f2924]/40">
-              Ukážka – chat ešte nie je aktívny
+              Ukážka - chat ešte nie je aktívny
             </p>
           </div>
         </div>
