@@ -7,6 +7,7 @@ type QuantityStepperProps = {
   value: number;
   onChange: (value: number) => void;
   min?: number;
+  max?: number;
   /** Product page uses md, cart uses sm. */
   size?: "sm" | "md";
   "aria-label"?: string;
@@ -16,15 +17,23 @@ export function QuantityStepper({
   value,
   onChange,
   min = 1,
+  max,
   size = "md",
   "aria-label": ariaLabel = "Množstvo",
 }: QuantityStepperProps) {
   const [draft, setDraft] = useState(String(value));
   const atMin = value <= min;
+  const atMax = typeof max === "number" ? value >= max : false;
 
   useEffect(() => {
     setDraft(String(value));
   }, [value]);
+
+  function clamp(next: number) {
+    let result = Math.max(min, next);
+    if (typeof max === "number") result = Math.min(max, result);
+    return result;
+  }
 
   function commit(raw: string) {
     const parsed = Number.parseInt(raw, 10);
@@ -32,7 +41,7 @@ export function QuantityStepper({
       setDraft(String(value));
       return;
     }
-    onChange(Math.max(min, parsed));
+    onChange(clamp(parsed));
   }
 
   const isSm = size === "sm";
@@ -45,7 +54,7 @@ export function QuantityStepper({
     >
       <button
         type="button"
-        onClick={() => onChange(Math.max(min, value - 1))}
+        onClick={() => onChange(clamp(value - 1))}
         disabled={atMin}
         aria-label="Znížiť množstvo"
         className={`flex cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30 ${
@@ -71,7 +80,7 @@ export function QuantityStepper({
           if (next === "") return;
           const parsed = Number.parseInt(next, 10);
           if (!Number.isNaN(parsed) && parsed >= min) {
-            onChange(parsed);
+            onChange(clamp(parsed));
           }
         }}
         onBlur={() => commit(draft)}
@@ -87,9 +96,10 @@ export function QuantityStepper({
 
       <button
         type="button"
-        onClick={() => onChange(value + 1)}
+        onClick={() => onChange(clamp(value + 1))}
+        disabled={atMax}
         aria-label="Zvýšiť množstvo"
-        className={`flex cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70 ${
+        className={`flex cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30 ${
           isSm ? "size-10" : "size-12"
         }`}
       >

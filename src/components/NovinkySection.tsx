@@ -20,7 +20,7 @@ export function NovinkySection() {
         </Link>
       </div>
 
-      <ProductCarousel products={products} enableHoverImage />
+      <ProductCarousel products={products} />
     </section>
   );
 }

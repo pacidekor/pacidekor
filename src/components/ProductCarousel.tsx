@@ -6,7 +6,6 @@ import { ProductCard } from "@/components/ProductCard";
 
 type ProductCarouselProps = {
   products: Product[];
-  enableHoverImage?: boolean;
   /** Desktop grid columns. Default matches homepage. */
   desktopCols?: "home" | "related";
   autoplay?: boolean;
@@ -17,7 +16,6 @@ const GAP_PX = 12;
 
 export function ProductCarousel({
   products,
-  enableHoverImage = false,
   desktopCols = "home",
   autoplay = true,
 }: ProductCarouselProps) {
@@ -195,10 +193,7 @@ export function ProductCarousel({
                   index < products.length - 1 ? GAP_PX : undefined,
               }}
             >
-              <ProductCard
-                product={product}
-                enableHoverImage={enableHoverImage}
-              />
+              <ProductCard product={product} />
             </div>
           ))}
 
@@ -224,11 +219,7 @@ export function ProductCarousel({
 
       <div className={desktopGridClass}>
         {products.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            enableHoverImage={enableHoverImage}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </>

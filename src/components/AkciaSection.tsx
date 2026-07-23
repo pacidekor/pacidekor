@@ -20,7 +20,7 @@ export function AkciaSection() {
         </Link>
       </div>
 
-      <ProductCarousel products={products} enableHoverImage />
+      <ProductCarousel products={products} />
     </section>
   );
 }

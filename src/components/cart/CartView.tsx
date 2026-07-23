@@ -14,6 +14,7 @@ import {
   type CartItem,
 } from "@/lib/cart";
 import { productHref } from "@/lib/products";
+import { adjustInventory, getInventoryForProduct, inventoryMaxOrderable } from "@/lib/inventory";
 
 function productCountLabel(count: number) {
   if (count === 1) return "1 produkt";
@@ -32,6 +33,12 @@ function CartLine({
 }) {
   const { product, quantity } = item;
   const lineTotal = parsePrice(product.price) * quantity;
+  const inventory = getInventoryForProduct(product);
+  const remaining = inventoryMaxOrderable(inventory);
+  const maxQty =
+    typeof remaining === "number"
+      ? Math.max(1, remaining + quantity)
+      : undefined;
 
   return (
     <li className="flex items-center gap-3.5 py-5 sm:gap-5">
@@ -78,6 +85,7 @@ function CartLine({
           <QuantityStepper
             value={quantity}
             onChange={onQuantityChange}
+            max={maxQty}
             size="sm"
             aria-label={`Množstvo: ${product.name}`}
           />
@@ -203,19 +211,33 @@ export function CartView() {
   const [items, setItems] = useState<CartItem[]>(mockCartItems);
 
   function updateQuantity(productId: string, next: number) {
-    setItems((current) =>
-      current.map((item) =>
-        item.product.id === productId
-          ? { ...item, quantity: Math.max(1, next) }
-          : item,
-      ),
-    );
+    setItems((current) => {
+      const item = current.find((entry) => entry.product.id === productId);
+      if (!item) return current;
+
+      const clamped = Math.max(1, next);
+      const delta = clamped - item.quantity;
+      if (delta === 0) return current;
+
+      const result = adjustInventory(item.product, -delta);
+      if (!result.ok) return current;
+
+      return current.map((entry) =>
+        entry.product.id === productId
+          ? { ...entry, quantity: clamped }
+          : entry,
+      );
+    });
   }
 
   function removeItem(productId: string) {
-    setItems((current) =>
-      current.filter((item) => item.product.id !== productId),
-    );
+    setItems((current) => {
+      const item = current.find((entry) => entry.product.id === productId);
+      if (item) {
+        adjustInventory(item.product, item.quantity);
+      }
+      return current.filter((entry) => entry.product.id !== productId);
+    });
   }
 
   if (items.length === 0) {

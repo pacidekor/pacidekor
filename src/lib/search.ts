@@ -1,4 +1,9 @@
 import { products, type Product } from "@/lib/products";
+import {
+  filterColors,
+  getPackagingFormatById,
+  getSubcategoryById,
+} from "@/lib/taxonomy";
 
 export const popularSearches = [
   "Pivónie",
@@ -123,6 +128,48 @@ function scoreProduct(query: string, product: Product) {
       continue;
     }
     if (category && tokensRelated(qToken, category)) {
+      matched += 0.5;
+      continue;
+    }
+
+    const sub = getSubcategoryById(product.subcategoryId);
+    if (sub) {
+      const subNorm = normalizeSearch(sub.label);
+      const subId = normalizeSearch(sub.id);
+      if (tokensRelated(qToken, subNorm) || tokensRelated(qToken, subId)) {
+        matched += 0.8;
+        continue;
+      }
+    }
+
+    const colorIds = product.attributes?.colors ?? [];
+    const colorHit = colorIds.some((colorId) => {
+      const color = filterColors.find((item) => item.id === colorId);
+      if (!color) return tokensRelated(qToken, normalizeSearch(colorId));
+      return (
+        tokensRelated(qToken, normalizeSearch(color.id)) ||
+        tokensRelated(qToken, normalizeSearch(color.label))
+      );
+    });
+    if (colorHit) {
+      matched += 0.7;
+      continue;
+    }
+
+    const packaging = product.attributes?.packaging ?? [];
+    const packHit = packaging.some((option) => {
+      const format = getPackagingFormatById(option.id);
+      const customLabel = option.label?.trim();
+      if (customLabel && tokensRelated(qToken, normalizeSearch(customLabel))) {
+        return true;
+      }
+      if (!format) return tokensRelated(qToken, normalizeSearch(option.id));
+      return (
+        tokensRelated(qToken, normalizeSearch(format.id)) ||
+        tokensRelated(qToken, normalizeSearch(format.label))
+      );
+    });
+    if (packHit) {
       matched += 0.5;
     }
   }

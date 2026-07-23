@@ -1,19 +1,38 @@
 "use client";
 
-import { useState } from "react";
-import { ShoppingCart } from "lucide-react";
+import { useEffect, useState } from "react";
+import { AddToCartButton } from "@/components/AddToCartButton";
 import { QuantityStepper } from "@/components/QuantityStepper";
+import {
+  inventoryMaxOrderable,
+  isInventoryAvailable,
+} from "@/lib/inventory";
 import type { Product } from "@/lib/products";
+import { useProductInventory } from "@/lib/use-product-inventory";
 
 type ProductPurchaseProps = {
   product: Product;
 };
 
 export function ProductPurchase({ product }: ProductPurchaseProps) {
+  const inventory = useProductInventory(product);
+  const available = isInventoryAvailable(inventory);
+  const maxQty = inventoryMaxOrderable(inventory);
+
   const [quantity, setQuantity] = useState(1);
   const [selectedColor, setSelectedColor] = useState(
     product.colors?.[0]?.id ?? "",
   );
+
+  useEffect(() => {
+    if (!available) {
+      setQuantity(1);
+      return;
+    }
+    if (typeof maxQty === "number") {
+      setQuantity((prev) => Math.min(Math.max(1, prev), maxQty));
+    }
+  }, [available, maxQty]);
 
   return (
     <div className="mt-8 flex flex-col gap-6">
@@ -67,16 +86,38 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
           </p>
         )}
 
-        <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
-          <QuantityStepper value={quantity} onChange={setQuantity} />
+        <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
+          {available ? (
+            typeof maxQty === "number" ? (
+              <p className="text-sm text-[#2f2924]/55 sm:text-right">
+                Na sklade: {maxQty} ks
+              </p>
+            ) : (
+              <p className="text-sm text-[#2f2924]/55 sm:text-right">
+                Na sklade
+              </p>
+            )
+          ) : (
+            <p className="text-sm font-medium text-[#c45c4a] sm:text-right">
+              Momentálne nie je na sklade
+            </p>
+          )}
 
-          <button
-            type="button"
-            className="inline-flex h-12 flex-1 cursor-pointer items-center justify-center gap-2 rounded-full bg-[#75825B] px-6 text-base font-medium text-white transition-opacity hover:opacity-90 sm:flex-none"
-          >
-            <ShoppingCart className="size-5" strokeWidth={1.75} aria-hidden />
-            Do košíka
-          </button>
+          <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
+            <QuantityStepper
+              value={quantity}
+              onChange={setQuantity}
+              max={typeof maxQty === "number" ? maxQty : undefined}
+              min={1}
+            />
+
+            <AddToCartButton
+              product={product}
+              quantity={quantity}
+              disabled={!available}
+              size="page"
+            />
+          </div>
         </div>
       </div>
     </div>

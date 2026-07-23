@@ -1,3 +1,5 @@
+import type { ProductAttributes } from "@/lib/taxonomy";
+
 export type ProductDetail = {
   title: string;
   content: string;
@@ -14,6 +16,8 @@ export type Product = {
   slug: string;
   name: string;
   description: string;
+  /** Interný / katalógový kód produktu (čísla a písmená) */
+  sku?: string;
   price: string;
   originalPrice?: string;
   discount?: number;
@@ -21,8 +25,13 @@ export type Product = {
   hoverImage?: string;
   extraImages?: string[];
   category: string;
+  subcategoryId?: string;
+  attributes?: ProductAttributes;
   colors?: ProductColor[];
   details: ProductDetail[];
+  /** Seed availability – live stock is tracked in inventory storage. */
+  inStock?: boolean;
+  stockQuantity?: number;
 };
 
 const flowerDetails = (
@@ -56,6 +65,9 @@ export const products: Product[] = [
     hoverImage: "/produkty_new/1_2.jpg",
     extraImages: ["/produkty_new/1_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "ruze",
+    inStock: true,
+    attributes: { colors: ["cervena"], packaging: [{ id: "krabica", pieces: 24 }] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -72,6 +84,8 @@ export const products: Product[] = [
     hoverImage: "/produkty_new/2_2.jpg",
     extraImages: ["/produkty_new/2_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "pivonie",
+    attributes: { colors: ["biela"] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -88,6 +102,8 @@ export const products: Product[] = [
     hoverImage: "/produkty_new/3_2.jpg",
     extraImages: ["/produkty_new/3_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "ruze",
+    attributes: { colors: ["ruzova"] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -104,6 +120,10 @@ export const products: Product[] = [
     hoverImage: "/produkty_new/4_2.jpg",
     extraImages: ["/produkty_new/4_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "vres",
+    inStock: true,
+    stockQuantity: 8,
+    attributes: { colors: ["fialova"], packaging: [{ id: "krabica", pieces: 24 }] },
     details: flowerDetails(
       "Drobné kvety a ihličkovité lístie z odolného plastu, ohybná stonka pre jednoduché tvarovanie.",
       "Výplň do kytic, vencov, výkladov a celoročných dekorácií.",
@@ -120,6 +140,8 @@ export const products: Product[] = [
     hoverImage: "/produkty_new/5_2.jpg",
     extraImages: ["/produkty_new/5_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "zelen",
+    attributes: { colors: ["zelena", "biela"] },
     details: flowerDetails(
       "Listy a kvety z kvalitného plastu a textilu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, stolových dekorácií a moderných zelených aranžmánov.",
@@ -138,6 +160,10 @@ export const products: Product[] = [
     hoverImage: "/akcie_new/1_2.jpg",
     extraImages: ["/akcie_new/1_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "pivonie",
+    inStock: true,
+    stockQuantity: 3,
+    attributes: { colors: ["ruzova"], packaging: [{ id: "krabica", pieces: 12 }, { id: "paleta", pieces: 240 }] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -156,6 +182,8 @@ export const products: Product[] = [
     hoverImage: "/akcie_new/2_2.jpg",
     extraImages: ["/akcie_new/2_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "eukalyptus",
+    attributes: { colors: ["zelena", "seda"] },
     details: flowerDetails(
       "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
       "Výplň do kytic, vencov, výkladov a moderných zelených aranžmánov.",
@@ -174,6 +202,8 @@ export const products: Product[] = [
     hoverImage: "/akcie_new/3_2.jpg",
     extraImages: ["/akcie_new/3_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "paprad",
+    attributes: { colors: ["zelena"] },
     details: flowerDetails(
       "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
       "Výplň do kytic, vencov, výkladov a zelených aranžmánov.",
@@ -192,6 +222,10 @@ export const products: Product[] = [
     hoverImage: "/akcie_new/4_2.jpg",
     extraImages: ["/akcie_new/4_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "dalie",
+    inStock: true,
+    stockQuantity: 5,
+    attributes: { colors: ["cervena"] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -210,6 +244,9 @@ export const products: Product[] = [
     hoverImage: "/akcie_new/5_2.jpg",
     extraImages: ["/akcie_new/5_3.jpg"],
     category: "Umelé kvety",
+    subcategoryId: "pivonie",
+    inStock: false,
+    attributes: { colors: ["ruzova", "oranzova"] },
     details: flowerDetails(
       "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
       "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
@@ -270,4 +307,33 @@ export function getProductsBySlugs(slugs: readonly string[]) {
 
 export function getProductsByCategory(category: string) {
   return products.filter((product) => product.category === category);
+}
+
+export type ProductFilterInput = {
+  subcategoryId?: string;
+  colors?: string[];
+};
+
+export function filterProducts(
+  list: Product[],
+  filters: ProductFilterInput,
+): Product[] {
+  return list.filter((product) => {
+    if (
+      filters.subcategoryId &&
+      product.subcategoryId !== filters.subcategoryId
+    ) {
+      return false;
+    }
+
+    if (filters.colors && filters.colors.length > 0) {
+      const productColors = product.attributes?.colors ?? [];
+      const matchesColor = filters.colors.some((color) =>
+        productColors.includes(color),
+      );
+      if (!matchesColor) return false;
+    }
+
+    return true;
+  });
 }

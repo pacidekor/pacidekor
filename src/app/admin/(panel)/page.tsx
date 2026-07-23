@@ -1,47 +1,59 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   ArrowUpRight,
   Building2,
   Clock3,
   Package,
-  Plus,
+  ShoppingBag,
   ShoppingCart,
+  TrendingUp,
+  Warehouse,
   type LucideIcon,
 } from "lucide-react";
+import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
+import { RevenueChart } from "@/components/admin/RevenueChart";
+import { products } from "@/lib/products";
 
 const stats: {
   label: string;
   value: string;
   hint: string;
+  icon: LucideIcon;
 }[] = [
   {
     label: "Objednávky dnes",
     value: "12",
     hint: "+3 oproti včera",
+    icon: ShoppingCart,
   },
   {
     label: "Čakajúce objednávky",
     value: "7",
     hint: "na vybavenie",
+    icon: Clock3,
   },
   {
     label: "Dnešné tržby",
     value: "1 842 €",
     hint: "+8 % oproti včera",
+    icon: ShoppingBag,
   },
   {
     label: "Tržby tento mesiac",
     value: "24 650 €",
     hint: "+11 % oproti minulému",
+    icon: TrendingUp,
   },
   {
     label: "Produkty s nízkym skladom",
     value: "6",
     hint: "vyžaduje doplnenie",
+    icon: Warehouse,
   },
 ];
 
-const recentOrders = [
+const pendingOrders = [
   {
     number: "2026-00125",
     customer: "Kvetinárstvo Ruža",
@@ -71,11 +83,35 @@ const recentOrders = [
     createdAt: "pred 2 hod.",
   },
   {
-    number: "2026-00121",
-    customer: "Ateliér Kvet",
-    price: "312 €",
-    status: "Odoslaná",
-    createdAt: "pred 3 hod.",
+    number: "2026-00120",
+    customer: "Dekor Ateliér",
+    price: "275 €",
+    status: "Pripravuje sa",
+    createdAt: "pred 4 hod.",
+  },
+];
+
+const recentOrders = [
+  {
+    number: "2026-00125",
+    customer: "Kvetinárstvo Ruža",
+    price: "428 €",
+    status: "Pripravuje sa",
+    createdAt: "pred 12 min",
+  },
+  {
+    number: "2026-00124",
+    customer: "Jana Nováková",
+    price: "52 €",
+    status: "Nová",
+    createdAt: "pred 28 min",
+  },
+  {
+    number: "2026-00123",
+    customer: "Floristika Mária",
+    price: "196 €",
+    status: "Pripravuje sa",
+    createdAt: "pred 1 hod.",
   },
 ];
 
@@ -111,91 +147,158 @@ const attentionItems: {
   },
 ];
 
-const quickActions: {
-  href: string;
-  label: string;
-}[] = [
-  { href: "/admin/produkty", label: "Pridať produkt" },
-  { href: "/admin/kategorie", label: "Pridať kategóriu" },
-  { href: "/admin/produkty", label: "Import produktov" },
-  { href: "/admin/zlavy", label: "Vytvoriť zľavu" },
+const topProducts = [
+  { slug: products[0].slug, name: products[0].name, image: products[0].image, sold: 48, revenue: "907 €" },
+  { slug: products[1].slug, name: products[1].name, image: products[1].image, sold: 36, revenue: "788 €" },
+  { slug: products[4].slug, name: products[4].name, image: products[4].image, sold: 29, revenue: "435 €" },
+  { slug: products[2].slug, name: products[2].name, image: products[2].image, sold: 24, revenue: "502 €" },
+  { slug: products[3].slug, name: products[3].name, image: products[3].image, sold: 21, revenue: "189 €" },
 ];
 
+/** Mock tržby za posledných 30 dní (vrátane dneška) - peak okolo pred týždňom. */
+const revenueValues = [
+  420, 380, 510, 460, 390, 440, 580, 520, 490, 610, 570, 640, 590, 620, 700,
+  680, 740, 920, 1100, 1280, 1190, 980, 860, 790, 720, 810, 760, 830, 870, 910,
+];
+
+function buildRevenueData() {
+  const today = new Date();
+  today.setHours(12, 0, 0, 0);
+
+  return revenueValues.map((value, index) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() - (revenueValues.length - 1 - index));
+    return {
+      date: date.toISOString().slice(0, 10),
+      value,
+    };
+  });
+}
+
+const revenueData = buildRevenueData();
+
 function statusClass(status: string) {
-  if (status === "Nová") return "bg-[#75825B]/12 text-[#75825B]";
-  if (status === "Odoslaná") return "bg-[#2f2924]/6 text-[#2f2924]/55";
-  return "bg-[#e8ebe2] text-[#2f2924]/70";
+  switch (status) {
+    case "Nová":
+      return "bg-[#dbeafe] text-[#1d4ed8]";
+    case "Pripravuje sa":
+      return "bg-[#ffedd5] text-[#c2410c]";
+    case "Odoslaná":
+      return "bg-[#dcfce7] text-[#15803d]";
+    case "Zaplatená":
+      return "bg-[#d1fae5] text-[#047857]";
+    case "Stornovaná":
+      return "bg-[#fee2e2] text-[#b91c1c]";
+    default:
+      return "bg-[#f0eee9] text-[#2f2924]/70";
+  }
+}
+
+function hintClass(hint: string) {
+  const trimmed = hint.trimStart();
+  if (trimmed.startsWith("+")) return "font-medium text-[#75825B]";
+  if (trimmed.startsWith("-")) return "font-medium text-[#c45c4a]";
+  return "text-[#2f2924]/40";
+}
+
+function OrderRow({
+  order,
+}: {
+  order: {
+    number: string;
+    customer: string;
+    price: string;
+    status: string;
+    createdAt: string;
+  };
+}) {
+  return (
+    <Link
+      href="/admin/objednavky"
+      className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[#faf8f5]"
+    >
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+          <p className="truncate text-[15px] font-medium text-[#2f2924]">
+            {order.customer}
+          </p>
+          <p className="text-xs text-[#2f2924]/40">#{order.number}</p>
+        </div>
+        <p className="mt-0.5 text-xs text-[#2f2924]/45">{order.createdAt}</p>
+      </div>
+
+      <span
+        className={`hidden shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold sm:inline-flex ${statusClass(order.status)}`}
+      >
+        {order.status}
+      </span>
+
+      <p className="w-16 shrink-0 text-right text-[15px] font-semibold tabular-nums text-[#2f2924]">
+        {order.price}
+      </p>
+    </Link>
+  );
 }
 
 export default function AdminPage() {
-  return (
-    <main className="flex flex-1 flex-col px-6 py-6 sm:px-8 sm:py-7 lg:px-10">
-      <header>
-        <h1 className="font-heading text-xl font-semibold text-[#2f2924] sm:text-2xl">
-          Prehľad
-        </h1>
-        <p className="mt-0.5 text-sm text-[#2f2924]/50">
-          To najdôležitejšie z vášho eshopu na jednom mieste.
-        </p>
-      </header>
+  const revenueTotal = revenueData.reduce((sum, d) => sum + d.value, 0);
 
+  return (
+    <main className="flex flex-1 flex-col px-4 py-5 sm:px-5 lg:px-6 lg:py-6">
+      <AdminPageHeader
+        title="Prehľad"
+        description="To najdôležitejšie z vášho eshopu na jednom mieste."
+      />
+
+      {/* Stats */}
       <section
         aria-label="Štatistiky"
-        className="mt-7 grid grid-cols-2 gap-3 lg:grid-cols-5"
+        className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-5"
       >
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-2xl border border-black/[0.06] bg-white px-4 py-4"
-          >
-            <p className="text-xs text-[#2f2924]/45">{stat.label}</p>
-            <p className="mt-1.5 font-heading text-[1.65rem] font-semibold leading-none tracking-tight text-[#2f2924]">
-              {stat.value}
-            </p>
-            <p className="mt-2 text-xs text-[#2f2924]/40">{stat.hint}</p>
-          </div>
-        ))}
+        {stats.map((stat) => {
+          const Icon = stat.icon;
+          return (
+            <div
+              key={stat.label}
+              className="flex flex-col rounded-2xl border border-black/[0.06] bg-white px-5 py-5"
+            >
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-sm font-medium leading-snug text-[#2f2924]/65">
+                  {stat.label}
+                </p>
+                <Icon
+                  className="size-4 shrink-0 text-[#75825B]"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+              </div>
+              <p className="mt-4 font-heading text-[2.4rem] font-semibold leading-none tracking-tight text-[#2f2924]">
+                {stat.value}
+              </p>
+              <p className={`mt-3 text-xs ${hintClass(stat.hint)}`}>
+                {stat.hint}
+              </p>
+            </div>
+          );
+        })}
       </section>
 
-      <div className="mt-5 grid items-start gap-4 xl:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+      {/* Pending orders 70% + Attention 30% */}
+      <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
         <section className="rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-5 pt-4 pb-3">
+          <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
-              Posledné objednávky
+              Objednávky čakajúce na vybavenie
             </h2>
+            <span className="rounded-md bg-[#75825B]/12 px-2 py-0.5 text-xs font-semibold tabular-nums text-[#75825B]">
+              {pendingOrders.length}
+            </span>
           </div>
 
           <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
-            {recentOrders.map((order) => (
+            {pendingOrders.map((order) => (
               <li key={order.number}>
-                <Link
-                  href="/admin/objednavky"
-                  className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[#faf8f5]"
-                >
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-                      <p className="truncate text-sm font-medium text-[#2f2924]">
-                        {order.customer}
-                      </p>
-                      <p className="text-xs text-[#2f2924]/40">
-                        #{order.number}
-                      </p>
-                    </div>
-                    <p className="mt-0.5 text-xs text-[#2f2924]/45">
-                      {order.createdAt}
-                    </p>
-                  </div>
-
-                  <span
-                    className={`hidden shrink-0 rounded-md px-2 py-0.5 text-[11px] font-medium sm:inline-flex ${statusClass(order.status)}`}
-                  >
-                    {order.status}
-                  </span>
-
-                  <p className="w-16 shrink-0 text-right text-sm font-semibold tabular-nums text-[#2f2924]">
-                    {order.price}
-                  </p>
-                </Link>
+                <OrderRow order={order} />
               </li>
             ))}
           </ul>
@@ -211,24 +314,24 @@ export default function AdminPage() {
           </div>
         </section>
 
-        <section className="rounded-2xl border border-black/[0.06] bg-white">
+        <section className="flex h-full flex-col rounded-2xl border border-black/[0.06] bg-white">
           <div className="px-5 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Vyžaduje pozornosť
             </h2>
           </div>
 
-          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          <ul className="flex flex-1 flex-col divide-y divide-black/[0.05] border-t border-black/[0.05]">
             {attentionItems.map((item) => {
               const Icon = item.icon;
               return (
-                <li key={item.label}>
+                <li key={item.label} className="flex flex-1">
                   <Link
                     href={item.href}
-                    className="group flex items-start gap-3.5 px-5 py-4 transition-colors hover:bg-[#faf8f5]"
+                    className="group flex w-full items-center gap-3.5 px-5 py-4 transition-colors hover:bg-[#faf8f5]"
                   >
                     <Icon
-                      className="mt-0.5 size-4 shrink-0 text-[#75825B]"
+                      className="size-5 shrink-0 text-[#75825B]"
                       strokeWidth={1.75}
                       aria-hidden
                     />
@@ -239,7 +342,7 @@ export default function AdminPage() {
                       {item.label}
                     </p>
                     <ArrowUpRight
-                      className="mt-0.5 size-3.5 shrink-0 text-[#2f2924]/20 transition-colors group-hover:text-[#75825B]"
+                      className="size-3.5 shrink-0 text-[#2f2924]/20 transition-colors group-hover:text-[#75825B]"
                       aria-hidden
                     />
                   </Link>
@@ -250,26 +353,89 @@ export default function AdminPage() {
         </section>
       </div>
 
-      <section className="mt-6" aria-labelledby="quick-actions-heading">
-        <h2
-          id="quick-actions-heading"
-          className="font-heading text-base font-semibold text-[#2f2924]"
-        >
-          Rýchle akcie
-        </h2>
+      {/* Revenue chart 50% + Top products 50% */}
+      <div className="mt-5 grid gap-4 xl:grid-cols-2">
+        <section className="flex h-full flex-col rounded-2xl border border-black/[0.06] bg-white">
+          <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3 sm:px-6">
+            <h2 className="font-heading text-base font-semibold text-[#2f2924]">
+              Tržby za posledných 30 dní
+            </h2>
+            <p className="font-heading text-base font-semibold tabular-nums text-[#2f2924]">
+              {revenueTotal.toLocaleString("sk-SK")} €
+            </p>
+          </div>
 
-        <div className="mt-3 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
-          {quickActions.map((action) => (
-            <Link
-              key={action.label}
-              href={action.href}
-              className="inline-flex items-center gap-2 rounded-full border border-black/[0.08] bg-white px-4 py-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
-            >
-              <Plus className="size-3.5 shrink-0 text-[#75825B]" strokeWidth={2} aria-hidden />
-              {action.label}
-            </Link>
-          ))}
+          <div className="flex min-h-0 flex-1 flex-col border-t border-black/[0.05] px-5 py-4 sm:px-6 sm:py-5">
+            <RevenueChart data={revenueData} className="flex min-h-0 flex-1" />
+          </div>
+        </section>
+
+        <section className="rounded-2xl border border-black/[0.06] bg-white">
+          <div className="px-5 pt-4 pb-3">
+            <h2 className="font-heading text-base font-semibold text-[#2f2924]">
+              Najpredávanejšie produkty
+            </h2>
+          </div>
+
+          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+            {topProducts.map((product, index) => (
+              <li key={product.slug}>
+                <Link
+                  href="/admin/produkty"
+                  className="flex items-center gap-3.5 px-5 py-3 transition-colors hover:bg-[#faf8f5]"
+                >
+                  <span className="w-4 shrink-0 text-xs font-semibold tabular-nums text-[#2f2924]/35">
+                    {index + 1}
+                  </span>
+                  <div className="relative size-11 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9]">
+                    <Image
+                      src={product.image}
+                      alt=""
+                      fill
+                      sizes="44px"
+                      className="object-cover"
+                    />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-medium text-[#2f2924]">
+                      {product.name}
+                    </p>
+                    <p className="mt-0.5 text-xs text-[#2f2924]/45">
+                      {product.sold} predaných
+                    </p>
+                  </div>
+                  <p className="shrink-0 text-sm font-semibold tabular-nums text-[#2f2924]">
+                    {product.revenue}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {/* Recent orders full width */}
+      <section className="mt-5 rounded-2xl border border-black/[0.06] bg-white">
+        <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
+          <h2 className="font-heading text-base font-semibold text-[#2f2924]">
+            Posledné objednávky
+          </h2>
+          <Link
+            href="/admin/objednavky"
+            className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
+          >
+            Zobraziť všetky
+            <ArrowUpRight className="size-3.5" aria-hidden />
+          </Link>
         </div>
+
+        <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          {recentOrders.map((order) => (
+            <li key={order.number}>
+              <OrderRow order={order} />
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   );

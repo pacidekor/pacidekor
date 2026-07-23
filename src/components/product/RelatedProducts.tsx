@@ -15,11 +15,7 @@ export function RelatedProducts({ products }: RelatedProductsProps) {
       </h2>
 
       <div className="mt-6">
-        <ProductCarousel
-          products={products}
-          enableHoverImage
-          desktopCols="related"
-        />
+        <ProductCarousel products={products} desktopCols="related" />
       </div>
     </section>
   );

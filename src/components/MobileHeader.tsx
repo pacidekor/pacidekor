@@ -3,8 +3,13 @@
 import { useDeferredValue, useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Mail, Phone, Search, User } from "lucide-react";
+import { ChevronLeft, ChevronRight, Mail, Phone, Search, User, X } from "lucide-react";
 import { CartButton } from "@/components/CartButton";
+import {
+  AccountTypeSelectButton,
+  accountChoices,
+  type AccountChoiceOption,
+} from "@/components/AccountTypeChoices";
 import { ProductSearchResults } from "@/components/ProductSearchResults";
 import { categoryHref, categoryList, navItems } from "@/lib/navigation";
 import { popularSearches, searchProducts } from "@/lib/search";
@@ -17,10 +22,14 @@ export function MobileHeader() {
   const [menuView, setMenuView] = useState<MenuView>("main");
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
+  const [selectedAccount, setSelectedAccount] =
+    useState<AccountChoiceOption | null>(null);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const menuId = useId();
   const searchId = useId();
+  const accountId = useId();
 
   const trimmedQuery = deferredQuery.trim();
   const isTyping = trimmedQuery.length > 0;
@@ -30,8 +39,17 @@ export function MobileHeader() {
     setMenuOpen(false);
     setSearchOpen(false);
     setCartOpen(false);
+    setAccountOpen(false);
+    setSelectedAccount(null);
     setMenuView("main");
   }, [pathname]);
+
+  useEffect(() => {
+    if (!accountOpen) {
+      const timeout = window.setTimeout(() => setSelectedAccount(null), 280);
+      return () => window.clearTimeout(timeout);
+    }
+  }, [accountOpen]);
 
   useEffect(() => {
     if (!menuOpen) {
@@ -41,7 +59,7 @@ export function MobileHeader() {
   }, [menuOpen]);
 
   useEffect(() => {
-    if (!menuOpen && !searchOpen && !cartOpen) return;
+    if (!menuOpen && !searchOpen && !cartOpen && !accountOpen) return;
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -52,9 +70,14 @@ export function MobileHeader() {
           setMenuView("main");
           return;
         }
+        if (accountOpen && selectedAccount) {
+          setSelectedAccount(null);
+          return;
+        }
         setMenuOpen(false);
         setSearchOpen(false);
         setCartOpen(false);
+        setAccountOpen(false);
       }
     };
 
@@ -63,7 +86,7 @@ export function MobileHeader() {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [menuOpen, menuView, searchOpen, cartOpen]);
+  }, [menuOpen, menuView, searchOpen, cartOpen, accountOpen, selectedAccount]);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -83,6 +106,7 @@ export function MobileHeader() {
               onClick={() => {
                 setSearchOpen(false);
                 setCartOpen(false);
+                setAccountOpen(false);
                 setMenuOpen((value) => !value);
               }}
               className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
@@ -112,6 +136,7 @@ export function MobileHeader() {
               onClick={() => {
                 setMenuOpen(false);
                 setCartOpen(false);
+                setAccountOpen(false);
                 setSearchOpen((value) => !value);
               }}
               className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
@@ -130,7 +155,15 @@ export function MobileHeader() {
           <div className="flex items-center gap-1">
             <button
               type="button"
-              aria-label="Účet"
+              aria-label={accountOpen ? "Zavrieť účet" : "Účet"}
+              aria-expanded={accountOpen}
+              aria-controls={accountId}
+              onClick={() => {
+                setMenuOpen(false);
+                setSearchOpen(false);
+                setCartOpen(false);
+                setAccountOpen((value) => !value);
+              }}
               className="inline-flex size-11 cursor-pointer items-center justify-center rounded-xl text-[#2f2924] transition-colors hover:bg-black/5"
             >
               <User className="size-6" strokeWidth={1.75} aria-hidden />
@@ -144,6 +177,7 @@ export function MobileHeader() {
                 if (next) {
                   setMenuOpen(false);
                   setSearchOpen(false);
+                  setAccountOpen(false);
                 }
               }}
             />
@@ -354,6 +388,133 @@ export function MobileHeader() {
                 </>
               )}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Account type panel under header */}
+      <div
+        className={`fixed inset-x-0 top-16 bottom-0 z-40 md:hidden ${
+          accountOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
+      >
+        <button
+          type="button"
+          aria-label="Zavrieť účet"
+          className={`absolute inset-0 bg-black/35 transition-opacity duration-300 ${
+            accountOpen ? "opacity-100" : "opacity-0"
+          }`}
+          onClick={() => setAccountOpen(false)}
+        />
+
+        <div
+          id={accountId}
+          role="dialog"
+          aria-label={
+            selectedAccount ? selectedAccount.title : "Vyberte typ účtu"
+          }
+          aria-hidden={!accountOpen}
+          className={`relative border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            accountOpen ? "translate-y-0" : "-translate-y-3 opacity-0"
+          }`}
+        >
+          <div className="mx-auto w-[var(--content-width)] py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+            {selectedAccount ? (
+              <>
+                <div className="mb-4 flex h-9 items-center justify-between gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedAccount(null)}
+                    className="inline-flex h-9 cursor-pointer items-center gap-1 rounded-xl px-1.5 text-sm font-medium text-[#2f2924]/65 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+                  >
+                    <ChevronLeft
+                      className="size-5"
+                      strokeWidth={1.75}
+                      aria-hidden
+                    />
+                    Späť
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Zavrieť účet"
+                    onClick={() => setAccountOpen(false)}
+                    className="inline-flex size-9 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/45 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+                  >
+                    <X className="size-5" strokeWidth={1.75} aria-hidden />
+                  </button>
+                </div>
+
+                <div className="flex flex-col items-center rounded-2xl border border-black/[0.06] bg-white px-4 py-6 text-center shadow-[0_2px_10px_rgba(47,41,36,0.04)]">
+                  <span className="mb-3 flex size-14 items-center justify-center rounded-full bg-[#e8ebe2]">
+                    <selectedAccount.icon
+                      className="size-6"
+                      strokeWidth={1.75}
+                      style={{ color: selectedAccount.accent }}
+                      aria-hidden
+                    />
+                  </span>
+                  <p className="font-heading text-lg text-[#2f2924]">
+                    {selectedAccount.title}
+                  </p>
+                  <p className="mt-1 mb-5 text-sm leading-relaxed text-[#6b625a]">
+                    {selectedAccount.description}
+                  </p>
+
+                  <div className="flex w-full flex-col gap-2">
+                    <Link
+                      href={selectedAccount.loginHref}
+                      onClick={() => setAccountOpen(false)}
+                      className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl px-3 text-sm font-medium tracking-wide text-white uppercase transition-opacity hover:opacity-90"
+                      style={{ backgroundColor: selectedAccount.accent }}
+                    >
+                      Prihlásiť sa
+                    </Link>
+                    <Link
+                      href={selectedAccount.registerHref}
+                      onClick={() => setAccountOpen(false)}
+                      className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border bg-[#faf8f5] px-3 text-sm font-medium tracking-wide uppercase transition-opacity hover:opacity-80"
+                      style={{
+                        borderColor: `${selectedAccount.accent}40`,
+                        color: selectedAccount.accent,
+                      }}
+                    >
+                      Registrovať sa
+                    </Link>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div>
+                    <p className="font-heading text-xl font-semibold text-[#2f2924]">
+                      Vyberte typ účtu
+                    </p>
+                    <p className="mt-0.5 text-sm text-[#2f2924]/55">
+                      Prihlásenie alebo registrácia
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Zavrieť účet"
+                    onClick={() => setAccountOpen(false)}
+                    className="inline-flex size-9 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/45 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+                  >
+                    <X className="size-5" strokeWidth={1.75} aria-hidden />
+                  </button>
+                </div>
+
+                <div className="flex flex-col gap-3">
+                  {accountChoices.map((option) => (
+                    <AccountTypeSelectButton
+                      key={option.title}
+                      option={option}
+                      onSelect={() => setSelectedAccount(option)}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>

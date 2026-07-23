@@ -16,8 +16,8 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col border-r border-black/[0.06] bg-white">
-      <div className="flex items-center justify-center px-5 py-7">
+    <aside className="sticky top-0 flex h-dvh w-64 shrink-0 flex-col overflow-hidden border-r border-black/[0.06] bg-white">
+      <div className="flex shrink-0 items-center justify-center px-5 py-7">
         <Link
           href="/admin"
           className="font-heading text-2xl tracking-[0.08em] text-foreground transition-opacity hover:opacity-80"
@@ -26,8 +26,11 @@ export function AdminSidebar() {
         </Link>
       </div>
 
-      <nav aria-label="Administrácia" className="flex flex-1 flex-col px-3 pb-5">
-        <ul className="space-y-1">
+      <nav
+        aria-label="Administrácia"
+        className="flex min-h-0 flex-1 flex-col px-3 pb-5"
+      >
+        <ul className="min-h-0 flex-1 space-y-1 overflow-y-auto">
           {adminNavItems.map(({ href, label, icon: Icon }) => {
             const active =
               href === "/admin"
@@ -55,7 +58,7 @@ export function AdminSidebar() {
           })}
         </ul>
 
-        <div className="mt-auto space-y-1 border-t border-black/[0.06] pt-4">
+        <div className="mt-4 shrink-0 space-y-1 border-t border-black/[0.06] pt-4">
           <Link
             href="/"
             className="flex h-11 items-center gap-3 rounded-xl px-3 text-[0.95rem] text-[#2f2924]/70 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"

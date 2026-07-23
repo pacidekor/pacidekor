@@ -1,21 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
+import { ProductCardActions } from "@/components/ProductCardActions";
 import type { Product } from "@/lib/products";
 import { productHref } from "@/lib/products";
 
 type ProductCardProps = {
   product: Product;
-  enableHoverImage?: boolean;
 };
 
-export function ProductCard({
-  product,
-  enableHoverImage = false,
-}: ProductCardProps) {
+export function ProductCard({ product }: ProductCardProps) {
   const href = productHref(product.slug);
-  const hoverImage =
-    enableHoverImage && product.hoverImage ? product.hoverImage : null;
+  const hoverImage = product.hoverImage ?? null;
 
   return (
     <article className="flex min-w-0 flex-col">
@@ -57,32 +52,7 @@ export function ProductCard({
         {product.name}
       </Link>
 
-      <div className="mt-2 flex min-w-0 items-center justify-between gap-1.5">
-        {product.originalPrice ? (
-          <div className="min-w-0 shrink">
-            <span className="block whitespace-nowrap font-sans text-[11px] text-[#2f2924]/50 line-through sm:text-sm">
-              {product.originalPrice}
-            </span>
-            <span className="block whitespace-nowrap font-sans text-sm font-bold text-[#c45c4a] sm:text-base">
-              {product.price}
-            </span>
-          </div>
-        ) : (
-          <span className="min-w-0 shrink whitespace-nowrap font-sans text-sm font-semibold text-[#2f2924] sm:text-base">
-            {product.price}
-          </span>
-        )}
-        <button
-          type="button"
-          aria-label={`Pridať ${product.name} do košíka`}
-          className="inline-flex h-9 shrink-0 cursor-pointer items-center justify-center gap-1 rounded-full bg-[#75825B] px-2.5 text-white transition-opacity hover:opacity-90 sm:gap-1.5 sm:px-4"
-        >
-          <ShoppingCart className="size-4" strokeWidth={1.75} aria-hidden />
-          <span className="hidden text-xs font-medium min-[380px]:inline sm:text-sm">
-            Do košíka
-          </span>
-        </button>
-      </div>
+      <ProductCardActions product={product} />
     </article>
   );
 }
