@@ -1,44 +1,77 @@
-import type { CustomerType } from "@/lib/customers";
+"use client";
 
-export const CLIENT_SESSION_KEY = "pacidekor-client-auth";
+import { createClient } from "@/lib/supabase/client";
+import {
+  profileToCustomer,
+  type Customer,
+  type CustomerType,
+} from "@/lib/customers";
+import type { ProfileRow } from "@/lib/supabase/database.types";
 
 export type ClientSession = {
   customerId: string;
   type: CustomerType;
 };
 
-export function getClientSession(): ClientSession | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.sessionStorage.getItem(CLIENT_SESSION_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as ClientSession;
-    if (
-      typeof parsed.customerId !== "string" ||
-      (parsed.type !== "velkoobchod" && parsed.type !== "maloobchod")
-    ) {
-      return null;
-    }
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-
-export function isClientAuthenticated(): boolean {
-  return getClientSession() !== null;
-}
-
-export function setClientSession(session: ClientSession): void {
-  if (typeof window === "undefined") return;
-  window.sessionStorage.setItem(CLIENT_SESSION_KEY, JSON.stringify(session));
-  window.dispatchEvent(new Event("pacidekor:client-auth-changed"));
-}
-
-export function clearClientSession(): void {
-  if (typeof window === "undefined") return;
-  window.sessionStorage.removeItem(CLIENT_SESSION_KEY);
-  window.dispatchEvent(new Event("pacidekor:client-auth-changed"));
-}
-
 export const CLIENT_AUTH_EVENT = "pacidekor:client-auth-changed";
+
+function emitAuthChanged() {
+  if (typeof window === "undefined") return;
+  window.dispatchEvent(new Event(CLIENT_AUTH_EVENT));
+}
+
+export async function fetchClientCustomer(): Promise<Customer | null> {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return null;
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (!profile || profile.role === "admin") return null;
+  if (profile.status !== "aktivny") return null;
+
+  return profileToCustomer(profile as ProfileRow);
+}
+
+export async function getClientSession(): Promise<ClientSession | null> {
+  const customer = await fetchClientCustomer();
+  if (!customer) return null;
+  return { customerId: customer.id, type: customer.type };
+}
+
+export async function isClientAuthenticated(): Promise<boolean> {
+  return (await getClientSession()) !== null;
+}
+
+export async function clearClientSession(): Promise<void> {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  emitAuthChanged();
+}
+
+/** Call after successful login/register so UI listeners refresh. */
+export function notifyClientAuthChanged() {
+  emitAuthChanged();
+}
+
+export function subscribeClientAuth(onChange: () => void): () => void {
+  const supabase = createClient();
+  const {
+    data: { subscription },
+  } = supabase.auth.onAuthStateChange(() => {
+    onChange();
+  });
+
+  window.addEventListener(CLIENT_AUTH_EVENT, onChange);
+  return () => {
+    subscription.unsubscribe();
+    window.removeEventListener(CLIENT_AUTH_EVENT, onChange);
+  };
+}

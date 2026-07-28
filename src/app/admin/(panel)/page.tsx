@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { RevenueChart } from "@/components/admin/RevenueChart";
+import { countPendingWholesaleRegistrations } from "@/lib/actions/auth";
 import {
   orderStatusClass,
   orders,
@@ -20,6 +21,8 @@ import {
   recentOrdersForDashboard,
 } from "@/lib/orders";
 import { products } from "@/lib/products";
+
+export const dynamic = "force-dynamic";
 
 const newOrdersCount = orders.filter((o) => o.status === "nova").length;
 const unpaidOrdersCount = orders.filter(
@@ -66,38 +69,6 @@ const stats: {
 
 const pendingOrders = pendingOrdersForDashboard();
 const recentOrders = recentOrdersForDashboard(3);
-
-const attentionItems: {
-  href: string;
-  count: number;
-  label: string;
-  icon: LucideIcon;
-}[] = [
-  {
-    href: "/admin/objednavky",
-    count: newOrdersCount,
-    label: "nové objednávky",
-    icon: ShoppingCart,
-  },
-  {
-    href: "/admin/objednavky",
-    count: unpaidOrdersCount,
-    label: "nezaplatené objednávky",
-    icon: Clock3,
-  },
-  {
-    href: "/admin/sklad",
-    count: 6,
-    label: "produkty s nízkym skladom",
-    icon: Package,
-  },
-  {
-    href: "/admin/velkoobchodne-ucty",
-    count: 3,
-    label: "veľkoobchodné registrácie čakajúce na schválenie",
-    icon: Building2,
-  },
-];
 
 const topProducts = [
   { slug: products[0].slug, name: products[0].name, image: products[0].image, sold: 48, revenue: "907 €" },
@@ -175,8 +146,41 @@ function OrderRow({
   );
 }
 
-export default function AdminPage() {
+export default async function AdminPage() {
+  const pendingWholesaleCount = await countPendingWholesaleRegistrations();
   const revenueTotal = revenueData.reduce((sum, d) => sum + d.value, 0);
+
+  const attentionItems: {
+    href: string;
+    count: number;
+    label: string;
+    icon: LucideIcon;
+  }[] = [
+    {
+      href: "/admin/objednavky",
+      count: newOrdersCount,
+      label: "nové objednávky",
+      icon: ShoppingCart,
+    },
+    {
+      href: "/admin/objednavky",
+      count: unpaidOrdersCount,
+      label: "nezaplatené objednávky",
+      icon: Clock3,
+    },
+    {
+      href: "/admin/sklad",
+      count: 6,
+      label: "produkty s nízkym skladom",
+      icon: Package,
+    },
+    {
+      href: "/admin/velkoobchodne-ucty",
+      count: pendingWholesaleCount,
+      label: "veľkoobchodné registrácie čakajúce na schválenie",
+      icon: Building2,
+    },
+  ];
 
   return (
     <main className="flex flex-1 flex-col px-4 py-5 sm:px-5 lg:px-6 lg:py-6">

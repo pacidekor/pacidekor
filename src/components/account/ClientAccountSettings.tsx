@@ -28,19 +28,16 @@ import {
   type AccountPreferences,
 } from "@/lib/account-preferences";
 import {
-  CLIENT_AUTH_EVENT,
   clearClientSession,
-  getClientSession,
+  fetchClientCustomer,
+  subscribeClientAuth,
 } from "@/lib/client-auth";
 import {
   CUSTOMER_TYPE_META,
-  CUSTOMERS_EVENT,
   customerDisplayName,
-  getCustomerById,
-  readCustomers,
-  updateCustomerInStore,
   type Customer,
 } from "@/lib/customers";
+import { updateOwnProfile } from "@/lib/actions/auth";
 import {
   ORDER_TEMPLATES_EVENT,
   deleteOrderTemplate,
@@ -184,14 +181,11 @@ export function ClientAccountSettings() {
   const [templates, setTemplates] = useState<OrderTemplate[]>([]);
 
   useEffect(() => {
-    function syncCustomer() {
-      const session = getClientSession();
-      if (!session) {
-        setCustomer(null);
-        setHydrated(true);
-        return;
-      }
-      const found = getCustomerById(session.customerId, readCustomers()) ?? null;
+    let cancelled = false;
+
+    async function syncCustomer() {
+      const found = await fetchClientCustomer();
+      if (cancelled) return;
       setCustomer(found);
       if (found) {
         setProfile(toProfileForm(found));
@@ -202,29 +196,30 @@ export function ClientAccountSettings() {
     }
 
     function syncTemplates() {
-      const session = getClientSession();
-      if (!session) return;
-      setTemplates(getTemplatesForCustomer(session.customerId));
+      void fetchClientCustomer().then((found) => {
+        if (!found || cancelled) return;
+        setTemplates(getTemplatesForCustomer(found.id));
+      });
     }
 
     function syncPrefs() {
-      const session = getClientSession();
-      if (!session) return;
-      setPrefs(getAccountPreferences(session.customerId));
+      void fetchClientCustomer().then((found) => {
+        if (!found || cancelled) return;
+        setPrefs(getAccountPreferences(found.id));
+      });
     }
 
-    syncCustomer();
-    window.addEventListener(CLIENT_AUTH_EVENT, syncCustomer);
-    window.addEventListener(CUSTOMERS_EVENT, syncCustomer);
+    void syncCustomer();
+    const unsubscribe = subscribeClientAuth(() => {
+      void syncCustomer();
+    });
     window.addEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
     window.addEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
-    window.addEventListener("storage", syncCustomer);
     return () => {
-      window.removeEventListener(CLIENT_AUTH_EVENT, syncCustomer);
-      window.removeEventListener(CUSTOMERS_EVENT, syncCustomer);
+      cancelled = true;
+      unsubscribe();
       window.removeEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
       window.removeEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
-      window.removeEventListener("storage", syncCustomer);
     };
   }, []);
 
@@ -261,9 +256,10 @@ export function ClientAccountSettings() {
     })).filter((group) => group.items.length > 0);
   }, [customer]);
 
-  function logout() {
-    clearClientSession();
+  async function logout() {
+    await clearClientSession();
     router.replace("/");
+    router.refresh();
   }
 
   function patchProfile<K extends keyof ProfileForm>(
@@ -274,23 +270,25 @@ export function ClientAccountSettings() {
     setProfileSaved(false);
   }
 
-  function saveProfile() {
+  async function saveProfile() {
     if (!customer || !profile) return;
-    if (!profile.name.trim() || !profile.email.trim() || !profile.phone.trim()) {
+    if (!profile.name.trim() || !profile.phone.trim()) {
       return;
     }
-    updateCustomerInStore(customer.id, {
+    const result = await updateOwnProfile({
       name: profile.name.trim(),
       company: profile.company.trim() || undefined,
-      email: profile.email.trim(),
       phone: profile.phone.trim(),
       street: profile.street.trim(),
       city: profile.city.trim(),
       zip: profile.zip.trim(),
-      country: profile.country.trim(),
+      country: profile.country.trim() || "Slovensko",
       ico: profile.ico.trim() || undefined,
       dic: profile.dic.trim() || undefined,
     });
+    if (!result.ok) return;
+    setCustomer(result.data.customer);
+    setProfile(toProfileForm(result.data.customer));
     setProfileSaved(true);
   }
 

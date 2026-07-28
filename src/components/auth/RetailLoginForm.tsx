@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
-import { setClientSession } from "@/lib/client-auth";
-import { authenticateRetail } from "@/lib/customers";
+import { loginRetail } from "@/lib/actions/auth";
+import { notifyClientAuthChanged } from "@/lib/client-auth";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -15,22 +15,24 @@ export function RetailLoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
 
-  function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    setPending(true);
 
-    const result = authenticateRetail(email, password);
+    const result = await loginRetail(email, password);
+    setPending(false);
+
     if (!result.ok) {
       setError(result.error);
       return;
     }
 
-    setClientSession({
-      customerId: result.customer.id,
-      type: result.customer.type,
-    });
+    notifyClientAuthChanged();
     router.replace("/");
+    router.refresh();
   }
 
   return (
@@ -107,9 +109,10 @@ export function RetailLoginForm() {
 
         <button
           type="submit"
-          className="mt-6 inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90"
+          disabled={pending}
+          className="mt-6 inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
         >
-          Prihlásiť sa
+          {pending ? "Prihlasujem…" : "Prihlásiť sa"}
         </button>
 
         <p className="mt-5 text-center text-sm text-[#2f2924]/55">
@@ -120,10 +123,6 @@ export function RetailLoginForm() {
           >
             Registrovať sa
           </Link>
-        </p>
-
-        <p className="mt-3 text-center text-xs text-[#2f2924]/40">
-          Demo: jana.novakova@email.sk / test
         </p>
       </form>
     </AuthSplitShell>

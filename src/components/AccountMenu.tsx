@@ -2,23 +2,19 @@
 
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
+import { useRouter } from "next/navigation";
 import { ChevronDown, LogOut, User } from "lucide-react";
 import {
   AccountChoiceCard,
   accountChoices,
 } from "@/components/AccountTypeChoices";
 import {
-  CLIENT_AUTH_EVENT,
   clearClientSession,
-  getClientSession,
+  fetchClientCustomer,
+  subscribeClientAuth,
   type ClientSession,
 } from "@/lib/client-auth";
-import {
-  CUSTOMERS_EVENT,
-  customerDisplayName,
-  getCustomerById,
-  readCustomers,
-} from "@/lib/customers";
+import { customerDisplayName } from "@/lib/customers";
 
 type AccountSummary = {
   displayName: string;
@@ -36,28 +32,24 @@ function initials(name: string) {
 }
 
 export function AccountMenu() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [session, setSession] = useState<ClientSession | null>(null);
   const [account, setAccount] = useState<AccountSummary | null>(null);
   const menuId = useId();
 
   useEffect(() => {
-    function sync() {
-      const next = getClientSession();
-      setSession(next);
-      if (!next) {
+    let cancelled = false;
+
+    async function sync() {
+      const customer = await fetchClientCustomer();
+      if (cancelled) return;
+      if (!customer) {
+        setSession(null);
         setAccount(null);
         return;
       }
-      const customer = getCustomerById(next.customerId, readCustomers());
-      if (!customer) {
-        setAccount({
-          displayName: "Môj účet",
-          email: "",
-          name: "Môj účet",
-        });
-        return;
-      }
+      setSession({ customerId: customer.id, type: customer.type });
       setAccount({
         displayName: customerDisplayName(customer),
         email: customer.email,
@@ -65,15 +57,10 @@ export function AccountMenu() {
       });
     }
 
-    sync();
-    window.addEventListener(CLIENT_AUTH_EVENT, sync);
-    window.addEventListener(CUSTOMERS_EVENT, sync);
-    window.addEventListener("storage", sync);
-    return () => {
-      window.removeEventListener(CLIENT_AUTH_EVENT, sync);
-      window.removeEventListener(CUSTOMERS_EVENT, sync);
-      window.removeEventListener("storage", sync);
-    };
+    void sync();
+    return subscribeClientAuth(() => {
+      void sync();
+    });
   }, []);
 
   useEffect(() => {
@@ -87,9 +74,10 @@ export function AccountMenu() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  function logout() {
-    clearClientSession();
+  async function logout() {
+    await clearClientSession();
     setOpen(false);
+    router.refresh();
   }
 
   if (session) {
@@ -157,7 +145,7 @@ export function AccountMenu() {
               </Link>
               <button
                 type="button"
-                onClick={logout}
+                onClick={() => void logout()}
                 className="flex h-11 w-full cursor-pointer items-center gap-3 rounded-xl border border-black/8 px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
               >
                 <LogOut className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />

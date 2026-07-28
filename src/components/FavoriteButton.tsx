@@ -4,8 +4,8 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { Heart } from "lucide-react";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import {
-  CLIENT_AUTH_EVENT,
   isClientAuthenticated,
+  subscribeClientAuth,
 } from "@/lib/client-auth";
 import {
   FAVORITES_EVENT,
@@ -35,29 +35,29 @@ export function FavoriteButton({
       setHydrated(true);
     }
 
-    function syncAuth() {
-      setLoggedIn(isClientAuthenticated());
+    async function syncAuth() {
+      setLoggedIn(await isClientAuthenticated());
     }
 
     syncFavorites();
-    syncAuth();
+    void syncAuth();
     window.addEventListener(FAVORITES_EVENT, syncFavorites);
-    window.addEventListener(CLIENT_AUTH_EVENT, syncAuth);
     window.addEventListener("storage", syncFavorites);
-    window.addEventListener("storage", syncAuth);
+    const unsubscribe = subscribeClientAuth(() => {
+      void syncAuth();
+    });
     return () => {
       window.removeEventListener(FAVORITES_EVENT, syncFavorites);
-      window.removeEventListener(CLIENT_AUTH_EVENT, syncAuth);
       window.removeEventListener("storage", syncFavorites);
-      window.removeEventListener("storage", syncAuth);
+      unsubscribe();
     };
   }, [productId]);
 
-  function handleClick(event: MouseEvent<HTMLButtonElement>) {
+  async function handleClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (!isClientAuthenticated()) {
+    if (!(await isClientAuthenticated())) {
       setLoginOpen(true);
       return;
     }

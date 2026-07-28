@@ -12,17 +12,14 @@ import {
 } from "@/components/AccountTypeChoices";
 import { ProductSearchResults } from "@/components/ProductSearchResults";
 import {
-  CLIENT_AUTH_EVENT,
   clearClientSession,
-  getClientSession,
+  fetchClientCustomer,
+  subscribeClientAuth,
   type ClientSession,
 } from "@/lib/client-auth";
 import {
   CUSTOMER_TYPE_META,
-  CUSTOMERS_EVENT,
   customerDisplayName,
-  getCustomerById,
-  readCustomers,
   type CustomerType,
 } from "@/lib/customers";
 import { categoryHref, categoryList, navItems } from "@/lib/navigation";
@@ -68,23 +65,17 @@ export function MobileHeader() {
   const suggestions = isTyping ? searchProducts(trimmedQuery) : [];
 
   useEffect(() => {
-    function syncSession() {
-      const next = getClientSession();
-      setSession(next);
-      if (!next) {
+    let cancelled = false;
+
+    async function syncSession() {
+      const customer = await fetchClientCustomer();
+      if (cancelled) return;
+      if (!customer) {
+        setSession(null);
         setAccount(null);
         return;
       }
-      const customer = getCustomerById(next.customerId, readCustomers());
-      if (!customer) {
-        setAccount({
-          displayName: "Môj účet",
-          email: "",
-          name: "Môj účet",
-          type: null,
-        });
-        return;
-      }
+      setSession({ customerId: customer.id, type: customer.type });
       setAccount({
         displayName: customerDisplayName(customer),
         email: customer.email,
@@ -92,15 +83,11 @@ export function MobileHeader() {
         type: customer.type,
       });
     }
-    syncSession();
-    window.addEventListener(CLIENT_AUTH_EVENT, syncSession);
-    window.addEventListener(CUSTOMERS_EVENT, syncSession);
-    window.addEventListener("storage", syncSession);
-    return () => {
-      window.removeEventListener(CLIENT_AUTH_EVENT, syncSession);
-      window.removeEventListener(CUSTOMERS_EVENT, syncSession);
-      window.removeEventListener("storage", syncSession);
-    };
+
+    void syncSession();
+    return subscribeClientAuth(() => {
+      void syncSession();
+    });
   }, []);
 
   useEffect(() => {
@@ -544,7 +531,7 @@ export function MobileHeader() {
                   <button
                     type="button"
                     onClick={() => {
-                      clearClientSession();
+                      void clearClientSession();
                       setAccountOpen(false);
                     }}
                     className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"

@@ -18,28 +18,50 @@ export function AdminAuthGate({ children }: { children: ReactNode }) {
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    if (!isAdminAuthenticated()) {
-      router.replace("/admin/login");
-      return;
+    let cancelled = false;
+
+    async function check() {
+      const ok = await isAdminAuthenticated();
+      if (cancelled) return;
+      if (!ok) {
+        router.replace("/admin/login");
+        return;
+      }
+      setAllowed(true);
     }
-    setAllowed(true);
+
+    void check();
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   if (!allowed) return <AuthLoading />;
   return children;
 }
 
-/** For /admin/login — redirects already authenticated users to /admin. */
+/** For /admin/login — redirects already authenticated admins to /admin. */
 export function AdminGuestGate({ children }: { children: ReactNode }) {
   const router = useRouter();
   const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
-    if (isAdminAuthenticated()) {
-      router.replace("/admin");
-      return;
+    let cancelled = false;
+
+    async function check() {
+      const ok = await isAdminAuthenticated();
+      if (cancelled) return;
+      if (ok) {
+        router.replace("/admin");
+        return;
+      }
+      setAllowed(true);
     }
-    setAllowed(true);
+
+    void check();
+    return () => {
+      cancelled = true;
+    };
   }, [router]);
 
   if (!allowed) return <AuthLoading />;

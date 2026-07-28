@@ -4,15 +4,16 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronRight, LogOut } from "lucide-react";
 import { adminNavItems } from "@/lib/admin-nav";
-import { setAdminAuthenticated } from "@/lib/admin-auth";
+import { clearAdminSession } from "@/lib/admin-auth";
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  function handleLogout() {
-    setAdminAuthenticated(false);
+  async function handleLogout() {
+    await clearAdminSession();
     router.replace("/admin/login");
+    router.refresh();
   }
 
   return (

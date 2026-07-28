@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
-import { registerWholesaleCustomer } from "@/lib/customers";
+import { registerWholesale } from "@/lib/actions/auth";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -82,6 +82,7 @@ export function WholesaleRegisterForm() {
   const [data, setData] = useState<FormState>(INITIAL);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [pending, setPending] = useState(false);
   const [panelHeight, setPanelHeight] = useState<number | null>(null);
 
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -127,13 +128,13 @@ export function WholesaleRegisterForm() {
       if (!data.country.trim()) return "Zadajte krajinu.";
     }
     if (step === 3) {
-      if (data.password.length < 4) return "Heslo musí mať aspoň 4 znaky.";
+      if (data.password.length < 6) return "Heslo musí mať aspoň 6 znakov.";
       if (data.password !== data.passwordConfirm) return "Heslá sa nezhodujú.";
     }
     return null;
   }
 
-  function goNext() {
+  async function goNext() {
     setError("");
     const message = validateStep();
     if (message) {
@@ -145,7 +146,8 @@ export function WholesaleRegisterForm() {
       return;
     }
 
-    const result = registerWholesaleCustomer({
+    setPending(true);
+    const result = await registerWholesale({
       name: data.name,
       company: data.company,
       ico: data.ico,
@@ -159,6 +161,7 @@ export function WholesaleRegisterForm() {
       note: data.note || undefined,
       password: data.password,
     });
+    setPending(false);
 
     if (!result.ok) {
       setError(result.error);
@@ -544,13 +547,18 @@ export function WholesaleRegisterForm() {
         <button
           type="button"
           onClick={goNext}
-          className="inline-flex h-12 w-full min-w-0 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-[opacity,transform] duration-300 hover:opacity-90 active:scale-[0.99]"
+          disabled={pending}
+          className="inline-flex h-12 w-full min-w-0 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-[opacity,transform] duration-300 hover:opacity-90 active:scale-[0.99] disabled:cursor-wait disabled:opacity-70"
         >
           <span
             key={step === total - 1 ? "submit" : "next"}
             className="animate-[auth-rise_0.35s_cubic-bezier(0.22,1,0.36,1)_both]"
           >
-            {step === total - 1 ? "Odoslať žiadosť" : "Pokračovať"}
+            {pending
+              ? "Odosielam…"
+              : step === total - 1
+                ? "Odoslať žiadosť"
+                : "Pokračovať"}
           </span>
         </button>
       </div>

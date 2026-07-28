@@ -4,28 +4,30 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Lock, User } from "lucide-react";
-import {
-  authenticateAdmin,
-  setAdminAuthenticated,
-} from "@/lib/admin-auth";
+import { loginAdmin } from "@/lib/actions/auth";
 
 export function AdminLoginForm() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [pending, setPending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
+    setPending(true);
 
-    if (authenticateAdmin(username, password)) {
-      setAdminAuthenticated(true);
-      router.replace("/admin");
+    const result = await loginAdmin(username, password);
+    setPending(false);
+
+    if (!result.ok) {
+      setError(result.error);
       return;
     }
 
-    setError("Nesprávne používateľské meno alebo heslo.");
+    router.replace("/admin");
+    router.refresh();
   }
 
   return (
@@ -99,9 +101,10 @@ export function AdminLoginForm() {
 
         <button
           type="submit"
-          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          disabled={pending}
+          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
         >
-          Prihlásiť sa
+          {pending ? "Prihlasujem…" : "Prihlásiť sa"}
         </button>
 
         {error ? (

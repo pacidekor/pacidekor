@@ -17,14 +17,18 @@ import {
   X,
 } from "lucide-react";
 import {
-  CUSTOMERS_EVENT,
+  approveCustomer,
+  blockCustomer,
+  deleteCustomer,
+  listCustomers,
+  rejectCustomer,
+  restoreCustomerRequest,
+  unblockCustomer,
+} from "@/lib/actions/auth";
+import {
   CUSTOMER_STATUS_META,
   CUSTOMER_TYPE_META,
   customerDisplayName,
-  deleteCustomerFromStore,
-  readCustomers,
-  seedCustomers,
-  updateCustomerInStore,
   type Customer,
   type CustomerStatus,
   type CustomerType,
@@ -48,27 +52,35 @@ const TYPE_FILTERS: { id: TypeFilter; label: string }[] = [
   { id: "velkoobchod", label: "Veľkoobchod" },
 ];
 
-export function AdminCustomersManager() {
-  const [list, setList] = useState<Customer[]>(seedCustomers);
+export function AdminCustomersManager({
+  initialCustomers = [],
+  initialTypeFilter = "all",
+}: {
+  initialCustomers?: Customer[];
+  initialTypeFilter?: TypeFilter;
+}) {
+  const [list, setList] = useState<Customer[]>(initialCustomers);
   const [hydrated, setHydrated] = useState(false);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
-  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>(initialTypeFilter);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [flash, setFlash] = useState<string | null>(null);
 
   useEffect(() => {
-    function sync() {
-      setList(readCustomers());
-    }
-    sync();
     setHydrated(true);
-    window.addEventListener(CUSTOMERS_EVENT, sync);
-    window.addEventListener("storage", sync);
+    let cancelled = false;
+
+    async function refresh() {
+      const result = await listCustomers();
+      if (cancelled || !result.ok) return;
+      setList(result.data.customers);
+    }
+
+    void refresh();
     return () => {
-      window.removeEventListener(CUSTOMERS_EVENT, sync);
-      window.removeEventListener("storage", sync);
+      cancelled = true;
     };
   }, []);
 
@@ -118,55 +130,69 @@ export function AdminCustomersManager() {
     window.setTimeout(() => setFlash(null), 2400);
   }
 
-  function updateCustomer(id: string, patch: Partial<Customer>) {
-    setList(updateCustomerInStore(id, patch));
+  function applyCustomerUpdate(customer: Customer) {
+    setList((prev) =>
+      prev.map((item) => (item.id === customer.id ? customer : item)),
+    );
+  }
+
+  async function runStatusAction(
+    action: () => Promise<
+      | { ok: true; data: { customer: Customer } }
+      | { ok: false; error: string }
+    >,
+    successMessage: string,
+  ) {
+    const result = await action();
+    if (!result.ok) {
+      showFlash(result.error);
+      return;
+    }
+    applyCustomerUpdate(result.data.customer);
+    showFlash(successMessage);
   }
 
   function approveRegistration(id: string) {
-    updateCustomer(id, {
-      status: "aktivny",
-      registeredAtLabel: "práve teraz",
-    });
-    showFlash("Registrácia bola schválená");
+    void runStatusAction(() => approveCustomer(id), "Registrácia bola schválená");
   }
 
   function rejectRegistration(id: string) {
-    updateCustomer(id, { status: "zamietnuty" });
-    showFlash("Žiadosť bola zamietnutá");
+    void runStatusAction(() => rejectCustomer(id), "Žiadosť bola zamietnutá");
   }
 
-  function blockCustomer(id: string) {
-    updateCustomer(id, { status: "zablokovany" });
-    showFlash("Účet bol zablokovaný");
+  function blockCustomerById(id: string) {
+    void runStatusAction(() => blockCustomer(id), "Účet bol zablokovaný");
   }
 
-  function unblockCustomer(id: string) {
-    updateCustomer(id, { status: "aktivny" });
-    showFlash("Účet bol odblokovaný");
+  function unblockCustomerById(id: string) {
+    void runStatusAction(() => unblockCustomer(id), "Účet bol odblokovaný");
   }
 
   function reviveCustomer(id: string) {
-    updateCustomer(id, {
-      status: "aktivny",
-      registeredAtLabel: "práve teraz",
-    });
-    showFlash("Účet bol obnovený");
+    void runStatusAction(() => approveCustomer(id), "Účet bol obnovený");
   }
 
   function restoreRequest(id: string) {
-    updateCustomer(id, { status: "ziada_registraciu" });
-    showFlash("Žiadosť bola obnovená");
+    void runStatusAction(
+      () => restoreCustomerRequest(id),
+      "Žiadosť bola obnovená",
+    );
   }
 
-  function deleteCustomer(id: string) {
-    setList(deleteCustomerFromStore(id));
+  async function deleteCustomerById(id: string) {
+    const result = await deleteCustomer(id);
+    if (!result.ok) {
+      showFlash(result.error);
+      return;
+    }
+    setList((prev) => prev.filter((item) => item.id !== id));
     setSelectedId(null);
     showFlash("Účet bol zmazaný");
   }
 
   function clearFilters() {
     setStatusFilter("all");
-    setTypeFilter("all");
+    setTypeFilter(initialTypeFilter);
   }
 
   const pendingFilterActive =
@@ -175,7 +201,7 @@ export function AdminCustomersManager() {
   function togglePendingFilter() {
     if (pendingFilterActive) {
       setStatusFilter("all");
-      setTypeFilter("all");
+      setTypeFilter(initialTypeFilter);
       return;
     }
     setStatusFilter("ziada_registraciu");
@@ -269,7 +295,9 @@ export function AdminCustomersManager() {
                 Žiadni zákazníci
               </p>
               <p className="mt-1 text-sm text-[#2f2924]/50">
-                Skúste zmeniť filter alebo vyhľadávanie.
+                {list.length === 0
+                  ? "Zatiaľ sa neregistroval žiadny zákazník."
+                  : "Skúste zmeniť filter alebo vyhľadávanie."}
               </p>
             </div>
           ) : (
@@ -422,11 +450,11 @@ export function AdminCustomersManager() {
           onClose={() => setSelectedId(null)}
           onApprove={() => approveRegistration(selected.id)}
           onReject={() => rejectRegistration(selected.id)}
-          onBlock={() => blockCustomer(selected.id)}
-          onUnblock={() => unblockCustomer(selected.id)}
+          onBlock={() => blockCustomerById(selected.id)}
+          onUnblock={() => unblockCustomerById(selected.id)}
           onRevive={() => reviveCustomer(selected.id)}
           onRestoreRequest={() => restoreRequest(selected.id)}
-          onDelete={() => deleteCustomer(selected.id)}
+          onDelete={() => void deleteCustomerById(selected.id)}
         />
       ) : null}
 
