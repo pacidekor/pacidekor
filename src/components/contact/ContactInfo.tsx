@@ -1,34 +1,22 @@
+"use client";
+
 import { Mail, Phone } from "lucide-react";
+import { useSiteContent } from "@/lib/use-site-content";
 
 function mapsUrl(query: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
-const stores = [
-  {
-    name: "Kvetinárstvo Mia I.",
-    addressLine: "SNP 43, Šaľa (budova Billa)",
-    mapsQuery: "SNP 43, Šaľa Billa",
-    phone: "+421 911 571 255",
-    phoneHref: "tel:+421911571255",
-  },
-  {
-    name: "Kvetinárstvo Mia II.",
-    addressLine: "Kráľovská 779/9, Šaľa",
-    mapsQuery: "Kráľovská 779/9, Šaľa",
-    phone: "+421 918 911 474",
-    phoneHref: "tel:+421918911474",
-  },
-  {
-    name: "Veľkosklad",
-    addressLine: "Kráľová nad Váhom 283",
-    mapsQuery: "Kráľová nad Váhom 283",
-    phone: null,
-    phoneHref: null,
-  },
-] as const;
+function storePhoneHref(phone: string) {
+  const digits = phone.replace(/[^\d+]/g, "");
+  return `tel:${digits}`;
+}
 
 export function ContactStores() {
+  const { contact } = useSiteContent();
+
+  if (contact.stores.length === 0) return null;
+
   return (
     <section aria-labelledby="stores-heading" className="mt-16 w-full">
       <h2
@@ -40,25 +28,28 @@ export function ContactStores() {
 
       <div className="mt-6 overflow-hidden rounded-3xl border border-black/6 bg-white">
         <div className="grid md:grid-cols-3 md:divide-x md:divide-black/6">
-          {stores.map((store) => (
+          {contact.stores.map((store) => (
             <article
-              key={store.name}
+              key={store.id}
               className="border-b border-black/6 px-6 py-7 text-center last:border-b-0 md:border-b-0 md:px-8 md:py-8"
             >
               <h3 className="font-heading text-lg font-semibold text-[#2f2924]">
                 {store.name}
               </h3>
               <a
-                href={mapsUrl(store.mapsQuery)}
+                href={mapsUrl(store.mapsQuery || store.address)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-3 block text-sm leading-relaxed text-[#2f2924]/70 transition-colors hover:text-[#75825B]"
               >
-                {store.addressLine}
+                {store.address}
               </a>
-              {store.phone && store.phoneHref ? (
+              {store.hours ? (
+                <p className="mt-2 text-xs text-[#2f2924]/50">{store.hours}</p>
+              ) : null}
+              {store.phone ? (
                 <a
-                  href={store.phoneHref}
+                  href={storePhoneHref(store.phone)}
                   className="mt-3 inline-flex items-center justify-center gap-2 text-sm font-medium text-[#2f2924] transition-colors hover:text-[#75825B]"
                 >
                   <Phone
@@ -78,6 +69,8 @@ export function ContactStores() {
 }
 
 export function ContactDetails() {
+  const { contact } = useSiteContent();
+
   return (
     <div className="flex h-full flex-col">
       <h2 className="font-heading text-2xl font-semibold text-[#2f2924]">
@@ -93,9 +86,9 @@ export function ContactDetails() {
             Spoločnosť
           </p>
           <p className="mt-2 font-heading text-xl font-semibold text-[#2f2924]">
-            PACIDEKOR s.r.o.
+            {contact.company}
           </p>
-          <p className="mt-1 text-sm text-[#2f2924]/65">Kráľová nad Váhom 283</p>
+          <p className="mt-1 text-sm text-[#2f2924]/65">{contact.address}</p>
         </div>
 
         <div className="h-px w-12 bg-black/10" aria-hidden />
@@ -105,7 +98,7 @@ export function ContactDetails() {
             Telefón
           </p>
           <a
-            href="tel:+421900123456"
+            href={contact.phoneHref}
             className="mt-2 inline-flex items-center gap-2.5 text-lg font-medium text-[#2f2924] transition-colors hover:text-[#75825B]"
           >
             <Phone
@@ -113,7 +106,7 @@ export function ContactDetails() {
               strokeWidth={1.75}
               aria-hidden
             />
-            0900 123 456
+            {contact.phone}
           </a>
         </div>
 
@@ -122,7 +115,7 @@ export function ContactDetails() {
             E-mail
           </p>
           <a
-            href="mailto:info@pacidekor.sk"
+            href={`mailto:${contact.email}`}
             className="mt-2 inline-flex items-center gap-2.5 text-lg font-medium text-[#2f2924] transition-colors hover:text-[#75825B]"
           >
             <Mail
@@ -130,7 +123,7 @@ export function ContactDetails() {
               strokeWidth={1.75}
               aria-hidden
             />
-            info@pacidekor.sk
+            {contact.email}
           </a>
         </div>
       </div>

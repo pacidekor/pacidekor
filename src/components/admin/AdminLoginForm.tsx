@@ -5,8 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Lock, User } from "lucide-react";
 import {
-  ADMIN_PASS,
-  ADMIN_USER,
+  authenticateAdmin,
   setAdminAuthenticated,
 } from "@/lib/admin-auth";
 
@@ -20,7 +19,7 @@ export function AdminLoginForm() {
     event.preventDefault();
     setError("");
 
-    if (username.trim() === ADMIN_USER && password === ADMIN_PASS) {
+    if (authenticateAdmin(username, password)) {
       setAdminAuthenticated(true);
       router.replace("/admin");
       return;
@@ -33,14 +32,14 @@ export function AdminLoginForm() {
     <main className="flex flex-1 flex-col items-center justify-center px-6 py-16">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md space-y-4 rounded-3xl bg-[#e8ebe2]/70 p-6 sm:p-8"
+        className="flex w-full max-w-sm flex-col gap-5 rounded-3xl border border-white/40 bg-white/85 p-6 shadow-[0_20px_50px_rgba(47,41,36,0.18)] backdrop-blur-md sm:p-8"
         noValidate
         aria-label="Prihlásenie do administrácie"
       >
-        <div className="pb-2 text-center">
+        <div className="pb-1 text-center">
           <Link
             href="/"
-            className="font-heading text-2xl tracking-[0.08em] text-foreground transition-opacity hover:opacity-80"
+            className="font-heading text-3xl tracking-[0.08em] text-foreground transition-opacity hover:opacity-80"
           >
             PACIDEKOR
           </Link>
@@ -98,21 +97,21 @@ export function AdminLoginForm() {
           </div>
         </div>
 
+        <button
+          type="submit"
+          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90"
+        >
+          Prihlásiť sa
+        </button>
+
         {error ? (
           <p
             role="alert"
-            className="rounded-xl bg-[#8f2555]/08 px-3.5 py-2.5 text-sm text-[#8f2555]"
+            className="text-center text-sm leading-snug text-[#8f2555]"
           >
             {error}
           </p>
         ) : null}
-
-        <button
-          type="submit"
-          className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Prihlásiť sa
-        </button>
       </form>
     </main>
   );

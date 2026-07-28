@@ -33,9 +33,7 @@ export default function ONasPage() {
       <div className="grid items-stretch gap-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10">
         <div className="flex flex-col">
           <header>
-            <h1 className="text-3xl text-[#2f2924] sm:text-4xl">
-              O nás
-            </h1>
+            <h1 className="text-3xl text-[#2f2924] sm:text-4xl">O nás</h1>
             <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/65 sm:text-base">
               Kto sme a čomu sa v PACIDEKORe venujeme.
             </p>

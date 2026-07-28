@@ -71,53 +71,51 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
       ) : null}
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
-        {product.originalPrice ? (
-          <div className="flex min-w-0 items-baseline gap-3">
-            <span className="font-heading text-3xl font-semibold text-[#c45c4a] sm:text-4xl">
-              {product.price}
-            </span>
-            <span className="text-lg text-[#2f2924]/45 line-through">
-              {product.originalPrice}
-            </span>
-          </div>
-        ) : (
-          <p className="min-w-0 font-heading text-3xl font-semibold text-[#2f2924] sm:text-4xl">
-            {product.price}
-          </p>
-        )}
-
-        <div className="flex w-full flex-col items-stretch gap-2 sm:w-auto sm:items-end">
-          {available ? (
-            typeof maxQty === "number" ? (
-              <p className="text-sm text-[#2f2924]/55 sm:text-right">
-                Na sklade: {maxQty} ks
-              </p>
-            ) : (
-              <p className="text-sm text-[#2f2924]/55 sm:text-right">
-                Na sklade
-              </p>
-            )
+        <div className="min-w-0">
+          {product.originalPrice ? (
+            <div className="flex items-baseline gap-3">
+              <span className="font-heading text-3xl font-semibold text-[#c45c4a] sm:text-4xl">
+                {product.price}
+              </span>
+              <span className="text-lg text-[#2f2924]/45 line-through">
+                {product.originalPrice}
+              </span>
+            </div>
           ) : (
-            <p className="text-sm font-medium text-[#c45c4a] sm:text-right">
-              Momentálne nie je na sklade
+            <p className="font-heading text-3xl font-semibold text-[#2f2924] sm:text-4xl">
+              {product.price}
             </p>
           )}
 
-          <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
-            <QuantityStepper
-              value={quantity}
-              onChange={setQuantity}
-              max={typeof maxQty === "number" ? maxQty : undefined}
-              min={1}
-            />
+          <p
+            className={`mt-2 text-sm ${
+              available
+                ? "text-[#2f2924]/55"
+                : "font-medium text-[#c45c4a]"
+            }`}
+          >
+            {available
+              ? typeof maxQty === "number"
+                ? `Na sklade: ${maxQty} ks`
+                : "Na sklade"
+              : "Momentálne nie je na sklade"}
+          </p>
+        </div>
 
-            <AddToCartButton
-              product={product}
-              quantity={quantity}
-              disabled={!available}
-              size="page"
-            />
-          </div>
+        <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
+          <QuantityStepper
+            value={quantity}
+            onChange={setQuantity}
+            max={typeof maxQty === "number" ? maxQty : undefined}
+            min={1}
+          />
+
+          <AddToCartButton
+            product={product}
+            quantity={quantity}
+            disabled={!available}
+            size="page"
+          />
         </div>
       </div>
     </div>

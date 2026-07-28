@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ListFilter } from "lucide-react";
-import { ProductCard } from "@/components/ProductCard";
-import { akciaSlugs, getProductsBySlugs } from "@/lib/products";
+import { AkciaProductGrid } from "@/components/AkciaProductGrid";
 
 export const metadata: Metadata = {
   title: "Akcia",
@@ -10,8 +9,6 @@ export const metadata: Metadata = {
 };
 
 export default function AkciaPage() {
-  const products = getProductsBySlugs(akciaSlugs);
-
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
       <nav className="mb-6 text-sm text-[#2f2924]/55">
@@ -36,11 +33,7 @@ export default function AkciaPage() {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <AkciaProductGrid />
     </main>
   );
 }

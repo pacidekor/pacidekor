@@ -39,10 +39,7 @@ export function BenefitsBar() {
           const Icon = benefit.icon;
 
           return (
-            <div
-              key={benefit.text}
-              className="flex items-center gap-4"
-            >
+            <div key={benefit.text} className="flex items-center gap-4">
               <Icon
                 className="size-9 shrink-0 text-[#75825B] sm:size-10"
                 strokeWidth={1.5}

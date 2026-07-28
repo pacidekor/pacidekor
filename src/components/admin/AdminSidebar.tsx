@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { ChevronRight, ExternalLink, LogOut } from "lucide-react";
+import { ChevronRight, LogOut } from "lucide-react";
 import { adminNavItems } from "@/lib/admin-nav";
 import { setAdminAuthenticated } from "@/lib/admin-auth";
 
@@ -58,22 +58,26 @@ export function AdminSidebar() {
           })}
         </ul>
 
-        <div className="mt-4 shrink-0 space-y-1 border-t border-black/[0.06] pt-4">
-          <Link
-            href="/"
-            className="flex h-11 items-center gap-3 rounded-xl px-3 text-[0.95rem] text-[#2f2924]/70 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
-          >
-            <ExternalLink className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
-            Späť na eshop
-          </Link>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="flex h-11 w-full cursor-pointer items-center gap-3 rounded-xl px-3 text-[0.95rem] text-[#2f2924]/70 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
-          >
-            <LogOut className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
-            Odhlásiť sa
-          </button>
+        <div className="mt-4 shrink-0 border-t border-black/[0.06] pt-4">
+          <div className="flex items-center gap-2.5 rounded-xl px-2 py-1.5">
+            <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-[#e8ebe2] font-heading text-xs font-semibold text-[#75825B]">
+              A
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[0.95rem] font-medium text-[#2f2924]">
+                Administrátor
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={handleLogout}
+              aria-label="Odhlásiť sa"
+              title="Odhlásiť sa"
+              className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/55 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
+            >
+              <LogOut className="size-4" strokeWidth={1.75} aria-hidden />
+            </button>
+          </div>
         </div>
       </nav>
     </aside>

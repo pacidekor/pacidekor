@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ListFilter } from "lucide-react";
-import { ProductCard } from "@/components/ProductCard";
+import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { getProductsBySlugs, novinkySlugs } from "@/lib/products";
 
 export const metadata: Metadata = {
@@ -24,23 +23,7 @@ export default function NovinkyPage() {
         <span className="text-[#2f2924]">Novinky</span>
       </nav>
 
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <h1 className="text-3xl text-[#2f2924] sm:text-4xl">Novinky</h1>
-
-        <button
-          type="button"
-          className="inline-flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border border-[#2f2924]/12 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] sm:px-5"
-        >
-          <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-          Filtrovať
-        </button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+      <ProductCollectionBrowser title="Novinky" products={products} />
     </main>
   );
 }

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -5,6 +7,7 @@ import {
   footerShopLinks,
   legalLinks,
 } from "@/lib/navigation";
+import { useSiteContent } from "@/lib/use-site-content";
 
 function SocialIcon({
   className,
@@ -87,6 +90,7 @@ function FooterLinkList({
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { contact } = useSiteContent();
 
   return (
     <footer className="mt-14 w-full bg-[#e8ebe2]">
@@ -113,13 +117,13 @@ export function Footer() {
               Kontakt
             </h3>
             <div className="mt-4 space-y-1.5 text-sm text-[#2f2924]/70">
-              <p className="font-medium text-[#2f2924]">PACIDEKOR s.r.o.</p>
-              <p>Kráľová nad Váhom 283</p>
+              <p className="font-medium text-[#2f2924]">{contact.company}</p>
+              <p>{contact.address}</p>
               <a
-                href="mailto:info@pacidekor.sk"
+                href={`mailto:${contact.email}`}
                 className="inline-block transition-colors hover:text-[#75825B]"
               >
-                info@pacidekor.sk
+                {contact.email}
               </a>
             </div>
             <div className="mt-5 flex items-center gap-4">
@@ -142,7 +146,7 @@ export function Footer() {
                 <InstagramIcon className="size-5" />
               </a>
               <a
-                href="tel:+421900123456"
+                href={contact.phoneHref}
                 aria-label="Zavolať"
                 className="text-[#2f2924]/70 transition-colors hover:text-[#75825B]"
               >

@@ -13,7 +13,18 @@ import {
 } from "lucide-react";
 import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { RevenueChart } from "@/components/admin/RevenueChart";
+import {
+  orderStatusClass,
+  orders,
+  pendingOrdersForDashboard,
+  recentOrdersForDashboard,
+} from "@/lib/orders";
 import { products } from "@/lib/products";
+
+const newOrdersCount = orders.filter((o) => o.status === "nova").length;
+const unpaidOrdersCount = orders.filter(
+  (o) => o.status === "nezaplatena",
+).length;
 
 const stats: {
   label: string;
@@ -53,67 +64,8 @@ const stats: {
   },
 ];
 
-const pendingOrders = [
-  {
-    number: "2026-00125",
-    customer: "Kvetinárstvo Ruža",
-    price: "428 €",
-    status: "Pripravuje sa",
-    createdAt: "pred 12 min",
-  },
-  {
-    number: "2026-00124",
-    customer: "Jana Nováková",
-    price: "52 €",
-    status: "Nová",
-    createdAt: "pred 28 min",
-  },
-  {
-    number: "2026-00123",
-    customer: "Floristika Mária",
-    price: "196 €",
-    status: "Pripravuje sa",
-    createdAt: "pred 1 hod.",
-  },
-  {
-    number: "2026-00122",
-    customer: "Peter Horváth",
-    price: "38 €",
-    status: "Nová",
-    createdAt: "pred 2 hod.",
-  },
-  {
-    number: "2026-00120",
-    customer: "Dekor Ateliér",
-    price: "275 €",
-    status: "Pripravuje sa",
-    createdAt: "pred 4 hod.",
-  },
-];
-
-const recentOrders = [
-  {
-    number: "2026-00125",
-    customer: "Kvetinárstvo Ruža",
-    price: "428 €",
-    status: "Pripravuje sa",
-    createdAt: "pred 12 min",
-  },
-  {
-    number: "2026-00124",
-    customer: "Jana Nováková",
-    price: "52 €",
-    status: "Nová",
-    createdAt: "pred 28 min",
-  },
-  {
-    number: "2026-00123",
-    customer: "Floristika Mária",
-    price: "196 €",
-    status: "Pripravuje sa",
-    createdAt: "pred 1 hod.",
-  },
-];
+const pendingOrders = pendingOrdersForDashboard();
+const recentOrders = recentOrdersForDashboard(3);
 
 const attentionItems: {
   href: string;
@@ -123,13 +75,13 @@ const attentionItems: {
 }[] = [
   {
     href: "/admin/objednavky",
-    count: 4,
+    count: newOrdersCount,
     label: "nové objednávky",
     icon: ShoppingCart,
   },
   {
     href: "/admin/objednavky",
-    count: 2,
+    count: unpaidOrdersCount,
     label: "nezaplatené objednávky",
     icon: Clock3,
   },
@@ -177,23 +129,6 @@ function buildRevenueData() {
 
 const revenueData = buildRevenueData();
 
-function statusClass(status: string) {
-  switch (status) {
-    case "Nová":
-      return "bg-[#dbeafe] text-[#1d4ed8]";
-    case "Pripravuje sa":
-      return "bg-[#ffedd5] text-[#c2410c]";
-    case "Odoslaná":
-      return "bg-[#dcfce7] text-[#15803d]";
-    case "Zaplatená":
-      return "bg-[#d1fae5] text-[#047857]";
-    case "Stornovaná":
-      return "bg-[#fee2e2] text-[#b91c1c]";
-    default:
-      return "bg-[#f0eee9] text-[#2f2924]/70";
-  }
-}
-
 function hintClass(hint: string) {
   const trimmed = hint.trimStart();
   if (trimmed.startsWith("+")) return "font-medium text-[#75825B]";
@@ -214,7 +149,7 @@ function OrderRow({
 }) {
   return (
     <Link
-      href="/admin/objednavky"
+      href={`/admin/objednavky?id=${order.number}`}
       className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[#faf8f5]"
     >
       <div className="min-w-0 flex-1">
@@ -228,12 +163,12 @@ function OrderRow({
       </div>
 
       <span
-        className={`hidden shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold sm:inline-flex ${statusClass(order.status)}`}
+        className={`hidden shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold sm:inline-flex ${orderStatusClass(order.status)}`}
       >
         {order.status}
       </span>
 
-      <p className="w-16 shrink-0 text-right text-[15px] font-semibold tabular-nums text-[#2f2924]">
+      <p className="min-w-[5.25rem] shrink-0 text-right text-[15px] font-semibold whitespace-nowrap tabular-nums text-[#2f2924]">
         {order.price}
       </p>
     </Link>

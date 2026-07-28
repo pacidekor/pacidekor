@@ -3,7 +3,7 @@
 import { useDeferredValue, useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronLeft, ChevronRight, Mail, Phone, Search, User, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Heart, LogOut, Mail, Phone, Search, User, X } from "lucide-react";
 import { CartButton } from "@/components/CartButton";
 import {
   AccountTypeSelectButton,
@@ -11,10 +11,40 @@ import {
   type AccountChoiceOption,
 } from "@/components/AccountTypeChoices";
 import { ProductSearchResults } from "@/components/ProductSearchResults";
+import {
+  CLIENT_AUTH_EVENT,
+  clearClientSession,
+  getClientSession,
+  type ClientSession,
+} from "@/lib/client-auth";
+import {
+  CUSTOMER_TYPE_META,
+  CUSTOMERS_EVENT,
+  customerDisplayName,
+  getCustomerById,
+  readCustomers,
+  type CustomerType,
+} from "@/lib/customers";
 import { categoryHref, categoryList, navItems } from "@/lib/navigation";
 import { popularSearches, searchProducts } from "@/lib/search";
 
 type MenuView = "main" | "categories";
+
+type AccountSummary = {
+  displayName: string;
+  email: string;
+  name: string;
+  type: CustomerType | null;
+};
+
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("");
+}
 
 export function MobileHeader() {
   const pathname = usePathname();
@@ -25,6 +55,8 @@ export function MobileHeader() {
   const [accountOpen, setAccountOpen] = useState(false);
   const [selectedAccount, setSelectedAccount] =
     useState<AccountChoiceOption | null>(null);
+  const [session, setSession] = useState<ClientSession | null>(null);
+  const [account, setAccount] = useState<AccountSummary | null>(null);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
   const menuId = useId();
@@ -34,6 +66,42 @@ export function MobileHeader() {
   const trimmedQuery = deferredQuery.trim();
   const isTyping = trimmedQuery.length > 0;
   const suggestions = isTyping ? searchProducts(trimmedQuery) : [];
+
+  useEffect(() => {
+    function syncSession() {
+      const next = getClientSession();
+      setSession(next);
+      if (!next) {
+        setAccount(null);
+        return;
+      }
+      const customer = getCustomerById(next.customerId, readCustomers());
+      if (!customer) {
+        setAccount({
+          displayName: "Môj účet",
+          email: "",
+          name: "Môj účet",
+          type: null,
+        });
+        return;
+      }
+      setAccount({
+        displayName: customerDisplayName(customer),
+        email: customer.email,
+        name: customer.name,
+        type: customer.type,
+      });
+    }
+    syncSession();
+    window.addEventListener(CLIENT_AUTH_EVENT, syncSession);
+    window.addEventListener(CUSTOMERS_EVENT, syncSession);
+    window.addEventListener("storage", syncSession);
+    return () => {
+      window.removeEventListener(CLIENT_AUTH_EVENT, syncSession);
+      window.removeEventListener(CUSTOMERS_EVENT, syncSession);
+      window.removeEventListener("storage", syncSession);
+    };
+  }, []);
 
   useEffect(() => {
     setMenuOpen(false);
@@ -411,7 +479,11 @@ export function MobileHeader() {
           id={accountId}
           role="dialog"
           aria-label={
-            selectedAccount ? selectedAccount.title : "Vyberte typ účtu"
+            session
+              ? "Účet"
+              : selectedAccount
+                ? selectedAccount.title
+                : "Vyberte typ účtu"
           }
           aria-hidden={!accountOpen}
           className={`relative border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
@@ -419,7 +491,70 @@ export function MobileHeader() {
           }`}
         >
           <div className="mx-auto w-[var(--content-width)] py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-            {selectedAccount ? (
+            {session ? (
+              <>
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div className="flex min-w-0 items-center gap-3">
+                    <div className="flex size-12 shrink-0 items-center justify-center rounded-full bg-white font-heading text-sm font-semibold text-[#75825B]">
+                      {initials(account?.name || account?.displayName || "U") ||
+                        "U"}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="truncate font-heading text-xl font-semibold text-[#2f2924]">
+                        {account?.displayName ?? "Môj účet"}
+                      </p>
+                      {account?.email ? (
+                        <p className="mt-0.5 truncate text-sm text-[#2f2924]/55">
+                          {account.email}
+                        </p>
+                      ) : null}
+                      {account?.type ? (
+                        <p className="mt-1 text-xs font-medium text-[#2f2924]/45">
+                          {CUSTOMER_TYPE_META[account.type].label}
+                        </p>
+                      ) : null}
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    aria-label="Zavrieť účet"
+                    onClick={() => setAccountOpen(false)}
+                    className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/45 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+                  >
+                    <X className="size-5" strokeWidth={1.75} aria-hidden />
+                  </button>
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Link
+                    href="/ucet"
+                    onClick={() => setAccountOpen(false)}
+                    className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                  >
+                    <User className="size-4" strokeWidth={1.75} aria-hidden />
+                    Môj účet
+                  </Link>
+                  <Link
+                    href="/oblubene"
+                    onClick={() => setAccountOpen(false)}
+                    className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                  >
+                    <Heart className="size-4" strokeWidth={1.75} aria-hidden />
+                    Obľúbené produkty
+                  </Link>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      clearClientSession();
+                      setAccountOpen(false);
+                    }}
+                    className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                  >
+                    <LogOut className="size-4" strokeWidth={1.75} aria-hidden />
+                    Odhlásiť sa
+                  </button>
+                </div>
+              </>
+            ) : selectedAccount ? (
               <>
                 <div className="mb-4 flex h-9 items-center justify-between gap-3">
                   <button

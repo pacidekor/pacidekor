@@ -2,13 +2,16 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { ChevronRight } from "lucide-react";
 
 type BannerSlide = {
   desktopSrc: string;
   mobileSrc: string;
   href: string;
   alt: string;
+  ctaLabel: string;
 };
 
 const slides: BannerSlide[] = [
@@ -16,13 +19,15 @@ const slides: BannerSlide[] = [
     desktopSrc: "/banner2.webp",
     mobileSrc: "/bannermobile2.webp",
     href: "/produkty",
-    alt: "PACIDEKOR - všetky produkty",
+    alt: "PACIDEKOR - doprava do 24 hodín",
+    ctaLabel: "Všetky produkty",
   },
   {
     desktopSrc: "/banner1.webp",
     mobileSrc: "/bannermobile.webp",
-    href: "/",
-    alt: "PACIDEKOR",
+    href: "/registracia/velkoobchod",
+    alt: "PACIDEKOR - umelé kvety, krása ktorá vydrží",
+    ctaLabel: "Registrácia",
   },
 ];
 
@@ -50,11 +55,13 @@ export function HeroBanner() {
   const animatingRef = useRef(false);
   const hoverPausedRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
 
   const trackSlides = loop
     ? [slides[count - 1], ...slides, slides[0]]
     : slides;
   const lastTrack = trackSlides.length - 1;
+  const activeSlide = slides[activeIndex];
 
   const toRealIndex = useCallback(
     (trackIndex: number) => {
@@ -171,6 +178,7 @@ export function HeroBanner() {
 
     event.preventDefault();
     didDragRef.current = false;
+    setIsDragging(false);
 
     if (animatingRef.current) {
       const track = trackRef.current;
@@ -194,7 +202,10 @@ export function HeroBanner() {
 
     event.preventDefault();
     const deltaX = event.clientX - drag.startX;
-    if (Math.abs(deltaX) > 8) didDragRef.current = true;
+    if (Math.abs(deltaX) > 8) {
+      didDragRef.current = true;
+      setIsDragging(true);
+    }
 
     drag.deltaX = deltaX;
     applyTransform(trackIndexRef.current, deltaX, false);
@@ -208,6 +219,7 @@ export function HeroBanner() {
       event.currentTarget.releasePointerCapture(event.pointerId);
     }
     dragRef.current = null;
+    setIsDragging(false);
 
     const width = widthRef.current || 1;
     const threshold = width * SWIPE_THRESHOLD_RATIO;
@@ -223,6 +235,7 @@ export function HeroBanner() {
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
     dragRef.current = null;
+    setIsDragging(false);
     goToTrack(trackIndexRef.current);
   }
 
@@ -231,7 +244,7 @@ export function HeroBanner() {
       role="region"
       aria-roledescription="carousel"
       aria-label="Banner"
-      className={`relative aspect-[2/1] w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] md:aspect-auto ${
+      className={`group relative aspect-[2/1] w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] md:aspect-auto ${
         loop ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
       }`}
       onPointerDown={onPointerDown}
@@ -243,6 +256,7 @@ export function HeroBanner() {
       }}
       onMouseLeave={() => {
         hoverPausedRef.current = false;
+        setIsDragging(false);
       }}
       onDragStart={(event) => event.preventDefault()}
       onClick={() => {
@@ -251,7 +265,6 @@ export function HeroBanner() {
         if (href) router.push(href);
       }}
     >
-      {/* Desktop: pôvodná prirodzená výška podľa banner1 */}
       <Image
         src="/banner1.webp"
         alt=""
@@ -305,6 +318,30 @@ export function HeroBanner() {
           })}
         </div>
       </div>
+
+      {activeSlide ? (
+        <div
+          className={`absolute right-6 bottom-6 z-20 hidden md:block ${
+            isDragging
+              ? "pointer-events-none opacity-0"
+              : "pointer-events-none opacity-0 group-hover:pointer-events-auto group-hover:opacity-100"
+          } transition-opacity duration-200 ease-out`}
+        >
+          <Link
+            href={activeSlide.href}
+            onClick={(event) => event.stopPropagation()}
+            onPointerDown={(event) => event.stopPropagation()}
+            className="inline-flex h-14 items-center justify-center gap-2 rounded-xl bg-[#75825B] px-6 text-base font-semibold tracking-[0.08em] text-white uppercase shadow-[0_8px_24px_rgba(47,41,36,0.28)] transition-opacity hover:opacity-90"
+          >
+            {activeSlide.ctaLabel}
+            <ChevronRight
+              className="size-6 shrink-0"
+              strokeWidth={1.75}
+              aria-hidden
+            />
+          </Link>
+        </div>
+      ) : null}
 
       {loop ? (
         <div className="pointer-events-none absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2.5 sm:bottom-5">

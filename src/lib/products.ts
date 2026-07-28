@@ -311,6 +311,8 @@ export function getProductsByCategory(category: string) {
 
 export type ProductFilterInput = {
   subcategoryId?: string;
+  /** Hlavné kategórie (label z product.category) */
+  categories?: string[];
   colors?: string[];
 };
 
@@ -324,6 +326,12 @@ export function filterProducts(
       product.subcategoryId !== filters.subcategoryId
     ) {
       return false;
+    }
+
+    if (filters.categories && filters.categories.length > 0) {
+      if (!filters.categories.includes(product.category)) {
+        return false;
+      }
     }
 
     if (filters.colors && filters.colors.length > 0) {

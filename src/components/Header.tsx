@@ -2,6 +2,7 @@ import Link from "next/link";
 import { AccountMenu } from "@/components/AccountMenu";
 import { CartButton } from "@/components/CartButton";
 import { DesktopSearch } from "@/components/DesktopSearch";
+import { FavoritesButton } from "@/components/FavoritesButton";
 import { MobileHeader } from "@/components/MobileHeader";
 
 export function Header() {
@@ -22,6 +23,7 @@ export function Header() {
 
           <div className="relative z-40 ml-auto flex items-center gap-3">
             <AccountMenu />
+            <FavoritesButton />
             <CartButton />
           </div>
         </div>

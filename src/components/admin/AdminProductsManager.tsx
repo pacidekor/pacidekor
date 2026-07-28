@@ -47,6 +47,7 @@ import {
   isInventoryAvailable,
   setInventory,
 } from "@/lib/inventory";
+import { lockPageScroll } from "@/lib/lock-page-scroll";
 
 const STORAGE_KEY = "pacidekor.admin.product-taxonomy";
 const CUSTOM_PRODUCTS_KEY = "pacidekor.admin.custom-products";
@@ -520,7 +521,7 @@ export function AdminProductsManager() {
 
       <div className="mt-5">
       <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="relative w-full min-w-0 max-w-xs sm:max-w-sm">
+        <div className="relative w-full min-w-0 max-w-md">
           <Search
             className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/40"
             strokeWidth={1.75}
@@ -564,7 +565,7 @@ export function AdminProductsManager() {
 
       <div className="overflow-hidden rounded-2xl border border-black/6 bg-white">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] text-left text-sm">
+          <table className="w-full min-w-[760px] text-left text-[15px]">
             <thead className="border-b border-black/6 bg-white text-xs tracking-wide text-[#2f2924]/55 uppercase">
               <tr>
                 <th className="px-4 py-3 font-medium">Produkt</th>
@@ -590,7 +591,7 @@ export function AdminProductsManager() {
                     key={product.id}
                     className="border-b border-black/5 last:border-b-0"
                   >
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <div className="flex items-center gap-3">
                         <span className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-[#e8ebe2]">
                           {product.image ? (
@@ -598,7 +599,7 @@ export function AdminProductsManager() {
                           ) : null}
                         </span>
                         <div className="min-w-0">
-                          <p className="truncate font-medium text-[#2f2924]">
+                          <p className="truncate text-[15px] font-medium text-[#2f2924]">
                             {product.name}
                           </p>
                           {product.sku ? (
@@ -614,15 +615,15 @@ export function AdminProductsManager() {
                         </div>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-[#2f2924]/75">
+                    <td className="px-4 py-3.5 text-[#2f2924]/80">
                       {product.category}
                     </td>
-                    <td className="px-4 py-3 text-[#2f2924]/75">
+                    <td className="px-4 py-3.5 text-[#2f2924]/80">
                       {packagingLabel || (
                         <span className="text-[#2f2924]/35">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <span
                         className={`inline-flex rounded-md px-2 py-1 text-xs font-semibold ${
                           isInventoryAvailable(inventory)
@@ -633,7 +634,7 @@ export function AdminProductsManager() {
                         {inventoryLabel(inventory)}
                       </span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <div className="flex items-center justify-end gap-1">
                         {!isCustom ? (
                           <Link
@@ -917,18 +918,7 @@ function ProductEditor({
     }) !== initialSnapshotRef.current;
 
   useEffect(() => {
-    const body = document.body;
-    const html = document.documentElement;
-    const previousBodyOverflow = body.style.overflow;
-    const previousHtmlOverflow = html.style.overflow;
-    const previousBodyPadding = body.style.paddingRight;
-    const scrollbarGap = window.innerWidth - html.clientWidth;
-
-    body.style.overflow = "hidden";
-    html.style.overflow = "hidden";
-    if (scrollbarGap > 0) {
-      body.style.paddingRight = `${scrollbarGap}px`;
-    }
+    const unlock = lockPageScroll();
 
     const enterFrame = requestAnimationFrame(() => {
       requestAnimationFrame(() => setEntered(true));
@@ -936,9 +926,7 @@ function ProductEditor({
 
     return () => {
       cancelAnimationFrame(enterFrame);
-      body.style.overflow = previousBodyOverflow;
-      html.style.overflow = previousHtmlOverflow;
-      body.style.paddingRight = previousBodyPadding;
+      unlock();
       if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
     };
   }, []);

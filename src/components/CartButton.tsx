@@ -234,7 +234,12 @@ export function CartButton({
   }
 
   return (
-    <div ref={wrapRef} className="relative">
+    <div
+      ref={wrapRef}
+      className="relative"
+      onMouseEnter={() => setOpenState(true)}
+      onMouseLeave={() => setOpenState(false)}
+    >
       {trigger}
 
       <div

@@ -60,6 +60,17 @@ button,
   contain-intrinsic-size: auto 480px;
 }
 
+@keyframes auth-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Hide native browser search clear (ugly blue/purple X) */
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {

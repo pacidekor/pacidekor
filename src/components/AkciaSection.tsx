@@ -1,10 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import { akciaSlugs, getProductsBySlugs } from "@/lib/products";
+import { useAkciaProducts } from "@/lib/use-akcia-products";
 
 export function AkciaSection() {
-  const products = getProductsBySlugs(akciaSlugs);
+  const products = useAkciaProducts();
+
+  if (products.length === 0) return null;
 
   return (
     <section className="mt-14 w-full">

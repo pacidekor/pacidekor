@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BlogPostCard } from "@/components/blog/BlogPostCard";
-import { blogPosts } from "@/lib/blog";
+import { BlogPostsList } from "@/components/blog/BlogPostsList";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -29,11 +28,7 @@ export default function BlogPage() {
         </p>
       </header>
 
-      <div className="flex flex-col gap-6">
-        {blogPosts.map((post) => (
-          <BlogPostCard key={post.slug} post={post} />
-        ))}
-      </div>
+      <BlogPostsList />
     </main>
   );
 }

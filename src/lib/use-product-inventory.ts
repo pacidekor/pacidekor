@@ -4,13 +4,18 @@ import { useEffect, useState } from "react";
 import {
   getInventoryForProduct,
   INVENTORY_EVENT,
+  seedInventory,
   type InventoryEntry,
 } from "@/lib/inventory";
 import type { Product } from "@/lib/products";
 
+/**
+ * Always starts from product seed (SSR-safe), then syncs localStorage after mount
+ * to avoid hydration mismatches when admin overrides stock in the browser.
+ */
 export function useProductInventory(product: Product): InventoryEntry {
   const [entry, setEntry] = useState<InventoryEntry>(() =>
-    getInventoryForProduct(product),
+    seedInventory(product),
   );
 
   useEffect(() => {
