@@ -3,6 +3,7 @@
 import { useEffect, useId, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { fetchClientCustomer } from "@/lib/client-auth";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 
 function ToolsIcon({ className }: { className?: string }) {
@@ -32,14 +33,29 @@ export function ConstructionNoticeModal() {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
+  const [isWholesalePartner, setIsWholesalePartner] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setOpen(true);
-    const frame = requestAnimationFrame(() => {
-      requestAnimationFrame(() => setVisible(true));
-    });
-    return () => cancelAnimationFrame(frame);
+    let cancelled = false;
+
+    async function show() {
+      setMounted(true);
+      const customer = await fetchClientCustomer();
+      if (cancelled) return;
+
+      setIsWholesalePartner(customer?.type === "velkoobchod");
+      setOpen(true);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          if (!cancelled) setVisible(true);
+        });
+      });
+    }
+
+    void show();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
@@ -86,26 +102,42 @@ export function ConstructionNoticeModal() {
           </h2>
 
           <p className="mt-4 text-center text-[15px] leading-relaxed text-[#2f2924]/70 text-pretty">
-            Na e-shope PACIDEKOR práve pracujeme. Objednávky a platby zatiaľ
-            nie sú aktívne. Už teraz si však môžete vytvoriť{" "}
-            <span className="font-medium text-[#2f2924]">
-              veľkoobchodnú registráciu
-            </span>{" "}
-            a byť pripravení, keď e-shop oficiálne spustíme.
+            {isWholesalePartner ? (
+              <>
+                Na e-shope PACIDEKOR práve pracujeme. Objednávky a platby zatiaľ
+                nie sú aktívne. Váš veľkoobchodný účet je pripravený — hneď ako
+                e-shop oficiálne spustíme, budete môcť nakupovať.
+              </>
+            ) : (
+              <>
+                Na e-shope PACIDEKOR práve pracujeme. Objednávky a platby zatiaľ
+                nie sú aktívne. Už teraz si však môžete vytvoriť{" "}
+                <span className="font-medium text-[#2f2924]">
+                  veľkoobchodnú registráciu
+                </span>{" "}
+                a byť pripravení, keď e-shop oficiálne spustíme.
+              </>
+            )}
           </p>
 
           <div className="mt-8 flex flex-col gap-3">
-            <Link
-              href="/registracia/velkoobchod"
-              onClick={dismiss}
-              className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#75825B] px-5 py-3.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
-            >
-              Registrovať veľkoobchodný účet
-            </Link>
+            {!isWholesalePartner ? (
+              <Link
+                href="/registracia/velkoobchod"
+                onClick={dismiss}
+                className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[#75825B] px-5 py-3.5 text-center text-sm font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Registrovať veľkoobchodný účet
+              </Link>
+            ) : null}
             <button
               type="button"
               onClick={dismiss}
-              className="inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-xl border border-black/10 px-5 py-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-white"
+              className={`inline-flex min-h-12 w-full cursor-pointer items-center justify-center rounded-xl px-5 py-3.5 text-sm font-medium transition-opacity ${
+                isWholesalePartner
+                  ? "bg-[#75825B] text-white hover:opacity-90"
+                  : "min-h-11 border border-black/10 py-3 text-[#2f2924] hover:bg-white"
+              }`}
             >
               Pokračovať na e-shop
             </button>
