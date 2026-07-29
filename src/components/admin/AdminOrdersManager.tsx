@@ -68,8 +68,8 @@ export function AdminOrdersManager({
 
   return (
     <div className="mt-5">
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="relative w-full min-w-0 max-w-md">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="relative w-full min-w-0 sm:max-w-md sm:flex-1">
           <Search
             className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
             aria-hidden
@@ -83,11 +83,11 @@ export function AdminOrdersManager({
           />
         </div>
 
-        <div className="ml-auto flex shrink-0 items-center gap-3">
+        <div className="flex w-full shrink-0 items-center gap-3 sm:ml-auto sm:w-auto">
           <button
             type="button"
             onClick={() => setFiltersOpen(true)}
-            className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40"
+            className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:flex-none"
           >
             <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
             Filtrovať

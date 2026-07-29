@@ -121,7 +121,7 @@ function OrderRow({
   return (
     <Link
       href={`/admin/objednavky?id=${order.number}`}
-      className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[#faf8f5]"
+      className="flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-[#faf8f5]"
     >
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
@@ -134,12 +134,12 @@ function OrderRow({
       </div>
 
       <span
-        className={`hidden shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold sm:inline-flex ${orderStatusClass(order.status)}`}
+        className={`shrink-0 rounded-md px-2.5 py-1 text-xs font-semibold ${orderStatusClass(order.status)}`}
       >
         {order.status}
       </span>
 
-      <p className="min-w-[5.25rem] shrink-0 text-right text-[15px] font-semibold whitespace-nowrap tabular-nums text-[#2f2924]">
+      <p className="min-w-[4.5rem] shrink-0 text-right text-[15px] font-semibold whitespace-nowrap tabular-nums text-[#2f2924] sm:min-w-[5.25rem]">
         {order.price}
       </p>
     </Link>
@@ -183,49 +183,50 @@ export default async function AdminPage() {
   ];
 
   return (
-    <main className="flex flex-1 flex-col px-4 py-5 sm:px-5 lg:px-6 lg:py-6">
+    <main className="flex min-w-0 flex-1 flex-col px-4 py-5 lg:px-6 lg:py-6">
       <AdminPageHeader
         title="Prehľad"
         description="To najdôležitejšie z vášho eshopu na jednom mieste."
       />
 
-      {/* Stats */}
-      <section
-        aria-label="Štatistiky"
-        className="mt-5 grid grid-cols-2 gap-3 lg:grid-cols-5"
-      >
-        {stats.map((stat) => {
-          const Icon = stat.icon;
-          return (
-            <div
-              key={stat.label}
-              className="flex flex-col rounded-2xl border border-black/[0.06] bg-white px-5 py-5"
-            >
-              <div className="flex items-start justify-between gap-3">
-                <p className="text-sm font-medium leading-snug text-[#2f2924]/65">
-                  {stat.label}
-                </p>
-                <Icon
-                  className="size-4 shrink-0 text-[#75825B]"
-                  strokeWidth={1.75}
-                  aria-hidden
-                />
-              </div>
-              <p className="mt-4 font-heading text-[2.4rem] font-semibold leading-none tracking-tight text-[#2f2924]">
-                {stat.value}
-              </p>
-              <p className={`mt-3 text-xs ${hintClass(stat.hint)}`}>
-                {stat.hint}
-              </p>
-            </div>
-          );
-        })}
+      {/* Stats — full-bleed carousel on mobile, grid on desktop */}
+      <section aria-label="Štatistiky" className="mt-5">
+        <div className="-mx-4 overflow-x-auto overscroll-x-contain px-4 pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:mx-0 lg:overflow-visible lg:px-0 lg:pb-0">
+          <div className="flex w-max snap-x snap-mandatory gap-3 lg:grid lg:w-full lg:grid-cols-5 lg:snap-none">
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <div
+                  key={stat.label}
+                  className="flex w-[min(72vw,17.5rem)] shrink-0 snap-start flex-col rounded-2xl border border-black/[0.06] bg-white px-4 py-4 sm:py-5 lg:w-auto"
+                >
+                  <div className="flex items-start justify-between gap-2 sm:gap-3">
+                    <p className="text-xs font-medium leading-snug text-[#2f2924]/65 sm:text-sm">
+                      {stat.label}
+                    </p>
+                    <Icon
+                      className="size-4 shrink-0 text-[#75825B]"
+                      strokeWidth={1.75}
+                      aria-hidden
+                    />
+                  </div>
+                  <p className="mt-3 font-heading text-[1.85rem] font-semibold leading-none tracking-tight text-[#2f2924] sm:mt-4 sm:text-[2.4rem]">
+                    {stat.value}
+                  </p>
+                  <p className={`mt-3 text-xs ${hintClass(stat.hint)}`}>
+                    {stat.hint}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       {/* Pending orders 70% + Attention 30% */}
-      <div className="mt-5 grid gap-4 xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
-        <section className="rounded-2xl border border-black/[0.06] bg-white">
-          <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
+      <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
+        <section className="min-w-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="flex items-center justify-between gap-3 px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Objednávky čakajúce na vybavenie
             </h2>
@@ -242,7 +243,7 @@ export default async function AdminPage() {
             ))}
           </ul>
 
-          <div className="border-t border-black/[0.05] px-5 py-3">
+          <div className="border-t border-black/[0.05] px-4 py-3">
             <Link
               href="/admin/objednavky"
               className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
@@ -253,8 +254,8 @@ export default async function AdminPage() {
           </div>
         </section>
 
-        <section className="flex h-full flex-col rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-5 pt-4 pb-3">
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Vyžaduje pozornosť
             </h2>
@@ -267,7 +268,7 @@ export default async function AdminPage() {
                 <li key={item.label} className="flex flex-1">
                   <Link
                     href={item.href}
-                    className="group flex w-full items-center gap-3.5 px-5 py-4 transition-colors hover:bg-[#faf8f5]"
+                    className="group flex w-full items-center gap-3 px-4 py-4 transition-colors hover:bg-[#faf8f5]"
                   >
                     <Icon
                       className="size-5 shrink-0 text-[#75825B]"
@@ -293,9 +294,9 @@ export default async function AdminPage() {
       </div>
 
       {/* Revenue chart 50% + Top products 50% */}
-      <div className="mt-5 grid gap-4 xl:grid-cols-2">
-        <section className="flex h-full flex-col rounded-2xl border border-black/[0.06] bg-white">
-          <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3 sm:px-6">
+      <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-2">
+        <section className="flex min-w-0 w-full flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="flex flex-col gap-1 px-4 pt-4 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Tržby za posledných 30 dní
             </h2>
@@ -304,13 +305,13 @@ export default async function AdminPage() {
             </p>
           </div>
 
-          <div className="flex min-h-0 flex-1 flex-col border-t border-black/[0.05] px-5 py-4 sm:px-6 sm:py-5">
-            <RevenueChart data={revenueData} className="flex min-h-0 flex-1" />
+          <div className="min-w-0 overflow-hidden border-t border-black/[0.05] px-2 py-3 sm:px-3 sm:py-5">
+            <RevenueChart data={revenueData} />
           </div>
         </section>
 
-        <section className="rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-5 pt-4 pb-3">
+        <section className="min-w-0 w-full overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Najpredávanejšie produkty
             </h2>
@@ -321,7 +322,7 @@ export default async function AdminPage() {
               <li key={product.slug}>
                 <Link
                   href="/admin/produkty"
-                  className="flex items-center gap-3.5 px-5 py-3 transition-colors hover:bg-[#faf8f5]"
+                  className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-[#faf8f5]"
                 >
                   <span className="w-4 shrink-0 text-xs font-semibold tabular-nums text-[#2f2924]/35">
                     {index + 1}
@@ -355,7 +356,7 @@ export default async function AdminPage() {
 
       {/* Recent orders full width */}
       <section className="mt-5 rounded-2xl border border-black/[0.06] bg-white">
-        <div className="flex items-center justify-between gap-3 px-5 pt-4 pb-3">
+        <div className="flex items-center justify-between gap-3 px-4 pt-4 pb-3">
           <h2 className="font-heading text-base font-semibold text-[#2f2924]">
             Posledné objednávky
           </h2>

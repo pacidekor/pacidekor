@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-const AUTH_SIDE_IMAGE = "/produkty_new/2.jpg";
+const AUTH_SIDE_IMAGE = "/products/paci-kvety-ready/003/14.webp";
 
 export function AuthSplitShell({
   children,

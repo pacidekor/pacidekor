@@ -716,7 +716,7 @@ function SlideOver({
         role="dialog"
         aria-modal="true"
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               {title}
@@ -735,11 +735,11 @@ function SlideOver({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-6 py-5">
+        <div className="min-h-0 flex-1 space-y-6 overflow-y-auto px-4 py-5 sm:px-6">
           {children}
         </div>
 
-        <div className="shrink-0 border-t border-black/6 px-6 py-4">
+        <div className="shrink-0 border-t border-black/6 px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
             {onDelete ? (
               <button

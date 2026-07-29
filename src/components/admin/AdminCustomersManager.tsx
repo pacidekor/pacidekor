@@ -231,8 +231,8 @@ export function AdminCustomersManager({
       </div>
 
       <div className="mt-5">
-        <div className="mb-4 flex flex-wrap items-center gap-3">
-          <div className="relative w-full min-w-0 max-w-md sm:w-auto sm:flex-1">
+        <div className="mb-4 flex flex-col gap-3">
+          <div className="relative w-full min-w-0">
             <Search
               className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
               aria-hidden
@@ -246,29 +246,29 @@ export function AdminCustomersManager({
             />
           </div>
 
-          {pendingCount > 0 ? (
-            <button
-              type="button"
-              onClick={togglePendingFilter}
-              aria-pressed={pendingFilterActive}
-              className={`inline-flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-xl border px-3.5 text-sm font-medium transition-colors ${
-                pendingFilterActive
-                  ? "border-[#75825B] bg-[#e8ebe2] text-[#5f6a49]"
-                  : "border-[#c2410c]/20 bg-[#ffedd5]/60 text-[#c2410c] hover:bg-[#ffedd5]"
-              }`}
-            >
-              <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#c2410c] text-[11px] leading-none font-semibold text-white">
-                {pendingCount}
-              </span>
-              Čaká na vybavenie
-            </button>
-          ) : null}
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            {pendingCount > 0 ? (
+              <button
+                type="button"
+                onClick={togglePendingFilter}
+                aria-pressed={pendingFilterActive}
+                className={`inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border px-3.5 text-sm font-medium transition-colors sm:w-auto ${
+                  pendingFilterActive
+                    ? "border-[#75825B] bg-[#e8ebe2] text-[#5f6a49]"
+                    : "border-[#c2410c]/20 bg-[#ffedd5]/60 text-[#c2410c] hover:bg-[#ffedd5]"
+                }`}
+              >
+                <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#c2410c] text-[11px] leading-none font-semibold text-white">
+                  {pendingCount}
+                </span>
+                Čaká na vybavenie
+              </button>
+            ) : null}
 
-          <div className="ml-auto flex shrink-0 items-center gap-3">
             <button
               type="button"
               onClick={() => setFiltersOpen(true)}
-              className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40"
+              className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto"
             >
               <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
               Filtrovať
@@ -568,7 +568,7 @@ function CustomerDetail({
         aria-modal="true"
         aria-labelledby="customer-detail-title"
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               Detail zákazníka
@@ -602,7 +602,7 @@ function CustomerDetail({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           <div className="space-y-5">
             {isPending ? (
               <div className="rounded-xl border border-[#c2410c]/15 bg-[#ffedd5]/40 px-4 py-3.5">
@@ -738,7 +738,7 @@ function CustomerDetail({
           </div>
         </div>
 
-        <div className="relative z-10 shrink-0 space-y-2.5 border-t border-black/6 bg-white px-6 py-4">
+        <div className="relative z-10 shrink-0 space-y-2.5 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
           {isPending ? (
             <>
               <button

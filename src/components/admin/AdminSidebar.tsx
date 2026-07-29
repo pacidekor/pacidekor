@@ -17,7 +17,7 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="sticky top-0 flex h-dvh w-64 shrink-0 flex-col overflow-hidden border-r border-black/[0.06] bg-white">
+    <aside className="sticky top-0 hidden h-dvh w-64 shrink-0 flex-col overflow-hidden border-r border-black/[0.06] bg-white md:flex">
       <div className="flex shrink-0 items-center justify-center px-5 py-7">
         <Link
           href="/admin"

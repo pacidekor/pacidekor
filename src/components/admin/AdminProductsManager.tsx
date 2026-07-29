@@ -512,7 +512,7 @@ export function AdminProductsManager() {
         <button
           type="button"
           onClick={openCreate}
-          className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center gap-2 self-start rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto sm:self-start"
         >
           <Plus className="size-4" strokeWidth={2} aria-hidden />
           Nový produkt
@@ -520,8 +520,8 @@ export function AdminProductsManager() {
       </div>
 
       <div className="mt-5">
-      <div className="mb-4 flex flex-wrap items-center gap-3">
-        <div className="relative w-full min-w-0 max-w-md">
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <div className="relative w-full min-w-0 sm:max-w-md sm:flex-1">
           <Search
             className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/40"
             strokeWidth={1.75}
@@ -536,7 +536,7 @@ export function AdminProductsManager() {
           />
         </div>
 
-        <div className="ml-auto flex shrink-0 items-center gap-3">
+        <div className="flex w-full shrink-0 items-center gap-3 sm:ml-auto sm:w-auto">
           {hydrated && Object.keys(overrides).length > 0 ? (
             <button
               type="button"
@@ -550,7 +550,7 @@ export function AdminProductsManager() {
           <button
             type="button"
             onClick={() => setFiltersOpen(true)}
-            className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40"
+            className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:flex-none"
           >
             <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
             Filtrovať
@@ -563,7 +563,102 @@ export function AdminProductsManager() {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white">
+      {/* Mobile cards */}
+      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white md:hidden">
+        {filtered.length === 0 ? (
+          <p className="px-4 py-10 text-center text-sm text-[#2f2924]/55">
+            Žiadne produkty pre zvolené filtre.
+          </p>
+        ) : (
+          <ul className="divide-y divide-black/5">
+            {filtered.map((product) => {
+              const hasOverride = Boolean(overrides[product.id]);
+              const isCustom = customProducts.some(
+                (item) => item.id === product.id,
+              );
+              const inventory = getInventoryForProduct(product);
+              const packagingLabel = formatPackagingSummary(
+                product.attributes?.packaging,
+              );
+
+              return (
+                <li key={product.id} className="px-4 py-4">
+                  <div className="flex items-start gap-3">
+                    <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
+                      {product.image ? (
+                        <ProductThumb src={product.image} />
+                      ) : null}
+                    </span>
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-[#2f2924]">{product.name}</p>
+                      {product.sku ? (
+                        <p className="mt-0.5 truncate font-mono text-xs text-[#2f2924]/45">
+                          {product.sku}
+                        </p>
+                      ) : null}
+                      <p className="mt-1 text-sm text-[#2f2924]/65">
+                        {product.category}
+                        {packagingLabel ? ` · ${packagingLabel}` : ""}
+                      </p>
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <span
+                          className={`inline-flex rounded-md px-2 py-1 text-xs font-semibold ${
+                            isInventoryAvailable(inventory)
+                              ? "bg-[#e8ebe2] text-[#5f6a49]"
+                              : "bg-[#fee2e2] text-[#b91c1c]"
+                          }`}
+                        >
+                          {inventoryLabel(inventory)}
+                        </span>
+                        {hasOverride || isCustom ? (
+                          <span className="text-xs text-[#75825B]">
+                            {isCustom ? "Vlastný produkt" : "Upravené lokálne"}
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {!isCustom ? (
+                      <Link
+                        href={productHref(product.slug)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-[#faf8f5] px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]"
+                      >
+                        <ExternalLink
+                          className="size-3.5"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
+                        Prejsť
+                      </Link>
+                    ) : null}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsCreating(false);
+                        setEditingId(product.id);
+                      }}
+                      className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-[#75825B] px-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                    >
+                      <Pencil
+                        className="size-3.5"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      Upraviť
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+
+      {/* Desktop table */}
+      <div className="hidden overflow-hidden rounded-2xl border border-black/6 bg-white md:block">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[760px] text-left text-[15px]">
             <thead className="border-b border-black/6 bg-white text-xs tracking-wide text-[#2f2924]/55 uppercase">
@@ -677,7 +772,7 @@ export function AdminProductsManager() {
       </div>
 
       {filtered.length === 0 ? (
-        <p className="mt-4 text-center text-sm text-[#2f2924]/55">
+        <p className="mt-4 hidden text-center text-sm text-[#2f2924]/55 md:block">
           Žiadne produkty pre zvolené filtre.
         </p>
       ) : null}
@@ -1128,7 +1223,7 @@ function ProductEditor({
           panelOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               {isNew ? "Nový produkt" : "Úprava produktu"}
@@ -1147,7 +1242,7 @@ function ProductEditor({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           <input
             ref={fileInputRef}
             type="file"
@@ -1404,7 +1499,7 @@ function ProductEditor({
           </div>
         </div>
 
-        <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-6 py-4">
+        <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
             {onDelete ? (
               <button

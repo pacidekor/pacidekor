@@ -81,7 +81,7 @@ export function AdminOrderDetail({
         aria-modal="true"
         aria-labelledby="order-detail-title"
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               Detail objednávky
@@ -113,7 +113,7 @@ export function AdminOrderDetail({
           </button>
         </div>
 
-        <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
             <section className="min-w-0 space-y-4">
               <div>
@@ -247,7 +247,7 @@ export function AdminOrderDetail({
         </div>
 
         {showPrint ? (
-          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-6 py-4">
+          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
             <button
               type="button"
               onClick={handlePrintLabel}

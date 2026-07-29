@@ -224,7 +224,7 @@ export function AdminDiscountsManager() {
         <button
           type="button"
           onClick={openCreate}
-          className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center gap-2 self-start rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto sm:self-start"
         >
           <Plus className="size-4" strokeWidth={2} aria-hidden />
           Pridať zľavu
@@ -232,8 +232,8 @@ export function AdminDiscountsManager() {
       </div>
 
       <div className="mt-5">
-        <div className="mb-4 flex flex-wrap items-center gap-3">
-          <div className="relative w-full min-w-0 max-w-md">
+        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+          <div className="relative w-full min-w-0 sm:max-w-md sm:flex-1">
             <Search
               className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
               aria-hidden
@@ -247,21 +247,19 @@ export function AdminDiscountsManager() {
             />
           </div>
 
-          <div className="ml-auto flex shrink-0 items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setFiltersOpen(true)}
-              className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40"
-            >
-              <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-              Filtrovať
-              {activeFilterCount > 0 ? (
-                <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
-                  {activeFilterCount}
-                </span>
-              ) : null}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setFiltersOpen(true)}
+            className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto"
+          >
+            <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
+            Filtrovať
+            {activeFilterCount > 0 ? (
+              <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
+                {activeFilterCount}
+              </span>
+            ) : null}
+          </button>
         </div>
 
         <section className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
@@ -781,7 +779,7 @@ function DiscountEditor({
         aria-modal="true"
         aria-labelledby="discount-editor-title"
       >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-6 py-4">
+        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
           <div className="min-w-0">
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               {isNew ? "Nová zľava" : "Úprava zľavy"}
@@ -807,7 +805,7 @@ function DiscountEditor({
           onSubmit={onSubmit}
           className="flex min-h-0 flex-1 flex-col"
         >
-          <div className="min-h-0 flex-1 overflow-y-auto px-6 py-5">
+          <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
             <div className="space-y-6">
               <div>
                 <p className="text-sm font-medium text-[#2f2924]">Produkt</p>
@@ -1032,7 +1030,7 @@ function DiscountEditor({
             </div>
           </div>
 
-          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-6 py-4">
+          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
             <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
               {onDelete ? (
                 <button

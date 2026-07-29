@@ -34,14 +34,19 @@ function formatTooltipDate(isoDate: string) {
 }
 
 function formatAxisEuro(value: number) {
-  return `${value.toLocaleString("sk-SK")} €`;
+  if (value >= 1000) {
+    const compact = Math.round(value / 100) / 10;
+    return `${compact.toLocaleString("sk-SK")}k`;
+  }
+  return value.toLocaleString("sk-SK");
 }
 
 export function RevenueChart({ data, className = "" }: RevenueChartProps) {
   return (
     <ChartContainer
       config={chartConfig}
-      className={`aspect-auto h-full min-h-[200px] w-full ${className}`}
+      className={`!aspect-auto h-[220px] w-full sm:h-[260px] ${className}`}
+      initialDimension={{ width: 320, height: 220 }}
     >
       <LineChart
         accessibilityLayer
@@ -67,10 +72,10 @@ export function RevenueChart({ data, className = "" }: RevenueChartProps) {
         <YAxis
           tickLine={false}
           axisLine={false}
-          width={56}
-          tickMargin={6}
+          width={48}
+          tickMargin={4}
           tickCount={5}
-          tick={{ fill: "rgba(47,41,36,0.45)", fontSize: 11 }}
+          tick={{ fill: "rgba(47,41,36,0.45)", fontSize: 10 }}
           tickFormatter={(value) => formatAxisEuro(Number(value))}
         />
         <ChartTooltip
