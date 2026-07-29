@@ -1,0 +1,528 @@
+[
+  {
+    "id": "001",
+    "name": "Vres fialový (previsnutý)",
+    "desc": "Umelý stonok s jemnými fialovými kvetmi a tenkými zelenými lístkami. Previsnutý tvar vhodný do vázy alebo ako doplnok do kytíc.",
+    "colors": [
+      "fialová"
+    ],
+    "colorDetails": [
+      "fialová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "002",
+    "name": "Ruže ružové – mini kytica",
+    "desc": "Zväzok drobných umelých ruží v prašnoružovej až lososovej farbe s bobuľkami a zelenými listami. Ideálne do menších váz.",
+    "colors": [
+      "prašnoružová / lososová"
+    ],
+    "colorDetails": [
+      "prašnoružová / lososová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "003",
+    "name": "Orchidea Phalaenopsis",
+    "desc": "Umelá orchidea so stonkom, otvorenými kvetmi a púčikmi. Dostupné vo viacerých farebných variantoch – ideálne do vázy alebo aranžmánov.",
+    "colors": [
+      "ružovobiela s magenta stredom",
+      "tmavo fialová",
+      "biela / krémová",
+      "limetkovo zelená",
+      "krémovožltá s magenta stredom",
+      "mix farieb (skupinová fotka)"
+    ],
+    "colorDetails": [
+      "ružovobiela s magenta stredom [1,4,9,13,15,20]",
+      "tmavo fialová [2,12,16]",
+      "biela / krémová [3,10,11,19]",
+      "limetkovo zelená [5,8,18]",
+      "krémovožltá s magenta stredom [6,7,17]",
+      "mix farieb (skupinová fotka) [14]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "004",
+    "name": "Jazmínové kvety biele",
+    "desc": "Jemné biele päťokvetné kvety s jasne zelenými zúbkovanými listami. Vzdušný vzhľad vhodný do moderných aranžmánov.",
+    "colors": [
+      "biela"
+    ],
+    "colorDetails": [
+      "biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "005",
+    "name": "Zelený listový konár (lesklý)",
+    "desc": "Hustý umelý konár s oválnymi tmavozelenými listami a hnedým stonkom. Dekoračná zeleň do vázy alebo aranžmánov.",
+    "colors": [
+      "tmavozelená"
+    ],
+    "colorDetails": [
+      "tmavozelená"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "006",
+    "name": "Zeleň so zúbkovanými listami",
+    "desc": "Umelé stonky s drobnými zelenými listami so zúbkovaným okrajom. Neutrálna zeleň vhodná ako výplň do kytíc.",
+    "colors": [
+      "zelená"
+    ],
+    "colorDetails": [
+      "zelená"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "007",
+    "name": "Ginkgo žlté – jeseň",
+    "desc": "Umelý konár s výraznými vejárovými listami v sýtej žltej farbe. Jeseňný dekoratívny doplnok.",
+    "colors": [
+      "žltá"
+    ],
+    "colorDetails": [
+      "žltá"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "008",
+    "name": "Brečtan pestrobarevný",
+    "desc": "Umelý previsnutý brečtan s tmavozeleným stredom listov a krémovo-bielym okrajom. Ideálny na zavesenie alebo do mís.",
+    "colors": [
+      "zelená s krémovým okrajom"
+    ],
+    "colorDetails": [
+      "zelená s krémovým okrajom"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "009",
+    "name": "Listový konár tmavozelený",
+    "desc": "Umelý trojramenný konár s kopijovitými tmavozelenými listami a výraznou žilnatinou. Jednoduchá dekoratívna zeleň.",
+    "colors": [
+      "tmavozelená"
+    ],
+    "colorDetails": [
+      "tmavozelená"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "010",
+    "name": "Ruže červené – kytica",
+    "desc": "Zväzok umelých červených ruží s tmavozelenými listami. Klasická kytica vhodná do vázy alebo ako darčekový dekor.",
+    "colors": [
+      "červená"
+    ],
+    "colorDetails": [
+      "červená"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "011",
+    "name": "Pivónie biele – kytica",
+    "desc": "Plné biele umelé pivónie so zelenými listami a jemnými hnedočervenými doplnkami. Elegantný vzhľad do moderného interiéru.",
+    "colors": [
+      "biela"
+    ],
+    "colorDetails": [
+      "biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "012",
+    "name": "Pivónie a hortenzie biele",
+    "desc": "Kombinovaná biela kytica s veľkými pivóniami a hustými klastromi pripomínajúcimi hortenzie. Svadobný a sviatočný dekor.",
+    "colors": [
+      "biela"
+    ],
+    "colorDetails": [
+      "biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "013",
+    "name": "Dálie / chryzantémy",
+    "desc": "Husté viackveté hlavy so zelenými listami a jemnými bielymi doplnkami. Dostupné vo viacerých farbách.",
+    "colors": [
+      "bordová / vínová",
+      "prašnoružová / broskyňová"
+    ],
+    "colorDetails": [
+      "bordová / vínová [1,2,3,4,5,6]",
+      "prašnoružová / broskyňová [7]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "014",
+    "name": "Dálie / chryzantémy",
+    "desc": "Umelé kvety s hustými špicatými okvetnými lístkami a zelenými listami. Široká škála farebných variantov.",
+    "colors": [
+      "biela",
+      "prašnoružová / mauve",
+      "krémová s ružovým stredom",
+      "mix farieb: biela, ružová, krémová, meruňková, fialová, staroružová"
+    ],
+    "colorDetails": [
+      "biela [1]",
+      "prašnoružová / mauve [3]",
+      "krémová s ružovým stredom [9,13]",
+      "mix farieb: biela, ružová, krémová, meruňková, fialová, staroružová [7]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "015",
+    "name": "Vresovo-levanduľový stonok",
+    "desc": "Jemný stonok s drobnými fialovobielymi kvetmi so žltým stredom a ihlovitými listami. Vzdušný doplnok do kytíc.",
+    "colors": [
+      "fialovobiela"
+    ],
+    "colorDetails": [
+      "fialovobiela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "016",
+    "name": "Drobné kvety – zhluk (hortenziový typ)",
+    "desc": "Zhluk drobných kvetov so zelenými zúbkovanými listami a jemnými hnedými prvkami. Dostupné vo viacerých farbách.",
+    "colors": [
+      "horčicovo žltá / oranžová",
+      "starozelená / antique green",
+      "biela"
+    ],
+    "colorDetails": [
+      "horčicovo žltá / oranžová [1]",
+      "starozelená / antique green [7]",
+      "biela [13]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "017",
+    "name": "Hortenzia biela",
+    "desc": "Umelá biela hortenzia s hustými klastromi drobných kvetov a realistickými zelenými listami. Klasika do vázy aj aranžmánov.",
+    "colors": [
+      "biela"
+    ],
+    "colorDetails": [
+      "biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "018",
+    "name": "Vres / Erica – jemný zväzok",
+    "desc": "Hustý zväzok jemných drobných kvetov. Soft dekor vhodný ako výplň do kytíc. Dostupné vo farebných variantoch.",
+    "colors": [
+      "staroružová / korálová",
+      "krémovo-zelenkavá"
+    ],
+    "colorDetails": [
+      "staroružová / korálová [1,4]",
+      "krémovo-zelenkavá [7]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "019",
+    "name": "Magnólia / clematis – zväzok",
+    "desc": "Zväzok otvorených bielych kvetov s jemnou ružovou žilnatinou a zelenými púčikmi. Romantický dekoračný zväzok.",
+    "colors": [
+      "biela s ružovou žilnatinou"
+    ],
+    "colorDetails": [
+      "biela s ružovou žilnatinou"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "020",
+    "name": "Delphinium krémovožlté",
+    "desc": "Vysoký klasovitý stonok s hustými bledými krémovožltými kvetmi a zelenými listami. Vhodný do vysokých váz.",
+    "colors": [
+      "krémovožltá"
+    ],
+    "colorDetails": [
+      "krémovožltá"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "021",
+    "name": "Orchidea Cymbidium",
+    "desc": "Umelé orchidey so stonkami a púčikmi. Výrazné farebné a vzorované varianty.",
+    "colors": [
+      "ružovobiela so žíhaním",
+      "zelená s vínovým tečkovaním"
+    ],
+    "colorDetails": [
+      "ružovobiela so žíhaním [1,5]",
+      "zelená s vínovým tečkovaním [10]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "022",
+    "name": "Žlté drobné kvety na konári",
+    "desc": "Tenký konár so žltými kvetovými zhlukmi a drobnými zelenými listami. Minimalistický jarný dekor.",
+    "colors": [
+      "žltá"
+    ],
+    "colorDetails": [
+      "žltá"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "023",
+    "name": "Ihlicovitá zeleň s broskyňovými púčikmi",
+    "desc": "Umelé stonky s jemnými zelenými ihlami a broskyňovo-ružovými bobuľovými púčikmi. Soft boho dekor.",
+    "colors": [
+      "zelená s broskyňovými púčikmi"
+    ],
+    "colorDetails": [
+      "zelená s broskyňovými púčikmi"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "024",
+    "name": "Pivónie krémové so zelenou a bordó výplňou",
+    "desc": "Krémové plné kvety so zelenými listami a bordovými jemnými doplnkami. Elegantný zväzok do moderných váz.",
+    "colors": [
+      "krémová so zelenou a bordó výplňou"
+    ],
+    "colorDetails": [
+      "krémová so zelenou a bordó výplňou"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "025",
+    "name": "Zelenobiely zväzok (mix zeleně)",
+    "desc": "Kompaktný zväzok bielych drobných kvetov, zelených guličiek a listov (eucalyptus / sukulentný typ). Ideálny ako výplň.",
+    "colors": [
+      "zelenobiela"
+    ],
+    "colorDetails": [
+      "zelenobiela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "026",
+    "name": "Zelenobiely mix do vázy",
+    "desc": "Mix mätovozelených guľovitých hláv, bielych klastrov a listovej zelene. Svadobný a interiérový dekor.",
+    "colors": [
+      "mätovozelená / biela"
+    ],
+    "colorDetails": [
+      "mätovozelená / biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "027",
+    "name": "Biele kvety so žltým stredom",
+    "desc": "Zväzok drobných bielych kvetov so žltým stredom, zelenými púčikmi a srdcovitými listami. Svetlý jarný dekor.",
+    "colors": [
+      "biela so žltým stredom"
+    ],
+    "colorDetails": [
+      "biela so žltým stredom"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "028",
+    "name": "Krémové drobné kvety (rustikál)",
+    "desc": "Jemné krémové kvety s prašnozelenými listami. Rustikálny / vintage vzhľad vhodný do prírodných aranžmánov.",
+    "colors": [
+      "krémová"
+    ],
+    "colorDetails": [
+      "krémová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "029",
+    "name": "Ruže krémové – konár (5 kvetov)",
+    "desc": "Umelý konár s piatimi krémovými ružami a realistickými listami. Elegantný stonok do vysokých váz.",
+    "colors": [
+      "krémová"
+    ],
+    "colorDetails": [
+      "krémová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "030",
+    "name": "Allium / scabiosa – guľovité hlavy",
+    "desc": "Štyri guľovité hlavy so zúbkovanými zelenými listami. Soft moderný dekor vo viacerých farbách.",
+    "colors": [
+      "prašnoružová / mauve",
+      "zelená",
+      "krémovožltá / sírová"
+    ],
+    "colorDetails": [
+      "prašnoružová / mauve [1]",
+      "zelená [9]",
+      "krémovožltá / sírová [16]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "031",
+    "name": "Hviezdicové stonky limetkové",
+    "desc": "Tenké stonky s drobnými hviezdicovými kvetmi v limetkovo-krémovej farbe. Vzdušný výplňový dekor.",
+    "colors": [
+      "limetkovo-krémová"
+    ],
+    "colorDetails": [
+      "limetkovo-krémová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "032",
+    "name": "Zelené drobné zhluky (filler)",
+    "desc": "Vetvičky s hustými limetkovozelenými drobnými lístkami/púčikmi. Výplňová zeleň do kytíc.",
+    "colors": [
+      "limetkovozelená"
+    ],
+    "colorDetails": [
+      "limetkovozelená"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "033",
+    "name": "Achillea / yarrow – levanduľová",
+    "desc": "Vysoký stonok s dáždnikovými zhlukmi drobných prašnofialových kvetov. Suchý / rustikálny vzhľad.",
+    "colors": [
+      "prašnofialová / levanduľová"
+    ],
+    "colorDetails": [
+      "prašnofialová / levanduľová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "034",
+    "name": "Krémové pompony so zelenými doplnkami",
+    "desc": "Krémové guľovité kvety so zelenými ostnatými doplnkami a listami. Svadobný a sviatočný dekor.",
+    "colors": [
+      "krémová"
+    ],
+    "colorDetails": [
+      "krémová"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "035",
+    "name": "Gypsophila (nevestin závoj)",
+    "desc": "Klasický umelý stonok gypsophily s drobnými kvetmi. Univerzálna výplň do kytíc a váz. Dostupné vo farebných variantoch.",
+    "colors": [
+      "biela",
+      "svetloružová",
+      "svetloružová / levanduľová"
+    ],
+    "colorDetails": [
+      "biela [1]",
+      "svetloružová [7]",
+      "svetloružová / levanduľová [13]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "036",
+    "name": "Mak",
+    "desc": "Umelé maky so zelenými stredmi, púčikmi a listami. Výrazný farebný akcent do aranžmánov.",
+    "colors": [
+      "červená",
+      "tmavo bordová / vínová"
+    ],
+    "colorDetails": [
+      "červená [1,5]",
+      "tmavo bordová / vínová [10]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "037",
+    "name": "Delphinium / stračonôžka biela",
+    "desc": "Vysoký klasovitý stonok s hustými bielymi kvetmi a zelenými púčikmi na vrchole. Elegantný do vysokých váz.",
+    "colors": [
+      "biela"
+    ],
+    "colorDetails": [
+      "biela"
+    ],
+    "hasColorVariants": false
+  },
+  {
+    "id": "038",
+    "name": "Hyacint",
+    "desc": "Umelý hyacint s hustým klasom drobných zvončekovitých kvetov a zelenými listami. Jarný dekor vo viacerých farbách.",
+    "colors": [
+      "biela / krémová",
+      "fialovomodrá / levanduľová",
+      "žltá",
+      "ružová"
+    ],
+    "colorDetails": [
+      "biela / krémová [1]",
+      "fialovomodrá / levanduľová [5]",
+      "žltá [9]",
+      "ružová [17]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "039",
+    "name": "Drobné kvety na konári (waxflower typ)",
+    "desc": "Mix jemných drobných kvetov na konári. Boho / jesenný aranžmán. Dostupné vo farebných variantoch.",
+    "colors": [
+      "bordová / vínová",
+      "staroružová / terra",
+      "krémová / biela"
+    ],
+    "colorDetails": [
+      "bordová / vínová [1,10]",
+      "staroružová / terra [1]",
+      "krémová / biela [1,5]"
+    ],
+    "hasColorVariants": true
+  },
+  {
+    "id": "040",
+    "name": "Gladiola biela – zväzok",
+    "desc": "Umelá biela gladiola s otvorenými kvetmi so žltým stredom a zelenými púčikmi. Klasický vysoký stonok.",
+    "colors": [
+      "biela so žltým stredom"
+    ],
+    "colorDetails": [
+      "biela so žltým stredom"
+    ],
+    "hasColorVariants": false
+  }
+]

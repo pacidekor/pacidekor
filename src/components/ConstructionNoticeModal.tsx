@@ -6,6 +6,9 @@ import Link from "next/link";
 import { fetchClientCustomer } from "@/lib/client-auth";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 
+/** Dočasně vypnuté pro prezentaci klientovi. Zapnout znovu: true */
+export const SHOW_CONSTRUCTION_NOTICE = false;
+
 function ToolsIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -36,6 +39,8 @@ export function ConstructionNoticeModal() {
   const [isWholesalePartner, setIsWholesalePartner] = useState(false);
 
   useEffect(() => {
+    if (!SHOW_CONSTRUCTION_NOTICE) return;
+
     let cancelled = false;
 
     async function show() {
@@ -70,6 +75,7 @@ export function ConstructionNoticeModal() {
     }, 220);
   }
 
+  if (!SHOW_CONSTRUCTION_NOTICE) return null;
   if (!mounted || !open || typeof document === "undefined") return null;
 
   return createPortal(

@@ -22,6 +22,7 @@ export default function SiteLayout({
       </div>
       <Footer />
       <ChatFab />
+      {/* Construction notice: vypnuto přes SHOW_CONSTRUCTION_NOTICE v ConstructionNoticeModal.tsx */}
       <ConstructionNoticeModal />
     </>
   );
