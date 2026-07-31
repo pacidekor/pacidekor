@@ -1,6 +1,13 @@
 "use client";
 
 import { useLayoutEffect, useSyncExternalStore } from "react";
+import type { ProductDiscount } from "@/lib/discounts";
+import { applyDiscountsToProducts } from "@/lib/discounts";
+import {
+  getDiscountsSnapshot,
+  setDiscountsSnapshot,
+  subscribeDiscounts,
+} from "@/lib/discount-store";
 import type { Product } from "@/lib/products";
 import {
   getProductCatalog,
@@ -10,17 +17,26 @@ import {
 
 export function ProductCatalogProvider({
   products,
+  discounts = [],
   children,
 }: {
   products: Product[];
+  discounts?: ProductDiscount[];
   children: React.ReactNode;
 }) {
-  // Keep the in-memory catalog in sync before paint when possible.
-  // Consumers (e.g. Akcia) must also subscribe — child effects can still
-  // run before this layout effect on first mount.
   useLayoutEffect(() => {
-    setProductCatalog(products);
-  }, [products]);
+    setDiscountsSnapshot(discounts);
+  }, [discounts]);
+
+  const liveDiscounts = useSyncExternalStore(
+    subscribeDiscounts,
+    getDiscountsSnapshot,
+    () => discounts,
+  );
+
+  useLayoutEffect(() => {
+    setProductCatalog(applyDiscountsToProducts(products, liveDiscounts));
+  }, [products, liveDiscounts]);
 
   return children;
 }
@@ -30,5 +46,13 @@ export function useProductCatalog() {
     subscribeProductCatalog,
     getProductCatalog,
     () => [] as Product[],
+  );
+}
+
+export function useDiscounts() {
+  return useSyncExternalStore(
+    subscribeDiscounts,
+    getDiscountsSnapshot,
+    () => [] as ProductDiscount[],
   );
 }

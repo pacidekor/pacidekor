@@ -20,10 +20,14 @@ import {
 } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
+  deleteDiscountAction,
+  setDiscountActiveAction,
+  upsertDiscountAction,
+} from "@/lib/actions/discounts";
+import {
   DISCOUNT_STATUS_META,
   computePercent,
   computeSalePrice,
-  createDiscountId,
   formatDiscountValidity,
   getDiscountStatus,
   getProductBasePrice,
@@ -145,58 +149,53 @@ export function AdminDiscountsManager() {
     setSelectedId(null);
   }
 
-  function saveDiscount(next: Omit<ProductDiscount, "id" | "createdAt" | "updatedAt"> & {
+  async function saveDiscount(next: Omit<ProductDiscount, "id" | "createdAt" | "updatedAt"> & {
     id?: string;
   }) {
-    const now = new Date().toISOString();
+    const result = await upsertDiscountAction({
+      id: creating || !next.id ? undefined : next.id,
+      productId: next.productId,
+      originalPrice: next.originalPrice,
+      salePrice: next.salePrice,
+      discountPercent: next.discountPercent,
+      showOnAkciaPage: next.showOnAkciaPage,
+      active: next.active,
+      startsAt: next.startsAt,
+      endsAt: next.endsAt,
+    });
 
-    if (creating || !next.id) {
-      const created: ProductDiscount = {
-        ...next,
-        id: createDiscountId(),
-        createdAt: now,
-        updatedAt: now,
-      };
-      persist([created, ...list]);
-      flashSaved();
-      closeEditor();
+    if (!result.ok) {
+      window.alert(result.error);
       return;
     }
 
-    persist(
-      list.map((item) =>
-        item.id === next.id
-          ? {
-              ...item,
-              ...next,
-              id: item.id,
-              createdAt: item.createdAt,
-              updatedAt: now,
-            }
-          : item,
-      ),
+    const saved = result.data;
+    const withoutProduct = list.filter(
+      (item) => item.productId !== saved.productId && item.id !== saved.id,
     );
+    persist([saved, ...withoutProduct]);
     flashSaved();
     closeEditor();
   }
 
-  function endDiscount(id: string) {
-    const now = new Date().toISOString();
+  async function endDiscount(id: string) {
+    const result = await setDiscountActiveAction(id, false);
+    if (!result.ok) {
+      window.alert(result.error);
+      return;
+    }
     persist(
-      list.map((item) =>
-        item.id === id
-          ? {
-              ...item,
-              active: false,
-              updatedAt: now,
-            }
-          : item,
-      ),
+      list.map((item) => (item.id === id ? result.data : item)),
     );
     flashSaved();
   }
 
-  function deleteDiscount(id: string) {
+  async function deleteDiscount(id: string) {
+    const result = await deleteDiscountAction(id);
+    if (!result.ok) {
+      window.alert(result.error);
+      return;
+    }
     persist(list.filter((item) => item.id !== id));
     flashSaved();
     closeEditor();
@@ -523,7 +522,7 @@ function DiscountEditor({
     next: Omit<ProductDiscount, "id" | "createdAt" | "updatedAt"> & {
       id?: string;
     },
-  ) => void;
+  ) => void | Promise<void>;
   onDelete?: () => void;
   onEnd?: () => void;
 }) {
@@ -534,6 +533,7 @@ function DiscountEditor({
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [discardOpen, setDiscardOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [productQuery, setProductQuery] = useState("");
@@ -735,11 +735,16 @@ function DiscountEditor({
     };
   }
 
-  function saveAndClose() {
-    if (exiting) return;
+  async function saveAndClose() {
+    if (exiting || saving) return;
     const payload = buildPayload();
     if (!payload) return;
-    onSave(payload);
+    setSaving(true);
+    try {
+      await onSave(payload);
+    } finally {
+      setSaving(false);
+    }
   }
 
   function confirmDelete() {
@@ -1059,7 +1064,7 @@ function DiscountEditor({
               ) : null}
               <button
                 type="submit"
-                disabled={!canSave || exiting}
+                disabled={!canSave || exiting || saving}
                 className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
               >
                 Uložiť
@@ -1096,7 +1101,7 @@ function DiscountEditor({
                 <button
                   type="button"
                   onClick={saveAndClose}
-                  disabled={!canSave || exiting}
+                  disabled={!canSave || exiting || saving}
                   className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   Uložiť zmeny

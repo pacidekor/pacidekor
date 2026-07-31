@@ -7,6 +7,7 @@ import {
   getAkciaProducts,
   readDiscounts,
 } from "@/lib/discounts";
+import { subscribeDiscounts } from "@/lib/discount-store";
 import type { Product } from "@/lib/products";
 
 export function useAkciaProducts() {
@@ -19,16 +20,15 @@ export function useAkciaProducts() {
     }
 
     onDiscountsChanged();
+    const unsubscribe = subscribeDiscounts(onDiscountsChanged);
     window.addEventListener(DISCOUNTS_EVENT, onDiscountsChanged);
-    window.addEventListener("storage", onDiscountsChanged);
     return () => {
+      unsubscribe();
       window.removeEventListener(DISCOUNTS_EVENT, onDiscountsChanged);
-      window.removeEventListener("storage", onDiscountsChanged);
     };
   }, []);
 
   return useMemo((): Product[] => {
-    // Re-run when catalog hydrates from ProductCatalogProvider
     if (catalog.length === 0) return [];
     void discountTick;
     return getAkciaProducts(readDiscounts());

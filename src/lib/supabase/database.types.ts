@@ -107,6 +107,38 @@ export type ProductInsert = {
 
 export type ProductUpdate = Partial<Omit<ProductInsert, "id">>;
 
+export type ProductDiscountRow = {
+  id: string;
+  product_id: string;
+  original_price: string;
+  sale_price: string;
+  discount_percent: number;
+  show_on_akcia_page: boolean;
+  active: boolean;
+  starts_at: string | null;
+  ends_at: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ProductDiscountInsert = {
+  id?: string;
+  product_id: string;
+  original_price: string;
+  sale_price: string;
+  discount_percent: number;
+  show_on_akcia_page?: boolean;
+  active?: boolean;
+  starts_at?: string | null;
+  ends_at?: string | null;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type ProductDiscountUpdate = Partial<
+  Omit<ProductDiscountInsert, "id">
+>;
+
 export type Database = {
   public: {
     Tables: {
@@ -120,6 +152,12 @@ export type Database = {
         Row: ProductRow;
         Insert: ProductInsert;
         Update: ProductUpdate;
+        Relationships: [];
+      };
+      product_discounts: {
+        Row: ProductDiscountRow;
+        Insert: ProductDiscountInsert;
+        Update: ProductDiscountUpdate;
         Relationships: [];
       };
     };

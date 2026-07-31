@@ -1,11 +1,15 @@
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
+  getDiscountsSnapshot,
+  setDiscountsSnapshot,
+  DISCOUNTS_EVENT,
+} from "@/lib/discount-store";
+import {
   findCatalogProductById,
 } from "@/lib/product-catalog";
 import type { Product } from "@/lib/products";
 
-export const DISCOUNTS_STORAGE_KEY = "pacidekor.admin.discounts";
-export const DISCOUNTS_EVENT = "pacidekor:discounts-changed";
+export { DISCOUNTS_EVENT };
 
 export type DiscountStatus = "active" | "inactive" | "scheduled" | "expired";
 
@@ -49,40 +53,14 @@ export function seedDiscounts(): ProductDiscount[] {
   return [];
 }
 
-function isValidDiscount(value: unknown): value is ProductDiscount {
-  if (!value || typeof value !== "object") return false;
-  const item = value as ProductDiscount;
-  return (
-    typeof item.id === "string" &&
-    typeof item.productId === "string" &&
-    typeof item.originalPrice === "string" &&
-    typeof item.salePrice === "string" &&
-    typeof item.discountPercent === "number" &&
-    typeof item.showOnAkciaPage === "boolean" &&
-    typeof item.active === "boolean" &&
-    typeof item.createdAt === "string" &&
-    typeof item.updatedAt === "string"
-  );
-}
-
+/** Current discounts from the in-memory store (hydrated from Supabase). */
 export function readDiscounts(): ProductDiscount[] {
-  if (typeof window === "undefined") return seedDiscounts();
-  try {
-    const raw = window.localStorage.getItem(DISCOUNTS_STORAGE_KEY);
-    if (!raw) return seedDiscounts();
-    const parsed = JSON.parse(raw) as unknown;
-    if (!Array.isArray(parsed)) return seedDiscounts();
-    const valid = parsed.filter(isValidDiscount);
-    return valid.length > 0 ? valid : seedDiscounts();
-  } catch {
-    return seedDiscounts();
-  }
+  return getDiscountsSnapshot();
 }
 
+/** Update client snapshot after a successful server write. */
 export function writeDiscounts(list: ProductDiscount[]) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(DISCOUNTS_STORAGE_KEY, JSON.stringify(list));
-  window.dispatchEvent(new Event(DISCOUNTS_EVENT));
+  setDiscountsSnapshot(list);
 }
 
 export function startOfDay(isoDate: string) {
