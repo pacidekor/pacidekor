@@ -1,10 +1,14 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import { getProductsBySlugs, novinkySlugs } from "@/lib/products";
+import { getNewestProducts } from "@/lib/products";
+import { listProducts } from "@/lib/products-server";
 
-export function NovinkySection() {
-  const products = getProductsBySlugs(novinkySlugs);
+export async function NovinkySection() {
+  const all = await listProducts();
+  const products = getNewestProducts(all, 5);
+
+  if (products.length === 0) return null;
 
   return (
     <section className="mt-14 w-full">

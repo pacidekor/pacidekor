@@ -20,7 +20,7 @@ import {
   pendingOrdersForDashboard,
   recentOrdersForDashboard,
 } from "@/lib/orders";
-import { products } from "@/lib/products";
+import { listProducts } from "@/lib/products-server";
 
 export const dynamic = "force-dynamic";
 
@@ -69,14 +69,6 @@ const stats: {
 
 const pendingOrders = pendingOrdersForDashboard();
 const recentOrders = recentOrdersForDashboard(3);
-
-const topProducts = [
-  { slug: products[0].slug, name: products[0].name, image: products[0].image, sold: 48, revenue: "907 €" },
-  { slug: products[1].slug, name: products[1].name, image: products[1].image, sold: 36, revenue: "788 €" },
-  { slug: products[4].slug, name: products[4].name, image: products[4].image, sold: 29, revenue: "435 €" },
-  { slug: products[2].slug, name: products[2].name, image: products[2].image, sold: 24, revenue: "502 €" },
-  { slug: products[3].slug, name: products[3].name, image: products[3].image, sold: 21, revenue: "189 €" },
-];
 
 /** Mock tržby za posledných 30 dní (vrátane dneška) - peak okolo pred týždňom. */
 const revenueValues = [
@@ -148,6 +140,16 @@ function OrderRow({
 
 export default async function AdminPage() {
   const pendingWholesaleCount = await countPendingWholesaleRegistrations();
+  const catalog = await listProducts();
+  const mockSold = [48, 36, 29, 24, 21];
+  const mockRevenue = ["907 €", "788 €", "435 €", "502 €", "189 €"];
+  const topProducts = catalog.slice(0, 5).map((product, index) => ({
+    slug: product.slug,
+    name: product.name,
+    image: product.image,
+    sold: mockSold[index] ?? 0,
+    revenue: mockRevenue[index] ?? "0 €",
+  }));
   const revenueTotal = revenueData.reduce((sum, d) => sum + d.value, 0);
 
   const attentionItems: {

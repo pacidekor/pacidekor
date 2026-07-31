@@ -55,7 +55,7 @@ import {
   getOrderHistoryForCustomerEmail,
   type Order,
 } from "@/lib/orders";
-import { products } from "@/lib/products";
+import { getProductCatalog } from "@/lib/product-catalog";
 
 const fieldClass =
   "h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -892,7 +892,7 @@ function TemplatesSection({
 
   function addItem() {
     if (!addProductId) return;
-    const product = products.find((p) => p.id === addProductId);
+    const product = getProductCatalog().find((p) => p.id === addProductId);
     if (!product) return;
     setDraftItems((prev) => {
       if (prev.some((item) => item.productId === product.id)) return prev;
@@ -938,7 +938,7 @@ function TemplatesSection({
     <div className="space-y-3">
       {templates.map((template) => {
         const isEditing = editingId === template.id;
-        const availableProducts = products.filter(
+        const availableProducts = getProductCatalog().filter(
           (product) =>
             !draftItems.some((item) => item.productId === product.id),
         );

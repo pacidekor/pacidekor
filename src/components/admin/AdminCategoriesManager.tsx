@@ -14,65 +14,17 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { categoryList, toSlug } from "@/lib/navigation";
-import { subcategories as seedSubcategories } from "@/lib/taxonomy";
-import { products } from "@/lib/products";
+import { toSlug } from "@/lib/navigation";
+import {
+  type AdminCategory,
+  type AdminCategoriesStore,
+  type AdminSubcategory,
+  readAdminCategoriesStore,
+  seedAdminCategoriesStore,
+  writeAdminCategoriesStore,
+} from "@/lib/admin-categories-store";
+import { getProductCatalog } from "@/lib/product-catalog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
-
-const STORAGE_KEY = "pacidekor.admin.categories";
-
-type AdminCategory = {
-  id: string;
-  label: string;
-  image?: string;
-  description?: string;
-};
-
-type AdminSubcategory = {
-  id: string;
-  label: string;
-  categoryId: string;
-};
-
-type CategoriesStore = {
-  categories: AdminCategory[];
-  subcategories: AdminSubcategory[];
-};
-
-function seedStore(): CategoriesStore {
-  return {
-    categories: categoryList.map((category) => ({
-      id: category.slug,
-      label: category.label,
-      image: category.image,
-      description: category.description,
-    })),
-    subcategories: seedSubcategories.map((sub) => ({
-      id: sub.id,
-      label: sub.label,
-      categoryId: toSlug(sub.category),
-    })),
-  };
-}
-
-function readStore(): CategoriesStore {
-  if (typeof window === "undefined") return seedStore();
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return seedStore();
-    const parsed = JSON.parse(raw) as CategoriesStore;
-    if (!Array.isArray(parsed.categories) || !Array.isArray(parsed.subcategories)) {
-      return seedStore();
-    }
-    return parsed;
-  } catch {
-    return seedStore();
-  }
-}
-
-function writeStore(store: CategoriesStore) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
-}
 
 function uniqueId(label: string, existing: string[]) {
   const base = toSlug(label) || "polozka";
@@ -83,11 +35,12 @@ function uniqueId(label: string, existing: string[]) {
 }
 
 function productCountForCategory(label: string) {
-  return products.filter((product) => product.category === label).length;
+  return getProductCatalog().filter((product) => product.category === label)
+    .length;
 }
 
 export function AdminCategoriesManager() {
-  const [store, setStore] = useState<CategoriesStore>(seedStore);
+  const [store, setStore] = useState<AdminCategoriesStore>(seedAdminCategoriesStore);
   const [hydrated, setHydrated] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -95,7 +48,7 @@ export function AdminCategoriesManager() {
   const [savedFlash, setSavedFlash] = useState(false);
 
   useEffect(() => {
-    setStore(readStore());
+    setStore(readAdminCategoriesStore());
     setHydrated(true);
   }, []);
 
@@ -117,11 +70,10 @@ export function AdminCategoriesManager() {
     });
   }, [query, store]);
 
-  function persist(next: CategoriesStore) {
+  function persist(next: AdminCategoriesStore) {
     setStore(next);
-    writeStore(next);
+    writeAdminCategoriesStore(next);
   }
-
   function openCreate() {
     setCreating(true);
     setSelectedId(null);

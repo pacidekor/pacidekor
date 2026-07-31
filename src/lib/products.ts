@@ -1,4 +1,10 @@
-import type { ProductAttributes } from "@/lib/taxonomy";
+import type { ProductAttributes, TaxonomyValue } from "@/lib/taxonomy";
+import { filterColors, getFilterColorById } from "@/lib/taxonomy";
+import type {
+  PackagingJson,
+  ProductDetailJson,
+  ProductRow,
+} from "@/lib/supabase/database.types";
 
 export type ProductDetail = {
   title: string;
@@ -9,6 +15,8 @@ export type ProductColor = {
   id: string;
   label: string;
   hex: string;
+  /** Second half for split / dual-tone swatches (e.g. pink–white). */
+  hexSecondary?: string;
 };
 
 export type Product = {
@@ -28,24 +36,17 @@ export type Product = {
   subcategoryId?: string;
   attributes?: ProductAttributes;
   colors?: ProductColor[];
+  /** colorId → 0-based indexes into getProductGallery(product) */
+  colorImageMap?: Record<string, number[]>;
   details: ProductDetail[];
   /** Seed availability – live stock is tracked in inventory storage. */
   inStock?: boolean;
   stockQuantity?: number;
 };
 
-const flowerDetails = (
-  material: string,
-  usage: string,
-): ProductDetail[] => [
-  {
-    title: "Materiál",
-    content: material,
-  },
-  {
-    title: "Použitie",
-    content: usage,
-  },
+export const DEFAULT_PRODUCT_DETAILS: ProductDetail[] = [
+  { title: "Materiál", content: "" },
+  { title: "Použitie", content: "" },
   {
     title: "Doprava",
     content:
@@ -53,209 +54,405 @@ const flowerDetails = (
   },
 ];
 
-export const products: Product[] = [
-  {
-    id: "1",
-    slug: "kytica-cerveny-ruzi",
-    name: "Kytica červených ruží",
-    description:
-      "Hutná kytica realistických umelých červených ruží s tmavozelenými listami. Bohatý objem a sýta farba - ideálna do vázy, výkladu aj svadobných dekorácií.",
-    price: "18,90 €",
-    image: "/produkty_new/1.jpg",
-    hoverImage: "/produkty_new/1_2.jpg",
-    extraImages: ["/produkty_new/1_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "ruze",
-    inStock: true,
-    attributes: { colors: ["cervena"], packaging: [{ id: "krabica", pieces: 24 }] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "2",
-    slug: "kytica-bielych-pivonii",
-    name: "Kytica bielych pivónií",
-    description:
-      "Romantická kytica umelých bielych pivónií s bohatými okvetnými lístkami a zeleným lístím. Jemná, luxusná a vždy svieža - ideálna do vázy aj svadobných aranžmánov.",
-    price: "21,90 €",
-    image: "/produkty_new/2.jpg",
-    hoverImage: "/produkty_new/2_2.jpg",
-    extraImages: ["/produkty_new/2_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "pivonie",
-    attributes: { colors: ["biela"] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "3",
-    slug: "kytica-staroruzovych-ruzi",
-    name: "Kytica staroružových ruží",
-    description:
-      "Jemná kytica drobných umelých ruží v staroružovom odtieni s bobuľkami a zelenými listami. Vintage charakter, ktorý ladí do vázy aj romantických aranžmánov.",
-    price: "16,90 €",
-    image: "/produkty_new/3.jpg",
-    hoverImage: "/produkty_new/3_2.jpg",
-    extraImages: ["/produkty_new/3_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "ruze",
-    attributes: { colors: ["ruzova"] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "4",
-    slug: "umely-vres-fialovy",
-    name: "Umelý vres fialový",
-    description:
-      "Previsnutá vetvička umelého fialového vresu s drobnými kvetmi a jemným lístím. Ideálna výplň do aranžmánov, vencov aj do vázy - romantický, prírodný vzhľad bez údržby.",
-    price: "9,90 €",
-    image: "/produkty_new/4.jpg",
-    hoverImage: "/produkty_new/4_2.jpg",
-    extraImages: ["/produkty_new/4_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "vres",
-    inStock: true,
-    stockQuantity: 8,
-    attributes: { colors: ["fialova"], packaging: [{ id: "krabica", pieces: 24 }] },
-    details: flowerDetails(
-      "Drobné kvety a ihličkovité lístie z odolného plastu, ohybná stonka pre jednoduché tvarovanie.",
-      "Výplň do kytic, vencov, výkladov a celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "5",
-    slug: "kytica-zelene-s-bielymi-kvietkami",
-    name: "Kytica zelene s bielymi kvietkami",
-    description:
-      "Svieža umelá kytica zelene so sukulentmi, eukalyptom a drobnými bielymi kvietkami. Moderný, prírodný vzhľad - ideálna do vázy aj ako výplň do aranžmánov.",
-    price: "14,90 €",
-    image: "/produkty_new/5.jpg",
-    hoverImage: "/produkty_new/5_2.jpg",
-    extraImages: ["/produkty_new/5_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "zelen",
-    attributes: { colors: ["zelena", "biela"] },
-    details: flowerDetails(
-      "Listy a kvety z kvalitného plastu a textilu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, stolových dekorácií a moderných zelených aranžmánov.",
-    ),
-  },
-  {
-    id: "6",
-    slug: "kytica-staroruzovych-pivonii",
-    name: "Kytica staroružových pivónií",
-    description:
-      "Bohatá kytica umelých pivónií v staroružovom odtieni s plnými okvetnými lístkami. Romantická a luxusná - ideálna do vázy aj svadobných dekorácií.",
-    price: "17,90 €",
-    originalPrice: "24,90 €",
-    discount: 28,
-    image: "/akcie_new/1.jpg",
-    hoverImage: "/akcie_new/1_2.jpg",
-    extraImages: ["/akcie_new/1_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "pivonie",
-    inStock: true,
-    stockQuantity: 3,
-    attributes: { colors: ["ruzova"], packaging: [{ id: "krabica", pieces: 12 }, { id: "paleta", pieces: 240 }] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "7",
-    slug: "umely-eukalyptus-vetvicka",
-    name: "Umelý eukalyptus",
-    description:
-      "Zväzok umelého eukalyptu s okrúhlymi listami v sivozelenom odtieni. Prirodzený vzhľad - ideálna výplň do aranžmánov, vencov aj samostatne do vázy.",
-    price: "7,90 €",
-    originalPrice: "11,90 €",
-    discount: 34,
-    image: "/akcie_new/2.jpg",
-    hoverImage: "/akcie_new/2_2.jpg",
-    extraImages: ["/akcie_new/2_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "eukalyptus",
-    attributes: { colors: ["zelena", "seda"] },
-    details: flowerDetails(
-      "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
-      "Výplň do kytic, vencov, výkladov a moderných zelených aranžmánov.",
-    ),
-  },
-  {
-    id: "8",
-    slug: "umela-paprad",
-    name: "Umelá papraď",
-    description:
-      "Svieža umelá papraď s jemnými perovitými listami a realistickými závitkami. Bohatá zelená výplň do aranžmánov, vencov aj samostatne do vázy.",
-    price: "6,90 €",
-    originalPrice: "9,90 €",
-    discount: 30,
-    image: "/akcie_new/3.jpg",
-    hoverImage: "/akcie_new/3_2.jpg",
-    extraImages: ["/akcie_new/3_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "paprad",
-    attributes: { colors: ["zelena"] },
-    details: flowerDetails(
-      "Listy z odolného plastu s realistickou kresbou, ohybné stonky pre jednoduché tvarovanie.",
-      "Výplň do kytic, vencov, výkladov a zelených aranžmánov.",
-    ),
-  },
-  {
-    id: "9",
-    slug: "kytica-bordovych-dalii",
-    name: "Kytica bordových dálií",
-    description:
-      "Hutná kytica umelých bordových dálií s jemnými doplnkovými kvietkami a zeleným lístím. Bohatý objem a sýta farba - ideálna do vázy aj formálnych aranžmánov.",
-    price: "15,90 €",
-    originalPrice: "22,90 €",
-    discount: 31,
-    image: "/akcie_new/4.jpg",
-    hoverImage: "/akcie_new/4_2.jpg",
-    extraImages: ["/akcie_new/4_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "dalie",
-    inStock: true,
-    stockQuantity: 5,
-    attributes: { colors: ["cervena"] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-  {
-    id: "10",
-    slug: "kytica-ruzovych-pivonii",
-    name: "Kytica ružových pivónií",
-    description:
-      "Romantická kytica umelých pivónií v jemných ružových a broskyňových odtieňoch. Bohaté kvety s doplnkovými kvietkami - ideálna do vázy aj svadobných dekorácií.",
-    price: "18,90 €",
-    originalPrice: "26,90 €",
-    discount: 30,
-    image: "/akcie_new/5.jpg",
-    hoverImage: "/akcie_new/5_2.jpg",
-    extraImages: ["/akcie_new/5_3.jpg"],
-    category: "Umelé kvety",
-    subcategoryId: "pivonie",
-    inStock: false,
-    attributes: { colors: ["ruzova", "oranzova"] },
-    details: flowerDetails(
-      "Okvetné lístky z kvalitného textilu a plastu, stonky s ohybným drôtom pre jednoduché tvarovanie.",
-      "Vhodná do váz, výkladov, svadobných aranžmánov aj celoročných dekorácií.",
-    ),
-  },
-];
+export function colorsFromIds(colorIds: string[] | null | undefined): ProductColor[] {
+  if (!colorIds || colorIds.length === 0) return [];
 
-export function getProductBySlug(slug: string) {
-  return products.find((product) => product.slug === slug);
+  return colorIds.flatMap((id) => {
+    const custom = parseCustomColorId(id);
+    if (custom) return [custom];
+
+    const color = getFilterColorById(id);
+    if (!color?.hex) return [];
+    return [{ id: color.id, label: color.label, hex: color.hex }];
+  });
+}
+
+const CUSTOM_COLOR_PREFIX = "custom:";
+
+export function isCustomColorId(id: string) {
+  return id.startsWith(CUSTOM_COLOR_PREFIX);
+}
+
+export function encodeCustomColorId(
+  hex: string,
+  label: string,
+  hexSecondary?: string,
+) {
+  const primary = normalizeHex(hex).slice(1);
+  const secondary = hexSecondary
+    ? normalizeHex(hexSecondary).slice(1)
+    : null;
+  const cleanLabel =
+    label.trim() ||
+    (secondary
+      ? suggestSplitColorName(`#${primary}`, `#${secondary}`)
+      : suggestColorName(`#${primary}`));
+  const hexPart = secondary ? `${primary}-${secondary}` : primary;
+  return `${CUSTOM_COLOR_PREFIX}${hexPart}:${encodeURIComponent(cleanLabel)}`;
+}
+
+export function parseCustomColorId(id: string): ProductColor | null {
+  if (!isCustomColorId(id)) return null;
+  const raw = id.slice(CUSTOM_COLOR_PREFIX.length);
+  const sep = raw.indexOf(":");
+  if (sep === -1) return null;
+  const hexPart = raw.slice(0, sep);
+  const labelPart = raw.slice(sep + 1);
+  const label = decodeURIComponent(labelPart).trim();
+  if (!label) return null;
+
+  const splitMatch = /^([0-9a-fA-F]{6})-([0-9a-fA-F]{6})$/.exec(hexPart);
+  if (splitMatch) {
+    return {
+      id,
+      label,
+      hex: `#${splitMatch[1]!.toLowerCase()}`,
+      hexSecondary: `#${splitMatch[2]!.toLowerCase()}`,
+    };
+  }
+
+  if (!/^[0-9a-fA-F]{6}$/.test(hexPart)) return null;
+  return {
+    id,
+    label,
+    hex: `#${hexPart.toLowerCase()}`,
+  };
+}
+
+/** CSS for solid or vertical split swatches. */
+export function colorSwatchStyle(
+  color: Pick<ProductColor, "hex" | "hexSecondary">,
+): { backgroundColor?: string; backgroundImage?: string } {
+  if (color.hexSecondary) {
+    return {
+      backgroundImage: `linear-gradient(to right, ${color.hex} 50%, ${color.hexSecondary} 50%)`,
+    };
+  }
+  return { backgroundColor: color.hex };
+}
+
+export function suggestSplitColorName(hex: string, _hexSecondary?: string) {
+  // Split swatch stays visual-only — label is always the main (primary) color.
+  return suggestColorName(hex);
+}
+
+export function normalizeHex(hex: string) {
+  const value = hex.trim().replace(/^#/, "");
+  if (/^[0-9a-fA-F]{3}$/.test(value)) {
+    return `#${value
+      .split("")
+      .map((ch) => ch + ch)
+      .join("")
+      .toLowerCase()}`;
+  }
+  if (/^[0-9a-fA-F]{6}$/.test(value)) {
+    return `#${value.toLowerCase()}`;
+  }
+  return "#9a9a96";
+}
+
+function hexToRgb(hex: string): [number, number, number] {
+  const raw = normalizeHex(hex).slice(1);
+  return [
+    Number.parseInt(raw.slice(0, 2), 16),
+    Number.parseInt(raw.slice(2, 4), 16),
+    Number.parseInt(raw.slice(4, 6), 16),
+  ];
+}
+
+function hexToHsl(hex: string) {
+  const [r8, g8, b8] = hexToRgb(hex);
+  const r = r8 / 255;
+  const g = g8 / 255;
+  const b = b8 / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  if (max === min) return { h: 0, s: 0, l: l * 100 };
+
+  const d = max - min;
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  let h = 0;
+  switch (max) {
+    case r:
+      h = (g - b) / d + (g < b ? 6 : 0);
+      break;
+    case g:
+      h = (b - r) / d + 2;
+      break;
+    default:
+      h = (r - g) / d + 4;
+  }
+  h /= 6;
+  return { h: h * 360, s: s * 100, l: l * 100 };
+}
+
+type Hsl = { h: number; s: number; l: number };
+
+function hslDistance(a: Hsl, b: Hsl) {
+  let dh = Math.abs(a.h - b.h);
+  if (dh > 180) dh = 360 - dh;
+  // Hue only irrelevant when BOTH sides are near-gray
+  const chromatic = Math.max(a.s, b.s);
+  const hueWeight = chromatic < 18 ? 0.05 : chromatic < 35 ? 0.55 : 1;
+  return Math.sqrt(
+    (dh * hueWeight) ** 2 +
+      ((a.s - b.s) * 0.5) ** 2 +
+      ((a.l - b.l) * 1.05) ** 2,
+  );
+}
+
+/**
+ * Map any hex onto the basic filter palette (for search / category filters).
+ * Near-black → Sivá (there is no Čierna filter chip).
+ */
+export function nearestFilterColor(hex: string): {
+  color: TaxonomyValue;
+  distance: number;
+} {
+  const clean = normalizeHex(hex);
+  const sample = hexToHsl(clean);
+
+  const byId = (id: string) =>
+    filterColors.find((item) => item.id === id) ?? filterColors[0]!;
+
+  // Near-black neutrals → Sivá, never Hnedá
+  if (sample.l <= 18 && sample.s < 20) {
+    return { color: byId("seda"), distance: 0 };
+  }
+  // Near white
+  if (sample.l >= 92 && sample.s < 40) {
+    return { color: byId("biela"), distance: 0 };
+  }
+
+  let best = filterColors[0]!;
+  let bestDist = Number.POSITIVE_INFINITY;
+
+  for (const color of filterColors) {
+    if (!color.hex) continue;
+    // Don't let mid/dark browns steal near-black-ish neutrals via distance alone —
+    // handled above. Prefer Sivá over Hnedá for dark low-sat grays.
+    const dist = hslDistance(sample, hexToHsl(color.hex));
+    if (dist < bestDist) {
+      bestDist = dist;
+      best = color;
+    }
+  }
+
+  // Extra guard: very dark low-sat still wrongly near Hnedá → Sivá
+  if (
+    best.id === "hneda" &&
+    sample.s < 22 &&
+    sample.l < 28
+  ) {
+    return { color: byId("seda"), distance: bestDist };
+  }
+
+  return { color: best, distance: bestDist };
+}
+
+/**
+ * Suggested display name in the custom color picker.
+ * Can say „Čierna“ without adding Čierna as a filter variant.
+ */
+export function suggestColorName(hex: string) {
+  const sample = hexToHsl(normalizeHex(hex));
+  if (sample.l <= 18 && sample.s < 20) return "Čierna";
+  if (sample.l >= 92 && sample.s < 40) return "Biela";
+  return nearestFilterColor(hex).color.label;
+}
+
+/**
+ * Whether a product color id matches a catalog filter chip (e.g. fialova).
+ * Custom shades (svetlo fialová…) count toward their nearest basic group.
+ */
+export function productColorMatchesFilter(
+  productColorId: string,
+  filterColorId: string,
+) {
+  if (productColorId === filterColorId) return true;
+  const custom = parseCustomColorId(productColorId);
+  if (!custom) return false;
+  return nearestFilterColor(custom.hex).color.id === filterColorId;
+}
+
+function asPackaging(value: unknown): PackagingJson[] {
+  if (!Array.isArray(value)) return [];
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = item as PackagingJson;
+    if (typeof row.id !== "string" || typeof row.pieces !== "number") return [];
+    return [
+      {
+        id: row.id,
+        pieces: row.pieces,
+        label: typeof row.label === "string" ? row.label : undefined,
+      },
+    ];
+  });
+}
+
+function asDetails(value: unknown): ProductDetail[] {
+  if (!Array.isArray(value) || value.length === 0) {
+    return DEFAULT_PRODUCT_DETAILS;
+  }
+
+  return value.flatMap((item) => {
+    if (!item || typeof item !== "object") return [];
+    const row = item as ProductDetailJson;
+    if (typeof row.title !== "string" || typeof row.content !== "string") {
+      return [];
+    }
+    return [{ title: row.title, content: row.content }];
+  });
+}
+
+export function mapProductRow(row: ProductRow): Product {
+  const images = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
+  const [image = "", hoverImage, ...extraImages] = images;
+  const colorIds = row.color_ids ?? [];
+  const packaging = asPackaging(row.packaging);
+  const colors = colorsFromIds(colorIds);
+  const colorImageMap = asColorImageMap(row.color_image_map, images.length);
+
+  return {
+    id: row.id,
+    slug: row.slug,
+    name: row.name,
+    description: row.description ?? "",
+    sku: row.sku ?? undefined,
+    price: row.price,
+    originalPrice: row.original_price ?? undefined,
+    discount: row.discount ?? undefined,
+    image,
+    hoverImage,
+    extraImages: extraImages.length > 0 ? extraImages : undefined,
+    category: row.category,
+    subcategoryId: row.subcategory_id ?? undefined,
+    attributes: {
+      colors: colorIds.length > 0 ? colorIds : undefined,
+      packaging: packaging.length > 0 ? packaging : undefined,
+    },
+    colors: colors.length > 0 ? colors : undefined,
+    colorImageMap:
+      colorImageMap && Object.keys(colorImageMap).length > 0
+        ? colorImageMap
+        : undefined,
+    details: asDetails(row.details),
+    inStock: row.in_stock,
+    stockQuantity: row.stock_quantity ?? undefined,
+  };
+}
+
+function asColorImageMap(
+  value: unknown,
+  imageCount: number,
+): Record<string, number[]> | undefined {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    return undefined;
+  }
+
+  const result: Record<string, number[]> = {};
+  for (const [colorId, indexes] of Object.entries(
+    value as Record<string, unknown>,
+  )) {
+    if (!Array.isArray(indexes)) continue;
+    const cleaned = indexes
+      .map((item) => Number(item))
+      .filter(
+        (item) =>
+          Number.isInteger(item) && item >= 0 && item < imageCount,
+      );
+    if (cleaned.length > 0) {
+      result[colorId] = Array.from(new Set(cleaned));
+    }
+  }
+
+  return Object.keys(result).length > 0 ? result : undefined;
+}
+
+/** Evenly split gallery indexes across color IDs (ordered packs). */
+export function buildEvenColorImageMap(
+  colorIds: string[],
+  imageCount: number,
+): Record<string, number[]> {
+  if (colorIds.length === 0 || imageCount <= 0) return {};
+
+  const base = Math.floor(imageCount / colorIds.length);
+  const remainder = imageCount % colorIds.length;
+  const map: Record<string, number[]> = {};
+  let cursor = 0;
+
+  colorIds.forEach((colorId, index) => {
+    const size = base + (index < remainder ? 1 : 0);
+    const indexes: number[] = [];
+    for (let i = 0; i < size; i += 1) {
+      indexes.push(cursor + i);
+    }
+    map[colorId] = indexes;
+    cursor += size;
+  });
+
+  return map;
+}
+
+export function resolveColorImageIndexes(
+  product: Product,
+  colorId: string,
+): number[] {
+  const gallery = getProductGallery(product);
+  if (gallery.length === 0) return [];
+
+  const colorIds =
+    product.colors?.map((color) => color.id) ??
+    product.attributes?.colors ??
+    [];
+
+  const explicit = product.colorImageMap?.[colorId];
+  if (explicit && explicit.length > 0) {
+    return explicit.filter((index) => index >= 0 && index < gallery.length);
+  }
+
+  if (colorIds.length === 0) return gallery.map((_, index) => index);
+
+  const fallback = buildEvenColorImageMap(colorIds, gallery.length);
+  return fallback[colorId] ?? [];
+}
+
+/** Selected color images first, then the rest of the gallery (no duplicates). */
+export function getGalleryForColor(
+  product: Product,
+  colorId?: string,
+): string[] {
+  const gallery = getProductGallery(product);
+  if (!colorId || gallery.length === 0) return gallery;
+
+  const preferred = resolveColorImageIndexes(product, colorId);
+  if (preferred.length === 0) return gallery;
+
+  const preferredSet = new Set(preferred);
+  const head = preferred
+    .map((index) => gallery[index])
+    .filter(Boolean);
+  const tail = gallery.filter((_, index) => !preferredSet.has(index));
+  return [...head, ...tail];
+}
+
+export function getColorPreviewImages(
+  product: Product,
+  colorId: string,
+): { image: string; hoverImage?: string } {
+  const gallery = getProductGallery(product);
+  const indexes = resolveColorImageIndexes(product, colorId);
+  const primary = gallery[indexes[0] ?? 0] ?? product.image;
+  const secondary =
+    gallery[indexes[1] ?? -1] ??
+    (indexes.length > 0 ? undefined : product.hoverImage);
+
+  return {
+    image: primary,
+    hoverImage: secondary && secondary !== primary ? secondary : undefined,
+  };
 }
 
 export function getProductGallery(product: Product): string[] {
@@ -263,13 +460,17 @@ export function getProductGallery(product: Product): string[] {
     product.image,
     ...(product.hoverImage ? [product.hoverImage] : []),
     ...(product.extraImages ?? []),
-  ];
+  ].filter(Boolean);
 }
 
-export function getRelatedProducts(slug: string, count = 4) {
-  const others = products.filter((product) => product.slug !== slug);
-  const start = products.findIndex((product) => product.slug === slug);
-  const offset = start >= 0 ? start % others.length : 0;
+export function getRelatedProducts(
+  allProducts: Product[],
+  slug: string,
+  count = 4,
+) {
+  const others = allProducts.filter((product) => product.slug !== slug);
+  const start = allProducts.findIndex((product) => product.slug === slug);
+  const offset = start >= 0 ? start % Math.max(others.length, 1) : 0;
   const related: Product[] = [];
 
   for (let i = 0; i < Math.min(count, others.length); i++) {
@@ -283,30 +484,28 @@ export function productHref(slug: string) {
   return `/produkt/${slug}`;
 }
 
-export const novinkySlugs = [
-  "kytica-cerveny-ruzi",
-  "kytica-bielych-pivonii",
-  "kytica-staroruzovych-ruzi",
-  "umely-vres-fialovy",
-  "kytica-zelene-s-bielymi-kvietkami",
-] as const;
+/** Auth side panel product slide */
+export type AuthSideSlide = {
+  image: string;
+  name: string;
+  slug: string;
+};
 
-export const akciaSlugs = [
-  "kytica-staroruzovych-pivonii",
-  "umely-eukalyptus-vetvicka",
-  "umela-paprad",
-  "kytica-bordovych-dalii",
-  "kytica-ruzovych-pivonii",
-] as const;
-
-export function getProductsBySlugs(slugs: readonly string[]) {
-  return slugs
-    .map((slug) => getProductBySlug(slug))
-    .filter((product): product is Product => Boolean(product));
+export function getProductsByCategory(
+  allProducts: Product[],
+  category: string,
+) {
+  return allProducts.filter((product) => product.category === category);
 }
 
-export function getProductsByCategory(category: string) {
-  return products.filter((product) => product.category === category);
+export function getNewestProducts(allProducts: Product[], count = 8) {
+  return allProducts.slice(0, count);
+}
+
+export function getSaleProducts(allProducts: Product[]) {
+  return allProducts.filter(
+    (product) => Boolean(product.originalPrice) || Boolean(product.discount),
+  );
 }
 
 export type ProductFilterInput = {
@@ -336,12 +535,23 @@ export function filterProducts(
 
     if (filters.colors && filters.colors.length > 0) {
       const productColors = product.attributes?.colors ?? [];
-      const matchesColor = filters.colors.some((color) =>
-        productColors.includes(color),
+      const matchesColor = filters.colors.some((filterId) =>
+        productColors.some((colorId) =>
+          productColorMatchesFilter(colorId, filterId),
+        ),
       );
       if (!matchesColor) return false;
     }
 
     return true;
   });
+}
+
+export function generateProductSku() {
+  const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 8; i++) {
+    code += alphabet[Math.floor(Math.random() * alphabet.length)];
+  }
+  return `PD-${code}`;
 }

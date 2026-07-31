@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { QuantityStepper } from "@/components/QuantityStepper";
+import { ProductColorPills } from "@/components/product/ProductColorPills";
 import {
   inventoryMaxOrderable,
   isInventoryAvailable,
@@ -12,17 +13,25 @@ import { useProductInventory } from "@/lib/use-product-inventory";
 
 type ProductPurchaseProps = {
   product: Product;
+  selectedColor?: string;
+  onSelectColor?: (colorId: string) => void;
 };
 
-export function ProductPurchase({ product }: ProductPurchaseProps) {
+export function ProductPurchase({
+  product,
+  selectedColor: controlledColor,
+  onSelectColor,
+}: ProductPurchaseProps) {
   const inventory = useProductInventory(product);
   const available = isInventoryAvailable(inventory);
   const maxQty = inventoryMaxOrderable(inventory);
 
   const [quantity, setQuantity] = useState(1);
-  const [selectedColor, setSelectedColor] = useState(
+  const [internalColor, setInternalColor] = useState(
     product.colors?.[0]?.id ?? "",
   );
+  const selectedColor = controlledColor ?? internalColor;
+  const setSelectedColor = onSelectColor ?? setInternalColor;
 
   useEffect(() => {
     if (!available) {
@@ -34,40 +43,16 @@ export function ProductPurchase({ product }: ProductPurchaseProps) {
     }
   }, [available, maxQty]);
 
-  return (
-    <div className="mt-8 flex flex-col gap-6">
-      {product.colors && product.colors.length > 0 ? (
-        <div>
-          <p className="font-sans text-sm font-semibold text-[#2f2924]">
-            Farba
-          </p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {product.colors.map((color) => {
-              const isSelected = selectedColor === color.id;
+  const hasColors = Boolean(product.colors && product.colors.length > 0);
 
-              return (
-                <button
-                  key={color.id}
-                  type="button"
-                  onClick={() => setSelectedColor(color.id)}
-                  aria-pressed={isSelected}
-                  className={`inline-flex cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                    isSelected
-                      ? "border-[#75825B] bg-[#75825B] text-white"
-                      : "border-[#2f2924]/15 bg-white text-[#2f2924] hover:border-[#75825B]/50"
-                  }`}
-                >
-                  <span
-                    className="size-3.5 rounded-full border border-black/10"
-                    style={{ backgroundColor: color.hex }}
-                    aria-hidden
-                  />
-                  {color.label}
-                </button>
-              );
-            })}
-          </div>
-        </div>
+  return (
+    <div className="mt-6 flex flex-col gap-6">
+      {hasColors ? (
+        <ProductColorPills
+          colors={product.colors!}
+          selectedColorId={selectedColor}
+          onSelect={setSelectedColor}
+        />
       ) : null}
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">

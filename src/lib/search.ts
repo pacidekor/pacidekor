@@ -1,4 +1,9 @@
-import { products, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
+import {
+  nearestFilterColor,
+  parseCustomColorId,
+} from "@/lib/products";
+import { getProductCatalog } from "@/lib/product-catalog";
 import {
   filterColors,
   getPackagingFormatById,
@@ -144,6 +149,16 @@ function scoreProduct(query: string, product: Product) {
 
     const colorIds = product.attributes?.colors ?? [];
     const colorHit = colorIds.some((colorId) => {
+      const custom = parseCustomColorId(colorId);
+      if (custom) {
+        return (
+          tokensRelated(qToken, normalizeSearch(custom.label)) ||
+          tokensRelated(
+            qToken,
+            normalizeSearch(nearestFilterColor(custom.hex).color.label),
+          )
+        );
+      }
       const color = filterColors.find((item) => item.id === colorId);
       if (!color) return tokensRelated(qToken, normalizeSearch(colorId));
       return (
@@ -185,7 +200,7 @@ export function searchProducts(query: string, limit = 8): Product[] {
   const q = normalizeSearch(query);
   if (!q) return [];
 
-  return products
+  return getProductCatalog()
     .map((product) => ({ product, score: scoreProduct(query, product) }))
     .filter((item) => item.score > 0)
     .sort(

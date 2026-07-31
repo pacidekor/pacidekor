@@ -17,9 +17,13 @@ const detailIcons: Record<string, LucideIcon> = {
 };
 
 export function ProductDetailsCards({ details }: ProductDetailsCardsProps) {
+  const visibleDetails = details.filter((detail) => detail.content.trim());
+
+  if (visibleDetails.length === 0) return null;
+
   return (
     <div className="mt-8 grid gap-3">
-      {details.map((detail) => {
+      {visibleDetails.map((detail) => {
         const Icon = detailIcons[detail.title];
 
         return (

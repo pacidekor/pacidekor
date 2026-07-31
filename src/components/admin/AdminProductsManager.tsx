@@ -16,6 +16,7 @@ import {
   Check,
   ChevronDown,
   ExternalLink,
+  GripVertical,
   ImagePlus,
   Info,
   ListFilter,
@@ -23,19 +24,44 @@ import {
   Pencil,
   Plus,
   Search,
+  MoreHorizontal,
   Trash2,
   X,
 } from "lucide-react";
-import { categories, toSlug } from "@/lib/navigation";
+import { formatPrice, parsePrice } from "@/lib/cart";
+import { ImageLightbox } from "@/components/ImageLightbox";
+import { categories } from "@/lib/navigation";
 import {
+  ADMIN_CATEGORIES_EVENT,
+  ADMIN_CATEGORIES_STORAGE_KEY,
+  getAdminCategoryLabels,
+  getAdminSubcategoriesForCategory,
+  getAdminSubcategoryById,
+} from "@/lib/admin-categories-store";
+import {
+  buildEvenColorImageMap,
+  colorsFromIds,
+  colorSwatchStyle,
+  DEFAULT_PRODUCT_DETAILS,
+  encodeCustomColorId,
+  generateProductSku,
+  parseCustomColorId,
   productHref,
-  products as seedProducts,
+  suggestColorName,
+  suggestSplitColorName,
+  productColorMatchesFilter,
   type Product,
+  type ProductDetail,
 } from "@/lib/products";
+import { setProductCatalog } from "@/lib/product-catalog";
+import {
+  deleteProductAction,
+  uploadProductImageAction,
+  upsertProductAction,
+} from "@/lib/actions/products";
 import {
   filterColors,
   getPackagingFormatById,
-  getSubcategoriesForCategory,
   packagingFormats,
   type PackagingOption,
   type ProductAttributes,
@@ -49,10 +75,11 @@ import {
 } from "@/lib/inventory";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 
-const STORAGE_KEY = "pacidekor.admin.product-taxonomy";
-const CUSTOM_PRODUCTS_KEY = "pacidekor.admin.custom-products";
-const DELETED_PRODUCTS_KEY = "pacidekor.admin.deleted-products";
 const CREATE_DRAFT_ID = "__new__";
+
+const DEFAULT_SHIPPING =
+  DEFAULT_PRODUCT_DETAILS.find((item) => item.title === "Doprava")?.content ??
+  "";
 
 const CREATE_DRAFT_PRODUCT: Product = {
   id: CREATE_DRAFT_ID,
@@ -63,21 +90,7 @@ const CREATE_DRAFT_PRODUCT: Product = {
   price: "0,00 €",
   image: "",
   category: "Umelé kvety",
-  details: [
-    {
-      title: "Materiál",
-      content: "",
-    },
-    {
-      title: "Použitie",
-      content: "",
-    },
-    {
-      title: "Doprava",
-      content:
-        "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
-    },
-  ],
+  details: DEFAULT_PRODUCT_DETAILS,
   inStock: true,
 };
 
@@ -85,95 +98,48 @@ type ProductOverride = {
   name: string;
   description: string;
   sku?: string;
+  price: string;
   image: string;
   hoverImage?: string;
   extraImages?: string[];
   category: string;
   subcategoryId?: string;
   attributes: ProductAttributes;
+  colorImageMap?: Record<string, number[]>;
+  details: ProductDetail[];
 };
 
-type OverridesMap = Record<string, ProductOverride>;
+function detailContent(
+  details: ProductDetail[] | undefined,
+  title: string,
+  fallback = "",
+) {
+  return details?.find((item) => item.title === title)?.content ?? fallback;
+}
 
-function readOverrides(): OverridesMap {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) return {};
-    return JSON.parse(raw) as OverridesMap;
-  } catch {
-    return {};
+function buildProductDetails(
+  material: string,
+  usage: string,
+): ProductDetail[] {
+  const details: ProductDetail[] = [];
+  if (material.trim()) {
+    details.push({ title: "Materiál", content: material.trim() });
   }
-}
-
-function writeOverrides(overrides: OverridesMap) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides));
-}
-
-function readCustomProducts(): Product[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(CUSTOM_PRODUCTS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as Product[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
+  if (usage.trim()) {
+    details.push({ title: "Použitie", content: usage.trim() });
   }
+  details.push({ title: "Doprava", content: DEFAULT_SHIPPING });
+  return details;
 }
 
-function writeCustomProducts(products: Product[]) {
-  window.localStorage.setItem(CUSTOM_PRODUCTS_KEY, JSON.stringify(products));
-}
-
-function readDeletedProductIds(): string[] {
-  if (typeof window === "undefined") return [];
-  try {
-    const raw = window.localStorage.getItem(DELETED_PRODUCTS_KEY);
-    if (!raw) return [];
-    const parsed = JSON.parse(raw) as string[];
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeDeletedProductIds(ids: string[]) {
-  window.localStorage.setItem(DELETED_PRODUCTS_KEY, JSON.stringify(ids));
-}
-
-function applyOverride(product: Product, override?: ProductOverride): Product {
-  if (!override) return product;
-  return {
-    ...product,
-    name: override.name ?? product.name,
-    description: override.description ?? product.description,
-    sku: override.sku ?? product.sku,
-    image: override.image ?? product.image,
-    hoverImage: override.hoverImage,
-    extraImages: override.extraImages,
-    category: override.category ?? product.category,
-    subcategoryId: override.subcategoryId,
-    attributes: override.attributes,
-  };
-}
-
-function productToOverride(product: Product): ProductOverride {
-  return {
-    name: product.name,
-    description: product.description,
-    sku: product.sku,
-    image: product.image,
-    hoverImage: product.hoverImage,
-    extraImages: product.extraImages,
-    category: product.category,
-    subcategoryId: product.subcategoryId,
-    attributes: product.attributes ?? {},
-  };
-}
-
-function overridesEqual(a: ProductOverride, b: ProductOverride) {
-  return JSON.stringify(normalizeOverride(a)) === JSON.stringify(normalizeOverride(b));
+function normalizePriceInput(value: string) {
+  const trimmed = value.trim();
+  if (!trimmed) return "0,00 €";
+  const parsed = parsePrice(
+    trimmed.includes("€") ? trimmed : `${trimmed} €`,
+  );
+  if (!Number.isFinite(parsed) || parsed < 0) return "0,00 €";
+  return formatPrice(parsed);
 }
 
 function normalizeOverride(value: ProductOverride): ProductOverride {
@@ -181,6 +147,7 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
     name: value.name.trim(),
     description: value.description.trim(),
     sku: value.sku?.trim() || undefined,
+    price: normalizePriceInput(value.price),
     image: value.image.trim(),
     hoverImage: value.hoverImage?.trim() || undefined,
     extraImages:
@@ -203,6 +170,11 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
               .filter((item) => item.pieces > 0)
           : undefined,
     },
+    colorImageMap: value.colorImageMap,
+    details: buildProductDetails(
+      detailContent(value.details, "Materiál"),
+      detailContent(value.details, "Použitie"),
+    ),
   };
 }
 
@@ -210,13 +182,32 @@ type StockFilter = "all" | "in" | "out" | "low";
 
 const LOW_STOCK_THRESHOLD = 5;
 
-export function AdminProductsManager() {
-  const [overrides, setOverrides] = useState<OverridesMap>({});
-  const [customProducts, setCustomProducts] = useState<Product[]>([]);
-  const [deletedIds, setDeletedIds] = useState<string[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+const CUSTOM_COLOR_PRESETS = [
+  "#f5f2ec",
+  "#e8d9c4",
+  "#d4a0a8",
+  "#c9959a",
+  "#b43c3c",
+  "#6e2c3a",
+  "#d4894a",
+  "#e0c35a",
+  "#6b7f5a",
+  "#5a7a9a",
+  "#7a5f8a",
+  "#8a6a4a",
+  "#9a9a96",
+  "#2f2924",
+] as const;
+
+export function AdminProductsManager({
+  initialProducts,
+}: {
+  initialProducts: Product[];
+}) {
+  const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [draftSku, setDraftSku] = useState(() => generateProductSku());
   const [savedFlash, setSavedFlash] = useState(false);
   const [query, setQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -228,11 +219,13 @@ export function AdminProductsManager() {
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    setOverrides(readOverrides());
-    setCustomProducts(readCustomProducts());
-    setDeletedIds(readDeletedProductIds());
-    setHydrated(true);
-  }, []);
+    setProducts(initialProducts);
+    setProductCatalog(initialProducts);
+  }, [initialProducts]);
+
+  useEffect(() => {
+    setProductCatalog(products);
+  }, [products]);
 
   useEffect(() => {
     function syncInventory() {
@@ -247,30 +240,21 @@ export function AdminProductsManager() {
     };
   }, []);
 
-  const list = useMemo(() => {
-    const deleted = new Set(deletedIds);
-    const customs = customProducts
-      .filter((product) => !deleted.has(product.id))
-      .map((product) => applyOverride(product, overrides[product.id]));
-    const seeds = seedProducts
-      .filter((product) => !deleted.has(product.id))
-      .map((product) => applyOverride(product, overrides[product.id]));
-    return [...customs, ...seeds];
-  }, [customProducts, overrides, deletedIds]);
-
   const filtered = useMemo(() => {
     void inventoryTick;
     const q = query.trim().toLowerCase();
 
-    return list.filter((product) => {
+    return products.filter((product) => {
       if (categoryFilter !== "all" && product.category !== categoryFilter) {
         return false;
       }
 
       if (colorFilter.length > 0) {
         const productColors = product.attributes?.colors ?? [];
-        const matchesColor = colorFilter.some((color) =>
-          productColors.includes(color),
+        const matchesColor = colorFilter.some((filterId) =>
+          productColors.some((colorId) =>
+            productColorMatchesFilter(colorId, filterId),
+          ),
         );
         if (!matchesColor) return false;
       }
@@ -307,7 +291,7 @@ export function AdminProductsManager() {
       );
     });
   }, [
-    list,
+    products,
     query,
     categoryFilter,
     stockFilter,
@@ -317,8 +301,8 @@ export function AdminProductsManager() {
   ]);
 
   const editing = isCreating
-    ? CREATE_DRAFT_PRODUCT
-    : (list.find((product) => product.id === editingId) ?? null);
+    ? { ...CREATE_DRAFT_PRODUCT, sku: draftSku }
+    : (products.find((product) => product.id === editingId) ?? null);
 
   function showSavedToast() {
     setSavedFlash(true);
@@ -326,127 +310,73 @@ export function AdminProductsManager() {
     toastTimeoutRef.current = setTimeout(() => setSavedFlash(false), 2800);
   }
 
-  function uniqueSlug(base: string) {
-    const existing = new Set(
-      [...seedProducts, ...customProducts].map((product) => product.slug),
-    );
-    let slug = base || "novy-produkt";
-    let suffix = 2;
-    while (existing.has(slug)) {
-      slug = `${base || "novy-produkt"}-${suffix}`;
-      suffix += 1;
-    }
-    return slug;
-  }
-
-  function saveOverride(
+  async function saveOverride(
     productId: string,
     next: ProductOverride,
     stock: { inStock: boolean; quantity: number | null },
-  ) {
+  ): Promise<boolean> {
     const normalized = normalizeOverride(next);
+    const images = [
+      normalized.image,
+      ...(normalized.hoverImage ? [normalized.hoverImage] : []),
+      ...(normalized.extraImages ?? []),
+    ];
+    const isCreate = productId === CREATE_DRAFT_ID;
 
-    if (productId === CREATE_DRAFT_ID) {
-      const id = `custom-${Date.now()}`;
-      const slug = uniqueSlug(toSlug(normalized.name));
-      const created: Product = {
-        id,
-        slug,
-        name: normalized.name,
-        description: normalized.description,
-        sku: normalized.sku,
-        price: "0,00 €",
-        image: normalized.image,
-        hoverImage: normalized.hoverImage,
-        extraImages: normalized.extraImages,
-        category: normalized.category,
-        subcategoryId: normalized.subcategoryId,
-        attributes: normalized.attributes,
-        details: CREATE_DRAFT_PRODUCT.details,
-        inStock: stock.inStock,
-        stockQuantity: stock.quantity ?? undefined,
-      };
+    const result = await upsertProductAction({
+      ...(isCreate ? {} : { id: productId }),
+      name: normalized.name,
+      description: normalized.description,
+      sku: normalized.sku || (isCreate ? generateProductSku() : undefined),
+      price: normalized.price,
+      category: normalized.category,
+      subcategoryId: normalized.subcategoryId,
+      attributes: normalized.attributes,
+      images,
+      colorImageMap: normalized.colorImageMap,
+      inStock: stock.inStock,
+      stockQuantity: stock.inStock ? stock.quantity : null,
+      details: normalized.details,
+    });
 
-      setCustomProducts((prev) => {
-        const copy = [created, ...prev];
-        writeCustomProducts(copy);
-        return copy;
-      });
-
-      setInventory(id, {
-        inStock: stock.inStock,
-        quantity: stock.inStock ? stock.quantity : null,
-      });
-
-      showSavedToast();
-      return;
+    if (!result.ok) {
+      window.alert(result.error);
+      return false;
     }
 
-    const base =
-      seedProducts.find((product) => product.id === productId) ??
-      customProducts.find((product) => product.id === productId);
-    if (!base) return;
-
-    const matchesBase = overridesEqual(normalized, productToOverride(base));
-
-    setOverrides((prev) => {
-      const copy = { ...prev };
-      if (matchesBase) {
-        delete copy[productId];
-      } else {
-        copy[productId] = normalized;
-      }
-      writeOverrides(copy);
+    const saved = result.data;
+    setProducts((prev) => {
+      const index = prev.findIndex((product) => product.id === saved.id);
+      if (index === -1) return [saved, ...prev];
+      const copy = [...prev];
+      copy[index] = saved;
       return copy;
     });
 
-    setInventory(productId, {
+    setInventory(saved.id, {
       inStock: stock.inStock,
       quantity: stock.inStock ? stock.quantity : null,
     });
 
     showSavedToast();
+    return true;
   }
 
-  function deleteProduct(productId: string) {
-    if (productId === CREATE_DRAFT_ID) return;
+  async function deleteProduct(productId: string): Promise<boolean> {
+    if (productId === CREATE_DRAFT_ID) return false;
 
-    const isCustom = customProducts.some((product) => product.id === productId);
-
-    if (isCustom) {
-      setCustomProducts((prev) => {
-        const next = prev.filter((product) => product.id !== productId);
-        writeCustomProducts(next);
-        return next;
-      });
-    } else {
-      setDeletedIds((prev) => {
-        if (prev.includes(productId)) return prev;
-        const next = [...prev, productId];
-        writeDeletedProductIds(next);
-        return next;
-      });
+    const result = await deleteProductAction(productId);
+    if (!result.ok) {
+      window.alert(result.error);
+      return false;
     }
 
-    setOverrides((prev) => {
-      if (!(productId in prev)) return prev;
-      const copy = { ...prev };
-      delete copy[productId];
-      writeOverrides(copy);
-      return copy;
-    });
-  }
-
-  function resetAll() {
-    window.localStorage.removeItem(STORAGE_KEY);
-    window.localStorage.removeItem(DELETED_PRODUCTS_KEY);
-    setOverrides({});
-    setDeletedIds([]);
-    setEditingId(null);
-    setIsCreating(false);
+    setProducts((prev) => prev.filter((product) => product.id !== productId));
+    return true;
   }
 
   function openCreate() {
+    setDraftSku(generateProductSku());
     setEditingId(null);
     setIsCreating(true);
   }
@@ -537,16 +467,6 @@ export function AdminProductsManager() {
         </div>
 
         <div className="flex w-full shrink-0 items-center gap-3 sm:ml-auto sm:w-auto">
-          {hydrated && Object.keys(overrides).length > 0 ? (
-            <button
-              type="button"
-              onClick={resetAll}
-              className="hidden cursor-pointer text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#2f2924] sm:inline"
-            >
-              Obnoviť predvolené
-            </button>
-          ) : null}
-
           <button
             type="button"
             onClick={() => setFiltersOpen(true)}
@@ -572,14 +492,9 @@ export function AdminProductsManager() {
         ) : (
           <ul className="divide-y divide-black/5">
             {filtered.map((product) => {
-              const hasOverride = Boolean(overrides[product.id]);
-              const isCustom = customProducts.some(
-                (item) => item.id === product.id,
-              );
               const inventory = getInventoryForProduct(product);
-              const packagingLabel = formatPackagingSummary(
-                product.attributes?.packaging,
-              );
+              const subcategoryLabel =
+                getAdminSubcategoryById(product.subcategoryId)?.label ?? "";
 
               return (
                 <li key={product.id} className="px-4 py-4">
@@ -598,7 +513,7 @@ export function AdminProductsManager() {
                       ) : null}
                       <p className="mt-1 text-sm text-[#2f2924]/65">
                         {product.category}
-                        {packagingLabel ? ` · ${packagingLabel}` : ""}
+                        {subcategoryLabel ? ` · ${subcategoryLabel}` : ""}
                       </p>
                       <div className="mt-2 flex flex-wrap items-center gap-2">
                         <span
@@ -610,30 +525,23 @@ export function AdminProductsManager() {
                         >
                           {inventoryLabel(inventory)}
                         </span>
-                        {hasOverride || isCustom ? (
-                          <span className="text-xs text-[#75825B]">
-                            {isCustom ? "Vlastný produkt" : "Upravené lokálne"}
-                          </span>
-                        ) : null}
                       </div>
                     </div>
                   </div>
                   <div className="mt-3 flex flex-wrap gap-2">
-                    {!isCustom ? (
-                      <Link
-                        href={productHref(product.slug)}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-[#faf8f5] px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]"
-                      >
-                        <ExternalLink
-                          className="size-3.5"
-                          strokeWidth={1.75}
-                          aria-hidden
-                        />
-                        Prejsť
-                      </Link>
-                    ) : null}
+                    <Link
+                      href={productHref(product.slug)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-[#faf8f5] px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]"
+                    >
+                      <ExternalLink
+                        className="size-3.5"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      Prejsť
+                    </Link>
                     <button
                       type="button"
                       onClick={() => {
@@ -665,21 +573,16 @@ export function AdminProductsManager() {
               <tr>
                 <th className="px-4 py-3 font-medium">Produkt</th>
                 <th className="px-4 py-3 font-medium">Kategória</th>
-                <th className="px-4 py-3 font-medium">Formát dodania</th>
+                <th className="px-4 py-3 font-medium">Subkategória</th>
                 <th className="px-4 py-3 font-medium">Sklad</th>
                 <th className="px-4 py-3 text-right font-medium">Akcie</th>
               </tr>
             </thead>
             <tbody>
               {filtered.map((product) => {
-                const hasOverride = Boolean(overrides[product.id]);
-                const isCustom = customProducts.some(
-                  (item) => item.id === product.id,
-                );
                 const inventory = getInventoryForProduct(product);
-                const packagingLabel = formatPackagingSummary(
-                  product.attributes?.packaging,
-                );
+                const subcategoryLabel =
+                  getAdminSubcategoryById(product.subcategoryId)?.label ?? "";
 
                 return (
                   <tr
@@ -702,11 +605,6 @@ export function AdminProductsManager() {
                               {product.sku}
                             </p>
                           ) : null}
-                          {hasOverride || isCustom ? (
-                            <p className="text-xs text-[#75825B]">
-                              {isCustom ? "Vlastný produkt" : "Upravené lokálne"}
-                            </p>
-                          ) : null}
                         </div>
                       </div>
                     </td>
@@ -714,7 +612,7 @@ export function AdminProductsManager() {
                       {product.category}
                     </td>
                     <td className="px-4 py-3.5 text-[#2f2924]/80">
-                      {packagingLabel || (
+                      {subcategoryLabel || (
                         <span className="text-[#2f2924]/35">—</span>
                       )}
                     </td>
@@ -731,21 +629,19 @@ export function AdminProductsManager() {
                     </td>
                     <td className="px-4 py-3.5">
                       <div className="flex items-center justify-end gap-1">
-                        {!isCustom ? (
-                          <Link
-                            href={productHref(product.slug)}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-[#2f2924]/65 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-                          >
-                            <ExternalLink
-                              className="size-3.5"
-                              strokeWidth={1.75}
-                              aria-hidden
-                            />
-                            Prejsť na produkt
-                          </Link>
-                        ) : null}
+                        <Link
+                          href={productHref(product.slug)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-[#2f2924]/65 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+                        >
+                          <ExternalLink
+                            className="size-3.5"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                          Prejsť na produkt
+                        </Link>
                         <button
                           type="button"
                           onClick={() => {
@@ -893,15 +789,11 @@ export function AdminProductsManager() {
           product={editing}
           isNew={isCreating}
           onClose={closeEditor}
-          onSave={(next, stock) => {
-            saveOverride(editing.id, next, stock);
-          }}
+          onSave={(next, stock) => saveOverride(editing.id, next, stock)}
           onDelete={
             isCreating
               ? undefined
-              : () => {
-                  deleteProduct(editing.id);
-                }
+              : () => deleteProduct(editing.id)
           }
         />
       ) : null}
@@ -939,15 +831,24 @@ function ProductEditor({
   onSave: (
     next: ProductOverride,
     stock: { inStock: boolean; quantity: number | null },
-  ) => void;
-  onDelete?: () => void;
+  ) => void | Promise<boolean | void>;
+  onDelete?: () => void | Promise<boolean | void>;
 }) {
   const initialInventory = getInventoryForProduct(product);
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [name, setName] = useState(product.name);
   const [description, setDescription] = useState(product.description);
   const [sku, setSku] = useState(product.sku ?? "");
+  const [price, setPrice] = useState(
+    product.price?.replace(/\s*€\s*$/, "").trim() || "",
+  );
+  const [material, setMaterial] = useState(
+    detailContent(product.details, "Materiál"),
+  );
+  const [usage, setUsage] = useState(detailContent(product.details, "Použitie"));
   const [images, setImages] = useState<string[]>(() =>
     [
       product.image,
@@ -962,6 +863,18 @@ function ProductEditor({
   const [colors, setColors] = useState<string[]>(
     product.attributes?.colors ?? [],
   );
+  const [colorImageMap, setColorImageMap] = useState<
+    Record<string, number[]>
+  >(() => product.colorImageMap ?? {});
+  const [customPickerOpen, setCustomPickerOpen] = useState(false);
+  const [customDraftHex, setCustomDraftHex] = useState("#d4a0a8");
+  const [customDraftHexSecondary, setCustomDraftHexSecondary] =
+    useState("#f5f2ec");
+  const [customDraftSplit, setCustomDraftSplit] = useState(false);
+  const [customDraftLabel, setCustomDraftLabel] = useState(() =>
+    suggestColorName("#d4a0a8"),
+  );
+  const [customLabelTouched, setCustomLabelTouched] = useState(false);
   const [packaging, setPackaging] = useState<PackagingOption[]>(
     product.attributes?.packaging ?? [],
   );
@@ -971,14 +884,25 @@ function ProductEditor({
   );
   const [discardOpen, setDiscardOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [colorImagesEditorId, setColorImagesEditorId] = useState<string | null>(
+    null,
+  );
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const replaceIndexRef = useRef<number | null>(null);
+  const dragImageIndexRef = useRef<number | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [dragOverImageIndex, setDragOverImageIndex] = useState<number | null>(
+    null,
+  );
   const initialSnapshotRef = useRef(
     serializeEditorSnapshot({
       name: product.name,
       description: product.description,
       sku: product.sku ?? "",
+      price: product.price?.replace(/\s*€\s*$/, "").trim() || "",
+      material: detailContent(product.details, "Materiál"),
+      usage: detailContent(product.details, "Použitie"),
       images: [
         product.image,
         product.hoverImage,
@@ -987,6 +911,7 @@ function ProductEditor({
       category: product.category,
       subcategoryId: product.subcategoryId ?? "",
       colors: product.attributes?.colors ?? [],
+      colorImageMap: product.colorImageMap ?? {},
       packaging: product.attributes?.packaging ?? [],
       inStock: initialInventory.inStock,
       stockQuantity:
@@ -996,17 +921,31 @@ function ProductEditor({
     }),
   );
 
-  const availableSubs = getSubcategoriesForCategory(category);
+  const [categoryLabels, setCategoryLabels] = useState<string[]>(() => [
+    ...categories,
+  ]);
+  const [availableSubs, setAvailableSubs] = useState<
+    { id: string; label: string }[]
+  >([]);
+  const [taxonomyReady, setTaxonomyReady] = useState(false);
+  const customColors = colors.flatMap((id) => {
+    const parsed = parseCustomColorId(id);
+    return parsed ? [parsed] : [];
+  });
   const panelOpen = entered && !exiting;
   const isDirty =
     serializeEditorSnapshot({
       name,
       description,
       sku,
+      price,
+      material,
+      usage,
       images,
       category,
       subcategoryId,
       colors,
+      colorImageMap,
       packaging,
       inStock,
       stockQuantity,
@@ -1049,68 +988,143 @@ function ProductEditor({
     closePanel();
   }
 
-  function confirmDelete() {
-    if (!onDelete || exiting) return;
-    setDeleteOpen(false);
-    setDiscardOpen(false);
-    setExiting(true);
-    closeTimeoutRef.current = setTimeout(() => {
-      onDelete();
-      onClose();
-    }, 320);
+  async function confirmDelete() {
+    if (!onDelete || exiting || saving) return;
+    setSaving(true);
+    try {
+      const result = await onDelete();
+      if (result === false) return;
+      setDeleteOpen(false);
+      setDiscardOpen(false);
+      setExiting(true);
+      closeTimeoutRef.current = setTimeout(() => {
+        onClose();
+      }, 320);
+    } finally {
+      setSaving(false);
+    }
   }
 
-  function saveAndClose() {
-    if (exiting || !images[0] || !name.trim()) return;
+  async function saveAndClose() {
+    if (exiting || saving || uploading || !images[0] || !name.trim()) return;
     const [main = "", hover, ...extras] = images;
     const qtyRaw = stockQuantity.trim();
     const qty = qtyRaw === "" ? null : Number.parseInt(qtyRaw, 10);
-    onSave(
-      {
-        name,
-        description,
-        sku: sku.trim() || undefined,
-        image: main,
-        hoverImage: hover,
-        extraImages: extras.length > 0 ? extras : undefined,
-        category,
-        subcategoryId: subcategoryId || undefined,
-        attributes: {
-          colors: colors.length > 0 ? colors : undefined,
-          packaging:
-            packaging.filter((item) => item.pieces > 0).length > 0
-              ? packaging
-                  .filter((item) => item.pieces > 0)
-                  .map((item) => ({
-                    id: item.id,
-                    pieces: item.pieces,
-                    ...(item.id === "vlastni" && item.label?.trim()
-                      ? { label: item.label.trim() }
-                      : {}),
-                  }))
-              : undefined,
+    setSaving(true);
+    try {
+      const result = await onSave(
+        {
+          name,
+          description,
+          sku: sku.trim() || undefined,
+          price,
+          image: main,
+          hoverImage: hover,
+          extraImages: extras.length > 0 ? extras : undefined,
+          category,
+          subcategoryId: subcategoryId || undefined,
+          attributes: {
+            colors: colors.length > 0 ? colors : undefined,
+            packaging:
+              packaging.filter((item) => item.pieces > 0).length > 0
+                ? packaging
+                    .filter((item) => item.pieces > 0)
+                    .map((item) => ({
+                      id: item.id,
+                      pieces: item.pieces,
+                      ...(item.id === "vlastni" && item.label?.trim()
+                        ? { label: item.label.trim() }
+                        : {}),
+                    }))
+                : undefined,
+          },
+          colorImageMap,
+          details: buildProductDetails(material, usage),
         },
-      },
-      {
-        inStock,
-        quantity:
-          inStock && qty != null && !Number.isNaN(qty) && qty > 0 ? qty : null,
-      },
-    );
-    closePanel();
+        {
+          inStock,
+          quantity:
+            inStock && qty != null && !Number.isNaN(qty) && qty > 0 ? qty : null,
+        },
+      );
+      if (result === false) return;
+      closePanel();
+    } finally {
+      setSaving(false);
+    }
   }
 
   useEffect(() => {
+    function refreshTaxonomy() {
+      setCategoryLabels(getAdminCategoryLabels());
+      setAvailableSubs(getAdminSubcategoriesForCategory(category));
+      setTaxonomyReady(true);
+    }
+
+    refreshTaxonomy();
+
+    function onStorage(event: StorageEvent) {
+      if (event.key === ADMIN_CATEGORIES_STORAGE_KEY) refreshTaxonomy();
+    }
+
+    window.addEventListener(ADMIN_CATEGORIES_EVENT, refreshTaxonomy);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(ADMIN_CATEGORIES_EVENT, refreshTaxonomy);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, [category]);
+
+  useEffect(() => {
+    if (!taxonomyReady) return;
     if (
       subcategoryId &&
       !availableSubs.some((sub) => sub.id === subcategoryId)
     ) {
       setSubcategoryId("");
     }
-  }, [category, availableSubs, subcategoryId]);
+  }, [taxonomyReady, category, availableSubs, subcategoryId]);
 
   function toggle(list: string[], id: string, setter: (next: string[]) => void) {
     setter(list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
+  }
+
+  function toggleColor(id: string) {
+    const removing = colors.includes(id);
+    setColors(
+      removing ? colors.filter((item) => item !== id) : [...colors, id],
+    );
+    if (removing) {
+      setColorImagesEditorId((current) => (current === id ? null : current));
+      setColorImageMap((prev) => {
+        if (!(id in prev)) return prev;
+        const next = { ...prev };
+        delete next[id];
+        return next;
+      });
+    }
+  }
+
+  function toggleColorImage(colorId: string, imageIndex: number) {
+    setColorImageMap((prev) => {
+      const current = prev[colorId] ?? [];
+      const has = current.includes(imageIndex);
+      const nextIndexes = has
+        ? current.filter((item) => item !== imageIndex)
+        : [...current, imageIndex].sort((a, b) => a - b);
+      const next = { ...prev };
+      if (nextIndexes.length === 0) {
+        delete next[colorId];
+      } else {
+        next[colorId] = nextIndexes;
+      }
+      return next;
+    });
+  }
+
+  function distributeImagesEvenly() {
+    if (colors.length === 0 || images.length === 0) return;
+    setColorImageMap(buildEvenColorImageMap(colors, images.length));
   }
 
   function packagingSelected(id: string) {
@@ -1158,30 +1172,111 @@ function ProductEditor({
     fileInputRef.current?.click();
   }
 
-  function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
-    const file = event.target.files?.[0];
+  async function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(event.target.files ?? []);
     event.target.value = "";
-    if (!file) return;
+    if (files.length === 0 || uploading) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = typeof reader.result === "string" ? reader.result : null;
-      if (!result) return;
+    const replaceIndex = replaceIndexRef.current;
+    // Při výměně jednoho slotu bereme jen první soubor
+    const toUpload = replaceIndex !== null ? files.slice(0, 1) : files;
 
-      setImages((prev) => {
-        const replaceIndex = replaceIndexRef.current;
-        if (replaceIndex === null) return [...prev, result];
-        return prev.map((src, index) =>
-          index === replaceIndex ? result : src,
-        );
-      });
+    setUploading(true);
+    try {
+      const urls: string[] = [];
+      const errors: string[] = [];
+
+      for (const file of toUpload) {
+        const formData = new FormData();
+        formData.set("file", file);
+        const result = await uploadProductImageAction(formData);
+        if (!result.ok) {
+          errors.push(`${file.name}: ${result.error}`);
+          continue;
+        }
+        urls.push(result.data.url);
+      }
+
+      if (urls.length > 0) {
+        setImages((prev) => {
+          if (replaceIndex === null) return [...prev, ...urls];
+          return prev.map((src, index) =>
+            index === replaceIndex ? urls[0]! : src,
+          );
+        });
+      }
+
       replaceIndexRef.current = null;
-    };
-    reader.readAsDataURL(file);
+
+      if (errors.length > 0) {
+        window.alert(
+          urls.length === 0
+            ? errors.join("\n")
+            : `Niektoré súbory sa nepodarilo nahrať:\n${errors.join("\n")}`,
+        );
+      }
+    } finally {
+      setUploading(false);
+    }
   }
 
   function removeImage(index: number) {
     setImages((prev) => prev.filter((_, i) => i !== index));
+    setColorImageMap((prev) => {
+      const next: Record<string, number[]> = {};
+      for (const [colorId, indexes] of Object.entries(prev)) {
+        const remapped = indexes
+          .filter((item) => item !== index)
+          .map((item) => (item > index ? item - 1 : item));
+        if (remapped.length > 0) next[colorId] = remapped;
+      }
+      return next;
+    });
+  }
+
+  function remapIndexAfterMove(index: number, from: number, to: number) {
+    if (index === from) return to;
+    if (from < to) {
+      if (index > from && index <= to) return index - 1;
+    } else if (index >= to && index < from) {
+      return index + 1;
+    }
+    return index;
+  }
+
+  function reorderImages(fromIndex: number, toIndex: number) {
+    if (
+      fromIndex === toIndex ||
+      fromIndex < 0 ||
+      toIndex < 0 ||
+      fromIndex >= images.length ||
+      toIndex >= images.length
+    ) {
+      return;
+    }
+
+    setImages((prev) => {
+      const next = [...prev];
+      const [moved] = next.splice(fromIndex, 1);
+      if (!moved) return prev;
+      next.splice(toIndex, 0, moved);
+      return next;
+    });
+
+    setColorImageMap((prev) => {
+      const next: Record<string, number[]> = {};
+      for (const [colorId, indexes] of Object.entries(prev)) {
+        const remapped = Array.from(
+          new Set(
+            indexes.map((item) =>
+              remapIndexAfterMove(item, fromIndex, toIndex),
+            ),
+          ),
+        ).sort((a, b) => a - b);
+        if (remapped.length > 0) next[colorId] = remapped;
+      }
+      return next;
+    });
   }
 
   function imageRoleLabel(index: number) {
@@ -1190,7 +1285,25 @@ function ProductEditor({
     return null;
   }
 
-  const categoryOptions = categories.map((label) => ({
+  function customDraftSuggestedLabel(
+    hex = customDraftHex,
+    split = customDraftSplit,
+    hexSecondary = customDraftHexSecondary,
+  ) {
+    return split
+      ? suggestSplitColorName(hex, hexSecondary)
+      : suggestColorName(hex);
+  }
+
+  function resetCustomDraft() {
+    setCustomDraftHex("#d4a0a8");
+    setCustomDraftHexSecondary("#f5f2ec");
+    setCustomDraftSplit(false);
+    setCustomDraftLabel(suggestColorName("#d4a0a8"));
+    setCustomLabelTouched(false);
+  }
+
+  const categoryOptions = categoryLabels.map((label) => ({
     value: label,
     label,
   }));
@@ -1205,6 +1318,11 @@ function ProductEditor({
     },
     ...availableSubs.map((sub) => ({ value: sub.id, label: sub.label })),
   ];
+
+  const colorImagesEditor =
+    colorImagesEditorId != null
+      ? (colorsFromIds([colorImagesEditorId])[0] ?? null)
+      : null;
 
   return (
     <div
@@ -1247,6 +1365,7 @@ function ProductEditor({
             ref={fileInputRef}
             type="file"
             accept="image/*"
+            multiple
             className="hidden"
             onChange={onFileSelected}
           />
@@ -1273,47 +1392,135 @@ function ProductEditor({
                 />
               </FieldLabel>
 
-              <FieldLabel label="Kód produktu">
-                <input
-                  type="text"
-                  value={sku}
-                  onChange={(event) => setSku(event.target.value)}
-                  className="h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 font-mono text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                  placeholder="napr. #123A82"
-                />
-              </FieldLabel>
+              <div className="grid gap-5 sm:grid-cols-2">
+                <FieldLabel label="Kód produktu">
+                  <input
+                    type="text"
+                    value={sku}
+                    onChange={(event) => setSku(event.target.value)}
+                    className="h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 font-mono text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
+                    placeholder="napr. PD-ABC12345"
+                  />
+                </FieldLabel>
+
+                <FieldLabel label="Cena">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      value={price}
+                      onChange={(event) => setPrice(event.target.value)}
+                      onBlur={() => {
+                        if (!price.trim()) return;
+                        setPrice(
+                          normalizePriceInput(price).replace(/\s*€\s*$/, ""),
+                        );
+                      }}
+                      className="h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] py-2 pr-10 pl-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
+                      placeholder="18,90"
+                    />
+                    <span className="pointer-events-none absolute top-1/2 right-3.5 -translate-y-1/2 text-sm text-[#2f2924]/45">
+                      €
+                    </span>
+                  </div>
+                </FieldLabel>
+              </div>
 
               <div>
                 <div className="flex items-center gap-1.5">
                   <p className="text-sm font-medium text-[#2f2924]">Médiá</p>
-                  <InfoHint text="Prvý obrázok je hlavný, druhý hover, ďalšie idú do galérie." />
+                  <InfoHint text="Presuňte obrázky myšou. Prvý je hlavný náhľad, druhý hover, ďalšie idú do galérie." />
                 </div>
                 <div className="mt-3 grid grid-cols-2 gap-2.5 sm:grid-cols-3">
                   {images.map((src, index) => {
                     const role = imageRoleLabel(index);
+                    const isDragOver = dragOverImageIndex === index;
                     return (
                       <div
-                        key={`${src.slice(0, 24)}-${index}`}
-                        className="group relative aspect-square overflow-hidden rounded-xl bg-[#e8ebe2]"
+                        key={`${src}-${index}`}
+                        onDragOver={(event) => {
+                          event.preventDefault();
+                          event.dataTransfer.dropEffect = "move";
+                          if (dragOverImageIndex !== index) {
+                            setDragOverImageIndex(index);
+                          }
+                        }}
+                        onDragLeave={() => {
+                          setDragOverImageIndex((prev) =>
+                            prev === index ? null : prev,
+                          );
+                        }}
+                        onDrop={(event) => {
+                          event.preventDefault();
+                          const from =
+                            dragImageIndexRef.current ??
+                            Number.parseInt(
+                              event.dataTransfer.getData("text/plain"),
+                              10,
+                            );
+                          setDragOverImageIndex(null);
+                          dragImageIndexRef.current = null;
+                          if (!Number.isInteger(from)) return;
+                          reorderImages(from, index);
+                        }}
+                        className={`group relative aspect-square overflow-hidden rounded-xl bg-[#e8ebe2] ${
+                          isDragOver
+                            ? "ring-2 ring-[#75825B] ring-offset-2"
+                            : ""
+                        }`}
                       >
-                        <ProductThumb src={src} />
+                        <button
+                          type="button"
+                          onClick={() => setLightboxIndex(index)}
+                          className="absolute inset-0 cursor-zoom-in"
+                          aria-label={`Zobraziť obrázok ${index + 1} na celú obrazovku`}
+                        >
+                          <ProductThumb src={src} />
+                        </button>
+                        <span
+                          draggable
+                          onDragStart={(event) => {
+                            dragImageIndexRef.current = index;
+                            event.dataTransfer.effectAllowed = "move";
+                            event.dataTransfer.setData(
+                              "text/plain",
+                              String(index),
+                            );
+                          }}
+                          onDragEnd={() => {
+                            dragImageIndexRef.current = null;
+                            setDragOverImageIndex(null);
+                          }}
+                          className="absolute top-2 right-2 z-[1] inline-flex size-7 cursor-grab items-center justify-center rounded-md bg-white/90 text-[#2f2924]/55 shadow-sm active:cursor-grabbing"
+                          aria-label={`Presunúť obrázok ${index + 1}`}
+                          title="Presunúť"
+                        >
+                          <GripVertical
+                            className="size-3.5"
+                            strokeWidth={1.75}
+                          />
+                        </span>
                         {role ? (
-                          <span className="absolute top-2 left-2 rounded-md bg-white/90 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-[#2f2924] uppercase">
+                          <span className="pointer-events-none absolute top-2 left-2 rounded-md bg-white/90 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-[#2f2924] uppercase">
                             {role}
                           </span>
-                        ) : null}
-                        <div className="absolute inset-0 flex items-end justify-between gap-1 bg-gradient-to-t from-black/45 via-transparent to-transparent p-2 opacity-0 transition-opacity group-hover:opacity-100">
+                        ) : (
+                          <span className="pointer-events-none absolute top-2 left-2 rounded-md bg-white/80 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-[#2f2924]/55 uppercase">
+                            {index + 1}
+                          </span>
+                        )}
+                        <div className="pointer-events-none absolute inset-0 flex items-end justify-between gap-1 bg-gradient-to-t from-black/45 via-transparent to-transparent p-2 opacity-0 transition-opacity group-hover:opacity-100">
                           <button
                             type="button"
                             onClick={() => openFilePicker(index)}
-                            className="cursor-pointer rounded-md bg-white/95 px-2 py-1 text-[11px] font-medium text-[#2f2924]"
+                            className="pointer-events-auto cursor-pointer rounded-md bg-white/95 px-2 py-1 text-[11px] font-medium text-[#2f2924]"
                           >
                             Vymeniť
                           </button>
                           <button
                             type="button"
                             onClick={() => removeImage(index)}
-                            className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md bg-white/95 text-[#2f2924] transition-colors hover:text-[#c45c4a]"
+                            className="pointer-events-auto inline-flex size-7 cursor-pointer items-center justify-center rounded-md bg-white/95 text-[#2f2924] transition-colors hover:text-[#c45c4a]"
                             aria-label="Odstrániť obrázok"
                           >
                             <Trash2 className="size-3.5" strokeWidth={1.75} />
@@ -1327,10 +1534,11 @@ function ProductEditor({
                 <button
                   type="button"
                   onClick={() => openFilePicker(null)}
-                  className="mt-2.5 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#75825B]/40 bg-[#faf8f5] text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B] hover:bg-[#e8ebe2]/45"
+                  disabled={uploading || saving}
+                  className="mt-2.5 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#75825B]/40 bg-[#faf8f5] text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B] hover:bg-[#e8ebe2]/45 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   <ImagePlus className="size-4" strokeWidth={1.75} aria-hidden />
-                  Pridať obrázok
+                  {uploading ? "Nahrávam…" : "Pridať obrázky"}
                 </button>
               </div>
 
@@ -1370,6 +1578,27 @@ function ProductEditor({
                   </p>
                 ) : null}
               </div>
+
+              <div className="space-y-5">
+                <FieldLabel label="Materiál">
+                  <textarea
+                    value={material}
+                    onChange={(event) => setMaterial(event.target.value)}
+                    rows={2}
+                    className="min-h-[3.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
+                    placeholder="Voliteľné – prázdne sa na webe nezobrazí"
+                  />
+                </FieldLabel>
+                <FieldLabel label="Použitie">
+                  <textarea
+                    value={usage}
+                    onChange={(event) => setUsage(event.target.value)}
+                    rows={2}
+                    className="min-h-[3.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
+                    placeholder="Voliteľné – prázdne sa na webe nezobrazí"
+                  />
+                </FieldLabel>
+              </div>
             </section>
 
             <section className="min-w-0 space-y-5">
@@ -1391,37 +1620,382 @@ function ProductEditor({
               </FieldLabel>
 
               <fieldset>
-                <legend className="text-sm font-medium text-[#2f2924]">
-                  Farby (filter)
+                <legend className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-[#2f2924]">
+                  <span className="inline-flex items-center gap-1.5">
+                    Farby
+                    <InfoHint text="U vybranej farby cez ⋯ priradíte, ktoré fotky k nej patria." />
+                  </span>
+                  {colors.length > 1 && images.length > 0 ? (
+                    <button
+                      type="button"
+                      onClick={distributeImagesEvenly}
+                      className="cursor-pointer text-xs font-medium text-[#75825B] transition-colors hover:text-[#5f6a49]"
+                    >
+                      Rozdeliť rovnomerne
+                    </button>
+                  ) : null}
                 </legend>
                 <div className="mt-3 grid grid-cols-2 gap-1.5">
                   {filterColors.map((color) => {
                     const selected = colors.includes(color.id);
+                    const assignedCount =
+                      colorImageMap[color.id]?.length ?? 0;
                     return (
-                      <label
+                      <div
                         key={color.id}
-                        className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-black/10 px-2.5 py-2 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
+                        className={`flex items-center gap-1 rounded-xl border border-black/10 pr-1 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
                           selected ? "bg-[#e8ebe2]/60" : ""
                         }`}
                       >
-                        <input
-                          type="checkbox"
-                          checked={selected}
-                          onChange={() => toggle(colors, color.id, setColors)}
-                          className="size-4 accent-[#75825B]"
-                        />
-                        {color.hex ? (
-                          <span
-                            className="size-3.5 rounded-full border border-black/10"
-                            style={{ backgroundColor: color.hex }}
-                            aria-hidden
+                        <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-2.5 py-2">
+                          <input
+                            type="checkbox"
+                            checked={selected}
+                            onChange={() => toggleColor(color.id)}
+                            className="size-4 shrink-0 accent-[#75825B]"
                           />
+                          {color.hex ? (
+                            <span
+                              className="size-3.5 shrink-0 rounded-full border border-black/10"
+                              style={{ backgroundColor: color.hex }}
+                              aria-hidden
+                            />
+                          ) : null}
+                          <span className="min-w-0 truncate">{color.label}</span>
+                        </label>
+                        {selected ? (
+                          <button
+                            type="button"
+                            disabled={images.length === 0}
+                            onClick={() => setColorImagesEditorId(color.id)}
+                            className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-white hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
+                            aria-label={`Priradiť fotky k farbe ${color.label}`}
+                            title={
+                              images.length === 0
+                                ? "Najprv nahrajte fotky"
+                                : assignedCount > 0
+                                  ? `${assignedCount} fotiek`
+                                  : "Priradiť fotky"
+                            }
+                          >
+                            <MoreHorizontal
+                              className="size-4"
+                              strokeWidth={1.75}
+                              aria-hidden
+                            />
+                            {assignedCount > 0 ? (
+                              <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
+                                {assignedCount}
+                              </span>
+                            ) : null}
+                          </button>
                         ) : null}
-                        {color.label}
-                      </label>
+                      </div>
                     );
                   })}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setCustomPickerOpen((open) => !open);
+                      if (!customPickerOpen) {
+                        resetCustomDraft();
+                      }
+                    }}
+                    className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-dashed px-2.5 py-2 text-left text-sm font-medium transition-colors ${
+                      customPickerOpen
+                        ? "border-[#75825B] bg-[#e8ebe2]/60 text-[#2f2924]"
+                        : "border-[#2f2924]/20 bg-white text-[#2f2924] hover:border-[#75825B]/50 hover:bg-[#e8ebe2]/40"
+                    }`}
+                  >
+                    <span
+                      className="inline-flex size-3.5 items-center justify-center rounded-full border border-black/15 bg-[conic-gradient(from_0deg,#b43c3c,#e0c35a,#6b7f5a,#5a7a9a,#7a5f8a,#d4a0a8,#b43c3c)]"
+                      aria-hidden
+                    />
+                    Vlastná
+                  </button>
                 </div>
+
+                {customPickerOpen ? (
+                  <div className="mt-3 space-y-3 rounded-xl border border-black/8 bg-[#faf8f5] p-3">
+                    <p className="text-xs font-medium tracking-wide text-[#2f2924]/55 uppercase">
+                      Nová vlastná farba
+                    </p>
+                    <p className="text-xs leading-relaxed text-[#2f2924]/55">
+                      Vyberte HEX a zadajte vlastný názov (napr. Svetlo
+                      fialová). Návrh názvu z katalógu môžete prepísať.
+                    </p>
+
+                    <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2f2924]">
+                      <input
+                        type="checkbox"
+                        checked={customDraftSplit}
+                        onChange={(event) => {
+                          const split = event.target.checked;
+                          setCustomDraftSplit(split);
+                          if (!customLabelTouched) {
+                            setCustomDraftLabel(
+                              customDraftSuggestedLabel(
+                                customDraftHex,
+                                split,
+                                customDraftHexSecondary,
+                              ),
+                            );
+                          }
+                        }}
+                        className="size-4 accent-[#75825B]"
+                      />
+                      Dve farby (split)
+                      <span
+                        className="size-4 rounded-full border border-black/10"
+                        style={colorSwatchStyle({
+                          hex: customDraftHex,
+                          hexSecondary: customDraftSplit
+                            ? customDraftHexSecondary
+                            : undefined,
+                        })}
+                        aria-hidden
+                      />
+                    </label>
+
+                    <div className="flex flex-wrap items-start gap-4">
+                      <div className="space-y-2">
+                        <p className="text-[11px] font-medium tracking-wide text-[#2f2924]/45 uppercase">
+                          {customDraftSplit ? "Farba 1" : "Farba"}
+                        </p>
+                        <div className="flex flex-wrap items-center gap-3">
+                          <label className="relative size-11 shrink-0 cursor-pointer overflow-hidden rounded-full border border-black/10 shadow-sm">
+                            <span
+                              className="absolute inset-0"
+                              style={{ backgroundColor: customDraftHex }}
+                              aria-hidden
+                            />
+                            <input
+                              type="color"
+                              value={customDraftHex}
+                              onChange={(event) => {
+                                const hex = event.target.value;
+                                setCustomDraftHex(hex);
+                                if (!customLabelTouched) {
+                                  setCustomDraftLabel(
+                                    customDraftSuggestedLabel(hex),
+                                  );
+                                }
+                              }}
+                              className="absolute inset-0 cursor-pointer opacity-0"
+                              aria-label="Vybrať prvú farbu"
+                            />
+                          </label>
+                          <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+                            {CUSTOM_COLOR_PRESETS.map((hex) => (
+                              <button
+                                key={`a-${hex}`}
+                                type="button"
+                                onClick={() => {
+                                  setCustomDraftHex(hex);
+                                  if (!customLabelTouched) {
+                                    setCustomDraftLabel(
+                                      customDraftSuggestedLabel(hex),
+                                    );
+                                  }
+                                }}
+                                className={`size-7 cursor-pointer rounded-full border transition-transform hover:scale-105 ${
+                                  customDraftHex.toLowerCase() ===
+                                  hex.toLowerCase()
+                                    ? "border-[#2f2924] ring-2 ring-[#75825B]/35"
+                                    : "border-black/10"
+                                }`}
+                                style={{ backgroundColor: hex }}
+                                aria-label={`Predvoľba ${hex}`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      {customDraftSplit ? (
+                        <div className="space-y-2">
+                          <p className="text-[11px] font-medium tracking-wide text-[#2f2924]/45 uppercase">
+                            Farba 2
+                          </p>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <label className="relative size-11 shrink-0 cursor-pointer overflow-hidden rounded-full border border-black/10 shadow-sm">
+                              <span
+                                className="absolute inset-0"
+                                style={{
+                                  backgroundColor: customDraftHexSecondary,
+                                }}
+                                aria-hidden
+                              />
+                              <input
+                                type="color"
+                                value={customDraftHexSecondary}
+                                onChange={(event) => {
+                                  const hex = event.target.value;
+                                  setCustomDraftHexSecondary(hex);
+                                  if (!customLabelTouched) {
+                                    setCustomDraftLabel(
+                                      customDraftSuggestedLabel(
+                                        customDraftHex,
+                                        true,
+                                        hex,
+                                      ),
+                                    );
+                                  }
+                                }}
+                                className="absolute inset-0 cursor-pointer opacity-0"
+                                aria-label="Vybrať druhú farbu"
+                              />
+                            </label>
+                            <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+                              {CUSTOM_COLOR_PRESETS.map((hex) => (
+                                <button
+                                  key={`b-${hex}`}
+                                  type="button"
+                                  onClick={() => {
+                                    setCustomDraftHexSecondary(hex);
+                                    if (!customLabelTouched) {
+                                      setCustomDraftLabel(
+                                        customDraftSuggestedLabel(
+                                          customDraftHex,
+                                          true,
+                                          hex,
+                                        ),
+                                      );
+                                    }
+                                  }}
+                                  className={`size-7 cursor-pointer rounded-full border transition-transform hover:scale-105 ${
+                                    customDraftHexSecondary.toLowerCase() ===
+                                    hex.toLowerCase()
+                                      ? "border-[#2f2924] ring-2 ring-[#75825B]/35"
+                                      : "border-black/10"
+                                  }`}
+                                  style={{ backgroundColor: hex }}
+                                  aria-label={`Predvoľba ${hex}`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <FieldLabel label="Názov farby">
+                      <input
+                        type="text"
+                        value={customDraftLabel}
+                        onChange={(event) => {
+                          setCustomLabelTouched(true);
+                          setCustomDraftLabel(event.target.value);
+                        }}
+                        className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
+                        placeholder="Napr. Fialová"
+                      />
+                    </FieldLabel>
+                    <div className="flex gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setCustomPickerOpen(false);
+                          resetCustomDraft();
+                        }}
+                        className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60"
+                      >
+                        Zrušiť
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const label =
+                            customDraftLabel.trim() ||
+                            customDraftSuggestedLabel();
+
+                          const id = encodeCustomColorId(
+                            customDraftHex,
+                            label,
+                            customDraftSplit
+                              ? customDraftHexSecondary
+                              : undefined,
+                          );
+
+                          if (!colors.includes(id)) {
+                            setColors((prev) => [...prev, id]);
+                          }
+                          setCustomPickerOpen(false);
+                          resetCustomDraft();
+                        }}
+                        className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                      >
+                        Pridať farbu
+                      </button>
+                    </div>
+                  </div>
+                ) : null}
+
+                {customColors.length > 0 ? (
+                  <div className="mt-4">
+                    <p className="text-xs font-medium tracking-wide text-[#2f2924]/55 uppercase">
+                      Vlastné farby
+                    </p>
+                    <ul className="mt-2 flex flex-col gap-1.5">
+                      {customColors.map((color) => {
+                        const assignedCount =
+                          colorImageMap[color.id]?.length ?? 0;
+                        return (
+                          <li
+                            key={color.id}
+                            className="flex items-center gap-1 rounded-xl border border-black/8 bg-white py-1 pr-1 pl-2.5"
+                          >
+                            <span
+                              className="size-3.5 shrink-0 rounded-full border border-black/10"
+                              style={colorSwatchStyle(color)}
+                              aria-hidden
+                            />
+                            <span className="min-w-0 flex-1 truncate text-sm text-[#2f2924]">
+                              {color.label}
+                            </span>
+                            <button
+                              type="button"
+                              disabled={images.length === 0}
+                              onClick={() => setColorImagesEditorId(color.id)}
+                              className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
+                              aria-label={`Priradiť fotky k farbe ${color.label}`}
+                              title={
+                                images.length === 0
+                                  ? "Najprv nahrajte fotky"
+                                  : assignedCount > 0
+                                    ? `${assignedCount} fotiek`
+                                    : "Priradiť fotky"
+                              }
+                            >
+                              <MoreHorizontal
+                                className="size-4"
+                                strokeWidth={1.75}
+                                aria-hidden
+                              />
+                              {assignedCount > 0 ? (
+                                <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
+                                  {assignedCount}
+                                </span>
+                              ) : null}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => toggleColor(color.id)}
+                              className="inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#fee2e2] hover:text-[#b91c1c]"
+                              aria-label={`Odstrániť farbu ${color.label}`}
+                            >
+                              <Trash2
+                                className="size-3.5"
+                                strokeWidth={1.75}
+                                aria-hidden
+                              />
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ) : null}
               </fieldset>
 
               <fieldset>
@@ -1508,7 +2082,7 @@ function ProductEditor({
                   setDiscardOpen(false);
                   setDeleteOpen(true);
                 }}
-                disabled={exiting}
+                disabled={exiting || saving}
                 className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
               >
                 <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
@@ -1518,10 +2092,10 @@ function ProductEditor({
             <button
               type="button"
               onClick={saveAndClose}
-              disabled={!images[0] || !name.trim() || exiting}
+              disabled={!images[0] || !name.trim() || exiting || saving || uploading}
               className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
             >
-              Uložiť
+              {saving ? "Ukladám…" : "Uložiť"}
             </button>
           </div>
         </div>
@@ -1555,14 +2129,125 @@ function ProductEditor({
               <button
                 type="button"
                 onClick={saveAndClose}
-                disabled={!images[0] || !name.trim() || exiting}
+                disabled={!images[0] || !name.trim() || exiting || saving || uploading}
                 className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Uložiť zmeny
+                {saving ? "Ukladám…" : "Uložiť zmeny"}
               </button>
             </div>
           </div>
         </div>
+      ) : null}
+
+      {colorImagesEditor ? (
+        <div className="absolute inset-0 z-[70] flex items-center justify-center bg-black/35 px-4">
+          <button
+            type="button"
+            className="absolute inset-0 cursor-pointer"
+            aria-label="Zavrieť"
+            onClick={() => setColorImagesEditorId(null)}
+          />
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="color-images-title"
+            className="relative z-10 w-full max-w-md rounded-2xl border border-black/8 bg-white p-5 shadow-[0_20px_48px_rgba(47,41,36,0.2)]"
+          >
+            <div className="flex items-start gap-3">
+              <span
+                className="mt-1 size-5 shrink-0 rounded-full border border-black/10"
+                style={colorSwatchStyle(colorImagesEditor)}
+                aria-hidden
+              />
+              <div className="min-w-0 flex-1">
+                <h3
+                  id="color-images-title"
+                  className="font-heading text-lg text-[#2f2924]"
+                >
+                  Fotky pre {colorImagesEditor.label}
+                </h3>
+                <p className="mt-1 text-sm leading-relaxed text-[#2f2924]/65">
+                  Zaškrtnite fotky, ktoré patria k tejto farbe.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setColorImagesEditorId(null)}
+                className="inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
+                aria-label="Zavrieť"
+              >
+                <X className="size-4" strokeWidth={1.75} aria-hidden />
+              </button>
+            </div>
+
+            {images.length === 0 ? (
+              <p className="mt-4 text-sm text-[#2f2924]/55">
+                Zatiaľ nie sú nahraté žiadne fotky.
+              </p>
+            ) : (
+              <div className="mt-4 grid max-h-[50vh] grid-cols-3 gap-2.5 overflow-y-auto sm:grid-cols-4">
+                {images.map((src, index) => {
+                  const checked =
+                    colorImageMap[colorImagesEditor.id]?.includes(index) ??
+                    false;
+                  return (
+                    <label
+                      key={`${colorImagesEditor.id}-${src}-${index}`}
+                      className={`relative aspect-square cursor-pointer overflow-hidden rounded-xl border transition-colors ${
+                        checked
+                          ? "border-[#75825B] ring-2 ring-[#75825B]/30"
+                          : "border-black/10 opacity-75 hover:opacity-100"
+                      }`}
+                      title={`Fotka ${index + 1}`}
+                    >
+                      <Image
+                        src={src}
+                        alt=""
+                        fill
+                        sizes="96px"
+                        className="object-cover"
+                      />
+                      <input
+                        type="checkbox"
+                        checked={checked}
+                        onChange={() =>
+                          toggleColorImage(colorImagesEditor.id, index)
+                        }
+                        className="absolute top-1.5 left-1.5 size-4 accent-[#75825B]"
+                        aria-label={`${colorImagesEditor.label}: fotka ${index + 1}`}
+                      />
+                      {index === 0 || index === 1 ? (
+                        <span className="absolute right-1.5 bottom-1.5 rounded-md bg-white/90 px-1.5 py-0.5 text-[10px] font-medium tracking-wide text-[#2f2924] uppercase">
+                          {index === 0 ? "Hlavný" : "Hover"}
+                        </span>
+                      ) : null}
+                    </label>
+                  );
+                })}
+              </div>
+            )}
+
+            <div className="mt-5 flex justify-end">
+              <button
+                type="button"
+                onClick={() => setColorImagesEditorId(null)}
+                className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Hotovo
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {lightboxIndex != null && images.length > 0 ? (
+        <ImageLightbox
+          images={images}
+          index={Math.min(lightboxIndex, images.length - 1)}
+          alt={name.trim() || "Obrázok produktu"}
+          onClose={() => setLightboxIndex(null)}
+          onIndexChange={setLightboxIndex}
+        />
       ) : null}
 
       {deleteOpen ? (
@@ -1594,10 +2279,10 @@ function ProductEditor({
               <button
                 type="button"
                 onClick={confirmDelete}
-                disabled={exiting}
+                disabled={exiting || saving}
                 className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
               >
-                Odstrániť
+                {saving ? "Odstraňujem…" : "Odstrániť"}
               </button>
             </div>
           </div>
@@ -1611,10 +2296,14 @@ function serializeEditorSnapshot(value: {
   name: string;
   description: string;
   sku: string;
+  price: string;
+  material: string;
+  usage: string;
   images: string[];
   category: string;
   subcategoryId: string;
   colors: string[];
+  colorImageMap: Record<string, number[]>;
   packaging: PackagingOption[];
   inStock: boolean;
   stockQuantity: string;
@@ -1623,10 +2312,14 @@ function serializeEditorSnapshot(value: {
     name: value.name.trim(),
     description: value.description.trim(),
     sku: value.sku.trim(),
+    price: value.price.trim(),
+    material: value.material.trim(),
+    usage: value.usage.trim(),
     images: value.images,
     category: value.category,
     subcategoryId: value.subcategoryId,
     colors: [...value.colors].sort(),
+    colorImageMap: value.colorImageMap,
     packaging: [...value.packaging]
       .map((item) => ({
         id: item.id,

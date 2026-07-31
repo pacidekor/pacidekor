@@ -7,6 +7,7 @@ import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { registerRetail } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
+import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -64,7 +65,11 @@ const INITIAL: FormState = {
   passwordConfirm: "",
 };
 
-export function RetailRegisterForm() {
+export function RetailRegisterForm({
+  sideSlides = [],
+}: {
+  sideSlides?: AuthSideSlide[];
+}) {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormState>(INITIAL);
@@ -162,6 +167,7 @@ export function RetailRegisterForm() {
   if (done) {
     return (
       <AuthSplitShell
+        sideSlides={sideSlides}
         sideTitle="Vitajte"
         sideBody="Váš účet je pripravený. Môžete hneď nakupovať."
       >
@@ -198,7 +204,11 @@ export function RetailRegisterForm() {
   }
 
   return (
-    <AuthSplitShell sideTitle={current.sideTitle} sideBody={current.sideBody}>
+    <AuthSplitShell
+      sideSlides={sideSlides}
+      sideTitle={current.sideTitle}
+      sideBody={current.sideBody}
+    >
       <div className="mb-6">
         <AuthBrandLink />
         <h1 className="mt-6 font-heading text-3xl font-semibold text-[#2f2924]">

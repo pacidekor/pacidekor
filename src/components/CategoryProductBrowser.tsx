@@ -1,12 +1,17 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { ProductCard } from "@/components/ProductCard";
+import {
+  ADMIN_CATEGORIES_EVENT,
+  ADMIN_CATEGORIES_STORAGE_KEY,
+  getAdminSubcategoriesForCategory,
+} from "@/lib/admin-categories-store";
 import { filterProducts, type Product } from "@/lib/products";
 import {
   buildCategoryFilterHref,
@@ -39,6 +44,28 @@ export function CategoryProductBrowser({
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [subcategories, setSubcategories] = useState(() =>
+    getSubcategoriesForCategory(categoryLabel).map((sub) => ({
+      id: sub.id,
+      label: sub.label,
+    })),
+  );
+
+  useEffect(() => {
+    function refresh() {
+      setSubcategories(getAdminSubcategoriesForCategory(categoryLabel));
+    }
+    refresh();
+    function onStorage(event: StorageEvent) {
+      if (event.key === ADMIN_CATEGORIES_STORAGE_KEY) refresh();
+    }
+    window.addEventListener(ADMIN_CATEGORIES_EVENT, refresh);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener(ADMIN_CATEGORIES_EVENT, refresh);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, [categoryLabel]);
 
   const filters = useMemo(() => {
     const raw: Record<string, string | undefined> = {};
@@ -47,8 +74,6 @@ export function CategoryProductBrowser({
     });
     return parseCategoryFilters(raw);
   }, [searchParams]);
-
-  const subcategories = getSubcategoriesForCategory(categoryLabel);
 
   const filtered = useMemo(
     () =>

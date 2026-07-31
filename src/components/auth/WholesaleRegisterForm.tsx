@@ -5,6 +5,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { registerWholesale } from "@/lib/actions/auth";
+import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -77,7 +78,11 @@ const INITIAL: FormState = {
   note: "",
 };
 
-export function WholesaleRegisterForm() {
+export function WholesaleRegisterForm({
+  sideSlides = [],
+}: {
+  sideSlides?: AuthSideSlide[];
+}) {
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormState>(INITIAL);
   const [error, setError] = useState("");
@@ -181,6 +186,7 @@ export function WholesaleRegisterForm() {
   if (done) {
     return (
       <AuthSplitShell
+        sideSlides={sideSlides}
         sideTitle="Ďakujeme"
         sideBody="Žiadosť sme prijali. Po overení vám účet aktivujeme."
       >
@@ -216,7 +222,11 @@ export function WholesaleRegisterForm() {
   }
 
   return (
-    <AuthSplitShell sideTitle={current.sideTitle} sideBody={current.sideBody}>
+    <AuthSplitShell
+      sideSlides={sideSlides}
+      sideTitle={current.sideTitle}
+      sideBody={current.sideBody}
+    >
       <div className="mb-6">
         <AuthBrandLink />
         <h1 className="mt-6 font-heading text-3xl font-semibold text-[#2f2924]">

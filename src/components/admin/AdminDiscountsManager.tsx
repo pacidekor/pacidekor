@@ -35,7 +35,8 @@ import {
   type ProductDiscount,
 } from "@/lib/discounts";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
-import { products, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
+import { getProductCatalog } from "@/lib/product-catalog";
 
 type StatusFilter = "all" | DiscountStatus;
 type DiscountInputMode = "percent" | "price";
@@ -556,10 +557,11 @@ function DiscountEditor({
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const selectedProduct =
-    products.find((product) => product.id === productId) ?? initialProduct;
+    getProductCatalog().find((product) => product.id === productId) ??
+    initialProduct;
 
   const availableProducts = useMemo(() => {
-    return products.filter((product) => {
+    return getProductCatalog().filter((product) => {
       if (product.id === discount?.productId) return true;
       return !productsWithDiscount.has(product.id);
     });

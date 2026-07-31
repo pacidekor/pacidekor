@@ -1,5 +1,5 @@
 import { formatPrice, parsePrice } from "@/lib/cart";
-import { products } from "@/lib/products";
+import { findCatalogProductById } from "@/lib/product-catalog";
 
 export type OrderStatus =
   | "nova"
@@ -114,7 +114,7 @@ function item(
   quantity: number,
   unitPrice?: string,
 ): OrderItem {
-  const product = products.find((p) => p.id === productId);
+  const product = findCatalogProductById(productId);
   return {
     productId,
     name: product?.name ?? `Produkt ${productId}`,

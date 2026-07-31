@@ -26,6 +26,18 @@ export async function createClient() {
   });
 }
 
+/** Cookie-less anon client for public reads (e.g. generateStaticParams / catalog). */
+export function createPublicClient() {
+  const { url, anonKey } = getSupabaseEnv();
+
+  return createSupabaseClient<Database>(url, anonKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
+
 /** Service-role client for privileged admin ops (e.g. delete Auth user). */
 export function createServiceClient() {
   const { url } = getSupabaseEnv();

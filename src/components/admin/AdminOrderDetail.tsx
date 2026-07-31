@@ -13,7 +13,7 @@ import {
   orderStatusClass,
   type Order,
 } from "@/lib/orders";
-import { products } from "@/lib/products";
+import { findCatalogProductById } from "@/lib/product-catalog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 
 export function AdminOrderDetail({
@@ -127,7 +127,7 @@ export function AdminOrderDetail({
 
               <ul className="space-y-2.5">
                 {order.items.map((line) => {
-                  const product = products.find((p) => p.id === line.productId);
+                  const product = findCatalogProductById(line.productId);
                   const lineTotal = formatPrice(
                     parsePrice(line.unitPrice) * line.quantity,
                   );

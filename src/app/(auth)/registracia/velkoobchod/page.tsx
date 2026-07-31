@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { WholesaleRegisterForm } from "@/components/auth/WholesaleRegisterForm";
+import { listAuthSideSlides } from "@/lib/products-server";
 
 export const metadata: Metadata = {
   title: "Registrácia veľkoobchod",
@@ -7,6 +8,7 @@ export const metadata: Metadata = {
     "Požiadajte o veľkoobchodný účet PACIDEKOR – partnerské ceny pre kvetinárstva a firmy.",
 };
 
-export default function WholesaleRegisterPage() {
-  return <WholesaleRegisterForm />;
+export default async function WholesaleRegisterPage() {
+  const sideSlides = await listAuthSideSlides();
+  return <WholesaleRegisterForm sideSlides={sideSlides} />;
 }

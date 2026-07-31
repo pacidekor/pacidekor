@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
-import { getProductsBySlugs, novinkySlugs } from "@/lib/products";
+import { getNewestProducts } from "@/lib/products";
+import { listProducts } from "@/lib/products-server";
 
 export const metadata: Metadata = {
   title: "Novinky",
   description: "Najnovšie produkty z ponuky PACIDEKOR.",
 };
 
-export default function NovinkyPage() {
-  const products = getProductsBySlugs(novinkySlugs);
+export default async function NovinkyPage() {
+  const all = await listProducts();
+  const products = getNewestProducts(all, 24);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">

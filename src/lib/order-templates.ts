@@ -1,5 +1,5 @@
 import { formatPrice, parsePrice } from "@/lib/cart";
-import { products } from "@/lib/products";
+import { findCatalogProductById } from "@/lib/product-catalog";
 
 export type OrderTemplateItem = {
   productId: string;
@@ -24,7 +24,7 @@ function templateItem(
   productId: string,
   quantity: number,
 ): OrderTemplateItem {
-  const product = products.find((p) => p.id === productId);
+  const product = findCatalogProductById(productId);
   return {
     productId,
     name: product?.name ?? `Produkt ${productId}`,

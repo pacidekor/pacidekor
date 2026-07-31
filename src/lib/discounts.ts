@@ -1,9 +1,8 @@
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
-  akciaSlugs as seedAkciaSlugs,
-  products,
-  type Product,
-} from "@/lib/products";
+  findCatalogProductById,
+} from "@/lib/product-catalog";
+import type { Product } from "@/lib/products";
 
 export const DISCOUNTS_STORAGE_KEY = "pacidekor.admin.discounts";
 export const DISCOUNTS_EVENT = "pacidekor:discounts-changed";
@@ -46,28 +45,8 @@ export const DISCOUNT_STATUS_META: Record<
   },
 };
 
-function seedIsoDate() {
-  return "2026-01-01T10:00:00.000Z";
-}
-
 export function seedDiscounts(): ProductDiscount[] {
-  const createdAt = seedIsoDate();
-
-  return products
-    .filter((product) => product.originalPrice && product.discount)
-    .map((product) => ({
-      id: `discount-${product.id}`,
-      productId: product.id,
-      originalPrice: product.originalPrice!,
-      salePrice: product.price,
-      discountPercent: product.discount!,
-      showOnAkciaPage: (seedAkciaSlugs as readonly string[]).includes(
-        product.slug,
-      ),
-      active: true,
-      createdAt,
-      updatedAt: createdAt,
-    }));
+  return [];
 }
 
 function isValidDiscount(value: unknown): value is ProductDiscount {
@@ -173,7 +152,7 @@ export function formatDiscountValidity(discount: ProductDiscount) {
 }
 
 export function getProductForDiscount(productId: string) {
-  return products.find((product) => product.id === productId);
+  return findCatalogProductById(productId);
 }
 
 /** Base catalog price before any managed discount is applied. */

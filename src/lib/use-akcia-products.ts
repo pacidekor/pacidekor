@@ -1,32 +1,36 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useProductCatalog } from "@/components/ProductCatalogProvider";
 import {
   DISCOUNTS_EVENT,
   getAkciaProducts,
   readDiscounts,
-  seedDiscounts,
 } from "@/lib/discounts";
 import type { Product } from "@/lib/products";
 
 export function useAkciaProducts() {
-  const [items, setItems] = useState<Product[]>(() =>
-    getAkciaProducts(seedDiscounts()),
-  );
+  const catalog = useProductCatalog();
+  const [discountTick, setDiscountTick] = useState(0);
 
   useEffect(() => {
-    function sync() {
-      setItems(getAkciaProducts(readDiscounts()));
+    function onDiscountsChanged() {
+      setDiscountTick((value) => value + 1);
     }
 
-    sync();
-    window.addEventListener(DISCOUNTS_EVENT, sync);
-    window.addEventListener("storage", sync);
+    onDiscountsChanged();
+    window.addEventListener(DISCOUNTS_EVENT, onDiscountsChanged);
+    window.addEventListener("storage", onDiscountsChanged);
     return () => {
-      window.removeEventListener(DISCOUNTS_EVENT, sync);
-      window.removeEventListener("storage", sync);
+      window.removeEventListener(DISCOUNTS_EVENT, onDiscountsChanged);
+      window.removeEventListener("storage", onDiscountsChanged);
     };
   }, []);
 
-  return items;
+  return useMemo((): Product[] => {
+    // Re-run when catalog hydrates from ProductCatalogProvider
+    if (catalog.length === 0) return [];
+    void discountTick;
+    return getAkciaProducts(readDiscounts());
+  }, [catalog, discountTick]);
 }

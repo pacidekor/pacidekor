@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import { CategoryProductBrowser } from "@/components/CategoryProductBrowser";
 import { categoryList, getCategoryBySlug } from "@/lib/navigation";
 import { getProductsByCategory } from "@/lib/products";
+import { listProducts } from "@/lib/products-server";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -38,7 +39,8 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
-  const categoryProducts = getProductsByCategory(category.label);
+  const allProducts = await listProducts();
+  const categoryProducts = getProductsByCategory(allProducts, category.label);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">

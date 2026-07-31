@@ -6,11 +6,16 @@ import { useState, type FormEvent } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { loginRetail } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
+import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
 
-export function RetailLoginForm() {
+export function RetailLoginForm({
+  sideSlides = [],
+}: {
+  sideSlides?: AuthSideSlide[];
+}) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,6 +42,7 @@ export function RetailLoginForm() {
 
   return (
     <AuthSplitShell
+      sideSlides={sideSlides}
       sideTitle="Vitajte späť"
       sideBody="Prihláste sa do svojho účtu a pokračujte v nákupe."
     >

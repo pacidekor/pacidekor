@@ -3,15 +3,19 @@ import { ConstructionNoticeModal } from "@/components/ConstructionNoticeModal";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { NavBar } from "@/components/NavBar";
+import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { listProducts } from "@/lib/products-server";
 
-export default function SiteLayout({
+export default async function SiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const products = await listProducts();
+
   return (
-    <>
+    <ProductCatalogProvider products={products}>
       <ScrollToTop />
       <div className="sticky top-0 z-50">
         <Header />
@@ -24,6 +28,6 @@ export default function SiteLayout({
       <ChatFab />
       {/* Construction notice: vypnuto přes SHOW_CONSTRUCTION_NOTICE v ConstructionNoticeModal.tsx */}
       <ConstructionNoticeModal />
-    </>
+    </ProductCatalogProvider>
   );
 }

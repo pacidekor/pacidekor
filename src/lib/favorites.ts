@@ -1,4 +1,5 @@
-import { products, type Product } from "@/lib/products";
+import type { Product } from "@/lib/products";
+import { findCatalogProductsByIds } from "@/lib/product-catalog";
 
 export const FAVORITES_KEY = "pacidekor-favorites";
 export const FAVORITES_EVENT = "pacidekor:favorites-changed";
@@ -37,8 +38,7 @@ export function toggleFavorite(productId: string): boolean {
 }
 
 export function getFavoriteProducts(): Product[] {
-  const ids = new Set(readFavoriteIds());
-  return products.filter((product) => ids.has(product.id));
+  return findCatalogProductsByIds(readFavoriteIds());
 }
 
 export function favoriteCountLabel(count: number) {

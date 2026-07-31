@@ -1,31 +1,27 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ProductDetailsCards } from "@/components/product/ProductDetailsCards";
-import { ProductImageGallery } from "@/components/product/ProductImageGallery";
-import { ProductPurchase } from "@/components/product/ProductPurchase";
+import { ProductMediaPurchase } from "@/components/product/ProductMediaPurchase";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+import { getRelatedProducts } from "@/lib/products";
 import {
   getProductBySlug,
-  getProductGallery,
-  getRelatedProducts,
-  products,
-} from "@/lib/products";
+  listProducts,
+} from "@/lib/products-server";
 import { categoryHref } from "@/lib/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return products.map((product) => ({ slug: product.slug }));
-}
+/** Catalog changes in admin — prefer request-time rendering. */
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     return { title: "Produkt nenájdený" };
@@ -39,14 +35,14 @@ export async function generateMetadata({
 
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) {
     notFound();
   }
 
-  const related = getRelatedProducts(product.slug);
-  const gallery = getProductGallery(product);
+  const allProducts = await listProducts();
+  const related = getRelatedProducts(allProducts, product.slug);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -70,22 +66,7 @@ export default async function ProductPage({ params }: PageProps) {
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-        <ProductImageGallery
-          images={gallery}
-          alt={product.name}
-          discount={product.discount}
-        />
-
-        <div>
-          <h1 className="text-3xl text-[#2f2924] sm:text-4xl lg:text-5xl">
-            {product.name}
-          </h1>
-          <p className="mt-4 text-base leading-relaxed text-[#2f2924]/70 sm:text-lg">
-            {product.description}
-          </p>
-          <ProductPurchase product={product} />
-          <ProductDetailsCards details={product.details} />
-        </div>
+        <ProductMediaPurchase product={product} />
       </div>
 
       <RelatedProducts products={related} />
