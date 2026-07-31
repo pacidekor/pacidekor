@@ -6,6 +6,7 @@ import type { ProductDiscount } from "@/lib/discounts";
 import type {
   ProductDiscountInsert,
   ProductDiscountRow,
+  ProductDiscountUpdate,
 } from "@/lib/supabase/database.types";
 import { createClient } from "@/lib/supabase/server";
 
@@ -89,7 +90,7 @@ export async function upsertDiscountAction(
   const auth = await requireAdmin();
   if (!auth.ok) return { ok: false, error: auth.error };
 
-  const payload: ProductDiscountInsert = {
+  const payload: ProductDiscountUpdate = {
     product_id: input.productId,
     original_price: input.originalPrice.trim(),
     sale_price: input.salePrice.trim(),
@@ -115,9 +116,23 @@ export async function upsertDiscountAction(
     return { ok: true, data: mapDiscountRow(data as ProductDiscountRow) };
   }
 
+  const insertPayload: ProductDiscountInsert = {
+    product_id: input.productId,
+    original_price: input.originalPrice.trim(),
+    sale_price: input.salePrice.trim(),
+    discount_percent: Math.min(
+      100,
+      Math.max(0, Math.round(input.discountPercent)),
+    ),
+    show_on_akcia_page: input.showOnAkciaPage,
+    active: input.active,
+    starts_at: input.startsAt?.trim() || null,
+    ends_at: input.endsAt?.trim() || null,
+  };
+
   const { data, error } = await auth.supabase
     .from("product_discounts")
-    .upsert(payload, { onConflict: "product_id" })
+    .upsert(insertPayload, { onConflict: "product_id" })
     .select("*")
     .maybeSingle();
 
