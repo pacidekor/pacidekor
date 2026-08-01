@@ -2,7 +2,7 @@ export const categories = [
   "Umelé kvety",
   "Sušina",
   "Stuhy",
-  "Aranžérstvo",
+  "Aranž. materiál",
   "Obalový materiál",
   "Keramika",
   "Vencové základy",
@@ -30,15 +30,27 @@ export function toSlug(label: string) {
     .replace(/(^-|-$)/g, "");
 }
 
+/** Stable slugs that must not change when the display label is tweaked. */
+const categorySlugOverrides: Partial<Record<CategoryLabel, string>> = {
+  "Aranž. materiál": "aranz-material",
+};
+
+/** Older public URLs that should still resolve after renames. */
+const categorySlugAliases: Record<string, CategoryLabel> = {
+  aranzerstvo: "Aranž. materiál",
+};
+
 export function categoryHref(label: string) {
-  return `/kategorie/${toSlug(label)}`;
+  const override =
+    categorySlugOverrides[label as CategoryLabel] ?? toSlug(label);
+  return `/kategorie/${override}`;
 }
 
 const categoryImages: Record<CategoryLabel, string> = {
   "Umelé kvety": "/kategorie/umelekvety.webp",
   Sušina: "/kategorie/susina.webp",
   Stuhy: "/kategorie/stuhy.webp",
-  Aranžérstvo: "/kategorie/aranzerskymaterial.webp",
+  "Aranž. materiál": "/kategorie/aranzerskymaterial.webp",
   "Obalový materiál": "/kategorie/obalovymaterial.webp",
   Keramika: "/kategorie/keramika-new.webp",
   "Vencové základy": "/kategorie/vencovezaklady.webp",
@@ -53,7 +65,8 @@ const categoryDescriptions: Record<CategoryLabel, string> = {
     "Realistické umelé kvety do váz, aranžmánov a celoročných dekorácií.",
   Sušina: "Prírodná sušina a stabilizované rastliny pre rustikálne aj moderné aranžmány.",
   Stuhy: "Saténové, organzové a dekoračné stuhy na balenie, mašle a floristiku.",
-  Aranžérstvo: "Aranžérsky materiál a pomôcky pre profesionálnu aj domácu tvorbu.",
+  "Aranž. materiál":
+    "Aranžérsky materiál a pomôcky pre profesionálnu aj domácu tvorbu.",
   "Obalový materiál":
     "Papier, fólie a obaly na kytice, darčeky a sezónne balenie.",
   Keramika: "Keramické vázy, misky a nádoby, ktoré dotvoria každý aranžmán.",
@@ -67,12 +80,16 @@ const categoryDescriptions: Record<CategoryLabel, string> = {
 
 export const categoryList: Category[] = categories.map((label) => ({
   label,
-  slug: toSlug(label),
+  slug: categorySlugOverrides[label] ?? toSlug(label),
   image: categoryImages[label],
   description: categoryDescriptions[label],
 }));
 
 export function getCategoryBySlug(slug: string) {
+  const aliased = categorySlugAliases[slug];
+  if (aliased) {
+    return categoryList.find((category) => category.label === aliased);
+  }
   return categoryList.find((category) => category.slug === slug);
 }
 

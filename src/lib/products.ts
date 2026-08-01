@@ -42,17 +42,15 @@ export type Product = {
   /** Seed availability – live stock is tracked in inventory storage. */
   inStock?: boolean;
   stockQuantity?: number;
+  /** Admin-controlled novinka flag (must also pass newUntil). */
+  isNew?: boolean;
+  /** ISO timestamp – novinka visible while now < newUntil. */
+  newUntil?: string;
+  createdAt?: string;
 };
 
-export const DEFAULT_PRODUCT_DETAILS: ProductDetail[] = [
-  { title: "Materiál", content: "" },
-  { title: "Použitie", content: "" },
-  {
-    title: "Doprava",
-    content:
-      "Objednávky expedujeme do 24 hodín. Doručenie kuriérom obvykle do 1-2 pracovných dní na Slovensku.",
-  },
-];
+/** Legacy per-product detail cards – storefront uses fixed purchase benefits instead. */
+export const DEFAULT_PRODUCT_DETAILS: ProductDetail[] = [];
 
 export function colorsFromIds(colorIds: string[] | null | undefined): ProductColor[] {
   if (!colorIds || colorIds.length === 0) return [];
@@ -341,6 +339,9 @@ export function mapProductRow(row: ProductRow): Product {
     details: asDetails(row.details),
     inStock: row.in_stock,
     stockQuantity: row.stock_quantity ?? undefined,
+    isNew: row.is_new,
+    newUntil: row.new_until ?? undefined,
+    createdAt: row.created_at,
   };
 }
 
@@ -498,8 +499,39 @@ export function getProductsByCategory(
   return allProducts.filter((product) => product.category === category);
 }
 
-export function getNewestProducts(allProducts: Product[], count = 8) {
-  return allProducts.slice(0, count);
+/** How long a product stays in Novinky after being marked. */
+export const NEW_PRODUCT_DAYS = 60;
+
+export function computeNewUntil(from: Date = new Date()): string {
+  const date = new Date(from);
+  date.setUTCDate(date.getUTCDate() + NEW_PRODUCT_DAYS);
+  return date.toISOString();
+}
+
+export function isActiveNewProduct(
+  product: Pick<Product, "isNew" | "newUntil">,
+  now: number = Date.now(),
+) {
+  if (!product.isNew || !product.newUntil) return false;
+  const until = new Date(product.newUntil).getTime();
+  return Number.isFinite(until) && until > now;
+}
+
+/**
+ * Active novinky only (flag + not expired).
+ * Pass `count` to limit (homepage carousel); omit for full /novinky list.
+ */
+export function getNewestProducts(allProducts: Product[], count?: number) {
+  const now = Date.now();
+  const list = allProducts
+    .filter((product) => isActiveNewProduct(product, now))
+    .sort((a, b) => {
+      const aTime = new Date(a.createdAt ?? a.newUntil ?? 0).getTime();
+      const bTime = new Date(b.createdAt ?? b.newUntil ?? 0).getTime();
+      return bTime - aTime;
+    });
+
+  return count != null ? list.slice(0, count) : list;
 }
 
 export function getSaleProducts(allProducts: Product[]) {

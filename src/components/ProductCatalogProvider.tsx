@@ -15,9 +15,13 @@ import {
   subscribeProductCatalog,
 } from "@/lib/product-catalog";
 
+/** Stable empty snapshots for useSyncExternalStore (new [] each call = infinite loop). */
+const EMPTY_PRODUCTS: Product[] = [];
+const EMPTY_DISCOUNTS: ProductDiscount[] = [];
+
 export function ProductCatalogProvider({
   products,
-  discounts = [],
+  discounts = EMPTY_DISCOUNTS,
   children,
 }: {
   products: Product[];
@@ -45,7 +49,7 @@ export function useProductCatalog() {
   return useSyncExternalStore(
     subscribeProductCatalog,
     getProductCatalog,
-    () => [] as Product[],
+    () => EMPTY_PRODUCTS,
   );
 }
 
@@ -53,6 +57,6 @@ export function useDiscounts() {
   return useSyncExternalStore(
     subscribeDiscounts,
     getDiscountsSnapshot,
-    () => [] as ProductDiscount[],
+    () => EMPTY_DISCOUNTS,
   );
 }

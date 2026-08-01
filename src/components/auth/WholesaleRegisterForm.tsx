@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { PasswordField } from "@/components/PasswordField";
 import { registerWholesale } from "@/lib/actions/auth";
 import type { AuthSideSlide } from "@/lib/products";
 
@@ -487,9 +488,8 @@ export function WholesaleRegisterForm({
               <label htmlFor="vo-password" className={labelClass}>
                 Heslo
               </label>
-              <input
+              <PasswordField
                 id="vo-password"
-                type="password"
                 autoComplete="new-password"
                 value={data.password}
                 onChange={(event) => patch("password", event.target.value)}
@@ -501,9 +501,8 @@ export function WholesaleRegisterForm({
               <label htmlFor="vo-password-confirm" className={labelClass}>
                 Potvrdenie hesla
               </label>
-              <input
+              <PasswordField
                 id="vo-password-confirm"
-                type="password"
                 autoComplete="new-password"
                 value={data.passwordConfirm}
                 onChange={(event) =>

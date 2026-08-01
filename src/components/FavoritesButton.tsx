@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { startTransition, useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, X } from "lucide-react";
@@ -70,7 +70,9 @@ export function FavoritesButton() {
 
   useEffect(() => {
     function sync() {
-      setProducts(getFavoriteProducts());
+      startTransition(() => {
+        setProducts(getFavoriteProducts());
+      });
     }
 
     sync();

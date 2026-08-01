@@ -4,6 +4,7 @@ import { useEffect, useState, type MouseEvent } from "react";
 import { Heart } from "lucide-react";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import {
+  getCachedClientAuthenticated,
   isClientAuthenticated,
   subscribeClientAuth,
 } from "@/lib/client-auth";
@@ -24,15 +25,17 @@ export function FavoriteButton({
   productName,
   className = "",
 }: FavoriteButtonProps) {
-  const [active, setActive] = useState(false);
-  const [hydrated, setHydrated] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [active, setActive] = useState(() =>
+    typeof window !== "undefined" ? isFavorite(productId) : false,
+  );
+  const [loggedIn, setLoggedIn] = useState(
+    () => getCachedClientAuthenticated() === true,
+  );
   const [loginOpen, setLoginOpen] = useState(false);
 
   useEffect(() => {
     function syncFavorites() {
       setActive(isFavorite(productId));
-      setHydrated(true);
     }
 
     async function syncAuth() {
@@ -53,36 +56,55 @@ export function FavoriteButton({
     };
   }, [productId]);
 
-  async function handleClick(event: MouseEvent<HTMLButtonElement>) {
+  function handleClick(event: MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
     event.stopPropagation();
 
-    if (!(await isClientAuthenticated())) {
-      setLoginOpen(true);
+    const cached = getCachedClientAuthenticated();
+    const allowed = loggedIn || cached === true;
+
+    if (!allowed) {
+      if (cached === false) {
+        setLoginOpen(true);
+        return;
+      }
+
+      // Auth not resolved yet – check once, then act (no wait when cache is warm).
+      void isClientAuthenticated().then((ok) => {
+        setLoggedIn(ok);
+        if (!ok) {
+          setLoginOpen(true);
+          return;
+        }
+        setActive(toggleFavorite(productId));
+      });
       return;
     }
 
+    setLoggedIn(true);
     setActive(toggleFavorite(productId));
   }
+
+  const filled = loggedIn && active;
 
   return (
     <>
       <button
         type="button"
         onClick={handleClick}
-        aria-pressed={loggedIn && active}
+        aria-pressed={filled}
         aria-label={
-          loggedIn && active
+          filled
             ? `Odstrániť ${productName} z obľúbených`
             : `Pridať ${productName} do obľúbených`
         }
-        className={`group/fav inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-white/90 text-[#2f2924]/55 shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm transition-all duration-200 hover:scale-105 hover:bg-white hover:text-[#c45c4a] ${
-          hydrated && loggedIn && active ? "text-[#c45c4a]" : ""
+        className={`group/fav inline-flex size-9 cursor-pointer items-center justify-center rounded-full bg-white/90 text-[#2f2924]/55 shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm transition-colors duration-100 hover:bg-white hover:text-[#c45c4a] ${
+          filled ? "text-[#c45c4a]" : ""
         } ${className}`}
       >
         <Heart
-          className={`size-4 transition-transform duration-200 group-hover/fav:scale-110 ${
-            hydrated && loggedIn && active ? "fill-current" : ""
+          className={`size-4 transition-transform duration-100 group-hover/fav:scale-110 ${
+            filled ? "fill-current" : ""
           }`}
           strokeWidth={1.75}
           aria-hidden

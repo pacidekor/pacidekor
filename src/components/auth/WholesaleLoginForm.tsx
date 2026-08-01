@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { PasswordField } from "@/components/PasswordField";
 import { loginWholesale } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
 import type { AuthSideSlide } from "@/lib/products";
@@ -90,10 +91,9 @@ export function WholesaleLoginForm({
             >
               Heslo
             </label>
-            <input
+            <PasswordField
               id="vo-login-password"
               name="password"
-              type="password"
               required
               autoComplete="current-password"
               value={password}

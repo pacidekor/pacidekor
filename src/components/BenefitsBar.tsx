@@ -12,7 +12,7 @@ const benefits: {
 }[] = [
   {
     icon: Package,
-    text: "Doručenie do 24 hodín",
+    text: "Expedícia do 24 hodín",
   },
   {
     icon: HandCoins,

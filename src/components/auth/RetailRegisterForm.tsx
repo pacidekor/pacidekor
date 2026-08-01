@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { PasswordField } from "@/components/PasswordField";
 import { registerRetail } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
 import type { AuthSideSlide } from "@/lib/products";
@@ -411,9 +412,8 @@ export function RetailRegisterForm({
               <label htmlFor="mo-password" className={labelClass}>
                 Heslo
               </label>
-              <input
+              <PasswordField
                 id="mo-password"
-                type="password"
                 autoComplete="new-password"
                 value={data.password}
                 onChange={(event) => patch("password", event.target.value)}
@@ -425,9 +425,8 @@ export function RetailRegisterForm({
               <label htmlFor="mo-password-confirm" className={labelClass}>
                 Potvrdenie hesla
               </label>
-              <input
+              <PasswordField
                 id="mo-password-confirm"
-                type="password"
                 autoComplete="new-password"
                 value={data.passwordConfirm}
                 onChange={(event) =>

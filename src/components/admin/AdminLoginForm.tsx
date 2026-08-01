@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
 import { Lock, User } from "lucide-react";
+import { PasswordField } from "@/components/PasswordField";
 import { loginAdmin } from "@/lib/actions/auth";
 
 export function AdminLoginForm() {
@@ -80,23 +81,22 @@ export function AdminLoginForm() {
           >
             Heslo
           </label>
-          <div className="relative">
-            <Lock
-              className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
-              aria-hidden
-            />
-            <input
-              id="admin-password"
-              name="password"
-              type="password"
-              autoComplete="current-password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              className="h-11 w-full rounded-xl border border-black/10 bg-white/80 pr-4 pl-10 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 transition-colors focus:border-[#75825B] focus:bg-white focus:ring-2 focus:ring-[#75825B]/20"
-              placeholder="Heslo"
-            />
-          </div>
+          <PasswordField
+            id="admin-password"
+            name="password"
+            autoComplete="current-password"
+            required
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            className="h-11 w-full rounded-xl border border-black/10 bg-white/80 pl-10 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 transition-colors focus:border-[#75825B] focus:bg-white focus:ring-2 focus:ring-[#75825B]/20"
+            placeholder="Heslo"
+            leading={
+              <Lock
+                className="pointer-events-none absolute top-1/2 left-3.5 z-[1] size-4 -translate-y-1/2 text-[#2f2924]/35"
+                aria-hidden
+              />
+            }
+          />
         </div>
 
         <button

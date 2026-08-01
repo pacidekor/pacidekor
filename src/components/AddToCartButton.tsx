@@ -2,12 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, ShoppingCart } from "lucide-react";
+import { addToCart } from "@/lib/cart";
 import { adjustInventory } from "@/lib/inventory";
 import type { Product } from "@/lib/products";
 
 type AddToCartButtonProps = {
   product: Product;
   quantity?: number;
+  colorId?: string;
   disabled?: boolean;
   size?: "card" | "page";
 };
@@ -17,6 +19,7 @@ const RESET_MS = 1800;
 export function AddToCartButton({
   product,
   quantity = 1,
+  colorId,
   disabled = false,
   size = "card",
 }: AddToCartButtonProps) {
@@ -35,6 +38,7 @@ export function AddToCartButton({
     const result = adjustInventory(product, -quantity);
     if (!result.ok) return;
 
+    addToCart(product, quantity, colorId);
     setAdded(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);

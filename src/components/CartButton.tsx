@@ -8,10 +8,10 @@ import {
   cartItemCount,
   cartSubtotal,
   formatPrice,
-  mockCartItems,
   type CartItem,
 } from "@/lib/cart";
 import { productHref } from "@/lib/products";
+import { useCartItems } from "@/lib/use-cart";
 
 type CartButtonProps = {
   variant?: "desktop" | "mobile";
@@ -33,6 +33,14 @@ function CartItems({
   items: CartItem[];
   onSelect?: () => void;
 }) {
+  if (items.length === 0) {
+    return (
+      <p className="px-1 py-6 text-center text-sm text-[#2f2924]/55">
+        Váš košík je zatiaľ prázdny.
+      </p>
+    );
+  }
+
   return (
     <ul className="divide-y divide-black/6">
       {items.map(({ product, quantity }) => (
@@ -110,7 +118,7 @@ export function CartButton({
   const isControlled = openProp !== undefined;
   const open = isControlled ? openProp : internalOpen;
 
-  const items = mockCartItems;
+  const items = useCartItems();
   const count = cartItemCount(items);
   const subtotal = cartSubtotal(items);
   const isMobile = variant === "mobile";
@@ -144,7 +152,7 @@ export function CartButton({
   const trigger = (
     <button
       type="button"
-      aria-label={`Košík, ${count} položiek`}
+      aria-label={`Košík, ${productCountLabel(count)}`}
       aria-expanded={open}
       aria-controls={panelId}
       onClick={() => setOpenState(!open)}
@@ -220,12 +228,14 @@ export function CartButton({
                 />
               </div>
 
-              <div className="mt-4 shrink-0">
-                <CartFooter
-                  subtotal={subtotal}
-                  onSelect={() => setOpenState(false)}
-                />
-              </div>
+              {items.length > 0 ? (
+                <div className="mt-4 shrink-0">
+                  <CartFooter
+                    subtotal={subtotal}
+                    onSelect={() => setOpenState(false)}
+                  />
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -279,12 +289,14 @@ export function CartButton({
             <CartItems items={items} onSelect={() => setOpenState(false)} />
           </div>
 
-          <div className="bg-[#faf8f5] px-4 py-3.5">
-            <CartFooter
-              subtotal={subtotal}
-              onSelect={() => setOpenState(false)}
-            />
-          </div>
+          {items.length > 0 ? (
+            <div className="bg-[#faf8f5] px-4 py-3.5">
+              <CartFooter
+                subtotal={subtotal}
+                onSelect={() => setOpenState(false)}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

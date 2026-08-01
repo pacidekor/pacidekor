@@ -98,6 +98,7 @@ export function ProductPurchase({
           <AddToCartButton
             product={product}
             quantity={quantity}
+            colorId={selectedColor || undefined}
             disabled={!available}
             size="page"
           />

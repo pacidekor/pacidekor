@@ -1,20 +1,28 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import {
+  amountToMinOrder,
   cartItemCount,
   cartSubtotal,
   formatPrice,
-  mockCartItems,
+  meetsMinOrder,
+  MIN_ORDER_TOTAL,
   parsePrice,
+  removeFromCart,
+  setCartQuantity,
   type CartItem,
 } from "@/lib/cart";
 import { productHref } from "@/lib/products";
-import { adjustInventory, getInventoryForProduct, inventoryMaxOrderable } from "@/lib/inventory";
+import {
+  adjustInventory,
+  getInventoryForProduct,
+  inventoryMaxOrderable,
+} from "@/lib/inventory";
+import { useCartItems } from "@/lib/use-cart";
 
 function productCountLabel(count: number) {
   if (count === 1) return "1 produkt";
@@ -114,9 +122,11 @@ function CartSummary({
   subtotal: number;
 }) {
   const count = cartItemCount(items);
-  const shippingThreshold = 50;
+  const shippingThreshold = 100;
   const freeShipping = subtotal >= shippingThreshold;
-  const remaining = Math.max(0, shippingThreshold - subtotal);
+  const remainingShipping = Math.max(0, shippingThreshold - subtotal);
+  const canCheckout = meetsMinOrder(subtotal);
+  const remainingMinOrder = amountToMinOrder(subtotal);
 
   return (
     <aside className="lg:sticky lg:top-[calc(5rem+3.5rem)]">
@@ -144,19 +154,11 @@ function CartSummary({
             </span>
           </div>
 
-          {!freeShipping ? (
-            <p className="rounded-xl bg-[#e8ebe2] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924]/75">
-              Do dopravy zadarmo vám chýba ešte{" "}
-              <span className="font-semibold text-[#2f2924]">
-                {formatPrice(remaining)}
-              </span>
-              .
-            </p>
-          ) : (
-            <p className="rounded-xl bg-[#e8ebe2] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924]/75">
-              Máte dopravu zadarmo.
-            </p>
-          )}
+          <p className="text-xs leading-snug text-[#2f2924]/50">
+            {freeShipping
+              ? "Máte dopravu zadarmo."
+              : `Do dopravy zadarmo chýba ${formatPrice(remainingShipping)}.`}
+          </p>
 
           <div className="h-px bg-black/8" aria-hidden />
 
@@ -169,9 +171,21 @@ function CartSummary({
         </div>
 
         <div className="border-t border-black/6 px-6 py-5 sm:px-7">
+          {!canCheckout ? (
+            <p className="mb-3 text-xs leading-snug text-[#2f2924]/50">
+              Minimálna objednávka {formatPrice(MIN_ORDER_TOTAL)}, chýba{" "}
+              {formatPrice(remainingMinOrder)}.
+            </p>
+          ) : null}
           <button
             type="button"
-            className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90"
+            disabled={!canCheckout}
+            aria-disabled={!canCheckout}
+            className={`inline-flex h-11 w-full items-center justify-center rounded-xl text-sm font-medium text-white transition-opacity ${
+              canCheckout
+                ? "cursor-pointer bg-[#75825B] hover:opacity-90"
+                : "cursor-not-allowed bg-[#2f2924]/25"
+            }`}
           >
             Pokračovať k pokladni
           </button>
@@ -208,36 +222,28 @@ function EmptyCart() {
 }
 
 export function CartView() {
-  const [items, setItems] = useState<CartItem[]>(mockCartItems);
+  const items = useCartItems();
 
   function updateQuantity(productId: string, next: number) {
-    setItems((current) => {
-      const item = current.find((entry) => entry.product.id === productId);
-      if (!item) return current;
+    const item = items.find((entry) => entry.product.id === productId);
+    if (!item) return;
 
-      const clamped = Math.max(1, next);
-      const delta = clamped - item.quantity;
-      if (delta === 0) return current;
+    const clamped = Math.max(1, next);
+    const delta = clamped - item.quantity;
+    if (delta === 0) return;
 
-      const result = adjustInventory(item.product, -delta);
-      if (!result.ok) return current;
+    const result = adjustInventory(item.product, -delta);
+    if (!result.ok) return;
 
-      return current.map((entry) =>
-        entry.product.id === productId
-          ? { ...entry, quantity: clamped }
-          : entry,
-      );
-    });
+    setCartQuantity(productId, clamped);
   }
 
   function removeItem(productId: string) {
-    setItems((current) => {
-      const item = current.find((entry) => entry.product.id === productId);
-      if (item) {
-        adjustInventory(item.product, item.quantity);
-      }
-      return current.filter((entry) => entry.product.id !== productId);
-    });
+    const item = items.find((entry) => entry.product.id === productId);
+    if (item) {
+      adjustInventory(item.product, item.quantity);
+    }
+    removeFromCart(productId);
   }
 
   if (items.length === 0) {

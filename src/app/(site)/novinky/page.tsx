@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default async function NovinkyPage() {
   const all = await listProducts();
-  const products = getNewestProducts(all, 24);
+  const products = getNewestProducts(all);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">

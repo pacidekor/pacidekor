@@ -41,7 +41,7 @@ export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
           selectedColor={selectedColor}
           onSelectColor={setSelectedColor}
         />
-        <ProductDetailsCards details={product.details} />
+        <ProductDetailsCards />
       </div>
     </>
   );

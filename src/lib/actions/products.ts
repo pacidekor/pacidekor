@@ -5,7 +5,9 @@ import { compressProductImage } from "@/lib/compress-product-image";
 import { toSlug } from "@/lib/navigation";
 import {
   DEFAULT_PRODUCT_DETAILS,
+  computeNewUntil,
   generateProductSku,
+  isActiveNewProduct,
   mapProductRow,
   type Product,
 } from "@/lib/products";
@@ -41,6 +43,8 @@ export type ProductUpsertInput = {
   inStock: boolean;
   stockQuantity?: number | null;
   details?: Product["details"];
+  /** When true, product appears in Novinky until new_until. */
+  markAsNew?: boolean;
 };
 
 async function requireAdmin() {
@@ -152,6 +156,7 @@ function toInsertPayload(
   const colorIds = input.attributes?.colors ?? [];
   const packaging = normalizePackaging(input.attributes?.packaging);
   const images = input.images.map((src) => src.trim()).filter(Boolean);
+  const markAsNew = input.markAsNew !== false;
 
   return {
     slug,
@@ -176,16 +181,20 @@ function toInsertPayload(
     stock_quantity: input.inStock
       ? (input.stockQuantity ?? null)
       : null,
+    is_new: markAsNew,
+    new_until: markAsNew ? computeNewUntil() : null,
   };
 }
 
 function toUpdatePayload(
   input: ProductUpsertInput,
   slug: string,
+  existing: Pick<ProductRow, "is_new" | "new_until"> | null,
 ): ProductUpdate {
   const colorIds = input.attributes?.colors ?? [];
   const packaging = normalizePackaging(input.attributes?.packaging);
   const images = input.images.map((src) => src.trim()).filter(Boolean);
+  const markAsNew = Boolean(input.markAsNew);
 
   const payload: ProductUpdate = {
     slug,
@@ -215,6 +224,22 @@ function toUpdatePayload(
   if (input.discount !== undefined) payload.discount = input.discount;
   if (input.details) payload.details = input.details;
 
+  if (markAsNew) {
+    payload.is_new = true;
+    const stillActive = existing
+      ? isActiveNewProduct({
+          isNew: existing.is_new,
+          newUntil: existing.new_until ?? undefined,
+        })
+      : false;
+    if (!stillActive) {
+      payload.new_until = computeNewUntil();
+    }
+  } else {
+    payload.is_new = false;
+    payload.new_until = null;
+  }
+
   return payload;
 }
 
@@ -238,7 +263,17 @@ export async function upsertProductAction(
   );
 
   if (input.id) {
-    const updatePayload = toUpdatePayload(input, slug);
+    const { data: existing } = await auth.supabase
+      .from("products")
+      .select("is_new, new_until")
+      .eq("id", input.id)
+      .maybeSingle();
+
+    const updatePayload = toUpdatePayload(
+      input,
+      slug,
+      (existing as Pick<ProductRow, "is_new" | "new_until"> | null) ?? null,
+    );
     const { data, error } = await auth.supabase
       .from("products")
       .update(updatePayload)

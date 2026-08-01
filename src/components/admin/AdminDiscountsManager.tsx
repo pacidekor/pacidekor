@@ -7,6 +7,7 @@ import {
   useRef,
   useState,
   type FormEvent,
+  type UIEvent,
 } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -45,6 +46,9 @@ import { getProductCatalog } from "@/lib/product-catalog";
 type StatusFilter = "all" | DiscountStatus;
 type DiscountInputMode = "percent" | "price";
 
+/** How many products to reveal per scroll batch in the discount product picker. */
+const PRODUCT_PICKER_PAGE_SIZE = 24;
+
 const STATUS_FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "all", label: "Všetky stavy" },
   { id: "active", label: "Aktívne" },
@@ -52,6 +56,63 @@ const STATUS_FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "scheduled", label: "Naplánované" },
   { id: "expired", label: "Vypršané" },
 ];
+
+/** Lowercase + strip separators so `PD-J4`, `PD J4`, `pdj4` all match the same SKU. */
+function normalizeCode(value: string) {
+  return value.toLowerCase().replace(/[\s\-_./]/g, "");
+}
+
+function productMatchesSearch(product: Product, rawQuery: string) {
+  const q = rawQuery.trim().toLowerCase();
+  if (!q) return true;
+
+  const qCode = normalizeCode(q);
+  const name = product.name.toLowerCase();
+  const sku = (product.sku ?? "").toLowerCase();
+  const skuCode = normalizeCode(product.sku ?? "");
+  const category = product.category.toLowerCase();
+
+  if (name.includes(q) || category.includes(q)) return true;
+  if (sku.includes(q)) return true;
+  // Match SKU without hyphens/spaces (e.g. query `PDJ4` vs sku `PD-J4L3…`)
+  if (qCode.length >= 2 && skuCode.includes(qCode)) return true;
+  return false;
+}
+
+/** Lower rank = better match. Prefer SKU hits so code search surfaces the right product. */
+function productSearchRank(product: Product, rawQuery: string): number {
+  const q = rawQuery.trim().toLowerCase();
+  if (!q) return 0;
+
+  const qCode = normalizeCode(q);
+  const name = product.name.toLowerCase();
+  const sku = (product.sku ?? "").toLowerCase();
+  const skuCode = normalizeCode(product.sku ?? "");
+
+  if (sku === q || skuCode === qCode) return 0;
+  if (sku.startsWith(q) || (qCode.length >= 2 && skuCode.startsWith(qCode))) {
+    return 1;
+  }
+  if (sku.includes(q) || (qCode.length >= 2 && skuCode.includes(qCode))) {
+    return 2;
+  }
+  if (name.startsWith(q)) return 3;
+  if (name.includes(q)) return 4;
+  return 5;
+}
+
+function filterProductsBySearch(products: Product[], rawQuery: string) {
+  const q = rawQuery.trim();
+  if (!q) return products;
+
+  return products
+    .filter((product) => productMatchesSearch(product, q))
+    .sort((a, b) => {
+      const rankDiff = productSearchRank(a, q) - productSearchRank(b, q);
+      if (rankDiff !== 0) return rankDiff;
+      return a.name.localeCompare(b.name, "sk");
+    });
+}
 
 function priceInputValue(price: string) {
   return price.replace(/\s/g, "").replace("€", "").trim();
@@ -100,15 +161,13 @@ export function AdminDiscountsManager() {
       const product = getProductForDiscount(discount.productId);
       if (!q) return true;
 
+      if (product && productMatchesSearch(product, q)) return true;
+
       const haystack = [
-        product?.name,
-        product?.sku,
-        product?.category,
         discount.originalPrice,
         discount.salePrice,
         DISCOUNT_STATUS_META[status].label,
       ]
-        .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
@@ -537,6 +596,9 @@ function DiscountEditor({
   const [discardOpen, setDiscardOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [productQuery, setProductQuery] = useState("");
+  const [visibleProductCount, setVisibleProductCount] = useState(
+    PRODUCT_PICKER_PAGE_SIZE,
+  );
   const [productId, setProductId] = useState(discount?.productId ?? "");
   const [originalPriceRaw, setOriginalPriceRaw] = useState(
     discount ? priceInputValue(discount.originalPrice) : "",
@@ -567,17 +629,32 @@ function DiscountEditor({
     });
   }, [discount?.productId, productsWithDiscount]);
 
-  const filteredProducts = useMemo(() => {
-    const q = productQuery.trim().toLowerCase();
-    if (!q) return availableProducts;
-    return availableProducts.filter((product) => {
-      const haystack = [product.name, product.sku, product.category]
-        .filter(Boolean)
-        .join(" ")
-        .toLowerCase();
-      return haystack.includes(q);
-    });
-  }, [availableProducts, productQuery]);
+  const filteredProducts = useMemo(
+    () => filterProductsBySearch(availableProducts, productQuery),
+    [availableProducts, productQuery],
+  );
+
+  const visibleProducts = useMemo(
+    () => filteredProducts.slice(0, visibleProductCount),
+    [filteredProducts, visibleProductCount],
+  );
+
+  const hasMoreProducts = visibleProductCount < filteredProducts.length;
+
+  useEffect(() => {
+    setVisibleProductCount(PRODUCT_PICKER_PAGE_SIZE);
+  }, [productQuery]);
+
+  function onProductListScroll(event: UIEvent<HTMLUListElement>) {
+    if (!hasMoreProducts) return;
+    const list = event.currentTarget;
+    const nearBottom =
+      list.scrollTop + list.clientHeight >= list.scrollHeight - 48;
+    if (!nearBottom) return;
+    setVisibleProductCount((count) =>
+      Math.min(count + PRODUCT_PICKER_PAGE_SIZE, filteredProducts.length),
+    );
+  }
 
   const panelOpen = entered && !exiting;
 
@@ -827,7 +904,7 @@ function DiscountEditor({
                         type="search"
                         value={productQuery}
                         onChange={(event) => setProductQuery(event.target.value)}
-                        placeholder="Hľadať produkt…"
+                        placeholder="Hľadať podľa názvu alebo kódu (SKU)…"
                         className="h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] pr-4 pl-10 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
                       />
                     </div>
@@ -848,7 +925,7 @@ function DiscountEditor({
                           </p>
                           <p className="truncate text-xs text-[#2f2924]/50">
                             {selectedProduct.sku
-                              ? `SKU ${selectedProduct.sku}`
+                              ? selectedProduct.sku
                               : selectedProduct.category}
                           </p>
                         </div>
@@ -866,39 +943,51 @@ function DiscountEditor({
                         </button>
                       </div>
                     ) : (
-                      <ul className="max-h-48 overflow-y-auto rounded-xl border border-black/10 bg-[#faf8f5]">
+                      <ul
+                        className="max-h-72 overflow-y-auto rounded-xl border border-black/10 bg-[#faf8f5]"
+                        onScroll={onProductListScroll}
+                      >
                         {filteredProducts.length === 0 ? (
                           <li className="px-4 py-6 text-center text-sm text-[#2f2924]/50">
                             Žiadny dostupný produkt
                           </li>
                         ) : (
-                          filteredProducts.slice(0, 8).map((product) => (
-                            <li key={product.id}>
-                              <button
-                                type="button"
-                                onClick={() => selectProduct(product)}
-                                className="flex w-full cursor-pointer items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-white"
-                              >
-                                <span className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-white">
-                                  <Image
-                                    src={product.image}
-                                    alt=""
-                                    fill
-                                    sizes="36px"
-                                    className="object-cover"
-                                  />
-                                </span>
-                                <span className="min-w-0 flex-1">
-                                  <span className="block truncate text-sm font-medium text-[#2f2924]">
-                                    {product.name}
+                          <>
+                            {visibleProducts.map((product) => (
+                              <li key={product.id}>
+                                <button
+                                  type="button"
+                                  onClick={() => selectProduct(product)}
+                                  className="flex w-full cursor-pointer items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-white"
+                                >
+                                  <span className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-white">
+                                    <Image
+                                      src={product.image}
+                                      alt=""
+                                      fill
+                                      sizes="36px"
+                                      className="object-cover"
+                                    />
                                   </span>
-                                  <span className="block truncate text-xs text-[#2f2924]/45">
-                                    {getProductBasePrice(product)}
+                                  <span className="min-w-0 flex-1">
+                                    <span className="block truncate text-sm font-medium text-[#2f2924]">
+                                      {product.name}
+                                    </span>
+                                    <span className="block truncate text-xs text-[#2f2924]/45">
+                                      {product.sku
+                                        ? `${product.sku} · ${getProductBasePrice(product)}`
+                                        : getProductBasePrice(product)}
+                                    </span>
                                   </span>
-                                </span>
-                              </button>
-                            </li>
-                          ))
+                                </button>
+                              </li>
+                            ))}
+                            {hasMoreProducts ? (
+                              <li className="px-3 py-2 text-center text-xs text-[#2f2924]/40">
+                                Scrollujte pre ďalšie produkty…
+                              </li>
+                            ) : null}
+                          </>
                         )}
                       </ul>
                     )}

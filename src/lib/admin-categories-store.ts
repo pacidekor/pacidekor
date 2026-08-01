@@ -46,6 +46,33 @@ export function seedAdminCategoriesStore(): AdminCategoriesStore {
   };
 }
 
+function migrateAdminCategoriesStore(
+  store: AdminCategoriesStore,
+): AdminCategoriesStore {
+  let changed = false;
+
+  const categories = store.categories.map((category) => {
+    if (category.label !== "Aranžérstvo" && category.id !== "aranzerstvo") {
+      return category;
+    }
+    changed = true;
+    return {
+      ...category,
+      id: "aranz-material",
+      label: "Aranž. materiál",
+    };
+  });
+
+  const subcategories = store.subcategories.map((sub) => {
+    if (sub.categoryId !== "aranzerstvo") return sub;
+    changed = true;
+    return { ...sub, categoryId: "aranz-material" };
+  });
+
+  if (!changed) return store;
+  return { categories, subcategories };
+}
+
 export function readAdminCategoriesStore(): AdminCategoriesStore {
   if (typeof window === "undefined") return seedAdminCategoriesStore();
   try {
@@ -58,7 +85,11 @@ export function readAdminCategoriesStore(): AdminCategoriesStore {
     ) {
       return seedAdminCategoriesStore();
     }
-    return parsed;
+    const migrated = migrateAdminCategoriesStore(parsed);
+    if (migrated !== parsed) {
+      writeAdminCategoriesStore(migrated);
+    }
+    return migrated;
   } catch {
     return seedAdminCategoriesStore();
   }

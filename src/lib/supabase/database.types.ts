@@ -79,6 +79,8 @@ export type ProductRow = {
   images: string[];
   in_stock: boolean;
   stock_quantity: number | null;
+  is_new: boolean;
+  new_until: string | null;
   created_at: string;
   updated_at: string;
 };
@@ -101,6 +103,8 @@ export type ProductInsert = {
   images?: string[];
   in_stock?: boolean;
   stock_quantity?: number | null;
+  is_new?: boolean;
+  new_until?: string | null;
   created_at?: string;
   updated_at?: string;
 };

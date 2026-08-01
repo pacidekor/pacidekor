@@ -45,6 +45,8 @@ import {
   DEFAULT_PRODUCT_DETAILS,
   encodeCustomColorId,
   generateProductSku,
+  isActiveNewProduct,
+  NEW_PRODUCT_DAYS,
   parseCustomColorId,
   productHref,
   suggestColorName,
@@ -77,10 +79,6 @@ import { lockPageScroll } from "@/lib/lock-page-scroll";
 
 const CREATE_DRAFT_ID = "__new__";
 
-const DEFAULT_SHIPPING =
-  DEFAULT_PRODUCT_DETAILS.find((item) => item.title === "Doprava")?.content ??
-  "";
-
 const CREATE_DRAFT_PRODUCT: Product = {
   id: CREATE_DRAFT_ID,
   slug: "novy-produkt",
@@ -92,6 +90,7 @@ const CREATE_DRAFT_PRODUCT: Product = {
   category: "Umelé kvety",
   details: DEFAULT_PRODUCT_DETAILS,
   inStock: true,
+  isNew: true,
 };
 
 type ProductOverride = {
@@ -107,30 +106,8 @@ type ProductOverride = {
   attributes: ProductAttributes;
   colorImageMap?: Record<string, number[]>;
   details: ProductDetail[];
+  markAsNew: boolean;
 };
-
-function detailContent(
-  details: ProductDetail[] | undefined,
-  title: string,
-  fallback = "",
-) {
-  return details?.find((item) => item.title === title)?.content ?? fallback;
-}
-
-function buildProductDetails(
-  material: string,
-  usage: string,
-): ProductDetail[] {
-  const details: ProductDetail[] = [];
-  if (material.trim()) {
-    details.push({ title: "Materiál", content: material.trim() });
-  }
-  if (usage.trim()) {
-    details.push({ title: "Použitie", content: usage.trim() });
-  }
-  details.push({ title: "Doprava", content: DEFAULT_SHIPPING });
-  return details;
-}
 
 function normalizePriceInput(value: string) {
   const trimmed = value.trim();
@@ -171,10 +148,8 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
           : undefined,
     },
     colorImageMap: value.colorImageMap,
-    details: buildProductDetails(
-      detailContent(value.details, "Materiál"),
-      detailContent(value.details, "Použitie"),
-    ),
+    details: DEFAULT_PRODUCT_DETAILS,
+    markAsNew: value.markAsNew,
   };
 }
 
@@ -337,6 +312,7 @@ export function AdminProductsManager({
       inStock: stock.inStock,
       stockQuantity: stock.inStock ? stock.quantity : null,
       details: normalized.details,
+      markAsNew: normalized.markAsNew,
     });
 
     if (!result.ok) {
@@ -845,10 +821,9 @@ function ProductEditor({
   const [price, setPrice] = useState(
     product.price?.replace(/\s*€\s*$/, "").trim() || "",
   );
-  const [material, setMaterial] = useState(
-    detailContent(product.details, "Materiál"),
+  const [markAsNew, setMarkAsNew] = useState(() =>
+    isNew ? true : isActiveNewProduct(product),
   );
-  const [usage, setUsage] = useState(detailContent(product.details, "Použitie"));
   const [images, setImages] = useState<string[]>(() =>
     [
       product.image,
@@ -901,8 +876,6 @@ function ProductEditor({
       description: product.description,
       sku: product.sku ?? "",
       price: product.price?.replace(/\s*€\s*$/, "").trim() || "",
-      material: detailContent(product.details, "Materiál"),
-      usage: detailContent(product.details, "Použitie"),
       images: [
         product.image,
         product.hoverImage,
@@ -918,6 +891,7 @@ function ProductEditor({
         initialInventory.quantity != null
           ? String(initialInventory.quantity)
           : "",
+      markAsNew: isNew ? true : isActiveNewProduct(product),
     }),
   );
 
@@ -939,8 +913,6 @@ function ProductEditor({
       description,
       sku,
       price,
-      material,
-      usage,
       images,
       category,
       subcategoryId,
@@ -949,6 +921,7 @@ function ProductEditor({
       packaging,
       inStock,
       stockQuantity,
+      markAsNew,
     }) !== initialSnapshotRef.current;
 
   useEffect(() => {
@@ -1039,7 +1012,8 @@ function ProductEditor({
                 : undefined,
           },
           colorImageMap,
-          details: buildProductDetails(material, usage),
+          details: DEFAULT_PRODUCT_DETAILS,
+          markAsNew,
         },
         {
           inStock,
@@ -1426,6 +1400,27 @@ function ProductEditor({
                 </FieldLabel>
               </div>
 
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
+                <input
+                  type="checkbox"
+                  checked={markAsNew}
+                  onChange={(event) => setMarkAsNew(event.target.checked)}
+                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
+                />
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium text-[#2f2924]">
+                    Označiť ako novinku
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
+                    {markAsNew
+                      ? !isNew && isActiveNewProduct(product)
+                        ? `V Novinkách do ${formatNewUntilLabel(product.newUntil)}.`
+                        : `Po uložení bude v Novinkách ${NEW_PRODUCT_DAYS} dní.`
+                      : "Produkt sa zobrazí len v bežnom katalógu."}
+                  </span>
+                </span>
+              </label>
+
               <div>
                 <div className="flex items-center gap-1.5">
                   <p className="text-sm font-medium text-[#2f2924]">Médiá</p>
@@ -1577,27 +1572,6 @@ function ProductEditor({
                     Prázdne pole = neobmedzený počet kusov (sklad sa nepočíta).
                   </p>
                 ) : null}
-              </div>
-
-              <div className="space-y-5">
-                <FieldLabel label="Materiál">
-                  <textarea
-                    value={material}
-                    onChange={(event) => setMaterial(event.target.value)}
-                    rows={2}
-                    className="min-h-[3.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                    placeholder="Voliteľné – prázdne sa na webe nezobrazí"
-                  />
-                </FieldLabel>
-                <FieldLabel label="Použitie">
-                  <textarea
-                    value={usage}
-                    onChange={(event) => setUsage(event.target.value)}
-                    rows={2}
-                    className="min-h-[3.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                    placeholder="Voliteľné – prázdne sa na webe nezobrazí"
-                  />
-                </FieldLabel>
               </div>
             </section>
 
@@ -2297,8 +2271,6 @@ function serializeEditorSnapshot(value: {
   description: string;
   sku: string;
   price: string;
-  material: string;
-  usage: string;
   images: string[];
   category: string;
   subcategoryId: string;
@@ -2307,14 +2279,13 @@ function serializeEditorSnapshot(value: {
   packaging: PackagingOption[];
   inStock: boolean;
   stockQuantity: string;
+  markAsNew: boolean;
 }) {
   return JSON.stringify({
     name: value.name.trim(),
     description: value.description.trim(),
     sku: value.sku.trim(),
     price: value.price.trim(),
-    material: value.material.trim(),
-    usage: value.usage.trim(),
     images: value.images,
     category: value.category,
     subcategoryId: value.subcategoryId,
@@ -2329,6 +2300,18 @@ function serializeEditorSnapshot(value: {
       .sort((a, b) => a.id.localeCompare(b.id)),
     inStock: value.inStock,
     stockQuantity: value.stockQuantity.trim(),
+    markAsNew: value.markAsNew,
+  });
+}
+
+function formatNewUntilLabel(iso?: string) {
+  if (!iso) return "—";
+  const date = new Date(iso);
+  if (!Number.isFinite(date.getTime())) return "—";
+  return date.toLocaleDateString("sk-SK", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
   });
 }
 
