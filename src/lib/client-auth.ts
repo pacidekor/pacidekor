@@ -24,7 +24,7 @@ function emitAuthChanged() {
   window.dispatchEvent(new Event(CLIENT_AUTH_EVENT));
 }
 
-function setAuthCache(value: boolean) {
+function setAuthCache(value: boolean | null) {
   cachedAuthenticated = value;
 }
 
