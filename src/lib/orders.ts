@@ -1,4 +1,4 @@
-import { formatPrice, parsePrice } from "@/lib/cart";
+import { formatPrice, parsePrice } from "@/lib/price";
 import { findCatalogProductById } from "@/lib/product-catalog";
 
 export type OrderStatus =

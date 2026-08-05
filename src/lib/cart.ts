@@ -11,7 +11,22 @@ import {
 } from "@/lib/actions/cart";
 import { getCachedClientAuthenticated } from "@/lib/client-auth";
 import { findCatalogProductById } from "@/lib/product-catalog";
+import {
+  amountToMinOrder,
+  formatPrice,
+  meetsMinOrder,
+  MIN_ORDER_TOTAL,
+  parsePrice,
+} from "@/lib/price";
 import type { Product } from "@/lib/products";
+
+export {
+  amountToMinOrder,
+  formatPrice,
+  meetsMinOrder,
+  MIN_ORDER_TOTAL,
+  parsePrice,
+};
 
 export const CART_KEY = "pacidekor-cart";
 export const CART_EVENT = "pacidekor:cart-changed";
@@ -294,16 +309,6 @@ export async function clearCart() {
   writeStored([]);
 }
 
-export function parsePrice(price: string) {
-  return Number.parseFloat(
-    price.replace(/\s/g, "").replace("€", "").replace(",", "."),
-  );
-}
-
-export function formatPrice(value: number) {
-  return `${value.toFixed(2).replace(".", ",")} €`;
-}
-
 /** Number of distinct products (cart lines), not total pieces. */
 export function cartItemCount(items: CartItem[]) {
   return items.length;
@@ -319,15 +324,4 @@ export function cartSubtotal(items: CartItem[]) {
     (sum, item) => sum + parsePrice(item.product.price) * item.quantity,
     0,
   );
-}
-
-/** Minimum cart subtotal (€) required to continue to checkout. */
-export const MIN_ORDER_TOTAL = 10;
-
-export function amountToMinOrder(subtotal: number) {
-  return Math.max(0, MIN_ORDER_TOTAL - subtotal);
-}
-
-export function meetsMinOrder(subtotal: number) {
-  return subtotal >= MIN_ORDER_TOTAL;
 }
