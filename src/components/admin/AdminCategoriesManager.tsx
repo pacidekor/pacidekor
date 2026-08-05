@@ -44,15 +44,17 @@ export function AdminCategoriesManager() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
+  const editorOpen = creating || selectedId != null;
 
   useEffect(() => {
+    // Don't clobber in-progress edits if a transient empty snapshot arrives.
     if (taxonomy.categories.length > 0) {
       setStore(taxonomy);
-    } else {
+    } else if (!editorOpen) {
       setStore(readAdminCategoriesStore());
     }
     setHydrated(true);
-  }, [taxonomy]);
+  }, [taxonomy, editorOpen]);
 
   const selectedCategory = creating
     ? null
@@ -280,23 +282,23 @@ export function AdminCategoriesManager() {
       </section>
       </div>
 
-      {creating || selectedCategory ? (
+      {editorOpen ? (
         <CategoryEditor
-          key={creating ? "__new__" : selectedCategory!.id}
+          key={creating ? "__new__" : (selectedId ?? "__edit__")}
           category={selectedCategory}
+          categoryId={creating ? undefined : (selectedId ?? undefined)}
           subcategories={
-            selectedCategory
-              ? store.subcategories.filter(
-                  (sub) => sub.categoryId === selectedCategory.id,
-                )
+            selectedId
+              ? store.subcategories.filter((sub) => sub.categoryId === selectedId)
               : []
           }
           isNew={creating}
+          saving={saving}
           onClose={closeEditor}
           onSave={saveCategory}
           onDelete={
-            selectedCategory
-              ? () => deleteCategory(selectedCategory.id)
+            selectedId && !creating
+              ? () => deleteCategory(selectedId)
               : undefined
           }
         />
@@ -323,15 +325,19 @@ export function AdminCategoriesManager() {
 
 function CategoryEditor({
   category,
+  categoryId,
   subcategories,
   isNew,
+  saving,
   onClose,
   onSave,
   onDelete,
 }: {
   category: AdminCategory | null;
+  categoryId?: string;
   subcategories: AdminSubcategory[];
   isNew: boolean;
+  saving: boolean;
   onClose: () => void;
   onSave: (next: {
     id?: string;
@@ -355,6 +361,7 @@ function CategoryEditor({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const panelOpen = entered && !exiting;
+  const busy = saving || exiting;
 
   useEffect(() => {
     setMounted(true);
@@ -375,7 +382,7 @@ function CategoryEditor({
   }, []);
 
   function closePanel() {
-    if (exiting) return;
+    if (busy) return;
     setDeleteOpen(false);
     setExiting(true);
     closeTimeoutRef.current = setTimeout(() => {
@@ -384,9 +391,9 @@ function CategoryEditor({
   }
 
   function saveAndClose() {
-    if (exiting || !label.trim()) return;
-    onSave({
-      id: category?.id,
+    if (busy || !label.trim()) return;
+    void onSave({
+      id: categoryId ?? category?.id,
       label,
       description,
       image: image || undefined,
@@ -395,11 +402,11 @@ function CategoryEditor({
   }
 
   function confirmDelete() {
-    if (!onDelete || exiting) return;
+    if (!onDelete || busy) return;
     setDeleteOpen(false);
     setExiting(true);
     closeTimeoutRef.current = setTimeout(() => {
-      onDelete();
+      void onDelete();
     }, 320);
   }
 
@@ -434,215 +441,225 @@ function CategoryEditor({
   if (!mounted) return null;
 
   return createPortal(
-    <div
-      className={`fixed inset-0 z-50 flex justify-end transition-colors duration-300 ${
-        panelOpen ? "bg-black/30" : "bg-black/0"
-      }`}
-    >
+    <div className="fixed inset-0 z-[100]">
       <button
         type="button"
-        className="absolute inset-0 cursor-pointer"
+        className={`absolute inset-0 cursor-pointer transition-colors duration-300 ${
+          panelOpen ? "bg-black/30" : "bg-black/0"
+        }`}
         aria-label="Zavrieť"
         onClick={closePanel}
       />
-      <aside
-        className={`relative z-10 flex h-full w-full max-w-xl flex-col bg-white shadow-[-12px_0_40px_rgba(47,41,36,0.14)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          panelOpen ? "translate-x-0" : "translate-x-full"
-        }`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="category-editor-title"
-      >
-        <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
-          <div className="min-w-0">
-            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
-              {isNew ? "Nová kategória" : "Úprava kategórie"}
-            </p>
-            <h2
-              id="category-editor-title"
-              className="mt-1 truncate font-heading text-lg text-[#2f2924]"
-            >
-              {label.trim() || "Bez názvu"}
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={closePanel}
-            className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/55 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-            aria-label="Zavrieť"
-          >
-            <X className="size-4" strokeWidth={1.75} aria-hidden />
-          </button>
-        </div>
-
-        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={onFileSelected}
-          />
-
-          <div className="space-y-6">
-            <div>
-              <p className="text-sm font-medium text-[#2f2924]">
-                Obrázok kategórie
+      <div className="pointer-events-none absolute inset-0 flex justify-end">
+        <aside
+          className={`pointer-events-auto relative flex h-full w-full max-w-xl flex-col bg-white shadow-[-12px_0_40px_rgba(47,41,36,0.14)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            panelOpen ? "translate-x-0" : "translate-x-full"
+          }`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="category-editor-title"
+          onMouseDown={(event) => event.stopPropagation()}
+          onClick={(event) => event.stopPropagation()}
+        >
+          <div className="flex shrink-0 items-center justify-between border-b border-black/6 px-4 py-4 sm:px-6">
+            <div className="min-w-0">
+              <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+                {isNew ? "Nová kategória" : "Úprava kategórie"}
               </p>
-              <div className="mt-2 flex items-center gap-3">
-                <span className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
-                  {image ? (
-                    <CategoryThumb src={image} />
-                  ) : (
-                    <span className="flex size-full items-center justify-center text-[#75825B]/50">
-                      <FolderTree className="size-5" aria-hidden />
-                    </span>
-                  )}
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  <button
-                    type="button"
-                    onClick={() => fileInputRef.current?.click()}
-                    className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B]/40 hover:bg-[#e8ebe2]/40"
-                  >
-                    <ImagePlus
-                      className="size-3.5"
-                      strokeWidth={1.75}
-                      aria-hidden
-                    />
-                    {image ? "Vymeniť" : "Pridať"}
-                  </button>
-                  {image ? (
-                    <button
-                      type="button"
-                      onClick={() => setImage("")}
-                      className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/60 transition-colors hover:border-[#c45c4a]/30 hover:text-[#c45c4a]"
-                    >
-                      Odstrániť
-                    </button>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-
-            <label className="block text-sm font-medium text-[#2f2924]">
-              Názov kategórie
-              <input
-                type="text"
-                value={label}
-                onChange={(event) => setLabel(event.target.value)}
-                className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                placeholder="Napr. Umelé kvety"
-              />
-            </label>
-
-            <label className="block text-sm font-medium text-[#2f2924]">
-              Popis
-              <textarea
-                value={description}
-                onChange={(event) => setDescription(event.target.value)}
-                rows={3}
-                className="mt-2 min-h-[4.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                placeholder="Krátky popis kategórie…"
-              />
-            </label>
-
-            <div>
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-sm font-medium text-[#2f2924]">
-                    Subkategórie
-                  </p>
-                  <p className="mt-0.5 text-sm text-[#2f2924]/50">
-                    Spravujte podkategórie priamo v tejto kategórii.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  onClick={addSub}
-                  className="inline-flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B]/40 hover:bg-[#e8ebe2]/40"
-                >
-                  <Plus className="size-3.5" strokeWidth={1.75} aria-hidden />
-                  Pridať
-                </button>
-              </div>
-
-              {subs.length === 0 ? (
-                <div className="mt-3 rounded-xl border border-dashed border-black/10 bg-[#faf8f5] px-4 py-8 text-center">
-                  <p className="text-sm font-medium text-[#2f2924]">
-                    Zatiaľ žiadne subkategórie
-                  </p>
-                  <p className="mt-1 text-sm text-[#2f2924]/50">
-                    Pridajte napríklad Ruže, Pivónie alebo Dálie.
-                  </p>
-                </div>
-              ) : (
-                <ul className="mt-3 space-y-2">
-                  {subs.map((sub, index) => (
-                    <li
-                      key={sub.id ?? `new-${index}`}
-                      className="flex items-center gap-2"
-                    >
-                      <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#e8ebe2] text-[#75825B]">
-                        <Pencil
-                          className="size-3.5"
-                          strokeWidth={1.75}
-                          aria-hidden
-                        />
-                      </span>
-                      <input
-                        type="text"
-                        value={sub.label}
-                        onChange={(event) =>
-                          updateSub(index, event.target.value)
-                        }
-                        placeholder="Názov subkategórie"
-                        className="h-11 min-w-0 flex-1 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => removeSub(index)}
-                        className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a]"
-                        aria-label="Odstrániť subkategóriu"
-                      >
-                        <Trash2
-                          className="size-4"
-                          strokeWidth={1.75}
-                          aria-hidden
-                        />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
-          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-            {onDelete ? (
-              <button
-                type="button"
-                onClick={() => setDeleteOpen(true)}
-                disabled={exiting}
-                className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+              <h2
+                id="category-editor-title"
+                className="mt-1 truncate font-heading text-lg text-[#2f2924]"
               >
-                <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
-                Odstrániť
-              </button>
-            ) : null}
+                {label.trim() || "Bez názvu"}
+              </h2>
+            </div>
             <button
               type="button"
-              onClick={saveAndClose}
-              disabled={!label.trim() || exiting}
-              className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+              onClick={closePanel}
+              disabled={busy}
+              className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/55 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Zavrieť"
             >
-              Uložiť
+              <X className="size-4" strokeWidth={1.75} aria-hidden />
             </button>
           </div>
-        </div>
-      </aside>
+
+          <div className="min-h-0 flex-1 overflow-y-auto px-4 py-5 sm:px-6">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={onFileSelected}
+            />
+
+            <div className="space-y-6">
+              <div>
+                <p className="text-sm font-medium text-[#2f2924]">
+                  Obrázok kategórie
+                </p>
+                <div className="mt-2 flex items-center gap-3">
+                  <span className="relative size-16 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
+                    {image ? (
+                      <CategoryThumb src={image} />
+                    ) : (
+                      <span className="flex size-full items-center justify-center text-[#75825B]/50">
+                        <FolderTree className="size-5" aria-hidden />
+                      </span>
+                    )}
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => fileInputRef.current?.click()}
+                      disabled={busy}
+                      className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B]/40 hover:bg-[#e8ebe2]/40 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      <ImagePlus
+                        className="size-3.5"
+                        strokeWidth={1.75}
+                        aria-hidden
+                      />
+                      {image ? "Vymeniť" : "Pridať"}
+                    </button>
+                    {image ? (
+                      <button
+                        type="button"
+                        onClick={() => setImage("")}
+                        disabled={busy}
+                        className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/60 transition-colors hover:border-[#c45c4a]/30 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                      >
+                        Odstrániť
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+
+              <label className="block text-sm font-medium text-[#2f2924]">
+                Názov kategórie
+                <input
+                  type="text"
+                  value={label}
+                  onChange={(event) => setLabel(event.target.value)}
+                  disabled={busy}
+                  className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                  placeholder="Napr. Umelé kvety"
+                />
+              </label>
+
+              <label className="block text-sm font-medium text-[#2f2924]">
+                Popis
+                <textarea
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
+                  disabled={busy}
+                  rows={3}
+                  className="mt-2 min-h-[4.5rem] w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                  placeholder="Krátky popis kategórie…"
+                />
+              </label>
+
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium text-[#2f2924]">
+                      Subkategórie
+                    </p>
+                    <p className="mt-0.5 text-sm text-[#2f2924]/50">
+                      Spravujte podkategórie priamo v tejto kategórii.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={addSub}
+                    disabled={busy}
+                    className="inline-flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B]/40 hover:bg-[#e8ebe2]/40 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    <Plus className="size-3.5" strokeWidth={1.75} aria-hidden />
+                    Pridať
+                  </button>
+                </div>
+
+                {subs.length === 0 ? (
+                  <div className="mt-3 rounded-xl border border-dashed border-black/10 bg-[#faf8f5] px-4 py-8 text-center">
+                    <p className="text-sm font-medium text-[#2f2924]">
+                      Zatiaľ žiadne subkategórie
+                    </p>
+                    <p className="mt-1 text-sm text-[#2f2924]/50">
+                      Pridajte napríklad Ruže, Pivónie alebo Dálie.
+                    </p>
+                  </div>
+                ) : (
+                  <ul className="mt-3 space-y-2">
+                    {subs.map((sub, index) => (
+                      <li
+                        key={sub.id ?? `new-${index}`}
+                        className="flex items-center gap-2"
+                      >
+                        <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#e8ebe2] text-[#75825B]">
+                          <Pencil
+                            className="size-3.5"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                        </span>
+                        <input
+                          type="text"
+                          value={sub.label}
+                          onChange={(event) =>
+                            updateSub(index, event.target.value)
+                          }
+                          disabled={busy}
+                          placeholder="Názov subkategórie"
+                          className="h-11 min-w-0 flex-1 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeSub(index)}
+                          disabled={busy}
+                          className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                          aria-label="Odstrániť subkategóriu"
+                        >
+                          <Trash2
+                            className="size-4"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
+              {onDelete ? (
+                <button
+                  type="button"
+                  onClick={() => setDeleteOpen(true)}
+                  disabled={busy}
+                  className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                >
+                  <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
+                  Odstrániť
+                </button>
+              ) : null}
+              <button
+                type="button"
+                onClick={saveAndClose}
+                disabled={!label.trim() || busy}
+                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+              >
+                {saving ? "Ukladám…" : "Uložiť"}
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
 
       {deleteOpen ? (
         <div className="absolute inset-0 z-[70] flex items-center justify-center bg-black/35 px-4">
@@ -651,6 +668,8 @@ function CategoryEditor({
             aria-modal="true"
             aria-labelledby="delete-category-title"
             className="w-full max-w-sm rounded-2xl border border-black/8 bg-white p-5 shadow-[0_20px_48px_rgba(47,41,36,0.2)]"
+            onMouseDown={(event) => event.stopPropagation()}
+            onClick={(event) => event.stopPropagation()}
           >
             <h3
               id="delete-category-title"

@@ -24,6 +24,7 @@ export function getTaxonomySnapshot(): TaxonomyStore {
 }
 
 export function setTaxonomySnapshot(next: TaxonomyStore) {
+  if (taxonomyCache === next) return;
   taxonomyCache = next;
   emit();
 }
