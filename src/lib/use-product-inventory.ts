@@ -10,8 +10,7 @@ import {
 import type { Product } from "@/lib/products";
 
 /**
- * Always starts from product seed (SSR-safe), then syncs localStorage after mount
- * to avoid hydration mismatches when admin overrides stock in the browser.
+ * Live inventory derived from the product catalog (Supabase stock fields).
  */
 export function useProductInventory(product: Product): InventoryEntry {
   const [entry, setEntry] = useState<InventoryEntry>(() =>
@@ -25,10 +24,8 @@ export function useProductInventory(product: Product): InventoryEntry {
 
     sync();
     window.addEventListener(INVENTORY_EVENT, sync);
-    window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener(INVENTORY_EVENT, sync);
-      window.removeEventListener("storage", sync);
     };
   }, [product]);
 

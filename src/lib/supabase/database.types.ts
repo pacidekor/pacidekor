@@ -185,6 +185,77 @@ export type SubcategoryInsert = {
 
 export type SubcategoryUpdate = Partial<Omit<SubcategoryInsert, "id">>;
 
+export type FavoriteRow = {
+  user_id: string;
+  product_id: string;
+  created_at: string;
+};
+
+export type FavoriteInsert = {
+  user_id: string;
+  product_id: string;
+  created_at?: string;
+};
+
+export type CartItemRow = {
+  user_id: string;
+  product_id: string;
+  quantity: number;
+  color_id: string | null;
+  updated_at: string;
+  created_at: string;
+};
+
+export type CartItemInsert = {
+  user_id: string;
+  product_id: string;
+  quantity: number;
+  color_id?: string | null;
+  updated_at?: string;
+  created_at?: string;
+};
+
+export type CartItemUpdate = Partial<
+  Omit<CartItemInsert, "user_id" | "product_id">
+>;
+
+export type BlogBlockJson =
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; text: string }
+  | { type: "list"; items: string[] };
+
+export type BlogPostRow = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  cover_image: string;
+  category: string;
+  author: string;
+  published_at: string;
+  content: BlogBlockJson[];
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BlogPostInsert = {
+  id?: string;
+  slug: string;
+  title: string;
+  excerpt?: string;
+  cover_image?: string;
+  category?: string;
+  author?: string;
+  published_at?: string;
+  content?: BlogBlockJson[];
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type BlogPostUpdate = Partial<Omit<BlogPostInsert, "id">>;
+
 export type Database = {
   public: {
     Tables: {
@@ -218,12 +289,37 @@ export type Database = {
         Update: SubcategoryUpdate;
         Relationships: [];
       };
+      favorites: {
+        Row: FavoriteRow;
+        Insert: FavoriteInsert;
+        Update: Partial<FavoriteInsert>;
+        Relationships: [];
+      };
+      cart_items: {
+        Row: CartItemRow;
+        Insert: CartItemInsert;
+        Update: CartItemUpdate;
+        Relationships: [];
+      };
+      blog_posts: {
+        Row: BlogPostRow;
+        Insert: BlogPostInsert;
+        Update: BlogPostUpdate;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
       is_admin: {
         Args: Record<string, never>;
         Returns: boolean;
+      };
+      adjust_product_stock: {
+        Args: { p_product_id: string; p_delta: number };
+        Returns: {
+          out_in_stock: boolean;
+          out_stock_quantity: number | null;
+        }[];
       };
     };
     Enums: {

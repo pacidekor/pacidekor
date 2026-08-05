@@ -224,7 +224,7 @@ function EmptyCart() {
 export function CartView() {
   const items = useCartItems();
 
-  function updateQuantity(productId: string, next: number) {
+  async function updateQuantity(productId: string, next: number) {
     const item = items.find((entry) => entry.product.id === productId);
     if (!item) return;
 
@@ -232,18 +232,26 @@ export function CartView() {
     const delta = clamped - item.quantity;
     if (delta === 0) return;
 
-    const result = adjustInventory(item.product, -delta);
+    const result = await adjustInventory(item.product, -delta);
     if (!result.ok) return;
 
-    setCartQuantity(productId, clamped);
+    try {
+      await setCartQuantity(productId, clamped);
+    } catch {
+      await adjustInventory(item.product, delta);
+    }
   }
 
-  function removeItem(productId: string) {
+  async function removeItem(productId: string) {
     const item = items.find((entry) => entry.product.id === productId);
     if (item) {
-      adjustInventory(item.product, item.quantity);
+      await adjustInventory(item.product, item.quantity);
     }
-    removeFromCart(productId);
+    try {
+      await removeFromCart(productId);
+    } catch {
+      if (item) await adjustInventory(item.product, -item.quantity);
+    }
   }
 
   if (items.length === 0) {

@@ -1,15 +1,11 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo } from "react";
 import { ArrowLeft } from "lucide-react";
 import {
   formatBlogDate,
   type BlogBlock,
   type BlogPost,
 } from "@/lib/blog";
-import { useSiteContent } from "@/lib/use-site-content";
 
 function BlogContent({ blocks }: { blocks: BlogBlock[] }) {
   return (
@@ -78,27 +74,12 @@ function RelatedPostLink({ post }: { post: BlogPost }) {
 }
 
 export function BlogPostView({
-  slug,
-  initialPost,
+  post,
+  related,
 }: {
-  slug: string;
-  initialPost: BlogPost | null;
+  post: BlogPost | null;
+  related: BlogPost[];
 }) {
-  const content = useSiteContent();
-  const post =
-    content.blogPosts.find((item) => item.slug === slug) ?? initialPost;
-
-  const related = useMemo(() => {
-    if (!post) return [];
-    const sameCategory = content.blogPosts.filter(
-      (item) => item.slug !== post.slug && item.category === post.category,
-    );
-    const others = content.blogPosts.filter(
-      (item) => item.slug !== post.slug && item.category !== post.category,
-    );
-    return [...sameCategory, ...others].slice(0, 3);
-  }, [content.blogPosts, post]);
-
   if (!post) {
     return (
       <div className="rounded-2xl border border-dashed border-[#2f2924]/12 px-6 py-16 text-center">

@@ -21,6 +21,8 @@ export type BlogPost = {
   content: BlogBlock[];
 };
 
+export type BlogPostWithId = BlogPost & { id: string };
+
 export const blogPosts: BlogPost[] = [
   {
     slug: "jaro-2026-trendy-v-dekoraciach",

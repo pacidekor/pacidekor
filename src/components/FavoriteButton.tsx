@@ -45,13 +45,11 @@ export function FavoriteButton({
     syncFavorites();
     void syncAuth();
     window.addEventListener(FAVORITES_EVENT, syncFavorites);
-    window.addEventListener("storage", syncFavorites);
     const unsubscribe = subscribeClientAuth(() => {
       void syncAuth();
     });
     return () => {
       window.removeEventListener(FAVORITES_EVENT, syncFavorites);
-      window.removeEventListener("storage", syncFavorites);
       unsubscribe();
     };
   }, [productId]);
@@ -63,26 +61,37 @@ export function FavoriteButton({
     const cached = getCachedClientAuthenticated();
     const allowed = loggedIn || cached === true;
 
+    async function runToggle() {
+      try {
+        setActive(await toggleFavorite(productId));
+      } catch (error) {
+        window.alert(
+          error instanceof Error
+            ? error.message
+            : "Obľúbené sa nepodarilo uložiť.",
+        );
+      }
+    }
+
     if (!allowed) {
       if (cached === false) {
         setLoginOpen(true);
         return;
       }
 
-      // Auth not resolved yet – check once, then act (no wait when cache is warm).
       void isClientAuthenticated().then((ok) => {
         setLoggedIn(ok);
         if (!ok) {
           setLoginOpen(true);
           return;
         }
-        setActive(toggleFavorite(productId));
+        void runToggle();
       });
       return;
     }
 
     setLoggedIn(true);
-    setActive(toggleFavorite(productId));
+    void runToggle();
   }
 
   const filled = loggedIn && active;

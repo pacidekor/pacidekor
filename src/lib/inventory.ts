@@ -1,6 +1,10 @@
 import type { Product } from "@/lib/products";
+import { adjustStockAction } from "@/lib/actions/inventory";
+import {
+  findCatalogProductById,
+  patchProductInCatalog,
+} from "@/lib/product-catalog";
 
-export const INVENTORY_STORAGE_KEY = "pacidekor.inventory";
 export const INVENTORY_EVENT = "pacidekor:inventory";
 
 export type InventoryEntry = {
@@ -8,8 +12,6 @@ export type InventoryEntry = {
   /** `null` = na sklade bez sledovania počtu kusov */
   quantity: number | null;
 };
-
-type InventoryMap = Record<string, InventoryEntry>;
 
 export function seedInventory(product: Product): InventoryEntry {
   if (product.inStock === false) {
@@ -58,82 +60,61 @@ export function inventoryMaxOrderable(entry: InventoryEntry) {
   return entry.quantity;
 }
 
-export function readInventoryMap(): InventoryMap {
-  if (typeof window === "undefined") return {};
-  try {
-    const raw = window.localStorage.getItem(INVENTORY_STORAGE_KEY);
-    if (!raw) return {};
-    return JSON.parse(raw) as InventoryMap;
-  } catch {
-    return {};
-  }
+export function getInventoryForProduct(product: Product): InventoryEntry {
+  const live = findCatalogProductById(product.id) ?? product;
+  return seedInventory(live);
 }
 
-export function writeInventoryMap(map: InventoryMap) {
+function notifyInventory() {
   if (typeof window === "undefined") return;
-  window.localStorage.setItem(INVENTORY_STORAGE_KEY, JSON.stringify(map));
   window.dispatchEvent(new Event(INVENTORY_EVENT));
 }
 
-export function getInventoryForProduct(product: Product): InventoryEntry {
-  const stored = readInventoryMap()[product.id];
-  if (stored) {
-    // migrate old `{ quantity: 0 }` style entries
-    return normalizeInventory({
-      inStock: stored.inStock,
-      quantity:
-        stored.quantity === 0 && stored.inStock === false
-          ? null
-          : stored.quantity,
-    });
-  }
-  return seedInventory(product);
+function applyStockToCatalog(
+  productId: string,
+  entry: { inStock: boolean; stockQuantity: number | null },
+) {
+  patchProductInCatalog(productId, {
+    inStock: entry.inStock,
+    stockQuantity: entry.stockQuantity ?? undefined,
+  });
+  notifyInventory();
 }
 
-export function setInventory(productId: string, entry: InventoryEntry) {
-  const map = readInventoryMap();
-  map[productId] = normalizeInventory(entry);
-  writeInventoryMap(map);
-  return map[productId];
-}
-
-/** Negative delta decreases stock. Unlimited stock ignores decreases. */
-export function adjustInventory(
+/** Negative delta decreases stock in Supabase. Unlimited stock ignores decreases. */
+export async function adjustInventory(
   product: Product,
   delta: number,
-): { ok: boolean; entry: InventoryEntry } {
+): Promise<{ ok: boolean; entry: InventoryEntry; error?: string }> {
   const current = getInventoryForProduct(product);
-
   if (delta === 0) return { ok: true, entry: current };
 
-  if (!current.inStock) {
-    return { ok: false, entry: current };
+  const result = await adjustStockAction(product.id, delta);
+  if (!result.ok) {
+    return { ok: false, entry: current, error: result.error };
   }
 
-  // Unlimited – always allow, don't track
-  if (current.quantity == null) {
-    return { ok: true, entry: current };
-  }
+  applyStockToCatalog(product.id, result.data);
+  return {
+    ok: true,
+    entry: {
+      inStock: result.data.inStock,
+      quantity: result.data.stockQuantity,
+    },
+  };
+}
 
-  if (delta < 0) {
-    const need = Math.abs(delta);
-    if (current.quantity < need) {
-      return { ok: false, entry: current };
-    }
-    const next = normalizeInventory({
-      inStock: true,
-      quantity: current.quantity - need,
-    });
-    setInventory(product.id, next);
-    return { ok: true, entry: next };
-  }
-
-  const next = normalizeInventory({
-    inStock: true,
-    quantity: current.quantity + delta,
+/** Keep admin UI / local mirrors in sync after product save. */
+export function setInventory(
+  productId: string,
+  entry: InventoryEntry,
+): InventoryEntry {
+  const next = normalizeInventory(entry);
+  applyStockToCatalog(productId, {
+    inStock: next.inStock,
+    stockQuantity: next.quantity,
   });
-  setInventory(product.id, next);
-  return { ok: true, entry: next };
+  return next;
 }
 
 export function inventoryLabel(entry: InventoryEntry) {

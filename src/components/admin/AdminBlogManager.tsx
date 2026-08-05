@@ -24,15 +24,15 @@ import {
   type BlogBlock,
   type BlogCategory,
   type BlogPost,
+  type BlogPostWithId,
 } from "@/lib/blog";
+import {
+  deleteBlogPostAction,
+  listBlogPostsAction,
+  saveBlogPostAction,
+} from "@/lib/actions/blog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { toSlug } from "@/lib/navigation";
-import {
-  readSiteContent,
-  seedSiteContent,
-  writeSiteContent,
-  type SiteContentStore,
-} from "@/lib/site-content";
 
 const BLOG_CATEGORIES: BlogCategory[] = [
   "Inšpirácia",
@@ -43,35 +43,28 @@ const BLOG_CATEGORIES: BlogCategory[] = [
 ];
 
 export function AdminBlogManager() {
-  const [store, setStore] = useState<SiteContentStore>(seedSiteContent);
+  const [posts, setPosts] = useState<BlogPostWithId[]>([]);
   const [hydrated, setHydrated] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
   const [editingSlug, setEditingSlug] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    setStore(readSiteContent());
-    setHydrated(true);
+    void listBlogPostsAction().then((result) => {
+      if (result.ok) setPosts(result.data);
+      setHydrated(true);
+    });
     return () => {
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     };
   }, []);
 
-  function persist(next: SiteContentStore) {
-    setStore(next);
-    writeSiteContent(next);
-  }
-
   function flashSaved() {
     setSavedFlash(true);
     if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     toastTimeoutRef.current = setTimeout(() => setSavedFlash(false), 2200);
-  }
-
-  function patch(next: SiteContentStore) {
-    persist(next);
-    flashSaved();
   }
 
   if (!hydrated) {
@@ -109,8 +102,11 @@ export function AdminBlogManager() {
 
       <div className="mt-5">
         <BlogTab
-          store={store}
-          onChange={patch}
+          posts={posts}
+          saving={saving}
+          onPostsChange={setPosts}
+          onSaved={flashSaved}
+          onSavingChange={setSaving}
           creating={creating}
           editingSlug={editingSlug}
           onCreatingChange={setCreating}
@@ -138,15 +134,21 @@ export function AdminBlogManager() {
 }
 
 function BlogTab({
-  store,
-  onChange,
+  posts,
+  saving,
+  onPostsChange,
+  onSaved,
+  onSavingChange,
   creating,
   editingSlug,
   onCreatingChange,
   onEditingSlugChange,
 }: {
-  store: SiteContentStore;
-  onChange: (next: SiteContentStore) => void;
+  posts: BlogPostWithId[];
+  saving: boolean;
+  onPostsChange: (next: BlogPostWithId[]) => void;
+  onSaved: () => void;
+  onSavingChange: (value: boolean) => void;
   creating: boolean;
   editingSlug: string | null;
   onCreatingChange: (value: boolean) => void;
@@ -156,7 +158,7 @@ function BlogTab({
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
-    const list = [...store.blogPosts].sort((a, b) =>
+    const list = [...posts].sort((a, b) =>
       b.publishedAt.localeCompare(a.publishedAt),
     );
     if (!q) return list;
@@ -166,29 +168,57 @@ function BlogTab({
         .toLowerCase()
         .includes(q),
     );
-  }, [query, store.blogPosts]);
+  }, [query, posts]);
 
   const editing = creating
     ? null
-    : (store.blogPosts.find((post) => post.slug === editingSlug) ?? null);
+    : (posts.find((post) => post.slug === editingSlug) ?? null);
 
-  function savePost(post: BlogPost, previousSlug?: string) {
-    const without = store.blogPosts.filter(
-      (item) => item.slug !== (previousSlug ?? post.slug),
-    );
-    if (without.some((item) => item.slug === post.slug)) return;
-    onChange({ ...store, blogPosts: [post, ...without] });
-    onCreatingChange(false);
-    onEditingSlugChange(null);
+  async function savePost(post: BlogPost, previousSlug?: string) {
+    if (saving) return;
+    onSavingChange(true);
+    try {
+      const result = await saveBlogPostAction({
+        id: editing?.id,
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        coverImage: post.coverImage,
+        category: post.category,
+        author: post.author,
+        publishedAt: post.publishedAt,
+        content: post.content,
+      });
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+      onPostsChange(result.data);
+      onSaved();
+      onCreatingChange(false);
+      onEditingSlugChange(null);
+      void previousSlug;
+    } finally {
+      onSavingChange(false);
+    }
   }
 
-  function deletePost(slug: string) {
-    onChange({
-      ...store,
-      blogPosts: store.blogPosts.filter((post) => post.slug !== slug),
-    });
-    onCreatingChange(false);
-    onEditingSlugChange(null);
+  async function deletePost(post: BlogPostWithId) {
+    if (saving) return;
+    onSavingChange(true);
+    try {
+      const result = await deleteBlogPostAction(post.id);
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+      onPostsChange(result.data);
+      onSaved();
+      onCreatingChange(false);
+      onEditingSlugChange(null);
+    } finally {
+      onSavingChange(false);
+    }
   }
 
   return (
@@ -275,13 +305,13 @@ function BlogTab({
           key={creating ? "__new__" : editing!.slug}
           post={editing}
           isNew={creating}
-          existingSlugs={store.blogPosts.map((post) => post.slug)}
+          existingSlugs={posts.map((post) => post.slug)}
           onClose={() => {
             onCreatingChange(false);
             onEditingSlugChange(null);
           }}
           onSave={savePost}
-          onDelete={editing ? () => deletePost(editing.slug) : undefined}
+          onDelete={editing ? () => deletePost(editing) : undefined}
         />
       ) : null}
     </div>
@@ -300,8 +330,8 @@ function BlogEditor({
   isNew: boolean;
   existingSlugs: string[];
   onClose: () => void;
-  onSave: (post: BlogPost, previousSlug?: string) => void;
-  onDelete?: () => void;
+  onSave: (post: BlogPost, previousSlug?: string) => void | Promise<void>;
+  onDelete?: () => void | Promise<void>;
 }) {
   const [title, setTitle] = useState(post?.title ?? "");
   const [slug, setSlug] = useState(post?.slug ?? "");

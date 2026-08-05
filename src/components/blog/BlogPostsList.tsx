@@ -1,13 +1,7 @@
-"use client";
-
 import { BlogPostCard } from "@/components/blog/BlogPostCard";
-import { getManagedBlogPosts } from "@/lib/site-content";
-import { useSiteContent } from "@/lib/use-site-content";
+import type { BlogPost } from "@/lib/blog";
 
-export function BlogPostsList() {
-  const content = useSiteContent();
-  const posts = getManagedBlogPosts(content);
-
+export function BlogPostsList({ posts }: { posts: BlogPost[] }) {
   if (posts.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-[#2f2924]/12 bg-white/50 px-6 py-16 text-center">

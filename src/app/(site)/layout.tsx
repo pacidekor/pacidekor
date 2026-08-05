@@ -1,3 +1,4 @@
+import { AccountDataSync } from "@/components/AccountDataSync";
 import { ChatFab } from "@/components/ChatFab";
 import { ConstructionNoticeModal } from "@/components/ConstructionNoticeModal";
 import { Footer } from "@/components/Footer";
@@ -26,6 +27,7 @@ export default async function SiteLayout({
       discounts={discounts}
       taxonomy={taxonomy}
     >
+      <AccountDataSync />
       <ScrollToTop />
       <div className="sticky top-0 z-50">
         <Header />

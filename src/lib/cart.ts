@@ -1,3 +1,15 @@
+"use client";
+
+import {
+  clearCartAction,
+  listCartAction,
+  mergeGuestCartAction,
+  removeCartItemAction,
+  setCartItemQuantityAction,
+  upsertCartItemAction,
+  type CartLineDto,
+} from "@/lib/actions/cart";
+import { getCachedClientAuthenticated } from "@/lib/client-auth";
 import { findCatalogProductById } from "@/lib/product-catalog";
 import type { Product } from "@/lib/products";
 
@@ -21,9 +33,15 @@ type StoredCartLine = {
   colorId?: string;
 };
 
+let accountCartCache: CartLineDto[] | null = null;
+
 function notify() {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new Event(CART_EVENT));
+}
+
+function useAccountCart() {
+  return getCachedClientAuthenticated() === true && accountCartCache !== null;
 }
 
 function readStored(): StoredCartLine[] {
@@ -78,6 +96,11 @@ function writeStored(lines: StoredCartLine[]) {
   notify();
 }
 
+function clearStoredGuestCart() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(CART_KEY);
+}
+
 function toStoredLine(
   product: Product,
   quantity: number,
@@ -95,7 +118,7 @@ function toStoredLine(
   };
 }
 
-function lineToCartItem(line: StoredCartLine): CartItem {
+function lineToCartItemFromStored(line: StoredCartLine): CartItem {
   const live = findCatalogProductById(line.productId);
   return {
     product:
@@ -115,57 +138,159 @@ function lineToCartItem(line: StoredCartLine): CartItem {
   };
 }
 
-export function readCartItems(): CartItem[] {
-  return readStored().map(lineToCartItem);
+function dtoToCartItem(line: CartLineDto): CartItem | null {
+  const product = findCatalogProductById(line.productId);
+  if (!product) return null;
+  return {
+    product,
+    quantity: line.quantity,
+    colorId: line.colorId,
+  };
 }
 
-export function addToCart(
+function setAccountCart(lines: CartLineDto[]) {
+  accountCartCache = lines;
+  notify();
+}
+
+export function readGuestCartLines(): CartLineDto[] {
+  return readStored().map((line) => ({
+    productId: line.productId,
+    quantity: line.quantity,
+    colorId: line.colorId,
+  }));
+}
+
+export function readCartItems(): CartItem[] {
+  if (useAccountCart()) {
+    return (accountCartCache ?? [])
+      .map(dtoToCartItem)
+      .filter((item): item is CartItem => item !== null);
+  }
+  return readStored().map(lineToCartItemFromStored);
+}
+
+export async function hydrateAccountCart(): Promise<CartItem[]> {
+  const result = await listCartAction();
+  if (!result.ok) {
+    accountCartCache = null;
+    notify();
+    return readStored().map(lineToCartItemFromStored);
+  }
+  setAccountCart(result.data);
+  return readCartItems();
+}
+
+export async function mergeGuestCartIntoAccount(): Promise<CartItem[]> {
+  const guest = readGuestCartLines();
+  if (guest.length === 0) {
+    return hydrateAccountCart();
+  }
+
+  const result = await mergeGuestCartAction(guest);
+  if (!result.ok) {
+    throw new Error(result.error);
+  }
+
+  clearStoredGuestCart();
+  setAccountCart(result.data);
+  return readCartItems();
+}
+
+export function clearAccountCartCache() {
+  accountCartCache = null;
+  notify();
+}
+
+export async function addToCart(
   product: Product,
   quantity = 1,
   colorId?: string,
-): CartItem[] {
-  if (typeof window === "undefined") return [];
+): Promise<CartItem[]> {
   const qty = Math.max(1, Math.floor(quantity));
+
+  if (getCachedClientAuthenticated() === true) {
+    const current =
+      accountCartCache?.find((line) => line.productId === product.id)
+        ?.quantity ?? 0;
+    const result = await upsertCartItemAction({
+      productId: product.id,
+      quantity: current + qty,
+      colorId,
+    });
+    if (!result.ok) throw new Error(result.error);
+    setAccountCart(result.data);
+    return readCartItems();
+  }
+
   const lines = readStored();
   const index = lines.findIndex((line) => line.productId === product.id);
 
   if (index >= 0) {
     const current = lines[index]!;
     lines[index] = {
-      ...toStoredLine(product, current.quantity + qty, colorId ?? current.colorId),
+      ...toStoredLine(
+        product,
+        current.quantity + qty,
+        colorId ?? current.colorId,
+      ),
     };
   } else {
     lines.push(toStoredLine(product, qty, colorId));
   }
 
   writeStored(lines);
-  return lines.map(lineToCartItem);
+  return lines.map(lineToCartItemFromStored);
 }
 
-export function setCartQuantity(productId: string, quantity: number): CartItem[] {
+export async function setCartQuantity(
+  productId: string,
+  quantity: number,
+): Promise<CartItem[]> {
   const qty = Math.floor(quantity);
+
+  if (getCachedClientAuthenticated() === true) {
+    const result = await setCartItemQuantityAction(productId, qty);
+    if (!result.ok) throw new Error(result.error);
+    setAccountCart(result.data);
+    return readCartItems();
+  }
+
   const lines = readStored();
 
   if (qty < 1) {
     const next = lines.filter((line) => line.productId !== productId);
     writeStored(next);
-    return next.map(lineToCartItem);
+    return next.map(lineToCartItemFromStored);
   }
 
   const next = lines.map((line) =>
     line.productId === productId ? { ...line, quantity: qty } : line,
   );
   writeStored(next);
-  return next.map(lineToCartItem);
+  return next.map(lineToCartItemFromStored);
 }
 
-export function removeFromCart(productId: string): CartItem[] {
+export async function removeFromCart(productId: string): Promise<CartItem[]> {
+  if (getCachedClientAuthenticated() === true) {
+    const result = await removeCartItemAction(productId);
+    if (!result.ok) throw new Error(result.error);
+    setAccountCart(result.data);
+    return readCartItems();
+  }
+
   const next = readStored().filter((line) => line.productId !== productId);
   writeStored(next);
-  return next.map(lineToCartItem);
+  return next.map(lineToCartItemFromStored);
 }
 
-export function clearCart() {
+export async function clearCart() {
+  if (getCachedClientAuthenticated() === true) {
+    const result = await clearCartAction();
+    if (!result.ok) throw new Error(result.error);
+    setAccountCart([]);
+    return;
+  }
   writeStored([]);
 }
 

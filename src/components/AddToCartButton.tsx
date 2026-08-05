@@ -32,13 +32,19 @@ export function AddToCartButton({
     };
   }, []);
 
-  function handleClick() {
+  async function handleClick() {
     if (added || disabled) return;
 
-    const result = adjustInventory(product, -quantity);
+    const result = await adjustInventory(product, -quantity);
     if (!result.ok) return;
 
-    addToCart(product, quantity, colorId);
+    try {
+      await addToCart(product, quantity, colorId);
+    } catch {
+      await adjustInventory(product, quantity);
+      return;
+    }
+
     setAdded(true);
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);

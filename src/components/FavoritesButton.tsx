@@ -77,10 +77,8 @@ export function FavoritesButton() {
 
     sync();
     window.addEventListener(FAVORITES_EVENT, sync);
-    window.addEventListener("storage", sync);
     return () => {
       window.removeEventListener(FAVORITES_EVENT, sync);
-      window.removeEventListener("storage", sync);
     };
   }, []);
 

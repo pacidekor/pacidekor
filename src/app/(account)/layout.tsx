@@ -1,3 +1,4 @@
+import { AccountDataSync } from "@/components/AccountDataSync";
 import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { listTaxonomy } from "@/lib/categories-server";
 import { listDiscounts } from "@/lib/discounts-server";
@@ -20,6 +21,7 @@ export default async function AccountLayout({
       discounts={discounts}
       taxonomy={taxonomy}
     >
+      <AccountDataSync />
       <div className="min-h-dvh bg-[#faf8f5]">{children}</div>
     </ProductCatalogProvider>
   );

@@ -27,3 +27,15 @@ export function findCatalogProductsByIds(ids: string[]) {
   const idSet = new Set(ids);
   return catalog.filter((product) => idSet.has(product.id));
 }
+
+export function patchProductInCatalog(
+  productId: string,
+  patch: Partial<Product>,
+) {
+  const index = catalog.findIndex((product) => product.id === productId);
+  if (index === -1) return;
+  catalog = catalog.map((product, i) =>
+    i === index ? { ...product, ...patch } : product,
+  );
+  listeners.forEach((listener) => listener());
+}
