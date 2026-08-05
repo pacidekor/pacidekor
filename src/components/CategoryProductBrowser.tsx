@@ -9,7 +9,6 @@ import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { ProductCard } from "@/components/ProductCard";
 import {
   ADMIN_CATEGORIES_EVENT,
-  ADMIN_CATEGORIES_STORAGE_KEY,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
 import { filterProducts, type Product } from "@/lib/products";
@@ -20,6 +19,7 @@ import {
   parseCategoryFilters,
   type CategoryFilters,
 } from "@/lib/taxonomy";
+import { subscribeTaxonomy } from "@/lib/taxonomy-store";
 
 type CategoryProductBrowserProps = {
   categoryLabel: string;
@@ -56,14 +56,11 @@ export function CategoryProductBrowser({
       setSubcategories(getAdminSubcategoriesForCategory(categoryLabel));
     }
     refresh();
-    function onStorage(event: StorageEvent) {
-      if (event.key === ADMIN_CATEGORIES_STORAGE_KEY) refresh();
-    }
     window.addEventListener(ADMIN_CATEGORIES_EVENT, refresh);
-    window.addEventListener("storage", onStorage);
+    const unsubscribe = subscribeTaxonomy(refresh);
     return () => {
       window.removeEventListener(ADMIN_CATEGORIES_EVENT, refresh);
-      window.removeEventListener("storage", onStorage);
+      unsubscribe();
     };
   }, [categoryLabel]);
 

@@ -1,0 +1,108 @@
+{
+  "categories": [
+    {
+      "id": "umele-kvety",
+      "label": "Umelé kvety",
+      "image": "/kategorie/umelekvety.webp",
+      "description": "Realistické umelé kvety do váz, aranžmánov a celoročných dekorácií."
+    },
+    {
+      "id": "susina",
+      "label": "Sušina",
+      "image": "/kategorie/susina.webp",
+      "description": "Prírodná sušina a stabilizované rastliny pre rustikálne aj moderné aranžmány."
+    },
+    {
+      "id": "stuhy",
+      "label": "Stuhy",
+      "image": "/kategorie/stuhy.webp",
+      "description": "Saténové, organzové a dekoračné stuhy na balenie, mašle a floristiku."
+    },
+    {
+      "id": "aranz-material",
+      "label": "Aranž. materiál",
+      "image": "/kategorie/aranzerskymaterial.webp",
+      "description": "Aranžérsky materiál a pomôcky pre profesionálnu aj domácu tvorbu."
+    },
+    {
+      "id": "obalovy-material",
+      "label": "Obalový materiál",
+      "image": "/kategorie/obalovymaterial.webp",
+      "description": "Papier, fólie a obaly na kytice, darčeky a sezónne balenie."
+    },
+    {
+      "id": "keramika",
+      "label": "Keramika",
+      "image": "/kategorie/keramika-new.webp",
+      "description": "Keramické vázy, misky a nádoby, ktoré dotvoria každý aranžmán."
+    },
+    {
+      "id": "vencove-zaklady",
+      "label": "Vencové základy",
+      "image": "/kategorie/vencovezaklady.webp",
+      "description": "Základy a polotovary na vence - pripravené na vašu dekoráciu."
+    },
+    {
+      "id": "kosiky",
+      "label": "Košíky",
+      "image": "/kategorie/kosiky.webp",
+      "description": "Prútené a dekoračné košíky na aranžmány, dary aj sezónnu výzdobu."
+    },
+    {
+      "id": "plechy",
+      "label": "Plechy",
+      "image": "/kategorie/plechy.webp",
+      "description": "Plechové nádoby a dekorácie s industriálnym aj rustikálnym nádychom."
+    },
+    {
+      "id": "svietniky",
+      "label": "Svietniky",
+      "image": "/kategorie/svietniky.webp",
+      "description": "Svietniky a stojany na sviečky pre atmosféru každého priestoru."
+    },
+    {
+      "id": "dekoracie",
+      "label": "Dekorácie",
+      "image": "/kategorie/dekoracie.webp",
+      "description": "Doplnky a dekorácie, ktoré oživia domov, predajňu aj event."
+    }
+  ],
+  "subcategories": [
+    { "id": "ruze", "label": "Ruže", "categoryId": "umele-kvety" },
+    { "id": "pivonie", "label": "Pivónie", "categoryId": "umele-kvety" },
+    { "id": "dalie", "label": "Dálie", "categoryId": "umele-kvety" },
+    { "id": "vres", "label": "Vres", "categoryId": "umele-kvety" },
+    { "id": "eukalyptus", "label": "Eukalyptus", "categoryId": "umele-kvety" },
+    { "id": "paprad", "label": "Papraď", "categoryId": "umele-kvety" },
+    { "id": "zelen", "label": "Zeleň / výplň", "categoryId": "umele-kvety" },
+    { "id": "ostatne", "label": "Ostatné", "categoryId": "umele-kvety" },
+    { "id": "hortenzia", "label": "Hortenzia", "categoryId": "umele-kvety" },
+    { "id": "bahniatka", "label": "Bahniatka", "categoryId": "umele-kvety" },
+    { "id": "narcis", "label": "Narcis", "categoryId": "umele-kvety" },
+    { "id": "georgina", "label": "Georgína", "categoryId": "umele-kvety" },
+    { "id": "iskernik", "label": "Iskerník", "categoryId": "umele-kvety" },
+    { "id": "orchidea", "label": "Orchidea", "categoryId": "umele-kvety" },
+    { "id": "klincek", "label": "Klinček", "categoryId": "umele-kvety" },
+    { "id": "gypsofilka", "label": "Gypsofilka", "categoryId": "umele-kvety" },
+    { "id": "monstera", "label": "Monstera", "categoryId": "umele-kvety" },
+    { "id": "vinic", "label": "Vinič", "categoryId": "umele-kvety" },
+    { "id": "haluzka", "label": "Halúzka", "categoryId": "umele-kvety" },
+    { "id": "drobnokvet", "label": "Drobnokvet", "categoryId": "umele-kvety" },
+    { "id": "vetva", "label": "Vetva", "categoryId": "umele-kvety" },
+    { "id": "tuja", "label": "Tuja", "categoryId": "umele-kvety" },
+    { "id": "ruskus", "label": "Ruskus", "categoryId": "umele-kvety" },
+    { "id": "bobule", "label": "Bobule", "categoryId": "umele-kvety" },
+    { "id": "gladiola", "label": "Gladiola", "categoryId": "umele-kvety" },
+    { "id": "amarant", "label": "Amarant", "categoryId": "umele-kvety" },
+    { "id": "skimmia", "label": "Skimmia", "categoryId": "umele-kvety" },
+    { "id": "magnolia", "label": "Magnólia", "categoryId": "umele-kvety" },
+    { "id": "fiala", "label": "Fiala", "categoryId": "umele-kvety" },
+    { "id": "hyacint", "label": "Hyacint", "categoryId": "umele-kvety" },
+    { "id": "rebricek", "label": "Rebríček", "categoryId": "umele-kvety" },
+    { "id": "voskovka", "label": "Voskovka", "categoryId": "umele-kvety" },
+    { "id": "chryzantema", "label": "Chryzantéma", "categoryId": "umele-kvety" },
+    { "id": "krasnoocko", "label": "Krásnoočko", "categoryId": "umele-kvety" },
+    { "id": "ginkgo", "label": "Ginkgo", "categoryId": "umele-kvety" },
+    { "id": "pompony", "label": "Pompony", "categoryId": "umele-kvety" }
+  ]
+}

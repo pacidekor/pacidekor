@@ -1,107 +1,57 @@
 /**
- * Shared admin categories/subcategories store (localStorage).
- * Used by AdminCategoriesManager and product editor so custom subs show up.
+ * Category/subcategory helpers for admin + storefront filters.
+ * Source of truth is Supabase (hydrated into taxonomy-store snapshot).
  */
 import { categoryList, toSlug } from "@/lib/navigation";
 import {
   getSubcategoriesForCategory,
   getSubcategoryById as getSeedSubcategoryById,
-  subcategories as seedSubcategories,
 } from "@/lib/taxonomy";
+import type {
+  TaxonomyCategory,
+  TaxonomyStore,
+  TaxonomySubcategory,
+} from "@/lib/taxonomy-types";
+import {
+  ADMIN_CATEGORIES_EVENT,
+  ADMIN_CATEGORIES_STORAGE_KEY,
+  getTaxonomySnapshot,
+  setTaxonomySnapshot,
+} from "@/lib/taxonomy-store";
 
-export const ADMIN_CATEGORIES_STORAGE_KEY = "pacidekor.admin.categories";
-export const ADMIN_CATEGORIES_EVENT = "pacidekor:admin-categories-changed";
-
-export type AdminCategory = {
-  id: string;
-  label: string;
-  image?: string;
-  description?: string;
+export {
+  ADMIN_CATEGORIES_EVENT,
+  ADMIN_CATEGORIES_STORAGE_KEY,
+  getTaxonomySnapshot,
+  setTaxonomySnapshot,
 };
 
-export type AdminSubcategory = {
-  id: string;
-  label: string;
-  categoryId: string;
-};
-
-export type AdminCategoriesStore = {
-  categories: AdminCategory[];
-  subcategories: AdminSubcategory[];
-};
+export type AdminCategory = TaxonomyCategory;
+export type AdminSubcategory = TaxonomySubcategory;
+export type AdminCategoriesStore = TaxonomyStore;
 
 export function seedAdminCategoriesStore(): AdminCategoriesStore {
   return {
-    categories: categoryList.map((category) => ({
+    categories: categoryList.map((category, index) => ({
       id: category.slug,
       label: category.label,
       image: category.image,
       description: category.description,
+      sortOrder: index,
     })),
-    subcategories: seedSubcategories.map((sub) => ({
-      id: sub.id,
-      label: sub.label,
-      categoryId: toSlug(sub.category),
-    })),
+    subcategories: [],
   };
 }
 
-function migrateAdminCategoriesStore(
-  store: AdminCategoriesStore,
-): AdminCategoriesStore {
-  let changed = false;
-
-  const categories = store.categories.map((category) => {
-    if (category.label !== "Aranžérstvo" && category.id !== "aranzerstvo") {
-      return category;
-    }
-    changed = true;
-    return {
-      ...category,
-      id: "aranz-material",
-      label: "Aranž. materiál",
-    };
-  });
-
-  const subcategories = store.subcategories.map((sub) => {
-    if (sub.categoryId !== "aranzerstvo") return sub;
-    changed = true;
-    return { ...sub, categoryId: "aranz-material" };
-  });
-
-  if (!changed) return store;
-  return { categories, subcategories };
-}
-
 export function readAdminCategoriesStore(): AdminCategoriesStore {
-  if (typeof window === "undefined") return seedAdminCategoriesStore();
-  try {
-    const raw = window.localStorage.getItem(ADMIN_CATEGORIES_STORAGE_KEY);
-    if (!raw) return seedAdminCategoriesStore();
-    const parsed = JSON.parse(raw) as AdminCategoriesStore;
-    if (
-      !Array.isArray(parsed.categories) ||
-      !Array.isArray(parsed.subcategories)
-    ) {
-      return seedAdminCategoriesStore();
-    }
-    const migrated = migrateAdminCategoriesStore(parsed);
-    if (migrated !== parsed) {
-      writeAdminCategoriesStore(migrated);
-    }
-    return migrated;
-  } catch {
-    return seedAdminCategoriesStore();
-  }
+  const snapshot = getTaxonomySnapshot();
+  if (snapshot.categories.length > 0) return snapshot;
+  return seedAdminCategoriesStore();
 }
 
+/** @deprecated writes go through server actions; kept for in-memory UI sync */
 export function writeAdminCategoriesStore(store: AdminCategoriesStore) {
-  if (typeof window === "undefined") return;
-  window.localStorage.setItem(
-    ADMIN_CATEGORIES_STORAGE_KEY,
-    JSON.stringify(store),
-  );
-  window.dispatchEvent(new Event(ADMIN_CATEGORIES_EVENT));
+  setTaxonomySnapshot(store);
 }
 
 export function findAdminCategory(
@@ -119,7 +69,6 @@ export function findAdminCategory(
   );
 }
 
-/** Subcategories for a product category label (admin store, seed fallback). */
 export function getAdminSubcategoriesForCategory(
   categoryLabel: string,
   store?: AdminCategoriesStore,
@@ -154,7 +103,9 @@ export function getAdminSubcategoryById(
   const data = store ?? readAdminCategoriesStore();
   const fromStore = data.subcategories.find((sub) => sub.id === id);
   if (fromStore) {
-    const category = data.categories.find((item) => item.id === fromStore.categoryId);
+    const category = data.categories.find(
+      (item) => item.id === fromStore.categoryId,
+    );
     return {
       id: fromStore.id,
       label: fromStore.label,

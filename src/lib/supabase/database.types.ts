@@ -143,6 +143,48 @@ export type ProductDiscountUpdate = Partial<
   Omit<ProductDiscountInsert, "id">
 >;
 
+export type CategoryRow = {
+  id: string;
+  label: string;
+  image: string | null;
+  description: string | null;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type CategoryInsert = {
+  id: string;
+  label: string;
+  image?: string | null;
+  description?: string | null;
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type CategoryUpdate = Partial<Omit<CategoryInsert, "id">>;
+
+export type SubcategoryRow = {
+  id: string;
+  category_id: string;
+  label: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SubcategoryInsert = {
+  id: string;
+  category_id: string;
+  label: string;
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type SubcategoryUpdate = Partial<Omit<SubcategoryInsert, "id">>;
+
 export type Database = {
   public: {
     Tables: {
@@ -162,6 +204,18 @@ export type Database = {
         Row: ProductDiscountRow;
         Insert: ProductDiscountInsert;
         Update: ProductDiscountUpdate;
+        Relationships: [];
+      };
+      categories: {
+        Row: CategoryRow;
+        Insert: CategoryInsert;
+        Update: CategoryUpdate;
+        Relationships: [];
+      };
+      subcategories: {
+        Row: SubcategoryRow;
+        Insert: SubcategoryInsert;
+        Update: SubcategoryUpdate;
         Relationships: [];
       };
     };

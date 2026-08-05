@@ -14,23 +14,36 @@ import {
   setProductCatalog,
   subscribeProductCatalog,
 } from "@/lib/product-catalog";
+import type { TaxonomyStore } from "@/lib/taxonomy-types";
+import {
+  getTaxonomySnapshot,
+  setTaxonomySnapshot,
+  subscribeTaxonomy,
+} from "@/lib/taxonomy-store";
 
 /** Stable empty snapshots for useSyncExternalStore (new [] each call = infinite loop). */
 const EMPTY_PRODUCTS: Product[] = [];
 const EMPTY_DISCOUNTS: ProductDiscount[] = [];
+const EMPTY_TAXONOMY: TaxonomyStore = { categories: [], subcategories: [] };
 
 export function ProductCatalogProvider({
   products,
   discounts = EMPTY_DISCOUNTS,
+  taxonomy = EMPTY_TAXONOMY,
   children,
 }: {
   products: Product[];
   discounts?: ProductDiscount[];
+  taxonomy?: TaxonomyStore;
   children: React.ReactNode;
 }) {
   useLayoutEffect(() => {
     setDiscountsSnapshot(discounts);
   }, [discounts]);
+
+  useLayoutEffect(() => {
+    setTaxonomySnapshot(taxonomy);
+  }, [taxonomy]);
 
   const liveDiscounts = useSyncExternalStore(
     subscribeDiscounts,
@@ -58,5 +71,13 @@ export function useDiscounts() {
     subscribeDiscounts,
     getDiscountsSnapshot,
     () => EMPTY_DISCOUNTS,
+  );
+}
+
+export function useTaxonomy() {
+  return useSyncExternalStore(
+    subscribeTaxonomy,
+    getTaxonomySnapshot,
+    () => EMPTY_TAXONOMY,
   );
 }

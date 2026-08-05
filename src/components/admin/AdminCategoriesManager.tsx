@@ -14,25 +14,21 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { toSlug } from "@/lib/navigation";
 import {
   type AdminCategory,
   type AdminCategoriesStore,
   type AdminSubcategory,
   readAdminCategoriesStore,
   seedAdminCategoriesStore,
-  writeAdminCategoriesStore,
+  setTaxonomySnapshot,
 } from "@/lib/admin-categories-store";
+import {
+  deleteCategoryAction,
+  saveCategoryAction,
+} from "@/lib/actions/categories";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
-
-function uniqueId(label: string, existing: string[]) {
-  const base = toSlug(label) || "polozka";
-  if (!existing.includes(base)) return base;
-  let i = 2;
-  while (existing.includes(`${base}-${i}`)) i += 1;
-  return `${base}-${i}`;
-}
+import { useTaxonomy } from "@/components/ProductCatalogProvider";
 
 function productCountForCategory(label: string) {
   return getProductCatalog().filter((product) => product.category === label)
@@ -40,17 +36,23 @@ function productCountForCategory(label: string) {
 }
 
 export function AdminCategoriesManager() {
+  const taxonomy = useTaxonomy();
   const [store, setStore] = useState<AdminCategoriesStore>(seedAdminCategoriesStore);
   const [hydrated, setHydrated] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [savedFlash, setSavedFlash] = useState(false);
 
   useEffect(() => {
-    setStore(readAdminCategoriesStore());
+    if (taxonomy.categories.length > 0) {
+      setStore(taxonomy);
+    } else {
+      setStore(readAdminCategoriesStore());
+    }
     setHydrated(true);
-  }, []);
+  }, [taxonomy]);
 
   const selectedCategory = creating
     ? null
@@ -70,10 +72,11 @@ export function AdminCategoriesManager() {
     });
   }, [query, store]);
 
-  function persist(next: AdminCategoriesStore) {
+  function applyStore(next: AdminCategoriesStore) {
     setStore(next);
-    writeAdminCategoriesStore(next);
+    setTaxonomySnapshot(next);
   }
+
   function openCreate() {
     setCreating(true);
     setSelectedId(null);
@@ -94,7 +97,7 @@ export function AdminCategoriesManager() {
     window.setTimeout(() => setSavedFlash(false), 2200);
   }
 
-  function saveCategory(next: {
+  async function saveCategory(next: {
     id?: string;
     label: string;
     description: string;
@@ -102,114 +105,49 @@ export function AdminCategoriesManager() {
     subs: { id?: string; label: string }[];
   }) {
     const label = next.label.trim();
-    if (!label) return;
+    if (!label || saving) return;
 
-    if (creating || !next.id) {
-      const id = uniqueId(
+    setSaving(true);
+    try {
+      const result = await saveCategoryAction({
+        id: creating ? undefined : next.id,
         label,
-        store.categories.map((category) => category.id),
-      );
-      const subIds: string[] = [];
-      const newSubs: AdminSubcategory[] = next.subs
-        .map((sub) => sub.label.trim())
-        .filter(Boolean)
-        .map((subLabel) => {
-          const subId = uniqueId(subLabel, [
-            ...store.subcategories.map((item) => item.id),
-            ...subIds,
-          ]);
-          subIds.push(subId);
-          return { id: subId, label: subLabel, categoryId: id };
-        });
-
-      persist({
-        categories: [
-          ...store.categories,
-          {
-            id,
-            label,
-            image: next.image || undefined,
-            description: next.description.trim() || undefined,
-          },
-        ],
-        subcategories: [...store.subcategories, ...newSubs],
+        description: next.description,
+        image: next.image,
+        sortOrder: creating
+          ? store.categories.length
+          : store.categories.find((item) => item.id === next.id)?.sortOrder,
+        subs: next.subs,
       });
+
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+
+      applyStore(result.data);
       flashSaved();
       closeEditor();
-      return;
+    } finally {
+      setSaving(false);
     }
-
-    const categoryId = next.id;
-    const keptSubIds = new Set(
-      next.subs
-        .map((sub) => sub.id)
-        .filter((id): id is string => Boolean(id)),
-    );
-
-    const otherSubs = store.subcategories.filter(
-      (sub) => sub.categoryId !== categoryId,
-    );
-    const existingForCategory = store.subcategories.filter(
-      (sub) => sub.categoryId === categoryId,
-    );
-
-    const nextSubs: AdminSubcategory[] = [];
-    const usedIds = [
-      ...otherSubs.map((sub) => sub.id),
-      ...existingForCategory
-        .filter((sub) => keptSubIds.has(sub.id))
-        .map((sub) => sub.id),
-    ];
-
-    for (const sub of next.subs) {
-      const subLabel = sub.label.trim();
-      if (!subLabel) continue;
-
-      if (sub.id && existingForCategory.some((item) => item.id === sub.id)) {
-        nextSubs.push({
-          id: sub.id,
-          label: subLabel,
-          categoryId,
-        });
-      } else {
-        const subId = uniqueId(subLabel, [
-          ...usedIds,
-          ...nextSubs.map((item) => item.id),
-        ]);
-        nextSubs.push({
-          id: subId,
-          label: subLabel,
-          categoryId,
-        });
-      }
-    }
-
-    persist({
-      categories: store.categories.map((category) =>
-        category.id === categoryId
-          ? {
-              ...category,
-              label,
-              image: next.image || undefined,
-              description: next.description.trim() || undefined,
-            }
-          : category,
-      ),
-      subcategories: [...otherSubs, ...nextSubs],
-    });
-    flashSaved();
-    closeEditor();
   }
 
-  function deleteCategory(id: string) {
-    persist({
-      categories: store.categories.filter((category) => category.id !== id),
-      subcategories: store.subcategories.filter(
-        (sub) => sub.categoryId !== id,
-      ),
-    });
-    flashSaved();
-    closeEditor();
+  async function deleteCategory(id: string) {
+    if (saving) return;
+    setSaving(true);
+    try {
+      const result = await deleteCategoryAction(id);
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+      applyStore(result.data);
+      flashSaved();
+      closeEditor();
+    } finally {
+      setSaving(false);
+    }
   }
 
   if (!hydrated) {
@@ -401,8 +339,8 @@ function CategoryEditor({
     description: string;
     image?: string;
     subs: { id?: string; label: string }[];
-  }) => void;
-  onDelete?: () => void;
+  }) => void | Promise<void>;
+  onDelete?: () => void | Promise<void>;
 }) {
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);

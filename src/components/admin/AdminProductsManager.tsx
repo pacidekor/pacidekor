@@ -33,11 +33,11 @@ import { ImageLightbox } from "@/components/ImageLightbox";
 import { categories } from "@/lib/navigation";
 import {
   ADMIN_CATEGORIES_EVENT,
-  ADMIN_CATEGORIES_STORAGE_KEY,
   getAdminCategoryLabels,
   getAdminSubcategoriesForCategory,
   getAdminSubcategoryById,
 } from "@/lib/admin-categories-store";
+import { subscribeTaxonomy } from "@/lib/taxonomy-store";
 import {
   buildEvenColorImageMap,
   colorsFromIds,
@@ -1037,15 +1037,11 @@ function ProductEditor({
 
     refreshTaxonomy();
 
-    function onStorage(event: StorageEvent) {
-      if (event.key === ADMIN_CATEGORIES_STORAGE_KEY) refreshTaxonomy();
-    }
-
     window.addEventListener(ADMIN_CATEGORIES_EVENT, refreshTaxonomy);
-    window.addEventListener("storage", onStorage);
+    const unsubscribe = subscribeTaxonomy(refreshTaxonomy);
     return () => {
       window.removeEventListener(ADMIN_CATEGORIES_EVENT, refreshTaxonomy);
-      window.removeEventListener("storage", onStorage);
+      unsubscribe();
     };
   }, [category]);
 

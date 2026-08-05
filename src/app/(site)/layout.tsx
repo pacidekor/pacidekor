@@ -5,6 +5,7 @@ import { Header } from "@/components/Header";
 import { NavBar } from "@/components/NavBar";
 import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { listTaxonomy } from "@/lib/categories-server";
 import { listDiscounts } from "@/lib/discounts-server";
 import { listProducts } from "@/lib/products-server";
 
@@ -13,13 +14,18 @@ export default async function SiteLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [products, discounts] = await Promise.all([
+  const [products, discounts, taxonomy] = await Promise.all([
     listProducts(),
     listDiscounts(),
+    listTaxonomy(),
   ]);
 
   return (
-    <ProductCatalogProvider products={products} discounts={discounts}>
+    <ProductCatalogProvider
+      products={products}
+      discounts={discounts}
+      taxonomy={taxonomy}
+    >
       <ScrollToTop />
       <div className="sticky top-0 z-50">
         <Header />
