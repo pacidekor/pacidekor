@@ -130,6 +130,13 @@ export function AdminCategoriesManager() {
       applyStore(result.data);
       flashSaved();
       closeEditor();
+    } catch (error) {
+      console.error("saveCategory", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Uloženie zlyhalo. Skúste to znova.",
+      );
     } finally {
       setSaving(false);
     }
@@ -147,6 +154,13 @@ export function AdminCategoriesManager() {
       applyStore(result.data);
       flashSaved();
       closeEditor();
+    } catch (error) {
+      console.error("deleteCategory", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Odstránenie zlyhalo. Skúste to znova.",
+      );
     } finally {
       setSaving(false);
     }

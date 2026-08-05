@@ -4,7 +4,7 @@ import type {
   CategoryRow,
   SubcategoryRow,
 } from "@/lib/supabase/database.types";
-import { createClient } from "@/lib/supabase/server";
+import { createPublicClient } from "@/lib/supabase/server";
 import type {
   TaxonomyCategory,
   TaxonomyStore,
@@ -33,7 +33,7 @@ export function mapSubcategoryRow(row: SubcategoryRow): TaxonomySubcategory {
 }
 
 export async function listTaxonomy(): Promise<TaxonomyStore> {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const [categoriesRes, subcategoriesRes] = await Promise.all([
     supabase.from("categories").select("*").order("sort_order", { ascending: true }),
     supabase
@@ -60,7 +60,7 @@ export async function listTaxonomy(): Promise<TaxonomyStore> {
 }
 
 export async function listSubcategoriesForCategoryId(categoryId: string) {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("subcategories")
     .select("*")
