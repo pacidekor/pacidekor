@@ -6,6 +6,17 @@ import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { PasswordField } from "@/components/PasswordField";
 import { registerWholesale } from "@/lib/actions/auth";
+import {
+  companyError,
+  emailError,
+  icoError,
+  phoneError,
+  sanitizeCompany,
+  sanitizeIco,
+  sanitizePhone,
+  sanitizeZip,
+  zipError,
+} from "@/lib/form-validation";
 import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
@@ -119,19 +130,16 @@ export function WholesaleRegisterForm({
 
   function validateStep(): string | null {
     if (step === 0) {
-      if (!data.company.trim()) return "Zadajte názov firmy.";
-      if (!data.ico.trim()) return "Zadajte IČO.";
+      return companyError(data.company) || icoError(data.ico);
     }
     if (step === 1) {
       if (!data.name.trim()) return "Zadajte kontaktnú osobu.";
-      if (!data.email.trim()) return "Zadajte e-mail.";
-      if (!data.phone.trim()) return "Zadajte telefón.";
+      return emailError(data.email) || phoneError(data.phone);
     }
     if (step === 2) {
       if (!data.street.trim()) return "Zadajte ulicu.";
       if (!data.city.trim()) return "Zadajte mesto.";
-      if (!data.zip.trim()) return "Zadajte PSČ.";
-      if (!data.country.trim()) return "Zadajte krajinu.";
+      return zipError(data.zip) || (!data.country.trim() ? "Zadajte krajinu." : null);
     }
     if (step === 3) {
       if (data.password.length < 6) return "Heslo musí mať aspoň 6 znakov.";
@@ -311,7 +319,9 @@ export function WholesaleRegisterForm({
                 type="text"
                 autoComplete="organization"
                 value={data.company}
-                onChange={(event) => patch("company", event.target.value)}
+                onChange={(event) =>
+                  patch("company", sanitizeCompany(event.target.value))
+                }
                 className={fieldClass}
                 placeholder="Názov spoločnosti / prevádzky"
                 tabIndex={step === 0 ? 0 : -1}
@@ -325,8 +335,12 @@ export function WholesaleRegisterForm({
                 <input
                   id="vo-ico"
                   type="text"
+                  inputMode="numeric"
+                  maxLength={8}
                   value={data.ico}
-                  onChange={(event) => patch("ico", event.target.value)}
+                  onChange={(event) =>
+                    patch("ico", sanitizeIco(event.target.value))
+                  }
                   className={fieldClass}
                   placeholder="12345678"
                   tabIndex={step === 0 ? 0 : -1}
@@ -397,11 +411,14 @@ export function WholesaleRegisterForm({
               <input
                 id="vo-phone"
                 type="tel"
+                inputMode="numeric"
                 autoComplete="tel"
                 value={data.phone}
-                onChange={(event) => patch("phone", event.target.value)}
+                onChange={(event) =>
+                  patch("phone", sanitizePhone(event.target.value))
+                }
                 className={fieldClass}
-                placeholder="+421 …"
+                placeholder="421901234567"
                 tabIndex={step === 1 ? 0 : -1}
               />
             </div>
@@ -452,10 +469,15 @@ export function WholesaleRegisterForm({
                 <input
                   id="vo-zip"
                   type="text"
+                  inputMode="numeric"
+                  maxLength={5}
                   autoComplete="postal-code"
                   value={data.zip}
-                  onChange={(event) => patch("zip", event.target.value)}
+                  onChange={(event) =>
+                    patch("zip", sanitizeZip(event.target.value))
+                  }
                   className={fieldClass}
+                  placeholder="81102"
                   tabIndex={step === 2 ? 0 : -1}
                 />
               </div>

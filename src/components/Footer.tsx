@@ -2,11 +2,7 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import {
-  footerAboutLinks,
-  footerShopLinks,
-  legalLinks,
-} from "@/lib/navigation";
+import { footerLinkItems, footerShopLinks } from "@/lib/navigation";
 import { useSiteContent } from "@/lib/use-site-content";
 
 function SocialIcon({
@@ -110,7 +106,7 @@ export function Footer() {
           </div>
 
           <FooterLinkList title="Obchod" links={footerShopLinks} />
-          <FooterLinkList title="O nás" links={footerAboutLinks} />
+          <FooterLinkList title="Odkazy" links={footerLinkItems} />
 
           <div>
             <h3 className="font-heading text-sm font-semibold text-[#2f2924]">
@@ -157,21 +153,30 @@ export function Footer() {
         </div>
 
         <div className="mt-12 flex flex-col gap-4 border-t border-black/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-[#2f2924]/55">
+          <p className="text-sm text-[#2f2924]/75">
             © {year} PACIDEKOR. Všetky práva vyhradené.
           </p>
-          <ul className="flex flex-wrap gap-x-5 gap-y-2">
-            {legalLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-xs text-[#2f2924]/55 transition-colors hover:text-[#75825B]"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
+          <a
+            href="https://www.rezit.cz"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="REZIT"
+            className="group relative inline-block self-start sm:self-auto"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/rezitsignature1dark.webp"
+              alt="REZIT"
+              className="h-6 w-auto transition-opacity duration-500 ease-in-out group-hover:opacity-0 sm:h-7"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/rezitsignature2dark.webp"
+              alt=""
+              aria-hidden
+              className="pointer-events-none absolute top-0 left-0 h-6 w-auto opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 sm:h-7"
+            />
+          </a>
         </div>
       </div>
     </footer>

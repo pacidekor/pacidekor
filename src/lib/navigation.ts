@@ -103,20 +103,17 @@ export const navItems = [
 
 export const footerShopLinks = [
   { label: "Novinky", href: "/novinky" },
-  { label: "Umelé kvety", href: "/kategorie/umele-kvety" },
-  { label: "Dekorácie", href: "/kategorie/dekoracie" },
-  { label: "Akcia", href: "/akcia", highlight: true as const },
-] as const;
-
-export const footerAboutLinks = [
-  { label: "Náš príbeh", href: "/o-nas" },
-  { label: "Naše predajne", href: "/predajne" },
-  { label: "Časté otázky", href: "/faq" },
+  { label: "Akcia", href: "/akcia" },
   { label: "Blog", href: "/blog" },
+  { label: "O nás", href: "/o-nas" },
 ] as const;
 
-export const legalLinks = [
+export const footerLinkItems = [
   { label: "Obchodné podmienky", href: "/obchodne-podmienky" },
-  { label: "Ochrana súkromia", href: "/ochrana-udajov" },
-  { label: "Cookies", href: "/cookies" },
+  {
+    label: "Zásady spracúvania osobných údajov",
+    href: "/ochrana-udajov",
+  },
+  { label: "Nastavenia Cookies", href: "/cookies" },
+  { label: "Odstúpenie od zmluvy", href: "/odstupenie-od-zmluvy" },
 ] as const;

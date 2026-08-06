@@ -2,8 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingBag, Trash2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Layers, ShoppingBag, Trash2 } from "lucide-react";
 import { QuantityStepper } from "@/components/QuantityStepper";
+import { SaveCartTemplateModal } from "@/components/cart/SaveCartTemplateModal";
+import { LoginRequiredModal } from "@/components/LoginRequiredModal";
 import {
   amountToMinOrder,
   cartItemCount,
@@ -16,12 +19,17 @@ import {
   setCartQuantity,
   type CartItem,
 } from "@/lib/cart";
-import { productHref } from "@/lib/products";
+import {
+  fetchClientCustomer,
+  subscribeClientAuth,
+} from "@/lib/client-auth";
+import type { Customer } from "@/lib/customers";
 import {
   adjustInventory,
   getInventoryForProduct,
   inventoryMaxOrderable,
 } from "@/lib/inventory";
+import { productHref } from "@/lib/products";
 import { useCartItems } from "@/lib/use-cart";
 
 function productCountLabel(count: number) {
@@ -117,9 +125,11 @@ function CartLine({
 function CartSummary({
   items,
   subtotal,
+  customer,
 }: {
   items: CartItem[];
   subtotal: number;
+  customer: Customer | null;
 }) {
   const count = cartItemCount(items);
   const shippingThreshold = 100;
@@ -127,6 +137,16 @@ function CartSummary({
   const remainingShipping = Math.max(0, shippingThreshold - subtotal);
   const canCheckout = meetsMinOrder(subtotal);
   const remainingMinOrder = amountToMinOrder(subtotal);
+  const [templateOpen, setTemplateOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  function onSaveTemplateClick() {
+    if (customer) {
+      setTemplateOpen(true);
+      return;
+    }
+    setLoginOpen(true);
+  }
 
   return (
     <aside className="lg:sticky lg:top-[calc(5rem+3.5rem)]">
@@ -177,18 +197,33 @@ function CartSummary({
               {formatPrice(remainingMinOrder)}.
             </p>
           ) : null}
+          {canCheckout ? (
+            <Link
+              href="/pokladna"
+              className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90"
+            >
+              Pokračovať k pokladni
+            </Link>
+          ) : (
+            <button
+              type="button"
+              disabled
+              aria-disabled
+              className="inline-flex h-11 w-full cursor-not-allowed items-center justify-center rounded-xl bg-[#2f2924]/25 text-sm font-medium text-white"
+            >
+              Pokračovať k pokladni
+            </button>
+          )}
+
           <button
             type="button"
-            disabled={!canCheckout}
-            aria-disabled={!canCheckout}
-            className={`inline-flex h-11 w-full items-center justify-center rounded-xl text-sm font-medium text-white transition-opacity ${
-              canCheckout
-                ? "cursor-pointer bg-[#75825B] hover:opacity-90"
-                : "cursor-not-allowed bg-[#2f2924]/25"
-            }`}
+            onClick={onSaveTemplateClick}
+            className="mt-3 inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/8 bg-white text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
           >
-            Pokračovať k pokladni
+            <Layers className="size-4" strokeWidth={1.75} aria-hidden />
+            Uložiť ako šablónu
           </button>
+
           <Link
             href="/"
             className="mt-3 inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-black/8 bg-white text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
@@ -198,6 +233,20 @@ function CartSummary({
           </Link>
         </div>
       </div>
+
+      {customer ? (
+        <SaveCartTemplateModal
+          open={templateOpen}
+          onClose={() => setTemplateOpen(false)}
+          customerId={customer.id}
+          items={items}
+        />
+      ) : null}
+
+      <LoginRequiredModal
+        open={loginOpen}
+        onClose={() => setLoginOpen(false)}
+      />
     </aside>
   );
 }
@@ -223,6 +272,21 @@ function EmptyCart() {
 
 export function CartView() {
   const items = useCartItems();
+  const [customer, setCustomer] = useState<Customer | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function load() {
+      const next = await fetchClientCustomer();
+      if (!cancelled) setCustomer(next);
+    }
+
+    void load();
+    return subscribeClientAuth(() => {
+      void load();
+    });
+  }, []);
 
   async function updateQuantity(productId: string, next: number) {
     const item = items.find((entry) => entry.product.id === productId);
@@ -293,7 +357,7 @@ export function CartView() {
         </ul>
       </section>
 
-      <CartSummary items={items} subtotal={subtotal} />
+      <CartSummary items={items} subtotal={subtotal} customer={customer} />
     </div>
   );
 }

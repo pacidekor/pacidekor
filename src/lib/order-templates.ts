@@ -132,3 +132,31 @@ export function deleteOrderTemplate(id: string): OrderTemplate[] {
   writeOrderTemplates(next);
   return next;
 }
+
+export function createOrderTemplate(input: {
+  customerId: string;
+  name: string;
+  note?: string;
+  items: OrderTemplateItem[];
+}): OrderTemplate {
+  const items = input.items
+    .filter((item) => item.quantity > 0)
+    .map((item) => ({
+      productId: item.productId,
+      name: item.name,
+      quantity: item.quantity,
+      unitPrice: item.unitPrice,
+    }));
+
+  const template: OrderTemplate = {
+    id: `tpl-${Date.now().toString(36)}`,
+    customerId: input.customerId,
+    name: input.name.trim() || "Nová šablóna",
+    note: input.note?.trim() || undefined,
+    items,
+    updatedAtLabel: "práve teraz",
+  };
+
+  writeOrderTemplates([template, ...readOrderTemplates()]);
+  return template;
+}

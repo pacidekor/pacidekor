@@ -8,6 +8,13 @@ import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell"
 import { PasswordField } from "@/components/PasswordField";
 import { registerRetail } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
+import {
+  emailError,
+  phoneError,
+  sanitizePhone,
+  sanitizeZip,
+  zipError,
+} from "@/lib/form-validation";
 import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
@@ -108,14 +115,12 @@ export function RetailRegisterForm({
   function validateStep(): string | null {
     if (step === 0) {
       if (!data.name.trim()) return "Zadajte meno a priezvisko.";
-      if (!data.email.trim()) return "Zadajte e-mail.";
-      if (!data.phone.trim()) return "Zadajte telefón.";
+      return emailError(data.email) || phoneError(data.phone);
     }
     if (step === 1) {
       if (!data.street.trim()) return "Zadajte ulicu.";
       if (!data.city.trim()) return "Zadajte mesto.";
-      if (!data.zip.trim()) return "Zadajte PSČ.";
-      if (!data.country.trim()) return "Zadajte krajinu.";
+      return zipError(data.zip) || (!data.country.trim() ? "Zadajte krajinu." : null);
     }
     if (step === 2) {
       if (data.password.length < 6) return "Heslo musí mať aspoň 6 znakov.";
@@ -321,11 +326,14 @@ export function RetailRegisterForm({
               <input
                 id="mo-phone"
                 type="tel"
+                inputMode="numeric"
                 autoComplete="tel"
                 value={data.phone}
-                onChange={(event) => patch("phone", event.target.value)}
+                onChange={(event) =>
+                  patch("phone", sanitizePhone(event.target.value))
+                }
                 className={fieldClass}
-                placeholder="+421 …"
+                placeholder="421901234567"
                 tabIndex={step === 0 ? 0 : -1}
               />
             </div>
@@ -376,10 +384,15 @@ export function RetailRegisterForm({
                 <input
                   id="mo-zip"
                   type="text"
+                  inputMode="numeric"
+                  maxLength={5}
                   autoComplete="postal-code"
                   value={data.zip}
-                  onChange={(event) => patch("zip", event.target.value)}
+                  onChange={(event) =>
+                    patch("zip", sanitizeZip(event.target.value))
+                  }
                   className={fieldClass}
+                  placeholder="81102"
                   tabIndex={step === 1 ? 0 : -1}
                 />
               </div>

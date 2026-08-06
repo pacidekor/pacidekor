@@ -12,8 +12,48 @@ import {
   type RetailRegistrationInput,
   type WholesaleRegistrationInput,
 } from "@/lib/customers";
+import {
+  companyError,
+  emailError,
+  icoError,
+  phoneError,
+  sanitizeIco,
+  sanitizePhone,
+  sanitizeZip,
+  zipError,
+} from "@/lib/form-validation";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProfileRow, ProfileUpdate } from "@/lib/supabase/database.types";
+
+function validateWholesaleInput(
+  input: WholesaleRegistrationInput,
+): string | null {
+  return (
+    companyError(input.company) ||
+    icoError(input.ico) ||
+    emailError(input.email) ||
+    phoneError(input.phone) ||
+    (!input.street.trim() ? "Zadajte ulicu." : null) ||
+    (!input.city.trim() ? "Zadajte mesto." : null) ||
+    zipError(input.zip) ||
+    (!input.country.trim() ? "Zadajte krajinu." : null) ||
+    (!input.name.trim() ? "Zadajte kontaktnú osobu." : null) ||
+    (input.password.length < 6 ? "Heslo musí mať aspoň 6 znakov." : null)
+  );
+}
+
+function validateRetailInput(input: RetailRegistrationInput): string | null {
+  return (
+    (!input.name.trim() ? "Zadajte meno a priezvisko." : null) ||
+    emailError(input.email) ||
+    phoneError(input.phone) ||
+    (!input.street.trim() ? "Zadajte ulicu." : null) ||
+    (!input.city.trim() ? "Zadajte mesto." : null) ||
+    zipError(input.zip) ||
+    (!input.country.trim() ? "Zadajte krajinu." : null) ||
+    (input.password.length < 6 ? "Heslo musí mať aspoň 6 znakov." : null)
+  );
+}
 
 async function requireAdmin() {
   const supabase = await createClient();
@@ -63,6 +103,11 @@ function mapAuthError(message: string): string {
 export async function registerWholesale(
   input: WholesaleRegistrationInput,
 ): Promise<ActionResult<{ customerId: string }>> {
+  const validationError = validateWholesaleInput(input);
+  if (validationError) {
+    return { ok: false, error: validationError };
+  }
+
   const email = normalizeEmail(input.email);
   const supabase = await createClient();
 
@@ -74,13 +119,13 @@ export async function registerWholesale(
         type: "velkoobchod",
         status: "ziada_registraciu",
         name: input.name.trim(),
-        phone: input.phone.trim(),
+        phone: sanitizePhone(input.phone),
         company: input.company.trim(),
-        ico: input.ico.trim(),
+        ico: sanitizeIco(input.ico),
         dic: input.dic?.trim() || "",
         street: input.street.trim(),
         city: input.city.trim(),
-        zip: input.zip.trim(),
+        zip: sanitizeZip(input.zip),
         country: input.country.trim() || "Slovensko",
         note: input.note?.trim() || "",
       },
@@ -104,6 +149,11 @@ export async function registerWholesale(
 export async function registerRetail(
   input: RetailRegistrationInput,
 ): Promise<ActionResult<{ customer: Customer }>> {
+  const validationError = validateRetailInput(input);
+  if (validationError) {
+    return { ok: false, error: validationError };
+  }
+
   const email = normalizeEmail(input.email);
   const supabase = await createClient();
 
@@ -115,10 +165,10 @@ export async function registerRetail(
         type: "maloobchod",
         status: "aktivny",
         name: input.name.trim(),
-        phone: input.phone.trim(),
+        phone: sanitizePhone(input.phone),
         street: input.street.trim(),
         city: input.city.trim(),
-        zip: input.zip.trim(),
+        zip: sanitizeZip(input.zip),
         country: input.country.trim() || "Slovensko",
       },
     },

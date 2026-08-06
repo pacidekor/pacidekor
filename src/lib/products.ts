@@ -274,6 +274,33 @@ export function productColorMatchesFilter(
   return nearestFilterColor(custom.hex).color.id === filterColorId;
 }
 
+/**
+ * Pick the product color variant that matches active catalog color filters,
+ * so grid previews can show e.g. the yellow photo when filtering by yellow.
+ */
+export function resolveProductColorForFilters(
+  product: Product,
+  filterColorIds: string[] | null | undefined,
+): string | null {
+  if (!filterColorIds?.length) return null;
+
+  const productColors =
+    product.colors && product.colors.length > 0
+      ? product.colors
+      : colorsFromIds(product.attributes?.colors);
+
+  if (productColors.length === 0) return null;
+
+  for (const filterId of filterColorIds) {
+    const match = productColors.find((color) =>
+      productColorMatchesFilter(color.id, filterId),
+    );
+    if (match) return match.id;
+  }
+
+  return null;
+}
+
 function asPackaging(value: unknown): PackagingJson[] {
   if (!Array.isArray(value)) return [];
   return value.flatMap((item) => {
@@ -481,8 +508,14 @@ export function getRelatedProducts(
   return related;
 }
 
-export function productHref(slug: string) {
-  return `/produkt/${slug}`;
+export function productHref(
+  slug: string,
+  options?: { colorId?: string | null },
+) {
+  const base = `/produkt/${slug}`;
+  const colorId = options?.colorId?.trim();
+  if (!colorId) return base;
+  return `${base}?farba=${encodeURIComponent(colorId)}`;
 }
 
 /** Auth side panel product slide */

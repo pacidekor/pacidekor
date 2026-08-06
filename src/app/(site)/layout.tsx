@@ -1,6 +1,7 @@
 import { AccountDataSync } from "@/components/AccountDataSync";
 import { ChatFab } from "@/components/ChatFab";
 import { ConstructionNoticeModal } from "@/components/ConstructionNoticeModal";
+import { CookieConsent } from "@/components/cookies/CookieConsent";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { NavBar } from "@/components/NavBar";
@@ -38,6 +39,7 @@ export default async function SiteLayout({
       </div>
       <Footer />
       <ChatFab />
+      <CookieConsent />
       {/* Construction notice: vypnuto přes SHOW_CONSTRUCTION_NOTICE v ConstructionNoticeModal.tsx */}
       <ConstructionNoticeModal />
     </ProductCatalogProvider>

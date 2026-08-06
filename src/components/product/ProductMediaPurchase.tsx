@@ -4,15 +4,37 @@ import { useState } from "react";
 import { ProductDetailsCards } from "@/components/product/ProductDetailsCards";
 import { ProductImageGallery } from "@/components/product/ProductImageGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
-import { getGalleryForColor, type Product } from "@/lib/products";
+import {
+  getGalleryForColor,
+  resolveProductColorForFilters,
+  type Product,
+} from "@/lib/products";
 
 type ProductMediaPurchaseProps = {
   product: Product;
+  /** Color from catalog filter / card (`?farba=`). */
+  initialColorId?: string;
 };
 
-export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
-  const [selectedColor, setSelectedColor] = useState(
-    product.colors?.[0]?.id ?? "",
+function resolveInitialColor(product: Product, initialColorId?: string) {
+  const fallback = product.colors?.[0]?.id ?? "";
+  if (!initialColorId) return fallback;
+
+  if (product.colors?.some((color) => color.id === initialColorId)) {
+    return initialColorId;
+  }
+
+  return (
+    resolveProductColorForFilters(product, [initialColorId]) ?? fallback
+  );
+}
+
+export function ProductMediaPurchase({
+  product,
+  initialColorId,
+}: ProductMediaPurchaseProps) {
+  const [selectedColor, setSelectedColor] = useState(() =>
+    resolveInitialColor(product, initialColorId),
   );
 
   const gallery = getGalleryForColor(

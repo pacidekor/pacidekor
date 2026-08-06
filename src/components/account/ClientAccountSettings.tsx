@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type ComponentType } from "react";
 import {
-  Bell,
   ChevronRight,
+  Check,
   ClipboardList,
   ExternalLink,
   History,
@@ -13,13 +13,15 @@ import {
   LogOut,
   Package,
   Pencil,
-  Plus,
   RotateCcw,
   Settings,
   Trash2,
   UserRound,
   X,
 } from "lucide-react";
+import Image from "next/image";
+import { BellIcon } from "@/components/icons/BellIcon";
+import { ProductSearchSelect } from "@/components/ProductSearchSelect";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import {
   ACCOUNT_PREFS_EVENT,
@@ -47,7 +49,8 @@ import {
   type OrderTemplate,
   type OrderTemplateItem,
 } from "@/lib/order-templates";
-import { formatPrice, parsePrice } from "@/lib/cart";
+import { addToCart, formatPrice, parsePrice } from "@/lib/cart";
+import { adjustInventory } from "@/lib/inventory";
 import {
   ORDER_STATUS_META,
   formatOrderTotal,
@@ -72,7 +75,7 @@ type SectionId =
 type NavItem = {
   id: SectionId;
   label: string;
-  icon: typeof Settings;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   wholesaleOnly?: boolean;
 };
 
@@ -87,24 +90,14 @@ const NAV_GROUPS: NavGroup[] = [
     items: [
       { id: "aktivne", label: "Aktívne", icon: Package },
       { id: "historia", label: "História", icon: History },
-    ],
-  },
-  {
-    title: "Veľkoobchod",
-    items: [
-      {
-        id: "sablony",
-        label: "Šablóny",
-        icon: Layers,
-        wholesaleOnly: true,
-      },
+      { id: "sablony", label: "Šablóny", icon: Layers },
     ],
   },
   {
     title: "Váš účet",
     items: [
       { id: "nastavenie", label: "Nastavenie", icon: Settings },
-      { id: "newsletter", label: "Newsletter", icon: Bell },
+      { id: "newsletter", label: "Newsletter", icon: BellIcon },
     ],
   },
 ];
@@ -230,13 +223,6 @@ export function ClientAccountSettings() {
     }
   }, [hydrated, customer, router]);
 
-  useEffect(() => {
-    if (!customer) return;
-    if (customer.type !== "velkoobchod" && section === "sablony") {
-      setSection("aktivne");
-    }
-  }, [customer, section]);
-
   const activeOrders = useMemo(
     () => (customer ? getActiveOrdersForCustomerEmail(customer.email) : []),
     [customer],
@@ -248,12 +234,7 @@ export function ClientAccountSettings() {
 
   const navGroups = useMemo(() => {
     if (!customer) return [];
-    return NAV_GROUPS.map((group) => ({
-      ...group,
-      items: group.items.filter(
-        (item) => !item.wholesaleOnly || customer.type === "velkoobchod",
-      ),
-    })).filter((group) => group.items.length > 0);
+    return NAV_GROUPS;
   }, [customer]);
 
   async function logout() {
@@ -739,14 +720,30 @@ function NewsletterSection({
         return (
           <label
             key={option.key}
-            className="flex cursor-pointer items-start gap-4 rounded-2xl border border-black/8 px-4 py-4 transition-colors hover:bg-[#faf8f5]/80"
+            className={`flex cursor-pointer items-start gap-4 rounded-2xl border px-4 py-4 transition-colors ${
+              checked
+                ? "border-[#75825B]/35 bg-[#75825B]/6"
+                : "border-black/8 hover:bg-[#faf8f5]/80"
+            }`}
           >
-            <input
-              type="checkbox"
-              checked={checked}
-              onChange={(e) => onPatch(option.key, e.target.checked)}
-              className="mt-1 size-4 rounded border-black/20 text-[#75825B] accent-[#75825B]"
-            />
+            <span className="relative mt-0.5 inline-flex size-5 shrink-0">
+              <input
+                type="checkbox"
+                checked={checked}
+                onChange={(e) => onPatch(option.key, e.target.checked)}
+                className="peer absolute inset-0 z-10 size-full cursor-pointer opacity-0"
+              />
+              <span
+                className={`pointer-events-none flex size-5 items-center justify-center rounded-md border transition-colors ${
+                  checked
+                    ? "border-[#75825B] bg-[#75825B] text-white"
+                    : "border-black/20 bg-white text-transparent peer-hover:border-[#75825B]/50"
+                }`}
+                aria-hidden
+              >
+                <Check className="size-3" strokeWidth={2.5} />
+              </span>
+            </span>
             <span className="min-w-0">
               <span className="block text-sm font-semibold text-[#2f2924]">
                 {option.title}
@@ -785,7 +782,7 @@ function OrdersSection({
         <p className="mt-3 font-heading text-lg font-semibold text-[#2f2924]">
           {emptyTitle}
         </p>
-        <p className="mx-auto mt-1 max-w-sm text-sm text-[#2f2924]/55">
+        <p className="mx-auto mt-1 text-sm text-[#2f2924]/55">
           {emptyBody}
         </p>
         <Link
@@ -844,18 +841,19 @@ function TemplatesSection({
   templates: OrderTemplate[];
   onRefresh: () => void;
 }) {
+  const router = useRouter();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draftName, setDraftName] = useState("");
   const [draftNote, setDraftNote] = useState("");
   const [draftItems, setDraftItems] = useState<OrderTemplateItem[]>([]);
-  const [addProductId, setAddProductId] = useState("");
+  const [orderingId, setOrderingId] = useState<string | null>(null);
+  const [orderError, setOrderError] = useState<string | null>(null);
 
   function startEdit(template: OrderTemplate) {
     setEditingId(template.id);
     setDraftName(template.name);
     setDraftNote(template.note ?? "");
     setDraftItems(template.items.map((item) => ({ ...item })));
-    setAddProductId("");
   }
 
   function cancelEdit() {
@@ -863,7 +861,6 @@ function TemplatesSection({
     setDraftName("");
     setDraftNote("");
     setDraftItems([]);
-    setAddProductId("");
   }
 
   function saveEdit() {
@@ -890,10 +887,7 @@ function TemplatesSection({
     setDraftItems((prev) => prev.filter((item) => item.productId !== productId));
   }
 
-  function addItem() {
-    if (!addProductId) return;
-    const product = getProductCatalog().find((p) => p.id === addProductId);
-    if (!product) return;
+  function addProduct(product: { id: string; name: string; price: string }) {
     setDraftItems((prev) => {
       if (prev.some((item) => item.productId === product.id)) return prev;
       return [
@@ -906,13 +900,50 @@ function TemplatesSection({
         },
       ];
     });
-    setAddProductId("");
   }
 
   function handleDelete(id: string) {
     if (editingId === id) cancelEdit();
     deleteOrderTemplate(id);
     onRefresh();
+  }
+
+  async function orderAgain(template: OrderTemplate) {
+    if (orderingId) return;
+
+    setOrderingId(template.id);
+    setOrderError(null);
+
+    let added = 0;
+    try {
+      for (const line of template.items) {
+        const product = getProductCatalog().find(
+          (item) => item.id === line.productId,
+        );
+        if (!product) continue;
+
+        const stock = await adjustInventory(product, -line.quantity);
+        if (!stock.ok) continue;
+
+        try {
+          await addToCart(product, line.quantity);
+          added += 1;
+        } catch {
+          await adjustInventory(product, line.quantity);
+        }
+      }
+
+      if (added === 0) {
+        setOrderError(
+          "Nepodarilo sa pridať produkty do košíka. Skontrolujte sklad.",
+        );
+        return;
+      }
+
+      router.push("/pokladna");
+    } finally {
+      setOrderingId(null);
+    }
   }
 
   if (templates.length === 0) {
@@ -926,7 +957,7 @@ function TemplatesSection({
         <p className="mt-3 font-heading text-lg font-semibold text-[#2f2924]">
           Zatiaľ žiadne šablóny
         </p>
-        <p className="mx-auto mt-1 max-w-md text-sm text-[#2f2924]/55">
+        <p className="mx-auto mt-1 text-sm text-[#2f2924]/55">
           Keď budete mať v košíku zostavu, ktorú objednávate často, uložíte ju
           ako šablónu a nabudúce ju spustíte odtiaľto.
         </p>
@@ -936,6 +967,11 @@ function TemplatesSection({
 
   return (
     <div className="space-y-3">
+      {orderError ? (
+        <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+          {orderError}
+        </p>
+      ) : null}
       {templates.map((template) => {
         const isEditing = editingId === template.id;
         const availableProducts = getProductCatalog().filter(
@@ -991,45 +1027,72 @@ function TemplatesSection({
                   </div>
                 </div>
 
-                <ul className="mt-4 space-y-3 border-t border-black/6 pt-4">
-                  {draftItems.map((line) => (
-                    <li
-                      key={`${template.id}-edit-${line.productId}`}
-                      className="flex flex-wrap items-center justify-between gap-3"
-                    >
-                      <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-medium text-[#2f2924]">
-                          {line.name}
-                        </p>
-                        <p className="text-xs text-[#2f2924]/45">
-                          {line.unitPrice} / ks
-                        </p>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <QuantityStepper
-                          size="sm"
-                          value={line.quantity}
-                          min={1}
-                          onChange={(quantity) =>
-                            setItemQuantity(line.productId, quantity)
-                          }
-                          aria-label={`Množstvo: ${line.name}`}
-                        />
-                        <button
-                          type="button"
-                          onClick={() => removeItem(line.productId)}
-                          aria-label={`Odstrániť ${line.name}`}
-                          className="inline-flex size-10 cursor-pointer items-center justify-center rounded-xl border border-black/10 text-[#2f2924]/55 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
-                        >
-                          <Trash2
-                            className="size-3.5"
-                            strokeWidth={1.75}
-                            aria-hidden
+                <div className="relative z-20 mt-4 border-t border-black/6 pt-4">
+                  <ProductSearchSelect
+                    products={availableProducts}
+                    onSelect={addProduct}
+                    placeholder="Hľadať a pridať produkt…"
+                    emptyLabel="Všetky produkty sú už v šablóne"
+                  />
+                </div>
+
+                <ul className="mt-4 space-y-3">
+                  {draftItems.map((line) => {
+                    const catalogProduct = getProductCatalog().find(
+                      (product) => product.id === line.productId,
+                    );
+                    return (
+                      <li
+                        key={`${template.id}-edit-${line.productId}`}
+                        className="flex flex-wrap items-center justify-between gap-3"
+                      >
+                        <div className="flex min-w-0 flex-1 items-center gap-3">
+                          <span className="relative size-11 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9]">
+                            {catalogProduct ? (
+                              <Image
+                                src={catalogProduct.image}
+                                alt=""
+                                fill
+                                sizes="44px"
+                                className="object-cover"
+                              />
+                            ) : null}
+                          </span>
+                          <div className="min-w-0">
+                            <p className="truncate text-sm font-medium text-[#2f2924]">
+                              {line.name}
+                            </p>
+                            <p className="text-xs text-[#2f2924]/45">
+                              {line.unitPrice} / ks
+                            </p>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <QuantityStepper
+                            size="sm"
+                            value={line.quantity}
+                            min={1}
+                            onChange={(quantity) =>
+                              setItemQuantity(line.productId, quantity)
+                            }
+                            aria-label={`Množstvo: ${line.name}`}
                           />
-                        </button>
-                      </div>
-                    </li>
-                  ))}
+                          <button
+                            type="button"
+                            onClick={() => removeItem(line.productId)}
+                            aria-label={`Odstrániť ${line.name}`}
+                            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-xl border border-black/10 text-[#2f2924]/55 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
+                          >
+                            <Trash2
+                              className="size-3.5"
+                              strokeWidth={1.75}
+                              aria-hidden
+                            />
+                          </button>
+                        </div>
+                      </li>
+                    );
+                  })}
                 </ul>
 
                 {draftItems.length === 0 ? (
@@ -1037,31 +1100,6 @@ function TemplatesSection({
                     Šablóna musí obsahovať aspoň jednu položku.
                   </p>
                 ) : null}
-
-                <div className="mt-4 flex flex-col gap-2 sm:flex-row sm:items-center">
-                  <select
-                    value={addProductId}
-                    onChange={(e) => setAddProductId(e.target.value)}
-                    className={`${fieldClass} sm:flex-1`}
-                    aria-label="Pridať produkt"
-                  >
-                    <option value="">Pridať produkt…</option>
-                    {availableProducts.map((product) => (
-                      <option key={product.id} value={product.id}>
-                        {product.name} · {product.price}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    type="button"
-                    onClick={addItem}
-                    disabled={!addProductId}
-                    className="inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-not-allowed disabled:opacity-40"
-                  >
-                    <Plus className="size-4" strokeWidth={1.75} aria-hidden />
-                    Pridať
-                  </button>
-                </div>
 
                 <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-black/6 pt-4">
                   <p className="text-sm text-[#2f2924]/55">
@@ -1123,15 +1161,18 @@ function TemplatesSection({
                     </button>
                     <button
                       type="button"
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-[#75825B] px-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-                      title="Pripojíme po dokončení košíka"
+                      onClick={() => void orderAgain(template)}
+                      disabled={orderingId === template.id}
+                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-[#75825B] px-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
                     >
                       <RotateCcw
                         className="size-3.5"
                         strokeWidth={1.75}
                         aria-hidden
                       />
-                      Objednať znova
+                      {orderingId === template.id
+                        ? "Pripravujem…"
+                        : "Objednať znova"}
                     </button>
                     <button
                       type="button"

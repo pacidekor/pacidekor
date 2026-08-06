@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { AddToCartButton } from "@/components/AddToCartButton";
+import { BellIcon } from "@/components/icons/BellIcon";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { ProductColorPills } from "@/components/product/ProductColorPills";
+import { RestockNotifyModal } from "@/components/product/RestockNotifyModal";
 import {
   inventoryMaxOrderable,
   isInventoryAvailable,
@@ -27,6 +29,7 @@ export function ProductPurchase({
   const maxQty = inventoryMaxOrderable(inventory);
 
   const [quantity, setQuantity] = useState(1);
+  const [restockOpen, setRestockOpen] = useState(false);
   const [internalColor, setInternalColor] = useState(
     product.colors?.[0]?.id ?? "",
   );
@@ -102,8 +105,27 @@ export function ProductPurchase({
             disabled={!available}
             size="page"
           />
+
+          {!available ? (
+            <button
+              type="button"
+              onClick={() => setRestockOpen(true)}
+              aria-label="Upozorniť na naskladnenie"
+              title="Upozorniť na naskladnenie"
+              className="inline-flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white transition-[opacity,transform] hover:opacity-90 active:scale-[0.97]"
+            >
+              <BellIcon className="size-5" />
+            </button>
+          ) : null}
         </div>
       </div>
+
+      <RestockNotifyModal
+        open={restockOpen}
+        onClose={() => setRestockOpen(false)}
+        product={product}
+        colorId={selectedColor || undefined}
+      />
     </div>
   );
 }

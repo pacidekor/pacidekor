@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FavoriteButton } from "@/components/FavoriteButton";
@@ -9,19 +9,45 @@ import {
   colorSwatchStyle,
   getColorPreviewImages,
   productHref,
+  resolveProductColorForFilters,
   type Product,
 } from "@/lib/products";
 
 type ProductCardProps = {
   product: Product;
+  /** Active color filter IDs — preview switches to the matching variant. */
+  filterColorIds?: string[];
 };
 
-export function ProductCard({ product }: ProductCardProps) {
-  const href = productHref(product.slug);
+export function ProductCard({ product, filterColorIds }: ProductCardProps) {
   const colors = product.colors ?? [];
   const showSwatches = colors.length > 1;
 
-  const [selectedColorId, setSelectedColorId] = useState<string | null>(null);
+  const filterKey = filterColorIds?.join(",") ?? "";
+  const preferredColorId = useMemo(
+    () =>
+      resolveProductColorForFilters(
+        product,
+        filterKey ? filterKey.split(",") : undefined,
+      ),
+    [product, filterKey],
+  );
+
+  // undefined = follow filter preference; null/string = manual override
+  const [manualColorId, setManualColorId] = useState<
+    string | null | undefined
+  >(undefined);
+
+  useEffect(() => {
+    setManualColorId(undefined);
+  }, [preferredColorId]);
+
+  const selectedColorId =
+    manualColorId !== undefined ? manualColorId : preferredColorId;
+
+  const href = productHref(product.slug, {
+    colorId: selectedColorId,
+  });
 
   const preview =
     selectedColorId != null
@@ -94,9 +120,11 @@ export function ProductCard({ product }: ProductCardProps) {
                   onClick={(event) => {
                     event.preventDefault();
                     event.stopPropagation();
-                    setSelectedColorId((prev) =>
-                      prev === color.id ? null : color.id,
-                    );
+                    setManualColorId((prev) => {
+                      const current =
+                        prev !== undefined ? prev : preferredColorId;
+                      return current === color.id ? null : color.id;
+                    });
                   }}
                   className={`size-4 shrink-0 cursor-pointer rounded-full border transition-transform hover:scale-110 sm:size-[1.125rem] ${
                     selected

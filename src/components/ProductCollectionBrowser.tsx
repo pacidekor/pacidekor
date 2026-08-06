@@ -4,6 +4,10 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
+import {
+  CatalogGridDensityToggle,
+  catalogGridClass,
+} from "@/components/CatalogGridDensityToggle";
 import { ProductCard } from "@/components/ProductCard";
 import {
   getInventoryForProduct,
@@ -42,6 +46,9 @@ export function ProductCollectionBrowser({
   listenInventory = false,
 }: ProductCollectionBrowserProps) {
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [gridDensity, setGridDensity] = useState<"comfortable" | "compact">(
+    "comfortable",
+  );
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [inventoryTick, setInventoryTick] = useState(0);
@@ -94,29 +101,41 @@ export function ProductCollectionBrowser({
       <div className="mb-6 flex items-center justify-between gap-4">
         <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{title}</h1>
 
-        <button
-          type="button"
-          onClick={() => setFiltersOpen(true)}
-          className={`inline-flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors sm:px-5 ${
-            activeFilterCount > 0
-              ? "border-[#75825B] bg-[#75825B] text-white"
-              : "border-[#2f2924]/12 bg-white text-[#2f2924] hover:border-[#75825B]/40 hover:text-[#75825B]"
-          }`}
-        >
-          <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-          Filtrovať
-          {activeFilterCount > 0 ? (
-            <span className="ml-0.5 inline-flex size-5 items-center justify-center rounded-full bg-white/20 text-xs">
-              {activeFilterCount}
-            </span>
-          ) : null}
-        </button>
+        <div className="flex shrink-0 items-center gap-2">
+          <CatalogGridDensityToggle
+            value={gridDensity}
+            onChange={setGridDensity}
+          />
+          <button
+            type="button"
+            onClick={() => setFiltersOpen(true)}
+            className={`inline-flex h-11 shrink-0 cursor-pointer items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors sm:px-5 ${
+              activeFilterCount > 0
+                ? "border-[#75825B] bg-[#75825B] text-white"
+                : "border-[#2f2924]/12 bg-white text-[#2f2924] hover:border-[#75825B]/40 hover:text-[#75825B]"
+            }`}
+          >
+            <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
+            Filtrovať
+            {activeFilterCount > 0 ? (
+              <span className="ml-0.5 inline-flex size-5 items-center justify-center rounded-full bg-white/20 text-xs">
+                {activeFilterCount}
+              </span>
+            ) : null}
+          </button>
+        </div>
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+        <div className={catalogGridClass(gridDensity)}>
           {filtered.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard
+              key={product.id}
+              product={product}
+              filterColorIds={
+                selectedColors.length > 0 ? selectedColors : undefined
+              }
+            />
           ))}
         </div>
       ) : (
