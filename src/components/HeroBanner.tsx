@@ -17,14 +17,14 @@ type BannerSlide = {
 const slides: BannerSlide[] = [
   {
     desktopSrc: "/banner2.webp",
-    mobileSrc: "/bannermobile2.webp",
+    mobileSrc: "/1bannermobile.webp",
     href: "/produkty",
     alt: "PACIDEKOR - expedícia do 24 hodín",
     ctaLabel: "Všetky produkty",
   },
   {
     desktopSrc: "/bannerkvety.webp",
-    mobileSrc: "/bannerkvety.webp",
+    mobileSrc: "/2bannermobile.webp",
     href: "/registracia/velkoobchod",
     alt: "PACIDEKOR - umelé kvety, krása ktorá vydrží",
     ctaLabel: "Registrácia",
@@ -76,8 +76,12 @@ export function HeroBanner() {
   const applyTransform = useCallback(
     (trackIndex: number, offsetPx: number, animate: boolean) => {
       const track = trackRef.current;
-      const width = widthRef.current;
-      if (!track || !width) return;
+      if (!track) return;
+
+      // Percentage is relative to the track. With track width = n * viewport,
+      // each step of (100 / n)% moves exactly one viewport — avoids subpixel
+      // gaps from clientWidth rounding that let the next slide peek through.
+      const stepPercent = 100 / trackSlides.length;
 
       if (animate) {
         track.style.transition = "none";
@@ -85,10 +89,10 @@ export function HeroBanner() {
       }
 
       track.style.transition = animate ? TRANSITION : "none";
-      track.style.transform = `translate3d(${-trackIndex * width + offsetPx}px, 0, 0)`;
+      track.style.transform = `translate3d(calc(${-trackIndex * stepPercent}% + ${offsetPx}px), 0, 0)`;
       animatingRef.current = animate;
     },
-    [],
+    [trackSlides.length],
   );
 
   const normalizeClone = useCallback(() => {
@@ -108,7 +112,7 @@ export function HeroBanner() {
   }, [applyTransform, count, lastTrack, loop]);
 
   const measure = useCallback(() => {
-    const width = viewportRef.current?.clientWidth ?? 0;
+    const width = viewportRef.current?.getBoundingClientRect().width ?? 0;
     widthRef.current = width;
     applyTransform(trackIndexRef.current, 0, false);
   }, [applyTransform]);
@@ -244,7 +248,7 @@ export function HeroBanner() {
       role="region"
       aria-roledescription="carousel"
       aria-label="Banner"
-      className={`group relative aspect-[2/1] w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] md:aspect-auto ${
+      className={`group relative isolate aspect-[2/1] w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] md:aspect-auto ${
         loop ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
       }`}
       onPointerDown={onPointerDown}
@@ -278,18 +282,23 @@ export function HeroBanner() {
         className="pointer-events-none invisible hidden h-auto w-full md:block"
       />
 
-      <div ref={viewportRef} className="absolute inset-0 overflow-hidden">
+      <div
+        ref={viewportRef}
+        className="absolute inset-0 overflow-hidden rounded-[inherit] [clip-path:inset(0_round_1.5rem)]"
+      >
         <div
           ref={trackRef}
           className="flex h-full will-change-transform select-none [-webkit-user-drag:none]"
           draggable={false}
+          style={{ width: `${trackSlides.length * 100}%` }}
         >
           {trackSlides.map((slide, index) => {
             const realIndex = toRealIndex(index);
             return (
               <div
                 key={`${slide.desktopSrc}-${index}`}
-                className="relative h-full w-full shrink-0 select-none [-webkit-user-drag:none]"
+                className="relative h-full shrink-0 select-none [-webkit-user-drag:none]"
+                style={{ width: `${100 / trackSlides.length}%` }}
                 aria-hidden={realIndex !== activeIndex}
                 draggable={false}
               >
