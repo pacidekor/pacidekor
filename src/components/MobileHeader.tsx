@@ -300,11 +300,11 @@ export function MobileHeader() {
 
             <div className="shrink-0 border-t border-black/8 bg-[#e8ebe2] px-[calc((100vw-var(--content-width))/2)] py-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
               <a
-                href="tel:+421900123456"
+                href="tel:+421910592948"
                 className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.6vw,1.1rem)] font-medium text-[#2f2924]/75 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
               >
                 <Phone className="size-5 shrink-0" strokeWidth={1.75} aria-hidden />
-                <span>0900 123 456</span>
+                <span>+421 910 592 948</span>
               </a>
               <a
                 href="mailto:info@pacidekor.sk"

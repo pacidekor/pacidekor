@@ -19,6 +19,9 @@ import {
   Search,
   X,
 } from "lucide-react";
+import { FilterChip } from "@/components/FilterChip";
+import { FilterSheet } from "@/components/FilterSheet";
+import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
   deleteDiscountAction,
@@ -291,8 +294,8 @@ export function AdminDiscountsManager() {
       </div>
 
       <div className="mt-5">
-        <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-          <div className="relative w-full min-w-0 sm:max-w-md sm:flex-1">
+        <div className="mb-4 flex items-center gap-2.5 sm:gap-3">
+          <div className="relative min-w-0 flex-[7] sm:max-w-md sm:flex-1">
             <Search
               className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
               aria-hidden
@@ -309,12 +312,12 @@ export function AdminDiscountsManager() {
           <button
             type="button"
             onClick={() => setFiltersOpen(true)}
-            className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto"
+            className="inline-flex h-11 min-w-0 flex-[3] cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto sm:flex-none sm:gap-2 sm:px-4"
           >
-            <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-            Filtrovať
+            <ListFilter className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
+            <span className="truncate">Filtrovať</span>
             {activeFilterCount > 0 ? (
-              <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
+              <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
                 {activeFilterCount}
               </span>
             ) : null}
@@ -457,71 +460,33 @@ export function AdminDiscountsManager() {
         </section>
       </div>
 
-      {filtersOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-pointer"
-            aria-label="Zavrieť filtre"
-            onClick={() => setFiltersOpen(false)}
+      <FilterSheet
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        footer={
+          <FilterSheetFooter
+            hasActiveFilters={activeFilterCount > 0}
+            onClear={() => setStatusFilter("all")}
+            onDone={() => setFiltersOpen(false)}
           />
-          <div className="relative w-full max-w-md rounded-2xl bg-white shadow-[0_16px_48px_rgba(47,41,36,0.16)]">
-            <div className="flex items-center justify-between border-b border-black/6 px-5 py-4">
-              <h2 className="font-heading text-lg text-[#2f2924]">Filtre</h2>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/55 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-                aria-label="Zavrieť"
-              >
-                <X className="size-4" strokeWidth={1.75} aria-hidden />
-              </button>
-            </div>
-            <div className="space-y-4 px-5 py-5">
-              <fieldset>
-                <legend className="text-sm font-medium text-[#2f2924]">
-                  Stav zľavy
-                </legend>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {STATUS_FILTERS.map((filter) => {
-                    const selectedFilter = statusFilter === filter.id;
-                    return (
-                      <button
-                        key={filter.id}
-                        type="button"
-                        onClick={() => setStatusFilter(filter.id)}
-                        className={`inline-flex h-9 cursor-pointer items-center rounded-xl border px-3 text-sm font-medium transition-colors ${
-                          selectedFilter
-                            ? "border-[#75825B] bg-[#e8ebe2] text-[#5a6648]"
-                            : "border-black/10 bg-white text-[#2f2924]/70 hover:border-[#75825B]/35"
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </fieldset>
-            </div>
-            <div className="flex items-center justify-between gap-3 border-t border-black/6 px-5 py-4">
-              <button
-                type="button"
-                onClick={() => setStatusFilter("all")}
-                className="cursor-pointer text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#2f2924]"
-              >
-                Resetovať
-              </button>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex h-10 cursor-pointer items-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Použiť
-              </button>
-            </div>
+        }
+      >
+        <div>
+          <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+            Stav zľavy
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {STATUS_FILTERS.map((filter) => (
+              <FilterChip
+                key={filter.id}
+                label={filter.label}
+                active={statusFilter === filter.id}
+                onClick={() => setStatusFilter(filter.id)}
+              />
+            ))}
           </div>
         </div>
-      ) : null}
+      </FilterSheet>
 
       {creating || selected ? (
         <DiscountEditor

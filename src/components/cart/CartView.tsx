@@ -30,13 +30,8 @@ import {
   inventoryMaxOrderable,
 } from "@/lib/inventory";
 import { productHref } from "@/lib/products";
+import { productCountLabel } from "@/lib/product-count";
 import { useCartItems } from "@/lib/use-cart";
-
-function productCountLabel(count: number) {
-  if (count === 1) return "1 produkt";
-  if (count < 5) return `${count} produkty`;
-  return `${count} produktov`;
-}
 
 function CartLine({
   item,

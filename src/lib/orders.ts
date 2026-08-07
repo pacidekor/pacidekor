@@ -96,18 +96,37 @@ export const LABEL_PRINTABLE_STATUSES: OrderStatus[] = [
   "pripravena_na_odoslanie",
 ];
 
-export const ORDER_STATUS_FILTERS: { id: "all" | OrderStatus; label: string }[] =
-  [
-    { id: "all", label: "Všetky" },
-    { id: "nova", label: "Nové" },
-    { id: "nezaplatena", label: "Nezaplatené" },
-    { id: "zaplatena", label: "Zaplatené" },
-    { id: "pripravuje_sa", label: "Pripravuje sa" },
-    { id: "pripravena_na_odoslanie", label: "Na odoslanie" },
-    { id: "predana_dopravcovi", label: "U dopravcu" },
-    { id: "dorucena", label: "Doručené" },
-    { id: "stornovana", label: "Stornované" },
-  ];
+/** Statusy objednávok čakajúcich na vybavenie (dashboard + filter). */
+export const PENDING_ORDER_STATUSES: OrderStatus[] = [
+  "nova",
+  "zaplatena",
+  "pripravuje_sa",
+  "pripravena_na_odoslanie",
+];
+
+export type OrderStatusFilterId = "all" | "cakajuce" | OrderStatus;
+
+export const ORDER_STATUS_FILTERS: {
+  id: OrderStatusFilterId;
+  label: string;
+}[] = [
+  { id: "all", label: "Všetky" },
+  { id: "cakajuce", label: "Čakajúce" },
+  { id: "nova", label: "Nové" },
+  { id: "nezaplatena", label: "Nezaplatené" },
+  { id: "zaplatena", label: "Zaplatené" },
+  { id: "pripravuje_sa", label: "Pripravuje sa" },
+  { id: "pripravena_na_odoslanie", label: "Na odoslanie" },
+  { id: "predana_dopravcovi", label: "U dopravcu" },
+  { id: "dorucena", label: "Doručené" },
+  { id: "stornovana", label: "Stornované" },
+];
+
+export function isValidOrderStatusFilter(
+  value: string | undefined,
+): value is OrderStatusFilterId {
+  return ORDER_STATUS_FILTERS.some((filter) => filter.id === value);
+}
 
 function item(
   productId: string,
@@ -494,11 +513,7 @@ export function orderStatusClass(status: OrderStatus | string) {
 
 export function pendingOrdersForDashboard() {
   return orders
-    .filter((order) =>
-      ["nova", "pripravuje_sa", "zaplatena", "pripravena_na_odoslanie"].includes(
-        order.status,
-      ),
-    )
+    .filter((order) => PENDING_ORDER_STATUSES.includes(order.status))
     .slice(0, 5)
     .map((order) => ({
       number: order.id,

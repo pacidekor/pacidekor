@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { listBlogPosts } from "@/lib/blog-server";
-import type { BlogBlock, BlogCategory, BlogPost, BlogPostWithId } from "@/lib/blog";
+import type { BlogBlock, BlogCategory, BlogPostWithId } from "@/lib/blog";
 import type { BlogPostInsert } from "@/lib/supabase/database.types";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 
@@ -143,5 +143,3 @@ export async function deleteBlogPostAction(
     };
   }
 }
-
-export type { BlogPost };

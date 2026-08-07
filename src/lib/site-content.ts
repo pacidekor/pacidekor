@@ -41,8 +41,8 @@ export function seedSiteContent(): SiteContentStore {
     })),
     contact: {
       company: "PACIDEKOR s.r.o.",
-      phone: "0900 123 456",
-      phoneHref: "tel:+421900123456",
+      phone: "+421 910 592 948",
+      phoneHref: "tel:+421910592948",
       email: "info@pacidekor.sk",
       address: "Kráľová nad Váhom 283",
       stores: [

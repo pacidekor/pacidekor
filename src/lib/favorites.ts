@@ -6,6 +6,7 @@ import {
 } from "@/lib/actions/favorites";
 import type { Product } from "@/lib/products";
 import { findCatalogProductsByIds } from "@/lib/product-catalog";
+import { productCountLabel } from "@/lib/product-count";
 
 export const FAVORITES_EVENT = "pacidekor:favorites-changed";
 
@@ -61,9 +62,7 @@ export function getFavoriteProducts(): Product[] {
 }
 
 export function favoriteCountLabel(count: number) {
-  if (count === 1) return "1 produkt";
-  if (count > 1 && count < 5) return `${count} produkty`;
-  return `${count} produktov`;
+  return productCountLabel(count);
 }
 
 export function clearFavoritesCache() {

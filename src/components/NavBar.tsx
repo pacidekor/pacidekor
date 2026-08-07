@@ -96,11 +96,11 @@ export function NavBar() {
             onMouseEnter={scheduleClose}
           >
             <a
-              href="tel:+421900123456"
+              href="tel:+421910592948"
               className="inline-flex cursor-pointer items-center gap-2 font-medium text-white/85 transition-[color,text-shadow] duration-200 hover:text-white hover:[text-shadow:0_0_0.35px_currentcolor]"
             >
               <Phone className="size-4" strokeWidth={1.75} aria-hidden />
-              <span>0900 123 456</span>
+              <span>+421 910 592 948</span>
             </a>
             <a
               href="mailto:info@pacidekor.sk"

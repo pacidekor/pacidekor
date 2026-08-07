@@ -30,6 +30,9 @@ import {
 } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import { ImageLightbox } from "@/components/ImageLightbox";
+import { FilterChip } from "@/components/FilterChip";
+import { FilterSheet } from "@/components/FilterSheet";
+import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { categories } from "@/lib/navigation";
 import {
   ADMIN_CATEGORIES_EVENT,
@@ -76,6 +79,7 @@ import {
   setInventory,
 } from "@/lib/inventory";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
+import type { AdminStockFilter } from "@/lib/admin-product-filters";
 
 const CREATE_DRAFT_ID = "__new__";
 
@@ -153,7 +157,7 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
   };
 }
 
-type StockFilter = "all" | "in" | "out" | "low";
+type StockFilter = AdminStockFilter;
 
 const LOW_STOCK_THRESHOLD = 5;
 
@@ -176,8 +180,10 @@ const CUSTOM_COLOR_PRESETS = [
 
 export function AdminProductsManager({
   initialProducts,
+  initialStockFilter = "all",
 }: {
   initialProducts: Product[];
+  initialStockFilter?: StockFilter;
 }) {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -186,12 +192,17 @@ export function AdminProductsManager({
   const [savedFlash, setSavedFlash] = useState(false);
   const [query, setQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
-  const [stockFilter, setStockFilter] = useState<StockFilter>("all");
+  const [stockFilter, setStockFilter] =
+    useState<StockFilter>(initialStockFilter);
   const [colorFilter, setColorFilter] = useState<string[]>([]);
   const [packagingFilter, setPackagingFilter] = useState<string[]>([]);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [inventoryTick, setInventoryTick] = useState(0);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    setStockFilter(initialStockFilter);
+  }, [initialStockFilter]);
 
   useEffect(() => {
     setProducts(initialProducts);
@@ -256,6 +267,13 @@ export function AdminProductsManager({
         )
       ) {
         return false;
+      }
+      if (stockFilter === "attention") {
+        const isLow =
+          available &&
+          inventory.quantity != null &&
+          inventory.quantity <= LOW_STOCK_THRESHOLD;
+        if (available && !isLow) return false;
       }
 
       if (!q) return true;
@@ -372,6 +390,10 @@ export function AdminProductsManager({
     { value: "in", label: "Na sklade" },
     { value: "out", label: "Nie je na sklade" },
     { value: "low", label: `Posledné kusy (≤${LOW_STOCK_THRESHOLD})` },
+    {
+      value: "attention",
+      label: "Posledné kusy / nie je na sklade",
+    },
   ];
 
   const activeFilterCount =
@@ -426,8 +448,8 @@ export function AdminProductsManager({
       </div>
 
       <div className="mt-5">
-      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-        <div className="relative w-full min-w-0 sm:max-w-md sm:flex-1">
+      <div className="mb-4 flex items-center gap-2.5 sm:gap-3">
+        <div className="relative min-w-0 flex-[7] sm:max-w-md sm:flex-1">
           <Search
             className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/40"
             strokeWidth={1.75}
@@ -442,21 +464,19 @@ export function AdminProductsManager({
           />
         </div>
 
-        <div className="flex w-full shrink-0 items-center gap-3 sm:ml-auto sm:w-auto">
-          <button
-            type="button"
-            onClick={() => setFiltersOpen(true)}
-            className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:flex-none"
-          >
-            <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-            Filtrovať
-            {activeFilterCount > 0 ? (
-              <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
-                {activeFilterCount}
-              </span>
-            ) : null}
-          </button>
-        </div>
+        <button
+          type="button"
+          onClick={() => setFiltersOpen(true)}
+          className="inline-flex h-11 min-w-0 flex-[3] cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto sm:flex-none sm:gap-2 sm:px-4"
+        >
+          <ListFilter className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
+          <span className="truncate">Filtrovať</span>
+          {activeFilterCount > 0 ? (
+            <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[#75825B] text-[11px] font-semibold text-white">
+              {activeFilterCount}
+            </span>
+          ) : null}
+        </button>
       </div>
 
       {/* Mobile cards */}
@@ -649,115 +669,84 @@ export function AdminProductsManager({
         </p>
       ) : null}
 
-      {filtersOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-pointer"
-            aria-label="Zavrieť filtre"
-            onClick={() => setFiltersOpen(false)}
+      <FilterSheet
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        footer={
+          <FilterSheetFooter
+            hasActiveFilters={activeFilterCount > 0}
+            onClear={clearFilters}
+            onDone={() => setFiltersOpen(false)}
           />
-          <div className="relative w-full max-w-md rounded-2xl bg-white shadow-[0_16px_48px_rgba(47,41,36,0.16)]">
-            <div className="flex items-center justify-between border-b border-black/6 px-5 py-4">
-              <h2 className="font-heading text-lg text-[#2f2924]">Filtre</h2>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/55 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-                aria-label="Zavrieť"
-              >
-                <X className="size-4" strokeWidth={1.75} aria-hidden />
-              </button>
-            </div>
-
-            <div className="space-y-5 px-5 py-5">
-              <FieldLabel label="Kategória">
-                <AdminSelect
-                  value={categoryFilter}
-                  options={categoryOptions}
-                  onChange={setCategoryFilter}
+        }
+      >
+        <div className="space-y-7">
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Kategória
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {categoryOptions.map((option) => (
+                <FilterChip
+                  key={option.value}
+                  label={option.label}
+                  active={categoryFilter === option.value}
+                  onClick={() => setCategoryFilter(option.value)}
                 />
-              </FieldLabel>
-
-              <FieldLabel label="Sklad">
-                <AdminSelect
-                  value={stockFilter}
-                  options={stockOptions}
-                  onChange={(value) => setStockFilter(value as StockFilter)}
-                />
-              </FieldLabel>
-
-              <fieldset>
-                <legend className="text-sm font-medium text-[#2f2924]">
-                  Formát dodania
-                </legend>
-                <div className="mt-3 flex flex-col gap-1">
-                  {packagingFormats.map((format) => (
-                    <label
-                      key={format.id}
-                      className="flex cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={packagingFilter.includes(format.id)}
-                        onChange={() => togglePackagingFilter(format.id)}
-                        className="size-4 accent-[#75825B]"
-                      />
-                      {format.label}
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
-
-              <fieldset>
-                <legend className="text-sm font-medium text-[#2f2924]">
-                  Farba
-                </legend>
-                <div className="mt-3 grid grid-cols-2 gap-1.5">
-                  {filterColors.map((color) => (
-                    <label
-                      key={color.id}
-                      className="flex cursor-pointer items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={colorFilter.includes(color.id)}
-                        onChange={() => toggleColor(color.id)}
-                        className="size-4 accent-[#75825B]"
-                      />
-                      {color.hex ? (
-                        <span
-                          className="size-3.5 rounded-full border border-black/10"
-                          style={{ backgroundColor: color.hex }}
-                          aria-hidden
-                        />
-                      ) : null}
-                      {color.label}
-                    </label>
-                  ))}
-                </div>
-              </fieldset>
+              ))}
             </div>
+          </div>
 
-            <div className="flex items-center justify-between gap-3 border-t border-black/6 px-5 py-4">
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="cursor-pointer text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#2f2924]"
-              >
-                Zrušiť filtre
-              </button>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Použiť
-              </button>
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Sklad
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {stockOptions.map((option) => (
+                <FilterChip
+                  key={option.value}
+                  label={option.label}
+                  active={stockFilter === option.value}
+                  onClick={() => setStockFilter(option.value as StockFilter)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Formát dodania
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {packagingFormats.map((format) => (
+                <FilterChip
+                  key={format.id}
+                  label={format.label}
+                  active={packagingFilter.includes(format.id)}
+                  onClick={() => togglePackagingFilter(format.id)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Farba
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {filterColors.map((color) => (
+                <FilterChip
+                  key={color.id}
+                  label={color.label}
+                  active={colorFilter.includes(color.id)}
+                  onClick={() => toggleColor(color.id)}
+                  swatch={color.hex}
+                />
+              ))}
             </div>
           </div>
         </div>
-      ) : null}
+      </FilterSheet>
 
       {editing ? (
         <ProductEditor

@@ -59,7 +59,7 @@ const sections: LegalSection[] = [
           items={[
             "Sídlo / prevádzka: Kráľová nad Váhom 283, Slovenská republika",
             "E-mail: info@pacidekor.sk",
-            "Telefón: +421 900 123 456",
+            "Telefón: +421 910 592 948",
             "IČO: [doplniť podľa ORSR]",
             "DIČ / IČ DPH: [doplniť podľa daňovej registrácie]",
           ]}

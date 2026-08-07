@@ -20,41 +20,18 @@ import {
 } from "@/lib/client-auth";
 import type { Customer } from "@/lib/customers";
 import { productHref } from "@/lib/products";
+import { productCountLabel } from "@/lib/product-count";
+import {
+  FREE_SHIPPING_THRESHOLD,
+  PAYMENT_OPTIONS,
+  SHIPPING_OPTIONS,
+} from "@/lib/shipping";
 import { useCartItems } from "@/lib/use-cart";
 
 const fieldClass =
   "h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
 
 const labelClass = "mb-1.5 block text-sm font-medium text-[#2f2924]";
-
-const SHIPPING_OPTIONS = [
-  {
-    id: "packeta_point",
-    label: "Packeta / Zásielkovňa - výdajné miesto",
-    description: "Z-BOX alebo výdajné miesto podľa vášho výberu.",
-    cost: 2.3,
-    costFrom: true,
-  },
-  {
-    id: "packeta_address",
-    label: "Packeta / Zásielkovňa - na adresu",
-    description: "Doručenie na adresu z fakturačných údajov.",
-    cost: 3.6,
-    costFrom: true,
-  },
-  {
-    id: "pickup",
-    label: "Osobný odber",
-    description: "Vyzdvihnutie u nás po dohode.",
-    cost: 0,
-    costFrom: false,
-  },
-] as const;
-
-const PAYMENT_OPTIONS = [
-  { id: "transfer", label: "Bankový prevod" },
-  { id: "cod", label: "Dobierka" },
-] as const;
 
 type CheckoutForm = {
   name: string;
@@ -91,12 +68,6 @@ const INITIAL_FORM: CheckoutForm = {
   packetaPointId: "",
   packetaPointName: "",
 };
-
-function productCountLabel(count: number) {
-  if (count === 1) return "1 produkt";
-  if (count < 5) return `${count} produkty`;
-  return `${count} produktov`;
-}
 
 function customerHasBilling(customer: Customer) {
   return Boolean(
@@ -481,7 +452,7 @@ export function CheckoutView() {
     (option) => option.id === form.shippingMethod,
   );
   const shippingCost = shipping?.cost ?? 0;
-  const freeShipping = subtotal >= 100;
+  const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
   const effectiveShipping = freeShipping ? 0 : shippingCost;
   const total = subtotal + effectiveShipping;
 
@@ -858,7 +829,7 @@ export function CheckoutView() {
             </div>
             {freeShipping && shippingCost > 0 ? (
               <p className="text-xs text-[#2f2924]/50">
-                Nad 100 € je doprava zadarmo.
+                Nad {FREE_SHIPPING_THRESHOLD} € je doprava zadarmo.
               </p>
             ) : null}
 

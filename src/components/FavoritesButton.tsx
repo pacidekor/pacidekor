@@ -166,19 +166,17 @@ export function FavoritesButton() {
             />
           </div>
 
-          <div className="bg-[#faf8f5] px-4 py-3.5">
-            <Link
-              href="/oblubene"
-              onClick={() => setOpen(false)}
-              className={`inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl text-sm font-medium transition-opacity hover:opacity-90 ${
-                count > 0
-                  ? "bg-[#75825B] text-white"
-                  : "border border-black/10 bg-white text-[#2f2924]"
-              }`}
-            >
-              Prejsť do obľúbených
-            </Link>
-          </div>
+          {count > 0 ? (
+            <div className="bg-[#faf8f5] px-4 py-3.5">
+              <Link
+                href="/oblubene"
+                onClick={() => setOpen(false)}
+                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90"
+              >
+                Prejsť do obľúbených
+              </Link>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

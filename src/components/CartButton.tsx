@@ -11,6 +11,7 @@ import {
   type CartItem,
 } from "@/lib/cart";
 import { productHref } from "@/lib/products";
+import { productCountLabel } from "@/lib/product-count";
 import { useCartItems } from "@/lib/use-cart";
 
 type CartButtonProps = {
@@ -19,12 +20,6 @@ type CartButtonProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
-
-function productCountLabel(count: number) {
-  if (count === 1) return "1 produkt";
-  if (count < 5) return `${count} produkty`;
-  return `${count} produktov`;
-}
 
 function CartItems({
   items,

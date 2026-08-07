@@ -16,6 +16,9 @@ import {
   User,
   X,
 } from "lucide-react";
+import { FilterChip } from "@/components/FilterChip";
+import { FilterSheet } from "@/components/FilterSheet";
+import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import {
   approveCustomer,
   blockCustomer,
@@ -232,53 +235,53 @@ export function AdminCustomersManager({
 
       <div className="mt-5">
         <div className="mb-4 flex flex-col gap-3">
-          <div className="relative w-full min-w-0">
-            <Search
-              className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
-              aria-hidden
-            />
-            <input
-              type="search"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-              placeholder="Hľadať podľa mena, firmy, e-mailu…"
-              className="h-11 w-full rounded-xl border border-black/10 bg-white pr-4 pl-10 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 transition-colors focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/20"
-            />
-          </div>
-
-          <div className="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            {pendingCount > 0 ? (
-              <button
-                type="button"
-                onClick={togglePendingFilter}
-                aria-pressed={pendingFilterActive}
-                className={`inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border px-3.5 text-sm font-medium transition-colors sm:w-auto ${
-                  pendingFilterActive
-                    ? "border-[#75825B] bg-[#e8ebe2] text-[#5f6a49]"
-                    : "border-[#c2410c]/20 bg-[#ffedd5]/60 text-[#c2410c] hover:bg-[#ffedd5]"
-                }`}
-              >
-                <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#c2410c] text-[11px] leading-none font-semibold text-white">
-                  {pendingCount}
-                </span>
-                Čaká na vybavenie
-              </button>
-            ) : null}
+          <div className="flex items-center gap-2.5 sm:gap-3">
+            <div className="relative min-w-0 flex-[7] sm:max-w-md sm:flex-1">
+              <Search
+                className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-[#2f2924]/35"
+                aria-hidden
+              />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="Hľadať podľa mena, firmy, e-mailu…"
+                className="h-11 w-full rounded-xl border border-black/10 bg-white pr-4 pl-10 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 transition-colors focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/20"
+              />
+            </div>
 
             <button
               type="button"
               onClick={() => setFiltersOpen(true)}
-              className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto"
+              className="inline-flex h-11 min-w-0 flex-[3] cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto sm:flex-none sm:gap-2 sm:px-4"
             >
-              <ListFilter className="size-4" strokeWidth={1.75} aria-hidden />
-              Filtrovať
+              <ListFilter className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
+              <span className="truncate">Filtrovať</span>
               {activeFilterCount > 0 ? (
-                <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#75825B] text-[11px] leading-none font-semibold text-white">
+                <span className="inline-flex size-5 shrink-0 items-center justify-center rounded-full bg-[#75825B] text-[11px] leading-none font-semibold text-white">
                   {activeFilterCount}
                 </span>
               ) : null}
             </button>
           </div>
+
+          {pendingCount > 0 ? (
+            <button
+              type="button"
+              onClick={togglePendingFilter}
+              aria-pressed={pendingFilterActive}
+              className={`inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl border px-3.5 text-sm font-medium transition-colors sm:w-auto ${
+                pendingFilterActive
+                  ? "border-[#75825B] bg-[#e8ebe2] text-[#5f6a49]"
+                  : "border-[#c2410c]/20 bg-[#ffedd5]/60 text-[#c2410c] hover:bg-[#ffedd5]"
+              }`}
+            >
+              <span className="inline-flex size-5 items-center justify-center rounded-full bg-[#c2410c] text-[11px] leading-none font-semibold text-white">
+                {pendingCount}
+              </span>
+              Čaká na vybavenie
+            </button>
+          ) : null}
         </div>
 
         <section className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
@@ -354,94 +357,51 @@ export function AdminCustomersManager({
         </section>
       </div>
 
-      {filtersOpen ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4">
-          <button
-            type="button"
-            className="absolute inset-0 cursor-pointer"
-            aria-label="Zavrieť filtre"
-            onClick={() => setFiltersOpen(false)}
+      <FilterSheet
+        open={filtersOpen}
+        onClose={() => setFiltersOpen(false)}
+        footer={
+          <FilterSheetFooter
+            hasActiveFilters={activeFilterCount > 0}
+            onClear={clearFilters}
+            onDone={() => setFiltersOpen(false)}
           />
-          <div className="relative w-full max-w-md rounded-2xl bg-white shadow-[0_16px_48px_rgba(47,41,36,0.16)]">
-            <div className="flex items-center justify-between border-b border-black/6 px-5 py-4">
-              <h2 className="font-heading text-lg text-[#2f2924]">Filtre</h2>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex size-9 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/55 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
-                aria-label="Zavrieť"
-              >
-                <X className="size-4" strokeWidth={1.75} aria-hidden />
-              </button>
+        }
+      >
+        <div className="space-y-7">
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Stav
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {STATUS_FILTERS.map((filter) => (
+                <FilterChip
+                  key={filter.id}
+                  label={filter.label}
+                  active={statusFilter === filter.id}
+                  onClick={() => setStatusFilter(filter.id)}
+                />
+              ))}
             </div>
+          </div>
 
-            <div className="space-y-5 px-5 py-5">
-              <div>
-                <p className="text-sm font-medium text-[#2f2924]">Stav</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {STATUS_FILTERS.map((filter) => {
-                    const active = statusFilter === filter.id;
-                    return (
-                      <button
-                        key={filter.id}
-                        type="button"
-                        onClick={() => setStatusFilter(filter.id)}
-                        className={`inline-flex h-9 cursor-pointer items-center rounded-full px-3.5 text-sm font-medium transition-colors ${
-                          active
-                            ? "bg-[#75825B] text-white"
-                            : "border border-black/10 bg-[#faf8f5] text-[#2f2924]/70 hover:border-[#75825B]/40"
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm font-medium text-[#2f2924]">Typ účtu</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {TYPE_FILTERS.map((filter) => {
-                    const active = typeFilter === filter.id;
-                    return (
-                      <button
-                        key={filter.id}
-                        type="button"
-                        onClick={() => setTypeFilter(filter.id)}
-                        className={`inline-flex h-9 cursor-pointer items-center rounded-full px-3.5 text-sm font-medium transition-colors ${
-                          active
-                            ? "bg-[#75825B] text-white"
-                            : "border border-black/10 bg-[#faf8f5] text-[#2f2924]/70 hover:border-[#75825B]/40"
-                        }`}
-                      >
-                        {filter.label}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3 border-t border-black/6 px-5 py-4">
-              <button
-                type="button"
-                onClick={clearFilters}
-                className="cursor-pointer text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#2f2924]"
-              >
-                Zrušiť filtre
-              </button>
-              <button
-                type="button"
-                onClick={() => setFiltersOpen(false)}
-                className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Použiť
-              </button>
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Typ účtu
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {TYPE_FILTERS.map((filter) => (
+                <FilterChip
+                  key={filter.id}
+                  label={filter.label}
+                  active={typeFilter === filter.id}
+                  onClick={() => setTypeFilter(filter.id)}
+                />
+              ))}
             </div>
           </div>
         </div>
-      ) : null}
+      </FilterSheet>
 
       {selected ? (
         <CustomerDetail

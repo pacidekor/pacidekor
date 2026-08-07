@@ -1,10 +1,50 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
-import { Send, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { ChevronLeft, Plus, Send, Trash2, X } from "lucide-react";
+import { CHAT_SUGGESTIONS } from "@/lib/chat/config";
+import {
+  createConversationId,
+  deleteConversation,
+  getActiveConversationId,
+  loadConversations,
+  setActiveConversationId,
+  titleFromUserMessage,
+  upsertConversation,
+  type StoredConversation,
+} from "@/lib/chat/history";
 
-const DEMO_MESSAGE =
-  "Dobrý deň! Tu bude umelá inteligencia odpovedať na otázky zákazníkov. Táto funkcia je zatiaľ len ukážka a ešte nie je nastavená.";
+type ChatProductCard = {
+  id: string;
+  slug: string;
+  name: string;
+  price: string;
+  originalPrice?: string;
+  discount?: number;
+  image: string;
+  category: string;
+  href: string;
+  colorId?: string;
+  inStock?: boolean;
+};
+
+type ChatMessage = {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  products?: ChatProductCard[];
+};
+
+type PanelView = "chat" | "history";
+
+const WELCOME: ChatMessage = {
+  id: "welcome",
+  role: "assistant",
+  content:
+    "Dobrý deň! Som asistent PACIDEKOR. Pomôžem vám s výberom kvetov, dekorácií, akcií, dopravou aj kontaktom. Vyberte tip nižšie alebo napíšte otázku.",
+};
 
 function AssistantAvatar() {
   return (
@@ -29,10 +69,149 @@ function AssistantAvatar() {
   );
 }
 
+function ProductCards({ products }: { products: ChatProductCard[] }) {
+  if (products.length === 0) return null;
+
+  return (
+    <ul className="mt-2 flex w-full flex-col gap-2 pl-[2.625rem]">
+      {products.map((product) => (
+        <li key={product.id}>
+          <Link
+            href={product.href}
+            className="flex gap-3 overflow-hidden rounded-2xl bg-white shadow-[0_1px_3px_rgba(45,35,25,0.06)] transition-opacity hover:opacity-90"
+          >
+            <span className="relative size-16 shrink-0 overflow-hidden bg-[#f0ebe3]">
+              <Image
+                src={product.image}
+                alt={product.name}
+                fill
+                sizes="64px"
+                className="object-cover"
+              />
+            </span>
+            <span className="min-w-0 flex-1 py-2 pr-3">
+              <span className="line-clamp-2 text-xs font-medium leading-snug text-[#2f2924]">
+                {product.name}
+              </span>
+              <span className="mt-1 flex flex-wrap items-baseline gap-1.5 text-xs">
+                <span className="font-semibold text-[#75825B]">
+                  {product.price}
+                </span>
+                {product.originalPrice ? (
+                  <span className="text-[#2f2924]/40 line-through">
+                    {product.originalPrice}
+                  </span>
+                ) : null}
+                {product.discount ? (
+                  <span className="font-medium text-[#a05a3c]">
+                    −{product.discount}&nbsp;%
+                  </span>
+                ) : null}
+                {product.inStock !== false ? (
+                  <span className="text-[#2f2924]/45">Skladom</span>
+                ) : null}
+              </span>
+            </span>
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function formatHistoryDate(timestamp: number) {
+  try {
+    return new Intl.DateTimeFormat("sk-SK", {
+      day: "numeric",
+      month: "short",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date(timestamp));
+  } catch {
+    return "";
+  }
+}
+
 export function ChatFab() {
   const [open, setOpen] = useState(false);
+  const [view, setView] = useState<PanelView>("chat");
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [chatTitle, setChatTitle] = useState("PACIDEKOR asistent");
+  const [messages, setMessages] = useState<ChatMessage[]>([WELCOME]);
+  const [conversations, setConversations] = useState<StoredConversation[]>([]);
+  const [input, setInput] = useState("");
+  const [honeypot, setHoneypot] = useState("");
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const panelId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const anchorRef = useRef<HTMLDivElement>(null);
+  const pendingScrollRef = useRef(false);
+  const messagesRef = useRef(messages);
+  const conversationIdRef = useRef(conversationId);
+  const chatTitleRef = useRef(chatTitle);
+
+  messagesRef.current = messages;
+  conversationIdRef.current = conversationId;
+  chatTitleRef.current = chatTitle;
+
+  const showSuggestions = useMemo(() => {
+    const real = messages.filter((message) => message.id !== "welcome");
+    return !sending && real.length === 0;
+  }, [messages, sending]);
+
+  function refreshHistoryList() {
+    setConversations(loadConversations());
+  }
+
+  function persistCurrentChat(
+    nextMessages: ChatMessage[],
+    nextTitle: string,
+    id: string,
+  ) {
+    const meaningful = nextMessages.filter((message) => message.id !== "welcome");
+    if (meaningful.length === 0) return;
+    upsertConversation({
+      id,
+      title: nextTitle,
+      updatedAt: Date.now(),
+      messages: meaningful,
+    });
+    setActiveConversationId(id);
+    refreshHistoryList();
+  }
+
+  function startNewChat() {
+    setConversationId(null);
+    setActiveConversationId(null);
+    setChatTitle("PACIDEKOR asistent");
+    setMessages([WELCOME]);
+    setError(null);
+    setView("chat");
+  }
+
+  function openConversation(conversation: StoredConversation) {
+    setConversationId(conversation.id);
+    setActiveConversationId(conversation.id);
+    setChatTitle(conversation.title);
+    setMessages([WELCOME, ...conversation.messages]);
+    setError(null);
+    setView("chat");
+  }
+
+  useEffect(() => {
+    const stored = loadConversations();
+    setConversations(stored);
+    const activeId = getActiveConversationId();
+    if (!activeId) return;
+    const active = stored.find((item) => item.id === activeId);
+    if (!active) return;
+    setConversationId(active.id);
+    setChatTitle(active.title);
+    setMessages([WELCOME, ...active.messages]);
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -44,7 +223,10 @@ export function ChatFab() {
     };
 
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        if (view === "history") setView("chat");
+        else setOpen(false);
+      }
     };
 
     document.addEventListener("mousedown", onPointerDown);
@@ -53,7 +235,114 @@ export function ChatFab() {
       document.removeEventListener("mousedown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [open]);
+  }, [open, view]);
+
+  useEffect(() => {
+    if (!open || view !== "chat") return;
+    const frame = requestAnimationFrame(() => inputRef.current?.focus());
+    return () => cancelAnimationFrame(frame);
+  }, [open, view]);
+
+  useEffect(() => {
+    const list = listRef.current;
+    if (!list || view !== "chat") return;
+
+    if (pendingScrollRef.current && anchorRef.current) {
+      pendingScrollRef.current = false;
+      const top = anchorRef.current.offsetTop - list.offsetTop - 8;
+      list.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+      return;
+    }
+
+    if (sending) {
+      list.scrollTop = list.scrollHeight;
+    }
+  }, [messages, sending, open, view]);
+
+  async function sendMessage(rawText?: string) {
+    const text = (rawText ?? input).trim();
+    if (!text || sending) return;
+
+    setError(null);
+    setInput("");
+    const userMessage: ChatMessage = {
+      id: `u-${Date.now()}`,
+      role: "user",
+      content: text,
+    };
+    const nextMessages = [...messages, userMessage];
+    setMessages(nextMessages);
+    setSending(true);
+
+    let id = conversationId;
+    if (!id) {
+      id = createConversationId();
+      setConversationId(id);
+      setActiveConversationId(id);
+    }
+
+    const provisionalTitle =
+      chatTitle === "PACIDEKOR asistent"
+        ? titleFromUserMessage(text)
+        : chatTitle;
+    if (provisionalTitle !== chatTitle) {
+      setChatTitle(provisionalTitle);
+    }
+    persistCurrentChat(nextMessages, provisionalTitle, id);
+
+    try {
+      const history = nextMessages
+        .filter((message) => message.id !== "welcome")
+        .map((message) => ({
+          role: message.role,
+          content: message.content,
+        }));
+
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history, honeypot }),
+      });
+
+      const data = (await response.json()) as {
+        reply?: string;
+        products?: ChatProductCard[];
+        title?: string;
+        error?: string;
+      };
+
+      if (!response.ok) {
+        setError(data.error || "Nepodarilo sa odoslať správu.");
+        return;
+      }
+
+      const assistantMessage: ChatMessage = {
+        id: `a-${Date.now()}`,
+        role: "assistant",
+        content: data.reply || "Prepáčte, skúste to prosím znova.",
+        products: data.products ?? [],
+      };
+      const withReply = [...nextMessages, assistantMessage];
+      const nextTitle = data.title?.trim() || provisionalTitle;
+
+      pendingScrollRef.current = true;
+      setMessages(withReply);
+      setChatTitle(nextTitle);
+      persistCurrentChat(withReply, nextTitle, id);
+    } catch {
+      setError("Spojenie zlyhalo. Skontrolujte internet a skúste znova.");
+    } finally {
+      setSending(false);
+    }
+  }
+
+  const lastAssistantId = [...messages]
+    .reverse()
+    .find((message) => message.role === "assistant" && message.id !== "welcome")
+    ?.id;
+
+  const headerTitle =
+    view === "history" ? "História chatov" : chatTitle;
 
   return (
     <div
@@ -63,62 +352,208 @@ export function ChatFab() {
       <div
         id={panelId}
         role="dialog"
-        aria-label="Chat asistent"
+        aria-label="PACIDEKOR asistent"
         aria-hidden={!open}
-        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex h-[min(28rem,70vh)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl bg-[#75825B] shadow-[0_16px_48px_rgba(45,35,25,0.18)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right ${
+        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex h-[min(32rem,78vh)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-black/8 bg-white shadow-[0_16px_48px_rgba(45,35,25,0.18)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right sm:h-[min(35rem,82vh)] ${
           open
             ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-3 scale-95 opacity-0"
         }`}
       >
-        <div className="flex shrink-0 items-center justify-between gap-3 px-4 py-3.5 text-white">
-          <div className="min-w-0">
-            <p className="font-heading text-base font-semibold">Chat asistent</p>
-            <p className="mt-0.5 text-xs text-white/75">PACIDEKOR</p>
-          </div>
-          <button
-            type="button"
-            aria-label="Zavrieť chat"
-            onClick={() => setOpen(false)}
-            className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full text-white/80 transition-colors hover:bg-white/15 hover:text-white"
-          >
-            <X className="size-5" strokeWidth={1.75} aria-hidden />
-          </button>
+        <div className="relative flex h-14 shrink-0 items-center justify-center bg-[#75825B] px-12">
+          {view === "chat" ? (
+            <button
+              type="button"
+              aria-label="História chatov"
+              onClick={() => {
+                const id = conversationIdRef.current;
+                const msgs = messagesRef.current;
+                if (id && msgs.some((m) => m.id !== "welcome")) {
+                  persistCurrentChat(msgs, chatTitleRef.current, id);
+                }
+                refreshHistoryList();
+                setView("history");
+              }}
+              className="absolute left-2 top-1/2 inline-flex size-9 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full text-white/85 transition-colors hover:bg-white/15 hover:text-white"
+            >
+              <ChevronLeft className="size-5" strokeWidth={1.75} aria-hidden />
+            </button>
+          ) : null}
+          <p className="min-w-0 truncate text-center font-heading text-base font-normal tracking-wide text-white">
+            {headerTitle}
+          </p>
         </div>
 
-        <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-b-3xl bg-white">
-          <div className="flex flex-1 flex-col gap-3 overflow-y-auto bg-[#faf8f5] px-4 py-4">
-            <div className="flex items-end gap-2.5">
-              <AssistantAvatar />
-              <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-white px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
-                {DEMO_MESSAGE}
-              </div>
+        {view === "history" ? (
+          <div className="flex min-h-0 flex-1 flex-col bg-[#faf8f5]">
+            <div className="flex-1 overflow-y-auto px-3 py-3">
+              {conversations.length === 0 ? (
+                <p className="px-2 py-8 text-center text-sm text-[#2f2924]/45">
+                  Zatiaľ žiadna história. Začnite nový chat.
+                </p>
+              ) : (
+                <ul className="flex flex-col gap-2">
+                  {conversations.map((conversation) => (
+                    <li key={conversation.id}>
+                      <div className="group relative rounded-2xl bg-white shadow-[0_1px_3px_rgba(45,35,25,0.06)] transition-colors hover:bg-[#75825B]/6">
+                        <button
+                          type="button"
+                          onClick={() => openConversation(conversation)}
+                          className="w-full cursor-pointer px-3.5 py-3 pr-11 text-left"
+                        >
+                          <p className="truncate text-sm font-medium text-[#2f2924]">
+                            {conversation.title}
+                          </p>
+                          <p className="mt-0.5 text-[11px] text-[#2f2924]/40">
+                            {formatHistoryDate(conversation.updatedAt)}
+                          </p>
+                        </button>
+                        <button
+                          type="button"
+                          aria-label="Zmazať chat"
+                          onClick={(event) => {
+                            event.stopPropagation();
+                            deleteConversation(conversation.id);
+                            if (conversationId === conversation.id) {
+                              startNewChat();
+                            }
+                            refreshHistoryList();
+                          }}
+                          className="absolute top-1/2 right-2 inline-flex size-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/35 transition-colors hover:bg-black/6 hover:text-[#a05a3c]"
+                        >
+                          <Trash2
+                            className="size-4"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                        </button>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
-          </div>
-
-          <div className="border-t border-black/6 bg-white px-3 py-3">
-            <div className="flex items-center gap-2 rounded-full border border-black/8 bg-[#faf8f5] px-1.5 py-1.5">
-              <input
-                type="text"
-                disabled
-                placeholder="Napíšte správu…"
-                aria-label="Napíšte správu"
-                className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 disabled:cursor-not-allowed disabled:opacity-60"
-              />
+            <div className="shrink-0 border-t border-black/6 bg-white px-3 py-3">
               <button
                 type="button"
-                disabled
-                aria-label="Odoslať správu"
-                className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-[#75825B] text-white opacity-40"
+                onClick={startNewChat}
+                className="flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-full bg-[#75825B] px-3 py-2.5 text-sm text-white transition-opacity hover:opacity-90"
               >
-                <Send className="size-4" strokeWidth={1.75} aria-hidden />
+                <Plus className="size-4" strokeWidth={1.75} aria-hidden />
+                Nový chat
               </button>
             </div>
-            <p className="mt-2 px-1 text-center text-[11px] text-[#2f2924]/40">
-              Ukážka - chat ešte nie je aktívny
-            </p>
           </div>
-        </div>
+        ) : (
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden bg-white">
+            <div
+              ref={listRef}
+              className="flex flex-1 flex-col gap-3 overflow-y-auto bg-[#faf8f5] px-4 py-4"
+            >
+              {messages.map((message) =>
+                message.role === "user" ? (
+                  <div key={message.id} className="flex justify-end">
+                    <div className="max-w-[85%] rounded-2xl rounded-br-md bg-[#75825B] px-3.5 py-3 text-sm leading-relaxed text-white">
+                      {message.content}
+                    </div>
+                  </div>
+                ) : (
+                  <div
+                    key={message.id}
+                    ref={
+                      message.id === lastAssistantId ? anchorRef : undefined
+                    }
+                    className="flex flex-col gap-0"
+                  >
+                    <div className="flex items-end gap-2.5">
+                      <AssistantAvatar />
+                      <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-white px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
+                        {message.content}
+                      </div>
+                    </div>
+                    {message.id === "welcome" && showSuggestions ? (
+                      <div className="mt-2.5 flex flex-wrap gap-1.5 pl-[2.625rem]">
+                        {CHAT_SUGGESTIONS.map((suggestion) => (
+                          <button
+                            key={suggestion.message}
+                            type="button"
+                            disabled={sending}
+                            onClick={() => void sendMessage(suggestion.message)}
+                            className="cursor-pointer rounded-full border border-[#75825B]/25 bg-white px-2.5 py-1.5 text-left text-[11px] leading-snug text-[#2f2924] transition-colors hover:border-[#75825B]/50 hover:bg-[#75825B]/8 disabled:cursor-not-allowed disabled:opacity-50"
+                          >
+                            {suggestion.label}
+                          </button>
+                        ))}
+                      </div>
+                    ) : null}
+                    {message.products ? (
+                      <ProductCards products={message.products} />
+                    ) : null}
+                  </div>
+                ),
+              )}
+
+              {sending ? (
+                <div className="flex items-end gap-2.5">
+                  <AssistantAvatar />
+                  <div className="rounded-2xl rounded-bl-md bg-white px-3.5 py-3 text-sm text-[#2f2924]/55 shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
+                    Pripravujem odpoveď…
+                  </div>
+                </div>
+              ) : null}
+            </div>
+
+            <div className="shrink-0 border-t border-black/6 bg-white px-3 py-3">
+              <form
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  void sendMessage();
+                }}
+              >
+                <label className="sr-only" aria-hidden>
+                  Website
+                  <input
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={honeypot}
+                    onChange={(event) => setHoneypot(event.target.value)}
+                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                  />
+                </label>
+                <div className="flex items-center gap-2 rounded-full border border-black/8 bg-[#faf8f5] px-1.5 py-1.5">
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={input}
+                    maxLength={500}
+                    disabled={sending}
+                    onChange={(event) => setInput(event.target.value)}
+                    placeholder="Napíšte správu…"
+                    aria-label="Napíšte správu"
+                    className="min-w-0 flex-1 bg-transparent px-3 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 disabled:cursor-not-allowed disabled:opacity-60"
+                  />
+                  <button
+                    type="submit"
+                    disabled={sending || input.trim().length < 2}
+                    aria-label="Odoslať správu"
+                    className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white transition-opacity disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    <Send className="size-4" strokeWidth={1.75} aria-hidden />
+                  </button>
+                </div>
+              </form>
+              {error ? (
+                <p className="mt-2 px-1 text-center text-[11px] text-[#a05a3c]">
+                  {error}
+                </p>
+              ) : (
+                <p className="mt-2 px-1 text-center text-[11px] text-[#2f2924]/40">
+                  Odporúčania produktov z katalógu PACIDEKOR
+                </p>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       <button

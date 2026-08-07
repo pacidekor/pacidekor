@@ -93,7 +93,7 @@ export function AdminBlogManager() {
             setCreating(true);
             setEditingSlug(null);
           }}
-          className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center gap-2 self-start rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+          className="inline-flex h-11 w-full shrink-0 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto sm:self-start"
         >
           <Plus className="size-4" strokeWidth={2} aria-hidden />
           Pridať článok

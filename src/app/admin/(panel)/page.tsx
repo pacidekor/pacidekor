@@ -34,18 +34,21 @@ const stats: {
   value: string;
   hint: string;
   icon: LucideIcon;
+  href?: string;
 }[] = [
   {
     label: "Objednávky dnes",
     value: "12",
     hint: "+3 oproti včera",
     icon: ShoppingCart,
+    href: "/admin/objednavky?status=nova",
   },
   {
     label: "Čakajúce objednávky",
     value: "7",
     hint: "na vybavenie",
     icon: Clock3,
+    href: "/admin/objednavky?status=cakajuce",
   },
   {
     label: "Dnešné tržby",
@@ -64,6 +67,7 @@ const stats: {
     value: "6",
     hint: "vyžaduje doplnenie",
     icon: Warehouse,
+    href: "/admin/produkty?stock=attention",
   },
 ];
 
@@ -116,12 +120,10 @@ function OrderRow({
       className="flex items-center gap-3 px-4 py-3.5 transition-colors hover:bg-[#faf8f5]"
     >
       <div className="min-w-0 flex-1">
-        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
-          <p className="truncate text-[15px] font-medium text-[#2f2924]">
-            {order.customer}
-          </p>
-          <p className="text-xs text-[#2f2924]/40">#{order.number}</p>
-        </div>
+        <p className="truncate text-[15px] font-medium text-[#2f2924]">
+          {order.customer}
+        </p>
+        <p className="mt-0.5 text-xs text-[#2f2924]/40">#{order.number}</p>
         <p className="mt-0.5 text-xs text-[#2f2924]/45">{order.createdAt}</p>
       </div>
 
@@ -179,7 +181,7 @@ export default async function AdminPage() {
     {
       href: "/admin/velkoobchodne-ucty",
       count: pendingWholesaleCount,
-      label: "veľkoobchodné registrácie čakajúce na schválenie",
+      label: "čakajúce veľkoobchodné registrácie",
       icon: Building2,
     },
   ];
@@ -197,11 +199,10 @@ export default async function AdminPage() {
           <div className="flex w-max snap-x snap-mandatory gap-3 lg:grid lg:w-full lg:grid-cols-5 lg:snap-none">
             {stats.map((stat) => {
               const Icon = stat.icon;
-              return (
-                <div
-                  key={stat.label}
-                  className="flex w-[min(72vw,17.5rem)] shrink-0 snap-start flex-col rounded-2xl border border-black/[0.06] bg-white px-4 py-4 sm:py-5 lg:w-auto"
-                >
+              const className =
+                "flex w-[min(72vw,17.5rem)] shrink-0 snap-start flex-col rounded-2xl border border-black/[0.06] bg-white px-4 py-4 sm:py-5 lg:w-auto";
+              const content = (
+                <>
                   <div className="flex items-start justify-between gap-2 sm:gap-3">
                     <p className="text-xs font-medium leading-snug text-[#2f2924]/65 sm:text-sm">
                       {stat.label}
@@ -218,6 +219,24 @@ export default async function AdminPage() {
                   <p className={`mt-3 text-xs ${hintClass(stat.hint)}`}>
                     {stat.hint}
                   </p>
+                </>
+              );
+
+              if (stat.href) {
+                return (
+                  <Link
+                    key={stat.label}
+                    href={stat.href}
+                    className={`${className} transition-colors hover:border-[#75825B]/35 hover:bg-[#f7f8f4]`}
+                  >
+                    {content}
+                  </Link>
+                );
+              }
+
+              return (
+                <div key={stat.label} className={className}>
+                  {content}
                 </div>
               );
             })}
