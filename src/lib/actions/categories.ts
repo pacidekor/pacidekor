@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { listTaxonomy, type TaxonomyStore } from "@/lib/categories-server";
 import type {
   CategoryInsert,
+  DruhInsert,
   SubcategoryInsert,
 } from "@/lib/supabase/database.types";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
@@ -19,6 +20,7 @@ export type CategorySaveInput = {
   image?: string;
   sortOrder?: number;
   subs: { id?: string; label: string }[];
+  druhy: { id?: string; label: string }[];
 };
 
 async function requireAdmin() {
@@ -91,6 +93,29 @@ async function uniqueSubcategoryId(
     if (!reserved.has(id)) {
       const { data } = await db
         .from("subcategories")
+        .select("id")
+        .eq("id", id)
+        .maybeSingle();
+      if (!data) return id;
+    }
+    id = `${base}-${suffix}`;
+    suffix += 1;
+  }
+  return `${base}-${Date.now()}`;
+}
+
+async function uniqueDruhId(
+  db: ReturnType<typeof createServiceClient>,
+  label: string,
+  reserved: Set<string>,
+) {
+  const base = toSlugId(label);
+  let id = base;
+  let suffix = 2;
+  for (let attempt = 0; attempt < 50; attempt += 1) {
+    if (!reserved.has(id)) {
+      const { data } = await db
+        .from("druhy")
         .select("id")
         .eq("id", id)
         .maybeSingle();
@@ -213,6 +238,62 @@ export async function saveCategoryAction(
       const { error } = await db
         .from("subcategories")
         .upsert(upserts, { onConflict: "id" });
+      if (error) return { ok: false, error: error.message };
+    }
+
+    const { data: existingDruhy, error: existingDruhyError } = await db
+      .from("druhy")
+      .select("id")
+      .eq("category_id", categoryId);
+
+    if (existingDruhyError) {
+      return { ok: false, error: existingDruhyError.message };
+    }
+
+    const existingDruhIds = new Set(
+      ((existingDruhy as { id: string }[] | null) ?? []).map((row) => row.id),
+    );
+
+    const keptDruhIds = new Set(
+      (input.druhy ?? [])
+        .map((druh) => druh.id)
+        .filter((id): id is string => Boolean(id)),
+    );
+
+    const druhyToDelete = [...existingDruhIds].filter(
+      (id) => !keptDruhIds.has(id),
+    );
+    if (druhyToDelete.length > 0) {
+      const { error } = await db.from("druhy").delete().in("id", druhyToDelete);
+      if (error) return { ok: false, error: error.message };
+    }
+
+    const druhReserved = new Set<string>();
+    const druhUpserts: DruhInsert[] = [];
+    let druhSortOrder = 0;
+
+    for (const druh of input.druhy ?? []) {
+      const druhLabel = druh.label.trim();
+      if (!druhLabel) continue;
+
+      let druhId = druh.id;
+      if (!druhId || !existingDruhIds.has(druhId)) {
+        druhId = await uniqueDruhId(db, druhLabel, druhReserved);
+      }
+      druhReserved.add(druhId);
+      druhUpserts.push({
+        id: druhId,
+        category_id: categoryId,
+        label: druhLabel,
+        sort_order: druhSortOrder,
+      });
+      druhSortOrder += 1;
+    }
+
+    if (druhUpserts.length > 0) {
+      const { error } = await db
+        .from("druhy")
+        .upsert(druhUpserts, { onConflict: "id" });
       if (error) return { ok: false, error: error.message };
     }
 

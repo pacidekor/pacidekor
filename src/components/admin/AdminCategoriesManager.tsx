@@ -17,6 +17,7 @@ import {
 import {
   type AdminCategory,
   type AdminCategoriesStore,
+  type AdminDruh,
   type AdminSubcategory,
   readAdminCategoriesStore,
   seedAdminCategoriesStore,
@@ -67,7 +68,14 @@ export function AdminCategoriesManager() {
       const subs = store.subcategories.filter(
         (sub) => sub.categoryId === category.id,
       );
-      const haystack = [category.label, ...subs.map((sub) => sub.label)]
+      const druhy = (store.druhy ?? []).filter(
+        (druh) => druh.categoryId === category.id,
+      );
+      const haystack = [
+        category.label,
+        ...subs.map((sub) => sub.label),
+        ...druhy.map((druh) => druh.label),
+      ]
         .join(" ")
         .toLowerCase();
       return haystack.includes(q);
@@ -105,6 +113,7 @@ export function AdminCategoriesManager() {
     description: string;
     image?: string;
     subs: { id?: string; label: string }[];
+    druhy: { id?: string; label: string }[];
   }) {
     const label = next.label.trim();
     if (!label || saving) return;
@@ -120,6 +129,7 @@ export function AdminCategoriesManager() {
           ? store.categories.length
           : store.categories.find((item) => item.id === next.id)?.sortOrder,
         subs: next.subs,
+        druhy: next.druhy,
       });
 
       if (!result.ok) {
@@ -183,7 +193,7 @@ export function AdminCategoriesManager() {
             Kategórie
           </h1>
           <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/65 sm:text-base">
-            Správa hlavných kategórií a ich subkategórií.
+            Správa hlavných kategórií, subkategórií a druhov.
           </p>
         </div>
         <button
@@ -206,7 +216,7 @@ export function AdminCategoriesManager() {
             type="search"
             value={query}
             onChange={(event) => setQuery(event.target.value)}
-            placeholder="Hľadať kategóriu alebo subkategóriu…"
+            placeholder="Hľadať kategóriu, subkategóriu alebo druh…"
             className="h-11 w-full rounded-xl border border-black/10 bg-white pr-4 pl-10 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 transition-colors focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/20"
           />
         </div>
@@ -214,7 +224,8 @@ export function AdminCategoriesManager() {
       <section className="overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
         <div className="hidden items-center gap-4 border-b border-black/[0.05] px-5 py-3 text-xs font-medium tracking-wide text-[#2f2924]/45 uppercase sm:flex">
           <span className="min-w-0 flex-1">Kategória</span>
-          <span className="w-28 shrink-0 text-right">Subkategórie</span>
+          <span className="w-24 shrink-0 text-right">Sub</span>
+          <span className="w-24 shrink-0 text-right">Druhy</span>
           <span className="w-20 shrink-0 text-right">Produkty</span>
           <span className="w-4 shrink-0" aria-hidden />
         </div>
@@ -233,6 +244,9 @@ export function AdminCategoriesManager() {
             {filtered.map((category) => {
               const subs = store.subcategories.filter(
                 (sub) => sub.categoryId === category.id,
+              );
+              const druhy = (store.druhy ?? []).filter(
+                (druh) => druh.categoryId === category.id,
               );
               const productCount = productCountForCategory(category.label);
 
@@ -264,21 +278,28 @@ export function AdminCategoriesManager() {
                         {category.label}
                       </p>
                       <p className="mt-0.5 truncate text-sm text-[#2f2924]/45 sm:hidden">
-                        {subs.length} sub · {productCount} produktov
+                        {subs.length} sub · {druhy.length} druhov ·{" "}
+                        {productCount} produktov
                       </p>
-                      {subs.length > 0 ? (
+                      {subs.length > 0 || druhy.length > 0 ? (
                         <p className="mt-1 hidden truncate text-sm text-[#2f2924]/50 sm:block">
-                          {subs.map((sub) => sub.label).join(" · ")}
+                          {[
+                            ...subs.map((sub) => sub.label),
+                            ...druhy.map((druh) => druh.label),
+                          ].join(" · ")}
                         </p>
                       ) : (
                         <p className="mt-1 hidden text-sm text-[#2f2924]/40 sm:block">
-                          Zatiaľ bez subkategórií
+                          Zatiaľ bez subkategórií a druhov
                         </p>
                       )}
                     </div>
 
-                    <p className="hidden w-28 shrink-0 text-right text-[15px] tabular-nums text-[#2f2924]/70 sm:block">
+                    <p className="hidden w-24 shrink-0 text-right text-[15px] tabular-nums text-[#2f2924]/70 sm:block">
                       {subs.length}
+                    </p>
+                    <p className="hidden w-24 shrink-0 text-right text-[15px] tabular-nums text-[#2f2924]/70 sm:block">
+                      {druhy.length}
                     </p>
                     <p className="hidden w-20 shrink-0 text-right text-[15px] tabular-nums text-[#2f2924]/70 sm:block">
                       {productCount}
@@ -304,6 +325,13 @@ export function AdminCategoriesManager() {
           subcategories={
             selectedId
               ? store.subcategories.filter((sub) => sub.categoryId === selectedId)
+              : []
+          }
+          druhy={
+            selectedId
+              ? (store.druhy ?? []).filter(
+                  (druh) => druh.categoryId === selectedId,
+                )
               : []
           }
           isNew={creating}
@@ -341,6 +369,7 @@ function CategoryEditor({
   category,
   categoryId,
   subcategories,
+  druhy: initialDruhy,
   isNew,
   saving,
   onClose,
@@ -350,6 +379,7 @@ function CategoryEditor({
   category: AdminCategory | null;
   categoryId?: string;
   subcategories: AdminSubcategory[];
+  druhy: AdminDruh[];
   isNew: boolean;
   saving: boolean;
   onClose: () => void;
@@ -359,6 +389,7 @@ function CategoryEditor({
     description: string;
     image?: string;
     subs: { id?: string; label: string }[];
+    druhy: { id?: string; label: string }[];
   }) => void | Promise<void>;
   onDelete?: () => void | Promise<void>;
 }) {
@@ -369,6 +400,9 @@ function CategoryEditor({
   const [image, setImage] = useState(category?.image ?? "");
   const [subs, setSubs] = useState<{ id?: string; label: string }[]>(() =>
     subcategories.map((sub) => ({ id: sub.id, label: sub.label })),
+  );
+  const [druhy, setDruhy] = useState<{ id?: string; label: string }[]>(() =>
+    initialDruhy.map((druh) => ({ id: druh.id, label: druh.label })),
   );
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -412,6 +446,7 @@ function CategoryEditor({
       description,
       image: image || undefined,
       subs,
+      druhy,
     });
   }
 
@@ -436,6 +471,20 @@ function CategoryEditor({
 
   function addSub() {
     setSubs((prev) => [...prev, { label: "" }]);
+  }
+
+  function updateDruh(index: number, value: string) {
+    setDruhy((prev) =>
+      prev.map((druh, i) => (i === index ? { ...druh, label: value } : druh)),
+    );
+  }
+
+  function removeDruh(index: number) {
+    setDruhy((prev) => prev.filter((_, i) => i !== index));
+  }
+
+  function addDruh() {
+    setDruhy((prev) => [...prev, { label: "" }]);
   }
 
   function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
@@ -581,7 +630,7 @@ function CategoryEditor({
                       Subkategórie
                     </p>
                     <p className="mt-0.5 text-sm text-[#2f2924]/50">
-                      Spravujte podkategórie priamo v tejto kategórii.
+                      Štruktúrne podkategórie (napr. Kytice, Stopkové kvety).
                     </p>
                   </div>
                   <button
@@ -601,7 +650,7 @@ function CategoryEditor({
                       Zatiaľ žiadne subkategórie
                     </p>
                     <p className="mt-1 text-sm text-[#2f2924]/50">
-                      Pridajte napríklad Ruže, Pivónie alebo Dálie.
+                      Pridajte napríklad Kytice alebo Stopkové kvety.
                     </p>
                   </div>
                 ) : (
@@ -634,6 +683,77 @@ function CategoryEditor({
                           disabled={busy}
                           className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
                           aria-label="Odstrániť subkategóriu"
+                        >
+                          <Trash2
+                            className="size-4"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div>
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <p className="text-sm font-medium text-[#2f2924]">Druhy</p>
+                    <p className="mt-0.5 text-sm text-[#2f2924]/50">
+                      Typy produktov (napr. Ruže, Pivónie, Dálie).
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={addDruh}
+                    disabled={busy}
+                    className="inline-flex h-9 shrink-0 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B]/40 hover:bg-[#e8ebe2]/40 disabled:cursor-not-allowed disabled:opacity-40"
+                  >
+                    <Plus className="size-3.5" strokeWidth={1.75} aria-hidden />
+                    Pridať
+                  </button>
+                </div>
+
+                {druhy.length === 0 ? (
+                  <div className="mt-3 rounded-xl border border-dashed border-black/10 bg-[#faf8f5] px-4 py-8 text-center">
+                    <p className="text-sm font-medium text-[#2f2924]">
+                      Zatiaľ žiadne druhy
+                    </p>
+                    <p className="mt-1 text-sm text-[#2f2924]/50">
+                      Pridajte napríklad Ruže, Pivónie alebo Dálie.
+                    </p>
+                  </div>
+                ) : (
+                  <ul className="mt-3 space-y-2">
+                    {druhy.map((druh, index) => (
+                      <li
+                        key={druh.id ?? `new-druh-${index}`}
+                        className="flex items-center gap-2"
+                      >
+                        <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#e8ebe2] text-[#75825B]">
+                          <Pencil
+                            className="size-3.5"
+                            strokeWidth={1.75}
+                            aria-hidden
+                          />
+                        </span>
+                        <input
+                          type="text"
+                          value={druh.label}
+                          onChange={(event) =>
+                            updateDruh(index, event.target.value)
+                          }
+                          disabled={busy}
+                          placeholder="Názov druhu"
+                          className="h-11 min-w-0 flex-1 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => removeDruh(index)}
+                          disabled={busy}
+                          className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                          aria-label="Odstrániť druh"
                         >
                           <Trash2
                             className="size-4"
@@ -692,8 +812,8 @@ function CategoryEditor({
               Odstrániť kategóriu?
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/65">
-              Odstráni sa aj so všetkými subkategóriami. Túto akciu nie je možné
-              vrátiť späť.
+              Odstráni sa aj so všetkými subkategóriami a druhmi. Túto akciu nie
+              je možné vrátiť späť.
             </p>
             <div className="mt-5 flex items-center gap-2.5">
               <button

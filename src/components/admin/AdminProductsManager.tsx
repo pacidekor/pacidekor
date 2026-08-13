@@ -37,6 +37,8 @@ import { categories } from "@/lib/navigation";
 import {
   ADMIN_CATEGORIES_EVENT,
   getAdminCategoryLabels,
+  getAdminDruhById,
+  getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
   getAdminSubcategoryById,
 } from "@/lib/admin-categories-store";
@@ -107,6 +109,7 @@ type ProductOverride = {
   extraImages?: string[];
   category: string;
   subcategoryId?: string;
+  druhId?: string;
   attributes: ProductAttributes;
   colorImageMap?: Record<string, number[]>;
   details: ProductDetail[];
@@ -135,6 +138,7 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
       value.extraImages?.map((item) => item.trim()).filter(Boolean) ?? undefined,
     category: value.category,
     subcategoryId: value.subcategoryId || undefined,
+    druhId: value.druhId || undefined,
     attributes: {
       colors:
         value.attributes.colors && value.attributes.colors.length > 0
@@ -324,6 +328,7 @@ export function AdminProductsManager({
       price: normalized.price,
       category: normalized.category,
       subcategoryId: normalized.subcategoryId,
+      druhId: normalized.druhId,
       attributes: normalized.attributes,
       images,
       colorImageMap: normalized.colorImageMap,
@@ -824,6 +829,7 @@ function ProductEditor({
   const [subcategoryId, setSubcategoryId] = useState(
     product.subcategoryId ?? "",
   );
+  const [druhId, setDruhId] = useState(product.druhId ?? "");
   const [colors, setColors] = useState<string[]>(
     product.attributes?.colors ?? [],
   );
@@ -872,6 +878,7 @@ function ProductEditor({
       ].filter((src): src is string => Boolean(src)),
       category: product.category,
       subcategoryId: product.subcategoryId ?? "",
+      druhId: product.druhId ?? "",
       colors: product.attributes?.colors ?? [],
       colorImageMap: product.colorImageMap ?? {},
       packaging: product.attributes?.packaging ?? [],
@@ -890,6 +897,9 @@ function ProductEditor({
   const [availableSubs, setAvailableSubs] = useState<
     { id: string; label: string }[]
   >([]);
+  const [availableDruhy, setAvailableDruhy] = useState<
+    { id: string; label: string }[]
+  >([]);
   const [taxonomyReady, setTaxonomyReady] = useState(false);
   const customColors = colors.flatMap((id) => {
     const parsed = parseCustomColorId(id);
@@ -905,6 +915,7 @@ function ProductEditor({
       images,
       category,
       subcategoryId,
+      druhId,
       colors,
       colorImageMap,
       packaging,
@@ -985,6 +996,7 @@ function ProductEditor({
           extraImages: extras.length > 0 ? extras : undefined,
           category,
           subcategoryId: subcategoryId || undefined,
+          druhId: druhId || undefined,
           attributes: {
             colors: colors.length > 0 ? colors : undefined,
             packaging:
@@ -1021,6 +1033,7 @@ function ProductEditor({
     function refreshTaxonomy() {
       setCategoryLabels(getAdminCategoryLabels());
       setAvailableSubs(getAdminSubcategoriesForCategory(category));
+      setAvailableDruhy(getAdminDruhyForCategory(category));
       setTaxonomyReady(true);
     }
 
@@ -1043,6 +1056,13 @@ function ProductEditor({
       setSubcategoryId("");
     }
   }, [taxonomyReady, category, availableSubs, subcategoryId]);
+
+  useEffect(() => {
+    if (!taxonomyReady) return;
+    if (druhId && !availableDruhy.some((druh) => druh.id === druhId)) {
+      setDruhId("");
+    }
+  }, [taxonomyReady, category, availableDruhy, druhId]);
 
   function toggle(list: string[], id: string, setter: (next: string[]) => void) {
     setter(list.includes(id) ? list.filter((item) => item !== id) : [...list, id]);
@@ -1276,6 +1296,17 @@ function ProductEditor({
           : "Bez subkategórie",
     },
     ...availableSubs.map((sub) => ({ value: sub.id, label: sub.label })),
+  ];
+
+  const druhOptions = [
+    {
+      value: "",
+      label:
+        availableDruhy.length === 0
+          ? "Pre túto kategóriu zatiaľ nie sú druhy"
+          : "Bez druhu",
+    },
+    ...availableDruhy.map((druh) => ({ value: druh.id, label: druh.label })),
   ];
 
   const colorImagesEditor =
@@ -1575,6 +1606,15 @@ function ProductEditor({
                   options={subcategoryOptions}
                   onChange={setSubcategoryId}
                   disabled={availableSubs.length === 0}
+                />
+              </FieldLabel>
+
+              <FieldLabel label="Druh">
+                <AdminSelect
+                  value={druhId}
+                  options={druhOptions}
+                  onChange={setDruhId}
+                  disabled={availableDruhy.length === 0}
                 />
               </FieldLabel>
 
@@ -2259,6 +2299,7 @@ function serializeEditorSnapshot(value: {
   images: string[];
   category: string;
   subcategoryId: string;
+  druhId: string;
   colors: string[];
   colorImageMap: Record<string, number[]>;
   packaging: PackagingOption[];
@@ -2274,6 +2315,7 @@ function serializeEditorSnapshot(value: {
     images: value.images,
     category: value.category,
     subcategoryId: value.subcategoryId,
+    druhId: value.druhId,
     colors: [...value.colors].sort(),
     colorImageMap: value.colorImageMap,
     packaging: [...value.packaging]

@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
+import { CollapsibleChipList } from "@/components/CollapsibleChipList";
 import {
   CatalogGridDensityToggle,
   catalogGridClass,
@@ -13,6 +14,7 @@ import {
 import { ProductCard } from "@/components/ProductCard";
 import {
   ADMIN_CATEGORIES_EVENT,
+  getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
 import { filterProducts, type Product } from "@/lib/products";
@@ -57,10 +59,14 @@ export function CategoryProductBrowser({
       label: sub.label,
     })),
   );
+  const [druhy, setDruhy] = useState(() =>
+    getAdminDruhyForCategory(categoryLabel),
+  );
 
   useEffect(() => {
     function refresh() {
       setSubcategories(getAdminSubcategoriesForCategory(categoryLabel));
+      setDruhy(getAdminDruhyForCategory(categoryLabel));
     }
     refresh();
     window.addEventListener(ADMIN_CATEGORIES_EVENT, refresh);
@@ -83,13 +89,16 @@ export function CategoryProductBrowser({
     () =>
       filterProducts(products, {
         subcategoryId: filters.sub,
+        druhId: filters.druh,
         colors: filters.farba,
       }),
     [products, filters],
   );
 
   const activeFilterCount =
-    (filters.sub ? 1 : 0) + (filters.farba?.length ?? 0);
+    (filters.sub ? 1 : 0) +
+    (filters.druh ? 1 : 0) +
+    (filters.farba?.length ?? 0);
 
   function applyFilters(next: CategoryFilters) {
     const href = buildCategoryFilterHref(categorySlug, next);
@@ -196,24 +205,55 @@ export function CategoryProductBrowser({
               <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
                 Subkategória
               </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <FilterChip
-                  label="Všetky"
-                  active={!filters.sub}
-                  onClick={() =>
-                    applyFilters({ ...filters, sub: undefined })
-                  }
-                />
-                {subcategories.map((sub) => (
+              <div className="mt-3">
+                <CollapsibleChipList>
                   <FilterChip
-                    key={sub.id}
-                    label={sub.label}
-                    active={filters.sub === sub.id}
+                    label="Všetky"
+                    active={!filters.sub}
                     onClick={() =>
-                      applyFilters({ ...filters, sub: sub.id })
+                      applyFilters({ ...filters, sub: undefined })
                     }
                   />
-                ))}
+                  {subcategories.map((sub) => (
+                    <FilterChip
+                      key={sub.id}
+                      label={sub.label}
+                      active={filters.sub === sub.id}
+                      onClick={() =>
+                        applyFilters({ ...filters, sub: sub.id })
+                      }
+                    />
+                  ))}
+                </CollapsibleChipList>
+              </div>
+            </div>
+          ) : null}
+
+          {druhy.length > 0 ? (
+            <div>
+              <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+                Druh
+              </p>
+              <div className="mt-3">
+                <CollapsibleChipList>
+                  <FilterChip
+                    label="Všetky"
+                    active={!filters.druh}
+                    onClick={() =>
+                      applyFilters({ ...filters, druh: undefined })
+                    }
+                  />
+                  {druhy.map((druh) => (
+                    <FilterChip
+                      key={druh.id}
+                      label={druh.label}
+                      active={filters.druh === druh.id}
+                      onClick={() =>
+                        applyFilters({ ...filters, druh: druh.id })
+                      }
+                    />
+                  ))}
+                </CollapsibleChipList>
               </div>
             </div>
           ) : null}

@@ -2,16 +2,18 @@ import "server-only";
 
 import type {
   CategoryRow,
+  DruhRow,
   SubcategoryRow,
 } from "@/lib/supabase/database.types";
 import { createPublicClient } from "@/lib/supabase/server";
 import type {
   TaxonomyCategory,
+  TaxonomyDruh,
   TaxonomyStore,
   TaxonomySubcategory,
 } from "@/lib/taxonomy-types";
 
-export type { TaxonomyCategory, TaxonomyStore, TaxonomySubcategory };
+export type { TaxonomyCategory, TaxonomyDruh, TaxonomyStore, TaxonomySubcategory };
 
 export function mapCategoryRow(row: CategoryRow): TaxonomyCategory {
   return {
@@ -32,14 +34,24 @@ export function mapSubcategoryRow(row: SubcategoryRow): TaxonomySubcategory {
   };
 }
 
+export function mapDruhRow(row: DruhRow): TaxonomyDruh {
+  return {
+    id: row.id,
+    label: row.label,
+    categoryId: row.category_id,
+    sortOrder: row.sort_order,
+  };
+}
+
 export async function listTaxonomy(): Promise<TaxonomyStore> {
   const supabase = createPublicClient();
-  const [categoriesRes, subcategoriesRes] = await Promise.all([
+  const [categoriesRes, subcategoriesRes, druhyRes] = await Promise.all([
     supabase.from("categories").select("*").order("sort_order", { ascending: true }),
     supabase
       .from("subcategories")
       .select("*")
       .order("sort_order", { ascending: true }),
+    supabase.from("druhy").select("*").order("sort_order", { ascending: true }),
   ]);
 
   if (categoriesRes.error) {
@@ -47,6 +59,9 @@ export async function listTaxonomy(): Promise<TaxonomyStore> {
   }
   if (subcategoriesRes.error) {
     console.error("listTaxonomy subcategories", subcategoriesRes.error.message);
+  }
+  if (druhyRes.error) {
+    console.error("listTaxonomy druhy", druhyRes.error.message);
   }
 
   return {
@@ -56,6 +71,7 @@ export async function listTaxonomy(): Promise<TaxonomyStore> {
     subcategories: ((subcategoriesRes.data as SubcategoryRow[] | null) ?? []).map(
       mapSubcategoryRow,
     ),
+    druhy: ((druhyRes.data as DruhRow[] | null) ?? []).map(mapDruhRow),
   };
 }
 

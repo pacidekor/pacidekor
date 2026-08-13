@@ -34,42 +34,56 @@ export const packagingFormats: TaxonomyValue[] = [
 ];
 
 export const subcategories: Subcategory[] = [
-  { id: "ruze", label: "Ruže", category: "Umelé kvety" },
-  { id: "pivonie", label: "Pivónie", category: "Umelé kvety" },
-  { id: "dalie", label: "Dálie", category: "Umelé kvety" },
-  { id: "vres", label: "Vres", category: "Umelé kvety" },
-  { id: "eukalyptus", label: "Eukalyptus", category: "Umelé kvety" },
-  { id: "paprad", label: "Papraď", category: "Umelé kvety" },
-  { id: "zelen", label: "Zeleň / výplň", category: "Umelé kvety" },
-  { id: "ostatne", label: "Ostatné", category: "Umelé kvety" },
-  { id: "hortenzia", label: "Hortenzia", category: "Umelé kvety" },
-  { id: "bahniatka", label: "Bahniatka", category: "Umelé kvety" },
-  { id: "narcis", label: "Narcis", category: "Umelé kvety" },
-  { id: "georgina", label: "Georgína", category: "Umelé kvety" },
-  { id: "iskernik", label: "Iskerník", category: "Umelé kvety" },
-  { id: "orchidea", label: "Orchidea", category: "Umelé kvety" },
-  { id: "klincek", label: "Klinček", category: "Umelé kvety" },
-  { id: "gypsofilka", label: "Gypsofilka", category: "Umelé kvety" },
-  { id: "monstera", label: "Monstera", category: "Umelé kvety" },
-  { id: "vinic", label: "Vinič", category: "Umelé kvety" },
-  { id: "haluzka", label: "Halúzka", category: "Umelé kvety" },
-  { id: "drobnokvet", label: "Drobnokvet", category: "Umelé kvety" },
-  { id: "vetva", label: "Vetva", category: "Umelé kvety" },
-  { id: "tuja", label: "Tuja", category: "Umelé kvety" },
-  { id: "ruskus", label: "Ruskus", category: "Umelé kvety" },
-  { id: "bobule", label: "Bobule", category: "Umelé kvety" },
-  { id: "gladiola", label: "Gladiola", category: "Umelé kvety" },
-  { id: "amarant", label: "Amarant", category: "Umelé kvety" },
-  { id: "skimmia", label: "Skimmia", category: "Umelé kvety" },
-  { id: "magnolia", label: "Magnólia", category: "Umelé kvety" },
-  { id: "fiala", label: "Fiala", category: "Umelé kvety" },
-  { id: "hyacint", label: "Hyacint", category: "Umelé kvety" },
-  { id: "rebricek", label: "Rebríček", category: "Umelé kvety" },
-  { id: "voskovka", label: "Voskovka", category: "Umelé kvety" },
-  { id: "chryzantema", label: "Chryzantéma", category: "Umelé kvety" },
-  { id: "krasnoocko", label: "Krásnoočko", category: "Umelé kvety" },
-  { id: "ginkgo", label: "Ginkgo", category: "Umelé kvety" },
-  { id: "pompony", label: "Pompony", category: "Umelé kvety" },
+  { id: "kytice", label: "Kytice", category: "Umelé kvety" },
+  { id: "stopkove-kvety", label: "Stopkové kvety", category: "Umelé kvety" },
+  { id: "vencovky", label: "Venčovky", category: "Umelé kvety" },
+  { id: "listy", label: "Listy", category: "Umelé kvety" },
+  { id: "doplnky", label: "Doplnky", category: "Umelé kvety" },
+  { id: "ozdobne-stuhy", label: "Ozdobné stuhy", category: "Stuhy" },
+  { id: "satinove-stuhy", label: "Saténové stuhy", category: "Stuhy" },
+  { id: "pohrebne-stuhy", label: "Pohrebné stuhy", category: "Stuhy" },
+  {
+    id: "latkove-pohrebne-stuhy",
+    label: "Látkové pohrebné stuhy",
+    category: "Stuhy",
+  },
+  { id: "jutove-stuhy", label: "Jutové stuhy", category: "Stuhy" },
+  { id: "sametove-stuhy", label: "Sametové stuhy", category: "Stuhy" },
+  { id: "viazacky", label: "Viazačky", category: "Stuhy" },
+  { id: "folie", label: "Fólie", category: "Obalový materiál" },
+  { id: "folie-harky", label: "Fólie hárky", category: "Obalový materiál" },
+  {
+    id: "sietka-plastova",
+    label: "Sieťka plastová",
+    category: "Obalový materiál",
+  },
+  {
+    id: "sietka-hackovana",
+    label: "Sieťka hačkovaná",
+    category: "Obalový materiál",
+  },
+  {
+    id: "sisalova-sietka",
+    label: "Sisalová sieťka",
+    category: "Obalový materiál",
+  },
+  { id: "jutova-sietka", label: "Jutová sieťka", category: "Obalový materiál" },
+  {
+    id: "papierova-rolka",
+    label: "Papierová rolka",
+    category: "Obalový materiál",
+  },
+  {
+    id: "papierova-rolka-roztahovacia",
+    label: "Papierová rolka rozťahovacia",
+    category: "Obalový materiál",
+  },
+  { id: "papier-harky", label: "Papier hárky", category: "Obalový materiál" },
+  {
+    id: "cipkova-rolka",
+    label: "Čipková rolka",
+    category: "Obalový materiál",
+  },
 ];
 
 export type PackagingOption = {
@@ -87,6 +101,7 @@ export type ProductAttributes = {
 
 export type CategoryFilters = {
   sub?: string;
+  druh?: string;
   farba?: string[];
 };
 
@@ -111,10 +126,13 @@ export function parseCategoryFilters(
   searchParams: Record<string, string | string[] | undefined>,
 ): CategoryFilters {
   const subRaw = searchParams.sub;
+  const druhRaw = searchParams.druh;
   const farbaRaw = searchParams.farba;
 
   const sub =
     typeof subRaw === "string" && subRaw.length > 0 ? subRaw : undefined;
+  const druh =
+    typeof druhRaw === "string" && druhRaw.length > 0 ? druhRaw : undefined;
 
   const farba = normalizeMultiParam(farbaRaw).filter((id) =>
     filterColors.some((color) => color.id === id),
@@ -122,6 +140,7 @@ export function parseCategoryFilters(
 
   return {
     sub,
+    druh,
     farba: farba.length > 0 ? farba : undefined,
   };
 }
@@ -141,6 +160,7 @@ export function buildCategoryFilterHref(
 ): string {
   const params = new URLSearchParams();
   if (filters.sub) params.set("sub", filters.sub);
+  if (filters.druh) params.set("druh", filters.druh);
   if (filters.farba?.length) params.set("farba", filters.farba.join(","));
   const qs = params.toString();
   return qs ? `/kategorie/${categorySlug}?${qs}` : `/kategorie/${categorySlug}`;

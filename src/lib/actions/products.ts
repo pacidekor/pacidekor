@@ -37,6 +37,7 @@ export type ProductUpsertInput = {
   discount?: number;
   category: string;
   subcategoryId?: string;
+  druhId?: string;
   attributes?: ProductAttributes;
   images: string[];
   colorImageMap?: Record<string, number[]>;
@@ -168,6 +169,7 @@ function toInsertPayload(
     discount: input.discount ?? null,
     category: input.category,
     subcategory_id: input.subcategoryId || null,
+    druh_id: input.druhId || null,
     color_ids: colorIds,
     color_image_map: normalizeColorImageMap(
       input.colorImageMap,
@@ -203,6 +205,7 @@ function toUpdatePayload(
     sku: input.sku?.trim() || null,
     category: input.category,
     subcategory_id: input.subcategoryId || null,
+    druh_id: input.druhId || null,
     color_ids: colorIds,
     color_image_map: normalizeColorImageMap(
       input.colorImageMap,

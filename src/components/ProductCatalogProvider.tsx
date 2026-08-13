@@ -24,7 +24,11 @@ import {
 /** Stable empty snapshots for useSyncExternalStore (new [] each call = infinite loop). */
 const EMPTY_PRODUCTS: Product[] = [];
 const EMPTY_DISCOUNTS: ProductDiscount[] = [];
-const EMPTY_TAXONOMY: TaxonomyStore = { categories: [], subcategories: [] };
+const EMPTY_TAXONOMY: TaxonomyStore = {
+  categories: [],
+  subcategories: [],
+  druhy: [],
+};
 
 export function ProductCatalogProvider({
   products,

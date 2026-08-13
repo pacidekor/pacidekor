@@ -34,6 +34,7 @@ export type Product = {
   extraImages?: string[];
   category: string;
   subcategoryId?: string;
+  druhId?: string;
   attributes?: ProductAttributes;
   colors?: ProductColor[];
   /** colorId → 0-based indexes into getProductGallery(product) */
@@ -354,6 +355,7 @@ export function mapProductRow(row: ProductRow): Product {
     extraImages: extraImages.length > 0 ? extraImages : undefined,
     category: row.category,
     subcategoryId: row.subcategory_id ?? undefined,
+    druhId: row.druh_id ?? undefined,
     attributes: {
       colors: colorIds.length > 0 ? colorIds : undefined,
       packaging: packaging.length > 0 ? packaging : undefined,
@@ -575,6 +577,7 @@ export function getSaleProducts(allProducts: Product[]) {
 
 export type ProductFilterInput = {
   subcategoryId?: string;
+  druhId?: string;
   /** Hlavné kategórie (label z product.category) */
   categories?: string[];
   colors?: string[];
@@ -589,6 +592,10 @@ export function filterProducts(
       filters.subcategoryId &&
       product.subcategoryId !== filters.subcategoryId
     ) {
+      return false;
+    }
+
+    if (filters.druhId && product.druhId !== filters.druhId) {
       return false;
     }
 

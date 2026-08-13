@@ -7,9 +7,7 @@ export const categories = [
   "Keramika",
   "Vencové základy",
   "Košíky",
-  "Plechy",
   "Svietniky",
-  "Dekorácie",
 ] as const;
 
 export type CategoryLabel = (typeof categories)[number];
@@ -55,9 +53,7 @@ const categoryImages: Record<CategoryLabel, string> = {
   Keramika: "/kategorie/keramika-new.webp",
   "Vencové základy": "/kategorie/vencovezaklady.webp",
   Košíky: "/kategorie/kosiky.webp",
-  Plechy: "/kategorie/plechy.webp",
   Svietniky: "/kategorie/svietniky.webp",
-  Dekorácie: "/kategorie/dekoracie.webp",
 };
 
 const categoryDescriptions: Record<CategoryLabel, string> = {
@@ -73,9 +69,7 @@ const categoryDescriptions: Record<CategoryLabel, string> = {
   "Vencové základy":
     "Základy a polotovary na vence - pripravené na vašu dekoráciu.",
   Košíky: "Prútené a dekoračné košíky na aranžmány, dary aj sezónnu výzdobu.",
-  Plechy: "Plechové nádoby a dekorácie s industriálnym aj rustikálnym nádychom.",
   Svietniky: "Svietniky a stojany na sviečky pre atmosféru každého priestoru.",
-  Dekorácie: "Doplnky a dekorácie, ktoré oživia domov, predajňu aj event.",
 };
 
 export const categoryList: Category[] = categories.map((label) => ({

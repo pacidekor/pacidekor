@@ -23,6 +23,7 @@ export type ProfileRow = {
   zip: string;
   country: string;
   note: string | null;
+  birth_date: string | null;
   created_at: string;
   registered_at: string | null;
 };
@@ -44,6 +45,7 @@ export type ProfileInsert = {
   zip?: string;
   country?: string;
   note?: string | null;
+  birth_date?: string | null;
   created_at?: string;
   registered_at?: string | null;
 };
@@ -72,6 +74,7 @@ export type ProductRow = {
   discount: number | null;
   category: string;
   subcategory_id: string | null;
+  druh_id: string | null;
   color_ids: string[];
   color_image_map: Record<string, number[]>;
   packaging: PackagingJson[];
@@ -96,6 +99,7 @@ export type ProductInsert = {
   discount?: number | null;
   category: string;
   subcategory_id?: string | null;
+  druh_id?: string | null;
   color_ids?: string[];
   color_image_map?: Record<string, number[]>;
   packaging?: PackagingJson[];
@@ -185,6 +189,26 @@ export type SubcategoryInsert = {
 
 export type SubcategoryUpdate = Partial<Omit<SubcategoryInsert, "id">>;
 
+export type DruhRow = {
+  id: string;
+  category_id: string;
+  label: string;
+  sort_order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type DruhInsert = {
+  id: string;
+  category_id: string;
+  label: string;
+  sort_order?: number;
+  created_at?: string;
+  updated_at?: string;
+};
+
+export type DruhUpdate = Partial<Omit<DruhInsert, "id">>;
+
 export type FavoriteRow = {
   user_id: string;
   product_id: string;
@@ -256,6 +280,21 @@ export type BlogPostInsert = {
 
 export type BlogPostUpdate = Partial<Omit<BlogPostInsert, "id">>;
 
+export type PromoCodeRow = {
+  id: string;
+  code: string;
+  discount_percent: number;
+  active: boolean;
+  starts_at: string | null;
+  ends_at: string | null;
+  min_order_eur: number | null;
+  max_uses: number | null;
+  used_count: number;
+  note: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -289,6 +328,12 @@ export type Database = {
         Update: SubcategoryUpdate;
         Relationships: [];
       };
+      druhy: {
+        Row: DruhRow;
+        Insert: DruhInsert;
+        Update: DruhUpdate;
+        Relationships: [];
+      };
       favorites: {
         Row: FavoriteRow;
         Insert: FavoriteInsert;
@@ -305,6 +350,12 @@ export type Database = {
         Row: BlogPostRow;
         Insert: BlogPostInsert;
         Update: BlogPostUpdate;
+        Relationships: [];
+      };
+      promo_codes: {
+        Row: PromoCodeRow;
+        Insert: Partial<PromoCodeRow> & { code: string; discount_percent: number };
+        Update: Partial<PromoCodeRow>;
         Relationships: [];
       };
     };

@@ -13,7 +13,15 @@ export type TaxonomySubcategory = {
   sortOrder: number;
 };
 
+export type TaxonomyDruh = {
+  id: string;
+  label: string;
+  categoryId: string;
+  sortOrder: number;
+};
+
 export type TaxonomyStore = {
   categories: TaxonomyCategory[];
   subcategories: TaxonomySubcategory[];
+  druhy: TaxonomyDruh[];
 };

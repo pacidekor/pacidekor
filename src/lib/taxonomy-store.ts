@@ -7,7 +7,11 @@ export const TAXONOMY_EVENT = "pacidekor:taxonomy-changed";
 export const ADMIN_CATEGORIES_STORAGE_KEY = "pacidekor.admin.categories";
 export const ADMIN_CATEGORIES_EVENT = TAXONOMY_EVENT;
 
-const EMPTY_STORE: TaxonomyStore = { categories: [], subcategories: [] };
+const EMPTY_STORE: TaxonomyStore = {
+  categories: [],
+  subcategories: [],
+  druhy: [],
+};
 
 let taxonomyCache: TaxonomyStore = EMPTY_STORE;
 const listeners = new Set<() => void>();
