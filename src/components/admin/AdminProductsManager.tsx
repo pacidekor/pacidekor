@@ -33,7 +33,7 @@ import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
-import { categories } from "@/lib/navigation";
+import { useTaxonomy } from "@/components/ProductCatalogProvider";
 import {
   ADMIN_CATEGORIES_EVENT,
   getAdminCategoryLabels,
@@ -189,6 +189,7 @@ export function AdminProductsManager({
   initialProducts: Product[];
   initialStockFilter?: StockFilter;
 }) {
+  const taxonomy = useTaxonomy();
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
@@ -387,7 +388,12 @@ export function AdminProductsManager({
 
   const categoryOptions = [
     { value: "all", label: "Všetky kategórie" },
-    ...categories.map((label) => ({ value: label, label })),
+    ...(taxonomy.categories.length > 0
+      ? taxonomy.categories.map((category) => ({
+          value: category.label,
+          label: category.label,
+        }))
+      : getAdminCategoryLabels().map((label) => ({ value: label, label }))),
   ];
 
   const stockOptions = [
@@ -891,9 +897,9 @@ function ProductEditor({
     }),
   );
 
-  const [categoryLabels, setCategoryLabels] = useState<string[]>(() => [
-    ...categories,
-  ]);
+  const [categoryLabels, setCategoryLabels] = useState<string[]>(() =>
+    getAdminCategoryLabels(),
+  );
   const [availableSubs, setAvailableSubs] = useState<
     { id: string; label: string }[]
   >([]);

@@ -17,6 +17,7 @@ import {
 import type { TaxonomyStore } from "@/lib/taxonomy-types";
 import {
   getTaxonomySnapshot,
+  hydrateTaxonomySnapshot,
   setTaxonomySnapshot,
   subscribeTaxonomy,
 } from "@/lib/taxonomy-store";
@@ -44,6 +45,9 @@ export function ProductCatalogProvider({
   useLayoutEffect(() => {
     setDiscountsSnapshot(discounts);
   }, [discounts]);
+
+  // Make DB taxonomy available before children paint (nav / filters).
+  hydrateTaxonomySnapshot(taxonomy);
 
   useLayoutEffect(() => {
     setTaxonomySnapshot(taxonomy);
@@ -82,6 +86,6 @@ export function useTaxonomy() {
   return useSyncExternalStore(
     subscribeTaxonomy,
     getTaxonomySnapshot,
-    () => EMPTY_TAXONOMY,
+    getTaxonomySnapshot,
   );
 }

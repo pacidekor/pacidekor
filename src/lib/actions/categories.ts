@@ -47,11 +47,14 @@ async function requireAdmin() {
 }
 
 function revalidateCategoryPaths() {
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/produkty");
+  revalidatePath("/novinky");
+  revalidatePath("/akcia");
   revalidatePath("/kategorie", "layout");
   revalidatePath("/admin/kategorie");
   revalidatePath("/admin/produkty");
+  revalidatePath("/admin", "layout");
 }
 
 function toSlugId(label: string) {
@@ -180,6 +183,20 @@ export async function saveCategoryAction(
       const { error } = await db.from("categories").insert(categoryPayload);
       if (error) return { ok: false, error: error.message };
     } else {
+      const { data: existingCategory, error: existingCategoryError } = await db
+        .from("categories")
+        .select("label")
+        .eq("id", categoryId)
+        .maybeSingle();
+
+      if (existingCategoryError) {
+        return { ok: false, error: existingCategoryError.message };
+      }
+
+      const previousLabel = (
+        existingCategory as { label: string } | null
+      )?.label;
+
       const { error } = await db
         .from("categories")
         .update({
@@ -189,6 +206,15 @@ export async function saveCategoryAction(
         })
         .eq("id", categoryId);
       if (error) return { ok: false, error: error.message };
+
+      // Products store category as display label — keep them in sync on rename.
+      if (previousLabel && previousLabel !== label) {
+        const { error: productsError } = await db
+          .from("products")
+          .update({ category: label })
+          .eq("category", previousLabel);
+        if (productsError) return { ok: false, error: productsError.message };
+      }
     }
 
     const { data: existingSubs, error: existingError } = await db

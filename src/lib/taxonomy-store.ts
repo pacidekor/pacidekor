@@ -27,6 +27,11 @@ export function getTaxonomySnapshot(): TaxonomyStore {
   return taxonomyCache;
 }
 
+/** Sync cache without notifying listeners (safe during render / SSR). */
+export function hydrateTaxonomySnapshot(next: TaxonomyStore) {
+  taxonomyCache = next;
+}
+
 export function setTaxonomySnapshot(next: TaxonomyStore) {
   if (taxonomyCache === next) return;
   taxonomyCache = next;

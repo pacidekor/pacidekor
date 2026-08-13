@@ -5,14 +5,34 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Mail, Phone } from "lucide-react";
-import { categoryHref, categoryList, navItems } from "@/lib/navigation";
+import { useTaxonomy } from "@/components/ProductCatalogProvider";
+import { categoryHrefById, categoryList, navItems } from "@/lib/navigation";
 
 export function NavBar() {
   const pathname = usePathname();
+  const taxonomy = useTaxonomy();
   const [open, setOpen] = useState(false);
   const [menuReady, setMenuReady] = useState(false);
   const menuId = useId();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const navCategories =
+    taxonomy.categories.length > 0
+      ? taxonomy.categories.map((category) => ({
+          id: category.id,
+          label: category.label,
+          image:
+            category.image ||
+            categoryList.find((item) => item.slug === category.id)?.image ||
+            "/kategorie/umelekvety.webp",
+          href: categoryHrefById(category.id),
+        }))
+      : categoryList.map((category) => ({
+          id: category.slug,
+          label: category.label,
+          image: category.image,
+          href: categoryHrefById(category.slug),
+        }));
 
   const openMenu = () => {
     if (closeTimer.current) {
@@ -128,10 +148,10 @@ export function NavBar() {
         >
           {menuReady ? (
             <div className="mx-auto grid w-[var(--content-width)] grid-cols-3 gap-2.5 py-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11">
-              {categoryList.map(({ label, image }) => (
+              {navCategories.map(({ id, label, image, href }) => (
                 <Link
-                  key={label}
-                  href={categoryHref(label)}
+                  key={id}
+                  href={href}
                   prefetch={false}
                   onClick={closeMenu}
                   className="group flex cursor-pointer flex-col items-center gap-2 text-center transition-transform duration-200 hover:-translate-y-0.5"

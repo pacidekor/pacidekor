@@ -3,23 +3,39 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { CategoryProductBrowser } from "@/components/CategoryProductBrowser";
-import { categoryList, getCategoryBySlug } from "@/lib/navigation";
+import { listTaxonomy } from "@/lib/categories-server";
+import { toSlug } from "@/lib/navigation";
 import { getProductsByCategory } from "@/lib/products";
-import { listProducts } from "@/lib/products-server";
+import { listPricedProducts } from "@/lib/products-server";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
-  return categoryList.map((category) => ({ slug: category.slug }));
+/** Taxonomy + discounts change in admin — render on request. */
+export const dynamic = "force-dynamic";
+
+/** Older public URLs that should still resolve after renames. */
+const CATEGORY_SLUG_ALIASES: Record<string, string> = {
+  aranzerstvo: "aranz-material",
+};
+
+async function resolveCategory(slug: string) {
+  const taxonomy = await listTaxonomy();
+  const resolvedSlug = CATEGORY_SLUG_ALIASES[slug] ?? slug;
+
+  return (
+    taxonomy.categories.find((category) => category.id === resolvedSlug) ??
+    taxonomy.categories.find((category) => toSlug(category.label) === slug) ??
+    null
+  );
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await resolveCategory(slug);
 
   if (!category) {
     return { title: "Kategória nenájdená" };
@@ -33,13 +49,13 @@ export async function generateMetadata({
 
 export default async function CategoryPage({ params }: PageProps) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await resolveCategory(slug);
 
   if (!category) {
     notFound();
   }
 
-  const allProducts = await listProducts();
+  const allProducts = await listPricedProducts();
   const categoryProducts = getProductsByCategory(allProducts, category.label);
 
   return (
@@ -66,7 +82,7 @@ export default async function CategoryPage({ params }: PageProps) {
       >
         <CategoryProductBrowser
           categoryLabel={category.label}
-          categorySlug={category.slug}
+          categorySlug={category.id}
           products={categoryProducts}
         />
       </Suspense>

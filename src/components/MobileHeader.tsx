@@ -22,7 +22,12 @@ import {
   customerDisplayName,
   type CustomerType,
 } from "@/lib/customers";
-import { categoryHref, categoryList, navItems } from "@/lib/navigation";
+import { useTaxonomy } from "@/components/ProductCatalogProvider";
+import {
+  categoryHrefById,
+  categoryList,
+  navItems,
+} from "@/lib/navigation";
 import { popularSearches, searchProducts } from "@/lib/search";
 
 type MenuView = "main" | "categories";
@@ -45,6 +50,7 @@ function initials(name: string) {
 
 export function MobileHeader() {
   const pathname = usePathname();
+  const taxonomy = useTaxonomy();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuView, setMenuView] = useState<MenuView>("main");
   const [searchOpen, setSearchOpen] = useState(false);
@@ -59,6 +65,19 @@ export function MobileHeader() {
   const menuId = useId();
   const searchId = useId();
   const accountId = useId();
+
+  const navCategories =
+    taxonomy.categories.length > 0
+      ? taxonomy.categories.map((category) => ({
+          id: category.id,
+          label: category.label,
+          href: categoryHrefById(category.id),
+        }))
+      : categoryList.map((category) => ({
+          id: category.slug,
+          label: category.label,
+          href: categoryHrefById(category.slug),
+        }));
 
   const trimmedQuery = deferredQuery.trim();
   const isTyping = trimmedQuery.length > 0;
@@ -335,10 +354,10 @@ export function MobileHeader() {
             </button>
 
             <ul className="space-y-0.5 pb-8">
-              {categoryList.map(({ label }) => (
-                <li key={label}>
+              {navCategories.map(({ id, label, href }) => (
+                <li key={id}>
                   <Link
-                    href={categoryHref(label)}
+                    href={href}
                     prefetch={false}
                     onClick={closeMenu}
                     className={linkClass}

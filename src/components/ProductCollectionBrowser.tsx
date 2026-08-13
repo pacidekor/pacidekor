@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
+import { useTaxonomy } from "@/components/ProductCatalogProvider";
 import {
   CatalogGridDensityToggle,
   catalogGridClass,
@@ -14,7 +15,6 @@ import {
   INVENTORY_EVENT,
   isInventoryAvailable,
 } from "@/lib/inventory";
-import { categories } from "@/lib/navigation";
 import { filterProducts, type Product } from "@/lib/products";
 import { filterColors } from "@/lib/taxonomy";
 
@@ -45,6 +45,11 @@ export function ProductCollectionBrowser({
   emptyState,
   listenInventory = false,
 }: ProductCollectionBrowserProps) {
+  const taxonomy = useTaxonomy();
+  const categoryLabels =
+    taxonomy.categories.length > 0
+      ? taxonomy.categories.map((category) => category.label)
+      : [];
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [gridDensity, setGridDensity] = useState<"comfortable" | "compact">(
     "comfortable",
@@ -178,7 +183,7 @@ export function ProductCollectionBrowser({
                 active={!selectedCategory}
                 onClick={() => setSelectedCategory(undefined)}
               />
-              {categories.map((category) => (
+              {categoryLabels.map((category) => (
                 <FilterChip
                   key={category}
                   label={category}

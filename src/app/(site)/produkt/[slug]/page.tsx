@@ -3,17 +3,18 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ProductMediaPurchase } from "@/components/product/ProductMediaPurchase";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
+import { listTaxonomy } from "@/lib/categories-server";
 import {
   applyDiscountToProduct,
   applyDiscountsToProducts,
 } from "@/lib/discounts";
 import { listDiscounts } from "@/lib/discounts-server";
+import { categoryHrefById, categoryHref } from "@/lib/navigation";
 import { getRelatedProducts } from "@/lib/products";
 import {
   getProductBySlug,
   listProducts,
 } from "@/lib/products-server";
-import { categoryHref } from "@/lib/navigation";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -52,10 +53,11 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
     ? farbaRaw[0]
     : farbaRaw?.split(",")[0];
 
-  const [rawProduct, discounts, allProducts] = await Promise.all([
+  const [rawProduct, discounts, allProducts, taxonomy] = await Promise.all([
     getProductBySlug(slug),
     listDiscounts(),
     listProducts(),
+    listTaxonomy(),
   ]);
 
   if (!rawProduct) {
@@ -67,6 +69,12 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
     applyDiscountsToProducts(allProducts, discounts),
     product.slug,
   );
+  const categoryMatch = taxonomy.categories.find(
+    (category) => category.label === product.category,
+  );
+  const categoryLink = categoryMatch
+    ? categoryHrefById(categoryMatch.id)
+    : categoryHref(product.category);
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -78,7 +86,7 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
           /
         </span>
         <Link
-          href={categoryHref(product.category)}
+          href={categoryLink}
           className="transition-colors hover:text-[#75825B]"
         >
           {product.category}

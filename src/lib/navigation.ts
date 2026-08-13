@@ -38,10 +38,21 @@ const categorySlugAliases: Record<string, CategoryLabel> = {
   aranzerstvo: "Aranž. materiál",
 };
 
-export function categoryHref(label: string) {
+/** Public category URL — prefer stable DB id when available. */
+export function categoryHref(labelOrId: string) {
+  const aliased = categorySlugAliases[labelOrId];
+  if (aliased) {
+    const override =
+      categorySlugOverrides[aliased] ?? toSlug(aliased);
+    return `/kategorie/${override}`;
+  }
   const override =
-    categorySlugOverrides[label as CategoryLabel] ?? toSlug(label);
+    categorySlugOverrides[labelOrId as CategoryLabel] ?? toSlug(labelOrId);
   return `/kategorie/${override}`;
+}
+
+export function categoryHrefById(id: string) {
+  return `/kategorie/${id}`;
 }
 
 const categoryImages: Record<CategoryLabel, string> = {
