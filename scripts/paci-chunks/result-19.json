@@ -1,0 +1,51 @@
+[
+  {
+    "folder": "G3__hortensia 61cm",
+    "name": "Hortenzia – stonok 61 cm",
+    "desc": "Umelá hortenzia s hustou guľovitou hlavou drobných štvorlupienkových kvetov a veľkými zúbkovanými zelenými listami na dlhom stonku (cca 61 cm).",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: KVETY3 (1).jpg. Ružová/bordová = prašná mauve/bordová s krémovými tipmi (nie sýta ružová). Sivomodrá = prašná sivo-modrá. Pot zábery majú aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "sivomodrá",
+        "photosOrdered": ["KVETY3 (2).jpg", "KVETY3 (10).jpg", "KVETY3 (5).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["KVETY3 (3).jpg", "KVETY3 (9).jpg", "KVETY3 (6).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["KVETY3 (4).jpg", "KVETY3 (8).jpg", "KVETY3 (7).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "LISTY STARE",
+    "name": "Zeleň – dlhé pruhované listy",
+    "desc": "Umelé dlhé kopijovité listy na tenkom drôtikovom stonku. Dve pruhované varianty: zelenožltá a zelenokrémová.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Chýbajú samostatné detail zábery. Žltá = zelený list so žltými zvislými pruhmi; krémová = zelený list s krémovo-bielym okrajom/pruhovaním. pot = 2 listy v čiernej valcovej váze.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-105.jpg", "kvety-102.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-104.jpg", "kvety-103.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      }
+    ]
+  }
+]

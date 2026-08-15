@@ -144,6 +144,47 @@ function item(
 
 export const orders: Order[] = [
   {
+    id: "2026-00126",
+    status: "zaplatena",
+    createdAt: "2026-08-12T09:42:00",
+    createdAtLabel: "včera",
+    customer: {
+      name: "Tomáš Dočekal",
+      company: "Rezit",
+      email: "tomasdocekal15@gmail.com",
+      phone: "+420 773 902 633",
+      ico: "24908134",
+      street: "Čáslavská 164",
+      city: "Seč",
+      zip: "538 07",
+      country: "Česká Republika",
+    },
+    items: [
+      {
+        productId: "5725eab1-1b25-44c9-9ed6-5ebacdca8da1",
+        name: "Amarant - láskavec",
+        quantity: 24,
+        unitPrice: "0,85 €",
+      },
+      {
+        productId: "ecb209fa-4b66-415d-947c-7d26fd18dbb4",
+        name: "Bahniatka - farebné varianty",
+        quantity: 12,
+        unitPrice: "1,20 €",
+      },
+      {
+        productId: "7eeced64-5f37-461d-b89e-d71542a263ee",
+        name: "Chryzantéma pomponková",
+        quantity: 8,
+        unitPrice: "1,45 €",
+      },
+    ],
+    shippingCost: "0,00 €",
+    paymentMethod: "Prevodom",
+    shippingMethod: "Kuriér - Packeta",
+    note: "Prosím dodať v priebehu tohto týždňa.",
+  },
+  {
     id: "2026-00125",
     status: "pripravuje_sa",
     createdAt: "2026-07-24T10:33:00",
@@ -166,7 +207,7 @@ export const orders: Order[] = [
     ],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
     note: "Prosím doručiť pred 14:00.",
   },
   {
@@ -186,7 +227,7 @@ export const orders: Order[] = [
     items: [item("3", 2), item("4", 1)],
     shippingCost: "3,90 €",
     paymentMethod: "Kartou online",
-    shippingMethod: "Kuriér – SPS",
+    shippingMethod: "Kuriér - SPS",
   },
   {
     id: "2026-00123",
@@ -207,7 +248,7 @@ export const orders: Order[] = [
     items: [item("9", 6), item("5", 4), item("7", 10)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
   },
   {
     id: "2026-00114",
@@ -228,7 +269,7 @@ export const orders: Order[] = [
     items: [item("1", 15), item("2", 10)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
   },
   {
     id: "2026-00108",
@@ -249,7 +290,7 @@ export const orders: Order[] = [
     items: [item("6", 8), item("9", 12), item("4", 6)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – SPS",
+    shippingMethod: "Kuriér - SPS",
   },
   {
     id: "2026-00091",
@@ -270,7 +311,7 @@ export const orders: Order[] = [
     items: [item("5", 20), item("7", 15)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
   },
   {
     id: "2026-00122",
@@ -289,7 +330,7 @@ export const orders: Order[] = [
     items: [item("8", 2), item("4", 2)],
     shippingCost: "3,90 €",
     paymentMethod: "Dobierka",
-    shippingMethod: "Kuriér – GLS",
+    shippingMethod: "Kuriér - GLS",
   },
   {
     id: "2026-00121",
@@ -308,7 +349,7 @@ export const orders: Order[] = [
     items: [item("1", 1), item("10", 1)],
     shippingCost: "3,90 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
     note: "Čaká sa na platbu.",
   },
   {
@@ -330,7 +371,7 @@ export const orders: Order[] = [
     items: [item("2", 5), item("6", 5), item("9", 5)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – SPS",
+    shippingMethod: "Kuriér - SPS",
   },
   {
     id: "2026-00119",
@@ -349,7 +390,7 @@ export const orders: Order[] = [
     items: [item("3", 3), item("7", 2)],
     shippingCost: "3,90 €",
     paymentMethod: "Kartou online",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
   },
   {
     id: "2026-00118",
@@ -370,7 +411,7 @@ export const orders: Order[] = [
     items: [item("1", 20), item("5", 10)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – GLS",
+    shippingMethod: "Kuriér - GLS",
   },
   {
     id: "2026-00117",
@@ -389,7 +430,7 @@ export const orders: Order[] = [
     items: [item("10", 2), item("8", 1)],
     shippingCost: "3,90 €",
     paymentMethod: "Kartou online",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
   },
   {
     id: "2026-00116",
@@ -409,7 +450,7 @@ export const orders: Order[] = [
     items: [item("2", 4), item("4", 6)],
     shippingCost: "0,00 €",
     paymentMethod: "Prevodom",
-    shippingMethod: "Kuriér – SPS",
+    shippingMethod: "Kuriér - SPS",
   },
   {
     id: "2026-00115",
@@ -428,12 +469,57 @@ export const orders: Order[] = [
     items: [item("9", 1)],
     shippingCost: "3,90 €",
     paymentMethod: "Dobierka",
-    shippingMethod: "Kuriér – Packeta",
+    shippingMethod: "Kuriér - Packeta",
     note: "Zákazník zrušil objednávku.",
   },
 ];
 
+const CANCELLED_ORDERS_KEY = "pacidekor-cancelled-orders";
+export const ORDERS_EVENT = "paci-orders-changed";
+
+/** Stavy, v ktorých môže zákazník ešte zrušiť objednávku. */
+export const CANCELLABLE_ORDER_STATUSES: OrderStatus[] = [
+  "nova",
+  "nezaplatena",
+  "zaplatena",
+  "pripravuje_sa",
+  "pripravena_na_odoslanie",
+];
+
+function readCancelledOrderIds(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(CANCELLED_ORDERS_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as unknown;
+    return Array.isArray(parsed)
+      ? parsed.filter((id): id is string => typeof id === "string")
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+function persistCancelledOrderId(orderId: string) {
+  if (typeof window === "undefined") return;
+  const next = Array.from(new Set([...readCancelledOrderIds(), orderId]));
+  window.localStorage.setItem(CANCELLED_ORDERS_KEY, JSON.stringify(next));
+}
+
+function hydrateCancelledOrders() {
+  for (const id of readCancelledOrderIds()) {
+    const order = orders.find((item) => item.id === id);
+    if (order && order.status !== "stornovana") {
+      order.status = "stornovana";
+      if (!order.note?.trim()) {
+        order.note = "Zákazník zrušil objednávku.";
+      }
+    }
+  }
+}
+
 export function getOrderById(id: string) {
+  hydrateCancelledOrders();
   return orders.find((order) => order.id === id);
 }
 
@@ -447,7 +533,44 @@ export const ACTIVE_ORDER_STATUSES: OrderStatus[] = [
   "predana_dopravcovi",
 ];
 
+export function canCancelOrder(order: Order) {
+  return CANCELLABLE_ORDER_STATUSES.includes(order.status);
+}
+
+/** Formát dátumu objednávky pre zákaznícky detail (sk). */
+export function formatOrderCreatedAt(iso: string) {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) return iso;
+  return new Intl.DateTimeFormat("sk-SK", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date);
+}
+
+export function cancelOrder(orderId: string, customerEmail: string): boolean {
+  hydrateCancelledOrders();
+  const order = orders.find((item) => item.id === orderId);
+  if (!order) return false;
+  if (order.customer.email.toLowerCase() !== customerEmail.trim().toLowerCase()) {
+    return false;
+  }
+  if (!canCancelOrder(order)) return false;
+
+  order.status = "stornovana";
+  order.note = "Zákazník zrušil objednávku.";
+  persistCancelledOrderId(order.id);
+
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(ORDERS_EVENT));
+  }
+  return true;
+}
+
 export function getOrdersForCustomerEmail(email: string): Order[] {
+  hydrateCancelledOrders();
   const normalized = email.trim().toLowerCase();
   return orders
     .filter((order) => order.customer.email.toLowerCase() === normalized)

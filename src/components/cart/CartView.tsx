@@ -7,6 +7,7 @@ import { Layers, ShoppingBag, Trash2 } from "lucide-react";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { SaveCartTemplateModal } from "@/components/cart/SaveCartTemplateModal";
 import { LoginRequiredModal } from "@/components/LoginRequiredModal";
+import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeField";
 import {
   amountToMinOrder,
   cartItemCount,
@@ -19,6 +20,12 @@ import {
   setCartQuantity,
   type CartItem,
 } from "@/lib/cart";
+import {
+  promoDiscountAmount,
+  readAppliedPromo,
+  PROMO_EVENT,
+  type AppliedPromo,
+} from "@/lib/promo";
 import {
   fetchClientCustomer,
   subscribeClientAuth,
@@ -127,13 +134,27 @@ function CartSummary({
   customer: Customer | null;
 }) {
   const count = cartItemCount(items);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
+  const discount = promo
+    ? promoDiscountAmount(subtotal, promo.discountPercent)
+    : 0;
+  const afterDiscount = Math.max(0, subtotal - discount);
   const shippingThreshold = 100;
-  const freeShipping = subtotal >= shippingThreshold;
-  const remainingShipping = Math.max(0, shippingThreshold - subtotal);
+  const freeShipping = afterDiscount >= shippingThreshold;
+  const remainingShipping = Math.max(0, shippingThreshold - afterDiscount);
   const canCheckout = meetsMinOrder(subtotal);
   const remainingMinOrder = amountToMinOrder(subtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+
+  useEffect(() => {
+    function sync() {
+      setPromo(readAppliedPromo());
+    }
+    sync();
+    window.addEventListener(PROMO_EVENT, sync);
+    return () => window.removeEventListener(PROMO_EVENT, sync);
+  }, []);
 
   function onSaveTemplateClick() {
     if (customer) {
@@ -162,6 +183,13 @@ function CartSummary({
               {formatPrice(subtotal)}
             </span>
           </div>
+
+          <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
+
+          {discount > 0 && promo ? (
+            <AppliedPromoLine promo={promo} discountAmount={discount} />
+          ) : null}
+
           <div className="flex items-baseline justify-between gap-3 text-sm">
             <span className="text-[#2f2924]/60">Doprava</span>
             <span className="font-medium text-[#2f2924]">
@@ -180,7 +208,7 @@ function CartSummary({
           <div className="flex items-baseline justify-between gap-3">
             <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
             <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-              {formatPrice(subtotal)}
+              {formatPrice(afterDiscount)}
             </span>
           </div>
         </div>

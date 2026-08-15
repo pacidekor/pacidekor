@@ -1,0 +1,163 @@
+[
+  {
+    "folder": "B3__160HD_PREFOTIŤ",
+    "name": "Sasanka – viacfarby",
+    "desc": "Umelé sasanky s jemnými vrstvenými lupenmi a tmavým chlpatým stredom, na dlhej stonke s tmavozelenými zúbkatými listami. Tri farby: oranžová, ružová a horčicová žltá.",
+    "type": "sasanka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY29 (9).jpg = spoločný záber všetkých troch farieb vo váze.",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": ["KVETY29 (2).jpg", "KVETY29 (3).jpg", "KVETY29 (4).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY29 (6).jpg", "KVETY29 (1).jpg", "KVETY29 (5).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["KVETY29 (8).jpg", "KVETY29 (7).jpg", "KVETY29 (10).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__20599C_PREFOTIŤ",
+    "name": "Orchidea biela",
+    "desc": "Umelá orchidea s bielymi lupenmi a žltým stredom, na dlhom zelenom stonku s púčikmi. Vhodná do vázy alebo aranžmánov.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-162.jpg", "KVETY-164.jpg", "KVETY-163.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__34505_01",
+    "name": "Pivonka krémová – zväzok",
+    "desc": "Umelý zväzok plnokvetých krémových pivoniek/ranunculus so žltým stredom, zelenými listami a hnedočervenými perovitými výplňovými vetvičkami.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonka + hnedočervené perovité filler vetvičky + drobná zelená výplň (jeden predajný zväzok).",
+    "skipReason": null,
+    "notes": "kvety-44.jpg ukazuje zväzok vo váze aj ležiaci na látke.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-44.jpg", "kvety-45.jpg", "kvety-46.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__879BL-BR_PREFOTIŤ",
+    "name": "Slnečnica sušená – hlávky",
+    "desc": "Umelé/sušené slnečnicové hlávky bez žltých lupenov – špicaté listeny okolo textúrneho stredu, na dlhej fuzzy stonke. Dve farby: hnedá a čierna.",
+    "type": "slnečnica",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ (BL-BR = modro-hnedá rada). KVETY22-5.jpg = spoločný záber hnedá+čierna. Extra stonky: KVETY-159.jpg (čierna), KVETY-160.jpg (hnedá/zelená).",
+    "variants": [
+      {
+        "color": "hnedá",
+        "photosOrdered": ["KVETY-154.jpg", "KVETY-157.jpg", "KVETY-161.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "čierna",
+        "photosOrdered": ["KVETY-155.jpg", "KVETY-156.jpg", "KVETY-158.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__900PU_PREFOTIŤ",
+    "name": "Drobný kvet fialový (trsy)",
+    "desc": "Umelý filler s hustými trsmi drobných tmavofialových púčikov a listami so zeleným stredom a fialovým okrajom. Vhodný do aranžmánov.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ (PU = purple). Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["KVETY-176.jpg", "KVETY-177.jpg", "KVETY-178.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__906-05_PREFOTIŤ",
+    "name": "Voskovka drobnokvetá",
+    "desc": "Umelé drobné päťlupenové kvietky v hustých trsoch na tenkých drevnatých stonkoch s ihlicovitými listami. Dve farby: fialová a ružová.",
+    "type": "voskovka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY22-6.jpg = spoločný záber fialová+ružová vo váze.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["KVETY-165.jpg", "KVETY-169.jpg", "KVETY-170.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY-166.jpg", "KVETY-168.jpg", "KVETY-171.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__9681+9157_PREFOTIŤ",
+    "name": "Zmiešaná zložka – eryngium a klasový filler",
+    "desc": "V jednej zložke dva odlišné produkty (kódy 9681+9157): ostnaté hviezdicové vetvičky (zeleno-biele) a jemný klasovitý filler (krémový).",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Dva produkty: 1) ostnaté hviezdicové kvety/eryngium (zelená); 2) klasovitý filler typu levanduľa (krémová). Odporúčané rozdeliť.",
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Farby vo variantoch = oddelené produkty, nie farebné verzie jedného typu.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["KVETY-183.jpg", "KVETY-184.jpg", "KVETY-182.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["KVETY-186.jpg", "KVETY-187.jpg", "KVETY-185.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B3__BUK013",
+    "name": "Mix kytica bielo-zelená",
+    "desc": "Umelá zmiešaná kytica: ostnaté zelenobiele guličky, drobné biele filler kvietky, eukalyptové listy a ďalšia zelená výplň na spoločnom zväzku.",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Kompozitný zväzok: ostnaté guličky + drobné biele kvietky + eukalyptus + ďalšia zeleň (jeden predajný aranžmán).",
+    "skipReason": null,
+    "notes": "Dominantná paleta bielo-zelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["KVETY-206.jpg", "KVETY-205.jpg", "KVETY-207.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

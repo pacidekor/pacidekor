@@ -1,0 +1,148 @@
+[
+  {
+    "folder": "D3__017",
+    "name": "Papraď – perovité listy",
+    "desc": "Umelá papraď s hustými perovitými tmavozelenými listami na tenkom stonku. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Klasická papraď (nie eukalyptus).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-79.jpg", "kvety-85.jpg", "kvety-80.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__25805H",
+    "name": "Eukalyptus drobný okrúhly",
+    "desc": "Umelý eukalyptus s hustými drobnými okrúhlymi sivozelenými listami na tenkých stonkách. Zväzok do vázy.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Farba prašná sivozelená (nie sýto zelená). 239 = váza + ležiaci zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-239.jpg", "kvety-241.jpg", "kvety-240.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__25984",
+    "name": "Eukalyptus – vetva s hnedým stonkom",
+    "desc": "Umelá eukalyptová vetva s okrúhlymi sivozelenými listami na rozvetvených zelených konároch a hnedom hlavnom stonku.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Hnedý drevnatý stonok je súčasť produktu. 238 = váza + ležiaca vetva.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-238.jpg", "kvety-236.jpg", "kvety-237.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__3437",
+    "name": "Monstera – mini listy (zväzok)",
+    "desc": "Umelý zväzok drobných monstera listov s typickými zárezmi a otvormi. Dve farby: sivozelená a prašnoružová/mauve.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-186.jpg. Ružová = prašná mauve/staroružová (nie sýta ružová). Zelená = matná sivozelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-161.jpg", "kvety-159.jpg", "kvety-160.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-185.jpg", "kvety-188.jpg", "kvety-187.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__CAN272",
+    "name": "Papraď – jemná perovitá",
+    "desc": "Umelá jemná papraď s perovitými sivozelenými listami a hnedým stonkom. Vzdušná dekoračná zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Svetlejšia/sage než D3__017. 257 = váza + ležiaca vetva.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-257.jpg", "kvety-255.jpg", "kvety-256.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__JUN095",
+    "name": "Monstera – jednotlivý list",
+    "desc": "Umelý samostatný monstera list s typickými zárezmi a otvormi na dlhom zelenom stonku. Predáva sa aj ako zväzok.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-244.jpg druhý stem (jeden list na látke); 243 = zväzok viazaný špagátom (detail/volume).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-245.jpg", "kvety-243.jpg", "kvety-242.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__KLM1199",
+    "name": "Eukalyptus okrúhly",
+    "desc": "Umelý eukalyptus s okrúhlymi listami na dlhom stonku. Dve farby: zelená a bordová/vínová s prašným nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-198.jpg. Extra zelená: 201 pot, 204 detail, 205 stem. Bordová má sivo-fialový prach na listoch.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-200.jpg", "kvety-203.jpg", "kvety-206.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-199.jpg", "kvety-202.jpg", "kvety-207.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__LI00374",
+    "name": "Monstera – hustý zväzok listov",
+    "desc": "Umelý hustý zväzok zelených monstera listov s typickými zárezmi na spoločnom stonku. Vhodné do vázy.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Väčší/hustejší zväzok než D3__3437 zelená. 233 = váza + ležiaci zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-233.jpg", "kvety-235.jpg", "kvety-234.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

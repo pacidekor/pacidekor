@@ -14,6 +14,7 @@ import {
   parsePrice,
   type CartItem,
 } from "@/lib/cart";
+import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeField";
 import {
   fetchClientCustomer,
   subscribeClientAuth,
@@ -21,6 +22,12 @@ import {
 import type { Customer } from "@/lib/customers";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
+import {
+  promoDiscountAmount,
+  readAppliedPromo,
+  PROMO_EVENT,
+  type AppliedPromo,
+} from "@/lib/promo";
 import {
   FREE_SHIPPING_THRESHOLD,
   PAYMENT_OPTIONS,
@@ -423,6 +430,7 @@ export function CheckoutView() {
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [authReady, setAuthReady] = useState(false);
   const [editingBilling, setEditingBilling] = useState(false);
+  const [promo, setPromo] = useState<AppliedPromo | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -446,15 +454,28 @@ export function CheckoutView() {
     });
   }, []);
 
+  useEffect(() => {
+    function sync() {
+      setPromo(readAppliedPromo());
+    }
+    sync();
+    window.addEventListener(PROMO_EVENT, sync);
+    return () => window.removeEventListener(PROMO_EVENT, sync);
+  }, []);
+
   const subtotal = useMemo(() => cartSubtotal(items), [items]);
   const count = cartItemCount(items);
+  const discount = promo
+    ? promoDiscountAmount(subtotal, promo.discountPercent)
+    : 0;
+  const afterDiscount = Math.max(0, subtotal - discount);
   const shipping = SHIPPING_OPTIONS.find(
     (option) => option.id === form.shippingMethod,
   );
   const shippingCost = shipping?.cost ?? 0;
-  const freeShipping = subtotal >= FREE_SHIPPING_THRESHOLD;
+  const freeShipping = afterDiscount >= FREE_SHIPPING_THRESHOLD;
   const effectiveShipping = freeShipping ? 0 : shippingCost;
-  const total = subtotal + effectiveShipping;
+  const total = afterDiscount + effectiveShipping;
 
   const showBillingSummary =
     authReady &&
@@ -819,6 +840,13 @@ export function CheckoutView() {
                 {formatPrice(subtotal)}
               </span>
             </div>
+
+            <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
+
+            {discount > 0 && promo ? (
+              <AppliedPromoLine promo={promo} discountAmount={discount} />
+            ) : null}
+
             <div className="flex items-baseline justify-between gap-3 text-sm">
               <span className="text-[#2f2924]/60">Doprava</span>
               <span className="font-medium text-[#2f2924]">

@@ -7,7 +7,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import type { AuthSideSlide } from "@/lib/products";
 import { productHref } from "@/lib/products";
 
-const ROTATE_MS = 5000;
+const ROTATE_MS = 3000;
 const FADE_MS = 1100;
 const FALLBACK_IMAGE = "/banner1.webp";
 

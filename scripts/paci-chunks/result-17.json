@@ -1,0 +1,213 @@
+[
+  {
+    "folder": "F1__8015",
+    "name": "Čerešňové kvety – kvitnúca halúzka",
+    "desc": "Umelá kvitnúca halúzka s hustými drobnými kvetmi (čerešňa/jabloň) na tenkých hnedých stonkách a malými zelenými listami pri báze.",
+    "type": "čerešňa",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-99.jpg. Ružová = krémovo-žltý stred + ružové okraje lupienkov.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-101.jpg", "kvety-105.jpg", "kvety-102.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-100.jpg", "kvety-104.jpg", "kvety-103.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__806LV",
+    "name": "Hortenzia kytica so zeleňou",
+    "desc": "Umelá kytica hortenzií (guľaté trsy drobných štvorlupienkových kvetov) s eukalyptovými listami, zubatými listami, papradím a drobnými bielymi filler kvetmi.",
+    "type": "hortenzia",
+    "mixedTypes": true,
+    "mixedNote": "Hortenzie + biele filler kvety + eukalyptus/papradie/zubaté listy na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Tri farebné varianty hortenzií (fialová, modrá, ružová) s rovnakou zeleňou a bielymi doplnkami.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-115.jpg", "kvety-110.jpg", "kvety-117.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-114.jpg", "kvety-111.jpg", "kvety-116.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-113.jpg", "kvety-112.jpg", "kvety-118.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__AK09",
+    "name": "Iskerník (ranunculus) – zväzok",
+    "desc": "Umelý iskerník s hustými vrstvenými lupienkami, púčikmi a zubatými zelenými listami. Viac kvetov na spoločnom stonku do vázy.",
+    "type": "iskerník",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-72.jpg. Štyri farby: biela, ružová, žltá, oranžová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-73.jpg", "kvety-78.jpg", "kvety-82.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-74.jpg", "kvety-79.jpg", "kvety-84.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-75.jpg", "kvety-80.jpg", "kvety-83.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": ["kvety-76.jpg", "kvety-77.jpg", "kvety-81.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__GLO3150",
+    "name": "Bobuľový trs s brečtanom",
+    "desc": "Umelá dekoratívna stonka s hustými drobnými bobuľovými/semennými trsmi, listami v tvare brečtanu a kučeravými zelenými úponkami.",
+    "type": "bobule/filler",
+    "mixedTypes": true,
+    "mixedNote": "Farebné bobuľové trsy + zelené listy (brečtan) + kučeravé úponky na jednej stonke.",
+    "skipReason": null,
+    "notes": "Skupinové zábery: kvety-91.jpg (hromada), kvety-92.jpg (váza). Zelená má extra stem kvety-85.jpg a pot kvety-98.jpg.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-94.jpg", "kvety-98.jpg", "kvety-86.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "hnedá",
+        "photosOrdered": ["kvety-93.jpg", "kvety-87.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-97.jpg", "kvety-88.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-95.jpg", "kvety-89.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-96.jpg", "kvety-90.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__JH098",
+    "name": "Georgína kytica tmavočervená",
+    "desc": "Umelá kytica veľkých plných tmavočervených georgín so zelenými listami, drobnými svetloružovými filler kvetmi a sivozeleným/sivofialovým papradím.",
+    "type": "georgína",
+    "mixedTypes": true,
+    "mixedNote": "Georgíny + drobné filler kvety + sivozelené/sivofialové papradie a zelené listy.",
+    "skipReason": null,
+    "notes": "Jedna farba hlavných kvetov. pot/full = 138 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "tmavočervená",
+        "photosOrdered": ["kvety-138.jpg", "kvety-137.jpg", "kvety-134.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__KS020",
+    "name": "Ruža záhradná – dlhý stonok",
+    "desc": "Umelá plná záhradná ruža s bohato riasenými lupienkami, tŕňovým stonkom a zubatými zelenými listami. Tri farebné varianty.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber troch farieb: kvety-142.jpg. Extra (iná kytica bordových ruží + filler): kvety-1.jpg, kvety-2.jpg, kvety-3.jpg. Tmavoružová = magenta s krémovým stredom. Červená: chýba samostatný stem (140 = pot + ležiaci).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-121.jpg", "kvety-124.jpg", "kvety-120.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": ["kvety-122.jpg", "kvety-123.jpg", "kvety-119.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-140.jpg", "kvety-141.jpg"],
+        "shotTypes": ["pot/full", "detail"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__KYT. RUŽ",
+    "name": "Kytica ruží svetloružová",
+    "desc": "Umelá kytica plných svetloružových/marhuľových ruží so zelenými listami a dlhými stonkami do vázy.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (svetloružová/marhuľová). Adresár na disku: F1__KYT. RUŽ.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-139.jpg", "kvety-136.jpg", "kvety-135.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__MIX",
+    "name": "Mini ruže – zväzok (vintage)",
+    "desc": "Umelý zväzok drobných vintage ruží s doplnkovými bobuľkami/filler výhonkami a zubatými zelenými listami. Viac farebných variantov.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Mini ruže + drobné filler bobuľky/kvietky na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Skupinový záber: kvety-7.jpg. Oranžovo-ružová = zámerný mix oranžových a staroružových ruží v jednom zväzku. Chýbajú samostatné detail zábery (pot obsahuje aj ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-8.jpg", "kvety-14.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": ["kvety-9.jpg", "kvety-15.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-10.jpg", "kvety-13.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "oranžovo-ružová",
+        "photosOrdered": ["kvety-11.jpg", "kvety-12.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      }
+    ]
+  }
+]

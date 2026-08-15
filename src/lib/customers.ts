@@ -23,6 +23,8 @@ export type Customer = {
   zip: string;
   country: string;
   note?: string;
+  /** ISO date YYYY-MM-DD */
+  birthDate?: string;
   createdAtLabel: string;
   registeredAtLabel?: string;
   createdAt: string;
@@ -41,6 +43,7 @@ export type WholesaleRegistrationInput = {
   zip: string;
   country: string;
   note?: string;
+  birthDate?: string;
   password: string;
 };
 
@@ -52,6 +55,7 @@ export type RetailRegistrationInput = {
   city: string;
   zip: string;
   country: string;
+  birthDate?: string;
   password: string;
 };
 
@@ -142,6 +146,7 @@ export function profileToCustomer(row: ProfileRow): Customer {
     zip: row.zip,
     country: row.country,
     note: row.note ?? undefined,
+    birthDate: row.birth_date ?? undefined,
     createdAt: row.created_at,
     registeredAt: row.registered_at ?? undefined,
     createdAtLabel: formatRelativeSk(row.created_at),

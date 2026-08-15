@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { productHref, type Product } from "@/lib/products";
+import { usePricedProducts } from "@/lib/use-priced-product";
 
 type ProductSearchResultsProps = {
   products: Product[];
@@ -22,8 +23,9 @@ export function ProductSearchResults({
   variant = "desktop",
 }: ProductSearchResultsProps) {
   const isMobile = variant === "mobile";
+  const pricedProducts = usePricedProducts(products);
 
-  if (products.length === 0) {
+  if (pricedProducts.length === 0) {
     return (
       <p
         className={`text-[#2f2924]/55 ${
@@ -37,7 +39,7 @@ export function ProductSearchResults({
 
   return (
     <ul className={isMobile ? "flex flex-col gap-0.5" : "flex flex-col gap-0.5 p-1.5"}>
-      {products.map((product) => (
+      {pricedProducts.map((product) => (
         <li key={product.id}>
           <Link
             href={productHref(product.slug)}

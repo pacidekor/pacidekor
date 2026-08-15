@@ -1,0 +1,163 @@
+[
+  {
+    "folder": "B1__47-50_PREFOTIŤ",
+    "name": "Pivonka – zväzok",
+    "desc": "Umelý zväzok pivoniek s plnými vrstvenými kvetmi a zelenými listami. Dostupné v troch farbách; stonky viazané páskou.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. KVETY1 (10).jpg = spoločný prehľad všetkých farieb (nepriradené k jednej variante).",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": ["KVETY1 (1).jpg", "KVETY1 (7).jpg", "KVETY1 (2).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["KVETY1 (4).jpg", "KVETY1 (8).jpg", "KVETY1 (3).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY1 (5).jpg", "KVETY1 (9).jpg", "KVETY1 (6).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__5970B_PREFOTIŤ",
+    "name": "Orchidea Phalaenopsis ružová",
+    "desc": "Umelá orchidea so stonkami, otvorenými kvetmi, zelenými púčikmi a širokými listami. Okvetné lístky ružové so svetlejšími okrajmi.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba jednoznačne ružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY7 (1).jpg", "KVETY7 (3).jpg", "KVETY7 (2).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__970B_PREFOTIŤ",
+    "name": "Orchidea Phalaenopsis biela",
+    "desc": "Umelá biela orchidea s otvorenými kvetmi, zelenými púčikmi a lesklými listami. Stred kvetu so žltými a jemnými ružovými bodkami.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY5 (2).jpg", "KVETY5 (3).jpg", "KVETY5 (1).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__MAGNOLIA ZVAZOK",
+    "name": "Magnólia – zväzok bielo-ružový",
+    "desc": "Umelý zväzok hviezdicových kvetov (magnólia) s bielymi okvetnými lístkami a výrazným ružovým pruhom v strede, zelenými púčikmi a úzkymi listami.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Primárna farba biela s ružovými pruhmi; nie fialová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-28.jpg", "KVETY-27.jpg", "KVETY-30.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__MAGNOLIA_PREFOTIŤ",
+    "name": "Magnólia ružová",
+    "desc": "Umelý stonok magnólie s hviezdicovými kvetmi – sýto ružový stred prechádzajúci do bielych špičiek, zelené púčiky a úzke listy.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba ružová (nie fialová). Rovnaký typ ako B1__MAGNOLIA ZVAZOK, sýtejšia ružová varianta.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY8 (3).jpg", "KVETY8 (1).jpg", "KVETY8 (2).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__2010",
+    "name": "Fiala žltá",
+    "desc": "Umelý stonok fialy (Matthiola) s hustým klasom drobných žltých kvetov a zúbkovanými zelenými listami.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Svetlá maslovožltá – zaradené ako žltá (nie krémová).",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-3.jpg", "kvety-7.jpg", "kvety-2.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__2010R-CR_PREFOTIŤ",
+    "name": "Fiala oranžová / krémová",
+    "desc": "Umelé stonky fialy s hustým klasom drobných kvetov a zúbkovanými listami. Dve farebné varianty: sýta oranžová a teplá krémová.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. KVETY22-7.jpg = spoločný záber oranžová+krémová vo váze (nepriradené k jednej variante). Rovnaký typ ako B2__2010.",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": ["KVETY-75.jpg", "KVETY22-9.jpg", "KVETY-73.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["KVETY-76.jpg", "KVETY22-8.jpg", "KVETY-74.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__260PI",
+    "name": "Orchidea Cymbidium",
+    "desc": "Umelý stonok orchidey Cymbidium s viacerými kvetmi a zelenými púčikmi na špičke. Dostupné v troch farbách.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "KVETY-124.jpg = spoločný záber všetkých farieb vo váze. Zelená varianta má na pysku fialové bodky (primárna farba zostáva zelená). Ružová je ružová, nie fialová.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY-125.jpg", "KVETY-131.jpg", "KVETY-128.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-127.jpg", "KVETY-132.jpg", "KVETY-129.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["KVETY-126.jpg", "KVETY-133.jpg", "KVETY-130.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

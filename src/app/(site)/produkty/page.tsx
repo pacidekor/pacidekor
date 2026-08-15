@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
-import { listProducts } from "@/lib/products-server";
+import { listPricedProducts } from "@/lib/products-server";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Produkty",
@@ -9,7 +11,7 @@ export const metadata: Metadata = {
 };
 
 export default async function ProduktyPage() {
-  const products = await listProducts();
+  const products = await listPricedProducts();
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">

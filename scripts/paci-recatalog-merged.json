@@ -1,0 +1,5397 @@
+[
+  {
+    "folder": "---",
+    "name": "Zeleň perovitá (asparágus)",
+    "desc": "Umelá perovitá zeleň s jemnými ihlicovitými lístkami na tenkom zelenom stonku. Svietivá zelená, vhodná do vázy alebo ako výplň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka bez číselného názvu (---). Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-210.jpg",
+          "kvety-208.jpg",
+          "kvety-209.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "1",
+    "name": "Voskovka fialová",
+    "desc": "Umelý stonok s drobnými fialovo-levanduľovými kvetmi a ihlicovitou zeleňou. Previsnuté vetvičky vhodné do vázy alebo ako filler.",
+    "type": "voskovka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba je jasne fialová/levanduľová, nie ružová.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-87.jpg",
+          "kvety-88.jpg",
+          "kvety-86.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "10",
+    "name": "Mini ruže ružové – zväzok",
+    "desc": "Kompaktný zväzok drobných prašnoružových ruží so zelenými listami a drobnými bobuľovými/filler akcentmi. Vhodné do menšej vázy.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Mini ruže + drobné filler kvety/bobuľky na tom istom zväzku (nie peónia).",
+    "skipReason": null,
+    "notes": "Primárna farba kvetov je prašná ružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-63.jpg",
+          "kvety-64.jpg",
+          "kvety-65.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "11",
+    "name": "Orchidea (mini spray)",
+    "desc": "Umelá orchidea s dlhým zeleným stonkom, otvorenými kvetmi a púčikmi. Viac farebných variantov – do vázy alebo aranžmánov.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-122.jpg. Ružová = bledoružové lupene + magenta stred; fialová = sýta tmavá fialová (nie ružová); krémová = krémové/bledožlté lupene + magenta stred. Extra: ružová 112+128; krémová 114+117; biela 118 (druhý pot/full, chýba samostatný stem).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-121.jpg",
+          "kvety-123.jpg",
+          "kvety-109.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-120.jpg",
+          "kvety-124.jpg",
+          "kvety-110.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-115.jpg",
+          "kvety-125.jpg",
+          "kvety-111.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-116.jpg",
+          "kvety-126.jpg",
+          "kvety-113.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-119.jpg",
+          "kvety-127.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "13",
+    "name": "Jazmínový spray biely",
+    "desc": "Vetvička s drobnými bielymi hviezdicovými kvetmi, krémovými klasmi púčikov a zúbkovanými zelenými listami. Vzdušný filler.",
+    "type": "jazmín/filler",
+    "mixedTypes": true,
+    "mixedNote": "Biele hviezdicové kvety + krémové klasovité púčiky na jednom sprayi.",
+    "skipReason": null,
+    "notes": "Primárna farba kvetov biela; filler púčiky krémové.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-60.jpg",
+          "kvety-61.jpg",
+          "kvety-62.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "18",
+    "name": "Listový konár (lesklý)",
+    "desc": "Umelý konár s oválnymi lesklými zelenými listami a hnedým drevnatým stonkom. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Väčšie oválne listy; stonok hnedý.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-39.jpg",
+          "kvety-37.jpg",
+          "kvety-38.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "19",
+    "name": "Zeleň so zúbkovanými listami",
+    "desc": "Umelé stonky s drobnými zelenými oválnymi listami so zúbkovaným okrajom. Neutrálna výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Menšie listy než zložka 18; tvar bližší k ruscus/boxwood.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-40.jpg",
+          "kvety-42.jpg",
+          "kvety-41.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "20",
+    "name": "Ginkgo žlté",
+    "desc": "Umelý konár s vejárovými listami ginka v sýtej žltej farbe. Jesenný dekoratívny doplnok.",
+    "type": "ginkgo",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": null,
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-49.jpg",
+          "kvety-43.jpg",
+          "kvety-48.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "21",
+    "name": "Brečtan pestrobarevný",
+    "desc": "Umelá vetva brečtanu s laločnatými listami – tmavozelený stred a výrazný krémovo-biely okraj. Stonky hnedé, vhodné do vázy alebo ako visiaca zeleň.",
+    "type": "brečtan",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Pestrobarevný (variegovaný) list – zelená + biela/krémová.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-50.jpg",
+          "kvety-44.jpg",
+          "kvety-47.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "22",
+    "name": "Zeleň – listová vetva",
+    "desc": "Umelé zelené listové stonky s párovými oválnymi listami a viditeľnou žilnatinou. Matný prachový zelený tón, vhodné ako výplň do aranžmánov.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jednodruhová listová zeleň (žiadne kvety).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-51.jpg",
+          "kvety-45.jpg",
+          "kvety-46.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "40",
+    "name": "Ruža červená – zväzok",
+    "desc": "Zväzok umelých červených ruží s viacvrstvovými okvetnými lístkami, zelenými zúbkatými listami a zviazanou zelenou stonkou.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Sýta klasická červená; jeden druh.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-65.jpg",
+          "kvety-66.jpg",
+          "kvety-67.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "44",
+    "name": "Pivoňka biela – mix",
+    "desc": "Biele plnokveté pivoňky s drobnými bielymi výplňovými kvetmi, zelenými listami a občasnými červenkastými listovými akcentmi na spoločnej stonke.",
+    "type": "pivoňka",
+    "mixedTypes": true,
+    "mixedNote": "Pivoňka + drobné biele výplňové kvety (astilbe/hortenzia štýl) + červenkasté listové akcenty.",
+    "skipReason": null,
+    "notes": "Hlavná farba kvetov biela; stonka hnedá.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-53.jpg",
+          "kvety-54.jpg",
+          "kvety-56.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "45",
+    "name": "Zmiešaná zložka – pivoňka/hortenzia a ruža",
+    "desc": "V jednej zložke dve odlišné kytice: biela (pivoňka + hortenzia) a tmavočervená (ruža + drobné hviezdicové kvety). Odporúčané rozdeliť na samostatné produkty.",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Dva odlišné produkty: 1) biela pivoňka + hortenzia; 2) červená ruža + drobné hviezdicové výplňové kvety. Nie je to jedna farba jedného typu.",
+    "skipReason": null,
+    "notes": "Farby sú oddelené vo variantoch; zložku treba rozdeliť.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-59.jpg",
+          "kvety-60.jpg",
+          "kvety-61.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-64.jpg",
+          "kvety-63.jpg",
+          "kvety-62.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "50",
+    "name": "Georgína – zväzok",
+    "desc": "Umelé georgíny s hustými špicatými okvetnými lístkami, zúbkatými listami a drobnými bielymi/zelenými výplňovými vetvičkami. Dve farby: prachovo ružová a tmavá vínovo červená.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-29.jpg ukazuje obe farby spolu vo váze (spoločný záber). Výplňové drobné vetvičky nie sú samostatný druh kvetu.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-26.jpg",
+          "kvety-23.jpg",
+          "kvety-27.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-25.jpg",
+          "kvety-24.jpg",
+          "kvety-28.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "52",
+    "name": "Georgína mini – viacfarby",
+    "desc": "Malé plnokveté umelé georgíny/chryzantémy na jednej hlavnej stonke so zúbkatými listami a jemnými výplňovými vetvičkami. Viacero farieb tej istej rady.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-36.jpg je spoločný záber viacerých farieb vo váze. Dva odtiene ružovej (prachová vs. svetlá) – oba ako ružová. Biela nemá samostatný detail záber. Oranžová = broskyňovo-oranžový odtieň (nie sýta oranžová).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-46.jpg",
+          "kvety-30.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-42.jpg",
+          "kvety-38.jpg",
+          "kvety-33.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-43.jpg",
+          "kvety-40.jpg",
+          "kvety-31.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-47.jpg",
+          "kvety-37.jpg",
+          "kvety-34.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-45.jpg",
+          "kvety-41.jpg",
+          "kvety-32.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "kvety-44.jpg",
+          "kvety-39.jpg",
+          "kvety-35.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "54",
+    "name": "Krásnoočko (cosmos)",
+    "desc": "Umelé vetvy cosmosu s jemnými perovitými listami, drobnými púčikmi a žltými stredmi. Dve farby okvetných lístkov: ružová a svetlo fialová (lavanda s bielym prechodom k stredu).",
+    "type": "cosmos",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Ružová ≠ fialová: ružová je jasne pink, fialová je lavandová. kvety-68.jpg ukazuje obe farby spolu vo prútenej váze. Centrá žltá.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-67.jpg",
+          "kvety-70.jpg",
+          "kvety-64.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-66.jpg",
+          "kvety-69.jpg",
+          "kvety-65.jpg"
+        ],
+        "shotTypes": [
+          "pot",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "6",
+    "name": "Hortenzia – stonok",
+    "desc": "Umelá hortenzia s hustými guľovitými súkvetiami drobných štvorlupienkových kvetov a veľkými zúbkovanými listami. Dostupné vo štyroch farbách.",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-51.jpg je spoločný záber všetkých farieb vo váze (nepriradený k jednej farbe).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-52.jpg",
+          "kvety-59.jpg",
+          "kvety-48.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-53.jpg",
+          "kvety-58.jpg",
+          "kvety-49.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-54.jpg",
+          "kvety-56.jpg",
+          "kvety-50.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-55.jpg",
+          "kvety-57.jpg",
+          "kvety-47.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "77DOKONČIŤ!!",
+    "name": "Zmiešaná zložka – eukalyptus + fialový filler",
+    "desc": "V jednej zložke sú dva odlišné produkty: okrúhly eukalyptus v prašnoružovej/staroružovej a jemný perovitý kvitnúci filler vo fialovej.",
+    "type": "eukalyptus",
+    "mixedTypes": true,
+    "mixedNote": "Eukalyptus (ružová/mauve) vs. perovitý filler (fialová) – rozdeliť na 2 produkty. Zložka označená DOKONČIŤ.",
+    "skipReason": null,
+    "notes": "kvety-229.jpg je zákulisný záber s osobou; stále ukazuje celý stonok. Farba eukalyptu je prašnoružová/mauve, nie fialová.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-226.jpg",
+          "kvety-225.jpg",
+          "kvety-224.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-227.jpg",
+          "kvety-228.jpg",
+          "kvety-229.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__014_01_PREFOTIŤ",
+    "name": "Mini ruže krémové s bobuľami",
+    "desc": "Zväzok drobných umelých ruží v krémovej až jemne ružovkastej farbe, s hnedými bobuľami, drobnými bielymi doplnkami a eukalyptovou zeleňou.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Kompozitný zväzok: ruže + hnedé bobule + drobné biele kvietky + eukalyptová zeleň (jeden predajný aranžmán).",
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Dominantná farba krémová s ružovým nádychom.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY4 (2).jpg",
+          "KVETY4 (6).jpg",
+          "KVETY4 (1).jpg",
+          "KVETY4 (3).jpg",
+          "KVETY4 (5).jpg",
+          "KVETY4 (4).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem",
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__1004CR",
+    "name": "Hortenzia krémová",
+    "desc": "Umelá hortenzia s hustými krémovými súkvetiami a veľkými tmavozelenými zúbkovanými listami.",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": null,
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-49.jpg",
+          "kvety-45.jpg",
+          "kvety-41.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__128YL_PREFOTIŤ",
+    "name": "Drobné hviezdicové kvietky",
+    "desc": "Hustý zväzok drobných päťlupienkových hviezdicových kvietkov na tenkých zelených stonkách. Dve farby: krémová a žltá (limetková).",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY22-13.jpg je spoločný záber oboch farieb vo váze.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY-49.jpg",
+          "KVETY-56.jpg",
+          "KVETY-53.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "KVETY-50.jpg",
+          "KVETY-55.jpg",
+          "KVETY-54.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__24LV_PREFOTIŤ",
+    "name": "Levanduľa fialová",
+    "desc": "Umelé stonky levandule s hustými fialovými klasmi na sivzelených stonkách.",
+    "type": "levanduľa",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Farba jednoznačne fialová (nie ružová).",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "KVETY-47.jpg",
+          "KVETY-45.jpg",
+          "KVETY-46.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__2602_PREFOTIŤ",
+    "name": "Magnólia – konárik",
+    "desc": "Umelý drevený konárik magnólie s otvorenými kvetmi, chlpatými púčikmi a drobnými zelenými listami. Farby: ružová a svetlozelená.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Súbory majú dvojitú medzeru v názve (KVETY9  (n).jpg). KVETY9  (10).jpg je spoločný záber oboch farieb.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY9  (1).jpg",
+          "KVETY9  (8).jpg",
+          "KVETY9  (4).jpg",
+          "KVETY9  (2).jpg",
+          "KVETY9  (5).jpg",
+          "KVETY9  (7).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem",
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY9  (3).jpg",
+          "KVETY9  (9).jpg",
+          "KVETY9  (6).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__4123",
+    "name": "Drobný filler – hviezdicové kvietky",
+    "desc": "Vzdušný umelý filler s drobnými hviezdicovými kvetmi na vetvených zelených stonkách. Farby: biela a ružová (koralovo-lososová).",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-52.jpg je spoločný záber oboch farieb vo váze. Ružová je koralová/lososová, nie fialová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-50.jpg",
+          "kvety-46.jpg",
+          "kvety-43.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-51.jpg",
+          "kvety-47.jpg",
+          "kvety-42.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__47-50_PREFOTIŤ",
+    "name": "Pivonka – zväzok",
+    "desc": "Umelý zväzok pivoniek s plnými vrstvenými kvetmi a zelenými listami. Dostupné v troch farbách; stonky viazané páskou.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. KVETY1 (10).jpg = spoločný prehľad všetkých farieb (nepriradené k jednej variante).",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "KVETY1 (1).jpg",
+          "KVETY1 (7).jpg",
+          "KVETY1 (2).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY1 (4).jpg",
+          "KVETY1 (8).jpg",
+          "KVETY1 (3).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY1 (5).jpg",
+          "KVETY1 (9).jpg",
+          "KVETY1 (6).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__5970B_PREFOTIŤ",
+    "name": "Orchidea Phalaenopsis ružová",
+    "desc": "Umelá orchidea so stonkami, otvorenými kvetmi, zelenými púčikmi a širokými listami. Okvetné lístky ružové so svetlejšími okrajmi.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba jednoznačne ružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY7 (1).jpg",
+          "KVETY7 (3).jpg",
+          "KVETY7 (2).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__970B_PREFOTIŤ",
+    "name": "Orchidea Phalaenopsis biela",
+    "desc": "Umelá biela orchidea s otvorenými kvetmi, zelenými púčikmi a lesklými listami. Stred kvetu so žltými a jemnými ružovými bodkami.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY5 (2).jpg",
+          "KVETY5 (3).jpg",
+          "KVETY5 (1).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__MAGNOLIA ZVAZOK",
+    "name": "Magnólia – zväzok bielo-ružový",
+    "desc": "Umelý zväzok hviezdicových kvetov (magnólia) s bielymi okvetnými lístkami a výrazným ružovým pruhom v strede, zelenými púčikmi a úzkymi listami.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Primárna farba biela s ružovými pruhmi; nie fialová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-28.jpg",
+          "KVETY-27.jpg",
+          "KVETY-30.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B1__MAGNOLIA_PREFOTIŤ",
+    "name": "Magnólia ružová",
+    "desc": "Umelý stonok magnólie s hviezdicovými kvetmi – sýto ružový stred prechádzajúci do bielych špičiek, zelené púčiky a úzke listy.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba ružová (nie fialová). Rovnaký typ ako B1__MAGNOLIA ZVAZOK, sýtejšia ružová varianta.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY8 (3).jpg",
+          "KVETY8 (1).jpg",
+          "KVETY8 (2).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__2010",
+    "name": "Fiala žltá",
+    "desc": "Umelý stonok fialy (Matthiola) s hustým klasom drobných žltých kvetov a zúbkovanými zelenými listami.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Svetlá maslovožltá – zaradené ako žltá (nie krémová).",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-3.jpg",
+          "kvety-7.jpg",
+          "kvety-2.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__2010R-CR_PREFOTIŤ",
+    "name": "Fiala oranžová / krémová",
+    "desc": "Umelé stonky fialy s hustým klasom drobných kvetov a zúbkovanými listami. Dve farebné varianty: sýta oranžová a teplá krémová.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. KVETY22-7.jpg = spoločný záber oranžová+krémová vo váze (nepriradené k jednej variante). Rovnaký typ ako B2__2010.",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "KVETY-75.jpg",
+          "KVETY22-9.jpg",
+          "KVETY-73.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY-76.jpg",
+          "KVETY22-8.jpg",
+          "KVETY-74.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__260PI",
+    "name": "Orchidea Cymbidium",
+    "desc": "Umelý stonok orchidey Cymbidium s viacerými kvetmi a zelenými púčikmi na špičke. Dostupné v troch farbách.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "KVETY-124.jpg = spoločný záber všetkých farieb vo váze. Zelená varianta má na pysku fialové bodky (primárna farba zostáva zelená). Ružová je ružová, nie fialová.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-125.jpg",
+          "KVETY-131.jpg",
+          "KVETY-128.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-127.jpg",
+          "KVETY-132.jpg",
+          "KVETY-129.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY-126.jpg",
+          "KVETY-133.jpg",
+          "KVETY-130.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__29459YL",
+    "name": "Žltá kvitnúca halúzka",
+    "desc": "Umelá dlhá halúzka s hnedým stonkom, drobnými oválnymi zelenými lístkami a strapcami jasne žltých kvetov. Vhodná do vázy alebo ako filler.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-15.jpg",
+          "kvety-16.jpg",
+          "kvety-17.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__3891_PREFOTIŤ",
+    "name": "Zväzok ruží a hortenzie",
+    "desc": "Umelý zväzok s plnými ružami a strapcami drobných hortenziových kvetov, zelenými listami a jemnými hnedými prvkami. Staroružový tón.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Ruže + hortenzia (drobné štvorlupienkové floretky) na jednom zväzku.",
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba prašná/staroružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-145.jpg",
+          "KVETY-144.jpg",
+          "KVETY-146.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__439W_PREFOTIŤ",
+    "name": "Kala biela",
+    "desc": "Umelá kala s bielym kvetom, žltým stredom (spadix) a dlhým zeleným stonkom. Elegantný solitér do vázy.",
+    "type": "kala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Pot záber: dve stonky v čiernej váze.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-175.jpg",
+          "KVETY-174.jpg",
+          "KVETY-173.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__9222_PREFOTIŤ",
+    "name": "Kalina (guľaté púčiky)",
+    "desc": "Umelá halúzka s hustým guľatým súkvetím drobných púčikov a zúbkovanými zelenými listami. Viac farebných variantov.",
+    "type": "kalina",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Chýbajú samostatné detail zábery podľa farby. Skupinové: KVETY-81.jpg (ležmo), KVETY-82.jpg (spoločne vo váze). Biela varianta má bielo-zelené púčiky.",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "KVETY-84.jpg",
+          "KVETY-86.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-85.jpg",
+          "KVETY-87.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-83.jpg",
+          "KVETY-88.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__9406_PREFOTIŤ",
+    "name": "Kosatec",
+    "desc": "Umelý kosatec s typickými okvetnými lístkami, mečovitými zelenými listami a dlhým stonkom. Štyri farebné varianty.",
+    "type": "kosatec",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Skupinový záber všetkých farieb: KVETY-62.jpg. Žltá/biela majú žlté signálne škvrny; fialová má biele okraje a žltý stred.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "KVETY-57.jpg",
+          "KVETY-69.jpg",
+          "KVETY-63.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "KVETY-58.jpg",
+          "KVETY-67.jpg",
+          "KVETY-64.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-59.jpg",
+          "KVETY-68.jpg",
+          "KVETY-123.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "KVETY-60.jpg",
+          "KVETY-66.jpg",
+          "KVETY-65.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__P107",
+    "name": "Halúzka s púčikmi",
+    "desc": "Umelá filler halúzka s ihlicovitými zelenými lístkami a strapcami drobných guľatých púčikov. Dve farby.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-14.jpg. Pot zábery (8, 9) majú aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-8.jpg",
+          "kvety-12.jpg",
+          "kvety-11.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-9.jpg",
+          "kvety-13.jpg",
+          "kvety-10.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__SUN-641_PREFOTIŤ",
+    "name": "Klinček krémový",
+    "desc": "Umelý klinček s volánovitými okvetnými lístkami, viacerými kvetmi a púčikmi na rozvetvenom zelenom stonku.",
+    "type": "klinček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba krémová/off-white (nie sýto biela).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY203.jpg",
+          "KVETY2-1.jpg",
+          "KVETY-90.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B2__WEI1022_PREFOTIŤ",
+    "name": "Echinacea",
+    "desc": "Umelá echinacea s previsnutými okvetnými lístkami a výrazným špicatým kužeľovým stredom. Štyri farebné varianty na rozvetvenom stonku.",
+    "type": "echinacea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Skupinový záber všetkých farieb: KVETY17   (10).jpg. Názvy súborov majú tri medzery pred zátvorkou.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY17   (7).jpg",
+          "KVETY17   (1).jpg",
+          "KVETY17   (5).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY17   (6).jpg",
+          "KVETY17   (2).jpg",
+          "KVETY17   (11).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "KVETY17   (8).jpg",
+          "KVETY17   (3).jpg",
+          "KVETY17   (12).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "KVETY17   (9).jpg",
+          "KVETY17   (4).jpg",
+          "KVETY17   (13).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__160HD_PREFOTIŤ",
+    "name": "Sasanka – viacfarby",
+    "desc": "Umelé sasanky s jemnými vrstvenými lupenmi a tmavým chlpatým stredom, na dlhej stonke s tmavozelenými zúbkatými listami. Tri farby: oranžová, ružová a horčicová žltá.",
+    "type": "sasanka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY29 (9).jpg = spoločný záber všetkých troch farieb vo váze.",
+    "variants": [
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "KVETY29 (2).jpg",
+          "KVETY29 (3).jpg",
+          "KVETY29 (4).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY29 (6).jpg",
+          "KVETY29 (1).jpg",
+          "KVETY29 (5).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "KVETY29 (8).jpg",
+          "KVETY29 (7).jpg",
+          "KVETY29 (10).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__20599C_PREFOTIŤ",
+    "name": "Orchidea biela",
+    "desc": "Umelá orchidea s bielymi lupenmi a žltým stredom, na dlhom zelenom stonku s púčikmi. Vhodná do vázy alebo aranžmánov.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-162.jpg",
+          "KVETY-164.jpg",
+          "KVETY-163.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__34505_01",
+    "name": "Pivonka krémová – zväzok",
+    "desc": "Umelý zväzok plnokvetých krémových pivoniek/ranunculus so žltým stredom, zelenými listami a hnedočervenými perovitými výplňovými vetvičkami.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonka + hnedočervené perovité filler vetvičky + drobná zelená výplň (jeden predajný zväzok).",
+    "skipReason": null,
+    "notes": "kvety-44.jpg ukazuje zväzok vo váze aj ležiaci na látke.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-44.jpg",
+          "kvety-45.jpg",
+          "kvety-46.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__879BL-BR_PREFOTIŤ",
+    "name": "Slnečnica sušená – hlávky",
+    "desc": "Umelé/sušené slnečnicové hlávky bez žltých lupenov – špicaté listeny okolo textúrneho stredu, na dlhej fuzzy stonke. Dve farby: hnedá a čierna.",
+    "type": "slnečnica",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ (BL-BR = modro-hnedá rada). KVETY22-5.jpg = spoločný záber hnedá+čierna. Extra stonky: KVETY-159.jpg (čierna), KVETY-160.jpg (hnedá/zelená).",
+    "variants": [
+      {
+        "color": "hnedá",
+        "photosOrdered": [
+          "KVETY-154.jpg",
+          "KVETY-157.jpg",
+          "KVETY-161.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "čierna",
+        "photosOrdered": [
+          "KVETY-155.jpg",
+          "KVETY-156.jpg",
+          "KVETY-158.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__900PU_PREFOTIŤ",
+    "name": "Drobný kvet fialový (trsy)",
+    "desc": "Umelý filler s hustými trsmi drobných tmavofialových púčikov a listami so zeleným stredom a fialovým okrajom. Vhodný do aranžmánov.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ (PU = purple). Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "KVETY-176.jpg",
+          "KVETY-177.jpg",
+          "KVETY-178.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__906-05_PREFOTIŤ",
+    "name": "Voskovka drobnokvetá",
+    "desc": "Umelé drobné päťlupenové kvietky v hustých trsoch na tenkých drevnatých stonkoch s ihlicovitými listami. Dve farby: fialová a ružová.",
+    "type": "voskovka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY22-6.jpg = spoločný záber fialová+ružová vo váze.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "KVETY-165.jpg",
+          "KVETY-169.jpg",
+          "KVETY-170.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-166.jpg",
+          "KVETY-168.jpg",
+          "KVETY-171.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__9681+9157_PREFOTIŤ",
+    "name": "Zmiešaná zložka – eryngium a klasový filler",
+    "desc": "V jednej zložke dva odlišné produkty (kódy 9681+9157): ostnaté hviezdicové vetvičky (zeleno-biele) a jemný klasovitý filler (krémový).",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Dva produkty: 1) ostnaté hviezdicové kvety/eryngium (zelená); 2) klasovitý filler typu levanduľa (krémová). Odporúčané rozdeliť.",
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Farby vo variantoch = oddelené produkty, nie farebné verzie jedného typu.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY-183.jpg",
+          "KVETY-184.jpg",
+          "KVETY-182.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY-186.jpg",
+          "KVETY-187.jpg",
+          "KVETY-185.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__BUK013",
+    "name": "Mix kytica bielo-zelená",
+    "desc": "Umelá zmiešaná kytica: ostnaté zelenobiele guličky, drobné biele filler kvietky, eukalyptové listy a ďalšia zelená výplň na spoločnom zväzku.",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Kompozitný zväzok: ostnaté guličky + drobné biele kvietky + eukalyptus + ďalšia zeleň (jeden predajný aranžmán).",
+    "skipReason": null,
+    "notes": "Dominantná paleta bielo-zelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY-206.jpg",
+          "KVETY-205.jpg",
+          "KVETY-207.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__BUK1013",
+    "name": "Miešaná kytica – guľovité kvety a eukalyptus",
+    "desc": "Umelá miešaná kytica s guľovitými bodliakovitými kvetmi, drobnými bielymi filler kvetmi a eukalyptovou zeleňou na spoločnej zelenej stonke.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Guľovité thistlovité kvety + drobné biele filler kvety + eukalyptus a ďalšia listová zeleň.",
+    "skipReason": null,
+    "notes": "Dve farebné varianty (zelená/biela a ružová). KVETY-151.jpg = extra pot/full ružovej.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY-147.jpg",
+          "KVETY-150.jpg",
+          "KVETY-152.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-148.jpg",
+          "KVETY-149.jpg",
+          "KVETY-153.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__BUK1017",
+    "name": "Drobné biele kvietky – zväzok",
+    "desc": "Zväzok drobných bielych kvetov so žltým stredom, zelenými púčikmi a zúbkatými listami. Vhodné do vázy alebo ako filler.",
+    "type": "filler",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Stonky viazané hnedou páskou.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-180.jpg",
+          "KVETY-181.jpg",
+          "KVETY-179.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__CAN2906",
+    "name": "Voskovka krémová",
+    "desc": "Umelá voskovka s drobnými krémovými kvetmi, ihlicovitou zeleňou a tenkým hnedým stonkom. Vzdušný filler.",
+    "type": "voskovka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba krémová/béžová (nie čisto biela).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-6.jpg",
+          "kvety-5.jpg",
+          "kvety-4.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__FMN1009_PREFOTIŤ",
+    "name": "Orchidea Cymbidium",
+    "desc": "Umelá cymbidium orchidea so šťavnatými okvetnými lístkami a výrazným stredom. Viac farebných variantov – do vázy alebo zväzku.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Chýbajú pot/full zábery – len detail + stem. KVETY-134.jpg = spoločný detail všetkých farieb. Extra detaily: zelená 143, ružová 141, biela 142.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY-135.jpg",
+          "KVETY-138.jpg"
+        ],
+        "shotTypes": [
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY-136.jpg",
+          "KVETY-140.jpg"
+        ],
+        "shotTypes": [
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY-137.jpg",
+          "KVETY-139.jpg"
+        ],
+        "shotTypes": [
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B3__QD052",
+    "name": "Ruža krémová – spray",
+    "desc": "Umelý spray s viacerými krémovými ružami na dlhej hnedej stonke a tmavozelenými listami.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba krémová/slonovinová. Na vrchole stonky občas drobné striebristo-zelené lístky.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY-202.jpg",
+          "KVETY-203.jpg",
+          "KVETY-201.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__17934",
+    "name": "Chryzantéma pomponková",
+    "desc": "Umelá pomponková chryzantéma so 3–4 guľovitými kvetnými hlavami na rozvetvenej stonke a zúbkatými listami. Viac farieb.",
+    "type": "chryzantéma",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-62.jpg = spoločný záber všetkých farieb vo váze. Fialová = staroružovo-mauve (nie čistá ružová); ružová = bledá/lososová.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-64.jpg",
+          "kvety-69.jpg",
+          "kvety-56.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-65.jpg",
+          "kvety-70.jpg",
+          "kvety-57.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-66.jpg",
+          "kvety-71.jpg",
+          "kvety-58.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-63.jpg",
+          "kvety-68.jpg",
+          "kvety-59.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-67.jpg",
+          "kvety-72.jpg",
+          "kvety-60.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__9202",
+    "name": "Kvitnúca halúzka (hviezdicové kvety)",
+    "desc": "Umelá tenká halúzka s drobnými hviezdicovými kvetmi pozdĺž horných vetvičiek. Vzdušný dekor do vázy.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-96.jpg = spoločný záber žltá+zelená vo váze. Zelená = limetkovo-biela (nie sýta zelená).",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-99.jpg",
+          "kvety-98.jpg",
+          "kvety-101.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-100.jpg",
+          "kvety-97.jpg",
+          "kvety-102.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__A5_04573",
+    "name": "Drobnolistá zeleň (sedum/filler)",
+    "desc": "Umelá drobná výplňová zeleň s hustými ružičkovými lístkami na rozvetvených stonkách. Vhodná ako filler.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-93.jpg = spoločný záber oboch farieb. Ružová = zelený základ s prašnoružovými špičkami.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-92.jpg",
+          "kvety-94.jpg",
+          "kvety-89.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-91.jpg",
+          "kvety-95.jpg",
+          "kvety-90.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__BFG413",
+    "name": "Rebríček fialový",
+    "desc": "Umelý stonok s plochými súkvetiami drobných fialových kvetov na zelenom stonku. Vhodný do vázy alebo ako filler.",
+    "type": "rebríček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-23.jpg druhý pot/full; kvety-22.jpg detail s jemne ojedeným/frostovým povrchom.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-20.jpg",
+          "kvety-21.jpg",
+          "kvety-19.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__CAN20031_01",
+    "name": "Kytica krémové pompony",
+    "desc": "Umelá kytica s veľkými krémovými pomponovými kvetmi, drobnými zelenými guľovitými fillerami a listovou zeleňou.",
+    "type": "chryzantéma",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné pomponové kvety + zelené bodliakovité/guľovité fillery + papradie a listy.",
+    "skipReason": null,
+    "notes": "Farba kvetov krémová až jemne zeleno-krémová.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-1.jpg",
+          "kvety-2.jpg",
+          "kvety-3.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__CAN319941",
+    "name": "Nevestin závoj (gypsofilka)",
+    "desc": "Umelý stonok gypsofilky s drobnými hustými kvetmi na vetvenom stonku. Dostupné v bielej a ružovej.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-32.jpg. Extra ružová: pot 34+36, stem/detail 26+27+30+31; biela bez ďalších.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-35.jpg",
+          "kvety-28.jpg",
+          "kvety-24.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-33.jpg",
+          "kvety-29.jpg",
+          "kvety-25.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__FMN1009",
+    "name": "Mak",
+    "desc": "Umelý mak s volánovitými okvetnými lístkami, púčikom a chlpatými zelenými listami na dlhom stonku. Tri farby.",
+    "type": "mak",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-93.jpg.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-77.jpg",
+          "kvety-82.jpg",
+          "kvety-83.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-78.jpg",
+          "kvety-81.jpg",
+          "kvety-84.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-92.jpg",
+          "kvety-94.jpg",
+          "kvety-95.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__SUN-498-012",
+    "name": "Fiala krémová",
+    "desc": "Umelý stonok fialy (Matthiola) s hustým klasom krémových/smotanových kvetov a zúbkovanými zelenými listami.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-106.jpg druhý pot/full; kvety-104.jpg druhý stem; kvety-108.jpg druhý detail/stonka.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-105.jpg",
+          "kvety-107.jpg",
+          "kvety-103.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__SUN561",
+    "name": "Hyacint",
+    "desc": "Umelý hyacint s hustým klasom drobných hviezdicových kvetov a dlhými zelenými listami. Viac farebných variantov.",
+    "type": "hyacint",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinové zábery farieb: kvety-72.jpg, kvety-73.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-79.jpg",
+          "kvety-85.jpg",
+          "kvety-66.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-78.jpg",
+          "kvety-84.jpg",
+          "kvety-67.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetlofialová",
+        "photosOrdered": [
+          "kvety-77.jpg",
+          "kvety-83.jpg",
+          "kvety-68.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-75.jpg",
+          "kvety-81.jpg",
+          "kvety-70.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-76.jpg",
+          "kvety-82.jpg",
+          "kvety-69.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-74.jpg",
+          "kvety-80.jpg",
+          "kvety-71.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "B4__XH010",
+    "name": "Kvitnúca vetva (drobný kvet)",
+    "desc": "Umelá vetva s drobnými päťlupienkovými kvetmi na tmavom drevenom stonku. Tri farby – do vázy alebo aranžmánov.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-9.jpg. Broskyňová = prašná/hnedoružová až oranžovo-broskyňová.",
+    "variants": [
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-17.jpg",
+          "kvety-16.jpg",
+          "kvety-18.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "broskyňová",
+        "photosOrdered": [
+          "kvety-10.jpg",
+          "kvety-11.jpg",
+          "kvety-12.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-13.jpg",
+          "kvety-15.jpg",
+          "kvety-14.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C1__GLADIOLA ZVAZOK",
+    "name": "Gladiola biela – zväzok",
+    "desc": "Umelé biele gladioly (mečíky) s tromi otvorenými kvetmi a zelenými púčikmi na tenkom stonku. Vhodné do vázy.",
+    "type": "gladiola",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Tvar kvetov pripomína aj fréziu; podľa názvu zložky katalogizované ako gladiola.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-4.jpg",
+          "kvety-5.jpg",
+          "kvety-1.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C15__0514WH",
+    "name": "Iskerník biely",
+    "desc": "Umelý stonok iskerníka s vrstvenými bielymi kvetmi, púčikom a zelenými laločnatými listami. Vhodný do vázy.",
+    "type": "iskerník",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. WH = biela.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-54.jpg",
+          "kvety-55.jpg",
+          "kvety-53.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C15__205BL(chyba biela)",
+    "name": "Drobné lúčne kvety",
+    "desc": "Umelý stonok s drobnými päťlupienkovými kvetmi a textúrovanými filler klasíkmi na zelenom stonku so zúbkovanými listami. Farby modrá a ružová.",
+    "type": "drobný kvet",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné päťlupienkové kvety + drobné fuzzy/astilbe filler klasíky na tom istom stonku.",
+    "skipReason": null,
+    "notes": "Názov zložky uvádza chybu biela – produkt je modrý/ružový, nie biely. Skupinový záber farieb: kvety-20.jpg. Extra modrá: pot 23+24; stem 18. Extra ružová: pot 21+22; stem 19.",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-24.jpg",
+          "kvety-25.jpg",
+          "kvety-18.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-21.jpg",
+          "kvety-26.jpg",
+          "kvety-19.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C15__423_479-480",
+    "name": "Bobuľové vetvičky",
+    "desc": "Zväzok umelých drobných bobúľ/púčikov na vetvených zelených stonkách, viazaný špagátom. Dostupné v bielej a modrej.",
+    "type": "bobule",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-39.jpg. Extra biela: stem 38+41, pot+stem 40. Extra modrá: stem 37+42, pot+stem 43.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-40.jpg",
+          "kvety-41.jpg",
+          "kvety-38.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-43.jpg",
+          "kvety-42.jpg",
+          "kvety-37.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C16__3104",
+    "name": "Chryzantéma guľatá (pompon)",
+    "desc": "Umelý stonok s viacerými guľovitými pomponovými kvetmi a zúbkovanými zelenými listami. Farby krémová a biela.",
+    "type": "chryzantéma",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-75.jpg. Extra krémová: stem 40+44. Biela: stem 74, detail 73.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-48.jpg",
+          "kvety-44.jpg",
+          "kvety-40.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-75.jpg",
+          "kvety-73.jpg",
+          "kvety-74.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "C16__50813",
+    "name": "Drobné hviezdicové kvety",
+    "desc": "Umelý stonok s hustými zhlukmi drobných hviezdicových kvetov a jemnou papradovitou zeleňou. Tri farby: svetlozelená, fialová, lososová.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-28.jpg. Extra svetlozelená: pot+stem 30, stem 35+37. Extra fialová: pot+stem 31, stem 33+36. Extra lososová: pot+stem 29, stem 34+38.",
+    "variants": [
+      {
+        "color": "svetlozelená",
+        "photosOrdered": [
+          "kvety-30.jpg",
+          "kvety-35.jpg",
+          "kvety-37.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-31.jpg",
+          "kvety-33.jpg",
+          "kvety-36.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "lososová",
+        "photosOrdered": [
+          "kvety-29.jpg",
+          "kvety-34.jpg",
+          "kvety-38.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__",
+    "name": "Dubová halúzka",
+    "desc": "Umelá halúzka s laločnatými dubovými listami v tmavozelenej farbe s bordovým nádychom a žilkovaním.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba – tmavozelená s bordovým tónom. Primárna farba listov: zelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-126.jpg",
+          "kvety-124.jpg",
+          "kvety-125.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__(za regalom)",
+    "name": "Gypsofilka / drobné súkvetia",
+    "desc": "Umelý stonok s drobnými bielymi guľovitými súkvetiami na vetvenom zelenom stonku. Filler do vázy.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená (za regalom). Jedna farba biela.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-97.jpg",
+          "kvety-98.jpg",
+          "kvety-96.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__388",
+    "name": "Eukalyptus úzkolistý",
+    "desc": "Umelý zväzok eukalyptu s úzkymi kopijovitými listami a drobnými plodmi/púčikmi. Listy sivozelené s bordovo-fialovým nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba – sivozelená s bordovým/fialovým tónom. Primárna farba: zelená. Extra stem: 127+128; detail: 130.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-129.jpg",
+          "kvety-130.jpg",
+          "kvety-128.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__5364",
+    "name": "Zeleň listová – hustý zväzok",
+    "desc": "Umelý hustý zväzok zelene s oválnymi tmavozelenými listami a jemnejšími svetlozelenými končekmi. Vhodné do vázy alebo ako výplň.",
+    "type": "zeleň",
+    "mixedTypes": true,
+    "mixedNote": "Širšie oválne listy + jemnejšie svetlozelené vetvičky v tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Jedna farba, 7 fotiek. Extra: kvety-112.jpg a kvety-113.jpg ďalšie pot/full; kvety-110.jpg druhý stem; kvety-114.jpg druhý detail/zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-111.jpg",
+          "kvety-115.jpg",
+          "kvety-109.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__8933",
+    "name": "Eukalyptus drobnolistý",
+    "desc": "Umelá drobnolistá eukalyptová zeleň s matnými prachovo zelenými listami a tenkými stonkami s drobnými zelenými púčikmi. Vhodná ako filler.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Púčiky sú súčasťou tej istej vetvičky, nie iný druh.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-118.jpg",
+          "kvety-116.jpg",
+          "kvety-117.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__BL048",
+    "name": "Zeleň drobnolistá (ruskus štýl)",
+    "desc": "Umelá drobnolistá zelená vetvička s oválnymi listami a jemnými tenkými výhonkami na koncoch. Vzdušná výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Pot vo pletenej prírodnej váze.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-106.jpg",
+          "kvety-107.jpg",
+          "kvety-108.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__BL056",
+    "name": "Listová vetva (rozvetvená)",
+    "desc": "Umelá rozvetvená listová vetva s drobnými oválnymi listami na hnedých drevnatých stonkách. Vzdušný, široký siluetový tvar.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Listy od svetlozelenej na koncoch po tmavšiu zelenú; stonky hnedé.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-141.jpg",
+          "kvety-140.jpg",
+          "kvety-142.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__LIST_RUSKUS 50cm",
+    "name": "Ruskus 50 cm",
+    "desc": "Umelý ruskus s drobnými oválnymi zelenými listami na tenkých zelených stonkách, dĺžka cca 50 cm. Klasická výplňová zeleň.",
+    "type": "ruskus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Názov zložky uvádza 50 cm.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-193.jpg",
+          "kvety-192.jpg",
+          "kvety-194.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__RUSKUS_LIU388",
+    "name": "Ruskus úzkolistý",
+    "desc": "Umelý ruskus/úzkolistá zeleň s dlhými špicatými zelenými listami na tenkom stonku. Vysoký, vzpriamený tvar do vázy.",
+    "type": "ruskus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Listy užšie a dlhšie než klasický ruskus (D1__LIST_RUSKUS).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-197.jpg",
+          "kvety-196.jpg",
+          "kvety-195.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__TIK128",
+    "name": "Listová vetva (lesklá)",
+    "desc": "Umelá listová vetva s lesklými oválnymi tmavozelenými listami a hnedozeleným stonkom. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Lesklé/voskové listy; svetlejšie končeky.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-136.jpg",
+          "kvety-135.jpg",
+          "kvety-134.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D1__TIK189",
+    "name": "Zeleň perovitá (asparágus)",
+    "desc": "Umelá jemná perovitá zeleň s ihlicovitými lístkami na tenkom zelenom stonku. Vzdušný filler do aranžmánov.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Textúra ako asparágus/kôpor.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-137.jpg",
+          "kvety-139.jpg",
+          "kvety-138.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D17__J913",
+    "name": "Zeleň – trávovité listy so špirálami",
+    "desc": "Umelá zeleň s dlhými úzkymi zelenými listami (tráva/palma) a tmavohnedými stočenými dekoratívnymi stonkami v strede. Vhodná do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Hnedé špirály sú súčasť produktu, nie iný druh kvetu. pot/full = 251 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-251.jpg",
+          "kvety-250.jpg",
+          "kvety-249.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__007",
+    "name": "Eukalyptus okrúhly",
+    "desc": "Umelý eukalyptus s malými okrúhlymi listami a zelenými tipmi nového rastu. Dve farby: prašnoružová/mauve a zelená.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Ružová = prašná mauve/staroružová so zelenými tipmi (nie sýta ružová). Zelená = sivozelená/sage.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-99.jpg",
+          "kvety-100.jpg",
+          "kvety-101.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-132.jpg",
+          "kvety-131.jpg",
+          "kvety-133.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__24285DK",
+    "name": "Eukalyptus drobný okrúhly",
+    "desc": "Umelý eukalyptus s hustými drobnými okrúhlymi listami na rozvetvených stonkách. Dve zelené varianty – jasnejšia a sivozelená s fialovým nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-164.jpg. Sivozelená má prašný tón a fialovo-hnedé okraje listov.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-163.jpg",
+          "kvety-165.jpg",
+          "kvety-168.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "sivozelená",
+        "photosOrdered": [
+          "kvety-162.jpg",
+          "kvety-166.jpg",
+          "kvety-167.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__ANA1009",
+    "name": "List mečovitý (aspidistra)",
+    "desc": "Umelý veľký podlhovastý zelený list s výraznou žilnatinou na tenkom segmentovanom stonku. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jeden listový stonok; pot = 3 listy vo wicker váze.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-145.jpg",
+          "kvety-144.jpg",
+          "kvety-143.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__CAN5161",
+    "name": "Zeleň – zúbkaté listy (ružové listy)",
+    "desc": "Umelé stonky so zúbkatými oválnymi listami a drobnými púčikmi/bobuľkami. Dve varianty: tmavozelená a žltozelená s jesenným okrajom.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-155.jpg. Žltá = zelené listy so žltými žilkami a žltohnedým okrajom (nie čisto žltý list).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-152.jpg",
+          "kvety-153.jpg",
+          "kvety-149.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-151.jpg",
+          "kvety-154.jpg",
+          "kvety-150.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__EUKALIPTUS 61CM 002",
+    "name": "Eukalyptus – dlhý stonok (61 cm)",
+    "desc": "Umelý eukalyptus s dlhým zeleným stonkom a okrúhlymi sivozelenými listami na viacerých horných vetvičkách. Výška cca 61 cm.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Dlhší stonok než LIU007; listy vyššie na stonku, spodok holý.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-173.jpg",
+          "kvety-172.jpg",
+          "kvety-174.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__EUKALIPTUS LIU007",
+    "name": "Eukalyptus – zväzok so zelenými tipmi",
+    "desc": "Umelý eukalyptus s okrúhlymi sivozelenými listami a svetlými zelenými púčikmi/tipmi na koncoch. Zväzok do vázy.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejší listový zväzok; tipy jasne svetlozelené.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-156.jpg",
+          "kvety-157.jpg",
+          "kvety-158.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D2__KLM1102",
+    "name": "Zeleň – drobné oválne listy",
+    "desc": "Umelé stonky s drobnými tmavozelenými oválnymi listami so jemne vlnitým/zúbkatým okrajom. Neutrálna výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. 148 = zväzok (detail/volume); 147 = jedna stonka.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-146.jpg",
+          "kvety-148.jpg",
+          "kvety-147.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__017",
+    "name": "Papraď – perovité listy",
+    "desc": "Umelá papraď s hustými perovitými tmavozelenými listami na tenkom stonku. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Klasická papraď (nie eukalyptus).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-79.jpg",
+          "kvety-85.jpg",
+          "kvety-80.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__25805H",
+    "name": "Eukalyptus drobný okrúhly",
+    "desc": "Umelý eukalyptus s hustými drobnými okrúhlymi sivozelenými listami na tenkých stonkách. Zväzok do vázy.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Farba prašná sivozelená (nie sýto zelená). 239 = váza + ležiaci zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-239.jpg",
+          "kvety-241.jpg",
+          "kvety-240.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__25984",
+    "name": "Eukalyptus – vetva s hnedým stonkom",
+    "desc": "Umelá eukalyptová vetva s okrúhlymi sivozelenými listami na rozvetvených zelených konároch a hnedom hlavnom stonku.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Hnedý drevnatý stonok je súčasť produktu. 238 = váza + ležiaca vetva.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-238.jpg",
+          "kvety-236.jpg",
+          "kvety-237.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__3437",
+    "name": "Monstera – mini listy (zväzok)",
+    "desc": "Umelý zväzok drobných monstera listov s typickými zárezmi a otvormi. Dve farby: sivozelená a prašnoružová/mauve.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-186.jpg. Ružová = prašná mauve/staroružová (nie sýta ružová). Zelená = matná sivozelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-161.jpg",
+          "kvety-159.jpg",
+          "kvety-160.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-185.jpg",
+          "kvety-188.jpg",
+          "kvety-187.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__CAN272",
+    "name": "Papraď – jemná perovitá",
+    "desc": "Umelá jemná papraď s perovitými sivozelenými listami a hnedým stonkom. Vzdušná dekoračná zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Svetlejšia/sage než D3__017. 257 = váza + ležiaca vetva.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-257.jpg",
+          "kvety-255.jpg",
+          "kvety-256.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__JUN095",
+    "name": "Monstera – jednotlivý list",
+    "desc": "Umelý samostatný monstera list s typickými zárezmi a otvormi na dlhom zelenom stonku. Predáva sa aj ako zväzok.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-244.jpg druhý stem (jeden list na látke); 243 = zväzok viazaný špagátom (detail/volume).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-245.jpg",
+          "kvety-243.jpg",
+          "kvety-242.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__KLM1199",
+    "name": "Eukalyptus okrúhly",
+    "desc": "Umelý eukalyptus s okrúhlymi listami na dlhom stonku. Dve farby: zelená a bordová/vínová s prašným nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-198.jpg. Extra zelená: 201 pot, 204 detail, 205 stem. Bordová má sivo-fialový prach na listoch.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-200.jpg",
+          "kvety-203.jpg",
+          "kvety-206.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-199.jpg",
+          "kvety-202.jpg",
+          "kvety-207.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__LI00374",
+    "name": "Monstera – hustý zväzok listov",
+    "desc": "Umelý hustý zväzok zelených monstera listov s typickými zárezmi na spoločnom stonku. Vhodné do vázy.",
+    "type": "monstera",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Väčší/hustejší zväzok než D3__3437 zelená. 233 = váza + ležiaci zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-233.jpg",
+          "kvety-235.jpg",
+          "kvety-234.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__LS062",
+    "name": "Vinič / listová vetva",
+    "desc": "Umelá listová vetva s laločnatými listami a kučeravými úponkami. Dostupné v zelenej a fialovo-zelenej.",
+    "type": "vinič",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Dve farby. Extra pot fialová: kvety-120.jpg. Chýbajú samostatné stem zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-121.jpg",
+          "kvety-122.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-119.jpg",
+          "kvety-123.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__TIK030",
+    "name": "Papraď",
+    "desc": "Umelá papraď s jedným perovitým listom na tenkom drôtenom stonku. Sýtozelená s jemne svetlejšími špičkami.",
+    "type": "papraď",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Pot má aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-190.jpg",
+          "kvety-191.jpg",
+          "kvety-189.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D3__TIK031",
+    "name": "Papraď hustá",
+    "desc": "Umelý zväzok hustej paprade s viacerými perovitými listami a občasnými stočenými výhonkami. Zelená s jemným hnedým nádychom.",
+    "type": "papraď",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejší zväzok než TIK030. Pot má aj ležiaci zväzok v popredí.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-252.jpg",
+          "kvety-253.jpg",
+          "kvety-254.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__24346M",
+    "name": "Drobné súkvetia (ryžový kvet)",
+    "desc": "Zväzok drobných hustých súkvetí na zelených stonkách, viazaný stuhou. Tri farby: ružová, krémová, bordová.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-307.jpg. Bordová má trblietavý povrch. Extra stem/detail: ružová 304, krémová 305, bordová 306.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-311.jpg",
+          "kvety-304.jpg",
+          "kvety-310.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-312.jpg",
+          "kvety-305.jpg",
+          "kvety-309.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-313.jpg",
+          "kvety-306.jpg",
+          "kvety-308.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__446BL",
+    "name": "Bobule čierne",
+    "desc": "Zväzok umelých hustých strapcov drobných čiernych bobúľ so zelenými zúbkatými listami, viazaný špagátom.",
+    "type": "bobule",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Pot má aj ležiaci zväzok v popredí.",
+    "variants": [
+      {
+        "color": "čierna",
+        "photosOrdered": [
+          "kvety-286.jpg",
+          "kvety-287.jpg",
+          "kvety-285.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__5907DKPI",
+    "name": "Gypsofilka / drobné súkvetia",
+    "desc": "Zväzok drobných hustých kvietkov na vetvených stonkách, viazaný lykom. Dve ružové: svetlá a sýta.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-291.jpg. Extra stem: svetloružová 288, tmavoružová 289.",
+    "variants": [
+      {
+        "color": "svetloružová",
+        "photosOrdered": [
+          "kvety-292.jpg",
+          "kvety-288.jpg",
+          "kvety-293.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": [
+          "kvety-290.jpg",
+          "kvety-289.jpg",
+          "kvety-294.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__693",
+    "name": "Ihličnatá halúzka (cypruštek)",
+    "desc": "Umelá ihličnatá vetvička so šupinovitým listím a prašným striebristo-zeleným tónom. Vhodná ako filler alebo vianočná dekorácia.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba zeleno-sivá / striebristo-zelená. Pot má aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "zeleno-sivá",
+        "photosOrdered": [
+          "kvety-88.jpg",
+          "kvety-89.jpg",
+          "kvety-86.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__CAN118",
+    "name": "Drobnolistá výplňová zeleň",
+    "desc": "Zväzok umelej drobnolistej výplňovej zelene s hviezdicovitými lístkami na zelených stonkách. Štyri farby.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-9.jpg. Extra stem: hnedá 1, krémová 4, marhuľová 3. Zmiešané žltá+hnedá zväzky: kvety-2.jpg, kvety-8.jpg.",
+    "variants": [
+      {
+        "color": "hnedá",
+        "photosOrdered": [
+          "kvety-10.jpg",
+          "kvety-7.jpg",
+          "kvety-1.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-12.jpg",
+          "kvety-8.jpg",
+          "kvety-2.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "photosOrdered": [
+          "kvety-13.jpg",
+          "kvety-6.jpg",
+          "kvety-3.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-11.jpg",
+          "kvety-5.jpg",
+          "kvety-4.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__Gipsówka 31cm",
+    "name": "Skimmia / guľovité púčiky",
+    "desc": "Husté guľovité zhluky drobných púčikov so zúbkatými listami na stonkách. Tri farebné varianty.",
+    "type": "skimmia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Názov priečinka hovorí gipsówka, vizuálne ide o skimmia/viburnum púčiky, nie gypsophila. Extra pot zeleno-biela: kvety-328.jpg.",
+    "variants": [
+      {
+        "color": "zeleno-biela",
+        "photosOrdered": [
+          "kvety-327.jpg",
+          "kvety-323.jpg",
+          "kvety-329.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bielo-ružová",
+        "photosOrdered": [
+          "kvety-324.jpg",
+          "kvety-330.jpg"
+        ],
+        "shotTypes": [
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-326.jpg",
+          "kvety-325.jpg",
+          "kvety-331.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__GYP1001",
+    "name": "Gypsofilka",
+    "desc": "Klasická umelá gypsofilka s drobnými kvietkami na vetvených stonkách. Sedem farieb.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinové zábery: kvety-272.jpg, kvety-273.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-258.jpg",
+          "kvety-277.jpg",
+          "kvety-271.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetlomodrá",
+        "photosOrdered": [
+          "kvety-259.jpg",
+          "kvety-279.jpg",
+          "kvety-270.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": [
+          "kvety-260.jpg",
+          "kvety-275.jpg",
+          "kvety-269.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-261.jpg",
+          "kvety-276.jpg",
+          "kvety-267.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-262.jpg",
+          "kvety-278.jpg",
+          "kvety-268.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": [
+          "kvety-263.jpg",
+          "kvety-280.jpg",
+          "kvety-266.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-264.jpg",
+          "kvety-274.jpg",
+          "kvety-265.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__KS056",
+    "name": "Amarant / láskavec",
+    "desc": "Previsnuté perovité súkvetia amarantov na dlhých stonkách. Tri farby.",
+    "type": "amarant",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber ružová+zelená: kvety-181.jpg.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-184.jpg",
+          "kvety-179.jpg",
+          "kvety-175.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-183.jpg",
+          "kvety-180.jpg",
+          "kvety-176.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zeleno-hnedá",
+        "photosOrdered": [
+          "kvety-182.jpg",
+          "kvety-178.jpg",
+          "kvety-177.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__KYTICA PIVONKA",
+    "name": "Kytica pivoniek",
+    "desc": "Umelá kytica bielych pivoniek s výplňovými kvietkami a zeleňou.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky s drobnými výplňovými kvietkami a listami.",
+    "skipReason": null,
+    "notes": "Jedna farba. Extra detail: kvety-281.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-283.jpg",
+          "kvety-282.jpg",
+          "kvety-284.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D4__SUN-455",
+    "name": "Gypsofilka hustá",
+    "desc": "Umelá gypsofilka s hustejšími, plnšími súkvetiami. Päť farieb.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejšie hlávky než GYP1001. Extra poty: 32, 34. Extra detaily: 16, 19, 20. Extra stonky: 25, 29. Skupinové: 21, 22. Ružová má slabší samostatný detail.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-36.jpg",
+          "kvety-14.jpg",
+          "kvety-26.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": [
+          "kvety-35.jpg",
+          "kvety-17.jpg",
+          "kvety-23.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-30.jpg",
+          "kvety-27.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetlofialová",
+        "photosOrdered": [
+          "kvety-33.jpg",
+          "kvety-15.jpg",
+          "kvety-24.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-31.jpg",
+          "kvety-18.jpg",
+          "kvety-28.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "D5__TUJA014",
+    "name": "Tuja",
+    "desc": "Umelá tuja / ihličnatá zeleň s plochými šupinovitými vetvičkami.",
+    "type": "tuja",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-216.jpg",
+          "kvety-215.jpg",
+          "kvety-214.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E1__KYTICA PIVONIA",
+    "name": "Kytica pivónií",
+    "desc": "Umelé kytice pivónií s výplňami a listami. Viacero farieb a niekoľko dvojfarebných kombinácií.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Pivónie s drobnými výplňovými kvietkami a dekoratívnou zeleňou.",
+    "skipReason": null,
+    "notes": "Krémová nemá samostatný pot záber. Dvojfarebné: zeleno-krémová, bordo-marhuľová.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-68.jpg",
+          "kvety-52.jpg"
+        ],
+        "shotTypes": [
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-75.jpg",
+          "kvety-67.jpg",
+          "kvety-53.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-72.jpg",
+          "kvety-66.jpg",
+          "kvety-54.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "photosOrdered": [
+          "kvety-70.jpg",
+          "kvety-64.jpg",
+          "kvety-55.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "béžová",
+        "photosOrdered": [
+          "kvety-73.jpg",
+          "kvety-65.jpg",
+          "kvety-56.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-77.jpg",
+          "kvety-62.jpg",
+          "kvety-58.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": [
+          "kvety-71.jpg",
+          "kvety-69.jpg",
+          "kvety-60.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zeleno-krémová",
+        "photosOrdered": [
+          "kvety-74.jpg",
+          "kvety-63.jpg",
+          "kvety-57.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordo-marhuľová",
+        "photosOrdered": [
+          "kvety-76.jpg",
+          "kvety-61.jpg",
+          "kvety-59.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E1__LIL04",
+    "name": "Kytica pomponových kvetov",
+    "desc": "Umelá kytica hustých pomponových hlávok (chryzantéma/dália) s bobuľovitými výplňami a listami. Päť farieb.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné pomponové kvety s drobnými bobuľovitými výplňami a zúbkatými listami.",
+    "skipReason": null,
+    "notes": "Názov LIL04, vizuálne nie ľalia – husté pomponové súkvetia. Skupinový záber: kvety-78.jpg.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-89.jpg",
+          "kvety-79.jpg",
+          "kvety-88.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": [
+          "kvety-90.jpg",
+          "kvety-80.jpg",
+          "kvety-85.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": [
+          "kvety-92.jpg",
+          "kvety-81.jpg",
+          "kvety-86.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "kvety-93.jpg",
+          "kvety-82.jpg",
+          "kvety-84.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-91.jpg",
+          "kvety-83.jpg",
+          "kvety-87.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E15__KS058",
+    "name": "Kytica drobných kvietkov so zeleňou",
+    "desc": "Umelý zväzok drobných hviezdicových filler kvetov (gypsophila) obklopených hustými okrúhlymi zelenými listami (eukalyptus/krušpán). Vhodný do vázy.",
+    "type": "kytica/filler",
+    "mixedTypes": true,
+    "mixedNote": "Drobné filler kvety + zelené okrúhle listy na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Tri farebné varianty kvetov (biela, ružová, fialová) s tou istou zelenou listovou časťou.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-340.jpg",
+          "kvety-336.jpg",
+          "kvety-332.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-339.jpg",
+          "kvety-335.jpg",
+          "kvety-334.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-338.jpg",
+          "kvety-337.jpg",
+          "kvety-333.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E15__PIK022",
+    "name": "Klinček Green Trick",
+    "desc": "Umelý klinček s guľatou machovou hlavou z hustých jemných vláken a úzkymi zelenými listami na segmentovanom stonku.",
+    "type": "klinček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = 232 (2 stonky v čiernej váze + 1 ležiaci).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-232.jpg",
+          "kvety-231.jpg",
+          "kvety-230.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E16__PIK002",
+    "name": "Eukalyptus drobný okrúhly",
+    "desc": "Umelý eukalyptus s hustými drobnými okrúhlymi listami na rozvetvených stonkách. Dve zelené varianty – sýtejšia a sivozelená.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-218.jpg. Sivozelená = prašný/striebristý tón.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-217.jpg",
+          "kvety-220.jpg",
+          "kvety-222.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "sivozelená",
+        "photosOrdered": [
+          "kvety-219.jpg",
+          "kvety-221.jpg",
+          "kvety-223.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E16__PIK006",
+    "name": "Eukalyptus drobný okrúhly – farebné varianty",
+    "desc": "Umelý eukalyptus s drobnými okrúhlymi listami. Tri farby: sivozelená so svetlými tipmi, prašnoružová a hnedá.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Ružová = staroružová/púdrovo mauve so krémovými tipmi. Zelená = sivozelená/krémové tipy. Hnedá = teplá okrová/jesenná.",
+    "variants": [
+      {
+        "color": "sivozelená",
+        "photosOrdered": [
+          "kvety-301.jpg",
+          "kvety-299.jpg",
+          "kvety-295.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-302.jpg",
+          "kvety-298.jpg",
+          "kvety-296.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "hnedá",
+        "photosOrdered": [
+          "kvety-303.jpg",
+          "kvety-300.jpg",
+          "kvety-297.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__001-53",
+    "name": "Pivonka kytica ružová",
+    "desc": "Umelá kytica plných ružových pivoniek so zelenými listami a drobnými filler akcentmi. Dlhé stonky do vázy.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba sýta ružová až magenta na okrajoch, svetlejší stred. pot/full = 4 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-4.jpg",
+          "kvety-5.jpg",
+          "kvety-6.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__BU03857",
+    "name": "Pivonka spray biely",
+    "desc": "Umelý spray s veľkou bielou pivonkou, menšími bielymi kvetmi a zelenými vetvičkami, viazaný stužkou.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Veľká pivonka + menšie biele kvety + zelené vetvičky na jednom sprayi.",
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = 18 (váza + ležiaci spray).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-18.jpg",
+          "kvety-17.jpg",
+          "kvety-16.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__PIV. KYT. EXCL. 45cm",
+    "name": "Pivonka kytica biela Exclusive 45 cm",
+    "desc": "Umelá kytica plných bielych/krémových pivoniek so zelenými listami. Exclusive, cca 45 cm.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba biela až krémová. pot/full = 23 (čierna váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-23.jpg",
+          "kvety-22.jpg",
+          "kvety-24.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__PIVONIA DLHA",
+    "name": "Pivonka dlhá kytica",
+    "desc": "Umelá dlhá kytica pivoniek s drobnými filler akcentmi a zeleňou. Dve farby: zelená a ružová.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky + drobné filler kvety/klásky na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Ružová = staroružová/prašná. Zelená = sýta listovo zelená s bielymi filler kláskami.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-9.jpg",
+          "kvety-8.jpg",
+          "kvety-7.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-15.jpg",
+          "kvety-14.jpg",
+          "kvety-13.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__PIVONIA EXCL.45cm",
+    "name": "Pivonka kytica Exclusive 45 cm",
+    "desc": "Umelá kytica plných krémových pivoniek s papradím, sivozelenými listami a drobnými filler akcentmi. Exclusive, cca 45 cm.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky + drobné biele kvietky + papradie + sivozelené listy + bobuľové/púčikové fillery.",
+    "skipReason": null,
+    "notes": "Farba biela až krémová. pot/full = 3 (čierna váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-3.jpg",
+          "kvety-1.jpg",
+          "kvety-2.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E2__PIVONKA 47cm",
+    "name": "Pivonka zväzok 47 cm",
+    "desc": "Umelý zväzok plných pivoniek so zúbkatými zelenými listami na spoločnej stonke. Cca 47 cm.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba staroružová/prašná. pot/full = 10 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-10.jpg",
+          "kvety-11.jpg",
+          "kvety-12.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E3__KYT. RUŽA 36h",
+    "name": "Kytica ruží 36 cm",
+    "desc": "Umelá hustá kytica plných ruží so zelenými listami a drobnými bielymi filler kvietkami. Tri farby.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Ruže + drobné biele filler kvietky na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Krémová má aj druhú sadu 68–70. pot/full = 21/29/30 (váza + ležiaci zväzok). Červená = tmavočervená.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-21.jpg",
+          "kvety-19.jpg",
+          "kvety-20.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-30.jpg",
+          "kvety-27.jpg",
+          "kvety-25.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-29.jpg",
+          "kvety-28.jpg",
+          "kvety-26.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "E3__PIV. KYT",
+    "name": "Pivonková kytica – viacfarby",
+    "desc": "Umelá kytica plných pivoniek so zeleňou (papradie, sivozelené listy) a drobnými filler akcentmi. Štyri farby.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky + drobné filler kvety + papradie/sivozelené listy + bobuľové akcenty.",
+    "skipReason": null,
+    "notes": "Skupinové zábery: 31, 40. Zelená = šedo/mentolovo zelená. Oranžová = sýta až karamelová. Ružová = staroružová. Extra sada 44–52 (pot/stem rovnakých farieb).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-32.jpg",
+          "kvety-41.jpg",
+          "kvety-39.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "kvety-33.jpg",
+          "kvety-43.jpg",
+          "kvety-38.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-34.jpg",
+          "kvety-42.jpg",
+          "kvety-37.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-35.jpg",
+          "kvety-51.jpg",
+          "kvety-36.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "EUKALIPTUS 47CM (VIAC FARIEB TREBA DOFOTIT)",
+    "name": "Eukalyptus drobný okrúhly 47 cm",
+    "desc": "Umelý eukalyptus s drobnými okrúhlymi listami na rozvetvených stonkách. Listy sivozelené s bordovo-hnedými okrajmi.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka uvádza, že viac farieb treba dofotit – zatiaľ jedna farba. pot/full = 211 (váza + ležiaca stonka).",
+    "variants": [
+      {
+        "color": "hnedozelená",
+        "photosOrdered": [
+          "kvety-211.jpg",
+          "kvety-212.jpg",
+          "kvety-213.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__106",
+    "name": "Klinček – zväzok",
+    "desc": "Umelý zväzok drobných plných klinčekov so zúbkatými listami na spoločnej stonke. Dve farby: červená a biela.",
+    "type": "klinček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-20.jpg. pot/full = 18/19 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-19.jpg",
+          "kvety-21.jpg",
+          "kvety-16.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-18.jpg",
+          "kvety-22.jpg",
+          "kvety-17.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__657C",
+    "name": "Kvitnúca halúzka biela",
+    "desc": "Umelá tenká hnedá halúzka s drobnými bielymi kvetmi v hustých zhlukoch. Vhodná do vázy.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. kvety-108.jpg = druhý pot záber v prútenej váze.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-107.jpg",
+          "kvety-109.jpg",
+          "kvety-106.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__663B",
+    "name": "Georgína – zväzok",
+    "desc": "Umelý zväzok plných georgín so širokými listami a jemnými výplňovými vetvičkami. Lupene staroružové s krémovými okrajmi.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (staroružová–krémová). pot/full = 4 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-4.jpg",
+          "kvety-5.jpg",
+          "kvety-6.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__8015",
+    "name": "Čerešňové kvety – kvitnúca halúzka",
+    "desc": "Umelá kvitnúca halúzka s hustými drobnými kvetmi (čerešňa/jabloň) na tenkých hnedých stonkách a malými zelenými listami pri báze.",
+    "type": "čerešňa",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-99.jpg. Ružová = krémovo-žltý stred + ružové okraje lupienkov.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-101.jpg",
+          "kvety-105.jpg",
+          "kvety-102.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-100.jpg",
+          "kvety-104.jpg",
+          "kvety-103.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__806LV",
+    "name": "Hortenzia kytica so zeleňou",
+    "desc": "Umelá kytica hortenzií (guľaté trsy drobných štvorlupienkových kvetov) s eukalyptovými listami, zubatými listami, papradím a drobnými bielymi filler kvetmi.",
+    "type": "hortenzia",
+    "mixedTypes": true,
+    "mixedNote": "Hortenzie + biele filler kvety + eukalyptus/papradie/zubaté listy na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Tri farebné varianty hortenzií (fialová, modrá, ružová) s rovnakou zeleňou a bielymi doplnkami.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "kvety-115.jpg",
+          "kvety-110.jpg",
+          "kvety-117.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-114.jpg",
+          "kvety-111.jpg",
+          "kvety-116.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-113.jpg",
+          "kvety-112.jpg",
+          "kvety-118.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__AK09",
+    "name": "Iskerník (ranunculus) – zväzok",
+    "desc": "Umelý iskerník s hustými vrstvenými lupienkami, púčikmi a zubatými zelenými listami. Viac kvetov na spoločnom stonku do vázy.",
+    "type": "iskerník",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-72.jpg. Štyri farby: biela, ružová, žltá, oranžová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-73.jpg",
+          "kvety-78.jpg",
+          "kvety-82.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-74.jpg",
+          "kvety-79.jpg",
+          "kvety-84.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-75.jpg",
+          "kvety-80.jpg",
+          "kvety-83.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": [
+          "kvety-76.jpg",
+          "kvety-77.jpg",
+          "kvety-81.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__GLO3150",
+    "name": "Bobuľový trs s brečtanom",
+    "desc": "Umelá dekoratívna stonka s hustými drobnými bobuľovými/semennými trsmi, listami v tvare brečtanu a kučeravými zelenými úponkami.",
+    "type": "bobule/filler",
+    "mixedTypes": true,
+    "mixedNote": "Farebné bobuľové trsy + zelené listy (brečtan) + kučeravé úponky na jednej stonke.",
+    "skipReason": null,
+    "notes": "Skupinové zábery: kvety-91.jpg (hromada), kvety-92.jpg (váza). Zelená má extra stem kvety-85.jpg a pot kvety-98.jpg.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "kvety-94.jpg",
+          "kvety-98.jpg",
+          "kvety-86.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "hnedá",
+        "photosOrdered": [
+          "kvety-93.jpg",
+          "kvety-87.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "kvety-97.jpg",
+          "kvety-88.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-95.jpg",
+          "kvety-89.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-96.jpg",
+          "kvety-90.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__JH098",
+    "name": "Georgína kytica tmavočervená",
+    "desc": "Umelá kytica veľkých plných tmavočervených georgín so zelenými listami, drobnými svetloružovými filler kvetmi a sivozeleným/sivofialovým papradím.",
+    "type": "georgína",
+    "mixedTypes": true,
+    "mixedNote": "Georgíny + drobné filler kvety + sivozelené/sivofialové papradie a zelené listy.",
+    "skipReason": null,
+    "notes": "Jedna farba hlavných kvetov. pot/full = 138 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "tmavočervená",
+        "photosOrdered": [
+          "kvety-138.jpg",
+          "kvety-137.jpg",
+          "kvety-134.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__KS020",
+    "name": "Ruža záhradná – dlhý stonok",
+    "desc": "Umelá plná záhradná ruža s bohato riasenými lupienkami, tŕňovým stonkom a zubatými zelenými listami. Tri farebné varianty.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber troch farieb: kvety-142.jpg. Extra (iná kytica bordových ruží + filler): kvety-1.jpg, kvety-2.jpg, kvety-3.jpg. Tmavoružová = magenta s krémovým stredom. Červená: chýba samostatný stem (140 = pot + ležiaci).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-121.jpg",
+          "kvety-124.jpg",
+          "kvety-120.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": [
+          "kvety-122.jpg",
+          "kvety-123.jpg",
+          "kvety-119.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-140.jpg",
+          "kvety-141.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__KYT. RUŽ",
+    "name": "Kytica ruží svetloružová",
+    "desc": "Umelá kytica plných svetloružových/marhuľových ruží so zelenými listami a dlhými stonkami do vázy.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (svetloružová/marhuľová). Adresár na disku: F1__KYT. RUŽ.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-139.jpg",
+          "kvety-136.jpg",
+          "kvety-135.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__MIX",
+    "name": "Mini ruže – zväzok (vintage)",
+    "desc": "Umelý zväzok drobných vintage ruží s doplnkovými bobuľkami/filler výhonkami a zubatými zelenými listami. Viac farebných variantov.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Mini ruže + drobné filler bobuľky/kvietky na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Skupinový záber: kvety-7.jpg. Oranžovo-ružová = zámerný mix oranžových a staroružových ruží v jednom zväzku. Chýbajú samostatné detail zábery (pot obsahuje aj ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": [
+          "kvety-8.jpg",
+          "kvety-14.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": [
+          "kvety-9.jpg",
+          "kvety-15.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-10.jpg",
+          "kvety-13.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "oranžovo-ružová",
+        "photosOrdered": [
+          "kvety-11.jpg",
+          "kvety-12.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F1__RUZA BEAUTY 38cm",
+    "name": "Ruža Beauty 38 cm",
+    "desc": "Umelý zväzok plných ruží na dlhých zelených stonkách viazaných rafiu. Dĺžka cca 38 cm, vhodné do vázy.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Tri farby. pot/full = vo váze + ležiaci zväzok; detail = ležiaci zväzok; stem = zvislý celý zväzok.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": [
+          "kvety-125.jpg",
+          "kvety-130.jpg",
+          "kvety-131.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "kvety-126.jpg",
+          "kvety-129.jpg",
+          "kvety-132.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-127.jpg",
+          "kvety-128.jpg",
+          "kvety-133.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2__20013W",
+    "name": "Drobnokvet biely (zhluky)",
+    "desc": "Umelá stonka s hustými guľatými zhlukmi drobných bielych kvietkov so zelenkastým stredom a úzkymi zelenými listami.",
+    "type": "drobnokvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = 59 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-59.jpg",
+          "kvety-60.jpg",
+          "kvety-58.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2__AL-8480",
+    "name": "Ruža – vetva s listami",
+    "desc": "Umelá rozvetvená stonka s hustým zhlukom plných ruží a zúbkatými zelenými listami pod kvetmi.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-85.jpg. Krémová = smotanovo-offwhite (nie čisto biela).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-83.jpg",
+          "kvety-87.jpg",
+          "kvety-81.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-84.jpg",
+          "kvety-86.jpg",
+          "kvety-82.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2__NARCIS",
+    "name": "Narcis",
+    "desc": "Umelé narcisy v zväzkoch viazaných rafiu. V zložke tri štýly: viackvetý žltý, klasický s trúbkou a bielo-žltý.",
+    "type": "narcis",
+    "mixedTypes": true,
+    "mixedNote": "Viackvetý drobný žltý narcis + klasický žltý s trúbkou + bielo-žltý narcis v jednej zložke.",
+    "skipReason": null,
+    "notes": "Prvá žltá = viackvetý drobný; druhá žltá = klasický s trúbkou (hlbší/oranžovejší stred). Skupinový mix: kvety-74.jpg.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-75.jpg",
+          "kvety-71.jpg",
+          "kvety-80.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-77.jpg",
+          "kvety-72.jpg",
+          "kvety-78.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bielo-žltá",
+        "photosOrdered": [
+          "kvety-76.jpg",
+          "kvety-73.jpg",
+          "kvety-79.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2__S21C_05",
+    "name": "Ružičky – mix krémová/petrolejová",
+    "desc": "Umelý zväzok drobných hustých púčikov (ružičky) v kombinácii krémovej a petrolejovo-modrozelenej farby na tenkých zelených stonkách.",
+    "type": "ružičky",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna predajná varianta – dvojfarebný zväzok (nie samostatné farby). Petrolejová = sivo-modrozelená/teal.",
+    "variants": [
+      {
+        "color": "krémová/petrolejová",
+        "photosOrdered": [
+          "kvety-61.jpg",
+          "kvety-62.jpg",
+          "kvety-63.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2__WEI1002",
+    "name": "Bahniatka so zeleňou",
+    "desc": "Umelé bahniatka – hnedé vetvičky so sivými chlpatými jahňatami a drobnými zelenými lístkami.",
+    "type": "bahniatka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (sivé jahňatá). pot/full = KVETY-77.jpg.",
+    "variants": [
+      {
+        "color": "sivá",
+        "photosOrdered": [
+          "KVETY-77.jpg",
+          "KVETY-79.jpg",
+          "KVETY-78.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "F2_955",
+    "name": "Bahniatka – farebné varianty",
+    "desc": "Umelé ozdobné vetvičky s drobnými chlpatými guľatými jahňatami na tenkých hnedých stonkách. Tri farby.",
+    "type": "bahniatka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-57.jpg. Svetlozelená = bledá limetkovo-krémová (nie sýta zelená).",
+    "variants": [
+      {
+        "color": "sivá",
+        "photosOrdered": [
+          "kvety-54.jpg",
+          "kvety-53.jpg",
+          "kvety-48.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "kvety-55.jpg",
+          "kvety-52.jpg",
+          "kvety-49.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "svetlozelená",
+        "photosOrdered": [
+          "kvety-56.jpg",
+          "kvety-51.jpg",
+          "kvety-50.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "G1__REN2011",
+    "name": "Ruža – vetva s púčikmi",
+    "desc": "Umelá rozvetvená stonka bielych ruží s listami a uzavretými púčikmi. Viac kvetov na jednej stonke.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = KVETY2 (2).jpg vo jutovej váze; stem = jedna stonka KVETY2 (1).jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": [
+          "KVETY2 (2).jpg",
+          "KVETY2 (3).jpg",
+          "KVETY2 (1).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "G3__hortensia 61cm",
+    "name": "Hortenzia – stonok 61 cm",
+    "desc": "Umelá hortenzia s hustou guľovitou hlavou drobných štvorlupienkových kvetov a veľkými zúbkovanými zelenými listami na dlhom stonku (cca 61 cm).",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: KVETY3 (1).jpg. Ružová/bordová = prašná mauve/bordová s krémovými tipmi (nie sýta ružová). Sivomodrá = prašná sivo-modrá. Pot zábery majú aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "sivomodrá",
+        "photosOrdered": [
+          "KVETY3 (2).jpg",
+          "KVETY3 (10).jpg",
+          "KVETY3 (5).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": [
+          "KVETY3 (3).jpg",
+          "KVETY3 (9).jpg",
+          "KVETY3 (6).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": [
+          "KVETY3 (4).jpg",
+          "KVETY3 (8).jpg",
+          "KVETY3 (7).jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "detail",
+          "stem"
+        ]
+      }
+    ]
+  },
+  {
+    "folder": "LISTY STARE",
+    "name": "Zeleň – dlhé pruhované listy",
+    "desc": "Umelé dlhé kopijovité listy na tenkom drôtikovom stonku. Dve pruhované varianty: zelenožltá a zelenokrémová.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Chýbajú samostatné detail zábery. Žltá = zelený list so žltými zvislými pruhmi; krémová = zelený list s krémovo-bielym okrajom/pruhovaním. pot = 2 listy v čiernej valcovej váze.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": [
+          "kvety-105.jpg",
+          "kvety-102.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "kvety-104.jpg",
+          "kvety-103.jpg"
+        ],
+        "shotTypes": [
+          "pot/full",
+          "stem"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,268 @@
+[
+  {
+    "folder": "D4__Gipsówka 31cm",
+    "name": "Skimmia / guľovité púčiky",
+    "desc": "Husté guľovité zhluky drobných púčikov so zúbkatými listami na stonkách. Tri farebné varianty.",
+    "type": "skimmia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Názov priečinka hovorí gipsówka, vizuálne ide o skimmia/viburnum púčiky, nie gypsophila. Extra pot zeleno-biela: kvety-328.jpg.",
+    "variants": [
+      {
+        "color": "zeleno-biela",
+        "photosOrdered": ["kvety-327.jpg", "kvety-323.jpg", "kvety-329.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bielo-ružová",
+        "photosOrdered": ["kvety-324.jpg", "kvety-330.jpg"],
+        "shotTypes": ["detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-326.jpg", "kvety-325.jpg", "kvety-331.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__GYP1001",
+    "name": "Gypsofilka",
+    "desc": "Klasická umelá gypsofilka s drobnými kvietkami na vetvených stonkách. Sedem farieb.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinové zábery: kvety-272.jpg, kvety-273.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-258.jpg", "kvety-277.jpg", "kvety-271.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetlomodrá",
+        "photosOrdered": ["kvety-259.jpg", "kvety-279.jpg", "kvety-270.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": ["kvety-260.jpg", "kvety-275.jpg", "kvety-269.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-261.jpg", "kvety-276.jpg", "kvety-267.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-262.jpg", "kvety-278.jpg", "kvety-268.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": ["kvety-263.jpg", "kvety-280.jpg", "kvety-266.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-264.jpg", "kvety-274.jpg", "kvety-265.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__KS056",
+    "name": "Amarant / láskavec",
+    "desc": "Previsnuté perovité súkvetia amarantov na dlhých stonkách. Tri farby.",
+    "type": "amarant",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber ružová+zelená: kvety-181.jpg.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-184.jpg", "kvety-179.jpg", "kvety-175.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-183.jpg", "kvety-180.jpg", "kvety-176.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zeleno-hnedá",
+        "photosOrdered": ["kvety-182.jpg", "kvety-178.jpg", "kvety-177.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__KYTICA PIVONKA",
+    "name": "Kytica pivoniek",
+    "desc": "Umelá kytica bielych pivoniek s výplňovými kvietkami a zeleňou.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky s drobnými výplňovými kvietkami a listami.",
+    "skipReason": null,
+    "notes": "Jedna farba. Extra detail: kvety-281.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-283.jpg", "kvety-282.jpg", "kvety-284.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__SUN-455",
+    "name": "Gypsofilka hustá",
+    "desc": "Umelá gypsofilka s hustejšími, plnšími súkvetiami. Päť farieb.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejšie hlávky než GYP1001. Extra poty: 32, 34. Extra detaily: 16, 19, 20. Extra stonky: 25, 29. Skupinové: 21, 22. Ružová má slabší samostatný detail.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-36.jpg", "kvety-14.jpg", "kvety-26.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": ["kvety-35.jpg", "kvety-17.jpg", "kvety-23.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-30.jpg", "kvety-27.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "svetlofialová",
+        "photosOrdered": ["kvety-33.jpg", "kvety-15.jpg", "kvety-24.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-31.jpg", "kvety-18.jpg", "kvety-28.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D5__TUJA014",
+    "name": "Tuja",
+    "desc": "Umelá tuja / ihličnatá zeleň s plochými šupinovitými vetvičkami.",
+    "type": "tuja",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-216.jpg", "kvety-215.jpg", "kvety-214.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "E1__KYTICA PIVONIA",
+    "name": "Kytica pivónií",
+    "desc": "Umelé kytice pivónií s výplňami a listami. Viacero farieb a niekoľko dvojfarebných kombinácií.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Pivónie s drobnými výplňovými kvietkami a dekoratívnou zeleňou.",
+    "skipReason": null,
+    "notes": "Krémová nemá samostatný pot záber. Dvojfarebné: zeleno-krémová, bordo-marhuľová.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-68.jpg", "kvety-52.jpg"],
+        "shotTypes": ["detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-75.jpg", "kvety-67.jpg", "kvety-53.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-72.jpg", "kvety-66.jpg", "kvety-54.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "marhuľová",
+        "photosOrdered": ["kvety-70.jpg", "kvety-64.jpg", "kvety-55.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "béžová",
+        "photosOrdered": ["kvety-73.jpg", "kvety-65.jpg", "kvety-56.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-77.jpg", "kvety-62.jpg", "kvety-58.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": ["kvety-71.jpg", "kvety-69.jpg", "kvety-60.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zeleno-krémová",
+        "photosOrdered": ["kvety-74.jpg", "kvety-63.jpg", "kvety-57.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordo-marhuľová",
+        "photosOrdered": ["kvety-76.jpg", "kvety-61.jpg", "kvety-59.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "E1__LIL04",
+    "name": "Kytica pomponových kvetov",
+    "desc": "Umelá kytica hustých pomponových hlávok (chryzantéma/dália) s bobuľovitými výplňami a listami. Päť farieb.",
+    "type": "kytica",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné pomponové kvety s drobnými bobuľovitými výplňami a zúbkatými listami.",
+    "skipReason": null,
+    "notes": "Názov LIL04, vizuálne nie ľalia – husté pomponové súkvetia. Skupinový záber: kvety-78.jpg.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-89.jpg", "kvety-79.jpg", "kvety-88.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "staroružová",
+        "photosOrdered": ["kvety-90.jpg", "kvety-80.jpg", "kvety-85.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetloružová",
+        "photosOrdered": ["kvety-92.jpg", "kvety-81.jpg", "kvety-86.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": ["kvety-93.jpg", "kvety-82.jpg", "kvety-84.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-91.jpg", "kvety-83.jpg", "kvety-87.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

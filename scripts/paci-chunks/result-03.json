@@ -1,0 +1,191 @@
+[
+  {
+    "folder": "6",
+    "name": "Hortenzia – stonok",
+    "desc": "Umelá hortenzia s hustými guľovitými súkvetiami drobných štvorlupienkových kvetov a veľkými zúbkovanými listami. Dostupné vo štyroch farbách.",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-51.jpg je spoločný záber všetkých farieb vo váze (nepriradený k jednej farbe).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-52.jpg", "kvety-59.jpg", "kvety-48.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-53.jpg", "kvety-58.jpg", "kvety-49.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-54.jpg", "kvety-56.jpg", "kvety-50.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-55.jpg", "kvety-57.jpg", "kvety-47.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "77DOKONČIŤ!!",
+    "name": "Zmiešaná zložka – eukalyptus + fialový filler",
+    "desc": "V jednej zložke sú dva odlišné produkty: okrúhly eukalyptus v prašnoružovej/staroružovej a jemný perovitý kvitnúci filler vo fialovej.",
+    "type": "eukalyptus",
+    "mixedTypes": true,
+    "mixedNote": "Eukalyptus (ružová/mauve) vs. perovitý filler (fialová) – rozdeliť na 2 produkty. Zložka označená DOKONČIŤ.",
+    "skipReason": null,
+    "notes": "kvety-229.jpg je zákulisný záber s osobou; stále ukazuje celý stonok. Farba eukalyptu je prašnoružová/mauve, nie fialová.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-226.jpg", "kvety-225.jpg", "kvety-224.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-227.jpg", "kvety-228.jpg", "kvety-229.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__014_01_PREFOTIŤ",
+    "name": "Mini ruže krémové s bobuľami",
+    "desc": "Zväzok drobných umelých ruží v krémovej až jemne ružovkastej farbe, s hnedými bobuľami, drobnými bielymi doplnkami a eukalyptovou zeleňou.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Kompozitný zväzok: ruže + hnedé bobule + drobné biele kvietky + eukalyptová zeleň (jeden predajný aranžmán).",
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Dominantná farba krémová s ružovým nádychom.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": [
+          "KVETY4 (2).jpg",
+          "KVETY4 (6).jpg",
+          "KVETY4 (1).jpg",
+          "KVETY4 (3).jpg",
+          "KVETY4 (5).jpg",
+          "KVETY4 (4).jpg"
+        ],
+        "shotTypes": ["pot/full", "detail", "stem", "pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__1004CR",
+    "name": "Hortenzia krémová",
+    "desc": "Umelá hortenzia s hustými krémovými súkvetiami a veľkými tmavozelenými zúbkovanými listami.",
+    "type": "hortenzia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": null,
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-49.jpg", "kvety-45.jpg", "kvety-41.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__128YL_PREFOTIŤ",
+    "name": "Drobné hviezdicové kvietky",
+    "desc": "Hustý zväzok drobných päťlupienkových hviezdicových kvietkov na tenkých zelených stonkách. Dve farby: krémová a žltá (limetková).",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. KVETY22-13.jpg je spoločný záber oboch farieb vo váze.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["KVETY-49.jpg", "KVETY-56.jpg", "KVETY-53.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["KVETY-50.jpg", "KVETY-55.jpg", "KVETY-54.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__24LV_PREFOTIŤ",
+    "name": "Levanduľa fialová",
+    "desc": "Umelé stonky levandule s hustými fialovými klasmi na sivzelených stonkách.",
+    "type": "levanduľa",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Farba jednoznačne fialová (nie ružová).",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["KVETY-47.jpg", "KVETY-45.jpg", "KVETY-46.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__2602_PREFOTIŤ",
+    "name": "Magnólia – konárik",
+    "desc": "Umelý drevený konárik magnólie s otvorenými kvetmi, chlpatými púčikmi a drobnými zelenými listami. Farby: ružová a svetlozelená.",
+    "type": "magnólia",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka PREFOTIŤ. Súbory majú dvojitú medzeru v názve (KVETY9  (n).jpg). KVETY9  (10).jpg je spoločný záber oboch farieb.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": [
+          "KVETY9  (1).jpg",
+          "KVETY9  (8).jpg",
+          "KVETY9  (4).jpg",
+          "KVETY9  (2).jpg",
+          "KVETY9  (5).jpg",
+          "KVETY9  (7).jpg"
+        ],
+        "shotTypes": ["pot/full", "detail", "stem", "pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": [
+          "KVETY9  (3).jpg",
+          "KVETY9  (9).jpg",
+          "KVETY9  (6).jpg"
+        ],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B1__4123",
+    "name": "Drobný filler – hviezdicové kvietky",
+    "desc": "Vzdušný umelý filler s drobnými hviezdicovými kvetmi na vetvených zelených stonkách. Farby: biela a ružová (koralovo-lososová).",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-52.jpg je spoločný záber oboch farieb vo váze. Ružová je koralová/lososová, nie fialová.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-50.jpg", "kvety-46.jpg", "kvety-43.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-51.jpg", "kvety-47.jpg", "kvety-42.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

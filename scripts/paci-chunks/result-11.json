@@ -1,0 +1,153 @@
+[
+  {
+    "folder": "D17__J913",
+    "name": "Zeleň – trávovité listy so špirálami",
+    "desc": "Umelá zeleň s dlhými úzkymi zelenými listami (tráva/palma) a tmavohnedými stočenými dekoratívnymi stonkami v strede. Vhodná do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Hnedé špirály sú súčasť produktu, nie iný druh kvetu. pot/full = 251 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-251.jpg", "kvety-250.jpg", "kvety-249.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__007",
+    "name": "Eukalyptus okrúhly",
+    "desc": "Umelý eukalyptus s malými okrúhlymi listami a zelenými tipmi nového rastu. Dve farby: prašnoružová/mauve a zelená.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Ružová = prašná mauve/staroružová so zelenými tipmi (nie sýta ružová). Zelená = sivozelená/sage.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-99.jpg", "kvety-100.jpg", "kvety-101.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-132.jpg", "kvety-131.jpg", "kvety-133.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__24285DK",
+    "name": "Eukalyptus drobný okrúhly",
+    "desc": "Umelý eukalyptus s hustými drobnými okrúhlymi listami na rozvetvených stonkách. Dve zelené varianty – jasnejšia a sivozelená s fialovým nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-164.jpg. Sivozelená má prašný tón a fialovo-hnedé okraje listov.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-163.jpg", "kvety-165.jpg", "kvety-168.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "sivozelená",
+        "photosOrdered": ["kvety-162.jpg", "kvety-166.jpg", "kvety-167.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__ANA1009",
+    "name": "List mečovitý (aspidistra)",
+    "desc": "Umelý veľký podlhovastý zelený list s výraznou žilnatinou na tenkom segmentovanom stonku. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jeden listový stonok; pot = 3 listy vo wicker váze.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-145.jpg", "kvety-144.jpg", "kvety-143.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__CAN5161",
+    "name": "Zeleň – zúbkaté listy (ružové listy)",
+    "desc": "Umelé stonky so zúbkatými oválnymi listami a drobnými púčikmi/bobuľkami. Dve varianty: tmavozelená a žltozelená s jesenným okrajom.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-155.jpg. Žltá = zelené listy so žltými žilkami a žltohnedým okrajom (nie čisto žltý list).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-152.jpg", "kvety-153.jpg", "kvety-149.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-151.jpg", "kvety-154.jpg", "kvety-150.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__EUKALIPTUS 61CM 002",
+    "name": "Eukalyptus – dlhý stonok (61 cm)",
+    "desc": "Umelý eukalyptus s dlhým zeleným stonkom a okrúhlymi sivozelenými listami na viacerých horných vetvičkách. Výška cca 61 cm.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Dlhší stonok než LIU007; listy vyššie na stonku, spodok holý.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-173.jpg", "kvety-172.jpg", "kvety-174.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__EUKALIPTUS LIU007",
+    "name": "Eukalyptus – zväzok so zelenými tipmi",
+    "desc": "Umelý eukalyptus s okrúhlymi sivozelenými listami a svetlými zelenými púčikmi/tipmi na koncoch. Zväzok do vázy.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejší listový zväzok; tipy jasne svetlozelené.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-156.jpg", "kvety-157.jpg", "kvety-158.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D2__KLM1102",
+    "name": "Zeleň – drobné oválne listy",
+    "desc": "Umelé stonky s drobnými tmavozelenými oválnymi listami so jemne vlnitým/zúbkatým okrajom. Neutrálna výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. 148 = zväzok (detail/volume); 147 = jedna stonka.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-146.jpg", "kvety-148.jpg", "kvety-147.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

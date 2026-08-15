@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import {
   loginBlockedMessage,
   normalizeEmail,
@@ -12,6 +13,7 @@ import {
   type RetailRegistrationInput,
   type WholesaleRegistrationInput,
 } from "@/lib/customers";
+import { birthDateError, normalizeBirthDate } from "@/lib/birth-date";
 import {
   companyError,
   emailError,
@@ -24,6 +26,14 @@ import {
 } from "@/lib/form-validation";
 import { createClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProfileRow, ProfileUpdate } from "@/lib/supabase/database.types";
+
+async function siteOrigin() {
+  const h = await headers();
+  const host = h.get("x-forwarded-host") ?? h.get("host");
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  if (host) return `${proto}://${host}`;
+  return process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+}
 
 function validateWholesaleInput(
   input: WholesaleRegistrationInput,
@@ -38,6 +48,7 @@ function validateWholesaleInput(
     zipError(input.zip) ||
     (!input.country.trim() ? "Zadajte krajinu." : null) ||
     (!input.name.trim() ? "Zadajte kontaktnú osobu." : null) ||
+    birthDateError(input.birthDate) ||
     (input.password.length < 6 ? "Heslo musí mať aspoň 6 znakov." : null)
   );
 }
@@ -51,6 +62,7 @@ function validateRetailInput(input: RetailRegistrationInput): string | null {
     (!input.city.trim() ? "Zadajte mesto." : null) ||
     zipError(input.zip) ||
     (!input.country.trim() ? "Zadajte krajinu." : null) ||
+    birthDateError(input.birthDate) ||
     (input.password.length < 6 ? "Heslo musí mať aspoň 6 znakov." : null)
   );
 }
@@ -109,6 +121,7 @@ export async function registerWholesale(
   }
 
   const email = normalizeEmail(input.email);
+  const birthDate = normalizeBirthDate(input.birthDate);
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signUp({
@@ -128,6 +141,7 @@ export async function registerWholesale(
         zip: sanitizeZip(input.zip),
         country: input.country.trim() || "Slovensko",
         note: input.note?.trim() || "",
+        ...(birthDate ? { birth_date: birthDate } : {}),
       },
     },
   });
@@ -155,6 +169,7 @@ export async function registerRetail(
   }
 
   const email = normalizeEmail(input.email);
+  const birthDate = normalizeBirthDate(input.birthDate);
   const supabase = await createClient();
 
   const { data, error } = await supabase.auth.signUp({
@@ -170,6 +185,7 @@ export async function registerRetail(
         city: input.city.trim(),
         zip: sanitizeZip(input.zip),
         country: input.country.trim() || "Slovensko",
+        ...(birthDate ? { birth_date: birthDate } : {}),
       },
     },
   });
@@ -337,6 +353,147 @@ export async function logout(): Promise<void> {
   await supabase.auth.signOut();
 }
 
+/** Sends password-reset e-mail (retail + wholesale). Always OK to avoid enumeration. */
+export async function requestPasswordReset(
+  emailRaw: string,
+): Promise<ActionResult<null>> {
+  const emailCheck = emailError(emailRaw);
+  if (emailCheck) return { ok: false, error: emailCheck };
+
+  const email = normalizeEmail(emailRaw);
+  const supabase = await createClient();
+  const origin = await siteOrigin();
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: `${origin}/obnova-hesla`,
+  });
+
+  if (error) {
+    console.error("requestPasswordReset:", error.message);
+  }
+
+  return { ok: true, data: null };
+}
+
+export async function updatePasswordAfterReset(
+  password: string,
+): Promise<ActionResult<null>> {
+  if (password.length < 6) {
+    return { ok: false, error: "Heslo musí mať aspoň 6 znakov." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return {
+      ok: false,
+      error: "Odkaz na obnovenie hesla je neplatný alebo expirovaný.",
+    };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password });
+  if (error) {
+    return { ok: false, error: mapAuthError(error.message) };
+  }
+
+  return { ok: true, data: null };
+}
+
+export async function changeOwnPassword(input: {
+  currentPassword: string;
+  newPassword: string;
+}): Promise<ActionResult<null>> {
+  if (input.newPassword.length < 6) {
+    return { ok: false, error: "Nové heslo musí mať aspoň 6 znakov." };
+  }
+  if (input.currentPassword === input.newPassword) {
+    return { ok: false, error: "Nové heslo musí byť iné ako súčasné." };
+  }
+
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user?.email) {
+    return { ok: false, error: "Nie ste prihlásený." };
+  }
+
+  const { error: reauthError } = await supabase.auth.signInWithPassword({
+    email: user.email,
+    password: input.currentPassword,
+  });
+  if (reauthError) {
+    return { ok: false, error: "Súčasné heslo nie je správne." };
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: input.newPassword,
+  });
+  if (error) {
+    return { ok: false, error: mapAuthError(error.message) };
+  }
+
+  return { ok: true, data: null };
+}
+
+export async function changeOwnEmail(input: {
+  newEmail: string;
+  currentPassword: string;
+}): Promise<ActionResult<{ email: string; needsConfirmation: boolean }>> {
+  const emailCheck = emailError(input.newEmail);
+  if (emailCheck) return { ok: false, error: emailCheck };
+
+  const newEmail = normalizeEmail(input.newEmail);
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user?.email) {
+    return { ok: false, error: "Nie ste prihlásený." };
+  }
+
+  if (normalizeEmail(user.email) === newEmail) {
+    return { ok: false, error: "Toto je už váš aktuálny e-mail." };
+  }
+
+  const { error: reauthError } = await supabase.auth.signInWithPassword({
+    email: user.email,
+    password: input.currentPassword,
+  });
+  if (reauthError) {
+    return { ok: false, error: "Heslo nie je správne." };
+  }
+
+  // Prevent colliding with another profile early (best-effort).
+  const { data: existing } = await supabase
+    .from("profiles")
+    .select("id")
+    .eq("email", newEmail)
+    .maybeSingle();
+  if (existing && existing.id !== user.id) {
+    return { ok: false, error: "Tento e-mail už používa iný účet." };
+  }
+
+  const origin = await siteOrigin();
+  const { error } = await supabase.auth.updateUser(
+    { email: newEmail },
+    { emailRedirectTo: `${origin}/ucet` },
+  );
+  if (error) {
+    return { ok: false, error: mapAuthError(error.message) };
+  }
+
+  return {
+    ok: true,
+    data: { email: newEmail, needsConfirmation: true },
+  };
+}
+
 export async function getCurrentCustomer(): Promise<Customer | null> {
   const supabase = await createClient();
   const {
@@ -366,7 +523,11 @@ export async function updateOwnProfile(input: {
   company?: string;
   ico?: string;
   dic?: string;
+  birthDate?: string;
 }): Promise<ActionResult<{ customer: Customer }>> {
+  const birthErr = birthDateError(input.birthDate);
+  if (birthErr) return { ok: false, error: birthErr };
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -375,6 +536,19 @@ export async function updateOwnProfile(input: {
   if (!user) {
     return { ok: false, error: "Nie ste prihlásený." };
   }
+
+  const { data: existing } = await supabase
+    .from("profiles")
+    .select("type")
+    .eq("id", user.id)
+    .maybeSingle();
+
+  if (existing?.type === "velkoobchod") {
+    const companyErr = companyError(input.company ?? "");
+    if (companyErr) return { ok: false, error: companyErr };
+  }
+
+  const birthDate = normalizeBirthDate(input.birthDate) ?? null;
 
   const { data, error } = await supabase
     .from("profiles")
@@ -388,6 +562,7 @@ export async function updateOwnProfile(input: {
       company: input.company?.trim() || null,
       ico: input.ico?.trim() || null,
       dic: input.dic?.trim() || null,
+      birth_date: birthDate,
     })
     .eq("id", user.id)
     .select("*")

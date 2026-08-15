@@ -1,5 +1,6 @@
 import {
   CHAT_MAX_HISTORY,
+  CHAT_MAX_HISTORY_CHARS,
   CHAT_MAX_MESSAGE_CHARS,
   CHAT_MODEL,
   CHAT_SYSTEM_PROMPT,
@@ -9,7 +10,10 @@ import {
   clientIpFromRequest,
 } from "@/lib/chat/rate-limit";
 import {
+  compareProductsForChat,
+  getCatalogStatsForChat,
   searchProductsForChat,
+  type ChatLink,
   type ChatProductCard,
   type ChatProductSearchInput,
 } from "@/lib/chat/product-search";
@@ -48,14 +52,14 @@ const CHAT_TOOLS = [
     function: {
       name: "search_products",
       description:
-        "Vyhľadá aktuálne produkty v katalógu PACIDEKOR (skladom). Vždy nastav limit na presný počet, ktorý zákazník chce. Použi requireAny pre konkrétny typ (ruža…) a exclude pre zakázané (narcis… / produkt, ku ktorému hľadáme doplnok).",
+        "Vyhľadá produkty v katalógu PACIDEKOR. Predvolene len skladom. Pri otázke na dostupnosť / vypredané nastav includeOutOfStock=true. Pri akciách onSaleOnly=true. Pri farbe vždy color.",
       parameters: {
         type: "object",
         properties: {
           query: {
             type: "string",
             description:
-              "Kľúčové slová na dohľadanie (bez zbytočných slov typu poradte/chcem). Napr. výplň, do kvetináča, sušina.",
+              "Kľúčové slová (bez zbytočných slov). Aj použitie: svadba, hrob, výloha, interiér…",
           },
           category: {
             type: "string",
@@ -91,7 +95,34 @@ const CHAT_TOOLS = [
             description:
               "Výrazy, ktoré sa v produkte NESMÚ vyskytnúť (napr. [\"narcis\"]). Pri doplnku k X vždy vylúč X.",
           },
+          includeOutOfStock: {
+            type: "boolean",
+            description:
+              "true = zahrň aj vypredané (kontrola skladu / farby). Default false.",
+          },
         },
+      },
+    },
+  },
+  {
+    type: "function" as const,
+    function: {
+      name: "compare_products",
+      description:
+        "Porovná 2 produkty podľa názvu alebo dopytu. Použi keď zákazník chce porovnať / rozdiel medzi dvoma produktmi.",
+      parameters: {
+        type: "object",
+        properties: {
+          productA: {
+            type: "string",
+            description: "Názov alebo dopyt na prvý produkt.",
+          },
+          productB: {
+            type: "string",
+            description: "Názov alebo dopyt na druhý produkt.",
+          },
+        },
+        required: ["productA", "productB"],
       },
     },
   },
@@ -118,7 +149,16 @@ const CHAT_TOOLS = [
     function: {
       name: "get_account_help",
       description:
-        "Pomoc s prihlásením a registráciou (maloobchod / veľkoobchod) vrátane odkazov.",
+        "Pomoc s prihlásením, registráciou, obľúbenými, newsletterom a odkazmi na účet.",
+      parameters: { type: "object", properties: {} },
+    },
+  },
+  {
+    type: "function" as const,
+    function: {
+      name: "get_catalog_stats",
+      description:
+        "Vráti aktuálne počty produktov v katalógu: celkovo, skladom, vypredané, v akcii (aj podľa skladu) a rozpis podľa kategórií. Použi pri otázkach koľko máte produktov / akcií / skladom.",
       parameters: { type: "object", properties: {} },
     },
   },
@@ -128,8 +168,19 @@ function json(data: unknown, status = 200, headers?: HeadersInit) {
   return Response.json(data, { status, headers });
 }
 
+/** Odstráni markdown ** a podobné značky z odpovede do UI. */
+function stripChatMarkdown(text: string): string {
+  return text
+    .replace(/\*\*([^*]+)\*\*/g, "$1")
+    .replace(/(^|\s)\*([^*\n]+)\*(?=\s|[.,;:!?)]|$)/g, "$1$2")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/^[ \t]*[-•]\s+/gm, "")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
 function sanitizeHistory(messages: IncomingMessage[]): IncomingMessage[] {
-  return messages
+  const cleaned = messages
     .filter(
       (message) =>
         (message.role === "user" || message.role === "assistant") &&
@@ -137,9 +188,20 @@ function sanitizeHistory(messages: IncomingMessage[]): IncomingMessage[] {
     )
     .map((message) => ({
       role: message.role,
-      content: message.content.trim().slice(0, CHAT_MAX_MESSAGE_CHARS),
+      content: message.content.trim(),
     }))
-    .filter((message) => message.content.length > 0)
+    .filter((message) => message.content.length > 0);
+
+  const last = cleaned[cleaned.length - 1];
+  if (last?.role === "user" && last.content.length > CHAT_MAX_MESSAGE_CHARS) {
+    last.content = last.content.slice(0, CHAT_MAX_MESSAGE_CHARS);
+  }
+
+  return cleaned
+    .map((message) => ({
+      ...message,
+      content: message.content.slice(0, CHAT_MAX_HISTORY_CHARS),
+    }))
     .slice(-CHAT_MAX_HISTORY);
 }
 
@@ -194,8 +256,8 @@ async function callOpenAi(messages: OpenAiMessage[], useTools: boolean) {
     },
     body: JSON.stringify({
       model: CHAT_MODEL,
-      temperature: 0.5,
-      max_tokens: 500,
+      temperature: 0.35,
+      max_tokens: 320,
       messages,
       ...(useTools ? { tools: CHAT_TOOLS, tool_choice: "auto" } : {}),
     }),
@@ -221,11 +283,28 @@ async function callOpenAi(messages: OpenAiMessage[], useTools: boolean) {
   }>;
 }
 
+function mergeLinks(...groups: Array<ChatLink[] | undefined>): ChatLink[] {
+  const seen = new Set<string>();
+  const out: ChatLink[] = [];
+  for (const group of groups) {
+    if (!group) continue;
+    for (const link of group) {
+      if (!link?.href || !link.label) continue;
+      if (!link.href.startsWith("/") || link.href.startsWith("//")) continue;
+      const key = link.href;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      out.push({ label: link.label.slice(0, 80), href: link.href.slice(0, 200) });
+    }
+  }
+  return out;
+}
+
 async function runTool(
   name: string,
   rawArgs: string,
   fallbackQuery: string,
-): Promise<{ content: string; products?: ChatProductCard[] }> {
+): Promise<{ content: string; products?: ChatProductCard[]; links?: ChatLink[] }> {
   switch (name) {
     case "search_products": {
       let args: ChatProductSearchInput = {};
@@ -239,16 +318,47 @@ async function runTool(
         Math.max(1, Math.round(args.limit ?? 3)),
       );
       args = { ...args, limit: requestedLimit };
-      const products = await searchProductsForChat(args);
+      const result = await searchProductsForChat(args);
+      const {
+        products,
+        totalMatching,
+        onSaleOnly,
+        onSaleTotal,
+        onSaleInStock,
+        onSaleOutOfStock,
+        includedOutOfStock,
+      } = result;
+      const links: ChatLink[] =
+        onSaleOnly && (onSaleTotal ?? totalMatching) > 0
+          ? [
+              {
+                label: "Zobraziť všetky akčné produkty",
+                href: "/akcia",
+              },
+            ]
+          : [];
+      const stockNote = includedOutOfStock
+        ? "Vo výsledku môžu byť vypredané položky (inStock=false) a/alebo alternatívy. Jasne povedzte, čo je skladom a čo nie; farby sú v availableColors."
+        : "Všetky karty sú skladom. Farby produktu sú v availableColors (v texte ich nemusíte vypisovať všetky).";
       return {
         products,
+        links,
         content: JSON.stringify({
           count: products.length,
+          totalMatching,
+          onSaleOnly,
+          onSaleTotal,
+          onSaleInStock,
+          onSaleOutOfStock,
+          includedOutOfStock: Boolean(includedOutOfStock),
           requestedLimit,
-          ui_note:
-            products.length === 0
+          ui_note: onSaleOnly
+            ? products.length === 0
+              ? "Momentálne nie sú skladom žiadne akčné produkty. Ak onSaleTotal > 0, povedzte že akcie sú, ale sú vypredané."
+              : `V akcii je celkovo ${onSaleTotal ?? totalMatching} produktov (skladom ${onSaleInStock ?? totalMatching}, vypredané ${onSaleOutOfStock ?? 0}). Zobrazuje sa ${products.length} vybraných kariet. V texte uveďte tieto počty jasne. Karty a tlačidlo „Zobraziť všetky akčné produkty“ sa zobrazia automaticky — nevypisujte názvy/ceny.`
+            : products.length === 0
               ? "Nič sa nenašlo. Úprimne to povedzte; nevymýšľajte produkty. Môžete navrhnúť úpravu požiadavky alebo 1 podobný typ ďalším searchom."
-              : `Karty (${products.length} z požadovaných ${requestedLimit}) sa zobrazia automaticky. V texte ich nevypisujte — len krátky úvod. Neodporúčajte viac produktov, než je kariet.`,
+              : `Karty (${products.length} z požadovaných ${requestedLimit}, celkovo nájdených ${totalMatching}) sa zobrazia automaticky. ${stockNote} V texte nevypisujte názvy/ceny — len krátky úvod.`,
           products: products.map((product) => ({
             id: product.id,
             name: product.name,
@@ -258,16 +368,52 @@ async function runTool(
             discount: product.discount,
             colorId: product.colorId,
             inStock: product.inStock,
+            availableColors: product.availableColors,
           })),
         }),
       };
     }
-    case "get_shop_info":
-      return { content: JSON.stringify(getShopInfoForChat()) };
+    case "compare_products": {
+      let productA = "";
+      let productB = "";
+      try {
+        const args = JSON.parse(rawArgs || "{}") as {
+          productA?: string;
+          productB?: string;
+        };
+        productA = String(args.productA ?? "").trim();
+        productB = String(args.productB ?? "").trim();
+      } catch {
+        productA = "";
+        productB = "";
+      }
+      if (!productA || !productB) {
+        return {
+          content: JSON.stringify({
+            error: "Chýba productA alebo productB.",
+            ui_note: "Opýtajte sa na názvy oboch produktov.",
+          }),
+        };
+      }
+      const result = await compareProductsForChat(productA, productB);
+      return {
+        products: result.products,
+        content: JSON.stringify(result.comparison),
+      };
+    }
+    case "get_shop_info": {
+      const info = getShopInfoForChat();
+      return {
+        content: JSON.stringify(info),
+        links: [{ label: "Kontakt", href: "/kontakt" }],
+      };
+    }
     case "get_shipping_info":
       return { content: JSON.stringify(getShippingHelpForChat()) };
     case "get_account_help":
       return { content: JSON.stringify(getAccountHelpForChat()) };
+    case "get_catalog_stats":
+      return { content: JSON.stringify(await getCatalogStatsForChat()) };
     default:
       return { content: JSON.stringify({ error: "Unknown tool" }) };
   }
@@ -344,6 +490,7 @@ export async function POST(request: Request) {
 
   try {
     let recommendedCards: ChatProductCard[] = [];
+    let recommendedLinks: ChatLink[] = [];
     let data = await callOpenAi(messages, true);
     let assistant = data.choices[0]?.message;
 
@@ -365,6 +512,9 @@ export async function POST(request: Request) {
         if (result.products?.length) {
           recommendedCards = result.products;
         }
+        if (result.links?.length) {
+          recommendedLinks = mergeLinks(recommendedLinks, result.links);
+        }
         toolMessages.push({
           role: "tool",
           tool_call_id: call.id,
@@ -376,18 +526,25 @@ export async function POST(request: Request) {
       assistant = data.choices[0]?.message;
     }
 
-    const reply =
+    const rawReply =
       assistant?.content?.trim() ||
       "Prepáčte, práve sa mi nepodarilo pripraviť odpoveď. Skúste to prosím znova.";
+    const reply = stripChatMarkdown(rawReply);
 
     const products =
       recommendedCards.length > 0 ? recommendedCards.slice(0, 6) : [];
+    const links = recommendedLinks;
 
     const userCount = history.filter((message) => message.role === "user").length;
     const title =
       userCount === 1 ? await generateChatTitle(lastUser.content) : null;
 
-    return json({ reply, products, ...(title ? { title } : {}) });
+    return json({
+      reply,
+      products,
+      links,
+      ...(title ? { title } : {}),
+    });
   } catch (error) {
     if (error instanceof Error && error.message === "MISSING_API_KEY") {
       return json(

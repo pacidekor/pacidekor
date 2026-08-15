@@ -1,0 +1,183 @@
+[
+  {
+    "folder": "B2__29459YL",
+    "name": "Žltá kvitnúca halúzka",
+    "desc": "Umelá dlhá halúzka s hnedým stonkom, drobnými oválnymi zelenými lístkami a strapcami jasne žltých kvetov. Vhodná do vázy alebo ako filler.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-15.jpg", "kvety-16.jpg", "kvety-17.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__3891_PREFOTIŤ",
+    "name": "Zväzok ruží a hortenzie",
+    "desc": "Umelý zväzok s plnými ružami a strapcami drobných hortenziových kvetov, zelenými listami a jemnými hnedými prvkami. Staroružový tón.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Ruže + hortenzia (drobné štvorlupienkové floretky) na jednom zväzku.",
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba prašná/staroružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY-145.jpg", "KVETY-144.jpg", "KVETY-146.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__439W_PREFOTIŤ",
+    "name": "Kala biela",
+    "desc": "Umelá kala s bielym kvetom, žltým stredom (spadix) a dlhým zeleným stonkom. Elegantný solitér do vázy.",
+    "type": "kala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Pot záber: dve stonky v čiernej váze.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-175.jpg", "KVETY-174.jpg", "KVETY-173.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__9222_PREFOTIŤ",
+    "name": "Kalina (guľaté púčiky)",
+    "desc": "Umelá halúzka s hustým guľatým súkvetím drobných púčikov a zúbkovanými zelenými listami. Viac farebných variantov.",
+    "type": "kalina",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Chýbajú samostatné detail zábery podľa farby. Skupinové: KVETY-81.jpg (ležmo), KVETY-82.jpg (spoločne vo váze). Biela varianta má bielo-zelené púčiky.",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": ["KVETY-84.jpg", "KVETY-86.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["KVETY-85.jpg", "KVETY-87.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-83.jpg", "KVETY-88.jpg"],
+        "shotTypes": ["pot/full", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__9406_PREFOTIŤ",
+    "name": "Kosatec",
+    "desc": "Umelý kosatec s typickými okvetnými lístkami, mečovitými zelenými listami a dlhým stonkom. Štyri farebné varianty.",
+    "type": "kosatec",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Skupinový záber všetkých farieb: KVETY-62.jpg. Žltá/biela majú žlté signálne škvrny; fialová má biele okraje a žltý stred.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["KVETY-57.jpg", "KVETY-69.jpg", "KVETY-63.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["KVETY-58.jpg", "KVETY-67.jpg", "KVETY-64.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY-59.jpg", "KVETY-68.jpg", "KVETY-123.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["KVETY-60.jpg", "KVETY-66.jpg", "KVETY-65.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__P107",
+    "name": "Halúzka s púčikmi",
+    "desc": "Umelá filler halúzka s ihlicovitými zelenými lístkami a strapcami drobných guľatých púčikov. Dve farby.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-14.jpg. Pot zábery (8, 9) majú aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-8.jpg", "kvety-12.jpg", "kvety-11.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-9.jpg", "kvety-13.jpg", "kvety-10.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__SUN-641_PREFOTIŤ",
+    "name": "Klinček krémový",
+    "desc": "Umelý klinček s volánovitými okvetnými lístkami, viacerými kvetmi a púčikmi na rozvetvenom zelenom stonku.",
+    "type": "klinček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Farba krémová/off-white (nie sýto biela).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["KVETY203.jpg", "KVETY2-1.jpg", "KVETY-90.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B2__WEI1022_PREFOTIŤ",
+    "name": "Echinacea",
+    "desc": "Umelá echinacea s previsnutými okvetnými lístkami a výrazným špicatým kužeľovým stredom. Štyri farebné varianty na rozvetvenom stonku.",
+    "type": "echinacea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená PREFOTIŤ. Skupinový záber všetkých farieb: KVETY17   (10).jpg. Názvy súborov majú tri medzery pred zátvorkou.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY17   (7).jpg", "KVETY17   (1).jpg", "KVETY17   (5).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["KVETY17   (6).jpg", "KVETY17   (2).jpg", "KVETY17   (11).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["KVETY17   (8).jpg", "KVETY17   (3).jpg", "KVETY17   (12).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": ["KVETY17   (9).jpg", "KVETY17   (4).jpg", "KVETY17   (13).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

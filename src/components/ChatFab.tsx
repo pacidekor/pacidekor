@@ -6,6 +6,10 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { ChevronLeft, Plus, Send, Trash2, X } from "lucide-react";
 import { CHAT_SUGGESTIONS } from "@/lib/chat/config";
 import {
+  ChatRichText,
+  hrefsInChatText,
+} from "@/components/chat/ChatRichText";
+import {
   createConversationId,
   deleteConversation,
   getActiveConversationId,
@@ -28,6 +32,12 @@ type ChatProductCard = {
   href: string;
   colorId?: string;
   inStock?: boolean;
+  availableColors?: string[];
+};
+
+type ChatLink = {
+  label: string;
+  href: string;
 };
 
 type ChatMessage = {
@@ -35,6 +45,7 @@ type ChatMessage = {
   role: "user" | "assistant";
   content: string;
   products?: ChatProductCard[];
+  links?: ChatLink[];
 };
 
 type PanelView = "chat" | "history";
@@ -107,15 +118,55 @@ function ProductCards({ products }: { products: ChatProductCard[] }) {
                     −{product.discount}&nbsp;%
                   </span>
                 ) : null}
-                {product.inStock !== false ? (
+                {product.inStock === false ? (
+                  <span className="font-medium text-[#a05a3c]">Vypredané</span>
+                ) : (
                   <span className="text-[#2f2924]/45">Skladom</span>
-                ) : null}
+                )}
               </span>
+              {product.availableColors && product.availableColors.length > 0 ? (
+                <span className="mt-0.5 block text-[10px] leading-snug text-[#2f2924]/45">
+                  {product.availableColors.slice(0, 4).join(" · ")}
+                  {product.availableColors.length > 4 ? "…" : ""}
+                </span>
+              ) : null}
             </span>
           </Link>
         </li>
       ))}
     </ul>
+  );
+}
+
+function ChatLinkButtons({
+  links,
+  content,
+}: {
+  links?: ChatLink[];
+  content: string;
+}) {
+  if (!links?.length) return null;
+  const inline = hrefsInChatText(content);
+  const visible = links.filter(
+    (link) =>
+      link.href.startsWith("/") &&
+      !link.href.startsWith("//") &&
+      !inline.has(link.href),
+  );
+  if (visible.length === 0) return null;
+
+  return (
+    <div className="mt-2 flex w-full flex-col gap-1.5 pl-[2.625rem]">
+      {visible.map((link) => (
+        <Link
+          key={link.href}
+          href={link.href}
+          className="inline-flex w-fit max-w-full items-center rounded-full border border-[#75825B]/30 bg-white px-3 py-1.5 text-xs font-medium text-[#75825B] shadow-[0_1px_3px_rgba(45,35,25,0.04)] transition-colors hover:border-[#75825B]/55 hover:bg-[#75825B]/8"
+        >
+          {link.label}
+        </Link>
+      ))}
+    </div>
   );
 }
 
@@ -307,6 +358,7 @@ export function ChatFab() {
       const data = (await response.json()) as {
         reply?: string;
         products?: ChatProductCard[];
+        links?: ChatLink[];
         title?: string;
         error?: string;
       };
@@ -321,6 +373,7 @@ export function ChatFab() {
         role: "assistant",
         content: data.reply || "Prepáčte, skúste to prosím znova.",
         products: data.products ?? [],
+        links: data.links ?? [],
       };
       const withReply = [...nextMessages, assistantMessage];
       const nextTitle = data.title?.trim() || provisionalTitle;
@@ -347,14 +400,14 @@ export function ChatFab() {
   return (
     <div
       ref={wrapRef}
-      className="fixed right-4 bottom-4 z-30 sm:right-6 sm:bottom-6"
+      className="fixed right-4 bottom-4 z-[60] sm:right-6 sm:bottom-6"
     >
       <div
         id={panelId}
         role="dialog"
         aria-label="PACIDEKOR asistent"
         aria-hidden={!open}
-        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex h-[min(32rem,78vh)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-black/8 bg-white shadow-[0_16px_48px_rgba(45,35,25,0.18)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right sm:h-[min(35rem,82vh)] ${
+        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex h-[min(32rem,78vh)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl bg-[#75825B] shadow-[0_0_0_1px_rgba(45,35,25,0.16),0_0_28px_rgba(45,35,25,0.18),0_14px_36px_rgba(45,35,25,0.2)] outline-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right sm:h-[min(35rem,82vh)] ${
           open
             ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
             : "pointer-events-none translate-y-3 scale-95 opacity-0"
@@ -468,7 +521,7 @@ export function ChatFab() {
                     <div className="flex items-end gap-2.5">
                       <AssistantAvatar />
                       <div className="max-w-[85%] rounded-2xl rounded-bl-md bg-white px-3.5 py-3 text-sm leading-relaxed text-[#2f2924] shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
-                        {message.content}
+                        <ChatRichText text={message.content} />
                       </div>
                     </div>
                     {message.id === "welcome" && showSuggestions ? (
@@ -489,6 +542,10 @@ export function ChatFab() {
                     {message.products ? (
                       <ProductCards products={message.products} />
                     ) : null}
+                    <ChatLinkButtons
+                      links={message.links}
+                      content={message.content}
+                    />
                   </div>
                 ),
               )}
@@ -548,7 +605,7 @@ export function ChatFab() {
                 </p>
               ) : (
                 <p className="mt-2 px-1 text-center text-[11px] text-[#2f2924]/40">
-                  Odporúčania produktov z katalógu PACIDEKOR
+                  Umelá inteligencia sa môže mýliť. Overte si dôležité info.
                 </p>
               )}
             </div>
@@ -562,7 +619,7 @@ export function ChatFab() {
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((current) => !current)}
-        className="flex size-14 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white shadow-[0_8px_24px_rgba(45,35,25,0.22)] transition-[transform,opacity] duration-200 hover:scale-105 hover:opacity-90 active:scale-95"
+        className="flex size-14 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white shadow-[0_8px_24px_rgba(45,35,25,0.22)] outline-none transition-[transform,opacity] duration-200 hover:scale-105 hover:opacity-90 focus-visible:outline-none active:scale-95"
       >
         {open ? (
           <X className="size-7" strokeWidth={1.75} aria-hidden />

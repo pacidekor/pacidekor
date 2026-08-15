@@ -53,10 +53,7 @@ export function DesktopSearch() {
   }, [open]);
 
   return (
-    <div
-      ref={wrapRef}
-      className="absolute left-1/2 w-[min(42rem,46%)] -translate-x-1/2"
-    >
+    <div ref={wrapRef} className="relative w-full min-w-0">
       <form
         role="search"
         onSubmit={(event) => event.preventDefault()}

@@ -11,17 +11,19 @@ export function Header() {
       <MobileHeader />
 
       <header className="relative z-30 hidden border-b border-black/8 bg-[#e8ebe2] md:block">
-        <div className="relative mx-auto flex h-20 w-[var(--content-width)] items-center">
+        <div className="mx-auto grid h-20 w-[var(--content-width)] grid-cols-[minmax(max-content,1fr)_minmax(0,42rem)_minmax(max-content,1fr)] items-center gap-4 lg:gap-6">
           <Link
             href="/"
-            className="relative z-10 font-heading text-2xl tracking-[0.08em] text-foreground"
+            className="relative z-10 justify-self-start font-heading text-2xl tracking-[0.08em] text-foreground"
           >
             PACIDEKOR
           </Link>
 
-          <DesktopSearch />
+          <div className="min-w-0 w-full justify-self-center">
+            <DesktopSearch />
+          </div>
 
-          <div className="relative z-40 ml-auto flex items-center gap-3">
+          <div className="relative z-40 flex shrink-0 items-center justify-self-end gap-3">
             <AccountMenu />
             <FavoritesButton />
             <CartButton />

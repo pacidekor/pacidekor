@@ -1,0 +1,158 @@
+[
+  {
+    "folder": "---",
+    "name": "Zeleň perovitá (asparágus)",
+    "desc": "Umelá perovitá zeleň s jemnými ihlicovitými lístkami na tenkom zelenom stonku. Svietivá zelená, vhodná do vázy alebo ako výplň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka bez číselného názvu (---). Jedna farba, tri zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-210.jpg", "kvety-208.jpg", "kvety-209.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "1",
+    "name": "Voskovka fialová",
+    "desc": "Umelý stonok s drobnými fialovo-levanduľovými kvetmi a ihlicovitou zeleňou. Previsnuté vetvičky vhodné do vázy alebo ako filler.",
+    "type": "voskovka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba je jasne fialová/levanduľová, nie ružová.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-87.jpg", "kvety-88.jpg", "kvety-86.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "10",
+    "name": "Mini ruže ružové – zväzok",
+    "desc": "Kompaktný zväzok drobných prašnoružových ruží so zelenými listami a drobnými bobuľovými/filler akcentmi. Vhodné do menšej vázy.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Mini ruže + drobné filler kvety/bobuľky na tom istom zväzku (nie peónia).",
+    "skipReason": null,
+    "notes": "Primárna farba kvetov je prašná ružová (nie fialová).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-63.jpg", "kvety-64.jpg", "kvety-65.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "11",
+    "name": "Orchidea (mini spray)",
+    "desc": "Umelá orchidea s dlhým zeleným stonkom, otvorenými kvetmi a púčikmi. Viac farebných variantov – do vázy alebo aranžmánov.",
+    "type": "orchidea",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-122.jpg. Ružová = bledoružové lupene + magenta stred; fialová = sýta tmavá fialová (nie ružová); krémová = krémové/bledožlté lupene + magenta stred. Extra: ružová 112+128; krémová 114+117; biela 118 (druhý pot/full, chýba samostatný stem).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-121.jpg", "kvety-123.jpg", "kvety-109.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-120.jpg", "kvety-124.jpg", "kvety-110.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-115.jpg", "kvety-125.jpg", "kvety-111.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-116.jpg", "kvety-126.jpg", "kvety-113.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-119.jpg", "kvety-127.jpg"],
+        "shotTypes": ["pot/full", "detail"]
+      }
+    ]
+  },
+  {
+    "folder": "13",
+    "name": "Jazmínový spray biely",
+    "desc": "Vetvička s drobnými bielymi hviezdicovými kvetmi, krémovými klasmi púčikov a zúbkovanými zelenými listami. Vzdušný filler.",
+    "type": "jazmín/filler",
+    "mixedTypes": true,
+    "mixedNote": "Biele hviezdicové kvety + krémové klasovité púčiky na jednom sprayi.",
+    "skipReason": null,
+    "notes": "Primárna farba kvetov biela; filler púčiky krémové.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-60.jpg", "kvety-61.jpg", "kvety-62.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "18",
+    "name": "Listový konár (lesklý)",
+    "desc": "Umelý konár s oválnymi lesklými zelenými listami a hnedým drevnatým stonkom. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Väčšie oválne listy; stonok hnedý.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-39.jpg", "kvety-37.jpg", "kvety-38.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "19",
+    "name": "Zeleň so zúbkovanými listami",
+    "desc": "Umelé stonky s drobnými zelenými oválnymi listami so zúbkovaným okrajom. Neutrálna výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Menšie listy než zložka 18; tvar bližší k ruscus/boxwood.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-40.jpg", "kvety-42.jpg", "kvety-41.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "20",
+    "name": "Ginkgo žlté",
+    "desc": "Umelý konár s vejárovými listami ginka v sýtej žltej farbe. Jesenný dekoratívny doplnok.",
+    "type": "ginkgo",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": null,
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-49.jpg", "kvety-43.jpg", "kvety-48.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

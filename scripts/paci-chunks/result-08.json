@@ -1,0 +1,188 @@
+[
+  {
+    "folder": "B4__BFG413",
+    "name": "Rebríček fialový",
+    "desc": "Umelý stonok s plochými súkvetiami drobných fialových kvetov na zelenom stonku. Vhodný do vázy alebo ako filler.",
+    "type": "rebríček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-23.jpg druhý pot/full; kvety-22.jpg detail s jemne ojedeným/frostovým povrchom.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-20.jpg", "kvety-21.jpg", "kvety-19.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__CAN20031_01",
+    "name": "Kytica krémové pompony",
+    "desc": "Umelá kytica s veľkými krémovými pomponovými kvetmi, drobnými zelenými guľovitými fillerami a listovou zeleňou.",
+    "type": "chryzantéma",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné pomponové kvety + zelené bodliakovité/guľovité fillery + papradie a listy.",
+    "skipReason": null,
+    "notes": "Farba kvetov krémová až jemne zeleno-krémová.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-1.jpg", "kvety-2.jpg", "kvety-3.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__CAN319941",
+    "name": "Nevestin závoj (gypsofilka)",
+    "desc": "Umelý stonok gypsofilky s drobnými hustými kvetmi na vetvenom stonku. Dostupné v bielej a ružovej.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-32.jpg. Extra ružová: pot 34+36, stem/detail 26+27+30+31; biela bez ďalších.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-35.jpg", "kvety-28.jpg", "kvety-24.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-33.jpg", "kvety-29.jpg", "kvety-25.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__FMN1009",
+    "name": "Mak",
+    "desc": "Umelý mak s volánovitými okvetnými lístkami, púčikom a chlpatými zelenými listami na dlhom stonku. Tri farby.",
+    "type": "mak",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-93.jpg.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-77.jpg", "kvety-82.jpg", "kvety-83.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-78.jpg", "kvety-81.jpg", "kvety-84.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-92.jpg", "kvety-94.jpg", "kvety-95.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__SUN-498-012",
+    "name": "Fiala krémová",
+    "desc": "Umelý stonok fialy (Matthiola) s hustým klasom krémových/smotanových kvetov a zúbkovanými zelenými listami.",
+    "type": "fiala",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Extra: kvety-106.jpg druhý pot/full; kvety-104.jpg druhý stem; kvety-108.jpg druhý detail/stonka.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-105.jpg", "kvety-107.jpg", "kvety-103.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__SUN561",
+    "name": "Hyacint",
+    "desc": "Umelý hyacint s hustým klasom drobných hviezdicových kvetov a dlhými zelenými listami. Viac farebných variantov.",
+    "type": "hyacint",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinové zábery farieb: kvety-72.jpg, kvety-73.jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-79.jpg", "kvety-85.jpg", "kvety-66.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-78.jpg", "kvety-84.jpg", "kvety-67.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetlofialová",
+        "photosOrdered": ["kvety-77.jpg", "kvety-83.jpg", "kvety-68.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-75.jpg", "kvety-81.jpg", "kvety-70.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-76.jpg", "kvety-82.jpg", "kvety-69.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-74.jpg", "kvety-80.jpg", "kvety-71.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "B4__XH010",
+    "name": "Kvitnúca vetva (drobný kvet)",
+    "desc": "Umelá vetva s drobnými päťlupienkovými kvetmi na tmavom drevenom stonku. Tri farby – do vázy alebo aranžmánov.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-9.jpg. Broskyňová = prašná/hnedoružová až oranžovo-broskyňová.",
+    "variants": [
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-17.jpg", "kvety-16.jpg", "kvety-18.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "broskyňová",
+        "photosOrdered": ["kvety-10.jpg", "kvety-11.jpg", "kvety-12.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-13.jpg", "kvety-15.jpg", "kvety-14.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "C1__GLADIOLA ZVAZOK",
+    "name": "Gladiola biela – zväzok",
+    "desc": "Umelé biele gladioly (mečíky) s tromi otvorenými kvetmi a zelenými púčikmi na tenkom stonku. Vhodné do vázy.",
+    "type": "gladiola",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Tvar kvetov pripomína aj fréziu; podľa názvu zložky katalogizované ako gladiola.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-4.jpg", "kvety-5.jpg", "kvety-1.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

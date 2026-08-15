@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { getNewestProducts } from "@/lib/products";
-import { listProducts } from "@/lib/products-server";
+import { listPricedProducts } from "@/lib/products-server";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Novinky",
@@ -10,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function NovinkyPage() {
-  const all = await listProducts();
+  const all = await listPricedProducts();
   const products = getNewestProducts(all);
 
   return (

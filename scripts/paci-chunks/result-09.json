@@ -1,0 +1,163 @@
+[
+  {
+    "folder": "C15__0514WH",
+    "name": "Iskerník biely",
+    "desc": "Umelý stonok iskerníka s vrstvenými bielymi kvetmi, púčikom a zelenými laločnatými listami. Vhodný do vázy.",
+    "type": "iskerník",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. WH = biela.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-54.jpg", "kvety-55.jpg", "kvety-53.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "C15__205BL(chyba biela)",
+    "name": "Drobné lúčne kvety",
+    "desc": "Umelý stonok s drobnými päťlupienkovými kvetmi a textúrovanými filler klasíkmi na zelenom stonku so zúbkovanými listami. Farby modrá a ružová.",
+    "type": "drobný kvet",
+    "mixedTypes": true,
+    "mixedNote": "Hlavné päťlupienkové kvety + drobné fuzzy/astilbe filler klasíky na tom istom stonku.",
+    "skipReason": null,
+    "notes": "Názov zložky uvádza chybu biela – produkt je modrý/ružový, nie biely. Skupinový záber farieb: kvety-20.jpg. Extra modrá: pot 23+24; stem 18. Extra ružová: pot 21+22; stem 19.",
+    "variants": [
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-24.jpg", "kvety-25.jpg", "kvety-18.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-21.jpg", "kvety-26.jpg", "kvety-19.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "C15__423_479-480",
+    "name": "Bobuľové vetvičky",
+    "desc": "Zväzok umelých drobných bobúľ/púčikov na vetvených zelených stonkách, viazaný špagátom. Dostupné v bielej a modrej.",
+    "type": "bobule",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-39.jpg. Extra biela: stem 38+41, pot+stem 40. Extra modrá: stem 37+42, pot+stem 43.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-40.jpg", "kvety-41.jpg", "kvety-38.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "modrá",
+        "photosOrdered": ["kvety-43.jpg", "kvety-42.jpg", "kvety-37.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "C16__3104",
+    "name": "Chryzantéma guľatá (pompon)",
+    "desc": "Umelý stonok s viacerými guľovitými pomponovými kvetmi a zúbkovanými zelenými listami. Farby krémová a biela.",
+    "type": "chryzantéma",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-75.jpg. Extra krémová: stem 40+44. Biela: stem 74, detail 73.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-48.jpg", "kvety-44.jpg", "kvety-40.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-75.jpg", "kvety-73.jpg", "kvety-74.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "C16__50813",
+    "name": "Drobné hviezdicové kvety",
+    "desc": "Umelý stonok s hustými zhlukmi drobných hviezdicových kvetov a jemnou papradovitou zeleňou. Tri farby: svetlozelená, fialová, lososová.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-28.jpg. Extra svetlozelená: pot+stem 30, stem 35+37. Extra fialová: pot+stem 31, stem 33+36. Extra lososová: pot+stem 29, stem 34+38.",
+    "variants": [
+      {
+        "color": "svetlozelená",
+        "photosOrdered": ["kvety-30.jpg", "kvety-35.jpg", "kvety-37.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-31.jpg", "kvety-33.jpg", "kvety-36.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "lososová",
+        "photosOrdered": ["kvety-29.jpg", "kvety-34.jpg", "kvety-38.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__",
+    "name": "Dubová halúzka",
+    "desc": "Umelá halúzka s laločnatými dubovými listami v tmavozelenej farbe s bordovým nádychom a žilkovaním.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba – tmavozelená s bordovým tónom. Primárna farba listov: zelená.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-126.jpg", "kvety-124.jpg", "kvety-125.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__(za regalom)",
+    "name": "Gypsofilka / drobné súkvetia",
+    "desc": "Umelý stonok s drobnými bielymi guľovitými súkvetiami na vetvenom zelenom stonku. Filler do vázy.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka označená (za regalom). Jedna farba biela.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-97.jpg", "kvety-98.jpg", "kvety-96.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__388",
+    "name": "Eukalyptus úzkolistý",
+    "desc": "Umelý zväzok eukalyptu s úzkymi kopijovitými listami a drobnými plodmi/púčikmi. Listy sivozelené s bordovo-fialovým nádychom.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba – sivozelená s bordovým/fialovým tónom. Primárna farba: zelená. Extra stem: 127+128; detail: 130.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-129.jpg", "kvety-130.jpg", "kvety-128.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

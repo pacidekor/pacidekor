@@ -15,6 +15,7 @@ import {
   sanitizeZip,
   zipError,
 } from "@/lib/form-validation";
+import { birthDateError } from "@/lib/birth-date";
 import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
@@ -53,6 +54,7 @@ type FormState = {
   name: string;
   email: string;
   phone: string;
+  birthDate: string;
   street: string;
   city: string;
   zip: string;
@@ -65,6 +67,7 @@ const INITIAL: FormState = {
   name: "",
   email: "",
   phone: "",
+  birthDate: "",
   street: "",
   city: "",
   zip: "",
@@ -115,7 +118,11 @@ export function RetailRegisterForm({
   function validateStep(): string | null {
     if (step === 0) {
       if (!data.name.trim()) return "Zadajte meno a priezvisko.";
-      return emailError(data.email) || phoneError(data.phone);
+      return (
+        emailError(data.email) ||
+        phoneError(data.phone) ||
+        birthDateError(data.birthDate)
+      );
     }
     if (step === 1) {
       if (!data.street.trim()) return "Zadajte ulicu.";
@@ -150,6 +157,7 @@ export function RetailRegisterForm({
       city: data.city,
       zip: data.zip,
       country: data.country,
+      birthDate: data.birthDate || undefined,
       password: data.password,
     });
     setPending(false);
@@ -334,6 +342,21 @@ export function RetailRegisterForm({
                 }
                 className={fieldClass}
                 placeholder="421901234567"
+                tabIndex={step === 0 ? 0 : -1}
+              />
+            </div>
+            <div>
+              <label htmlFor="mo-birth" className={labelClass}>
+                Dátum narodenia{" "}
+                <span className="font-normal text-[#2f2924]/40">(voliteľné)</span>
+              </label>
+              <input
+                id="mo-birth"
+                type="date"
+                autoComplete="bday"
+                value={data.birthDate}
+                onChange={(event) => patch("birthDate", event.target.value)}
+                className={fieldClass}
                 tabIndex={step === 0 ? 0 : -1}
               />
             </div>

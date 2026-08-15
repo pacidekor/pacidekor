@@ -1,0 +1,168 @@
+[
+  {
+    "folder": "E2__PIVONIA EXCL.45cm",
+    "name": "Pivonka kytica Exclusive 45 cm",
+    "desc": "Umelá kytica plných krémových pivoniek s papradím, sivozelenými listami a drobnými filler akcentmi. Exclusive, cca 45 cm.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky + drobné biele kvietky + papradie + sivozelené listy + bobuľové/púčikové fillery.",
+    "skipReason": null,
+    "notes": "Farba biela až krémová. pot/full = 3 (čierna váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-3.jpg", "kvety-1.jpg", "kvety-2.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "E2__PIVONKA 47cm",
+    "name": "Pivonka zväzok 47 cm",
+    "desc": "Umelý zväzok plných pivoniek so zúbkatými zelenými listami na spoločnej stonke. Cca 47 cm.",
+    "type": "pivonka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba staroružová/prašná. pot/full = 10 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-10.jpg", "kvety-11.jpg", "kvety-12.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "E3__KYT. RUŽA 36h",
+    "name": "Kytica ruží 36 cm",
+    "desc": "Umelá hustá kytica plných ruží so zelenými listami a drobnými bielymi filler kvietkami. Tri farby.",
+    "type": "ruža",
+    "mixedTypes": true,
+    "mixedNote": "Ruže + drobné biele filler kvietky na tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Krémová má aj druhú sadu 68–70. pot/full = 21/29/30 (váza + ležiaci zväzok). Červená = tmavočervená.",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-21.jpg", "kvety-19.jpg", "kvety-20.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-30.jpg", "kvety-27.jpg", "kvety-25.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-29.jpg", "kvety-28.jpg", "kvety-26.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "E3__PIV. KYT",
+    "name": "Pivonková kytica – viacfarby",
+    "desc": "Umelá kytica plných pivoniek so zeleňou (papradie, sivozelené listy) a drobnými filler akcentmi. Štyri farby.",
+    "type": "pivonka",
+    "mixedTypes": true,
+    "mixedNote": "Pivonky + drobné filler kvety + papradie/sivozelené listy + bobuľové akcenty.",
+    "skipReason": null,
+    "notes": "Skupinové zábery: 31, 40. Zelená = šedo/mentolovo zelená. Oranžová = sýta až karamelová. Ružová = staroružová. Extra sada 44–52 (pot/stem rovnakých farieb).",
+    "variants": [
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-32.jpg", "kvety-41.jpg", "kvety-39.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": ["kvety-33.jpg", "kvety-43.jpg", "kvety-38.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-34.jpg", "kvety-42.jpg", "kvety-37.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-35.jpg", "kvety-51.jpg", "kvety-36.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "EUKALIPTUS 47CM (VIAC FARIEB TREBA DOFOTIT)",
+    "name": "Eukalyptus drobný okrúhly 47 cm",
+    "desc": "Umelý eukalyptus s drobnými okrúhlymi listami na rozvetvených stonkách. Listy sivozelené s bordovo-hnedými okrajmi.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Zložka uvádza, že viac farieb treba dofotit – zatiaľ jedna farba. pot/full = 211 (váza + ležiaca stonka).",
+    "variants": [
+      {
+        "color": "hnedozelená",
+        "photosOrdered": ["kvety-211.jpg", "kvety-212.jpg", "kvety-213.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__106",
+    "name": "Klinček – zväzok",
+    "desc": "Umelý zväzok drobných plných klinčekov so zúbkatými listami na spoločnej stonke. Dve farby: červená a biela.",
+    "type": "klinček",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-20.jpg. pot/full = 18/19 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-19.jpg", "kvety-21.jpg", "kvety-16.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-18.jpg", "kvety-22.jpg", "kvety-17.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__657C",
+    "name": "Kvitnúca halúzka biela",
+    "desc": "Umelá tenká hnedá halúzka s drobnými bielymi kvetmi v hustých zhlukoch. Vhodná do vázy.",
+    "type": "halúzka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. kvety-108.jpg = druhý pot záber v prútenej váze.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-107.jpg", "kvety-109.jpg", "kvety-106.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F1__663B",
+    "name": "Georgína – zväzok",
+    "desc": "Umelý zväzok plných georgín so širokými listami a jemnými výplňovými vetvičkami. Lupene staroružové s krémovými okrajmi.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (staroružová–krémová). pot/full = 4 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-4.jpg", "kvety-5.jpg", "kvety-6.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

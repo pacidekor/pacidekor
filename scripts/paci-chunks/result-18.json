@@ -1,0 +1,173 @@
+[
+  {
+    "folder": "F1__RUZA BEAUTY 38cm",
+    "name": "Ruža Beauty 38 cm",
+    "desc": "Umelý zväzok plných ruží na dlhých zelených stonkách viazaných rafiu. Dĺžka cca 38 cm, vhodné do vázy.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Tri farby. pot/full = vo váze + ležiaci zväzok; detail = ležiaci zväzok; stem = zvislý celý zväzok.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-125.jpg", "kvety-130.jpg", "kvety-131.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-126.jpg", "kvety-129.jpg", "kvety-132.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-127.jpg", "kvety-128.jpg", "kvety-133.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2__20013W",
+    "name": "Drobnokvet biely (zhluky)",
+    "desc": "Umelá stonka s hustými guľatými zhlukmi drobných bielych kvietkov so zelenkastým stredom a úzkymi zelenými listami.",
+    "type": "drobnokvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = 59 (váza + ležiaci zväzok).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-59.jpg", "kvety-60.jpg", "kvety-58.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2__AL-8480",
+    "name": "Ruža – vetva s listami",
+    "desc": "Umelá rozvetvená stonka s hustým zhlukom plných ruží a zúbkatými zelenými listami pod kvetmi.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-85.jpg. Krémová = smotanovo-offwhite (nie čisto biela).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-83.jpg", "kvety-87.jpg", "kvety-81.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-84.jpg", "kvety-86.jpg", "kvety-82.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2__NARCIS",
+    "name": "Narcis",
+    "desc": "Umelé narcisy v zväzkoch viazaných rafiu. V zložke tri štýly: viackvetý žltý, klasický s trúbkou a bielo-žltý.",
+    "type": "narcis",
+    "mixedTypes": true,
+    "mixedNote": "Viackvetý drobný žltý narcis + klasický žltý s trúbkou + bielo-žltý narcis v jednej zložke.",
+    "skipReason": null,
+    "notes": "Prvá žltá = viackvetý drobný; druhá žltá = klasický s trúbkou (hlbší/oranžovejší stred). Skupinový mix: kvety-74.jpg.",
+    "variants": [
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-75.jpg", "kvety-71.jpg", "kvety-80.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-77.jpg", "kvety-72.jpg", "kvety-78.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bielo-žltá",
+        "photosOrdered": ["kvety-76.jpg", "kvety-73.jpg", "kvety-79.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2__S21C_05",
+    "name": "Ružičky – mix krémová/petrolejová",
+    "desc": "Umelý zväzok drobných hustých púčikov (ružičky) v kombinácii krémovej a petrolejovo-modrozelenej farby na tenkých zelených stonkách.",
+    "type": "ružičky",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna predajná varianta – dvojfarebný zväzok (nie samostatné farby). Petrolejová = sivo-modrozelená/teal.",
+    "variants": [
+      {
+        "color": "krémová/petrolejová",
+        "photosOrdered": ["kvety-61.jpg", "kvety-62.jpg", "kvety-63.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2__WEI1002",
+    "name": "Bahniatka so zeleňou",
+    "desc": "Umelé bahniatka – hnedé vetvičky so sivými chlpatými jahňatami a drobnými zelenými lístkami.",
+    "type": "bahniatka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba (sivé jahňatá). pot/full = KVETY-77.jpg.",
+    "variants": [
+      {
+        "color": "sivá",
+        "photosOrdered": ["KVETY-77.jpg", "KVETY-79.jpg", "KVETY-78.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "F2_955",
+    "name": "Bahniatka – farebné varianty",
+    "desc": "Umelé ozdobné vetvičky s drobnými chlpatými guľatými jahňatami na tenkých hnedých stonkách. Tri farby.",
+    "type": "bahniatka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-57.jpg. Svetlozelená = bledá limetkovo-krémová (nie sýta zelená).",
+    "variants": [
+      {
+        "color": "sivá",
+        "photosOrdered": ["kvety-54.jpg", "kvety-53.jpg", "kvety-48.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-55.jpg", "kvety-52.jpg", "kvety-49.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "svetlozelená",
+        "photosOrdered": ["kvety-56.jpg", "kvety-51.jpg", "kvety-50.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "G1__REN2011",
+    "name": "Ruža – vetva s púčikmi",
+    "desc": "Umelá rozvetvená stonka bielych ruží s listami a uzavretými púčikmi. Viac kvetov na jednej stonke.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. pot/full = KVETY2 (2).jpg vo jutovej váze; stem = jedna stonka KVETY2 (1).jpg.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["KVETY2 (2).jpg", "KVETY2 (3).jpg", "KVETY2 (1).jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

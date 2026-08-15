@@ -12,6 +12,7 @@ import {
   resolveProductColorForFilters,
   type Product,
 } from "@/lib/products";
+import { usePricedProduct } from "@/lib/use-priced-product";
 
 type ProductCardProps = {
   product: Product;
@@ -20,17 +21,18 @@ type ProductCardProps = {
 };
 
 export function ProductCard({ product, filterColorIds }: ProductCardProps) {
-  const colors = product.colors ?? [];
+  const priced = usePricedProduct(product);
+  const colors = priced.colors ?? [];
   const showSwatches = colors.length > 1;
 
   const filterKey = filterColorIds?.join(",") ?? "";
   const preferredColorId = useMemo(
     () =>
       resolveProductColorForFilters(
-        product,
+        priced,
         filterKey ? filterKey.split(",") : undefined,
       ),
-    [product, filterKey],
+    [priced, filterKey],
   );
 
   // undefined = follow filter preference; null/string = manual override
@@ -45,16 +47,16 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
   const selectedColorId =
     manualColorId !== undefined ? manualColorId : preferredColorId;
 
-  const href = productHref(product.slug, {
+  const href = productHref(priced.slug, {
     colorId: selectedColorId,
   });
 
   const preview =
     selectedColorId != null
-      ? getColorPreviewImages(product, selectedColorId)
+      ? getColorPreviewImages(priced, selectedColorId)
       : {
-          image: product.image,
-          hoverImage: product.hoverImage,
+          image: priced.image,
+          hoverImage: priced.hoverImage,
         };
 
   const hoverImage = preview.hoverImage ?? null;
@@ -69,7 +71,7 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
           <Image
             key={preview.image}
             src={preview.image}
-            alt={product.name}
+            alt={priced.name}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
             quality={90}
@@ -90,14 +92,14 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
         </Link>
 
         <FavoriteButton
-          productId={product.id}
-          productName={product.name}
+          productId={priced.id}
+          productName={priced.name}
           className="absolute top-3 left-3 z-10"
         />
 
-        {product.discount ? (
+        {priced.discount ? (
           <span className="absolute top-3 right-3 z-10 rounded-full bg-[#c45c4a] px-2.5 py-1 text-xs font-bold text-white sm:text-sm">
-            -{product.discount}%
+            -{priced.discount}%
           </span>
         ) : null}
 
@@ -141,13 +143,13 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
 
       <Link
         href={href}
-        title={product.name}
+        title={priced.name}
         className="mt-3 block truncate text-left font-sans text-sm font-semibold text-[#2f2924] transition-colors hover:text-[#75825B] sm:text-base"
       >
-        {product.name}
+        {priced.name}
       </Link>
 
-      <ProductCardActions product={product} />
+      <ProductCardActions product={priced} />
     </article>
   );
 }

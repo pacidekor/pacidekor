@@ -1,0 +1,173 @@
+[
+  {
+    "folder": "D3__LS062",
+    "name": "Vinič / listová vetva",
+    "desc": "Umelá listová vetva s laločnatými listami a kučeravými úponkami. Dostupné v zelenej a fialovo-zelenej.",
+    "type": "vinič",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Dve farby. Extra pot fialová: kvety-120.jpg. Chýbajú samostatné stem zábery.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-121.jpg", "kvety-122.jpg"],
+        "shotTypes": ["pot/full", "detail"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-119.jpg", "kvety-123.jpg"],
+        "shotTypes": ["pot/full", "detail"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__TIK030",
+    "name": "Papraď",
+    "desc": "Umelá papraď s jedným perovitým listom na tenkom drôtenom stonku. Sýtozelená s jemne svetlejšími špičkami.",
+    "type": "papraď",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba, tri zábery. Pot má aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-190.jpg", "kvety-191.jpg", "kvety-189.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D3__TIK031",
+    "name": "Papraď hustá",
+    "desc": "Umelý zväzok hustej paprade s viacerými perovitými listami a občasnými stočenými výhonkami. Zelená s jemným hnedým nádychom.",
+    "type": "papraď",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Hustejší zväzok než TIK030. Pot má aj ležiaci zväzok v popredí.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-252.jpg", "kvety-253.jpg", "kvety-254.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__24346M",
+    "name": "Drobné súkvetia (ryžový kvet)",
+    "desc": "Zväzok drobných hustých súkvetí na zelených stonkách, viazaný stuhou. Tri farby: ružová, krémová, bordová.",
+    "type": "drobný kvet",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber farieb: kvety-307.jpg. Bordová má trblietavý povrch. Extra stem/detail: ružová 304, krémová 305, bordová 306.",
+    "variants": [
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-311.jpg", "kvety-304.jpg", "kvety-310.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-312.jpg", "kvety-305.jpg", "kvety-309.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "bordová",
+        "photosOrdered": ["kvety-313.jpg", "kvety-306.jpg", "kvety-308.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__446BL",
+    "name": "Bobule čierne",
+    "desc": "Zväzok umelých hustých strapcov drobných čiernych bobúľ so zelenými zúbkatými listami, viazaný špagátom.",
+    "type": "bobule",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Pot má aj ležiaci zväzok v popredí.",
+    "variants": [
+      {
+        "color": "čierna",
+        "photosOrdered": ["kvety-286.jpg", "kvety-287.jpg", "kvety-285.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__5907DKPI",
+    "name": "Gypsofilka / drobné súkvetia",
+    "desc": "Zväzok drobných hustých kvietkov na vetvených stonkách, viazaný lykom. Dve ružové: svetlá a sýta.",
+    "type": "gypsofilka",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber oboch farieb: kvety-291.jpg. Extra stem: svetloružová 288, tmavoružová 289.",
+    "variants": [
+      {
+        "color": "svetloružová",
+        "photosOrdered": ["kvety-292.jpg", "kvety-288.jpg", "kvety-293.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "tmavoružová",
+        "photosOrdered": ["kvety-290.jpg", "kvety-289.jpg", "kvety-294.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__693",
+    "name": "Ihličnatá halúzka (cypruštek)",
+    "desc": "Umelá ihličnatá vetvička so šupinovitým listím a prašným striebristo-zeleným tónom. Vhodná ako filler alebo vianočná dekorácia.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Farba zeleno-sivá / striebristo-zelená. Pot má aj ležiacu stonku v popredí.",
+    "variants": [
+      {
+        "color": "zeleno-sivá",
+        "photosOrdered": ["kvety-88.jpg", "kvety-89.jpg", "kvety-86.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D4__CAN118",
+    "name": "Drobnolistá výplňová zeleň",
+    "desc": "Zväzok umelej drobnolistej výplňovej zelene s hviezdicovitými lístkami na zelených stonkách. Štyri farby.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Skupinový záber všetkých farieb: kvety-9.jpg. Extra stem: hnedá 1, krémová 4, marhuľová 3. Zmiešané žltá+hnedá zväzky: kvety-2.jpg, kvety-8.jpg.",
+    "variants": [
+      {
+        "color": "hnedá",
+        "photosOrdered": ["kvety-10.jpg", "kvety-7.jpg", "kvety-1.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "žltá",
+        "photosOrdered": ["kvety-12.jpg", "kvety-8.jpg", "kvety-2.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "marhuľová",
+        "photosOrdered": ["kvety-13.jpg", "kvety-6.jpg", "kvety-3.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-11.jpg", "kvety-5.jpg", "kvety-4.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

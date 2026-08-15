@@ -1,0 +1,138 @@
+[
+  {
+    "folder": "D1__5364",
+    "name": "Zeleň listová – hustý zväzok",
+    "desc": "Umelý hustý zväzok zelene s oválnymi tmavozelenými listami a jemnejšími svetlozelenými končekmi. Vhodné do vázy alebo ako výplň.",
+    "type": "zeleň",
+    "mixedTypes": true,
+    "mixedNote": "Širšie oválne listy + jemnejšie svetlozelené vetvičky v tom istom zväzku.",
+    "skipReason": null,
+    "notes": "Jedna farba, 7 fotiek. Extra: kvety-112.jpg a kvety-113.jpg ďalšie pot/full; kvety-110.jpg druhý stem; kvety-114.jpg druhý detail/zväzok.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-111.jpg", "kvety-115.jpg", "kvety-109.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__8933",
+    "name": "Eukalyptus drobnolistý",
+    "desc": "Umelá drobnolistá eukalyptová zeleň s matnými prachovo zelenými listami a tenkými stonkami s drobnými zelenými púčikmi. Vhodná ako filler.",
+    "type": "eukalyptus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Púčiky sú súčasťou tej istej vetvičky, nie iný druh.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-118.jpg", "kvety-116.jpg", "kvety-117.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__BL048",
+    "name": "Zeleň drobnolistá (ruskus štýl)",
+    "desc": "Umelá drobnolistá zelená vetvička s oválnymi listami a jemnými tenkými výhonkami na koncoch. Vzdušná výplňová zeleň.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Pot vo pletenej prírodnej váze.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-106.jpg", "kvety-107.jpg", "kvety-108.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__BL056",
+    "name": "Listová vetva (rozvetvená)",
+    "desc": "Umelá rozvetvená listová vetva s drobnými oválnymi listami na hnedých drevnatých stonkách. Vzdušný, široký siluetový tvar.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Listy od svetlozelenej na koncoch po tmavšiu zelenú; stonky hnedé.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-141.jpg", "kvety-140.jpg", "kvety-142.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__LIST_RUSKUS 50cm",
+    "name": "Ruskus 50 cm",
+    "desc": "Umelý ruskus s drobnými oválnymi zelenými listami na tenkých zelených stonkách, dĺžka cca 50 cm. Klasická výplňová zeleň.",
+    "type": "ruskus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Názov zložky uvádza 50 cm.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-193.jpg", "kvety-192.jpg", "kvety-194.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__RUSKUS_LIU388",
+    "name": "Ruskus úzkolistý",
+    "desc": "Umelý ruskus/úzkolistá zeleň s dlhými špicatými zelenými listami na tenkom stonku. Vysoký, vzpriamený tvar do vázy.",
+    "type": "ruskus",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Listy užšie a dlhšie než klasický ruskus (D1__LIST_RUSKUS).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-197.jpg", "kvety-196.jpg", "kvety-195.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__TIK128",
+    "name": "Listová vetva (lesklá)",
+    "desc": "Umelá listová vetva s lesklými oválnymi tmavozelenými listami a hnedozeleným stonkom. Dekoračná zeleň do vázy.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Lesklé/voskové listy; svetlejšie končeky.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-136.jpg", "kvety-135.jpg", "kvety-134.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "D1__TIK189",
+    "name": "Zeleň perovitá (asparágus)",
+    "desc": "Umelá jemná perovitá zeleň s ihlicovitými lístkami na tenkom zelenom stonku. Vzdušný filler do aranžmánov.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jedna farba. Textúra ako asparágus/kôpor.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-137.jpg", "kvety-139.jpg", "kvety-138.jpg"],
+        "shotTypes": ["pot/full", "detail", "stem"]
+      }
+    ]
+  }
+]

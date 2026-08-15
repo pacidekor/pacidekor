@@ -1,0 +1,178 @@
+[
+  {
+    "folder": "21",
+    "name": "Brečtan pestrobarevný",
+    "desc": "Umelá vetva brečtanu s laločnatými listami – tmavozelený stred a výrazný krémovo-biely okraj. Stonky hnedé, vhodné do vázy alebo ako visiaca zeleň.",
+    "type": "brečtan",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Pestrobarevný (variegovaný) list – zelená + biela/krémová.",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-50.jpg", "kvety-44.jpg", "kvety-47.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "22",
+    "name": "Zeleň – listová vetva",
+    "desc": "Umelé zelené listové stonky s párovými oválnymi listami a viditeľnou žilnatinou. Matný prachový zelený tón, vhodné ako výplň do aranžmánov.",
+    "type": "zeleň",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Jednodruhová listová zeleň (žiadne kvety).",
+    "variants": [
+      {
+        "color": "zelená",
+        "photosOrdered": ["kvety-51.jpg", "kvety-45.jpg", "kvety-46.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "40",
+    "name": "Ruža červená – zväzok",
+    "desc": "Zväzok umelých červených ruží s viacvrstvovými okvetnými lístkami, zelenými zúbkatými listami a zviazanou zelenou stonkou.",
+    "type": "ruža",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Sýta klasická červená; jeden druh.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-65.jpg", "kvety-66.jpg", "kvety-67.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "44",
+    "name": "Pivoňka biela – mix",
+    "desc": "Biele plnokveté pivoňky s drobnými bielymi výplňovými kvetmi, zelenými listami a občasnými červenkastými listovými akcentmi na spoločnej stonke.",
+    "type": "pivoňka",
+    "mixedTypes": true,
+    "mixedNote": "Pivoňka + drobné biele výplňové kvety (astilbe/hortenzia štýl) + červenkasté listové akcenty.",
+    "skipReason": null,
+    "notes": "Hlavná farba kvetov biela; stonka hnedá.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-53.jpg", "kvety-54.jpg", "kvety-56.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "45",
+    "name": "Zmiešaná zložka – pivoňka/hortenzia a ruža",
+    "desc": "V jednej zložke dve odlišné kytice: biela (pivoňka + hortenzia) a tmavočervená (ruža + drobné hviezdicové kvety). Odporúčané rozdeliť na samostatné produkty.",
+    "type": "mix",
+    "mixedTypes": true,
+    "mixedNote": "Dva odlišné produkty: 1) biela pivoňka + hortenzia; 2) červená ruža + drobné hviezdicové výplňové kvety. Nie je to jedna farba jedného typu.",
+    "skipReason": null,
+    "notes": "Farby sú oddelené vo variantoch; zložku treba rozdeliť.",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-59.jpg", "kvety-60.jpg", "kvety-61.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-64.jpg", "kvety-63.jpg", "kvety-62.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "50",
+    "name": "Georgína – zväzok",
+    "desc": "Umelé georgíny s hustými špicatými okvetnými lístkami, zúbkatými listami a drobnými bielymi/zelenými výplňovými vetvičkami. Dve farby: prachovo ružová a tmavá vínovo červená.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-29.jpg ukazuje obe farby spolu vo váze (spoločný záber). Výplňové drobné vetvičky nie sú samostatný druh kvetu.",
+    "variants": [
+      {
+        "color": "červená",
+        "photosOrdered": ["kvety-26.jpg", "kvety-23.jpg", "kvety-27.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-25.jpg", "kvety-24.jpg", "kvety-28.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "52",
+    "name": "Georgína mini – viacfarby",
+    "desc": "Malé plnokveté umelé georgíny/chryzantémy na jednej hlavnej stonke so zúbkatými listami a jemnými výplňovými vetvičkami. Viacero farieb tej istej rady.",
+    "type": "georgína",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "kvety-36.jpg je spoločný záber viacerých farieb vo váze. Dva odtiene ružovej (prachová vs. svetlá) – oba ako ružová. Biela nemá samostatný detail záber. Oranžová = broskyňovo-oranžový odtieň (nie sýta oranžová).",
+    "variants": [
+      {
+        "color": "biela",
+        "photosOrdered": ["kvety-46.jpg", "kvety-30.jpg"],
+        "shotTypes": ["pot", "stem"]
+      },
+      {
+        "color": "krémová",
+        "photosOrdered": ["kvety-42.jpg", "kvety-38.jpg", "kvety-33.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-43.jpg", "kvety-40.jpg", "kvety-31.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-47.jpg", "kvety-37.jpg", "kvety-34.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-45.jpg", "kvety-41.jpg", "kvety-32.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "oranžová",
+        "photosOrdered": ["kvety-44.jpg", "kvety-39.jpg", "kvety-35.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  },
+  {
+    "folder": "54",
+    "name": "Krásnoočko (cosmos)",
+    "desc": "Umelé vetvy cosmosu s jemnými perovitými listami, drobnými púčikmi a žltými stredmi. Dve farby okvetných lístkov: ružová a svetlo fialová (lavanda s bielym prechodom k stredu).",
+    "type": "cosmos",
+    "mixedTypes": false,
+    "mixedNote": null,
+    "skipReason": null,
+    "notes": "Ružová ≠ fialová: ružová je jasne pink, fialová je lavandová. kvety-68.jpg ukazuje obe farby spolu vo prútenej váze. Centrá žltá.",
+    "variants": [
+      {
+        "color": "fialová",
+        "photosOrdered": ["kvety-67.jpg", "kvety-70.jpg", "kvety-64.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      },
+      {
+        "color": "ružová",
+        "photosOrdered": ["kvety-66.jpg", "kvety-69.jpg", "kvety-65.jpg"],
+        "shotTypes": ["pot", "detail", "stem"]
+      }
+    ]
+  }
+]

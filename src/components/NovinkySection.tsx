@@ -2,10 +2,10 @@ import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
 import { getNewestProducts } from "@/lib/products";
-import { listProducts } from "@/lib/products-server";
+import { listPricedProducts } from "@/lib/products-server";
 
 export async function NovinkySection() {
-  const all = await listProducts();
+  const all = await listPricedProducts();
   const products = getNewestProducts(all, 5);
 
   if (products.length === 0) return null;

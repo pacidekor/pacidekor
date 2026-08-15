@@ -60,5 +60,7 @@ export function getShippingInfoForChat() {
       "Kurier: Packeta / Zásielkovňa (výdajné miesto, Z-BOX alebo doručenie na adresu).",
       "Osobný odber je po dohode na našej adrese.",
     ],
+    reply_hint:
+      "Odpovedzte BEZ markdownu a BEZ odrážok. Max 3–4 krátke súvislé vety. Vzor: „Doprava je cez Packetu / Zásielkovňu na výdajné miesto alebo Z-BOX od 2,30 €, prípadne na adresu od 3,60 €. Osobný odber po dohode je zadarmo. Nad 100 € môže byť doprava zadarmo. Platíte bankovým prevodom alebo na dobierku.“",
   };
 }

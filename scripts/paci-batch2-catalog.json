@@ -20,14 +20,14 @@
     "name": "Halúzka drobných kvetov",
     "desc": "Jemná umelá halúzka s drobnými päťokvetnými kvetmi a zelenými lístkami. Vzdušný vzhľad vhodný do vázy alebo ako výplň do aranžmánov.",
     "colors": [
-      "svetlomodrá [1,6,8]",
-      "svetloružová [2,4,5,9]"
+      "modrá",
+      "svetloružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "svetlomodrá [1,6,8]",
-      "svetloružová [2,4,5,9]"
+      "modrá [1,2,3]",
+      "svetloružová [4,5,6,7]"
     ],
     "colorsClean": [
       "svetlomodrá",
@@ -39,14 +39,14 @@
     "name": "Kytica drobných kvetov",
     "desc": "Jemná umelá kytica s drobnými guľôčkovými kvetmi na tenkých zelených stonkách. Vhodná samostatne do vázy alebo ako výplň do kytíc.",
     "colors": [
-      "biela [2,4,5]",
-      "levanduľová [1,6,7]"
+      "biela",
+      "levanduľová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela [2,4,5]",
-      "levanduľová [1,6,7]"
+      "biela [1,2,3]",
+      "levanduľová [4,5,6]"
     ],
     "colorsClean": [
       "biela",
@@ -58,8 +58,8 @@
     "name": "Vetvička kaliny",
     "desc": "Umelá vetvička s hustými guľovitými kvetmi a zelenými listami na dlhom stonku. Elegantná dekorácia do vysokých váz alebo aranžmánov.",
     "colors": [
-      "krémová [1,2,3,4,5]",
-      "lososová [6]"
+      "krémová",
+      "lososová"
     ],
     "multi": true,
     "hasColorVariants": true,
@@ -77,16 +77,16 @@
     "name": "Kytica drobných poľných kvetov",
     "desc": "Umelá kytica s jemnými hviezdicovitými kvetmi a perovitou zeleňou. Realistický vzhľad vhodný do vázy alebo ako výplň do aranžmánov.",
     "colors": [
-      "svetlozelená [1,3,7,9]",
-      "fialová [1,4]",
-      "broskyňová [1,6,10]"
+      "svetlozelená",
+      "fialová",
+      "broskyňová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "svetlozelená [1,3,7,9]",
-      "fialová [1,4]",
-      "broskyňová [1,6,10]"
+      "svetlozelená [7,2,3,4]",
+      "fialová [7,6]",
+      "broskyňová [7,8,9]"
     ],
     "colorsClean": [
       "svetlozelená",
@@ -135,13 +135,13 @@
     "desc": "Umelý zväzok eukalyptu s úzkymi dlhými listami v tlmených tónoch. Ideálny ako doplnok do kytíc alebo samostatne do vázy.",
     "colors": [
       "tmavozelená",
-      "vínová"
+      "bordová"
     ],
     "multi": false,
     "hasColorVariants": true,
     "colorDetails": [
       "tmavozelená",
-      "vínová"
+      "bordová"
     ],
     "colorsClean": [
       "tmavozelená",
@@ -172,12 +172,12 @@
     "name": "Eukalyptová vetvička",
     "desc": "Umelá vetvička s jemne zubatými listami v tlmenej šalviovej zelenej. Vhodná do vázy alebo ako výplň do kvetinových aranžmánov.",
     "colors": [
-      "šalviová zelená"
+      "svetlozelená"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "šalviová zelená"
+      "svetlozelená"
     ],
     "colorsClean": [
       "šalviová zelená"
@@ -300,8 +300,8 @@
     "name": "Eukalyptus",
     "desc": "Umelý zväzok eukalyptu s okrúhlymi listami a jemnými svetlozelenými výhonkami. Realistická zeleň vhodná do vázy alebo aranžmánov.",
     "colors": [
-      "bordová [1,2,3]",
-      "sivozelená [4,5,6]"
+      "bordová",
+      "sivozelená"
     ],
     "multi": true,
     "hasColorVariants": true,
@@ -319,14 +319,14 @@
     "name": "Eukalyptus",
     "desc": "Umelý zväzok eukalyptu s drobnými okrúhlymi listami a prirodzeným vzhľadom. Vhodný do vázy alebo ako výplň do kvetinových aranžmánov.",
     "colors": [
-      "zelená [2,4,7]",
-      "bordová [1,3,5,6]"
+      "zelená",
+      "bordová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "zelená [2,4,7]",
-      "bordová [1,3,5,6]"
+      "zelená [1,2,3]",
+      "bordová [4,5,6,7]"
     ],
     "colorsClean": [
       "zelená",
@@ -354,16 +354,16 @@
     "name": "Zväzok listov",
     "desc": "Realistická umelá zeleň s oválnymi zúbkovanými listami vhodná ako výplň do kytíc a aranžmánov. Dostupné v niekoľkých odtieňoch zelenej.",
     "colors": [
-      "tmavozelená [1,5]",
-      "svetlozelená s hnedým okrajom [7]",
-      "žltozelená [2]"
+      "tmavozelená",
+      "svetlozelená",
+      "žltá"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "tmavozelená [1,5]",
-      "svetlozelená s hnedým okrajom [7]",
-      "žltozelená [2]"
+      "tmavozelená [1,2]",
+      "svetlozelená [3]",
+      "žltá [4]"
     ],
     "colorsClean": [
       "tmavozelená",
@@ -443,13 +443,13 @@
     "name": "Eukalyptová kytica",
     "desc": "Bohatá kytica eukalyptu s okrúhlymi strieborno-zelenými listami a matným povrchom. Dodá interiéru svieži a moderný vzhľad.",
     "colors": [
-      "strieborno-zelená",
+      "striebornozelená",
       "sivozelená"
     ],
     "multi": false,
     "hasColorVariants": true,
     "colorDetails": [
-      "strieborno-zelená",
+      "striebornozelená",
       "sivozelená"
     ],
     "colorsClean": [
@@ -462,12 +462,12 @@
     "name": "Eukalyptová vetvička",
     "desc": "Umelá halúzka eukalyptu s drobnými okrúhlymi lístkami v striebristo-zelenom odtieni. Ideálna ako samostatná dekorácia alebo výplň do aranžmánov.",
     "colors": [
-      "strieborno-zelená"
+      "striebornozelená"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "strieborno-zelená"
+      "striebornozelená"
     ],
     "colorsClean": [
       "strieborno-zelená"
@@ -478,8 +478,8 @@
     "name": "Listy monstery",
     "desc": "Dekoratívna kytica listov monstery s charakteristickými výrezmi a jemným matným povrchom. Elegantný tropický doplnok do vázy alebo aranžmánov.",
     "colors": [
-      "sivozelená [1,2,3]",
-      "staroružová [4]"
+      "sivozelená",
+      "staroružová"
     ],
     "multi": true,
     "hasColorVariants": true,
@@ -529,14 +529,14 @@
     "name": "Eukalyptová vetvička",
     "desc": "Realistická vetvička eukalyptu s okrúhlymi listami na tenkých stonkách. Ponúka prírodné aj výraznejšie farebné prevedenia.",
     "colors": [
-      "zelená [1,3,4,6,7]",
-      "bordová [1,10]"
+      "zelená",
+      "bordová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "zelená [1,3,4,6,7]",
-      "bordová [1,10]"
+      "zelená [6,2,3,4,5]",
+      "bordová [6,7]"
     ],
     "colorsClean": [
       "zelená",
@@ -615,20 +615,20 @@
     "name": "Kytička drobných kvetov",
     "desc": "Hustá guľovitá kytička z drobných granulovaných kvetov na zelených stonkách. Dekoratívny doplnok v niekoľkých pastelových farbách.",
     "colors": [
-      "koralová [1,7]",
-      "bordová [3]",
-      "biela [6,9]",
-      "krémová [4]",
-      "trblietavá staroružová [10]"
+      "koralová",
+      "bordová",
+      "biela",
+      "krémová",
+      "staroružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "koralová [1,7]",
+      "koralová [1,2]",
       "bordová [3]",
-      "biela [6,9]",
-      "krémová [4]",
-      "trblietavá staroružová [10]"
+      "biela [4,5]",
+      "krémová [6]",
+      "staroružová [7]"
     ],
     "colorsClean": [
       "koralová",
@@ -662,14 +662,14 @@
     "name": "Gypsophila (nevestin závoj)",
     "desc": "Jemný zväzok umelého nevestinho závoja s drobnými kvietkami na tenkých stonkách. Romantická výplň do kytíc aj samostatná dekorácia vo váze.",
     "colors": [
-      "svetloružová [1]",
-      "tmavoružová [3,4,7]"
+      "svetloružová",
+      "tmavoružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
       "svetloružová [1]",
-      "tmavoružová [3,4,7]"
+      "tmavoružová [2,3,4]"
     ],
     "colorsClean": [
       "svetloružová",
@@ -682,13 +682,13 @@
     "desc": "Jemná umelá vetvička s drobnými ihličnatými lístkami a matným sivozeleným povrchom. Prirodzená výplň do kytíc, vencov a minimalistických aranžmánov.",
     "colors": [
       "sivozelená",
-      "šalviová zelená"
+      "svetlozelená"
     ],
     "multi": false,
     "hasColorVariants": true,
     "colorDetails": [
       "sivozelená",
-      "šalviová zelená"
+      "svetlozelená"
     ],
     "colorsClean": [
       "sivozelená",
@@ -700,17 +700,17 @@
     "name": "Trs drobných kvietkov",
     "desc": "Vzdušný trs jemných drobných kvietkov v tvare hviezdičiek na zelených stonkách. Jemná výplňová zeleň v pastelových aj krémových odtieňoch.",
     "colors": [
-      "staroružová [1,3,7,13]",
-      "smotanová [5,11]",
-      "broskyňová [9]",
-      "horčicová [9]",
-      "fialová [9]"
+      "staroružová",
+      "krémová",
+      "broskyňová",
+      "horčicová",
+      "fialová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "staroružová [1,3,7,13]",
-      "smotanová [5,11]",
+      "staroružová [1,2,3,4]",
+      "krémová [5,6]",
       "broskyňová [9]",
       "horčicová [9]",
       "fialová [9]"
@@ -728,20 +728,18 @@
     "name": "Gypsophila s listami (31 cm)",
     "desc": "Hustý zväzok jemných púčikov s výraznými zelenými listami. Vhodná do vázy alebo ako doplnok do väčších aranžmánov.",
     "colors": [
-      "zelená s bielymi púčikmi [1,6]",
-      "biela s ružovým nádychom [2,8]",
-      "bordová / tmavoružová [4]",
-      "bielo-zelená s ružovým lemom [5]",
-      "ružovo-magenta [9]"
+      "zelená",
+      "biela",
+      "tmavoružová",
+      "ružovobiela"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "zelená s bielymi púčikmi [1,6]",
-      "biela s ružovým nádychom [2,8]",
-      "bordová / tmavoružová [4]",
-      "bielo-zelená s ružovým lemom [5]",
-      "ružovo-magenta [9]"
+      "zelená [1,2]",
+      "biela [3,4,5]",
+      "tmavoružová [6]",
+      "ružovobiela [7]"
     ],
     "colorsClean": [
       "zelená s bielymi púčikmi",
@@ -756,24 +754,24 @@
     "name": "Gypsophila",
     "desc": "Vzdušná umelá gypsophila v niekoľkých farebných variantoch. Ideálna do kytíc, svadobných aranžmánov aj samostatne vo váze.",
     "colors": [
-      "biela [1]",
-      "ružová / levanduľová [5,12,23]",
-      "žlto-zelená [8]",
-      "svetloružová [12]",
-      "zelená [19]",
-      "fialová [16]",
-      "tmavoružová / červená [16]"
+      "biela",
+      "levanduľová",
+      "žltá",
+      "svetloružová",
+      "zelená",
+      "fialová",
+      "tmavoružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
       "biela [1]",
-      "ružová / levanduľová [5,12,23]",
-      "žlto-zelená [8]",
-      "svetloružová [12]",
-      "zelená [19]",
-      "fialová [16]",
-      "tmavoružová / červená [16]"
+      "levanduľová [2,6,4]",
+      "žltá [5]",
+      "svetloružová [6]",
+      "zelená [7]",
+      "fialová [9]",
+      "tmavoružová [9]"
     ],
     "colorsClean": [
       "biela",
@@ -790,17 +788,15 @@
     "name": "Láskavec (previsnutý amarant)",
     "desc": "Previsnutý umelý amarant s jemnými strapcovitými klasmi. Vhodný do vyšších váz alebo ako elegantný doplnok aranžmánu.",
     "colors": [
-      "lososová / tlmená ružová [1,10]",
-      "zeleno-hnedá [3,4]",
-      "zelená [6,9]",
-      "ružová [7]"
+      "lososová",
+      "zelená",
+      "ružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "lososová / tlmená ružová [1,10]",
-      "zeleno-hnedá [3,4]",
-      "zelená [6,9]",
+      "lososová [1,2]",
+      "zelená [3,4,5,6]",
       "ružová [7]"
     ],
     "colorsClean": [
@@ -815,12 +811,12 @@
     "name": "Kytica pivoniek",
     "desc": "Elegantná kytica bohato otvorených pivoniek v krémovo-bielej farbe. Vhodná do vázy alebo ako stolový aranžmán.",
     "colors": [
-      "krémová / biela"
+      "krémová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "krémová / biela"
+      "krémová"
     ],
     "colorsClean": [
       "krémová / biela"
@@ -831,16 +827,14 @@
     "name": "Gypsophila",
     "desc": "Jemná umelá gypsophila s drobnými kvetmi na stonku. Vzdušný vzhľad vhodný do kytíc aj samostatne vo váze.",
     "colors": [
-      "biela [1,23]",
-      "levanduľová / fialová [5,12,16,19]",
-      "pastelový mix [8]"
+      "biela",
+      "levanduľová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela [1,23]",
-      "levanduľová / fialová [5,12,16,19]",
-      "pastelový mix [8]"
+      "biela [1,2]",
+      "levanduľová [3,4,5,6]"
     ],
     "colorsClean": [
       "biela",
@@ -853,12 +847,12 @@
     "name": "Dekoratívna jemná zeleň",
     "desc": "Hustá perovitá umelá zeleň so sýtozelenými lístkami. Neutrálny doplnok do vázy alebo kytice.",
     "colors": [
-      "sýtozelená"
+      "zelená"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "sýtozelená"
+      "zelená"
     ],
     "colorsClean": [
       "sýtozelená"
@@ -869,18 +863,16 @@
     "name": "Kytica pivoniek",
     "desc": "Bohatá kytica umelých pivoniek v niekoľkých farebných variantoch. Vhodná do vázy alebo ako dekorácia na stôl.",
     "colors": [
-      "smotanová / krémová [1]",
-      "vintage béžová [5,14,22]",
-      "staroružová [9,18]",
-      "svetlozelená / limetková [26]"
+      "krémová",
+      "staroružová",
+      "limetková"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "smotanová / krémová [1]",
-      "vintage béžová [5,14,22]",
-      "staroružová [9,18]",
-      "svetlozelená / limetková [26]"
+      "krémová [1,2,3,4]",
+      "staroružová [5,6]",
+      "limetková [7]"
     ],
     "colorsClean": [
       "smotanová / krémová",
@@ -894,22 +886,20 @@
     "name": "Kytica plných kvetov",
     "desc": "Veľká kytica bohatých plných kvetov v rôznych odtieňoch. Impozantný aranžmán do vázy alebo na dekoráciu interiéru.",
     "colors": [
-      "staroružová [4,9]",
-      "terakotová / oranžová [16]",
-      "hnedo-fialová [6,14]",
-      "krémová [11]",
-      "fialovoružová [1]",
-      "tmavofialová [1]"
+      "staroružová",
+      "oranžová",
+      "hnedá",
+      "krémová",
+      "fialová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "staroružová [4,9]",
-      "terakotová / oranžová [16]",
-      "hnedo-fialová [6,14]",
-      "krémová [11]",
-      "fialovoružová [1]",
-      "tmavofialová [1]"
+      "staroružová [1,2]",
+      "oranžová [3]",
+      "hnedá [4,5]",
+      "krémová [6]",
+      "fialová [7]"
     ],
     "colorsClean": [
       "staroružová",
@@ -925,16 +915,16 @@
     "name": "Gypsophila s eukalyptom",
     "desc": "Vzdušná gypsophila s doplnkom eukalyptu v niekoľkých farbách. Vhodná do vázy aj do väčších aranžmánov.",
     "colors": [
-      "biela [1,5,9]",
-      "fialová [2,6]",
-      "ružová [4,8]"
+      "biela",
+      "fialová",
+      "ružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela [1,5,9]",
-      "fialová [2,6]",
-      "ružová [4,8]"
+      "biela [1,2,3]",
+      "fialová [4,5]",
+      "ružová [6,7]"
     ],
     "colorsClean": [
       "biela",
@@ -979,18 +969,18 @@
     "name": "Eukalyptus (kytica)",
     "desc": "Umelý eukalyptus v niekoľkých farebných variantoch vrátane jesenných odtieňov. Vhodný ako samostatná zeleň aj doplnok do kytíc.",
     "colors": [
-      "sivozelená [1]",
-      "staroružová [2,4,8]",
-      "svetlozelená [5]",
-      "jesenná hnedooranžová [9]"
+      "sivozelená",
+      "staroružová",
+      "svetlozelená",
+      "oranžová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
       "sivozelená [1]",
-      "staroružová [2,4,8]",
+      "staroružová [2,3,4]",
       "svetlozelená [5]",
-      "jesenná hnedooranžová [9]"
+      "oranžová [6]"
     ],
     "colorsClean": [
       "sivozelená",
@@ -1004,12 +994,12 @@
     "name": "Kytica pivoniek",
     "desc": "Bohatá kytica plne rozkvetnutých pivoniek v sýto ružovej až cyklámenovej farbe. Vhodná do vázy alebo ako stolový aranžmán.",
     "colors": [
-      "cyklámenová / sýto ružová"
+      "cyklámenová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "cyklámenová / sýto ružová"
+      "cyklámenová"
     ],
     "colorsClean": [
       "cyklámenová / sýto ružová"
@@ -1020,12 +1010,12 @@
     "name": "Pivonka s doplnkami",
     "desc": "Jednotlivá umelá pivonka v krémovej farbe s drobnou zeleňou. Vhodná do menšej vázy alebo ako doplnok aranžmánu.",
     "colors": [
-      "krémová / biela"
+      "krémová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "krémová / biela"
+      "krémová"
     ],
     "colorsClean": [
       "krémová / biela"
@@ -1036,12 +1026,12 @@
     "name": "Kytica pivoniek exclusive (45 cm)",
     "desc": "Exkluzívna kytica bielych pivoniek s bohatými kvetmi a zeleňou. Dĺžka približne 45 cm, vhodná do elegantnej vázy.",
     "colors": [
-      "biela / krémová"
+      "krémová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "biela / krémová"
+      "krémová"
     ],
     "colorsClean": [
       "biela / krémová"
@@ -1052,14 +1042,14 @@
     "name": "Kytica pivoniek dlhá",
     "desc": "Dlhá kytica umelých pivoniek v dvoch farebných variantoch. Vhodná do vyššej vázy alebo ako výrazná dekorácia.",
     "colors": [
-      "tmavozelená [1,3]",
-      "staroružová [4,5,6]"
+      "tmavozelená",
+      "staroružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "tmavozelená [1,3]",
-      "staroružová [4,5,6]"
+      "tmavozelená [1,2]",
+      "staroružová [3,4,5]"
     ],
     "colorsClean": [
       "tmavozelená",
@@ -1071,12 +1061,12 @@
     "name": "Kytica pivoniek exclusive (45 cm)",
     "desc": "Exkluzívna kytica krémovo-bielych pivoniek s papradím a doplnkami. Dĺžka približne 45 cm, vhodná do elegantnej vázy.",
     "colors": [
-      "krémová / biela"
+      "krémová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "krémová / biela"
+      "krémová"
     ],
     "colorsClean": [
       "krémová / biela"
@@ -1103,16 +1093,16 @@
     "name": "Kytica ruží (36 hláv)",
     "desc": "Veľká kytica umelých ruží s približne 36 hlavami v niekoľkých odtieňoch. Impozantný aranžmán do vázy alebo na dekoráciu.",
     "colors": [
-      "biela / krémová [1,3,12]",
-      "staroružová [5,7,8]",
-      "krémovo-marhuľová [10]"
+      "krémová",
+      "staroružová",
+      "broskyňová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela / krémová [1,3,12]",
-      "staroružová [5,7,8]",
-      "krémovo-marhuľová [10]"
+      "krémová [1,2,3]",
+      "staroružová [4,5,6]",
+      "broskyňová [7]"
     ],
     "colorsClean": [
       "biela / krémová",
@@ -1125,18 +1115,18 @@
     "name": "Kytica pivoniek",
     "desc": "Bohatá kytica umelých pivoniek v niekoľkých farebných variantoch. Vhodná do vázy alebo ako výrazná stolová dekorácia.",
     "colors": [
-      "krémová [1,15]",
-      "horčicová / oranžová [1,8,19]",
-      "staroružová / fialová [1,5,22]",
-      "šalviová zelená [1,12]"
+      "krémová",
+      "horčicová",
+      "staroružová",
+      "svetlozelená"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "krémová [1,15]",
-      "horčicová / oranžová [1,8,19]",
-      "staroružová / fialová [1,5,22]",
-      "šalviová zelená [1,12]"
+      "krémová [9,2]",
+      "horčicová [9,4,5]",
+      "staroružová [9,7,8]",
+      "svetlozelená [9,10]"
     ],
     "colorsClean": [
       "krémová",
@@ -1150,14 +1140,14 @@
     "name": "Klinček",
     "desc": "Bohatá kytica umelých klinčekov s drobnými vrstvenými kvetmi a zelenými listami. Realistický vzhľad vhodný do vázy aj do aranžmánov.",
     "colors": [
-      "červená [1,2,4]",
-      "biela [3]"
+      "červená",
+      "biela"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "červená [1,2,4]",
-      "biela [3]"
+      "červená [1,2,3]",
+      "biela [4]"
     ],
     "colorsClean": [
       "červená",
@@ -1201,14 +1191,14 @@
     "name": "Kvitnúca vetvička",
     "desc": "Umelá vetvička s hustými drobnými kvetmi na dlhej stonke. Pôsobí prirodzene a vhodne doplní jarné aranžmány.",
     "colors": [
-      "biela [4]",
-      "broskyňovo-ružová [1,2,6]"
+      "biela",
+      "broskyňová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela [4]",
-      "broskyňovo-ružová [1,2,6]"
+      "biela [1]",
+      "broskyňová [2,3,4]"
     ],
     "colorsClean": [
       "biela",
@@ -1220,14 +1210,14 @@
     "name": "Kytica hortenzie s eukalyptom",
     "desc": "Bohatá kytica hortenzií s drobnými štvorlístkami a doplnkovou zeleňou. Obsahuje listy hortenzie, eukalyptus a jemné biele kvietky.",
     "colors": [
-      "fialová [1,6,8]",
-      "svetlomodrá [2,5]"
+      "fialová",
+      "modrá"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "fialová [1,6,8]",
-      "svetlomodrá [2,5]"
+      "fialová [1,2,3]",
+      "modrá [4,5]"
     ],
     "colorsClean": [
       "fialová",
@@ -1239,18 +1229,18 @@
     "name": "Iskerník",
     "desc": "Umelý iskerník s vrstvenými kvetmi, púčikmi a zelenými listami. Realistická kytica vhodná do vázy aj do sezónnych dekorácií.",
     "colors": [
-      "krémová [7,11]",
-      "žltá [9]",
-      "svetloružová [3]",
-      "marhuľová [5,13]"
+      "krémová",
+      "žltá",
+      "svetloružová",
+      "broskyňová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "krémová [7,11]",
-      "žltá [9]",
-      "svetloružová [3]",
-      "marhuľová [5,13]"
+      "krémová [1,2]",
+      "žltá [3]",
+      "svetloružová [4]",
+      "broskyňová [5,6]"
     ],
     "colorsClean": [
       "krémová",
@@ -1264,20 +1254,20 @@
     "name": "Dekoračná vetvička astilby",
     "desc": "Elegantná umelá vetvička s textúrovaným súkvetím a zelenými listami. Vhodná ako samostatná dekorácia do vázy alebo výplň do kytíc.",
     "colors": [
-      "zelená [1,10,14]",
-      "tmavomodrá [5]",
-      "hnedá [3]",
-      "lososová [12]",
-      "bordová [8]"
+      "zelená",
+      "tmavomodrá",
+      "hnedá",
+      "lososová",
+      "bordová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "zelená [1,10,14]",
-      "tmavomodrá [5]",
-      "hnedá [3]",
-      "lososová [12]",
-      "bordová [8]"
+      "zelená [1,2,3]",
+      "tmavomodrá [4]",
+      "hnedá [5]",
+      "lososová [6]",
+      "bordová [7]"
     ],
     "colorsClean": [
       "zelená",
@@ -1308,16 +1298,16 @@
     "name": "Ruža na dlhej stonke",
     "desc": "Elegantná umelá ruža s detailne spracovanými okvetnými lístkami a tŕnitou stonkou. Vhodná do vysokých váz a kvetinových aranžmánov.",
     "colors": [
-      "bordová [1,3,10]",
-      "svetloružová [5]",
-      "cyklámenová s krémovým stredom [8,12]"
+      "bordová",
+      "svetloružová",
+      "cyklámenová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "bordová [1,3,10]",
-      "svetloružová [5]",
-      "cyklámenová s krémovým stredom [8,12]"
+      "bordová [1,2,3]",
+      "svetloružová [4]",
+      "cyklámenová [5,6]"
     ],
     "colorsClean": [
       "bordová",
@@ -1330,12 +1320,12 @@
     "name": "Kytica ruží",
     "desc": "Kytica plných umelých ruží v jemnej marhuľovej farbe. Realistický vzhľad vhodný do vázy aj do bohatších aranžmánov.",
     "colors": [
-      "marhuľová"
+      "broskyňová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "marhuľová"
+      "broskyňová"
     ],
     "colorsClean": [
       "marhuľová"
@@ -1346,16 +1336,16 @@
     "name": "Kytica drobných ružičiek",
     "desc": "Vintage kytica drobných umelých kvetov s bohatou zeleňou a dekoračnými prvkami. Jemný vzhľad vhodný do menších váz.",
     "colors": [
-      "krémová [1,4,9]",
-      "sivomodrá [2]",
-      "staroružová s fialovou [5]"
+      "krémová",
+      "sivá",
+      "staroružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "krémová [1,4,9]",
-      "sivomodrá [2]",
-      "staroružová s fialovou [5]"
+      "krémová [1,2,3]",
+      "sivá [4]",
+      "staroružová [5]"
     ],
     "colorsClean": [
       "krémová",
@@ -1368,16 +1358,16 @@
     "name": "Kytica ruží Beauty",
     "desc": "Zväzok umelých ruží s plnými kvetmi na dlhých stonkách. Realistické spracovanie vhodné do vázy aj na aranžovanie.",
     "colors": [
-      "červená [1,6]",
-      "staroružová [2,5,8]",
-      "biela [4,9]"
+      "červená",
+      "staroružová",
+      "biela"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "červená [1,6]",
-      "staroružová [2,5,8]",
-      "biela [4,9]"
+      "červená [1,2]",
+      "staroružová [3,4,5]",
+      "biela [6,7]"
     ],
     "colorsClean": [
       "červená",
@@ -1422,14 +1412,14 @@
     "name": "Narcis",
     "desc": "Umelý narcis s charakteristickou trúbkou a jarným vzhľadom. Vhodný do vázy aj do sezónnych aranžmánov.",
     "colors": [
-      "žltá [1,7,10]",
-      "biela so žltým stredom [3]"
+      "žltá",
+      "biela"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "žltá [1,7,10]",
-      "biela so žltým stredom [3]"
+      "žltá [1,2,3]",
+      "biela [4]"
     ],
     "colorsClean": [
       "žltá",
@@ -1441,12 +1431,12 @@
     "name": "Kytica drobných ružičiek",
     "desc": "Malá kytica drobných púčikov v kombinácii krémovej a tlmeno zelenej farby. Vintage vzhľad vhodný do menších váz a dekorácií.",
     "colors": [
-      "krémová s tlmene zelenou"
+      "krémová"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "krémová s tlmene zelenou"
+      "krémová"
     ],
     "colorsClean": [
       "krémová s tlmene zelenou"
@@ -1457,12 +1447,12 @@
     "name": "Bahniatka",
     "desc": "Umelé bahniatka so sivými chlpatými púčikmi a jemnými zelenými listami. Ideálna jarná a veľkonočná dekorácia do vázy.",
     "colors": [
-      "sivá so zelenou"
+      "zelená"
     ],
     "multi": false,
     "hasColorVariants": false,
     "colorDetails": [
-      "sivá so zelenou"
+      "zelená"
     ],
     "colorsClean": [
       "sivá so zelenou"
@@ -1473,18 +1463,18 @@
     "name": "Dekoračná vetvička s púčikmi",
     "desc": "Jemné vetvičky s drobnými chlpatými púčikmi na tenkých konárikoch. Minimalistická dekorácia vhodná do vázy aj ako výplň.",
     "colors": [
-      "biela [1,7]",
-      "svetložltá [4]",
-      "svetlozelená [10]",
-      "svetlosivá [10]"
+      "biela",
+      "žltá",
+      "svetlozelená",
+      "svetlosivá"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "biela [1,7]",
-      "svetložltá [4]",
-      "svetlozelená [10]",
-      "svetlosivá [10]"
+      "biela [1,2]",
+      "žltá [3]",
+      "svetlozelená [5]",
+      "svetlosivá [5]"
     ],
     "colorsClean": [
       "biela",
@@ -1514,16 +1504,16 @@
     "name": "Hortenzia",
     "desc": "Umelá hortenzia s bohatým súkvetím a veľkými zelenými listami na dlhej stonke. Elegantná dekorácia do vázy v niekoľkých farebných prevedeniach.",
     "colors": [
-      "fialová [4,6,7]",
-      "modro-sivá [1]",
-      "staroružová [3,9]"
+      "fialová",
+      "modrá",
+      "staroružová"
     ],
     "multi": true,
     "hasColorVariants": true,
     "colorDetails": [
-      "fialová [4,6,7]",
-      "modro-sivá [1]",
-      "staroružová [3,9]"
+      "fialová [1,2,3]",
+      "modrá [4]",
+      "staroružová [5,6]"
     ],
     "colorsClean": [
       "fialová",

@@ -14,6 +14,12 @@ export type StoredChatProduct = {
   href: string;
   colorId?: string;
   inStock?: boolean;
+  availableColors?: string[];
+};
+
+export type StoredChatLink = {
+  label: string;
+  href: string;
 };
 
 export type StoredChatMessage = {
@@ -21,6 +27,7 @@ export type StoredChatMessage = {
   role: "user" | "assistant";
   content: string;
   products?: StoredChatProduct[];
+  links?: StoredChatLink[];
 };
 
 export type StoredConversation = {

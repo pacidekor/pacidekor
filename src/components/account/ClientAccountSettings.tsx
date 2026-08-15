@@ -20,6 +20,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AccountOrderDetail } from "@/components/account/AccountOrderDetail";
 import { BellIcon } from "@/components/icons/BellIcon";
 import { ProductSearchSelect } from "@/components/ProductSearchSelect";
 import { QuantityStepper } from "@/components/QuantityStepper";
@@ -32,6 +33,7 @@ import {
 import {
   clearClientSession,
   fetchClientCustomer,
+  notifyClientAuthChanged,
   subscribeClientAuth,
 } from "@/lib/client-auth";
 import {
@@ -39,7 +41,14 @@ import {
   customerDisplayName,
   type Customer,
 } from "@/lib/customers";
-import { updateOwnProfile } from "@/lib/actions/auth";
+import {
+  changeOwnEmail,
+  changeOwnPassword,
+  updateOwnProfile,
+} from "@/lib/actions/auth";
+import { PasswordField } from "@/components/PasswordField";
+import { companyError, emailError, sanitizeCompany } from "@/lib/form-validation";
+import { birthDateError } from "@/lib/birth-date";
 import {
   ORDER_TEMPLATES_EVENT,
   deleteOrderTemplate,
@@ -53,6 +62,9 @@ import { addToCart, formatPrice, parsePrice } from "@/lib/cart";
 import { adjustInventory } from "@/lib/inventory";
 import {
   ORDER_STATUS_META,
+  ORDERS_EVENT,
+  canCancelOrder,
+  cancelOrder,
   formatOrderTotal,
   getActiveOrdersForCustomerEmail,
   getOrderHistoryForCustomerEmail,
@@ -105,7 +117,7 @@ const NAV_GROUPS: NavGroup[] = [
 const SECTION_TITLES: Record<SectionId, { title: string; subtitle: string }> = {
   nastavenie: {
     title: "Nastavenie účtu",
-    subtitle: "Kontaktné a firemné údaje vášho partnerského účtu.",
+    subtitle: "Kontaktné údaje, e-mail a heslo k vášmu účtu.",
   },
   newsletter: {
     title: "Newsletter a akcie",
@@ -137,6 +149,7 @@ type ProfileForm = {
   country: string;
   ico: string;
   dic: string;
+  birthDate: string;
 };
 
 function toProfileForm(customer: Customer): ProfileForm {
@@ -151,6 +164,7 @@ function toProfileForm(customer: Customer): ProfileForm {
     country: customer.country,
     ico: customer.ico ?? "",
     dic: customer.dic ?? "",
+    birthDate: customer.birthDate ?? "",
   };
 }
 
@@ -172,6 +186,7 @@ export function ClientAccountSettings() {
   const [profileSaved, setProfileSaved] = useState(false);
   const [prefs, setPrefs] = useState<AccountPreferences | null>(null);
   const [templates, setTemplates] = useState<OrderTemplate[]>([]);
+  const [ordersTick, setOrdersTick] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -202,17 +217,23 @@ export function ClientAccountSettings() {
       });
     }
 
+    function syncOrders() {
+      setOrdersTick((value) => value + 1);
+    }
+
     void syncCustomer();
     const unsubscribe = subscribeClientAuth(() => {
       void syncCustomer();
     });
     window.addEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
     window.addEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
+    window.addEventListener(ORDERS_EVENT, syncOrders);
     return () => {
       cancelled = true;
       unsubscribe();
       window.removeEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
       window.removeEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
+      window.removeEventListener(ORDERS_EVENT, syncOrders);
     };
   }, []);
 
@@ -225,11 +246,11 @@ export function ClientAccountSettings() {
 
   const activeOrders = useMemo(
     () => (customer ? getActiveOrdersForCustomerEmail(customer.email) : []),
-    [customer],
+    [customer, ordersTick],
   );
   const historyOrders = useMemo(
     () => (customer ? getOrderHistoryForCustomerEmail(customer.email) : []),
-    [customer],
+    [customer, ordersTick],
   );
 
   const navGroups = useMemo(() => {
@@ -251,10 +272,10 @@ export function ClientAccountSettings() {
     setProfileSaved(false);
   }
 
-  async function saveProfile() {
-    if (!customer || !profile) return;
+  async function saveProfile(): Promise<boolean> {
+    if (!customer || !profile) return false;
     if (!profile.name.trim() || !profile.phone.trim()) {
-      return;
+      return false;
     }
     const result = await updateOwnProfile({
       name: profile.name.trim(),
@@ -266,11 +287,13 @@ export function ClientAccountSettings() {
       country: profile.country.trim() || "Slovensko",
       ico: profile.ico.trim() || undefined,
       dic: profile.dic.trim() || undefined,
+      birthDate: profile.birthDate.trim() || undefined,
     });
-    if (!result.ok) return;
+    if (!result.ok) return false;
     setCustomer(result.data.customer);
     setProfile(toProfileForm(result.data.customer));
     setProfileSaved(true);
+    return true;
   }
 
   function resetProfile() {
@@ -471,6 +494,10 @@ export function ClientAccountSettings() {
                   onPatch={patchProfile}
                   onSave={saveProfile}
                   onReset={resetProfile}
+                  onCustomerUpdated={(next) => {
+                    setCustomer(next);
+                    setProfile(toProfileForm(next));
+                  }}
                 />
               ) : null}
 
@@ -481,6 +508,8 @@ export function ClientAccountSettings() {
               {section === "aktivne" ? (
                 <OrdersSection
                   orders={activeOrders}
+                  customerEmail={customer.email}
+                  allowCancel
                   emptyTitle="Žiadne aktívne objednávky"
                   emptyBody="Keď odošlete novú objednávku, uvidíte ju tu až do doručenia."
                 />
@@ -489,6 +518,7 @@ export function ClientAccountSettings() {
               {section === "historia" ? (
                 <OrdersSection
                   orders={historyOrders}
+                  customerEmail={customer.email}
                   emptyTitle="Zatiaľ žiadna história"
                   emptyBody="Dokončené objednávky sa zobrazia na tomto mieste."
                 />
@@ -511,6 +541,29 @@ export function ClientAccountSettings() {
 }
 
 
+function formatBirthDateSk(value?: string) {
+  if (!value?.trim()) return null;
+  const [y, m, d] = value.split("-");
+  if (!y || !m || !d) return value;
+  return `${Number(d)}. ${Number(m)}. ${y}`;
+}
+
+function SummaryRow({
+  label,
+  value,
+}: {
+  label: string;
+  value?: string | null;
+}) {
+  if (!value?.trim()) return null;
+  return (
+    <div className="grid gap-1 sm:grid-cols-[10rem_1fr] sm:gap-4">
+      <dt className="text-sm text-[#2f2924]/50">{label}</dt>
+      <dd className="text-sm font-medium text-[#2f2924]">{value}</dd>
+    </div>
+  );
+}
+
 function ProfileSection({
   customer,
   profile,
@@ -518,166 +571,553 @@ function ProfileSection({
   onPatch,
   onSave,
   onReset,
+  onCustomerUpdated,
 }: {
   customer: Customer;
   profile: ProfileForm;
   saved: boolean;
   onPatch: <K extends keyof ProfileForm>(key: K, value: ProfileForm[K]) => void;
-  onSave: () => void;
+  onSave: () => Promise<boolean> | boolean;
   onReset: () => void;
+  onCustomerUpdated: (customer: Customer) => void;
 }) {
+  const [editing, setEditing] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [profileError, setProfileError] = useState<string | null>(null);
+
+  const addressLine = [profile.street, [profile.zip, profile.city].filter(Boolean).join(" "), profile.country]
+    .filter(Boolean)
+    .join(", ");
+
+  async function handleSave() {
+    setProfileError(null);
+    if (!profile.name.trim()) {
+      setProfileError("Zadajte meno / kontaktnú osobu.");
+      return;
+    }
+    if (!profile.phone.trim()) {
+      setProfileError("Zadajte telefón.");
+      return;
+    }
+    if (customer.type === "velkoobchod") {
+      const companyErr = companyError(profile.company);
+      if (companyErr) {
+        setProfileError(companyErr);
+        return;
+      }
+    }
+    const birthErr = birthDateError(profile.birthDate);
+    if (birthErr) {
+      setProfileError(birthErr);
+      return;
+    }
+    setSaving(true);
+    const ok = await onSave();
+    setSaving(false);
+    if (!ok) {
+      setProfileError("Údaje sa nepodarilo uložiť. Skúste to znova.");
+      return;
+    }
+    setEditing(false);
+  }
+
+  function handleCancel() {
+    onReset();
+    setProfileError(null);
+    setEditing(false);
+  }
+
   return (
-    <div>
-      <div className="flex items-center gap-4 border-b border-black/6 pb-6">
-        <div className="flex size-16 items-center justify-center rounded-full bg-[#e8ebe2] font-heading text-lg font-semibold text-[#75825B]">
-          {initials(customer.name)}
+    <div className="space-y-8">
+      <section>
+        <div className="flex flex-wrap items-start justify-between gap-3 border-b border-black/6 pb-5">
+          <div className="flex items-center gap-4">
+            <div className="flex size-14 items-center justify-center rounded-full bg-[#e8ebe2] font-heading text-base font-semibold text-[#75825B]">
+              {initials(customer.name)}
+            </div>
+            <div>
+              <p className="inline-flex items-center gap-2 text-sm font-medium text-[#2f2924]">
+                <UserRound className="size-4 text-[#75825B]" strokeWidth={1.75} />
+                Kontaktné údaje
+              </p>
+              <p className="mt-1 text-sm text-[#2f2924]/55">
+                {customerDisplayName(customer)}
+              </p>
+            </div>
+          </div>
+          {!editing ? (
+            <button
+              type="button"
+              onClick={() => {
+                setEditing(true);
+                setProfileError(null);
+              }}
+              className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+            >
+              <Pencil className="size-3.5" strokeWidth={1.75} aria-hidden />
+              Upraviť
+            </button>
+          ) : null}
         </div>
-        <div>
-          <p className="inline-flex items-center gap-2 text-sm font-medium text-[#2f2924]">
-            <UserRound className="size-4 text-[#75825B]" strokeWidth={1.75} />
-            Profil partnera
-          </p>
-          <p className="mt-1 text-sm text-[#2f2924]/55">
-            Zmeny sa uložia do vášho veľkoobchodného / zákazníckeho účtu.
-          </p>
-        </div>
-      </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">
-        <div>
-          <label htmlFor="acc-name" className={labelClass}>
-            Kontaktná osoba
-          </label>
-          <input
-            id="acc-name"
-            className={fieldClass}
-            value={profile.name}
-            onChange={(e) => onPatch("name", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-company" className={labelClass}>
-            Firma
-          </label>
-          <input
-            id="acc-company"
-            className={fieldClass}
-            value={profile.company}
-            onChange={(e) => onPatch("company", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-email" className={labelClass}>
-            E-mail
-          </label>
-          <input
-            id="acc-email"
-            type="email"
-            className={fieldClass}
-            value={profile.email}
-            onChange={(e) => onPatch("email", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-phone" className={labelClass}>
-            Telefón
-          </label>
-          <input
-            id="acc-phone"
-            type="tel"
-            className={fieldClass}
-            value={profile.phone}
-            onChange={(e) => onPatch("phone", e.target.value)}
-          />
-        </div>
-        <div className="sm:col-span-2">
-          <label htmlFor="acc-street" className={labelClass}>
-            Ulica a číslo
-          </label>
-          <input
-            id="acc-street"
-            className={fieldClass}
-            value={profile.street}
-            onChange={(e) => onPatch("street", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-city" className={labelClass}>
-            Mesto
-          </label>
-          <input
-            id="acc-city"
-            className={fieldClass}
-            value={profile.city}
-            onChange={(e) => onPatch("city", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-zip" className={labelClass}>
-            PSČ
-          </label>
-          <input
-            id="acc-zip"
-            className={fieldClass}
-            value={profile.zip}
-            onChange={(e) => onPatch("zip", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-country" className={labelClass}>
-            Krajina
-          </label>
-          <input
-            id="acc-country"
-            className={fieldClass}
-            value={profile.country}
-            onChange={(e) => onPatch("country", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-ico" className={labelClass}>
-            IČO
-          </label>
-          <input
-            id="acc-ico"
-            className={fieldClass}
-            value={profile.ico}
-            onChange={(e) => onPatch("ico", e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="acc-dic" className={labelClass}>
-            DIČ
-          </label>
-          <input
-            id="acc-dic"
-            className={fieldClass}
-            value={profile.dic}
-            onChange={(e) => onPatch("dic", e.target.value)}
-          />
-        </div>
-      </div>
+        {!editing ? (
+          <dl className="mt-5 space-y-3">
+            <SummaryRow label="Kontaktná osoba" value={profile.name} />
+            <SummaryRow label="Firma" value={profile.company} />
+            <SummaryRow label="Telefón" value={profile.phone} />
+            <SummaryRow
+              label="Dátum narodenia"
+              value={formatBirthDateSk(profile.birthDate)}
+            />
+            <SummaryRow label="Adresa" value={addressLine} />
+            <SummaryRow label="IČO" value={profile.ico} />
+            <SummaryRow label="DIČ" value={profile.dic} />
+          </dl>
+        ) : (
+          <>
+            <div className="mt-5 grid gap-4 sm:grid-cols-2">
+              <div>
+                <label htmlFor="acc-name" className={labelClass}>
+                  Kontaktná osoba
+                </label>
+                <input
+                  id="acc-name"
+                  className={fieldClass}
+                  value={profile.name}
+                  onChange={(e) => onPatch("name", e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="acc-company" className={labelClass}>
+                  Firma
+                  {customer.type !== "velkoobchod" ? (
+                    <span className="font-normal text-[#2f2924]/40">
+                      {" "}
+                      (voliteľné)
+                    </span>
+                  ) : null}
+                </label>
+                <input
+                  id="acc-company"
+                  className={fieldClass}
+                  value={profile.company}
+                  onChange={(e) =>
+                    onPatch("company", sanitizeCompany(e.target.value))
+                  }
+                />
+              </div>
+              <div>
+                <label htmlFor="acc-phone" className={labelClass}>
+                  Telefón
+                </label>
+                <input
+                  id="acc-phone"
+                  type="tel"
+                  className={fieldClass}
+                  value={profile.phone}
+                  onChange={(e) => onPatch("phone", e.target.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="acc-birth" className={labelClass}>
+                  Dátum narodenia{" "}
+                  <span className="font-normal text-[#2f2924]/40">(voliteľné)</span>
+                </label>
+                <input
+                  id="acc-birth"
+                  type="date"
+                  className={fieldClass}
+                  value={profile.birthDate}
+                  onChange={(e) => onPatch("birthDate", e.target.value)}
+                />
+              </div>
+              <div className="grid gap-4 sm:col-span-2 sm:grid-cols-4">
+                <div>
+                  <label htmlFor="acc-street" className={labelClass}>
+                    Ulica a číslo
+                  </label>
+                  <input
+                    id="acc-street"
+                    className={fieldClass}
+                    value={profile.street}
+                    onChange={(e) => onPatch("street", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="acc-city" className={labelClass}>
+                    Mesto
+                  </label>
+                  <input
+                    id="acc-city"
+                    className={fieldClass}
+                    value={profile.city}
+                    onChange={(e) => onPatch("city", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="acc-zip" className={labelClass}>
+                    PSČ
+                  </label>
+                  <input
+                    id="acc-zip"
+                    className={fieldClass}
+                    value={profile.zip}
+                    onChange={(e) => onPatch("zip", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="acc-country" className={labelClass}>
+                    Krajina
+                  </label>
+                  <input
+                    id="acc-country"
+                    className={fieldClass}
+                    value={profile.country}
+                    onChange={(e) => onPatch("country", e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="grid gap-4 sm:col-span-2 sm:grid-cols-2">
+                <div>
+                  <label htmlFor="acc-ico" className={labelClass}>
+                    IČO{" "}
+                    <span className="font-normal text-[#2f2924]/40">
+                      (voliteľné)
+                    </span>
+                  </label>
+                  <input
+                    id="acc-ico"
+                    className={fieldClass}
+                    value={profile.ico}
+                    onChange={(e) => onPatch("ico", e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label htmlFor="acc-dic" className={labelClass}>
+                    DIČ{" "}
+                    <span className="font-normal text-[#2f2924]/40">
+                      (voliteľné)
+                    </span>
+                  </label>
+                  <input
+                    id="acc-dic"
+                    className={fieldClass}
+                    value={profile.dic}
+                    onChange={(e) => onPatch("dic", e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
 
-      <div className="mt-8 flex flex-wrap items-center justify-end gap-2 border-t border-black/6 pt-6">
-        {saved ? (
-          <p className="mr-auto text-sm text-[#15803d]">Zmeny boli uložené.</p>
-        ) : null}
-        <button
-          type="button"
-          onClick={onReset}
-          className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-        >
-          Zrušiť
-        </button>
-        <button
-          type="button"
-          onClick={onSave}
-          className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-        >
-          Uložiť
-        </button>
-      </div>
+            {profileError ? (
+              <p className="mt-4 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                {profileError}
+              </p>
+            ) : null}
+
+            <div className="mt-6 flex flex-wrap items-center justify-end gap-2">
+              {saved ? (
+                <p className="mr-auto text-sm text-[#15803d]">Zmeny boli uložené.</p>
+              ) : null}
+              <button
+                type="button"
+                onClick={handleCancel}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+              >
+                Zrušiť
+              </button>
+              <button
+                type="button"
+                disabled={saving}
+                onClick={() => void handleSave()}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {saving ? "Ukladám…" : "Uložiť"}
+              </button>
+            </div>
+          </>
+        )}
+      </section>
+
+      <EmailChangeCard
+        currentEmail={customer.email}
+        onCustomerUpdated={onCustomerUpdated}
+      />
+      <PasswordChangeCard />
     </div>
+  );
+}
+
+function EmailChangeCard({
+  currentEmail,
+  onCustomerUpdated,
+}: {
+  currentEmail: string;
+  onCustomerUpdated: (customer: Customer) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  async function submit() {
+    setError(null);
+    setSuccess(null);
+    const check = emailError(email);
+    if (check) {
+      setError(check);
+      return;
+    }
+    if (!password) {
+      setError("Zadajte aktuálne heslo.");
+      return;
+    }
+    setPending(true);
+    const result = await changeOwnEmail({
+      newEmail: email,
+      currentPassword: password,
+    });
+    setPending(false);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    setSuccess(
+      `Na ${result.data.email} sme poslali potvrdenie. Po overení sa e-mail zmení.`,
+    );
+    setEmail("");
+    setPassword("");
+    setOpen(false);
+    notifyClientAuthChanged();
+    void fetchClientCustomer().then((next) => {
+      if (next) onCustomerUpdated(next);
+    });
+  }
+
+  return (
+    <section className="border-t border-black/6 pt-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-sm font-medium text-[#2f2924]">E-mail</h2>
+          <p className="mt-1 text-sm text-[#2f2924]/55">{currentEmail}</p>
+          {success ? (
+            <p className="mt-2 text-sm text-[#15803d]">{success}</p>
+          ) : null}
+        </div>
+        {!open ? (
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(true);
+              setError(null);
+              setSuccess(null);
+            }}
+            className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+          >
+            Zmeniť e-mail
+          </button>
+        ) : null}
+      </div>
+
+      {open ? (
+        <div className="mt-5 space-y-4">
+          <div className="grid items-end gap-4 sm:grid-cols-[1fr_1fr_auto]">
+            <div>
+              <label htmlFor="acc-new-email" className={labelClass}>
+                Nový e-mail
+              </label>
+              <input
+                id="acc-new-email"
+                type="email"
+                autoComplete="email"
+                className={fieldClass}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="acc-email-password" className={labelClass}>
+                Aktuálne heslo
+              </label>
+              <PasswordField
+                id="acc-email-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete="current-password"
+                className={fieldClass}
+              />
+            </div>
+            <div className="flex flex-wrap gap-2 sm:justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setEmail("");
+                  setPassword("");
+                  setError(null);
+                }}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+              >
+                Zrušiť
+              </button>
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() => void submit()}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {pending ? "Ukladám…" : "Uložiť"}
+              </button>
+            </div>
+          </div>
+          {error ? (
+            <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+              {error}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+    </section>
+  );
+}
+
+function PasswordChangeCard() {
+  const [open, setOpen] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  async function submit() {
+    setError(null);
+    setSuccess(null);
+    if (newPassword.length < 6) {
+      setError("Nové heslo musí mať aspoň 6 znakov.");
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError("Nové heslá sa nezhodujú.");
+      return;
+    }
+    setPending(true);
+    const result = await changeOwnPassword({
+      currentPassword,
+      newPassword,
+    });
+    setPending(false);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    setSuccess("Heslo bolo zmenené.");
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmPassword("");
+    setOpen(false);
+  }
+
+  return (
+    <section className="border-t border-black/6 pt-8">
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h2 className="text-sm font-medium text-[#2f2924]">Heslo</h2>
+          <p className="mt-1 text-sm text-[#2f2924]/55">
+            ••••••••
+          </p>
+          {success ? (
+            <p className="mt-2 text-sm text-[#15803d]">{success}</p>
+          ) : null}
+        </div>
+        {!open ? (
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(true);
+              setError(null);
+              setSuccess(null);
+            }}
+            className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+          >
+            Zmeniť heslo
+          </button>
+        ) : null}
+      </div>
+
+      {open ? (
+        <div className="mt-5 space-y-4">
+          <div className="grid items-end gap-4 sm:grid-cols-[1fr_1fr_1fr_auto]">
+            <div>
+              <label htmlFor="acc-current-password" className={labelClass}>
+                Aktuálne heslo
+              </label>
+              <PasswordField
+                id="acc-current-password"
+                value={currentPassword}
+                onChange={(e) => setCurrentPassword(e.target.value)}
+                autoComplete="current-password"
+                className={fieldClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="acc-new-password" className={labelClass}>
+                Nové heslo
+              </label>
+              <PasswordField
+                id="acc-new-password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                autoComplete="new-password"
+                className={fieldClass}
+              />
+            </div>
+            <div>
+              <label htmlFor="acc-confirm-password" className={labelClass}>
+                Potvrdenie nového hesla
+              </label>
+              <PasswordField
+                id="acc-confirm-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                autoComplete="new-password"
+                className={fieldClass}
+              />
+            </div>
+            <div className="flex flex-wrap gap-2 sm:justify-end">
+              <button
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setCurrentPassword("");
+                  setNewPassword("");
+                  setConfirmPassword("");
+                  setError(null);
+                }}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+              >
+                Zrušiť
+              </button>
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() => void submit()}
+                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {pending ? "Ukladám…" : "Uložiť"}
+              </button>
+            </div>
+          </div>
+          {error ? (
+            <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+              {error}
+            </p>
+          ) : null}
+        </div>
+      ) : null}
+    </section>
   );
 }
 
@@ -766,11 +1206,18 @@ function OrdersSection({
   orders,
   emptyTitle,
   emptyBody,
+  customerEmail,
+  allowCancel = false,
 }: {
   orders: Order[];
   emptyTitle: string;
   emptyBody: string;
+  customerEmail: string;
+  allowCancel?: boolean;
 }) {
+  const [confirmId, setConfirmId] = useState<string | null>(null);
+  const [detailOrder, setDetailOrder] = useState<Order | null>(null);
+
   if (orders.length === 0) {
     return (
       <div className="rounded-2xl border border-dashed border-black/10 px-5 py-12 text-center">
@@ -796,41 +1243,106 @@ function OrdersSection({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/8">
-      <ul className="divide-y divide-black/6">
-        {orders.map((order) => {
-          const meta = ORDER_STATUS_META[order.status];
-          return (
-            <li
-              key={order.id}
-              className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5"
-            >
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="font-medium text-[#2f2924]">#{order.id}</p>
-                  <span
-                    className={`inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold ${meta.className}`}
-                  >
-                    {meta.label}
-                  </span>
+    <>
+      <div className="overflow-hidden rounded-2xl border border-black/8">
+        <ul className="divide-y divide-black/6">
+          {orders.map((order) => {
+            const meta = ORDER_STATUS_META[order.status];
+            const showCancel = allowCancel && canCancelOrder(order);
+            const confirming = confirmId === order.id;
+            return (
+              <li
+                key={order.id}
+                className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5"
+              >
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="font-medium text-[#2f2924]">#{order.id}</p>
+                    <span
+                      className={`inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold ${meta.className}`}
+                    >
+                      {meta.label}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm text-[#2f2924]/55">
+                    {order.createdAtLabel} · {order.items.length}{" "}
+                    {order.items.length === 1 ? "položka" : "položky"} ·{" "}
+                    {order.shippingMethod}
+                  </p>
+                  {confirming ? (
+                    <p className="mt-2 text-sm text-[#9a4d3f]">
+                      Naozaj chcete zrušiť objednávku #{order.id}?
+                    </p>
+                  ) : null}
                 </div>
-                <p className="mt-1 text-sm text-[#2f2924]/55">
-                  {order.createdAtLabel} · {order.items.length}{" "}
-                  {order.items.length === 1 ? "položka" : "položky"} ·{" "}
-                  {order.shippingMethod}
-                </p>
-              </div>
-              <div className="flex items-center gap-3 sm:flex-col sm:items-end sm:gap-1">
-                <p className="text-sm font-semibold text-[#2f2924]">
-                  {formatOrderTotal(order)}
-                </p>
-                <p className="text-xs text-[#2f2924]/45">{order.paymentMethod}</p>
-              </div>
-            </li>
-          );
-        })}
-      </ul>
-    </div>
+                <div className="flex flex-wrap items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
+                  <div className="sm:text-right">
+                    <p className="text-sm font-semibold text-[#2f2924]">
+                      {formatOrderTotal(order)}
+                    </p>
+                    <p className="text-xs text-[#2f2924]/45">
+                      {order.paymentMethod}
+                    </p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setConfirmId(null);
+                        setDetailOrder(order);
+                      }}
+                      className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                    >
+                      Detail
+                    </button>
+                    {showCancel ? (
+                      confirming ? (
+                        <>
+                          <button
+                            type="button"
+                            onClick={() => setConfirmId(null)}
+                            className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                          >
+                            Späť
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              cancelOrder(order.id, customerEmail);
+                              setConfirmId(null);
+                            }}
+                            className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 bg-[#f3e8e6] px-3 text-xs font-medium text-[#9a4d3f] transition-colors hover:bg-[#ead9d6]"
+                          >
+                            Potvrdiť storno
+                          </button>
+                        </>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setConfirmId(order.id)}
+                          className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924]/70 transition-colors hover:border-[#c45c4a]/30 hover:bg-[#f3e8e6] hover:text-[#9a4d3f]"
+                        >
+                          Zrušiť
+                        </button>
+                      )
+                    ) : null}
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      {detailOrder ? (
+        <AccountOrderDetail
+          order={detailOrder}
+          customerEmail={customerEmail}
+          allowCancel={allowCancel}
+          onClose={() => setDetailOrder(null)}
+        />
+      ) : null}
+    </>
   );
 }
 

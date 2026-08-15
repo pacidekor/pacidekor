@@ -85,12 +85,20 @@ export function WholesaleLoginForm({
           </div>
 
           <div>
-            <label
-              htmlFor="vo-login-password"
-              className="mb-1.5 block text-sm font-medium text-[#2f2924]"
-            >
-              Heslo
-            </label>
+            <div className="mb-1.5 flex items-center justify-between gap-3">
+              <label
+                htmlFor="vo-login-password"
+                className="text-sm font-medium text-[#2f2924]"
+              >
+                Heslo
+              </label>
+              <Link
+                href="/zabudnute-heslo?typ=velkoobchod"
+                className="text-sm font-medium text-[#75825B] transition-colors hover:text-[#5f6a49]"
+              >
+                Zabudli ste heslo?
+              </Link>
+            </div>
             <PasswordField
               id="vo-login-password"
               name="password"
