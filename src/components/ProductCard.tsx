@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FavoriteButton } from "@/components/FavoriteButton";
@@ -20,7 +20,10 @@ type ProductCardProps = {
   filterColorIds?: string[];
 };
 
-export function ProductCard({ product, filterColorIds }: ProductCardProps) {
+export const ProductCard = memo(function ProductCard({
+  product,
+  filterColorIds,
+}: ProductCardProps) {
   const priced = usePricedProduct(product);
   const colors = priced.colors ?? [];
   const showSwatches = colors.length > 1;
@@ -74,7 +77,7 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
             alt={priced.name}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-            quality={90}
+            quality={75}
             className={`object-cover${hoverImage ? " transition-opacity duration-700 ease-out group-hover:opacity-0" : ""}`}
           />
           {hoverImage ? (
@@ -84,7 +87,7 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
               alt=""
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
-              quality={90}
+              quality={75}
               className="object-cover opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
               aria-hidden
             />
@@ -152,4 +155,4 @@ export function ProductCard({ product, filterColorIds }: ProductCardProps) {
       <ProductCardActions product={priced} />
     </article>
   );
-}
+});

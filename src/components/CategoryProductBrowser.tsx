@@ -1,6 +1,13 @@
 "use client";
 
-import { useEffect, useMemo, useState, useTransition } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ListFilter } from "lucide-react";
@@ -17,7 +24,7 @@ import {
   getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
-import { filterProducts, type Product } from "@/lib/products";
+import { filterProducts } from "@/lib/products";
 import {
   buildCategoryFilterHref,
   filterColors,
@@ -26,12 +33,16 @@ import {
   type CategoryFilters,
 } from "@/lib/taxonomy";
 import { subscribeTaxonomy } from "@/lib/taxonomy-store";
+import { usePricedProducts } from "@/lib/use-priced-product";
 
 type CategoryProductBrowserProps = {
   categoryLabel: string;
   categorySlug: string;
-  products: Product[];
+  products: import("@/lib/products").Product[];
 };
+
+/** First paint + each “load more” batch — keeps filter clicks snappy. */
+const PAGE_SIZE = 24;
 
 function toggleId(list: string[] | undefined, id: string): string[] | undefined {
   const current = list ?? [];
@@ -39,6 +50,24 @@ function toggleId(list: string[] | undefined, id: string): string[] | undefined 
     ? current.filter((item) => item !== id)
     : [...current, id];
   return next.length > 0 ? next : undefined;
+}
+
+function filtersFromSearchParams(
+  searchParams: URLSearchParams,
+): CategoryFilters {
+  const raw: Record<string, string | undefined> = {};
+  searchParams.forEach((value, key) => {
+    raw[key] = value;
+  });
+  return parseCategoryFilters(raw);
+}
+
+function filtersKey(filters: CategoryFilters) {
+  return [
+    filters.sub ?? "",
+    filters.druh ?? "",
+    (filters.farba ?? []).slice().sort().join(","),
+  ].join("|");
 }
 
 export function CategoryProductBrowser({
@@ -63,6 +92,14 @@ export function CategoryProductBrowser({
     getAdminDruhyForCategory(categoryLabel),
   );
 
+  // Optimistic filters — update UI immediately; URL syncs in background.
+  const [filters, setFilters] = useState<CategoryFilters>(() =>
+    filtersFromSearchParams(searchParams),
+  );
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
+  const applyingFiltersRef = useRef(false);
+
   useEffect(() => {
     function refresh() {
       setSubcategories(getAdminSubcategoriesForCategory(categoryLabel));
@@ -77,23 +114,61 @@ export function CategoryProductBrowser({
     };
   }, [categoryLabel]);
 
-  const filters = useMemo(() => {
-    const raw: Record<string, string | undefined> = {};
-    searchParams.forEach((value, key) => {
-      raw[key] = value;
-    });
-    return parseCategoryFilters(raw);
+  // Back/forward / shared links — adopt URL when it diverges (skip our own replaces).
+  useEffect(() => {
+    if (applyingFiltersRef.current) {
+      applyingFiltersRef.current = false;
+      return;
+    }
+    const fromUrl = filtersFromSearchParams(searchParams);
+    setFilters((prev) =>
+      filtersKey(prev) === filtersKey(fromUrl) ? prev : fromUrl,
+    );
   }, [searchParams]);
+
+  const pricedProducts = usePricedProducts(products);
 
   const filtered = useMemo(
     () =>
-      filterProducts(products, {
+      filterProducts(pricedProducts, {
         subcategoryId: filters.sub,
         druhId: filters.druh,
         colors: filters.farba,
       }),
-    [products, filters],
+    [pricedProducts, filters],
   );
+
+  // Keep chip taps responsive while the heavy grid catches up.
+  const deferredFiltered = useDeferredValue(filtered);
+  const isFilterPending = filtered !== deferredFiltered;
+
+  useEffect(() => {
+    setVisibleCount(PAGE_SIZE);
+  }, [filters]);
+
+  const visibleProducts = useMemo(
+    () => deferredFiltered.slice(0, visibleCount),
+    [deferredFiltered, visibleCount],
+  );
+  const hasMore = visibleCount < deferredFiltered.length;
+
+  useEffect(() => {
+    const node = loadMoreRef.current;
+    if (!node || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisibleCount((count) =>
+            Math.min(count + PAGE_SIZE, deferredFiltered.length),
+          );
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, deferredFiltered.length, visibleCount]);
 
   const activeFilterCount =
     (filters.sub ? 1 : 0) +
@@ -101,6 +176,8 @@ export function CategoryProductBrowser({
     (filters.farba?.length ?? 0);
 
   function applyFilters(next: CategoryFilters) {
+    applyingFiltersRef.current = true;
+    setFilters(next);
     const href = buildCategoryFilterHref(categorySlug, next);
     startTransition(() => {
       router.replace(href, { scroll: false });
@@ -160,15 +237,41 @@ export function CategoryProductBrowser({
         </div>
       </div>
 
-      {filtered.length > 0 ? (
-        <div className={catalogGridClass(gridDensity)}>
-          {filtered.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              filterColorIds={filters.farba}
-            />
-          ))}
+      {deferredFiltered.length > 0 ? (
+        <div
+          className={
+            isFilterPending ? "opacity-70 transition-opacity" : undefined
+          }
+        >
+          <div className={catalogGridClass(gridDensity)}>
+            {visibleProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                filterColorIds={filters.farba}
+              />
+            ))}
+          </div>
+          {hasMore ? (
+            <div
+              ref={loadMoreRef}
+              className="flex justify-center py-10"
+              aria-hidden
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  setVisibleCount((count) =>
+                    Math.min(count + PAGE_SIZE, deferredFiltered.length),
+                  )
+                }
+                className="inline-flex h-11 cursor-pointer items-center rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
+              >
+                Zobraziť ďalšie (
+                {deferredFiltered.length - visibleCount})
+              </button>
+            </div>
+          ) : null}
         </div>
       ) : (
         <div className="rounded-3xl bg-white px-6 py-12 text-center sm:px-10">
