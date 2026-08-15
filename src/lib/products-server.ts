@@ -1,5 +1,7 @@
 import "server-only";
 
+import { applyDiscountsToProducts } from "@/lib/discounts";
+import { listDiscounts } from "@/lib/discounts-server";
 import {
   mapProductRow,
   type AuthSideSlide,
@@ -23,6 +25,15 @@ export async function listProducts(): Promise<Product[]> {
   }
 
   return (data as ProductRow[]).map(mapProductRow);
+}
+
+/** Katalog s aplikovanými aktívnymi zľavami (cena, originalPrice, discount %). */
+export async function listPricedProducts(): Promise<Product[]> {
+  const [products, discounts] = await Promise.all([
+    listProducts(),
+    listDiscounts(),
+  ]);
+  return applyDiscountsToProducts(products, discounts);
 }
 
 export async function getProductBySlug(
