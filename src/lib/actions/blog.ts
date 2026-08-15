@@ -72,7 +72,7 @@ export async function saveBlogPostAction(
     const slug = input.slug.trim();
     const title = input.title.trim();
     if (!slug || !title) {
-      return { ok: false, error: "Zadajte názov a slug článku." };
+      return { ok: false, error: "Zadajte názov článku." };
     }
 
     const db = createServiceClient();

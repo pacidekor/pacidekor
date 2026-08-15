@@ -2,12 +2,16 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState, type ComponentType } from "react";
+import { useEffect, useId, useMemo, useRef, useState, type ComponentType } from "react";
+import { createPortal } from "react-dom";
 import {
+  AlertTriangle,
+  ChevronDown,
   ChevronRight,
   Check,
   ClipboardList,
   ExternalLink,
+  FileText,
   History,
   Layers,
   LogOut,
@@ -17,13 +21,11 @@ import {
   Settings,
   Trash2,
   UserRound,
-  X,
 } from "lucide-react";
-import Image from "next/image";
 import { AccountOrderDetail } from "@/components/account/AccountOrderDetail";
+import { AccountTemplateEditor } from "@/components/account/AccountTemplateEditor";
+import { SaveCartTemplateModal } from "@/components/cart/SaveCartTemplateModal";
 import { BellIcon } from "@/components/icons/BellIcon";
-import { ProductSearchSelect } from "@/components/ProductSearchSelect";
-import { QuantityStepper } from "@/components/QuantityStepper";
 import {
   ACCOUNT_PREFS_EVENT,
   getAccountPreferences,
@@ -54,17 +56,13 @@ import {
   deleteOrderTemplate,
   formatTemplateTotal,
   getTemplatesForCustomer,
-  updateOrderTemplate,
   type OrderTemplate,
-  type OrderTemplateItem,
 } from "@/lib/order-templates";
-import { addToCart, formatPrice, parsePrice } from "@/lib/cart";
+import { addToCart, clearCart, readCartItems } from "@/lib/cart";
 import { adjustInventory } from "@/lib/inventory";
 import {
   ORDER_STATUS_META,
   ORDERS_EVENT,
-  canCancelOrder,
-  cancelOrder,
   formatOrderTotal,
   getActiveOrdersForCustomerEmail,
   getOrderHistoryForCustomerEmail,
@@ -480,7 +478,7 @@ export function ClientAccountSettings() {
               <h1 className="font-heading text-xl font-semibold text-[#2f2924] sm:text-2xl">
                 {sectionMeta.title}
               </h1>
-              <p className="mt-1 max-w-xl text-sm leading-relaxed text-[#2f2924]/55">
+              <p className="mt-1 text-sm leading-relaxed text-[#2f2924]/55">
                 {sectionMeta.subtitle}
               </p>
             </div>
@@ -519,6 +517,12 @@ export function ClientAccountSettings() {
                 <OrdersSection
                   orders={historyOrders}
                   customerEmail={customer.email}
+                  customerId={customer.id}
+                  enableReorderActions
+                  onTemplatesChanged={() =>
+                    setTemplates(getTemplatesForCustomer(customer.id))
+                  }
+                  onViewTemplates={() => setSection("sablony")}
                   emptyTitle="Zatiaľ žiadna história"
                   emptyBody="Dokončené objednávky sa zobrazia na tomto mieste."
                 />
@@ -1202,21 +1206,172 @@ function NewsletterSection({
   );
 }
 
+async function replaceCartWithOrderItems(order: Order): Promise<number> {
+  const current = readCartItems();
+  for (const item of current) {
+    await adjustInventory(item.product, item.quantity);
+  }
+  await clearCart();
+
+  let added = 0;
+  for (const line of order.items) {
+    const product = getProductCatalog().find((item) => item.id === line.productId);
+    if (!product) continue;
+
+    const stock = await adjustInventory(product, -line.quantity);
+    if (!stock.ok) continue;
+
+    try {
+      await addToCart(product, line.quantity);
+      added += 1;
+    } catch {
+      await adjustInventory(product, line.quantity);
+    }
+  }
+  return added;
+}
+
+function ReplaceCartConfirmModal({
+  open,
+  orderId,
+  busy,
+  onConfirm,
+  onClose,
+}: {
+  open: boolean;
+  orderId: string;
+  busy: boolean;
+  onConfirm: () => void;
+  onClose: () => void;
+}) {
+  const titleId = useId();
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && !busy) onCloseRef.current();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open, busy]);
+
+  if (!open || typeof document === "undefined") return null;
+
+  return createPortal(
+    <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4 sm:p-6">
+      <button
+        type="button"
+        className="absolute inset-0 cursor-pointer disabled:cursor-wait"
+        aria-label="Zavrieť"
+        disabled={busy}
+        onClick={onClose}
+      />
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        className="relative z-10 w-full max-w-md overflow-hidden rounded-3xl border border-black/8 bg-white shadow-[0_20px_48px_rgba(47,41,36,0.22)]"
+      >
+        <div className="flex items-start gap-3 px-5 py-5 sm:px-6 sm:py-6">
+          <span className="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-[#f3e8e6] text-[#9a4d3f]">
+            <AlertTriangle className="size-5" strokeWidth={1.75} aria-hidden />
+          </span>
+          <div className="min-w-0">
+            <h2
+              id={titleId}
+              className="font-heading text-lg font-semibold text-[#2f2924]"
+            >
+              Nahradiť obsah košíka?
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/65">
+              V košíku už máte produkty. Opakovaním objednávky{" "}
+              <span className="font-medium text-[#2f2924]">#{orderId}</span> sa
+              aktuálny košík úplne vyprázdni a nahradí položkami z tejto
+              objednávky.
+            </p>
+          </div>
+        </div>
+        <div className="flex flex-col-reverse gap-2 border-t border-black/6 px-5 py-4 sm:flex-row sm:justify-end sm:px-6">
+          <button
+            type="button"
+            disabled={busy}
+            onClick={onClose}
+            className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-60"
+          >
+            Zrušiť
+          </button>
+          <button
+            type="button"
+            disabled={busy}
+            onClick={onConfirm}
+            className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
+          >
+            {busy ? "Pripravujem…" : "Áno, nahradiť košík"}
+          </button>
+        </div>
+      </div>
+    </div>,
+    document.body,
+  );
+}
+
 function OrdersSection({
   orders,
   emptyTitle,
   emptyBody,
   customerEmail,
+  customerId,
   allowCancel = false,
+  enableReorderActions = false,
+  onTemplatesChanged,
+  onViewTemplates,
 }: {
   orders: Order[];
   emptyTitle: string;
   emptyBody: string;
   customerEmail: string;
+  customerId?: string;
   allowCancel?: boolean;
+  enableReorderActions?: boolean;
+  onTemplatesChanged?: () => void;
+  onViewTemplates?: () => void;
 }) {
-  const [confirmId, setConfirmId] = useState<string | null>(null);
+  const router = useRouter();
   const [detailOrder, setDetailOrder] = useState<Order | null>(null);
+  const [replaceOrder, setReplaceOrder] = useState<Order | null>(null);
+  const [templateOrder, setTemplateOrder] = useState<Order | null>(null);
+  const [repeatingId, setRepeatingId] = useState<string | null>(null);
+  const [actionError, setActionError] = useState<string | null>(null);
+
+  async function runRepeatOrder(order: Order) {
+    if (repeatingId) return;
+    setRepeatingId(order.id);
+    setActionError(null);
+    try {
+      const added = await replaceCartWithOrderItems(order);
+      if (added === 0) {
+        setActionError(
+          "Nepodarilo sa pridať produkty do košíka. Skontrolujte sklad alebo dostupnosť.",
+        );
+        return;
+      }
+      setReplaceOrder(null);
+      router.push("/kosik");
+    } finally {
+      setRepeatingId(null);
+    }
+  }
+
+  function requestRepeatOrder(order: Order) {
+    setActionError(null);
+    if (readCartItems().length > 0) {
+      setReplaceOrder(order);
+      return;
+    }
+    void runRepeatOrder(order);
+  }
 
   if (orders.length === 0) {
     return (
@@ -1244,94 +1399,99 @@ function OrdersSection({
 
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-black/8">
-        <ul className="divide-y divide-black/6">
-          {orders.map((order) => {
-            const meta = ORDER_STATUS_META[order.status];
-            const showCancel = allowCancel && canCancelOrder(order);
-            const confirming = confirmId === order.id;
-            return (
-              <li
-                key={order.id}
-                className="flex flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-5"
-              >
+      {actionError ? (
+        <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+          {actionError}
+        </p>
+      ) : null}
+
+      <div className="space-y-3">
+        {orders.map((order) => {
+          const meta = ORDER_STATUS_META[order.status];
+          const repeating = repeatingId === order.id;
+          const itemCount = order.items.length;
+          const itemLabel =
+            itemCount === 1
+              ? "položka"
+              : itemCount < 5
+                ? "položky"
+                : "položiek";
+
+          return (
+            <article
+              key={order.id}
+              className="rounded-2xl border border-black/8 px-4 py-4 sm:px-5"
+            >
+              <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-medium text-[#2f2924]">#{order.id}</p>
+                    <h2 className="font-heading text-lg font-semibold text-[#2f2924]">
+                      #{order.id}
+                    </h2>
                     <span
                       className={`inline-flex rounded-md px-2 py-0.5 text-[11px] font-semibold ${meta.className}`}
                     >
                       {meta.label}
                     </span>
                   </div>
-                  <p className="mt-1 text-sm text-[#2f2924]/55">
-                    {order.createdAtLabel} · {order.items.length}{" "}
-                    {order.items.length === 1 ? "položka" : "položky"} ·{" "}
+                  <p className="mt-2 text-xs text-[#2f2924]/45">
+                    {order.createdAtLabel} · {order.paymentMethod} ·{" "}
                     {order.shippingMethod}
                   </p>
-                  {confirming ? (
-                    <p className="mt-2 text-sm text-[#9a4d3f]">
-                      Naozaj chcete zrušiť objednávku #{order.id}?
-                    </p>
+                </div>
+
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setDetailOrder(order)}
+                    className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                  >
+                    <FileText className="size-3.5" strokeWidth={1.75} aria-hidden />
+                    Detail
+                  </button>
+                  {enableReorderActions ? (
+                    <>
+                      <button
+                        type="button"
+                        disabled={Boolean(repeatingId)}
+                        onClick={() => requestRepeatOrder(order)}
+                        className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-70"
+                      >
+                        <RotateCcw
+                          className="size-3.5"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
+                        {repeating ? "Pripravujem…" : "Opakovať"}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setTemplateOrder(order)}
+                        className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                      >
+                        <Layers
+                          className="size-3.5"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
+                        Šablóna
+                      </button>
+                    </>
                   ) : null}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 sm:flex-col sm:items-end sm:gap-2">
-                  <div className="sm:text-right">
-                    <p className="text-sm font-semibold text-[#2f2924]">
-                      {formatOrderTotal(order)}
-                    </p>
-                    <p className="text-xs text-[#2f2924]/45">
-                      {order.paymentMethod}
-                    </p>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setConfirmId(null);
-                        setDetailOrder(order);
-                      }}
-                      className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                    >
-                      Detail
-                    </button>
-                    {showCancel ? (
-                      confirming ? (
-                        <>
-                          <button
-                            type="button"
-                            onClick={() => setConfirmId(null)}
-                            className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                          >
-                            Späť
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              cancelOrder(order.id, customerEmail);
-                              setConfirmId(null);
-                            }}
-                            className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 bg-[#f3e8e6] px-3 text-xs font-medium text-[#9a4d3f] transition-colors hover:bg-[#ead9d6]"
-                          >
-                            Potvrdiť storno
-                          </button>
-                        </>
-                      ) : (
-                        <button
-                          type="button"
-                          onClick={() => setConfirmId(order.id)}
-                          className="inline-flex h-9 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-3 text-xs font-medium text-[#2f2924]/70 transition-colors hover:border-[#c45c4a]/30 hover:bg-[#f3e8e6] hover:text-[#9a4d3f]"
-                        >
-                          Zrušiť
-                        </button>
-                      )
-                    ) : null}
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+              </div>
+
+              <div className="mt-4 flex items-center justify-between gap-3 border-t border-black/6 pt-3 text-sm">
+                <span className="text-[#2f2924]/75">
+                  {itemCount} {itemLabel}
+                </span>
+                <span className="shrink-0 font-semibold tabular-nums text-[#2f2924]">
+                  {formatOrderTotal(order)}
+                </span>
+              </div>
+            </article>
+          );
+        })}
       </div>
 
       {detailOrder ? (
@@ -1340,6 +1500,43 @@ function OrdersSection({
           customerEmail={customerEmail}
           allowCancel={allowCancel}
           onClose={() => setDetailOrder(null)}
+        />
+      ) : null}
+
+      <ReplaceCartConfirmModal
+        open={Boolean(replaceOrder)}
+        orderId={replaceOrder?.id ?? ""}
+        busy={Boolean(repeatingId)}
+        onClose={() => {
+          if (repeatingId) return;
+          setReplaceOrder(null);
+        }}
+        onConfirm={() => {
+          if (replaceOrder) void runRepeatOrder(replaceOrder);
+        }}
+      />
+
+      {enableReorderActions && customerId && templateOrder ? (
+        <SaveCartTemplateModal
+          open
+          onClose={() => setTemplateOrder(null)}
+          customerId={customerId}
+          defaultName={`Objednávka #${templateOrder.id}`}
+          items={templateOrder.items.map((item) => ({
+            productId: item.productId,
+            name: item.name,
+            quantity: item.quantity,
+            unitPrice: item.unitPrice,
+          }))}
+          description={`Uložíme položky z objednávky #${templateOrder.id} (${templateOrder.items.length} ${
+            templateOrder.items.length === 1
+              ? "položka"
+              : templateOrder.items.length < 5
+                ? "položky"
+                : "položiek"
+          }) ako šablónu pre opakované objednávky.`}
+          onSaved={onTemplatesChanged}
+          onViewTemplates={onViewTemplates}
         />
       ) : null}
     </>
@@ -1354,68 +1551,24 @@ function TemplatesSection({
   onRefresh: () => void;
 }) {
   const router = useRouter();
-  const [editingId, setEditingId] = useState<string | null>(null);
-  const [draftName, setDraftName] = useState("");
-  const [draftNote, setDraftNote] = useState("");
-  const [draftItems, setDraftItems] = useState<OrderTemplateItem[]>([]);
+  const [editingTemplate, setEditingTemplate] = useState<OrderTemplate | null>(
+    null,
+  );
   const [orderingId, setOrderingId] = useState<string | null>(null);
   const [orderError, setOrderError] = useState<string | null>(null);
+  const [expandedIds, setExpandedIds] = useState<Set<string>>(() => new Set());
 
-  function startEdit(template: OrderTemplate) {
-    setEditingId(template.id);
-    setDraftName(template.name);
-    setDraftNote(template.note ?? "");
-    setDraftItems(template.items.map((item) => ({ ...item })));
-  }
-
-  function cancelEdit() {
-    setEditingId(null);
-    setDraftName("");
-    setDraftNote("");
-    setDraftItems([]);
-  }
-
-  function saveEdit() {
-    if (!editingId) return;
-    if (draftItems.length === 0) return;
-    updateOrderTemplate(editingId, {
-      name: draftName,
-      note: draftNote,
-      items: draftItems,
-    });
-    cancelEdit();
-    onRefresh();
-  }
-
-  function setItemQuantity(productId: string, quantity: number) {
-    setDraftItems((prev) =>
-      prev.map((item) =>
-        item.productId === productId ? { ...item, quantity } : item,
-      ),
-    );
-  }
-
-  function removeItem(productId: string) {
-    setDraftItems((prev) => prev.filter((item) => item.productId !== productId));
-  }
-
-  function addProduct(product: { id: string; name: string; price: string }) {
-    setDraftItems((prev) => {
-      if (prev.some((item) => item.productId === product.id)) return prev;
-      return [
-        ...prev,
-        {
-          productId: product.id,
-          name: product.name,
-          quantity: 1,
-          unitPrice: product.price,
-        },
-      ];
+  function toggleExpanded(id: string) {
+    setExpandedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
     });
   }
 
   function handleDelete(id: string) {
-    if (editingId === id) cancelEdit();
+    if (editingTemplate?.id === id) setEditingTemplate(null);
     deleteOrderTemplate(id);
     onRefresh();
   }
@@ -1478,172 +1631,34 @@ function TemplatesSection({
   }
 
   return (
-    <div className="space-y-3">
-      {orderError ? (
-        <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
-          {orderError}
-        </p>
-      ) : null}
-      {templates.map((template) => {
-        const isEditing = editingId === template.id;
-        const availableProducts = getProductCatalog().filter(
-          (product) =>
-            !draftItems.some((item) => item.productId === product.id),
-        );
-        const draftTotal = formatPrice(
-          draftItems.reduce(
-            (sum, line) => sum + parsePrice(line.unitPrice) * line.quantity,
-            0,
-          ),
-        );
-
-        return (
+    <>
+      <div className="space-y-3">
+        {orderError ? (
+          <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+            {orderError}
+          </p>
+        ) : null}
+        {templates.map((template) => (
           <article
             key={template.id}
             className="rounded-2xl border border-black/8 px-4 py-4 sm:px-5"
           >
-            {isEditing ? (
-              <>
-                <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor={`tpl-name-${template.id}`}
-                      className={labelClass}
-                    >
-                      Názov šablóny
-                    </label>
-                    <input
-                      id={`tpl-name-${template.id}`}
-                      className={fieldClass}
-                      value={draftName}
-                      onChange={(e) => setDraftName(e.target.value)}
-                    />
-                  </div>
-                  <div className="sm:col-span-2">
-                    <label
-                      htmlFor={`tpl-note-${template.id}`}
-                      className={labelClass}
-                    >
-                      Poznámka{" "}
-                      <span className="font-normal text-[#2f2924]/45">
-                        (voliteľné)
-                      </span>
-                    </label>
-                    <input
-                      id={`tpl-note-${template.id}`}
-                      className={fieldClass}
-                      value={draftNote}
-                      onChange={(e) => setDraftNote(e.target.value)}
-                      placeholder="Napr. týždenná dodávka…"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative z-20 mt-4 border-t border-black/6 pt-4">
-                  <ProductSearchSelect
-                    products={availableProducts}
-                    onSelect={addProduct}
-                    placeholder="Hľadať a pridať produkt…"
-                    emptyLabel="Všetky produkty sú už v šablóne"
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <button
+                type="button"
+                onClick={() => toggleExpanded(template.id)}
+                aria-expanded={expandedIds.has(template.id)}
+                className="min-w-0 flex-1 cursor-pointer text-left focus-visible:outline-none"
+              >
+                <div className="flex items-start gap-2">
+                  <ChevronDown
+                    className={`mt-1 size-4 shrink-0 text-[#2f2924]/40 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      expandedIds.has(template.id) ? "rotate-180" : ""
+                    }`}
+                    strokeWidth={1.75}
+                    aria-hidden
                   />
-                </div>
-
-                <ul className="mt-4 space-y-3">
-                  {draftItems.map((line) => {
-                    const catalogProduct = getProductCatalog().find(
-                      (product) => product.id === line.productId,
-                    );
-                    return (
-                      <li
-                        key={`${template.id}-edit-${line.productId}`}
-                        className="flex flex-wrap items-center justify-between gap-3"
-                      >
-                        <div className="flex min-w-0 flex-1 items-center gap-3">
-                          <span className="relative size-11 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9]">
-                            {catalogProduct ? (
-                              <Image
-                                src={catalogProduct.image}
-                                alt=""
-                                fill
-                                sizes="44px"
-                                className="object-cover"
-                              />
-                            ) : null}
-                          </span>
-                          <div className="min-w-0">
-                            <p className="truncate text-sm font-medium text-[#2f2924]">
-                              {line.name}
-                            </p>
-                            <p className="text-xs text-[#2f2924]/45">
-                              {line.unitPrice} / ks
-                            </p>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          <QuantityStepper
-                            size="sm"
-                            value={line.quantity}
-                            min={1}
-                            onChange={(quantity) =>
-                              setItemQuantity(line.productId, quantity)
-                            }
-                            aria-label={`Množstvo: ${line.name}`}
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeItem(line.productId)}
-                            aria-label={`Odstrániť ${line.name}`}
-                            className="inline-flex size-10 cursor-pointer items-center justify-center rounded-xl border border-black/10 text-[#2f2924]/55 transition-colors hover:bg-[#faf8f5] hover:text-[#2f2924]"
-                          >
-                            <Trash2
-                              className="size-3.5"
-                              strokeWidth={1.75}
-                              aria-hidden
-                            />
-                          </button>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
-
-                {draftItems.length === 0 ? (
-                  <p className="mt-3 text-sm text-[#9a4d3f]">
-                    Šablóna musí obsahovať aspoň jednu položku.
-                  </p>
-                ) : null}
-
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-black/6 pt-4">
-                  <p className="text-sm text-[#2f2924]/55">
-                    Medzisúčet{" "}
-                    <span className="font-semibold text-[#2f2924]">
-                      {draftTotal}
-                    </span>
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={cancelEdit}
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                    >
-                      <X className="size-3.5" strokeWidth={1.75} aria-hidden />
-                      Zrušiť
-                    </button>
-                    <button
-                      type="button"
-                      onClick={saveEdit}
-                      disabled={draftItems.length === 0 || !draftName.trim()}
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-[#75825B] px-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-                    >
-                      Uložiť zmeny
-                    </button>
-                  </div>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
+                  <div className="min-w-0">
                     <h2 className="font-heading text-lg font-semibold text-[#2f2924]">
                       {template.name}
                     </h2>
@@ -1658,49 +1673,65 @@ function TemplatesSection({
                       {formatTemplateTotal(template)}
                     </p>
                   </div>
-                  <div className="flex flex-wrap gap-2">
-                    <button
-                      type="button"
-                      onClick={() => startEdit(template)}
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                    >
-                      <Pencil
-                        className="size-3.5"
-                        strokeWidth={1.75}
-                        aria-hidden
-                      />
-                      Upraviť
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => void orderAgain(template)}
-                      disabled={orderingId === template.id}
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl bg-[#75825B] px-3.5 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
-                    >
-                      <RotateCcw
-                        className="size-3.5"
-                        strokeWidth={1.75}
-                        aria-hidden
-                      />
-                      {orderingId === template.id
-                        ? "Pripravujem…"
-                        : "Objednať znova"}
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleDelete(template.id)}
-                      className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                    >
-                      <Trash2
-                        className="size-3.5"
-                        strokeWidth={1.75}
-                        aria-hidden
-                      />
-                      Odstrániť
-                    </button>
-                  </div>
                 </div>
-                <ul className="mt-4 space-y-1.5 border-t border-black/6 pt-3">
+              </button>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => void orderAgain(template)}
+                  disabled={orderingId === template.id}
+                  className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-70"
+                >
+                  <RotateCcw
+                    className="size-3.5"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  />
+                  {orderingId === template.id
+                    ? "Pripravujem…"
+                    : "Objednať znova"}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditingTemplate(template)}
+                  className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                >
+                  <Pencil
+                    className="size-3.5"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  />
+                  Upraviť
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(template.id)}
+                  className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                >
+                  <Trash2
+                    className="size-3.5"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  />
+                  Odstrániť
+                </button>
+              </div>
+            </div>
+            <div
+              className={`grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                expandedIds.has(template.id)
+                  ? "grid-rows-[1fr]"
+                  : "grid-rows-[0fr]"
+              }`}
+            >
+              <div className="min-h-0 overflow-hidden">
+                <ul
+                  className={`mt-4 space-y-1.5 border-t border-black/6 pt-3 transition-opacity duration-300 ease-out ${
+                    expandedIds.has(template.id)
+                      ? "opacity-100"
+                      : "opacity-0"
+                  }`}
+                >
                   {template.items.map((line) => (
                     <li
                       key={`${template.id}-${line.productId}`}
@@ -1713,11 +1744,19 @@ function TemplatesSection({
                     </li>
                   ))}
                 </ul>
-              </>
-            )}
+              </div>
+            </div>
           </article>
-        );
-      })}
-    </div>
+        ))}
+      </div>
+
+      {editingTemplate ? (
+        <AccountTemplateEditor
+          template={editingTemplate}
+          onClose={() => setEditingTemplate(null)}
+          onSaved={onRefresh}
+        />
+      ) : null}
+    </>
   );
 }

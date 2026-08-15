@@ -4,8 +4,7 @@ import Link from "next/link";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { createPortal } from "react-dom";
 import { CheckCircle2, Layers, X } from "lucide-react";
-import type { CartItem } from "@/lib/cart";
-import { createOrderTemplate } from "@/lib/order-templates";
+import { createOrderTemplate, type OrderTemplateItem } from "@/lib/order-templates";
 
 const fieldClass =
   "h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -14,14 +13,31 @@ type SaveCartTemplateModalProps = {
   open: boolean;
   onClose: () => void;
   customerId: string;
-  items: CartItem[];
+  items: OrderTemplateItem[];
+  defaultName?: string;
+  /** Called after the template is successfully created. */
+  onSaved?: () => void;
+  /** When set, "Prejsť do šablón" uses this instead of navigating to /ucet. */
+  onViewTemplates?: () => void;
+  /** Optional intro copy override (defaults to cart wording). */
+  description?: string;
 };
+
+function itemCountLabel(count: number) {
+  if (count === 1) return "položka";
+  if (count < 5) return "položky";
+  return "položiek";
+}
 
 export function SaveCartTemplateModal({
   open,
   onClose,
   customerId,
   items,
+  defaultName = "",
+  onSaved,
+  onViewTemplates,
+  description,
 }: SaveCartTemplateModalProps) {
   const titleId = useId();
   const onCloseRef = useRef(onClose);
@@ -36,7 +52,7 @@ export function SaveCartTemplateModal({
   useEffect(() => {
     if (!open) return;
 
-    setName("");
+    setName(defaultName);
     setNote("");
     setError(null);
     setSaving(false);
@@ -47,7 +63,7 @@ export function SaveCartTemplateModal({
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+  }, [open, defaultName]);
 
   function onSubmit(event: FormEvent) {
     event.preventDefault();
@@ -56,7 +72,7 @@ export function SaveCartTemplateModal({
       return;
     }
     if (items.length === 0) {
-      setError("Košík je prázdny.");
+      setError("Nie je čo uložiť.");
       return;
     }
 
@@ -67,17 +83,22 @@ export function SaveCartTemplateModal({
       name,
       note,
       items: items.map((item) => ({
-        productId: item.product.id,
-        name: item.product.name,
+        productId: item.productId,
+        name: item.name,
         quantity: item.quantity,
-        unitPrice: item.product.price,
+        unitPrice: item.unitPrice,
       })),
     });
     setSaving(false);
     setDone(true);
+    onSaved?.();
   }
 
   if (!open || typeof document === "undefined") return null;
+
+  const intro =
+    description ??
+    `Uložíme aktuálny košík (${items.length} ${itemCountLabel(items.length)}) ako šablónu pre opakované objednávky.`;
 
   return createPortal(
     <div className="fixed inset-0 z-[80] flex items-center justify-center bg-black/40 p-4 sm:p-6">
@@ -129,12 +150,25 @@ export function SaveCartTemplateModal({
               odtiaľ.
             </p>
             <div className="mt-6 flex flex-col gap-2.5 sm:flex-row sm:justify-center">
-              <Link
-                href="/ucet"
-                className="inline-flex h-11 items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
-              >
-                Prejsť do účtu
-              </Link>
+              {onViewTemplates ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    onViewTemplates();
+                    onClose();
+                  }}
+                  className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  Prejsť do šablón
+                </button>
+              ) : (
+                <Link
+                  href="/ucet"
+                  className="inline-flex h-11 items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  Prejsť do účtu
+                </Link>
+              )}
               <button
                 type="button"
                 onClick={onClose}
@@ -150,15 +184,7 @@ export function SaveCartTemplateModal({
             className="px-5 py-5 sm:px-6 sm:py-6"
             noValidate
           >
-            <p className="text-sm leading-relaxed text-[#2f2924]/65">
-              Uložíme aktuálny košík ({items.length}{" "}
-              {items.length === 1
-                ? "položka"
-                : items.length < 5
-                  ? "položky"
-                  : "položiek"}
-              ) ako šablónu pre opakované objednávky.
-            </p>
+            <p className="text-sm leading-relaxed text-[#2f2924]/65">{intro}</p>
 
             <div className="mt-4">
               <label

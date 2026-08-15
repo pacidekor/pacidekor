@@ -262,7 +262,12 @@ function CartSummary({
           open={templateOpen}
           onClose={() => setTemplateOpen(false)}
           customerId={customer.id}
-          items={items}
+          items={items.map((item) => ({
+            productId: item.product.id,
+            name: item.product.name,
+            quantity: item.quantity,
+            unitPrice: item.product.price,
+          }))}
         />
       ) : null}
 

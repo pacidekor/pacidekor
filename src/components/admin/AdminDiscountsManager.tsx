@@ -37,7 +37,10 @@ import {
   type DiscountStatus,
   type ProductDiscount,
 } from "@/lib/discounts";
-import type { Product } from "@/lib/products";
+import {
+  normalizeSearchText,
+  productMatchesSearchQuery,
+} from "@/lib/search";
 
 type StatusFilter = "all" | DiscountStatus;
 
@@ -74,28 +77,6 @@ function formatPromoValidity(promo: AdminPromoCode) {
   return `Do ${promo.endsAt}`;
 }
 
-/** Lowercase + strip separators so `PD-J4`, `PD J4`, `pdj4` all match the same SKU. */
-function normalizeCode(value: string) {
-  return value.toLowerCase().replace(/[\s\-_./]/g, "");
-}
-
-function productMatchesSearch(product: Product, rawQuery: string) {
-  const q = rawQuery.trim().toLowerCase();
-  if (!q) return true;
-
-  const qCode = normalizeCode(q);
-  const name = product.name.toLowerCase();
-  const sku = (product.sku ?? "").toLowerCase();
-  const skuCode = normalizeCode(product.sku ?? "");
-  const category = product.category.toLowerCase();
-
-  if (name.includes(q) || category.includes(q)) return true;
-  if (sku.includes(q)) return true;
-  // Match SKU without hyphens/spaces (e.g. query `PDJ4` vs sku `PD-J4L3…`)
-  if (qCode.length >= 2 && skuCode.includes(qCode)) return true;
-  return false;
-}
-
 export function AdminDiscountsManager() {
   const [list, setList] = useState<ProductDiscount[]>(seedDiscounts);
   const [promos, setPromos] = useState<AdminPromoCode[]>([]);
@@ -128,18 +109,18 @@ export function AdminDiscountsManager() {
       const product = getProductForDiscount(discount.productId);
       if (!q) return true;
 
-      if (product && productMatchesSearch(product, q)) return true;
+      if (product && productMatchesSearchQuery(product, q)) return true;
 
-      const haystack = [
-        discount.originalPrice,
-        discount.salePrice,
-        DISCOUNT_STATUS_META[status].label,
-        "produkt",
-      ]
-        .join(" ")
-        .toLowerCase();
+      const haystack = normalizeSearchText(
+        [
+          discount.originalPrice,
+          discount.salePrice,
+          DISCOUNT_STATUS_META[status].label,
+          "produkt",
+        ].join(" "),
+      );
 
-      return haystack.includes(q);
+      return haystack.includes(normalizeSearchText(q));
     });
   }, [list, query, statusFilter]);
 
@@ -151,20 +132,20 @@ export function AdminDiscountsManager() {
       if (statusFilter !== "all" && status !== statusFilter) return false;
       if (!q) return true;
 
-      const haystack = [
-        promo.code,
-        promo.note ?? "",
-        String(promo.discountPercent),
-        DISCOUNT_STATUS_META[status].label,
-        "kod",
-        "kód",
-        "slevovy",
-        "zľavový",
-      ]
-        .join(" ")
-        .toLowerCase();
+      const haystack = normalizeSearchText(
+        [
+          promo.code,
+          promo.note ?? "",
+          String(promo.discountPercent),
+          DISCOUNT_STATUS_META[status].label,
+          "kod",
+          "kód",
+          "slevovy",
+          "zľavový",
+        ].join(" "),
+      );
 
-      return haystack.includes(q);
+      return haystack.includes(normalizeSearchText(q));
     });
   }, [promos, query, statusFilter]);
 

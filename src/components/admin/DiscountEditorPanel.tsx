@@ -24,6 +24,9 @@ import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { normalizePromoCode } from "@/lib/promo";
 import type { Product } from "@/lib/products";
 import { getProductCatalog } from "@/lib/product-catalog";
+import {
+  filterProductsBySearchQuery,
+} from "@/lib/search";
 
 type DiscountKind = "product" | "promo";
 type DiscountInputMode = "percent" | "price";
@@ -36,60 +39,8 @@ export type EditorTarget =
 /** How many products to reveal per scroll batch in the discount product picker. */
 const PRODUCT_PICKER_PAGE_SIZE = 24;
 
-/** Lowercase + strip separators so `PD-J4`, `PD J4`, `pdj4` all match the same SKU. */
-function normalizeCode(value: string) {
-  return value.toLowerCase().replace(/[\s\-_./]/g, "");
-}
-
-function productMatchesSearch(product: Product, rawQuery: string) {
-  const q = rawQuery.trim().toLowerCase();
-  if (!q) return true;
-
-  const qCode = normalizeCode(q);
-  const name = product.name.toLowerCase();
-  const sku = (product.sku ?? "").toLowerCase();
-  const skuCode = normalizeCode(product.sku ?? "");
-  const category = product.category.toLowerCase();
-
-  if (name.includes(q) || category.includes(q)) return true;
-  if (sku.includes(q)) return true;
-  if (qCode.length >= 2 && skuCode.includes(qCode)) return true;
-  return false;
-}
-
-/** Lower rank = better match. Prefer SKU hits so code search surfaces the right product. */
-function productSearchRank(product: Product, rawQuery: string): number {
-  const q = rawQuery.trim().toLowerCase();
-  if (!q) return 0;
-
-  const qCode = normalizeCode(q);
-  const name = product.name.toLowerCase();
-  const sku = (product.sku ?? "").toLowerCase();
-  const skuCode = normalizeCode(product.sku ?? "");
-
-  if (sku === q || skuCode === qCode) return 0;
-  if (sku.startsWith(q) || (qCode.length >= 2 && skuCode.startsWith(qCode))) {
-    return 1;
-  }
-  if (sku.includes(q) || (qCode.length >= 2 && skuCode.includes(qCode))) {
-    return 2;
-  }
-  if (name.startsWith(q)) return 3;
-  if (name.includes(q)) return 4;
-  return 5;
-}
-
 function filterProductsBySearch(products: Product[], rawQuery: string) {
-  const q = rawQuery.trim();
-  if (!q) return products;
-
-  return products
-    .filter((product) => productMatchesSearch(product, q))
-    .sort((a, b) => {
-      const rankDiff = productSearchRank(a, q) - productSearchRank(b, q);
-      if (rankDiff !== 0) return rankDiff;
-      return a.name.localeCompare(b.name, "sk");
-    });
+  return filterProductsBySearchQuery(products, rawQuery);
 }
 
 function priceInputValue(price: string) {

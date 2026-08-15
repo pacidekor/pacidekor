@@ -3,6 +3,7 @@
 import Image from "next/image";
 import {
   useEffect,
+  useId,
   useMemo,
   useRef,
   useState,
@@ -11,8 +12,10 @@ import {
 import { createPortal } from "react-dom";
 import {
   Check,
+  ChevronDown,
   ChevronRight,
   ImagePlus,
+  Info,
   Newspaper,
   Plus,
   Search,
@@ -334,8 +337,6 @@ function BlogEditor({
   onDelete?: () => void | Promise<void>;
 }) {
   const [title, setTitle] = useState(post?.title ?? "");
-  const [slug, setSlug] = useState(post?.slug ?? "");
-  const [slugTouched, setSlugTouched] = useState(!isNew);
   const [excerpt, setExcerpt] = useState(post?.excerpt ?? "");
   const [coverImage, setCoverImage] = useState(post?.coverImage ?? "");
   const [category, setCategory] = useState<BlogCategory>(
@@ -350,21 +351,19 @@ function BlogEditor({
   );
 
   const previousSlug = post?.slug;
-  const slugConflict =
-    Boolean(slug.trim()) &&
-    existingSlugs.includes(slug.trim()) &&
-    slug.trim() !== previousSlug;
 
-  function updateTitle(value: string) {
-    setTitle(value);
-    if (!slugTouched) setSlug(toSlug(value));
+  function resolveSlug() {
+    if (!isNew && previousSlug) return previousSlug;
+    return uniqueBlogSlug(title, existingSlugs);
   }
 
   function save() {
-    if (!title.trim() || !slug.trim() || slugConflict) return;
+    if (!title.trim()) return;
+    const slug = resolveSlug();
+    if (!slug) return;
     onSave(
       {
-        slug: slug.trim(),
+        slug,
         title: title.trim(),
         excerpt: excerpt.trim(),
         coverImage: coverImage.trim() || "/produkty_new/1.jpg",
@@ -386,68 +385,51 @@ function BlogEditor({
       subtitle={title.trim() || "Blog"}
       onClose={onClose}
       onSave={save}
-      canSave={Boolean(title.trim() && slug.trim() && !slugConflict)}
+      canSave={Boolean(title.trim())}
       onDelete={onDelete}
       deleteLabel="Odstrániť článok"
     >
       <label className="block text-sm font-medium text-[#2f2924]">
-        Názov
+        Názov článku
         <input
           type="text"
           value={title}
-          onChange={(event) => updateTitle(event.target.value)}
-          className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none focus:border-[#75825B] focus:bg-white"
+          onChange={(event) => setTitle(event.target.value)}
+          placeholder="Napr. Jarné trendy v dekoráciách"
+          className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
         />
       </label>
-      <label className="block text-sm font-medium text-[#2f2924]">
-        Slug
-        <input
-          type="text"
-          value={slug}
-          onChange={(event) => {
-            setSlugTouched(true);
-            setSlug(event.target.value);
-          }}
-          className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none focus:border-[#75825B] focus:bg-white"
-        />
-        {slugConflict ? (
-          <span className="mt-1 block text-xs text-[#c45c4a]">
-            Tento slug už existuje.
-          </span>
-        ) : null}
-      </label>
-      <label className="block text-sm font-medium text-[#2f2924]">
-        Perex
+
+      <div>
+        <div className="flex items-center gap-1.5 text-sm font-medium text-[#2f2924]">
+          Úvod
+          <InfoHint text="Krátky text, ktorý sa zobrazí v zozname článkov." />
+        </div>
         <textarea
           value={excerpt}
           onChange={(event) => setExcerpt(event.target.value)}
           rows={3}
-          className="mt-2 w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm text-[#2f2924] outline-none focus:border-[#75825B] focus:bg-white"
+          placeholder="O čom článok je…"
+          className="mt-2 w-full resize-y rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
         />
-      </label>
-      <ImageField
-        label="Cover obrázok"
-        value={coverImage}
-        onChange={setCoverImage}
-        aspect="aspect-video"
-      />
+      </div>
+
+      <CoverImageField value={coverImage} onChange={setCoverImage} />
+
       <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-sm font-medium text-[#2f2924]">
-          Kategória
-          <select
-            value={category}
-            onChange={(event) =>
-              setCategory(event.target.value as BlogCategory)
-            }
-            className="mt-2 h-11 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none focus:border-[#75825B] focus:bg-white"
-          >
-            {BLOG_CATEGORIES.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </select>
-        </label>
+        <div>
+          <p className="text-sm font-medium text-[#2f2924]">Kategória</p>
+          <div className="mt-2">
+            <SelectField
+              value={category}
+              options={BLOG_CATEGORIES.map((item) => ({
+                value: item,
+                label: item,
+              }))}
+              onChange={(value) => setCategory(value as BlogCategory)}
+            />
+          </div>
+        </div>
         <label className="block text-sm font-medium text-[#2f2924]">
           Dátum
           <input
@@ -458,6 +440,7 @@ function BlogEditor({
           />
         </label>
       </div>
+
       <label className="block text-sm font-medium text-[#2f2924]">
         Autor
         <input
@@ -469,33 +452,34 @@ function BlogEditor({
       </label>
 
       <div>
-        <div className="flex items-center justify-between gap-3">
-          <p className="text-sm font-medium text-[#2f2924]">Obsah</p>
-          <div className="flex flex-wrap gap-1.5">
-            {(
-              [
-                ["paragraph", "Odsek"],
-                ["heading", "Nadpis"],
-                ["list", "Zoznam"],
-              ] as const
-            ).map(([type, label]) => (
-              <button
-                key={type}
-                type="button"
-                onClick={() =>
-                  setContent((prev) => [
-                    ...prev,
-                    type === "list"
-                      ? { type, items: [""] }
-                      : { type, text: "" },
-                  ])
-                }
-                className="inline-flex h-8 cursor-pointer items-center rounded-lg border border-black/10 bg-white px-2.5 text-xs font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40"
-              >
-                + {label}
-              </button>
-            ))}
-          </div>
+        <div className="flex items-center gap-1.5 text-sm font-medium text-[#2f2924]">
+          Text článku
+          <InfoHint text="Pridávajte odstavce, nadpisy a zoznamy." />
+        </div>
+        <div className="mt-2 flex gap-1.5">
+          {(
+            [
+              ["paragraph", "Odstavec"],
+              ["heading", "Nadpis"],
+              ["list", "Zoznam"],
+            ] as const
+          ).map(([type, label]) => (
+            <button
+              key={type}
+              type="button"
+              onClick={() =>
+                setContent((prev) => [
+                  ...prev,
+                  type === "list"
+                    ? { type, items: [""] }
+                    : { type, text: "" },
+                ])
+              }
+              className="inline-flex h-9 flex-1 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-2 text-xs font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40 sm:flex-none sm:px-3"
+            >
+              + {label}
+            </button>
+          ))}
         </div>
         <ul className="mt-3 space-y-3">
           {content.map((block, index) => (
@@ -506,7 +490,7 @@ function BlogEditor({
               <div className="mb-2 flex items-center justify-between gap-2">
                 <span className="text-xs font-medium tracking-wide text-[#2f2924]/45 uppercase">
                   {block.type === "paragraph"
-                    ? "Odsek"
+                    ? "Odstavec"
                     : block.type === "heading"
                       ? "Nadpis"
                       : "Zoznam"}
@@ -525,23 +509,50 @@ function BlogEditor({
               {block.type === "list" ? (
                 <div className="space-y-2">
                   {block.items.map((item, itemIndex) => (
-                    <input
-                      key={itemIndex}
-                      type="text"
-                      value={item}
-                      onChange={(event) =>
-                        setContent((prev) =>
-                          prev.map((entry, i) => {
-                            if (i !== index || entry.type !== "list") return entry;
-                            const items = [...entry.items];
-                            items[itemIndex] = event.target.value;
-                            return { ...entry, items };
-                          }),
-                        )
-                      }
-                      className="h-10 w-full rounded-lg border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none focus:border-[#75825B]"
-                      placeholder={`Položka ${itemIndex + 1}`}
-                    />
+                    <div key={itemIndex} className="flex items-center gap-2">
+                      <input
+                        type="text"
+                        value={item}
+                        onChange={(event) =>
+                          setContent((prev) =>
+                            prev.map((entry, i) => {
+                              if (i !== index || entry.type !== "list") {
+                                return entry;
+                              }
+                              const items = [...entry.items];
+                              items[itemIndex] = event.target.value;
+                              return { ...entry, items };
+                            }),
+                          )
+                        }
+                        className="h-10 min-w-0 flex-1 rounded-lg border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none focus:border-[#75825B]"
+                        placeholder={`Položka ${itemIndex + 1}`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setContent((prev) =>
+                            prev.map((entry, i) => {
+                              if (i !== index || entry.type !== "list") {
+                                return entry;
+                              }
+                              const items = entry.items.filter(
+                                (_, idx) => idx !== itemIndex,
+                              );
+                              return {
+                                ...entry,
+                                items: items.length > 0 ? items : [""],
+                              };
+                            }),
+                          )
+                        }
+                        disabled={block.items.length <= 1}
+                        className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-white hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-[#2f2924]/40"
+                        aria-label={`Odstrániť položku ${itemIndex + 1}`}
+                      >
+                        <Trash2 className="size-3.5" aria-hidden />
+                      </button>
+                    </div>
                   ))}
                   <button
                     type="button"
@@ -572,7 +583,12 @@ function BlogEditor({
                     )
                   }
                   rows={block.type === "heading" ? 2 : 4}
-                  className="w-full resize-y rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-[#2f2924] outline-none focus:border-[#75825B]"
+                  placeholder={
+                    block.type === "heading"
+                      ? "Text nadpisu…"
+                      : "Text odstavca…"
+                  }
+                  className="w-full resize-y rounded-lg border border-black/10 bg-white px-3 py-2 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
                 />
               )}
             </li>
@@ -583,16 +599,22 @@ function BlogEditor({
   );
 }
 
-function ImageField({
-  label,
+function uniqueBlogSlug(title: string, existingSlugs: string[]) {
+  const base = toSlug(title.trim()) || "clanok";
+  if (!existingSlugs.includes(base)) return base;
+  let suffix = 2;
+  while (existingSlugs.includes(`${base}-${suffix}`)) {
+    suffix += 1;
+  }
+  return `${base}-${suffix}`;
+}
+
+function CoverImageField({
   value,
   onChange,
-  aspect,
 }: {
-  label: string;
   value: string;
   onChange: (value: string) => void;
-  aspect: string;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -609,17 +631,15 @@ function ImageField({
 
   return (
     <div>
-      <p className="text-sm font-medium text-[#2f2924]">{label}</p>
-      <div className="mt-2 flex items-start gap-3">
-        <span
-          className={`relative w-28 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2] ${aspect}`}
-        >
+      <p className="text-sm font-medium text-[#2f2924]">Úvodný obrázok</p>
+      <div className="mt-2 flex items-center gap-3">
+        <span className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
           {value ? (
             <Image
               src={value}
               alt=""
               fill
-              sizes="112px"
+              sizes="80px"
               unoptimized={value.startsWith("data:")}
               className="object-cover"
             />
@@ -629,42 +649,186 @@ function ImageField({
             </span>
           )}
         </span>
-        <div className="min-w-0 flex-1 space-y-2">
+        <div className="flex flex-wrap gap-2">
           <input
-            type="text"
-            value={value.startsWith("data:") ? "" : value}
-            onChange={(event) => onChange(event.target.value)}
-            placeholder="/cesta-k-obrazku.webp"
-            className="h-10 w-full rounded-xl border border-black/10 bg-[#faf8f5] px-3 text-sm outline-none focus:border-[#75825B] focus:bg-white"
+            ref={inputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={onFileSelected}
           />
-          <div className="flex flex-wrap gap-2">
-            <input
-              ref={inputRef}
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={onFileSelected}
-            />
+          <button
+            type="button"
+            onClick={() => inputRef.current?.click()}
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40"
+          >
+            <ImagePlus className="size-3.5" aria-hidden />
+            {value ? "Vymeniť" : "Nahrať"}
+          </button>
+          {value ? (
             <button
               type="button"
-              onClick={() => inputRef.current?.click()}
-              className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40"
+              onClick={() => onChange("")}
+              className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a]"
             >
-              <ImagePlus className="size-3.5" aria-hidden />
-              Nahrať
+              Odstrániť
             </button>
-            {value ? (
-              <button
-                type="button"
-                onClick={() => onChange("")}
-                className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a]"
-              >
-                Odstrániť
-              </button>
-            ) : null}
-          </div>
+          ) : null}
         </div>
       </div>
+    </div>
+  );
+}
+
+function InfoHint({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const [coords, setCoords] = useState({ top: 0, left: 0 });
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  function updatePosition() {
+    const rect = buttonRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    setCoords({
+      top: rect.top - 8,
+      left: rect.left,
+    });
+  }
+
+  function show() {
+    updatePosition();
+    setOpen(true);
+  }
+
+  function hide() {
+    setOpen(false);
+  }
+
+  return (
+    <span className="relative inline-flex">
+      <button
+        ref={buttonRef}
+        type="button"
+        className="inline-flex size-4 cursor-help items-center justify-center rounded-full text-[#2f2924]/40 transition-colors hover:text-[#75825B]"
+        aria-label={text}
+        onMouseEnter={show}
+        onMouseLeave={hide}
+        onFocus={show}
+        onBlur={hide}
+      >
+        <Info className="size-3.5" strokeWidth={1.75} aria-hidden />
+      </button>
+      {open
+        ? createPortal(
+            <span
+              role="tooltip"
+              className="pointer-events-none fixed z-[80] w-56 -translate-y-full rounded-lg border border-black/8 bg-white px-2.5 py-2 text-xs font-normal leading-relaxed text-[#2f2924]/75 shadow-[0_8px_24px_rgba(47,41,36,0.12)]"
+              style={{ top: coords.top, left: coords.left }}
+            >
+              {text}
+            </span>,
+            document.body,
+          )
+        : null}
+    </span>
+  );
+}
+
+function SelectField({
+  value,
+  options,
+  onChange,
+}: {
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (next: string) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const listId = useId();
+  const selected =
+    options.find((option) => option.value === value) ?? options[0];
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onPointerDown(event: MouseEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
+
+  return (
+    <div ref={rootRef} className="relative">
+      <button
+        type="button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listId}
+        onClick={() => setOpen((prev) => !prev)}
+        className={`flex h-11 w-full cursor-pointer items-center justify-between gap-2 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-left text-sm text-[#2f2924] outline-none transition-colors hover:border-[#75825B]/40 focus:border-[#75825B] focus:bg-white ${
+          open ? "border-[#75825B] bg-white" : ""
+        }`}
+      >
+        <span className="truncate">{selected?.label ?? "Vybrať"}</span>
+        <ChevronDown
+          className={`size-4 shrink-0 text-[#2f2924]/45 transition-transform ${
+            open ? "rotate-180" : ""
+          }`}
+          strokeWidth={1.75}
+          aria-hidden
+        />
+      </button>
+
+      {open ? (
+        <ul
+          id={listId}
+          role="listbox"
+          className="absolute z-20 mt-1.5 max-h-60 w-full overflow-auto rounded-xl border border-black/8 bg-white p-1.5 shadow-[0_12px_32px_rgba(47,41,36,0.12)]"
+        >
+          {options.map((option) => {
+            const isActive = option.value === value;
+            return (
+              <li key={option.value}>
+                <button
+                  type="button"
+                  role="option"
+                  aria-selected={isActive}
+                  onClick={() => {
+                    onChange(option.value);
+                    setOpen(false);
+                  }}
+                  className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                    isActive
+                      ? "bg-[#e8ebe2] font-medium text-[#2f2924]"
+                      : "text-[#2f2924]/80 hover:bg-[#faf8f5]"
+                  }`}
+                >
+                  <span className="truncate">{option.label}</span>
+                  {isActive ? (
+                    <Check
+                      className="size-3.5 shrink-0 text-[#75825B]"
+                      strokeWidth={2}
+                      aria-hidden
+                    />
+                  ) : null}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      ) : null}
     </div>
   );
 }

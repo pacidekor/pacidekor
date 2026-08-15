@@ -244,7 +244,7 @@ export function AccountOrderDetail({
             {confirmCancel ? (
               <div className="space-y-3">
                 <p className="text-sm text-[#9a4d3f]">
-                  Naozaj chcete zrušiť objednávku #{order.id}?
+                  Naozaj chcete stornovať objednávku #{order.id}?
                 </p>
                 <div className="flex gap-2">
                   <button
@@ -257,7 +257,7 @@ export function AccountOrderDetail({
                   <button
                     type="button"
                     onClick={handleCancel}
-                    className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 bg-[#f3e8e6] px-4 text-sm font-medium text-[#9a4d3f] transition-colors hover:bg-[#ead9d6]"
+                    className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
                   >
                     Potvrdiť storno
                   </button>
@@ -267,9 +267,9 @@ export function AccountOrderDetail({
               <button
                 type="button"
                 onClick={() => setConfirmCancel(true)}
-                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924]/75 transition-colors hover:border-[#c45c4a]/30 hover:bg-[#f3e8e6] hover:text-[#9a4d3f]"
+                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
               >
-                Zrušiť objednávku
+                Stornovať objednávku
               </button>
             )}
           </div>

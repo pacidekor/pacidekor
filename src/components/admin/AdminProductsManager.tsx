@@ -29,6 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/cart";
+import { productMatchesSearchQuery } from "@/lib/search";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
@@ -282,11 +283,7 @@ export function AdminProductsManager({
       }
 
       if (!q) return true;
-      return (
-        product.name.toLowerCase().includes(q) ||
-        product.category.toLowerCase().includes(q) ||
-        (product.sku ?? "").toLowerCase().includes(q)
-      );
+      return productMatchesSearchQuery(product, q);
     });
   }, [
     products,
