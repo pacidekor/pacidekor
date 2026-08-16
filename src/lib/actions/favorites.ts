@@ -8,9 +8,12 @@ export type FavoriteActionResult<T = undefined> =
 
 async function requireCustomer() {
   const supabase = await createClient();
+  // Cookie session only — avoids Auth API roundtrip on every heart click.
+  // RLS on `favorites` remains the access backstop.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
 
   if (!user) {
     return { ok: false as const, error: "Nie ste prihlásený.", supabase };
@@ -57,7 +60,7 @@ export async function listFavoriteIdsAction(): Promise<
 
 export async function toggleFavoriteAction(
   productId: string,
-): Promise<FavoriteActionResult<{ active: boolean; ids: string[] }>> {
+): Promise<FavoriteActionResult<{ active: boolean }>> {
   const auth = await requireCustomer();
   if (!auth.ok) return { ok: false, error: auth.error };
 
@@ -75,22 +78,13 @@ export async function toggleFavoriteAction(
       .eq("user_id", auth.userId)
       .eq("product_id", productId);
     if (error) return { ok: false, error: error.message };
-  } else {
-    const { error } = await auth.supabase.from("favorites").insert({
-      user_id: auth.userId,
-      product_id: productId,
-    });
-    if (error) return { ok: false, error: error.message };
+    return { ok: true, data: { active: false } };
   }
 
-  const listed = await listFavoriteIdsAction();
-  if (!listed.ok) return listed;
-
-  return {
-    ok: true,
-    data: {
-      active: listed.data.includes(productId),
-      ids: listed.data,
-    },
-  };
+  const { error } = await auth.supabase.from("favorites").insert({
+    user_id: auth.userId,
+    product_id: productId,
+  });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true, data: { active: true } };
 }

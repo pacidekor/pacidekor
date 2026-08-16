@@ -31,10 +31,13 @@ import {
   subscribeClientAuth,
 } from "@/lib/client-auth";
 import type { Customer } from "@/lib/customers";
+import { adjustStockAction } from "@/lib/actions/inventory";
 import {
-  adjustInventory,
+  applyInventoryLocally,
   getInventoryForProduct,
   inventoryMaxOrderable,
+  previewInventoryDelta,
+  setInventory,
 } from "@/lib/inventory";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
@@ -316,7 +319,7 @@ export function CartView() {
     });
   }, []);
 
-  async function updateQuantity(productId: string, next: number) {
+  function updateQuantity(productId: string, next: number) {
     const item = items.find((entry) => entry.product.id === productId);
     if (!item) return;
 
@@ -324,25 +327,57 @@ export function CartView() {
     const delta = clamped - item.quantity;
     if (delta === 0) return;
 
-    const result = await adjustInventory(item.product, -delta);
-    if (!result.ok) return;
+    const previous = getInventoryForProduct(item.product);
+    const preview = previewInventoryDelta(item.product, -delta);
+    if (!preview.ok) return;
 
-    try {
-      await setCartQuantity(productId, clamped);
-    } catch {
-      await adjustInventory(item.product, delta);
+    applyInventoryLocally(item.product.id, preview.entry);
+    void setCartQuantity(productId, clamped).catch(() => {
+      applyInventoryLocally(item.product.id, previous);
+    });
+
+    if (preview.needsServerSync) {
+      void adjustStockAction(item.product.id, -delta).then((result) => {
+        if (!result.ok) {
+          applyInventoryLocally(item.product.id, previous);
+          return;
+        }
+        setInventory(item.product.id, {
+          inStock: result.data.inStock,
+          quantity: result.data.stockQuantity,
+        });
+      });
     }
   }
 
-  async function removeItem(productId: string) {
+  function removeItem(productId: string) {
     const item = items.find((entry) => entry.product.id === productId);
-    if (item) {
-      await adjustInventory(item.product, item.quantity);
+    if (!item) {
+      void removeFromCart(productId);
+      return;
     }
-    try {
-      await removeFromCart(productId);
-    } catch {
-      if (item) await adjustInventory(item.product, -item.quantity);
+
+    const previous = getInventoryForProduct(item.product);
+    const preview = previewInventoryDelta(item.product, item.quantity);
+    if (preview.ok) {
+      applyInventoryLocally(item.product.id, preview.entry);
+    }
+
+    void removeFromCart(productId).catch(() => {
+      applyInventoryLocally(item.product.id, previous);
+    });
+
+    if (preview.ok && preview.needsServerSync) {
+      void adjustStockAction(item.product.id, item.quantity).then((result) => {
+        if (!result.ok) {
+          applyInventoryLocally(item.product.id, previous);
+          return;
+        }
+        setInventory(item.product.id, {
+          inStock: result.data.inStock,
+          quantity: result.data.stockQuantity,
+        });
+      });
     }
   }
 

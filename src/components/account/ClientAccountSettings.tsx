@@ -58,8 +58,7 @@ import {
   getTemplatesForCustomer,
   type OrderTemplate,
 } from "@/lib/order-templates";
-import { addToCart, clearCart, readCartItems } from "@/lib/cart";
-import { adjustInventory } from "@/lib/inventory";
+import { readCartItems, replaceCartContents, type CartFillLine } from "@/lib/cart";
 import {
   ORDER_STATUS_META,
   ORDERS_EVENT,
@@ -1206,29 +1205,22 @@ function NewsletterSection({
   );
 }
 
-async function replaceCartWithOrderItems(order: Order): Promise<number> {
-  const current = readCartItems();
-  for (const item of current) {
-    await adjustInventory(item.product, item.quantity);
-  }
-  await clearCart();
-
-  let added = 0;
-  for (const line of order.items) {
-    const product = getProductCatalog().find((item) => item.id === line.productId);
+function linesFromCatalogItems(
+  items: { productId: string; quantity: number }[],
+): CartFillLine[] {
+  const lines: CartFillLine[] = [];
+  for (const line of items) {
+    const product = getProductCatalog().find(
+      (item) => item.id === line.productId,
+    );
     if (!product) continue;
-
-    const stock = await adjustInventory(product, -line.quantity);
-    if (!stock.ok) continue;
-
-    try {
-      await addToCart(product, line.quantity);
-      added += 1;
-    } catch {
-      await adjustInventory(product, line.quantity);
-    }
+    lines.push({ product, quantity: line.quantity });
   }
-  return added;
+  return lines;
+}
+
+function replaceCartWithOrderItems(order: Order): number {
+  return replaceCartContents(linesFromCatalogItems(order.items));
 }
 
 function ReplaceCartConfirmModal({
@@ -1350,7 +1342,7 @@ function OrdersSection({
     setRepeatingId(order.id);
     setActionError(null);
     try {
-      const added = await replaceCartWithOrderItems(order);
+      const added = replaceCartWithOrderItems(order);
       if (added === 0) {
         setActionError(
           "Nepodarilo sa pridať produkty do košíka. Skontrolujte sklad alebo dostupnosť.",
@@ -1573,42 +1565,24 @@ function TemplatesSection({
     onRefresh();
   }
 
-  async function orderAgain(template: OrderTemplate) {
+  function orderAgain(template: OrderTemplate) {
     if (orderingId) return;
 
     setOrderingId(template.id);
     setOrderError(null);
 
-    let added = 0;
-    try {
-      for (const line of template.items) {
-        const product = getProductCatalog().find(
-          (item) => item.id === line.productId,
-        );
-        if (!product) continue;
+    const added = replaceCartContents(linesFromCatalogItems(template.items));
 
-        const stock = await adjustInventory(product, -line.quantity);
-        if (!stock.ok) continue;
-
-        try {
-          await addToCart(product, line.quantity);
-          added += 1;
-        } catch {
-          await adjustInventory(product, line.quantity);
-        }
-      }
-
-      if (added === 0) {
-        setOrderError(
-          "Nepodarilo sa pridať produkty do košíka. Skontrolujte sklad.",
-        );
-        return;
-      }
-
-      router.push("/pokladna");
-    } finally {
+    if (added === 0) {
+      setOrderError(
+        "Nepodarilo sa pridať produkty do košíka. Skontrolujte sklad.",
+      );
       setOrderingId(null);
+      return;
     }
+
+    setOrderingId(null);
+    router.push("/pokladna");
   }
 
   if (templates.length === 0) {
@@ -1678,7 +1652,7 @@ function TemplatesSection({
               <div className="flex flex-wrap gap-2">
                 <button
                   type="button"
-                  onClick={() => void orderAgain(template)}
+                  onClick={() => orderAgain(template)}
                   disabled={orderingId === template.id}
                   className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 px-3.5 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-70"
                 >

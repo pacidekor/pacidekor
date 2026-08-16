@@ -62,9 +62,12 @@ export function FavoriteButton({
     const allowed = loggedIn || cached === true;
 
     async function runToggle() {
+      // Paint heart immediately; server sync runs in background.
+      setActive(!isFavorite(productId));
       try {
         setActive(await toggleFavorite(productId));
       } catch (error) {
+        setActive(isFavorite(productId));
         window.alert(
           error instanceof Error
             ? error.message

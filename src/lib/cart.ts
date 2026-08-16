@@ -4,13 +4,19 @@ import {
   clearCartAction,
   listCartAction,
   mergeGuestCartAction,
-  removeCartItemAction,
   setCartItemQuantityAction,
   upsertCartItemAction,
   type CartLineDto,
 } from "@/lib/actions/cart";
 import { getCachedClientAuthenticated } from "@/lib/client-auth";
+import { adjustStockAction } from "@/lib/actions/inventory";
 import { findCatalogProductById } from "@/lib/product-catalog";
+import {
+  applyInventoryLocally,
+  getInventoryForProduct,
+  previewInventoryDelta,
+  setInventory,
+} from "@/lib/inventory";
 import {
   amountToMinOrder,
   formatPrice,
@@ -168,6 +174,42 @@ function setAccountCart(lines: CartLineDto[]) {
   notify();
 }
 
+/** Serializes account cart writes so rapid clicks don't race. */
+let accountCartWriteChain: Promise<void> = Promise.resolve();
+
+function enqueueAccountCartWrite(task: () => Promise<void>) {
+  accountCartWriteChain = accountCartWriteChain.then(task).catch(() => {});
+}
+
+function patchAccountCartLine(
+  lines: CartLineDto[],
+  productId: string,
+  quantity: number,
+  colorId?: string,
+): CartLineDto[] {
+  if (quantity < 1) {
+    return lines.filter((line) => line.productId !== productId);
+  }
+
+  const index = lines.findIndex((line) => line.productId === productId);
+  if (index >= 0) {
+    const next = lines.slice();
+    const prev = next[index]!;
+    next[index] = {
+      productId,
+      quantity,
+      colorId: colorId ?? prev.colorId,
+    };
+    return next;
+  }
+
+  return [{ productId, quantity, colorId }, ...lines];
+}
+
+function lineQty(lines: CartLineDto[], productId: string) {
+  return lines.find((line) => line.productId === productId)?.quantity ?? 0;
+}
+
 export function readGuestCartLines(): CartLineDto[] {
   return readStored().map((line) => ({
     productId: line.productId,
@@ -225,16 +267,58 @@ export async function addToCart(
   const qty = Math.max(1, Math.floor(quantity));
 
   if (getCachedClientAuthenticated() === true) {
-    const current =
-      accountCartCache?.find((line) => line.productId === product.id)
-        ?.quantity ?? 0;
-    const result = await upsertCartItemAction({
-      productId: product.id,
-      quantity: current + qty,
-      colorId,
+    // Not hydrated yet — must wait for server (rare; AccountDataSync usually ran).
+    if (accountCartCache === null) {
+      const result = await upsertCartItemAction({
+        productId: product.id,
+        quantity: qty,
+        colorId,
+      });
+      if (!result.ok) throw new Error(result.error);
+      const listed = await listCartAction();
+      if (listed.ok) setAccountCart(listed.data);
+      else setAccountCart(result.data);
+      return readCartItems();
+    }
+
+    const snapshot = accountCartCache;
+    const nextQty = lineQty(snapshot, product.id) + qty;
+    setAccountCart(
+      patchAccountCartLine(snapshot, product.id, nextQty, colorId),
+    );
+
+    enqueueAccountCartWrite(async () => {
+      const result = await upsertCartItemAction({
+        productId: product.id,
+        quantity: nextQty,
+        colorId,
+      });
+      if (!result.ok) {
+        setAccountCart(
+          patchAccountCartLine(
+            accountCartCache ?? snapshot,
+            product.id,
+            lineQty(snapshot, product.id),
+            colorId,
+          ),
+        );
+        window.alert(result.error);
+        return;
+      }
+      // Confirm this line only — keep other optimistic lines intact.
+      const confirmed = result.data[0];
+      if (confirmed) {
+        setAccountCart(
+          patchAccountCartLine(
+            accountCartCache ?? snapshot,
+            confirmed.productId,
+            confirmed.quantity,
+            confirmed.colorId,
+          ),
+        );
+      }
     });
-    if (!result.ok) throw new Error(result.error);
-    setAccountCart(result.data);
+
     return readCartItems();
   }
 
@@ -265,9 +349,49 @@ export async function setCartQuantity(
   const qty = Math.floor(quantity);
 
   if (getCachedClientAuthenticated() === true) {
-    const result = await setCartItemQuantityAction(productId, qty);
-    if (!result.ok) throw new Error(result.error);
-    setAccountCart(result.data);
+    if (accountCartCache === null) {
+      const result = await setCartItemQuantityAction(productId, qty);
+      if (!result.ok) throw new Error(result.error);
+      const listed = await listCartAction();
+      if (listed.ok) setAccountCart(listed.data);
+      return readCartItems();
+    }
+
+    const snapshot = accountCartCache;
+    setAccountCart(patchAccountCartLine(snapshot, productId, qty));
+
+    enqueueAccountCartWrite(async () => {
+      const result = await setCartItemQuantityAction(productId, qty);
+      if (!result.ok) {
+        setAccountCart(
+          patchAccountCartLine(
+            accountCartCache ?? snapshot,
+            productId,
+            lineQty(snapshot, productId),
+          ),
+        );
+        window.alert(result.error);
+        return;
+      }
+      if (qty < 1) {
+        setAccountCart(
+          patchAccountCartLine(accountCartCache ?? snapshot, productId, 0),
+        );
+        return;
+      }
+      const confirmed = result.data[0];
+      if (confirmed) {
+        setAccountCart(
+          patchAccountCartLine(
+            accountCartCache ?? snapshot,
+            confirmed.productId,
+            confirmed.quantity,
+            confirmed.colorId,
+          ),
+        );
+      }
+    });
+
     return readCartItems();
   }
 
@@ -287,26 +411,113 @@ export async function setCartQuantity(
 }
 
 export async function removeFromCart(productId: string): Promise<CartItem[]> {
-  if (getCachedClientAuthenticated() === true) {
-    const result = await removeCartItemAction(productId);
-    if (!result.ok) throw new Error(result.error);
-    setAccountCart(result.data);
-    return readCartItems();
-  }
-
-  const next = readStored().filter((line) => line.productId !== productId);
-  writeStored(next);
-  return next.map(lineToCartItemFromStored);
+  return setCartQuantity(productId, 0);
 }
 
 export async function clearCart() {
   if (getCachedClientAuthenticated() === true) {
-    const result = await clearCartAction();
-    if (!result.ok) throw new Error(result.error);
+    const snapshot = accountCartCache;
     setAccountCart([]);
+    enqueueAccountCartWrite(async () => {
+      const result = await clearCartAction();
+      if (!result.ok) {
+        if (snapshot) setAccountCart(snapshot);
+        window.alert(result.error);
+      }
+    });
     return;
   }
   writeStored([]);
+}
+
+export type CartFillLine = {
+  product: Product;
+  quantity: number;
+  colorId?: string;
+};
+
+/**
+ * Replace the whole cart in one optimistic step (history repeat / templates).
+ * UI updates immediately; Supabase cart + stock sync run in the background.
+ */
+export function replaceCartContents(lines: CartFillLine[]): number {
+  const current = readCartItems();
+
+  for (const item of current) {
+    const restore = previewInventoryDelta(item.product, item.quantity);
+    if (restore.ok) {
+      applyInventoryLocally(item.product.id, restore.entry);
+      if (restore.needsServerSync) {
+        void adjustStockAction(item.product.id, item.quantity).then((result) => {
+          if (!result.ok) return;
+          setInventory(item.product.id, {
+            inStock: result.data.inStock,
+            quantity: result.data.stockQuantity,
+          });
+        });
+      }
+    }
+  }
+
+  const accepted: CartFillLine[] = [];
+  for (const line of lines) {
+    const qty = Math.max(1, Math.floor(line.quantity));
+    const previous = getInventoryForProduct(line.product);
+    const preview = previewInventoryDelta(line.product, -qty);
+    if (!preview.ok) continue;
+    applyInventoryLocally(line.product.id, preview.entry);
+    if (preview.needsServerSync) {
+      void adjustStockAction(line.product.id, -qty).then((result) => {
+        if (!result.ok) {
+          applyInventoryLocally(line.product.id, previous);
+          return;
+        }
+        setInventory(line.product.id, {
+          inStock: result.data.inStock,
+          quantity: result.data.stockQuantity,
+        });
+      });
+    }
+    accepted.push({ ...line, quantity: qty });
+  }
+
+  if (getCachedClientAuthenticated() === true) {
+    const nextDto: CartLineDto[] = accepted.map((line) => ({
+      productId: line.product.id,
+      quantity: line.quantity,
+      colorId: line.colorId,
+    }));
+    setAccountCart(nextDto);
+
+    const snapshot = nextDto;
+    enqueueAccountCartWrite(async () => {
+      const cleared = await clearCartAction();
+      if (!cleared.ok) {
+        window.alert(cleared.error);
+        return;
+      }
+      for (const line of snapshot) {
+        const result = await upsertCartItemAction({
+          productId: line.productId,
+          quantity: line.quantity,
+          colorId: line.colorId,
+        });
+        if (!result.ok) {
+          window.alert(result.error);
+          return;
+        }
+      }
+    });
+
+    return accepted.length;
+  }
+
+  writeStored(
+    accepted.map((line) =>
+      toStoredLine(line.product, line.quantity, line.colorId),
+    ),
+  );
+  return accepted.length;
 }
 
 /** Number of distinct products (cart lines), not total pieces. */

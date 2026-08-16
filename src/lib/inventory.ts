@@ -81,27 +81,92 @@ function applyStockToCatalog(
   notifyInventory();
 }
 
-/** Negative delta decreases stock in Supabase. Unlimited stock ignores decreases. */
+/**
+ * Local stock preview without waiting for Supabase.
+ * Unlimited stock (`quantity === null`) always succeeds for decreases.
+ */
+export function previewInventoryDelta(
+  product: Product,
+  delta: number,
+): { ok: boolean; entry: InventoryEntry; needsServerSync: boolean } {
+  const current = getInventoryForProduct(product);
+  if (delta === 0) {
+    return { ok: true, entry: current, needsServerSync: false };
+  }
+
+  if (delta < 0) {
+    if (!isInventoryAvailable(current)) {
+      return { ok: false, entry: current, needsServerSync: false };
+    }
+    if (current.quantity == null) {
+      return { ok: true, entry: current, needsServerSync: false };
+    }
+    const nextQty = current.quantity + delta;
+    if (nextQty < 0) {
+      return { ok: false, entry: current, needsServerSync: false };
+    }
+    return {
+      ok: true,
+      entry: normalizeInventory({ inStock: nextQty > 0, quantity: nextQty }),
+      needsServerSync: true,
+    };
+  }
+
+  // Restock / undo
+  if (current.quantity == null) {
+    return {
+      ok: true,
+      entry: { inStock: true, quantity: null },
+      needsServerSync: false,
+    };
+  }
+  const nextQty = (current.inStock ? current.quantity : 0) + delta;
+  return {
+    ok: true,
+    entry: normalizeInventory({ inStock: true, quantity: nextQty }),
+    needsServerSync: true,
+  };
+}
+
+export function applyInventoryLocally(
+  productId: string,
+  entry: InventoryEntry,
+) {
+  applyStockToCatalog(productId, {
+    inStock: entry.inStock,
+    stockQuantity: entry.quantity,
+  });
+}
+
+/**
+ * Optimistic local stock change, then background Supabase sync.
+ * Rolls local state back if the server rejects the delta.
+ */
 export async function adjustInventory(
   product: Product,
   delta: number,
 ): Promise<{ ok: boolean; entry: InventoryEntry; error?: string }> {
-  const current = getInventoryForProduct(product);
-  if (delta === 0) return { ok: true, entry: current };
-
-  const result = await adjustStockAction(product.id, delta);
-  if (!result.ok) {
-    return { ok: false, entry: current, error: result.error };
+  const preview = previewInventoryDelta(product, delta);
+  if (!preview.ok) {
+    return { ok: false, entry: preview.entry, error: "Nedostatok skladu." };
   }
 
-  applyStockToCatalog(product.id, result.data);
-  return {
-    ok: true,
-    entry: {
-      inStock: result.data.inStock,
-      quantity: result.data.stockQuantity,
-    },
-  };
+  if (!preview.needsServerSync) {
+    return { ok: true, entry: preview.entry };
+  }
+
+  const previous = getInventoryForProduct(product);
+  applyInventoryLocally(product.id, preview.entry);
+
+  void adjustStockAction(product.id, delta).then((result) => {
+    if (!result.ok) {
+      applyInventoryLocally(product.id, previous);
+      return;
+    }
+    applyStockToCatalog(product.id, result.data);
+  });
+
+  return { ok: true, entry: preview.entry };
 }
 
 /** Keep admin UI / local mirrors in sync after product save. */

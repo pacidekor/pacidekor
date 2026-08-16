@@ -2,8 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, ShoppingCart } from "lucide-react";
+import { adjustStockAction } from "@/lib/actions/inventory";
 import { addToCart } from "@/lib/cart";
-import { adjustInventory } from "@/lib/inventory";
+import {
+  applyInventoryLocally,
+  getInventoryForProduct,
+  previewInventoryDelta,
+  setInventory,
+} from "@/lib/inventory";
 import type { Product } from "@/lib/products";
 
 type AddToCartButtonProps = {
@@ -32,22 +38,40 @@ export function AddToCartButton({
     };
   }, []);
 
-  async function handleClick() {
+  function handleClick() {
     if (added || disabled) return;
 
-    const result = await adjustInventory(product, -quantity);
-    if (!result.ok) return;
+    const previous = getInventoryForProduct(product);
+    const preview = previewInventoryDelta(product, -quantity);
+    if (!preview.ok) return;
 
-    try {
-      await addToCart(product, quantity, colorId);
-    } catch {
-      await adjustInventory(product, quantity);
-      return;
-    }
+    applyInventoryLocally(product.id, preview.entry);
 
-    setAdded(true);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);
+    void (async () => {
+      try {
+        await addToCart(product, quantity, colorId);
+      } catch {
+        applyInventoryLocally(product.id, previous);
+        return;
+      }
+
+      setAdded(true);
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);
+
+      if (preview.needsServerSync) {
+        void adjustStockAction(product.id, -quantity).then((result) => {
+          if (!result.ok) {
+            applyInventoryLocally(product.id, previous);
+            return;
+          }
+          setInventory(product.id, {
+            inStock: result.data.inStock,
+            quantity: result.data.stockQuantity,
+          });
+        });
+      }
+    })();
   }
 
   const isCard = size === "card";

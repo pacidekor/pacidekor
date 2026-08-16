@@ -12,6 +12,8 @@ export const FAVORITES_EVENT = "pacidekor:favorites-changed";
 
 let favoriteIdsCache: string[] = [];
 let hydrated = false;
+/** Per-product toggle generation — ignores stale server responses. */
+const toggleSeqById = new Map<string, number>();
 
 function notify() {
   if (typeof window === "undefined") return;
@@ -48,13 +50,46 @@ export function areFavoritesHydrated() {
   return hydrated;
 }
 
+/**
+ * Instant UI toggle; persists to Supabase in the background and rolls back on failure.
+ */
 export async function toggleFavorite(productId: string): Promise<boolean> {
-  const result = await toggleFavoriteAction(productId);
-  if (!result.ok) {
-    throw new Error(result.error);
-  }
-  setFavoriteIdsSnapshot(result.data.ids);
-  return result.data.active;
+  const previous = favoriteIdsCache;
+  const wasActive = previous.includes(productId);
+  const nextActive = !wasActive;
+  const optimistic = nextActive
+    ? [productId, ...previous.filter((id) => id !== productId)]
+    : previous.filter((id) => id !== productId);
+
+  setFavoriteIdsSnapshot(optimistic);
+
+  const seq = (toggleSeqById.get(productId) ?? 0) + 1;
+  toggleSeqById.set(productId, seq);
+
+  void (async () => {
+    const result = await toggleFavoriteAction(productId);
+    if (toggleSeqById.get(productId) !== seq) return;
+
+    if (!result.ok) {
+      const without = favoriteIdsCache.filter((id) => id !== productId);
+      setFavoriteIdsSnapshot(wasActive ? [productId, ...without] : without);
+      window.alert(result.error);
+      toggleSeqById.delete(productId);
+      return;
+    }
+
+    // Keep optimistic list; only fix this product if server disagreed.
+    const has = favoriteIdsCache.includes(productId);
+    if (has !== result.data.active) {
+      const without = favoriteIdsCache.filter((id) => id !== productId);
+      setFavoriteIdsSnapshot(
+        result.data.active ? [productId, ...without] : without,
+      );
+    }
+    toggleSeqById.delete(productId);
+  })();
+
+  return nextActive;
 }
 
 export function getFavoriteProducts(): Product[] {
@@ -68,5 +103,6 @@ export function favoriteCountLabel(count: number) {
 export function clearFavoritesCache() {
   favoriteIdsCache = [];
   hydrated = false;
+  toggleSeqById.clear();
   notify();
 }

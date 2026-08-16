@@ -21,9 +21,11 @@ export type CartLineDto = {
 
 async function requireCustomer() {
   const supabase = await createClient();
+  // Cookie session only — avoids Auth API roundtrip on every cart click.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
 
   if (!user) {
     return { ok: false as const, error: "Nie ste prihlásený.", supabase };
@@ -94,7 +96,17 @@ export async function upsertCartItemAction(
   );
 
   if (error) return { ok: false, error: error.message };
-  return listLines(auth.supabase, auth.userId);
+  // Skip full re-list — client keeps optimistic cart; hydrate refreshes later.
+  return {
+    ok: true,
+    data: [
+      {
+        productId: input.productId,
+        quantity,
+        colorId: input.colorId?.trim() || undefined,
+      },
+    ],
+  };
 }
 
 export async function setCartItemQuantityAction(
@@ -112,7 +124,7 @@ export async function setCartItemQuantityAction(
       .eq("user_id", auth.userId)
       .eq("product_id", productId);
     if (error) return { ok: false, error: error.message };
-    return listLines(auth.supabase, auth.userId);
+    return { ok: true, data: [] };
   }
 
   const { error } = await auth.supabase
@@ -122,7 +134,10 @@ export async function setCartItemQuantityAction(
     .eq("product_id", productId);
 
   if (error) return { ok: false, error: error.message };
-  return listLines(auth.supabase, auth.userId);
+  return {
+    ok: true,
+    data: [{ productId, quantity: qty }],
+  };
 }
 
 export async function removeCartItemAction(
