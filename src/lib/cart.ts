@@ -520,6 +520,51 @@ export function replaceCartContents(lines: CartFillLine[]): number {
   return accepted.length;
 }
 
+export type AddLinesToCartResult = {
+  added: number;
+  skipped: number;
+};
+
+/**
+ * Add lines on top of the current cart (favorites → cart).
+ * Skips sold-out items. Optimistic UI + background sync.
+ */
+export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
+  let added = 0;
+  let skipped = 0;
+
+  for (const line of lines) {
+    const qty = Math.max(1, Math.floor(line.quantity));
+    const previous = getInventoryForProduct(line.product);
+    const preview = previewInventoryDelta(line.product, -qty);
+    if (!preview.ok) {
+      skipped += 1;
+      continue;
+    }
+
+    applyInventoryLocally(line.product.id, preview.entry);
+    if (preview.needsServerSync) {
+      void adjustStockAction(line.product.id, -qty).then((result) => {
+        if (!result.ok) {
+          applyInventoryLocally(line.product.id, previous);
+          return;
+        }
+        setInventory(line.product.id, {
+          inStock: result.data.inStock,
+          quantity: result.data.stockQuantity,
+        });
+      });
+    }
+
+    void addToCart(line.product, qty, line.colorId).catch(() => {
+      applyInventoryLocally(line.product.id, previous);
+    });
+    added += 1;
+  }
+
+  return { added, skipped };
+}
+
 /** Number of distinct products (cart lines), not total pieces. */
 export function cartItemCount(items: CartItem[]) {
   return items.length;

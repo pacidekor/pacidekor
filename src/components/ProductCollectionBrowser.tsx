@@ -36,6 +36,8 @@ type ProductCollectionBrowserProps = {
   sortSoldOutLast?: boolean;
   emptyState?: ReactNode;
   listenInventory?: boolean;
+  /** Extra controls next to the title (e.g. add-all-to-cart). */
+  headerAction?: ReactNode;
 };
 
 export function ProductCollectionBrowser({
@@ -44,6 +46,7 @@ export function ProductCollectionBrowser({
   sortSoldOutLast: sortOut = false,
   emptyState,
   listenInventory = false,
+  headerAction,
 }: ProductCollectionBrowserProps) {
   const taxonomy = useTaxonomy();
   const categoryLabels =
@@ -93,8 +96,9 @@ export function ProductCollectionBrowser({
   if (products.length === 0 && emptyState) {
     return (
       <div>
-        <div className="mb-6 flex items-center justify-between gap-4">
+        <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{title}</h1>
+          {headerAction}
         </div>
         {emptyState}
       </div>
@@ -103,10 +107,11 @@ export function ProductCollectionBrowser({
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between gap-4">
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{title}</h1>
 
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-2">
+          {headerAction}
           <CatalogGridDensityToggle
             value={gridDensity}
             onChange={setGridDensity}
