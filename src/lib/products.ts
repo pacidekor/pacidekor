@@ -270,9 +270,38 @@ export function productColorMatchesFilter(
   filterColorId: string,
 ) {
   if (productColorId === filterColorId) return true;
+  if (isCustomColorId(filterColorId)) return false;
   const custom = parseCustomColorId(productColorId);
   if (!custom) return false;
   return nearestFilterColor(custom.hex).color.id === filterColorId;
+}
+
+/** Basic filter palette plus custom shades present in the given catalog slice. */
+export function collectCatalogColorFilters(products: Product[]): TaxonomyValue[] {
+  const customById = new Map<string, TaxonomyValue>();
+
+  for (const product of products) {
+    const ids =
+      product.attributes?.colors ??
+      product.colors?.map((color) => color.id) ??
+      [];
+    for (const id of ids) {
+      const custom = parseCustomColorId(id);
+      if (custom) {
+        customById.set(custom.id, {
+          id: custom.id,
+          label: custom.label,
+          hex: custom.hex,
+        });
+      }
+    }
+  }
+
+  const customs = [...customById.values()].sort((a, b) =>
+    a.label.localeCompare(b.label, "sk"),
+  );
+
+  return [...filterColors, ...customs];
 }
 
 /**

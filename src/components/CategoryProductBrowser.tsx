@@ -14,6 +14,7 @@ import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { CollapsibleChipList } from "@/components/CollapsibleChipList";
+import { ColorFilterChips } from "@/components/ColorFilterChips";
 import {
   CatalogGridDensityToggle,
   catalogGridClass,
@@ -24,10 +25,9 @@ import {
   getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
-import { filterProducts } from "@/lib/products";
+import { collectCatalogColorFilters, filterProducts } from "@/lib/products";
 import {
   buildCategoryFilterHref,
-  filterColors,
   getSubcategoriesForCategory,
   parseCategoryFilters,
   type CategoryFilters,
@@ -127,6 +127,11 @@ export function CategoryProductBrowser({
   }, [searchParams]);
 
   const pricedProducts = usePricedProducts(products);
+
+  const colorFilters = useMemo(
+    () => collectCatalogColorFilters(pricedProducts),
+    [pricedProducts],
+  );
 
   const filtered = useMemo(
     () =>
@@ -365,38 +370,17 @@ export function CategoryProductBrowser({
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               Farba
             </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {filterColors.map((color) => {
-                const active = filters.farba?.includes(color.id) ?? false;
-                return (
-                  <button
-                    key={color.id}
-                    type="button"
-                    onClick={() =>
-                      applyFilters({
-                        ...filters,
-                        farba: toggleId(filters.farba, color.id),
-                      })
-                    }
-                    className={`inline-flex h-9 cursor-pointer items-center gap-2 rounded-full border px-3 text-sm font-medium transition-colors ${
-                      active
-                        ? "border-[#75825B] bg-[#75825B] text-white"
-                        : "border-black/10 bg-[#faf8f5] text-[#2f2924] hover:border-[#75825B]/40"
-                    }`}
-                  >
-                    {color.hex ? (
-                      <span
-                        className={`size-3.5 rounded-full border ${
-                          active ? "border-white/40" : "border-black/10"
-                        }`}
-                        style={{ backgroundColor: color.hex }}
-                        aria-hidden
-                      />
-                    ) : null}
-                    {color.label}
-                  </button>
-                );
-              })}
+            <div className="mt-3">
+              <ColorFilterChips
+                colors={colorFilters}
+                selected={filters.farba ?? []}
+                onToggle={(id) =>
+                  applyFilters({
+                    ...filters,
+                    farba: toggleId(filters.farba, id),
+                  })
+                }
+              />
             </div>
           </div>
         </div>

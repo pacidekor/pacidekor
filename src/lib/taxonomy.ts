@@ -118,6 +118,14 @@ export function getFilterColorById(id: string) {
   return filterColors.find((item) => item.id === id);
 }
 
+/** Basic palette id or encoded custom:… product shade id from URL filters. */
+export function isValidColorFilterId(id: string) {
+  return (
+    filterColors.some((color) => color.id === id) ||
+    (id.startsWith("custom:") && id.includes(":", 7))
+  );
+}
+
 export function getPackagingFormatById(id: string) {
   return packagingFormats.find((item) => item.id === id);
 }
@@ -134,9 +142,7 @@ export function parseCategoryFilters(
   const druh =
     typeof druhRaw === "string" && druhRaw.length > 0 ? druhRaw : undefined;
 
-  const farba = normalizeMultiParam(farbaRaw).filter((id) =>
-    filterColors.some((color) => color.id === id),
-  );
+  const farba = normalizeMultiParam(farbaRaw).filter(isValidColorFilterId);
 
   return {
     sub,
