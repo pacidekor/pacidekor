@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { EmailVerificationStep } from "@/components/auth/EmailVerificationStep";
 import { PasswordField } from "@/components/PasswordField";
 import { registerRetail } from "@/lib/actions/auth";
 import { notifyClientAuthChanged } from "@/lib/client-auth";
@@ -46,7 +47,7 @@ const STEPS = [
     title: "Prístup",
     subtitle: "Nastavte si heslo k zákazníckemu účtu.",
     sideTitle: "Takmer hotovo",
-    sideBody: "Po registrácii sa hneď prihlásite a môžete nakupovať.",
+    sideBody: "Po registrácii overíte e-mail a môžete nakupovať.",
   },
 ] as const;
 
@@ -85,7 +86,7 @@ export function RetailRegisterForm({
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormState>(INITIAL);
   const [error, setError] = useState("");
-  const [done, setDone] = useState(false);
+  const [phase, setPhase] = useState<"form" | "verify" | "done">("form");
   const [pending, setPending] = useState(false);
   const [panelHeight, setPanelHeight] = useState<number | null>(null);
 
@@ -167,8 +168,7 @@ export function RetailRegisterForm({
       return;
     }
 
-    notifyClientAuthChanged();
-    setDone(true);
+    setPhase("verify");
   }
 
   function goBack() {
@@ -178,7 +178,20 @@ export function RetailRegisterForm({
     }
   }
 
-  if (done) {
+  if (phase === "verify") {
+    return (
+      <EmailVerificationStep
+        email={data.email.trim()}
+        sideSlides={sideSlides}
+        onVerified={() => {
+          notifyClientAuthChanged();
+          setPhase("done");
+        }}
+      />
+    );
+  }
+
+  if (phase === "done") {
     return (
       <AuthSplitShell
         sideSlides={sideSlides}

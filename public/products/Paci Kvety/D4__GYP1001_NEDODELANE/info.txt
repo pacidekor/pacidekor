@@ -1,0 +1,6 @@
+Názov: Gypsofilka
+Zdrojová zložka: D4__GYP1001
+Typ: gypsofilka
+Popis: Klasická umelá gypsofilka s drobnými kvietkami na vetvených stonkách. Sedem farieb.
+Farby: biela [1–3] | svetlomodrá [4–6] | svetloružová [7–9] | zelená [10–12] | ružová [13–15] | tmavoružová [16–18] | žltá [19–21]
+Cena: 1,00 €

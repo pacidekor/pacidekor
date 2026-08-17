@@ -10,14 +10,19 @@ export const metadata: Metadata = {
 export default async function ForgotPasswordPage({
   searchParams,
 }: {
-  searchParams: Promise<{ typ?: string }>;
+  searchParams: Promise<{ typ?: string; odkaz?: string }>;
 }) {
   const params = await searchParams;
   const accountType =
     params.typ === "velkoobchod" ? "velkoobchod" : "maloobchod";
+  const invalidLink = params.odkaz === "neplatny";
   const sideSlides = await listAuthSideSlides();
 
   return (
-    <ForgotPasswordForm sideSlides={sideSlides} accountType={accountType} />
+    <ForgotPasswordForm
+      sideSlides={sideSlides}
+      accountType={accountType}
+      invalidLink={invalidLink}
+    />
   );
 }

@@ -1,0 +1,6 @@
+Názov: Kytica pivónií
+Zdrojová zložka: E1__KYTICA PIVONIA
+Typ: kytica
+Popis: Umelé kytice pivónií s výplňami a listami. Viacero farieb a niekoľko dvojfarebných kombinácií.
+Farby: krémová [1–2] | fialová [3–5] | bordová [6–8] | marhuľová [9–11] | béžová [12–14] | zelená [15–17] | staroružová [18–20] | zeleno-krémová [21–23] | bordo-marhuľová [24–26]
+Cena: 1,00 €

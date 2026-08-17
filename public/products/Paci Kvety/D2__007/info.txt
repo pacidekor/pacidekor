@@ -1,0 +1,6 @@
+Názov: Eukalyptus okrúhly
+Zdrojová zložka: D2__007
+Typ: eukalyptus
+Popis: Umelý eukalyptus s malými okrúhlymi listami a zelenými tipmi nového rastu. Dve farby: prašnoružová/mauve a zelená.
+Farby: ružová [1–3] | zelená [4–6]
+Cena: 1,00 €

@@ -1,0 +1,6 @@
+Názov: Drobnolistá výplňová zeleň
+Zdrojová zložka: D4__CAN118
+Typ: zeleň
+Popis: Zväzok umelej drobnolistej výplňovej zelene s hviezdicovitými lístkami na zelených stonkách. Štyri farby.
+Farby: hnedá [1–3] | žltá [4–6] | marhuľová [7–9] | krémová [10–12]
+Cena: 1,00 €

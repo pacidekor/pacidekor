@@ -2,14 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { PasswordField } from "@/components/PasswordField";
 import { updatePasswordAfterReset } from "@/lib/actions/auth";
+import { createClient } from "@/lib/supabase/client";
 import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
   "h-12 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
+
+const RECOVERY_FLAG = "pacidekor:password-recovery";
+const INVALID_LINK_HREF = "/zabudnute-heslo?odkaz=neplatny";
+
+type Gate = "checking" | "ready";
 
 export function ResetPasswordForm({
   sideSlides = [],
@@ -17,10 +23,115 @@ export function ResetPasswordForm({
   sideSlides?: AuthSideSlide[];
 }) {
   const router = useRouter();
+  const [gate, setGate] = useState<Gate>("checking");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [error, setError] = useState("");
   const [pending, setPending] = useState(false);
+
+  useEffect(() => {
+    const supabase = createClient();
+    let cancelled = false;
+    let settled = false;
+
+    function finishReady() {
+      if (cancelled || settled) return;
+      settled = true;
+      try {
+        sessionStorage.setItem(RECOVERY_FLAG, "1");
+      } catch {
+        // ignore
+      }
+      setGate("ready");
+    }
+
+    function finishDenied() {
+      if (cancelled || settled) return;
+      settled = true;
+      router.replace(INVALID_LINK_HREF);
+    }
+
+    function hashLooksLikeRecovery() {
+      if (typeof window === "undefined") return false;
+      const hash = window.location.hash.replace(/^#/, "");
+      if (!hash) return false;
+      const params = new URLSearchParams(hash);
+      return params.get("type") === "recovery";
+    }
+
+    function hasRecoveryFlag() {
+      try {
+        return sessionStorage.getItem(RECOVERY_FLAG) === "1";
+      } catch {
+        return false;
+      }
+    }
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" && session) {
+        finishReady();
+        return;
+      }
+      if (session && hashLooksLikeRecovery()) {
+        finishReady();
+      }
+    });
+
+    void (async () => {
+      if (hasRecoveryFlag()) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+          finishReady();
+          return;
+        }
+      }
+
+      if (hashLooksLikeRecovery()) {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) {
+          finishReady();
+          return;
+        }
+      }
+
+      // PKCE / hash môže doraziť o chvíľu — počkáme, potom odmietneme.
+      await new Promise((resolve) => window.setTimeout(resolve, 2200));
+      if (cancelled || settled) return;
+
+      if (hasRecoveryFlag()) {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (user) {
+          finishReady();
+          return;
+        }
+      }
+
+      if (hashLooksLikeRecovery()) {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+        if (session) {
+          finishReady();
+          return;
+        }
+      }
+
+      finishDenied();
+    })();
+
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
+  }, [router]);
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,8 +151,38 @@ export function ResetPasswordForm({
       return;
     }
 
+    try {
+      sessionStorage.removeItem(RECOVERY_FLAG);
+    } catch {
+      // ignore
+    }
+
     router.replace("/prihlasenie");
     router.refresh();
+  }
+
+  if (gate === "checking") {
+    return (
+      <AuthSplitShell
+        sideSlides={sideSlides}
+        sideTitle="Nové heslo"
+        sideBody="Overujeme odkaz na obnovenie hesla."
+      >
+        <div className="mb-8">
+          <AuthBrandLink />
+          <h1 className="mt-6 font-heading text-3xl font-semibold text-[#2f2924]">
+            Nové heslo
+          </h1>
+          <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/60">
+            Overujeme odkaz z e-mailu…
+          </p>
+        </div>
+        <div
+          className="h-12 w-full animate-pulse rounded-xl bg-[#2f2924]/6"
+          aria-hidden
+        />
+      </AuthSplitShell>
+    );
   }
 
   return (
@@ -90,7 +231,7 @@ export function ResetPasswordForm({
               htmlFor="reset-password-confirm"
               className="mb-1.5 block text-sm font-medium text-[#2f2924]"
             >
-              Potvrdenie hesla
+              Znovu nové heslo
             </label>
             <PasswordField
               id="reset-password-confirm"

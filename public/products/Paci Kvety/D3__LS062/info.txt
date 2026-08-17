@@ -1,0 +1,6 @@
+Názov: Vinič / listová vetva
+Zdrojová zložka: D3__LS062
+Typ: vinič
+Popis: Umelá listová vetva s laločnatými listami a kučeravými úponkami. Dostupné v zelenej a fialovo-zelenej.
+Farby: zelená [1–2] | fialová [3–4]
+Cena: 1,00 €

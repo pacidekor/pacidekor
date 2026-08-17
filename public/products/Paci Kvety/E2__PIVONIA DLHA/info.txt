@@ -1,0 +1,6 @@
+Názov: Pivonka dlhá kytica
+Zdrojová zložka: E2__PIVONIA DLHA
+Typ: pivonka
+Popis: Umelá dlhá kytica pivoniek s drobnými filler akcentmi a zeleňou. Dve farby: zelená a ružová.
+Farby: zelená [1–3] | ružová [4–6]
+Cena: 1,00 €

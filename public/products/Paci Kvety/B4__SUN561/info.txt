@@ -1,0 +1,6 @@
+Názov: Hyacint
+Zdrojová zložka: B4__SUN561
+Typ: hyacint
+Popis: Umelý hyacint s hustým klasom drobných hviezdicových kvetov a dlhými zelenými listami. Viac farebných variantov.
+Farby: biela [1–3] | fialová [4–6] | svetlofialová [7–9] | modrá [10–12] | ružová [13–15] | žltá [16–18]
+Cena: 1,00 €

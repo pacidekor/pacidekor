@@ -1,0 +1,6 @@
+Názov: Klinček – zväzok
+Zdrojová zložka: F1__106
+Typ: klinček
+Popis: Umelý zväzok drobných plných klinčekov so zúbkatými listami na spoločnej stonke. Dve farby: červená a biela.
+Farby: červená [1–3] | biela [4–6]
+Cena: 1,00 €

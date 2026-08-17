@@ -1,0 +1,6 @@
+Názov: Pivonková kytica – viacfarby
+Zdrojová zložka: E3__PIV. KYT
+Typ: pivonka
+Popis: Umelá kytica plných pivoniek so zeleňou (papradie, sivozelené listy) a drobnými filler akcentmi. Štyri farby.
+Farby: krémová [1–3] | oranžová [4–6] | zelená [7–9] | ružová [10–12]
+Cena: 1,00 €

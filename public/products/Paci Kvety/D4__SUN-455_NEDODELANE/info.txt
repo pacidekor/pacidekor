@@ -1,0 +1,6 @@
+Názov: Gypsofilka hustá
+Zdrojová zložka: D4__SUN-455
+Typ: gypsofilka
+Popis: Umelá gypsofilka s hustejšími, plnšími súkvetiami. Päť farieb.
+Farby: biela [1–3] | svetloružová [4–6] | ružová [7–8] | svetlofialová [9–11] | fialová [12–14]
+Cena: 1,00 €

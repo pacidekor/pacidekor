@@ -1,6 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Avoid picking C:\Users\tomas\package-lock.json as Turbopack root
+  turbopack: {
+    root: process.cwd(),
+  },
   // Product photo uploads (raw JPG/PNG) before WebP compression on the server
   experimental: {
     serverActions: {

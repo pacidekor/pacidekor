@@ -1,5 +1,6 @@
 import {
   BadgePercent,
+  ChartLine,
   FolderTree,
   LayoutDashboard,
   Newspaper,
@@ -22,5 +23,6 @@ export const adminNavItems: AdminNavItem[] = [
   { href: "/admin/kategorie", label: "Kategórie", icon: FolderTree },
   { href: "/admin/zakaznici", label: "Zákazníci", icon: Users },
   { href: "/admin/zlavy", label: "Zľavy", icon: BadgePercent },
+  { href: "/admin/analytika", label: "Analytika", icon: ChartLine },
   { href: "/admin/blog", label: "Blog", icon: Newspaper },
 ];

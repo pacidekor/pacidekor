@@ -31,10 +31,10 @@ export function getAccountHelpForChat() {
     },
     newsletter: {
       summary:
-        "Newsletter a e-mailové novinky nastavíte po prihlásení v účte v sekcii Newsletter (mesačný newsletter, promo akcie, novinky v katalógu).",
-      link: "/ucet",
+        "Newsletter: na homepage dole môžete zadať e-mail a odoberať novinky. Odhlásiť sa dá odkazom v každom newsletteri.",
+      link: "/",
       example_reply:
-        "Áno, máme newsletter. Po prihlásení si ho nastavíte v sekcii Newsletter na [tejto stránke](/ucet).",
+        "Áno, máme newsletter. Prihlásiť sa môžete dole na [úvodnej stránke](/). Odhlásenie je odkazom v e-maile.",
     },
     links: [
       { label: "Prihlásenie", href: "/prihlasenie" },

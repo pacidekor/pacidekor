@@ -12,9 +12,11 @@ const fieldClass =
 export function ForgotPasswordForm({
   sideSlides = [],
   accountType = "maloobchod",
+  invalidLink = false,
 }: {
   sideSlides?: AuthSideSlide[];
   accountType?: "maloobchod" | "velkoobchod";
+  invalidLink?: boolean;
 }) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
@@ -55,6 +57,16 @@ export function ForgotPasswordForm({
           hesla.
         </p>
       </div>
+
+      {invalidLink && !sent ? (
+        <p
+          role="alert"
+          className="mb-5 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-3 text-sm leading-relaxed text-[#9a4d3f]"
+        >
+          Odkaz na obnovenie hesla je neplatný alebo expirovaný. Zadajte e-mail
+          a pošleme vám nový.
+        </p>
+      ) : null}
 
       {sent ? (
         <div className="space-y-5">

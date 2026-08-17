@@ -1,0 +1,34 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { NewsletterUnsubscribeForm } from "@/components/newsletter/NewsletterUnsubscribeForm";
+
+export const metadata: Metadata = {
+  title: "Odhlásenie z newslettera",
+  description: "Potvrdenie odhlásenia z newslettera PACIDEKOR.",
+  robots: { index: false, follow: false },
+};
+
+export default async function NewsletterUnsubscribePage({
+  searchParams,
+}: {
+  searchParams: Promise<{ email?: string }>;
+}) {
+  const params = await searchParams;
+  const email = params.email?.trim() || undefined;
+
+  return (
+    <main className="flex flex-1 flex-col py-6 pb-14">
+      <nav className="mb-6 text-sm text-[#2f2924]/55">
+        <Link href="/" className="transition-colors hover:text-[#75825B]">
+          Domov
+        </Link>
+        <span className="mx-2" aria-hidden>
+          /
+        </span>
+        <span className="text-[#2f2924]">Odhlásenie z newslettera</span>
+      </nav>
+
+      <NewsletterUnsubscribeForm email={email} />
+    </main>
+  );
+}

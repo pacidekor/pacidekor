@@ -1,0 +1,6 @@
+Názov: Bahniatka so zeleňou
+Zdrojová zložka: F2__WEI1002
+Typ: bahniatka
+Popis: Umelé bahniatka – hnedé vetvičky so sivými chlpatými jahňatami a drobnými zelenými lístkami.
+Farby: sivá [1–3]
+Cena: 1,00 €

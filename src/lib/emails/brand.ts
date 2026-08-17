@@ -1,0 +1,16 @@
+export const EMAIL_BRAND = {
+  name: "PACIDEKOR",
+  tagline: "Umelé kvety & dekorácie",
+  primary: "#75825B",
+  primaryDark: "#5f6b49",
+  ink: "#2f2924",
+  muted: "rgba(47,41,36,0.62)",
+  soft: "#faf8f5",
+  softAlt: "#f3efe9",
+  border: "rgba(47,41,36,0.08)",
+  white: "#ffffff",
+  supportEmail: "info@pacidekor.sk",
+  phone: "+421 910 592 948",
+  phoneHref: "tel:+421910592948",
+  defaultSiteUrl: "https://pacidekor.sk",
+} as const;

@@ -7,11 +7,11 @@ import {
   hydrateAccountCart,
 } from "@/lib/cart";
 import {
+  bootstrapFavoritesPreview,
   clearFavoritesCache,
   hydrateFavorites,
 } from "@/lib/favorites";
 import {
-  getCachedClientAuthenticated,
   isClientAuthenticated,
   subscribeClientAuth,
 } from "@/lib/client-auth";
@@ -24,6 +24,13 @@ export function AccountDataSync() {
   useEffect(() => {
     let cancelled = false;
 
+    // Paint heart counter ASAP from local cache (before cart / profile work).
+    void bootstrapFavoritesPreview().then(() => {
+      if (cancelled) return;
+      // Reconcile with Supabase in parallel with cart merge below.
+      void hydrateFavorites();
+    });
+
     async function sync() {
       const ok = await isClientAuthenticated();
       if (cancelled) return;
@@ -34,18 +41,15 @@ export function AccountDataSync() {
         } catch {
           await hydrateAccountCart();
         }
-        await hydrateFavorites();
+        // Favorites already kicked off above; refresh once auth is confirmed.
+        void hydrateFavorites();
       } else {
         clearAccountCartCache();
         clearFavoritesCache();
       }
     }
 
-    if (getCachedClientAuthenticated() !== null) {
-      void sync();
-    } else {
-      void sync();
-    }
+    void sync();
 
     return subscribeClientAuth(() => {
       void sync();

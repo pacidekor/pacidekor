@@ -1,5 +1,6 @@
 "use client";
 
+import { createClient } from "@/lib/supabase/client";
 import {
   listFavoriteIdsAction,
   toggleFavoriteAction,
@@ -10,14 +11,60 @@ import { productCountLabel } from "@/lib/product-count";
 
 export const FAVORITES_EVENT = "pacidekor:favorites-changed";
 
+const FAVORITES_STORAGE_KEY = "pacidekor.favorites.v1";
+
 let favoriteIdsCache: string[] = [];
 let hydrated = false;
+let cachedUserId: string | null = null;
 /** Per-product toggle generation — ignores stale server responses. */
 const toggleSeqById = new Map<string, number>();
 
 function notify() {
   if (typeof window === "undefined") return;
   window.dispatchEvent(new Event(FAVORITES_EVENT));
+}
+
+type StoredFavorites = {
+  userId: string;
+  ids: string[];
+};
+
+function readStoredFavorites(userId: string): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = window.localStorage.getItem(FAVORITES_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as StoredFavorites;
+    if (
+      !parsed ||
+      parsed.userId !== userId ||
+      !Array.isArray(parsed.ids)
+    ) {
+      return [];
+    }
+    return parsed.ids.filter((id) => typeof id === "string");
+  } catch {
+    return [];
+  }
+}
+
+function writeStoredFavorites(userId: string, ids: string[]) {
+  if (typeof window === "undefined") return;
+  try {
+    const payload: StoredFavorites = { userId, ids };
+    window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(payload));
+  } catch {
+    // ignore quota / private mode
+  }
+}
+
+function clearStoredFavorites() {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(FAVORITES_STORAGE_KEY);
+  } catch {
+    // ignore
+  }
 }
 
 export function getFavoriteIdsSnapshot(): string[] {
@@ -28,21 +75,61 @@ export function isFavorite(productId: string): boolean {
   return favoriteIdsCache.includes(productId);
 }
 
-export function setFavoriteIdsSnapshot(ids: string[]) {
+export function setFavoriteIdsSnapshot(ids: string[], userId?: string) {
   favoriteIdsCache = ids;
   hydrated = true;
+  if (userId) cachedUserId = userId;
+  if (cachedUserId) writeStoredFavorites(cachedUserId, ids);
+  notify();
+}
+
+/**
+ * Instant counter after hard refresh: session from cookie storage + last known ids.
+ * Full reconcile still happens via hydrateFavorites().
+ */
+export async function bootstrapFavoritesPreview(): Promise<void> {
+  const supabase = createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+  if (!userId) return;
+
+  cachedUserId = userId;
+  const stored = readStoredFavorites(userId);
+  if (stored.length === 0) return;
+  if (favoriteIdsCache.length > 0) return;
+
+  favoriteIdsCache = stored;
   notify();
 }
 
 export async function hydrateFavorites(): Promise<string[]> {
+  const supabase = createClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+  const userId = session?.user?.id;
+  if (userId) {
+    cachedUserId = userId;
+    if (favoriteIdsCache.length === 0) {
+      const stored = readStoredFavorites(userId);
+      if (stored.length > 0) {
+        favoriteIdsCache = stored;
+        notify();
+      }
+    }
+  }
+
   const result = await listFavoriteIdsAction();
   if (!result.ok) {
     favoriteIdsCache = [];
     hydrated = true;
+    clearStoredFavorites();
     notify();
     return [];
   }
-  setFavoriteIdsSnapshot(result.data);
+  setFavoriteIdsSnapshot(result.data, userId);
   return result.data;
 }
 
@@ -78,7 +165,6 @@ export async function toggleFavorite(productId: string): Promise<boolean> {
       return;
     }
 
-    // Keep optimistic list; only fix this product if server disagreed.
     const has = favoriteIdsCache.includes(productId);
     if (has !== result.data.active) {
       const without = favoriteIdsCache.filter((id) => id !== productId);
@@ -103,6 +189,8 @@ export function favoriteCountLabel(count: number) {
 export function clearFavoritesCache() {
   favoriteIdsCache = [];
   hydrated = false;
+  cachedUserId = null;
   toggleSeqById.clear();
+  clearStoredFavorites();
   notify();
 }

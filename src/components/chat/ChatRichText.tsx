@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 const MD_LINK_RE = /\[([^\]]+)\]\((\/[^)\s]+)\)/g;
 const BARE_PATH_RE =
-  /(^|[\s([„"])(\/(?:ucet|prihlasenie|registracia|kontakt|akcia|oblubene|kosik|produkty|novinky|blog|zabudnute-heslo|obnova-hesla)(?:\/[a-zA-Z0-9\-/_]*)?)/g;
+  /(^|[\s([„"])(\/(?:ucet|prihlasenie|registracia|kontakt|akcia|oblubene|kosik|produkty|novinky|blog|zabudnute-heslo|obnova-hesla|odhlasenie-newsletter)(?:\/[a-zA-Z0-9\-/_]*)?)/g;
 
 function isSafeInternalHref(href: string) {
   return (

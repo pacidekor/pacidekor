@@ -1,0 +1,6 @@
+Názov: Papraď
+Zdrojová zložka: D3__TIK030
+Typ: papraď
+Popis: Umelá papraď s jedným perovitým listom na tenkom drôtenom stonku. Sýtozelená s jemne svetlejšími špičkami.
+Farby: zelená [1–3]
+Cena: 1,00 €

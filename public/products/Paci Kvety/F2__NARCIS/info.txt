@@ -1,0 +1,22 @@
+Názov: Narcis žltý viackvetý
+Zdrojová zložka: F2__NARCIS
+Typ: narcis
+Popis: Umelý viackvetý žltý narcis viazaný do zväzku. Vhodný do vázy alebo jarných aranžmánov.
+Farby: žltá [1–3]
+Cena: 1,00 €
+
+
+Názov: Narcis žltý s trúbkou
+Zdrojová zložka: F2__NARCIS
+Typ: narcis
+Popis: Umelý klasický žltý narcis s výraznou trúbkou. Vhodný do vázy alebo jarných aranžmánov.
+Farby: žltá [1–3]
+Cena: 1,00 €
+
+
+Názov: Narcis bielo-žltý
+Zdrojová zložka: F2__NARCIS
+Typ: narcis
+Popis: Umelý narcis s bielymi lístkami a žltým stredom. Vhodný do vázy alebo jarných aranžmánov.
+Farby: bielo-žltá [1–3]
+Cena: 1,00 €

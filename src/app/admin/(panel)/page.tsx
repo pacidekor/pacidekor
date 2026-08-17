@@ -15,11 +15,20 @@ import { AdminPageHeader } from "@/components/admin/AdminPageHeader";
 import { RevenueChart } from "@/components/admin/RevenueChart";
 import { countPendingWholesaleRegistrations } from "@/lib/actions/auth";
 import {
+  buildRevenueSeries,
+  formatChangeHint,
+  formatEuro,
+  formatProductRevenue,
+  getRevenueKpis,
+  getTopProductsFallback,
+} from "@/lib/analytics";
+import {
   orderStatusClass,
   orders,
   pendingOrdersForDashboard,
   recentOrdersForDashboard,
 } from "@/lib/orders";
+import { setProductCatalog } from "@/lib/product-catalog";
 import { listProducts } from "@/lib/products-server";
 
 export const dynamic = "force-dynamic";
@@ -28,6 +37,9 @@ const newOrdersCount = orders.filter((o) => o.status === "nova").length;
 const unpaidOrdersCount = orders.filter(
   (o) => o.status === "nezaplatena",
 ).length;
+
+const kpis = getRevenueKpis();
+const revenueData = buildRevenueSeries();
 
 const stats: {
   label: string;
@@ -52,15 +64,17 @@ const stats: {
   },
   {
     label: "Dnešné tržby",
-    value: "1 842 €",
-    hint: "+8 % oproti včera",
+    value: formatEuro(kpis.today),
+    hint: formatChangeHint(kpis.todayChangePct, "oproti včera"),
     icon: ShoppingBag,
+    href: "/admin/analytika?range=today",
   },
   {
     label: "Tržby tento mesiac",
-    value: "24 650 €",
-    hint: "+11 % oproti minulému",
+    value: formatEuro(kpis.month),
+    hint: formatChangeHint(kpis.monthChangePct, "oproti minulému"),
     icon: TrendingUp,
+    href: "/admin/analytika?range=month",
   },
   {
     label: "Produkty s nízkym skladom",
@@ -73,28 +87,6 @@ const stats: {
 
 const pendingOrders = pendingOrdersForDashboard();
 const recentOrders = recentOrdersForDashboard(3);
-
-/** Mock tržby za posledných 30 dní (vrátane dneška) - peak okolo pred týždňom. */
-const revenueValues = [
-  420, 380, 510, 460, 390, 440, 580, 520, 490, 610, 570, 640, 590, 620, 700,
-  680, 740, 920, 1100, 1280, 1190, 980, 860, 790, 720, 810, 760, 830, 870, 910,
-];
-
-function buildRevenueData() {
-  const today = new Date();
-  today.setHours(12, 0, 0, 0);
-
-  return revenueValues.map((value, index) => {
-    const date = new Date(today);
-    date.setDate(today.getDate() - (revenueValues.length - 1 - index));
-    return {
-      date: date.toISOString().slice(0, 10),
-      value,
-    };
-  });
-}
-
-const revenueData = buildRevenueData();
 
 function hintClass(hint: string) {
   const trimmed = hint.trimStart();
@@ -143,16 +135,15 @@ function OrderRow({
 export default async function AdminPage() {
   const pendingWholesaleCount = await countPendingWholesaleRegistrations();
   const catalog = await listProducts();
-  const mockSold = [48, 36, 29, 24, 21];
-  const mockRevenue = ["907 €", "788 €", "435 €", "502 €", "189 €"];
-  const topProducts = catalog.slice(0, 5).map((product, index) => ({
-    slug: product.slug,
+  setProductCatalog(catalog);
+  const topProducts = getTopProductsFallback(catalog, 5).map((product) => ({
+    slug: product.productId,
     name: product.name,
-    image: product.image,
-    sold: mockSold[index] ?? 0,
-    revenue: mockRevenue[index] ?? "0 €",
+    image: product.image ?? catalog[0]?.image ?? "",
+    sold: product.quantity,
+    revenue: formatProductRevenue(product.revenue),
   }));
-  const revenueTotal = revenueData.reduce((sum, d) => sum + d.value, 0);
+  const revenueTotal = kpis.last30;
 
   const attentionItems: {
     href: string;

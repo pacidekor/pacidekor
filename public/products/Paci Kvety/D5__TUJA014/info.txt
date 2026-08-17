@@ -1,0 +1,6 @@
+Názov: Tuja
+Zdrojová zložka: D5__TUJA014
+Typ: tuja
+Popis: Umelá tuja / ihličnatá zeleň s plochými šupinovitými vetvičkami.
+Farby: zelená [1–3]
+Cena: 1,00 €

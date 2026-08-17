@@ -1,0 +1,6 @@
+Názov: Ruskus 50 cm
+Zdrojová zložka: D1__LIST_RUSKUS 50cm
+Typ: ruskus
+Popis: Umelý ruskus s drobnými oválnymi zelenými listami na tenkých zelených stonkách, dĺžka cca 50 cm. Klasická výplňová zeleň.
+Farby: zelená [1–3]
+Cena: 1,00 €

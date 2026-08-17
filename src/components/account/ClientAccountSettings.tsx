@@ -25,13 +25,6 @@ import {
 import { AccountOrderDetail } from "@/components/account/AccountOrderDetail";
 import { AccountTemplateEditor } from "@/components/account/AccountTemplateEditor";
 import { SaveCartTemplateModal } from "@/components/cart/SaveCartTemplateModal";
-import { BellIcon } from "@/components/icons/BellIcon";
-import {
-  ACCOUNT_PREFS_EVENT,
-  getAccountPreferences,
-  setAccountPreferences,
-  type AccountPreferences,
-} from "@/lib/account-preferences";
 import {
   clearClientSession,
   fetchClientCustomer,
@@ -76,7 +69,6 @@ const labelClass = "mb-1.5 block text-sm font-medium text-[#2f2924]";
 
 type SectionId =
   | "nastavenie"
-  | "newsletter"
   | "aktivne"
   | "historia"
   | "sablony";
@@ -104,10 +96,7 @@ const NAV_GROUPS: NavGroup[] = [
   },
   {
     title: "Váš účet",
-    items: [
-      { id: "nastavenie", label: "Nastavenie", icon: Settings },
-      { id: "newsletter", label: "Newsletter", icon: BellIcon },
-    ],
+    items: [{ id: "nastavenie", label: "Nastavenie", icon: Settings }],
   },
 ];
 
@@ -115,10 +104,6 @@ const SECTION_TITLES: Record<SectionId, { title: string; subtitle: string }> = {
   nastavenie: {
     title: "Nastavenie účtu",
     subtitle: "Kontaktné údaje, e-mail a heslo k vášmu účtu.",
-  },
-  newsletter: {
-    title: "Newsletter a akcie",
-    subtitle: "Vyberte, o čom vás chceme informovať e-mailom.",
   },
   aktivne: {
     title: "Aktívne objednávky",
@@ -181,7 +166,6 @@ export function ClientAccountSettings() {
   const [section, setSection] = useState<SectionId>("aktivne");
   const [profile, setProfile] = useState<ProfileForm | null>(null);
   const [profileSaved, setProfileSaved] = useState(false);
-  const [prefs, setPrefs] = useState<AccountPreferences | null>(null);
   const [templates, setTemplates] = useState<OrderTemplate[]>([]);
   const [ordersTick, setOrdersTick] = useState(0);
 
@@ -194,7 +178,6 @@ export function ClientAccountSettings() {
       setCustomer(found);
       if (found) {
         setProfile(toProfileForm(found));
-        setPrefs(getAccountPreferences(found.id));
         setTemplates(getTemplatesForCustomer(found.id));
       }
       setHydrated(true);
@@ -207,13 +190,6 @@ export function ClientAccountSettings() {
       });
     }
 
-    function syncPrefs() {
-      void fetchClientCustomer().then((found) => {
-        if (!found || cancelled) return;
-        setPrefs(getAccountPreferences(found.id));
-      });
-    }
-
     function syncOrders() {
       setOrdersTick((value) => value + 1);
     }
@@ -223,13 +199,11 @@ export function ClientAccountSettings() {
       void syncCustomer();
     });
     window.addEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
-    window.addEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
     window.addEventListener(ORDERS_EVENT, syncOrders);
     return () => {
       cancelled = true;
       unsubscribe();
       window.removeEventListener(ORDER_TEMPLATES_EVENT, syncTemplates);
-      window.removeEventListener(ACCOUNT_PREFS_EVENT, syncPrefs);
       window.removeEventListener(ORDERS_EVENT, syncOrders);
     };
   }, []);
@@ -299,17 +273,7 @@ export function ClientAccountSettings() {
     setProfileSaved(false);
   }
 
-  function patchPrefs<K extends keyof AccountPreferences>(
-    key: K,
-    value: AccountPreferences[K],
-  ) {
-    if (!customer || !prefs) return;
-    const next = { ...prefs, [key]: value };
-    setPrefs(next);
-    setAccountPreferences(customer.id, next);
-  }
-
-  if (!hydrated || !customer || !profile || !prefs) {
+  if (!hydrated || !customer || !profile) {
     return (
       <div className="flex min-h-dvh flex-1 items-center justify-center">
         <div className="h-10 w-10 animate-pulse rounded-full bg-[#75825B]/25" />
@@ -496,10 +460,6 @@ export function ClientAccountSettings() {
                     setProfile(toProfileForm(next));
                   }}
                 />
-              ) : null}
-
-              {section === "newsletter" ? (
-                <NewsletterSection prefs={prefs} onPatch={patchPrefs} />
               ) : null}
 
               {section === "aktivne" ? (
@@ -1121,87 +1081,6 @@ function PasswordChangeCard() {
         </div>
       ) : null}
     </section>
-  );
-}
-
-function NewsletterSection({
-  prefs,
-  onPatch,
-}: {
-  prefs: AccountPreferences;
-  onPatch: <K extends keyof AccountPreferences>(
-    key: K,
-    value: AccountPreferences[K],
-  ) => void;
-}) {
-  const options: {
-    key: keyof AccountPreferences;
-    title: string;
-    body: string;
-  }[] = [
-    {
-      key: "newsletter",
-      title: "Mesačný newsletter",
-      body: "Inšpirácie, tipy do predajne a novinky zo sortimentu.",
-    },
-    {
-      key: "promoEmails",
-      title: "Promo akcie a zľavy",
-      body: "Informácie o akciách, sezónnych balíčkoch a VO ponukách.",
-    },
-    {
-      key: "newProducts",
-      title: "Novinky v katalógu",
-      body: "Upozornenie, keď doplníme nové produkty alebo kolekcie.",
-    },
-  ];
-
-  return (
-    <div className="space-y-3">
-      {options.map((option) => {
-        const checked = prefs[option.key];
-        return (
-          <label
-            key={option.key}
-            className={`flex cursor-pointer items-start gap-4 rounded-2xl border px-4 py-4 transition-colors ${
-              checked
-                ? "border-[#75825B]/35 bg-[#75825B]/6"
-                : "border-black/8 hover:bg-[#faf8f5]/80"
-            }`}
-          >
-            <span className="relative mt-0.5 inline-flex size-5 shrink-0">
-              <input
-                type="checkbox"
-                checked={checked}
-                onChange={(e) => onPatch(option.key, e.target.checked)}
-                className="peer absolute inset-0 z-10 size-full cursor-pointer opacity-0"
-              />
-              <span
-                className={`pointer-events-none flex size-5 items-center justify-center rounded-md border transition-colors ${
-                  checked
-                    ? "border-[#75825B] bg-[#75825B] text-white"
-                    : "border-black/20 bg-white text-transparent peer-hover:border-[#75825B]/50"
-                }`}
-                aria-hidden
-              >
-                <Check className="size-3" strokeWidth={2.5} />
-              </span>
-            </span>
-            <span className="min-w-0">
-              <span className="block text-sm font-semibold text-[#2f2924]">
-                {option.title}
-              </span>
-              <span className="mt-0.5 block text-sm text-[#2f2924]/55">
-                {option.body}
-              </span>
-            </span>
-          </label>
-        );
-      })}
-      <p className="pt-2 text-xs text-[#2f2924]/45">
-        Preferencie sa ukladajú ihneď. Odhlásiť sa môžete kedykoľvek.
-      </p>
-    </div>
   );
 }
 

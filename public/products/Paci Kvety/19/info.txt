@@ -1,0 +1,6 @@
+Názov: Zeleň so zúbkovanými listami
+Zdrojová zložka: 19
+Typ: zeleň
+Popis: Umelé stonky s drobnými zelenými oválnymi listami so zúbkovaným okrajom. Neutrálna výplňová zeleň.
+Farby: zelená [1–3]
+Cena: 1,00 €

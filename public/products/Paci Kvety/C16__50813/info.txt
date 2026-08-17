@@ -1,0 +1,6 @@
+Názov: Drobné hviezdicové kvety
+Zdrojová zložka: C16__50813
+Typ: drobný kvet
+Popis: Umelý stonok s hustými zhlukmi drobných hviezdicových kvetov a jemnou papradovitou zeleňou. Tri farby: svetlozelená, fialová, lososová.
+Farby: svetlozelená [1–3] | fialová [4–6] | lososová [7–9]
+Cena: 1,00 €

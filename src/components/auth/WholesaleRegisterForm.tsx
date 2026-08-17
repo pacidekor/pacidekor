@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { EmailVerificationStep } from "@/components/auth/EmailVerificationStep";
 import { PasswordField } from "@/components/PasswordField";
 import { registerWholesale } from "@/lib/actions/auth";
 import {
@@ -55,7 +56,7 @@ const STEPS = [
     title: "Prístup",
     subtitle: "Nastavte si heslo k veľkoobchodnému účtu.",
     sideTitle: "Takmer hotovo",
-    sideBody: "Po odoslaní žiadosť skontrolujeme a účet aktivujeme.",
+    sideBody: "Po odoslaní overíte e-mail. Žiadosť potom skontrolujeme.",
   },
 ] as const;
 
@@ -101,7 +102,7 @@ export function WholesaleRegisterForm({
   const [step, setStep] = useState(0);
   const [data, setData] = useState<FormState>(INITIAL);
   const [error, setError] = useState("");
-  const [done, setDone] = useState(false);
+  const [phase, setPhase] = useState<"form" | "verify" | "done">("form");
   const [pending, setPending] = useState(false);
   const [panelHeight, setPanelHeight] = useState<number | null>(null);
 
@@ -190,7 +191,7 @@ export function WholesaleRegisterForm({
       return;
     }
 
-    setDone(true);
+    setPhase("verify");
   }
 
   function goBack() {
@@ -200,7 +201,19 @@ export function WholesaleRegisterForm({
     }
   }
 
-  if (done) {
+  if (phase === "verify") {
+    return (
+      <EmailVerificationStep
+        email={data.email.trim()}
+        sideSlides={sideSlides}
+        sideTitle="Overenie e-mailu"
+        sideBody="Po overení e-mailu žiadosť skontrolujeme a ozveme sa."
+        onVerified={() => setPhase("done")}
+      />
+    );
+  }
+
+  if (phase === "done") {
     return (
       <AuthSplitShell
         sideSlides={sideSlides}
