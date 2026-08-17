@@ -385,9 +385,14 @@ export async function uploadProductImageAction(
 
   const path = `${auth.user.id}/${crypto.randomUUID()}.${compressed.extension}`;
 
+  // Pass Blob/Uint8Array, not Node Buffer. Buffer.toString("utf8") corrupts WebP
+  // (RIFF header becomes invalid and the <img> shows a broken icon).
+  const bytes = new Uint8Array(compressed.buffer);
+  const fileBody = new Blob([bytes], { type: compressed.contentType });
+
   const { error } = await auth.supabase.storage
     .from("product-images")
-    .upload(path, compressed.buffer, {
+    .upload(path, fileBody, {
       contentType: compressed.contentType,
       upsert: false,
       cacheControl: "31536000",
