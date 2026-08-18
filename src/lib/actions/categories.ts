@@ -133,10 +133,9 @@ async function uniqueDruhId(
 function sanitizeImage(image?: string) {
   const value = image?.trim();
   if (!value) return null;
-  // Keep normal paths/URLs; refuse huge data-URLs that stall server actions.
-  if (value.startsWith("data:") && value.length > 200_000) {
+  if (value.startsWith("data:")) {
     throw new Error(
-      "Obrázok kategórie je príliš veľký. Použite menší súbor alebo existujúcu cestu.",
+      "Obrázok sa nepodarilo skomprimovať. Skúste ho nahrať znova.",
     );
   }
   return value;

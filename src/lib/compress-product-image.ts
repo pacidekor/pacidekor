@@ -19,7 +19,7 @@ export type CompressedProductImage = {
 
 /**
  * Normalize EXIF orientation, downscale, convert to WebP.
- * Used by admin product image uploads.
+ * Used by all admin image uploads (products, categories, blog).
  */
 export async function compressProductImage(
   input: Buffer | Uint8Array,

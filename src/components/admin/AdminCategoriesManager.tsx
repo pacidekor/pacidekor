@@ -27,6 +27,7 @@ import {
   deleteCategoryAction,
   saveCategoryAction,
 } from "@/lib/actions/categories";
+import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { useTaxonomy } from "@/components/ProductCatalogProvider";
@@ -406,10 +407,11 @@ function CategoryEditor({
   );
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const panelOpen = entered && !exiting;
-  const busy = saving || exiting;
+  const busy = saving || exiting || uploading;
 
   useEffect(() => {
     setMounted(true);
@@ -487,18 +489,22 @@ function CategoryEditor({
     setDruhy((prev) => [...prev, { label: "" }]);
   }
 
-  function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
+  async function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = "";
-    if (!file) return;
+    if (!file || busy) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = typeof reader.result === "string" ? reader.result : null;
-      if (!result) return;
-      setImage(result);
-    };
-    reader.readAsDataURL(file);
+    setUploading(true);
+    try {
+      const result = await uploadCompressedAdminImage(file);
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+      setImage(result.url);
+    } finally {
+      setUploading(false);
+    }
   }
 
   if (!mounted) return null;
@@ -583,7 +589,7 @@ function CategoryEditor({
                         strokeWidth={1.75}
                         aria-hidden
                       />
-                      {image ? "Vymeniť" : "Pridať"}
+                      {uploading ? "Komprimujem…" : image ? "Vymeniť" : "Pridať"}
                     </button>
                     {image ? (
                       <button

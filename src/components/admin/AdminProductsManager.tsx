@@ -64,9 +64,9 @@ import {
 import { setProductCatalog } from "@/lib/product-catalog";
 import {
   deleteProductAction,
-  uploadProductImageAction,
   upsertProductAction,
 } from "@/lib/actions/products";
+import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import {
   filterColors,
   getPackagingFormatById,
@@ -1169,14 +1169,12 @@ function ProductEditor({
       const errors: string[] = [];
 
       for (const file of toUpload) {
-        const formData = new FormData();
-        formData.set("file", file);
-        const result = await uploadProductImageAction(formData);
+        const result = await uploadCompressedAdminImage(file);
         if (!result.ok) {
           errors.push(`${file.name}: ${result.error}`);
           continue;
         }
-        urls.push(result.data.url);
+        urls.push(result.url);
       }
 
       if (urls.length > 0) {

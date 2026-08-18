@@ -34,6 +34,7 @@ import {
   listBlogPostsAction,
   saveBlogPostAction,
 } from "@/lib/actions/blog";
+import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { toSlug } from "@/lib/navigation";
 
@@ -617,16 +618,24 @@ function CoverImageField({
   onChange: (value: string) => void;
 }) {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
 
-  function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
+  async function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     event.target.value = "";
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result === "string") onChange(reader.result);
-    };
-    reader.readAsDataURL(file);
+    if (!file || uploading) return;
+
+    setUploading(true);
+    try {
+      const result = await uploadCompressedAdminImage(file);
+      if (!result.ok) {
+        window.alert(result.error);
+        return;
+      }
+      onChange(result.url);
+    } finally {
+      setUploading(false);
+    }
   }
 
   return (
@@ -660,16 +669,18 @@ function CoverImageField({
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
-            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40"
+            disabled={uploading}
+            className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]/40 disabled:cursor-not-allowed disabled:opacity-40"
           >
             <ImagePlus className="size-3.5" aria-hidden />
-            {value ? "Vymeniť" : "Nahrať"}
+            {uploading ? "Komprimujem…" : value ? "Vymeniť" : "Nahrať"}
           </button>
           {value ? (
             <button
               type="button"
               onClick={() => onChange("")}
-              className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a]"
+              disabled={uploading}
+              className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
             >
               Odstrániť
             </button>

@@ -360,7 +360,7 @@ export async function uploadProductImageAction(
     return { ok: false, error: "Chýba súbor obrázka." };
   }
 
-  if (!file.type.startsWith("image/")) {
+  if (file.type && !file.type.startsWith("image/")) {
     return { ok: false, error: "Nahrajte obrázok (JPG, PNG, WEBP…)." };
   }
 
