@@ -62,6 +62,7 @@ function revalidateDiscountPaths() {
   revalidatePath("/akcia");
   revalidatePath("/produkty");
   revalidatePath("/novinky");
+  revalidatePath("/vypredaj");
   revalidatePath("/admin/zlavy");
 }
 

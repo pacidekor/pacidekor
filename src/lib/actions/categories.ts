@@ -51,6 +51,7 @@ function revalidateCategoryPaths() {
   revalidatePath("/produkty");
   revalidatePath("/novinky");
   revalidatePath("/akcia");
+  revalidatePath("/vypredaj");
   revalidatePath("/kategorie", "layout");
   revalidatePath("/admin/kategorie");
   revalidatePath("/admin/produkty");

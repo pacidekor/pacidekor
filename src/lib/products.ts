@@ -47,6 +47,8 @@ export type Product = {
   isNew?: boolean;
   /** ISO timestamp – novinka visible while now < newUntil. */
   newUntil?: string;
+  /** Admin flag: listed on /vypredaj (can still have an Akcia discount). */
+  inVypredaj?: boolean;
   createdAt?: string;
 };
 
@@ -399,6 +401,7 @@ export function mapProductRow(row: ProductRow): Product {
     stockQuantity: row.stock_quantity ?? undefined,
     isNew: row.is_new,
     newUntil: row.new_until ?? undefined,
+    inVypredaj: row.in_vypredaj,
     createdAt: row.created_at,
   };
 }
@@ -596,6 +599,10 @@ export function getNewestProducts(allProducts: Product[], count?: number) {
     });
 
   return count != null ? list.slice(0, count) : list;
+}
+
+export function getVypredajProducts(allProducts: Product[]) {
+  return allProducts.filter((product) => product.inVypredaj);
 }
 
 export function getSaleProducts(allProducts: Product[]) {

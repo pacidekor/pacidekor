@@ -46,6 +46,8 @@ export type ProductUpsertInput = {
   details?: Product["details"];
   /** When true, product appears in Novinky until new_until. */
   markAsNew?: boolean;
+  /** When true, product is listed on /vypredaj. */
+  inVypredaj?: boolean;
 };
 
 async function requireAdmin() {
@@ -83,6 +85,8 @@ function revalidateProductPaths(slug?: string) {
   revalidatePath("/");
   revalidatePath("/produkty");
   revalidatePath("/novinky");
+  revalidatePath("/akcia");
+  revalidatePath("/vypredaj");
   revalidatePath("/admin");
   revalidatePath("/admin/produkty");
   revalidatePath("/kategorie", "layout");
@@ -185,6 +189,7 @@ function toInsertPayload(
       : null,
     is_new: markAsNew,
     new_until: markAsNew ? computeNewUntil() : null,
+    in_vypredaj: Boolean(input.inVypredaj),
   };
 }
 
@@ -242,6 +247,8 @@ function toUpdatePayload(
     payload.is_new = false;
     payload.new_until = null;
   }
+
+  payload.in_vypredaj = Boolean(input.inVypredaj);
 
   return payload;
 }

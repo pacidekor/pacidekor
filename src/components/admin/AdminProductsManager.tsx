@@ -115,6 +115,7 @@ type ProductOverride = {
   colorImageMap?: Record<string, number[]>;
   details: ProductDetail[];
   markAsNew: boolean;
+  inVypredaj: boolean;
 };
 
 function normalizePriceInput(value: string) {
@@ -159,6 +160,7 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
     colorImageMap: value.colorImageMap,
     details: DEFAULT_PRODUCT_DETAILS,
     markAsNew: value.markAsNew,
+    inVypredaj: value.inVypredaj,
   };
 }
 
@@ -334,6 +336,7 @@ export function AdminProductsManager({
       stockQuantity: stock.inStock ? stock.quantity : null,
       details: normalized.details,
       markAsNew: normalized.markAsNew,
+      inVypredaj: normalized.inVypredaj,
     });
 
     if (!result.ok) {
@@ -821,6 +824,9 @@ function ProductEditor({
   const [markAsNew, setMarkAsNew] = useState(() =>
     isNew ? true : isActiveNewProduct(product),
   );
+  const [inVypredaj, setInVypredaj] = useState(() =>
+    Boolean(product.inVypredaj),
+  );
   const [images, setImages] = useState<string[]>(() =>
     [
       product.image,
@@ -891,6 +897,7 @@ function ProductEditor({
           ? String(initialInventory.quantity)
           : "",
       markAsNew: isNew ? true : isActiveNewProduct(product),
+      inVypredaj: Boolean(product.inVypredaj),
     }),
   );
 
@@ -925,6 +932,7 @@ function ProductEditor({
       inStock,
       stockQuantity,
       markAsNew,
+      inVypredaj,
     }) !== initialSnapshotRef.current;
 
   useEffect(() => {
@@ -1018,6 +1026,7 @@ function ProductEditor({
           colorImageMap,
           details: DEFAULT_PRODUCT_DETAILS,
           markAsNew,
+          inVypredaj,
         },
         {
           inStock,
@@ -1433,6 +1442,25 @@ function ProductEditor({
                       ? !isNew && isActiveNewProduct(product)
                         ? `V Novinkách do ${formatNewUntilLabel(product.newUntil)}.`
                         : `Po uložení bude v Novinkách ${NEW_PRODUCT_DAYS} dní.`
+                      : "Produkt sa zobrazí len v bežnom katalógu."}
+                  </span>
+                </span>
+              </label>
+
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
+                <input
+                  type="checkbox"
+                  checked={inVypredaj}
+                  onChange={(event) => setInVypredaj(event.target.checked)}
+                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
+                />
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium text-[#2f2924]">
+                    Zaradiť do výpredaja
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
+                    {inVypredaj
+                      ? "Produkt ostane v katalógu a navyše sa zobrazí na stránke Výpredaj. Akciu naň stále môžete dať."
                       : "Produkt sa zobrazí len v bežnom katalógu."}
                   </span>
                 </span>
@@ -2307,6 +2335,7 @@ function serializeEditorSnapshot(value: {
   inStock: boolean;
   stockQuantity: string;
   markAsNew: boolean;
+  inVypredaj: boolean;
 }) {
   return JSON.stringify({
     name: value.name.trim(),
@@ -2329,6 +2358,7 @@ function serializeEditorSnapshot(value: {
     inStock: value.inStock,
     stockQuantity: value.stockQuantity.trim(),
     markAsNew: value.markAsNew,
+    inVypredaj: value.inVypredaj,
   });
 }
 

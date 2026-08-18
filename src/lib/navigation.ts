@@ -101,6 +101,7 @@ export function getCategoryBySlug(slug: string) {
 export const navItems = [
   { label: "Novinky", href: "/novinky" },
   { label: "Akcia", href: "/akcia" },
+  { label: "Výpredaj", href: "/vypredaj" },
   { label: "Blog", href: "/blog" },
   { label: "O nás", href: "/o-nas" },
   { label: "Kontakt", href: "/kontakt" },
@@ -109,6 +110,7 @@ export const navItems = [
 export const footerShopLinks = [
   { label: "Novinky", href: "/novinky" },
   { label: "Akcia", href: "/akcia" },
+  { label: "Výpredaj", href: "/vypredaj" },
   { label: "Blog", href: "/blog" },
   { label: "O nás", href: "/o-nas" },
 ] as const;
