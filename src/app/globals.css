@@ -71,6 +71,23 @@ button,
   }
 }
 
+@keyframes chat-typing-dot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: translateY(0);
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+.chat-typing-dot {
+  animation: chat-typing-dot 1.15s ease-in-out infinite;
+}
+
 /* Hide native browser search clear (ugly blue/purple X) */
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-decoration {

@@ -1,0 +1,1136 @@
+{
+  "shopHits": [
+    {
+      "out": 1,
+      "source": "1",
+      "name": "Orchidea Oncidium - zväzok",
+      "type": "orchidea",
+      "shop": "Orchidea (mini spray)",
+      "sku": "PD-HMKSMX73",
+      "slug": "orchidea-mini-spray",
+      "colorOverlap": 4,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 3,
+      "source": "3",
+      "name": "Kytica čerešňových kvetov",
+      "type": "ceresna",
+      "shop": "Čerešňové kvety - kvitnúca halúzka",
+      "sku": "PD-Z2SS7VFE",
+      "slug": "ceresnove-kvety-kvitnuca-haluzka",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 5,
+      "source": "5",
+      "name": "Čerešňový kvet - vetvička",
+      "type": "ceresna",
+      "shop": "Čerešňové kvety - kvitnúca halúzka",
+      "sku": "PD-Z2SS7VFE",
+      "slug": "ceresnove-kvety-kvitnuca-haluzka",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 6,
+      "source": "6",
+      "name": "Halúzka kvitnúcej čerešne",
+      "type": "ceresna",
+      "shop": "Čerešňové kvety - kvitnúca halúzka",
+      "sku": "PD-Z2SS7VFE",
+      "slug": "ceresnove-kvety-kvitnuca-haluzka",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 7,
+      "source": "7",
+      "name": "Kytička iskerníka a klinčeka",
+      "type": "iskernik",
+      "shop": "Iskerník (ranunculus) - zväzok",
+      "sku": "PD-6CXL3TUG",
+      "slug": "iskernik-ranunculus-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 9,
+      "source": "9",
+      "name": "Kytica iskerníkov krémová",
+      "type": "iskernik",
+      "shop": "Iskerník (ranunculus) - zväzok",
+      "sku": "PD-6CXL3TUG",
+      "slug": "iskernik-ranunculus-zvazok",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 10,
+      "source": "10",
+      "name": "Kytica drobných chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 12,
+      "source": "12",
+      "name": "Kytica pivoniek",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 14,
+      "source": "14",
+      "name": "Stopka fialy",
+      "type": "fiala",
+      "shop": "Fiala žltá",
+      "sku": "PD-X3ZLNLMN",
+      "slug": "fiala-zlta",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 2
+    },
+    {
+      "out": 15,
+      "source": "15",
+      "name": "Vres s drobnými kvietkami",
+      "type": "voskovka",
+      "shop": "Voskovka fialová",
+      "sku": "PD-N4B8Q2KQ",
+      "slug": "voskovka-fialova",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 16,
+      "source": "16",
+      "name": "Kytica drobných chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 17,
+      "source": "17",
+      "name": "Kytica magnólií krémová",
+      "type": "magnolia",
+      "shop": "Magnólia - zväzok bielo-ružový",
+      "sku": "PD-972HX445",
+      "slug": "magnolia-zvazok-bielo-ruzovy",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 18,
+      "source": "18",
+      "name": "Kytica ruží s výplňou",
+      "type": "ruza",
+      "shop": "Kytica ruží 36 cm",
+      "sku": "PD-KQ4L9HSH",
+      "slug": "kytica-ruzi-36-cm",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 11
+    },
+    {
+      "out": 19,
+      "source": "19",
+      "name": "Kytica pivoniek",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 20,
+      "source": "20",
+      "name": "Kytica hortenzií",
+      "type": "hortenzia",
+      "shop": "Hortenzia kytica so zeleňou",
+      "sku": "PD-ELP2PLU5",
+      "slug": "hortenzia-kytica-so-zelenou",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 21,
+      "source": "21",
+      "name": "Kytica krémových ruží",
+      "type": "ruza",
+      "shop": "Kytica ruží 36 cm",
+      "sku": "PD-KQ4L9HSH",
+      "slug": "kytica-ruzi-36-cm",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 11
+    },
+    {
+      "out": 22,
+      "source": "22",
+      "name": "Hortenzia na stopke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok",
+      "sku": "PD-MHY4YWPN",
+      "slug": "hortenzia-stonok",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 23,
+      "source": "23",
+      "name": "Kytica ruží",
+      "type": "ruza",
+      "shop": "Kytica ruží 36 cm",
+      "sku": "PD-KQ4L9HSH",
+      "slug": "kytica-ruzi-36-cm",
+      "colorOverlap": 3,
+      "sameForm": 1,
+      "candidates": 11
+    },
+    {
+      "out": 26,
+      "source": "26",
+      "name": "Hortenzia na dlhej stopke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok",
+      "sku": "PD-MHY4YWPN",
+      "slug": "hortenzia-stonok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 27,
+      "source": "27",
+      "name": "Hortenzia",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok 61 cm",
+      "sku": "PD-MFYC8XME",
+      "slug": "hortenzia-stonok-61-cm",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 30,
+      "source": "30",
+      "name": "Pivonka na stopke",
+      "type": "pivonka",
+      "shop": "Pivonka krémová - zväzok",
+      "sku": "PD-9FJNTA4F",
+      "slug": "pivonka-kremova-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 32,
+      "source": "32",
+      "name": "Cínia na stonke",
+      "type": "georgina",
+      "shop": "Georgína mini - viacfarby",
+      "sku": "PD-ZYY8G328",
+      "slug": "georgina-mini-viacfarby",
+      "colorOverlap": 3,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 33,
+      "source": "33",
+      "name": "Kytica pivoniek",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 34,
+      "source": "34",
+      "name": "Zväzok klinčekov",
+      "type": "klincek",
+      "shop": "Klinček - zväzok",
+      "sku": "PD-9PN37B4C",
+      "slug": "klincek-zvazok",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 39,
+      "source": "39",
+      "name": "Kytica iskerníkov",
+      "type": "iskernik",
+      "shop": "Iskerník (ranunculus) - zväzok",
+      "sku": "PD-6CXL3TUG",
+      "slug": "iskernik-ranunculus-zvazok",
+      "colorOverlap": 2,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 44,
+      "source": "44",
+      "name": "Vetvička jasmínu",
+      "type": "jazmin",
+      "shop": "Jazmínový spray biely",
+      "sku": "PD-W46KRFGE",
+      "slug": "jazminovy-spray-biely",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 45,
+      "source": "45",
+      "name": "Kvitnúca vetvička čerešne",
+      "type": "ceresna",
+      "shop": "Čerešňové kvety - kvitnúca halúzka",
+      "sku": "PD-Z2SS7VFE",
+      "slug": "ceresnove-kvety-kvitnuca-haluzka",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 50,
+      "source": "50",
+      "name": "Hortenzia na stopke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok 61 cm",
+      "sku": "PD-MFYC8XME",
+      "slug": "hortenzia-stonok-61-cm",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 51,
+      "source": "52",
+      "name": "Kytica chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 2,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 53,
+      "source": "54",
+      "name": "Chryzantéma biela - stopka",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 54,
+      "source": "55",
+      "name": "Kytica cínií",
+      "type": "georgina",
+      "shop": "Georgína kytica tmavočervená",
+      "sku": "PD-R6WCKM7X",
+      "slug": "georgina-kytica-tmavocervena",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 55,
+      "source": "56",
+      "name": "Kytica ihlicovitých chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 56,
+      "source": "57",
+      "name": "Kytica chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 57,
+      "source": "58",
+      "name": "Chryzantéma na stopke",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 58,
+      "source": "59",
+      "name": "Hortenzia na stopke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok",
+      "sku": "PD-MHY4YWPN",
+      "slug": "hortenzia-stonok",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 62,
+      "source": "63",
+      "name": "Kytica georgín",
+      "type": "georgina",
+      "shop": "Georgína kytica tmavočervená",
+      "sku": "PD-R6WCKM7X",
+      "slug": "georgina-kytica-tmavocervena",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 65,
+      "source": "66",
+      "name": "Kytica ruží s drobnými kvetmi",
+      "type": "ruza",
+      "shop": "Kytica ruží 36 cm",
+      "sku": "PD-KQ4L9HSH",
+      "slug": "kytica-ruzi-36-cm",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 11
+    },
+    {
+      "out": 66,
+      "source": "67",
+      "name": "Kytica pivoniek s levanduľou",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 67,
+      "source": "68",
+      "name": "Kytica georgín",
+      "type": "georgina",
+      "shop": "Georgína kytica tmavočervená",
+      "sku": "PD-R6WCKM7X",
+      "slug": "georgina-kytica-tmavocervena",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 68,
+      "source": "69",
+      "name": "Miešaná kytica s eukalyptom",
+      "type": "eukalyptus",
+      "shop": "Miešaná kytica - guľovité kvety a eukalyptus",
+      "sku": "PD-UDL5VK99",
+      "slug": "miesana-kytica-gulovite-kvety-a-eukalyptus",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 14
+    },
+    {
+      "out": 69,
+      "source": "70",
+      "name": "Kytica chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 70,
+      "source": "71",
+      "name": "Kytica pivoniek a hortenzií",
+      "type": "hortenzia",
+      "shop": "Hortenzia kytica so zeleňou",
+      "sku": "PD-ELP2PLU5",
+      "slug": "hortenzia-kytica-so-zelenou",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 73,
+      "source": "74",
+      "name": "Pivonka na stopke",
+      "type": "pivonka",
+      "shop": "Pivonka krémová - zväzok",
+      "sku": "PD-9FJNTA4F",
+      "slug": "pivonka-kremova-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 75,
+      "source": "76",
+      "name": "Kytica ruží a hortenzií",
+      "type": "hortenzia",
+      "shop": "Hortenzia kytica so zeleňou",
+      "sku": "PD-ELP2PLU5",
+      "slug": "hortenzia-kytica-so-zelenou",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 76,
+      "source": "77",
+      "name": "Kytica chryzantém",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 1
+    },
+    {
+      "out": 77,
+      "source": "78",
+      "name": "Hortenzia na stopke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok",
+      "sku": "PD-MHY4YWPN",
+      "slug": "hortenzia-stonok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 78,
+      "source": "79",
+      "name": "Nevestin závoj na stopke",
+      "type": "gypsofilka",
+      "shop": "Gypsofilka - drobné súkvetia",
+      "sku": "PD-K4T58VB7",
+      "slug": "gypsofilka-drobne-sukvetia",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 79,
+      "source": "80",
+      "name": "Mečík biely",
+      "type": "gladiola",
+      "shop": "Gladiola biela - zväzok",
+      "sku": "PD-D7TJ3235",
+      "slug": "gladiola-biela-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 80,
+      "source": "81",
+      "name": "Mečík na stonke",
+      "type": "gladiola",
+      "shop": "Gladiola biela - zväzok",
+      "sku": "PD-D7TJ3235",
+      "slug": "gladiola-biela-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 81,
+      "source": "82",
+      "name": "Exotický hviezdicový kvet",
+      "type": "hviezdica",
+      "shop": "Drobné hviezdicové kvety",
+      "sku": "PD-YGSN57Q5",
+      "slug": "drobne-hviezdicove-kvety",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 83,
+      "source": "84",
+      "name": "Georgína",
+      "type": "georgina",
+      "shop": "Georgína mini - viacfarby",
+      "sku": "PD-ZYY8G328",
+      "slug": "georgina-mini-viacfarby",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 85,
+      "source": "86",
+      "name": "Fiala fialová",
+      "type": "fiala",
+      "shop": "Fiala krémová",
+      "sku": "PD-7BHJ3NCA",
+      "slug": "fiala-kremova",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 2
+    },
+    {
+      "out": 87,
+      "source": "88",
+      "name": "Klinček biely",
+      "type": "klincek",
+      "shop": "Klinček - zväzok",
+      "sku": "PD-9PN37B4C",
+      "slug": "klincek-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 2
+    },
+    {
+      "out": 88,
+      "source": "89",
+      "name": "Hortenzia na stonke",
+      "type": "hortenzia",
+      "shop": "Hortenzia - stonok 61 cm",
+      "sku": "PD-MFYC8XME",
+      "slug": "hortenzia-stonok-61-cm",
+      "colorOverlap": 2,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 89,
+      "source": "90",
+      "name": "Fiala na stopke",
+      "type": "fiala",
+      "shop": "Fiala krémová",
+      "sku": "PD-7BHJ3NCA",
+      "slug": "fiala-kremova",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 2
+    },
+    {
+      "out": 91,
+      "source": "92",
+      "name": "Kytica klinčekov",
+      "type": "klincek",
+      "shop": "Klinček - zväzok",
+      "sku": "PD-9PN37B4C",
+      "slug": "klincek-zvazok",
+      "colorOverlap": 0,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 92,
+      "source": "93",
+      "name": "Vintage kytica ruží a pivoniek",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 93,
+      "source": "94",
+      "name": "Kytica iskerníkov bielo-fialová",
+      "type": "iskernik",
+      "shop": "Iskerník (ranunculus) - zväzok",
+      "sku": "PD-6CXL3TUG",
+      "slug": "iskernik-ranunculus-zvazok",
+      "colorOverlap": 1,
+      "sameForm": 0,
+      "candidates": 2
+    },
+    {
+      "out": 94,
+      "source": "95",
+      "name": "Kytica drobných pivoniek",
+      "type": "pivonka",
+      "shop": "Kytica pivoniek",
+      "sku": "PD-BT6XFTMN",
+      "slug": "kytica-pivoniek",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 9
+    },
+    {
+      "out": 95,
+      "source": "96",
+      "name": "Eukalyptus",
+      "type": "eukalyptus",
+      "shop": "Eukalyptus drobný okrúhly - farebné varianty",
+      "sku": "PD-YYHUWX3T",
+      "slug": "eukalyptus-drobny-okruhly-farebne-varianty",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 14
+    },
+    {
+      "out": 96,
+      "source": "97",
+      "name": "Kytica eukalyptu a papradia",
+      "type": "eukalyptus",
+      "shop": "Eukalyptus - dlhý stonok (61 cm)",
+      "sku": "PD-TLP2NV2N",
+      "slug": "eukalyptus-dlhy-stonok-61-cm",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 14
+    },
+    {
+      "out": 97,
+      "source": "98",
+      "name": "Georgína na stopke",
+      "type": "georgina",
+      "shop": "Georgína mini - viacfarby",
+      "sku": "PD-ZYY8G328",
+      "slug": "georgina-mini-viacfarby",
+      "colorOverlap": 3,
+      "sameForm": 1,
+      "candidates": 4
+    },
+    {
+      "out": 100,
+      "source": "101",
+      "name": "Chryzantéma pavúkovitá",
+      "type": "chryzantema",
+      "shop": "Chryzantéma pomponková",
+      "sku": "PD-HVEM6XEA",
+      "slug": "chryzantema-pomponkova",
+      "colorOverlap": 1,
+      "sameForm": 1,
+      "candidates": 1
+    },
+    {
+      "out": 101,
+      "source": "102",
+      "name": "Kytica krémových georgín",
+      "type": "georgina",
+      "shop": "Georgína kytica tmavočervená",
+      "sku": "PD-R6WCKM7X",
+      "slug": "georgina-kytica-tmavocervena",
+      "colorOverlap": 0,
+      "sameForm": 1,
+      "candidates": 4
+    }
+  ],
+  "noShop": [
+    {
+      "out": 2,
+      "name": "Kytica margarétiek",
+      "type": "margaretka"
+    },
+    {
+      "out": 4,
+      "name": "Kytica gerbery",
+      "type": "gerbera"
+    },
+    {
+      "out": 8,
+      "name": "Kytica drobných astier",
+      "type": "aster"
+    },
+    {
+      "out": 11,
+      "name": "Kytica ľalií",
+      "type": "lalia"
+    },
+    {
+      "out": 13,
+      "name": "Drobné poľné kvety",
+      "type": "other"
+    },
+    {
+      "out": 24,
+      "name": "Tulipán na stonke",
+      "type": "tulipan"
+    },
+    {
+      "out": 25,
+      "name": "Kytica tulipánov",
+      "type": "tulipan"
+    },
+    {
+      "out": 28,
+      "name": "Orgován na stonke",
+      "type": "orgovan"
+    },
+    {
+      "out": 29,
+      "name": "Astra na stopke",
+      "type": "aster"
+    },
+    {
+      "out": 31,
+      "name": "Petúnia",
+      "type": "petunia"
+    },
+    {
+      "out": 35,
+      "name": "Protea",
+      "type": "protea"
+    },
+    {
+      "out": 36,
+      "name": "Kurkuma na stonke",
+      "type": "kurkuma"
+    },
+    {
+      "out": 37,
+      "name": "Protea na stopke",
+      "type": "protea"
+    },
+    {
+      "out": 38,
+      "name": "Zelená listová halúzka",
+      "type": "list"
+    },
+    {
+      "out": 40,
+      "name": "Dekoratívna koralová vetvička",
+      "type": "koral"
+    },
+    {
+      "out": 41,
+      "name": "Protea kráľovská",
+      "type": "protea"
+    },
+    {
+      "out": 42,
+      "name": "Halúzka s drobnými bielymi kvetmi",
+      "type": "other"
+    },
+    {
+      "out": 43,
+      "name": "Palmový list",
+      "type": "list"
+    },
+    {
+      "out": 46,
+      "name": "Kvitnúca halúzka s drobnými kvetmi",
+      "type": "other"
+    },
+    {
+      "out": 47,
+      "name": "Zeleň s drobnými púčikmi",
+      "type": "list"
+    },
+    {
+      "out": 48,
+      "name": "Kytica rozchodníka",
+      "type": "rozchodnik"
+    },
+    {
+      "out": 49,
+      "name": "Kytica gerber",
+      "type": "gerbera"
+    },
+    {
+      "out": 52,
+      "name": "Kytica slnečníc",
+      "type": "slnecnica"
+    },
+    {
+      "out": 59,
+      "name": "Ihlicovitá protea",
+      "type": "protea"
+    },
+    {
+      "out": 60,
+      "name": "Protea ihličkatá",
+      "type": "protea"
+    },
+    {
+      "out": 61,
+      "name": "Margarétka krémová - vetvička",
+      "type": "margaretka"
+    },
+    {
+      "out": 63,
+      "name": "Jemná zeleň s farebnými končekmi",
+      "type": "list"
+    },
+    {
+      "out": 64,
+      "name": "Dekoratívna výplňová vetvička",
+      "type": "other"
+    },
+    {
+      "out": 71,
+      "name": "Alstroméria",
+      "type": "alstromeria"
+    },
+    {
+      "out": 72,
+      "name": "Gerbera na stonke",
+      "type": "gerbera"
+    },
+    {
+      "out": 74,
+      "name": "Artičoka na stopke",
+      "type": "artichoka"
+    },
+    {
+      "out": 82,
+      "name": "Kala na stopke",
+      "type": "kala"
+    },
+    {
+      "out": 84,
+      "name": "Molučenka na stonke",
+      "type": "molucenka"
+    },
+    {
+      "out": 86,
+      "name": "Ľalia na stopke",
+      "type": "lalia"
+    },
+    {
+      "out": 90,
+      "name": "Antúria na stopke",
+      "type": "anturia"
+    },
+    {
+      "out": 98,
+      "name": "Margarétka na stopke",
+      "type": "margaretka"
+    },
+    {
+      "out": 99,
+      "name": "Zlatý dážď",
+      "type": "zlatydazd"
+    },
+    {
+      "out": 102,
+      "name": "Kytica ľalií s bobuľkami",
+      "type": "lalia"
+    }
+  ],
+  "internalDupes": [
+    {
+      "type": "margaretka",
+      "items": [
+        "2 (Kytica margarétiek)",
+        "61 (Margarétka krémová - vetvička)",
+        "98 (Margarétka na stopke)"
+      ]
+    },
+    {
+      "type": "ceresna",
+      "items": [
+        "3 (Kytica čerešňových kvetov)",
+        "5 (Čerešňový kvet - vetvička)",
+        "6 (Halúzka kvitnúcej čerešne)",
+        "45 (Kvitnúca vetvička čerešne)"
+      ]
+    },
+    {
+      "type": "gerbera",
+      "items": [
+        "4 (Kytica gerbery)",
+        "49 (Kytica gerber)",
+        "72 (Gerbera na stonke)"
+      ]
+    },
+    {
+      "type": "iskernik",
+      "items": [
+        "7 (Kytička iskerníka a klinčeka)",
+        "9 (Kytica iskerníkov krémová)",
+        "39 (Kytica iskerníkov)",
+        "93 (Kytica iskerníkov bielo-fialová)"
+      ]
+    },
+    {
+      "type": "aster",
+      "items": [
+        "8 (Kytica drobných astier)",
+        "29 (Astra na stopke)"
+      ]
+    },
+    {
+      "type": "chryzantema",
+      "items": [
+        "10 (Kytica drobných chryzantém)",
+        "16 (Kytica drobných chryzantém)",
+        "51 (Kytica chryzantém)",
+        "53 (Chryzantéma biela - stopka)",
+        "55 (Kytica ihlicovitých chryzantém)",
+        "56 (Kytica chryzantém)",
+        "57 (Chryzantéma na stopke)",
+        "69 (Kytica chryzantém)",
+        "76 (Kytica chryzantém)",
+        "100 (Chryzantéma pavúkovitá)"
+      ]
+    },
+    {
+      "type": "lalia",
+      "items": [
+        "11 (Kytica ľalií)",
+        "86 (Ľalia na stopke)",
+        "102 (Kytica ľalií s bobuľkami)"
+      ]
+    },
+    {
+      "type": "pivonka",
+      "items": [
+        "12 (Kytica pivoniek)",
+        "19 (Kytica pivoniek)",
+        "30 (Pivonka na stopke)",
+        "33 (Kytica pivoniek)",
+        "66 (Kytica pivoniek s levanduľou)",
+        "73 (Pivonka na stopke)",
+        "92 (Vintage kytica ruží a pivoniek)",
+        "94 (Kytica drobných pivoniek)"
+      ]
+    },
+    {
+      "type": "fiala",
+      "items": [
+        "14 (Stopka fialy)",
+        "85 (Fiala fialová)",
+        "89 (Fiala na stopke)"
+      ]
+    },
+    {
+      "type": "ruza",
+      "items": [
+        "18 (Kytica ruží s výplňou)",
+        "21 (Kytica krémových ruží)",
+        "23 (Kytica ruží)",
+        "65 (Kytica ruží s drobnými kvetmi)"
+      ]
+    },
+    {
+      "type": "hortenzia",
+      "items": [
+        "20 (Kytica hortenzií)",
+        "22 (Hortenzia na stopke)",
+        "26 (Hortenzia na dlhej stopke)",
+        "27 (Hortenzia)",
+        "50 (Hortenzia na stopke)",
+        "58 (Hortenzia na stopke)",
+        "70 (Kytica pivoniek a hortenzií)",
+        "75 (Kytica ruží a hortenzií)",
+        "77 (Hortenzia na stopke)",
+        "88 (Hortenzia na stonke)"
+      ]
+    },
+    {
+      "type": "tulipan",
+      "items": [
+        "24 (Tulipán na stonke)",
+        "25 (Kytica tulipánov)"
+      ]
+    },
+    {
+      "type": "georgina",
+      "items": [
+        "32 (Cínia na stonke)",
+        "54 (Kytica cínií)",
+        "62 (Kytica georgín)",
+        "67 (Kytica georgín)",
+        "83 (Georgína)",
+        "97 (Georgína na stopke)",
+        "101 (Kytica krémových georgín)"
+      ]
+    },
+    {
+      "type": "klincek",
+      "items": [
+        "34 (Zväzok klinčekov)",
+        "87 (Klinček biely)",
+        "91 (Kytica klinčekov)"
+      ]
+    },
+    {
+      "type": "protea",
+      "items": [
+        "35 (Protea)",
+        "37 (Protea na stopke)",
+        "41 (Protea kráľovská)",
+        "59 (Ihlicovitá protea)",
+        "60 (Protea ihličkatá)"
+      ]
+    },
+    {
+      "type": "list",
+      "items": [
+        "38 (Zelená listová halúzka)",
+        "43 (Palmový list)",
+        "47 (Zeleň s drobnými púčikmi)",
+        "63 (Jemná zeleň s farebnými končekmi)"
+      ]
+    },
+    {
+      "type": "eukalyptus",
+      "items": [
+        "68 (Miešaná kytica s eukalyptom)",
+        "95 (Eukalyptus)",
+        "96 (Kytica eukalyptu a papradia)"
+      ]
+    },
+    {
+      "type": "gladiola",
+      "items": [
+        "79 (Mečík biely)",
+        "80 (Mečík na stonke)"
+      ]
+    }
+  ]
+}

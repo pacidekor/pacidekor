@@ -57,6 +57,26 @@ const WELCOME: ChatMessage = {
     "Dobrý deň! Som asistent PACIDEKOR. Pomôžem vám s výberom kvetov, dekorácií, akcií, dopravou aj kontaktom. Vyberte tip nižšie alebo napíšte otázku.",
 };
 
+function TypingDots() {
+  return (
+    <span
+      className="flex h-[1.125rem] items-center gap-1"
+      role="status"
+      aria-label="Asistent píše"
+    >
+      <span className="chat-typing-dot size-1.5 rounded-full bg-[#75825B]" />
+      <span
+        className="chat-typing-dot size-1.5 rounded-full bg-[#75825B]"
+        style={{ animationDelay: "160ms" }}
+      />
+      <span
+        className="chat-typing-dot size-1.5 rounded-full bg-[#75825B]"
+        style={{ animationDelay: "320ms" }}
+      />
+    </span>
+  );
+}
+
 function AssistantAvatar() {
   return (
     <span
@@ -553,8 +573,8 @@ export function ChatFab() {
               {sending ? (
                 <div className="flex items-end gap-2.5">
                   <AssistantAvatar />
-                  <div className="rounded-2xl rounded-bl-md bg-white px-3.5 py-3 text-sm text-[#2f2924]/55 shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
-                    Pripravujem odpoveď…
+                  <div className="rounded-2xl rounded-bl-md bg-white px-3.5 py-2.5 shadow-[0_1px_3px_rgba(45,35,25,0.06)]">
+                    <TypingDots />
                   </div>
                 </div>
               ) : null}

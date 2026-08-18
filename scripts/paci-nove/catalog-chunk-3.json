@@ -1,0 +1,332 @@
+[
+  {
+    "sourceFolder": "3",
+    "name": "Kytica čerešňových kvetov",
+    "description": "Jemná umelá kytica s drobnými päťlupienkovými kvetmi a výrazným žltým stredom. Doplnená je jemnou zeleňou a drobnými výplňovými kvietkami, vďaka čomu pôsobí prirodzene a vzdušne. Hodí sa do vázy aj do sviežich interiérových aranžmánov.",
+    "colors": ["bordová", "krémová", "ružová"],
+    "druh": "čerešňový kvet",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "bordová", "photos": ["22", "17", "26"] },
+      { "color": "krémová", "photos": ["20", "18", "24"] },
+      { "color": "ružová", "photos": ["21", "19", "25"] }
+    ]
+  },
+  {
+    "sourceFolder": "7",
+    "name": "Kytička iskerníka a klinčeka",
+    "description": "Kompaktná dekoračná kytička spája oranžový iskerník s jemnými žltými klinčekmi a drobnými akcentovými kvietkami. Tmavozelené listy dodávajú zväzku prirodzený objem. Je vhodná do menšej vázy aj ako farebný prvok do vencov a aranžmánov.",
+    "colors": ["žlto-oranžová"],
+    "druh": "iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "žlto-oranžová", "photos": ["73", "76", "71"] }
+    ]
+  },
+  {
+    "sourceFolder": "11",
+    "name": "Kytica ľalií",
+    "description": "Umelá kytica s otvorenými ľaliami, hladkými púčikmi a jemnými bielymi výplňovými kvietkami. Špicaté zelené listy dopĺňajú elegantný tvar zväzku. Pôsobí sviežo vo váze aj ako súčasť väčších kvetinových dekorácií.",
+    "colors": ["fialová", "krémová", "biela"],
+    "druh": "ľalia",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "fialová", "photos": ["87", "91", "95"] },
+      { "color": "krémová", "photos": ["88", "93", "94"] },
+      { "color": "biela", "photos": ["89", "92", "96"] }
+    ]
+  },
+  {
+    "sourceFolder": "15",
+    "name": "Vres s drobnými kvietkami",
+    "description": "Hustý zväzok umelého vresu s páperovitým tmavým lístím a drobnými belavými až ružovými kvietkami. Pôsobí ako sušená prírodná zeleň a dodáva aranžmánom jemnú textúru. Hodí sa do vázy, vencov aj ako výplň kytíc.",
+    "colors": ["hnedofialová"],
+    "druh": "vres",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "groups": [
+      { "color": "hnedofialová", "photos": ["149", "146", "150"] }
+    ]
+  },
+  {
+    "sourceFolder": "19",
+    "name": "Kytica pivoniek",
+    "description": "Bohatá umelá kytica s plnými, vrstvenými kvetmi pivoniek a sýtozelenými listami. Husté okvetné lístky pôsobia mäkkým a realistickým dojmom. Ideálna ako výrazná dekorácia do vázy alebo stred aranžmánu.",
+    "colors": ["bordová", "krémová"],
+    "druh": "pivonka",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "bordová", "photos": ["166", "171", "162"] },
+      { "color": "krémová", "photos": ["167", "169", "163"] }
+    ]
+  },
+  {
+    "sourceFolder": "23",
+    "name": "Kytica ruží",
+    "description": "Klasická umelá kytica ruží s plnými kvetmi v rôznych štádiách rozkvetu. Doplnená je zelenými listami a drobnými bielymi výplňovými kvietkami. Vynikne samostatne vo váze aj ako základ väčšej kvetinovej dekorácie.",
+    "colors": ["staroružová", "tmavoružová", "biela", "červená"],
+    "druh": "ruža",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "staroružová", "photos": ["17", "24", "25"] },
+      { "color": "tmavoružová", "photos": ["18", "23", "26"] },
+      { "color": "biela", "photos": ["19", "22", "28"] },
+      { "color": "červená", "photos": ["20", "21", "27"] }
+    ]
+  },
+  {
+    "sourceFolder": "27",
+    "name": "Hortenzia",
+    "description": "Umelá hortenzia s hustým súkvetím drobných kvietkov a širokými zúbkovanými listami na pevnej stonke. Guľovitá hlávka dodáva aranžmánom objem a jemnú textúru. Vhodná do vázy aj ako výrazný prvok kytíc.",
+    "colors": ["staroružová", "fialová", "broskyňová"],
+    "druh": "hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "staroružová", "photos": ["83", "80", "75"] },
+      { "color": "fialová", "photos": ["84", "79", "76"] },
+      { "color": "broskyňová", "photos": ["82", "78", "77"] }
+    ]
+  },
+  {
+    "sourceFolder": "31",
+    "name": "Petúnia",
+    "description": "Umelá petúnia na dlhej stonke s otvorenými zvončekovitými kvetmi a zelenými púčikmi. Jemne zvlnené lupienky a tmavší stred kvetu pôsobia prirodzene. Hodí sa do štíhlych váz aj do vzdušných aranžmánov.",
+    "colors": ["žltá", "fialová"],
+    "druh": "petúnia",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "žltá", "photos": ["125", "124", "121"] },
+      { "color": "fialová", "photos": ["127", "123", "122"] }
+    ]
+  },
+  {
+    "sourceFolder": "35",
+    "name": "Protea",
+    "description": "Výrazná umelá protea s ružovým vláknitým stredom a pevnými zeleno-sivými listenmi. Okolo kvetu sú lesklé sýtozelené listy na drevenitej stonke. Hodí sa do moderných váz a exotických aranžmánov.",
+    "colors": ["ružová"],
+    "druh": "protea",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "ružová", "photos": ["17", "16", "15"] }
+    ]
+  },
+  {
+    "sourceFolder": "39",
+    "name": "Kytica iskerníkov",
+    "description": "Kompaktná umelá kytica s plnými, hustými kvetmi iskerníka a zelenými listami. Vrstvené lupienky vytvárajú mäkký, bohatý tvar kvetnej hlávky. Vhodná do menšej vázy aj ako súčasť rustikálnych aranžmánov.",
+    "colors": ["žltá", "staroružová"],
+    "druh": "iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "žltá", "photos": ["44", "47", "41"] },
+      { "color": "staroružová", "photos": ["45", "46", "42"] }
+    ]
+  },
+  {
+    "sourceFolder": "43",
+    "name": "Palmový list",
+    "description": "Umelý palmový list s tromi perovitými vejárovými listami na jednej stonke. Jemná ihlicovitá štruktúra pôsobí vzdušne a exoticky. Ideálny do vysokých váz alebo ako výrazný listový akcent v aranžmánoch.",
+    "colors": ["bordová", "zelená", "modrá", "oranžová"],
+    "druh": "palma",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "groups": [
+      { "color": "bordová", "photos": ["80", "72", "79"] },
+      { "color": "zelená", "photos": ["80", "73", "78"] },
+      { "color": "modrá", "photos": ["80", "74", "77"] },
+      { "color": "oranžová", "photos": ["80", "75", "76"] }
+    ]
+  },
+  {
+    "sourceFolder": "47",
+    "name": "Zeleň s drobnými púčikmi",
+    "description": "Hustý trs drobnolistnej zelene s jemnými okrúhlymi lístkami a drobnými púčikmi. Kompaktný tvar dodáva aranžmánom objem a prirodzenú textúru. Hodí sa ako výplň do vencov, kytíc aj menších váz.",
+    "colors": ["ružová", "biela"],
+    "druh": "zeleň",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "groups": [
+      { "color": "ružová", "photos": ["118", "115", "121"] },
+      { "color": "biela", "photos": ["119", "116", "120"] }
+    ]
+  },
+  {
+    "sourceFolder": "52",
+    "name": "Kytica chryzantém",
+    "description": "Umelá kytica pomponových chryzantém s hustými guľovitými kvetmi na rozvetvenej zelenej stonke. Bohato vrstvené lupienky pôsobia plným a sviežim dojmom. Vhodná do vázy aj ako základ kvetinových dekorácií.",
+    "colors": ["žltá", "krémová"],
+    "druh": "chryzantéma",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "žltá", "photos": ["154", "152", "149"] },
+      { "color": "krémová", "photos": ["155", "151", "150"] }
+    ]
+  },
+  {
+    "sourceFolder": "56",
+    "name": "Kytica ihlicovitých chryzantém",
+    "description": "Svetložltá umelá kytica chryzantém s jemnými, tenkými a špicatými lupienkami. Kvety pôsobia vzdušne a ľahko, pričom si zachovávajú plný tvar. Hodí sa do vázy aj do jemných interiérových aranžmánov.",
+    "colors": ["svetložltá"],
+    "druh": "chryzantéma",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "svetložltá", "photos": ["167", "166", "165"] }
+    ]
+  },
+  {
+    "sourceFolder": "60",
+    "name": "Ihlicovitá protea",
+    "description": "Dekoratívny umelý kvet s guľovitou, ihlicovitou hlávkou pripomínajúcou proteu leucospermum. Tenké vlákna s drobnými končekmi vytvárajú výraznú textúru. Dlhá stonka s listami je vhodná do vysokých váz a moderných aranžmánov.",
+    "colors": ["svetlozelená", "bronzová"],
+    "druh": "protea",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "svetlozelená", "photos": ["199", "196", "200"] },
+      { "color": "bronzová", "photos": ["198", "197", "201"] }
+    ]
+  },
+  {
+    "sourceFolder": "64",
+    "name": "Jemná zeleň s farebnými končekmi",
+    "description": "Hustá umelá zeleň s drobnými úzkymi lístkami na rozvetvených stonkách. Končeky vetvičiek sú tónované do teplej farby, vďaka čomu pôsobí prirodzene a sezónne. Ideálna ako výplň do váz, kytíc aj vencov.",
+    "colors": ["terakotová", "fialová"],
+    "druh": "zeleň",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "groups": [
+      { "color": "terakotová", "photos": ["214", "217", "211"] },
+      { "color": "fialová", "photos": ["213", "216", "212"] }
+    ]
+  },
+  {
+    "sourceFolder": "68",
+    "name": "Kytica georgín",
+    "description": "Bohatá umelá kytica georgín so špicatými, hustými lupienkami a zelenými listami. Kvety majú plný, výrazný tvar a dodávajú aranžmánom objem. Hodí sa do vázy aj ako hlavný motív kvetinovej dekorácie.",
+    "colors": ["oranžovo-červená", "fialová", "staroružová"],
+    "druh": "georgína",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "oranžovo-červená", "photos": ["242", "247", "250"] },
+      { "color": "fialová", "photos": ["243", "248", "249"] },
+      { "color": "staroružová", "photos": ["244", "246", "251"] }
+    ]
+  },
+  {
+    "sourceFolder": "72",
+    "name": "Alstroméria",
+    "description": "Umelá alstroméria na dlhej stonke so súkvetím drobných kvetov a jemnou zeleňou. Lupienky majú charakteristický žíhaný stred a pôsobia veľmi prirodzene. Vhodná do štíhlych váz aj ako vzdušný doplnok kytíc.",
+    "colors": ["bordová", "biela", "ružová", "fialová", "oranžová"],
+    "druh": "alstroméria",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "bordová", "photos": ["293", "298", "285"] },
+      { "color": "biela", "photos": ["291", "300", "286"] },
+      { "color": "ružová", "photos": ["294", "297", "287"] },
+      { "color": "fialová", "photos": ["295", "296", "288"] },
+      { "color": "oranžová", "photos": ["292", "299", "289"] }
+    ]
+  },
+  {
+    "sourceFolder": "76",
+    "name": "Kytica ruží a hortenzií",
+    "description": "Elegantná umelá kytica spája krémové ruže s bielymi hortenziami a jemnou zelenou výplňou. Zväzok pôsobí sviežo a prirodzene, s bohatým objemom kvetných hlávok. Je ideálna ako trvácna dekorácia do vázy v interiéri.",
+    "colors": ["krémová"],
+    "druh": "ruža",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "krémová", "photos": ["63", "61", "62"] }
+    ]
+  },
+  {
+    "sourceFolder": "80",
+    "name": "Mečík biely",
+    "description": "Elegantný biely mečík s dlhým klasom otvorených kvetov a zelenými púčikmi na vrchole. Mečovité listy pri stonke podčiarkujú typický vzpriamený tvar. Hodí sa do vysokých váz a slávnostných aranžmánov.",
+    "colors": ["biela"],
+    "druh": "mečík",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "biela", "photos": ["78", "79", "80"] }
+    ]
+  },
+  {
+    "sourceFolder": "84",
+    "name": "Georgína",
+    "description": "Umelá georgína na stonke s hustou, vrstvenou kvetnou hlávkou a zúbkovanými zelenými listami. Plný kvet pôsobí bohato a realisticky. Vhodná do vázy aj ako výrazný kvet v aranžmánoch.",
+    "colors": ["olivová", "fialová", "biela"],
+    "druh": "georgína",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "olivová", "photos": ["34", "36", "28"] },
+      { "color": "fialová", "photos": ["33", "35", "29"] },
+      { "color": "biela", "photos": ["32", "37", "30"] }
+    ]
+  },
+  {
+    "sourceFolder": "88",
+    "name": "Klinček biely",
+    "description": "Umelý biely klinček s hustými, zvlnenými lupienkami na dlhej zelenej stonke. Úzke listy pozdĺž stonky dodávajú kvetu prirodzený vzhľad. Hodí sa do vázy, kytíc aj slávnostných aranžmánov.",
+    "colors": ["biela"],
+    "druh": "klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "biela", "photos": ["64", "62", "63"] }
+    ]
+  },
+  {
+    "sourceFolder": "92",
+    "name": "Kytica klinčekov",
+    "description": "Hustá umelá kytica tmavofialových klinčekov so zamatovo zvlnenými lupienkami. Bohaté kvetné hlávky vytvárajú plný, elegantný objem. Vynikne vo váze aj ako sýty farebný prvok aranžmánov.",
+    "colors": ["tmavofialová"],
+    "druh": "klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "groups": [
+      { "color": "tmavofialová", "photos": ["3", "2", "1"] }
+    ]
+  },
+  {
+    "sourceFolder": "96",
+    "name": "Eukalyptus",
+    "description": "Umelá vetvička eukalyptu s drobnými okrúhlymi lístkami na rozvetvenej stonke. Husté lístie dodáva aranžmánom objem a jemnú textúru. Hodí sa do vázy, kytíc aj sezónnych dekorácií.",
+    "colors": ["krémová", "marhuľová", "hnedá", "okrová"],
+    "druh": "eukalyptus",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "groups": [
+      { "color": "krémová", "photos": ["17", "22", "25"] },
+      { "color": "marhuľová", "photos": ["19", "20", "24"] },
+      { "color": "hnedá", "photos": ["18", "21", "23"] },
+      { "color": "okrová", "photos": ["30", "29", "26"] }
+    ]
+  },
+  {
+    "sourceFolder": "100",
+    "name": "Zlatý dážď",
+    "description": "Umelá vetvička zlatého dažďa so žiarivo žltými kvetmi pozdĺž hornej časti stonky. Kvety sú husté a pôsobia jarným, sviežim dojmom. Hodí sa do vysokých váz aj do svetlých interiérových aranžmánov.",
+    "colors": ["žltá"],
+    "druh": "zlatý dážď",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "groups": [
+      { "color": "žltá", "photos": ["65", "64", "66"] }
+    ]
+  }
+]

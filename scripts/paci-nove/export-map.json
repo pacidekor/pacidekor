@@ -1,0 +1,614 @@
+[
+  {
+    "out": 1,
+    "source": "1",
+    "name": "Orchidea Oncidium - zväzok",
+    "images": 21
+  },
+  {
+    "out": 2,
+    "source": "2",
+    "name": "Kytica margarétiek",
+    "images": 15
+  },
+  {
+    "out": 3,
+    "source": "3",
+    "name": "Kytica čerešňových kvetov",
+    "images": 9
+  },
+  {
+    "out": 4,
+    "source": "4",
+    "name": "Kytica gerbery",
+    "images": 12
+  },
+  {
+    "out": 5,
+    "source": "5",
+    "name": "Čerešňový kvet - vetvička",
+    "images": 15
+  },
+  {
+    "out": 6,
+    "source": "6",
+    "name": "Halúzka kvitnúcej čerešne",
+    "images": 9
+  },
+  {
+    "out": 7,
+    "source": "7",
+    "name": "Kytička iskerníka a klinčeka",
+    "images": 3
+  },
+  {
+    "out": 8,
+    "source": "8",
+    "name": "Kytica drobných astier",
+    "images": 3
+  },
+  {
+    "out": 9,
+    "source": "9",
+    "name": "Kytica iskerníkov krémová",
+    "images": 3
+  },
+  {
+    "out": 10,
+    "source": "10",
+    "name": "Kytica drobných chryzantém",
+    "images": 6
+  },
+  {
+    "out": 11,
+    "source": "11",
+    "name": "Kytica ľalií",
+    "images": 9
+  },
+  {
+    "out": 12,
+    "source": "12",
+    "name": "Kytica pivoniek",
+    "images": 12
+  },
+  {
+    "out": 13,
+    "source": "13",
+    "name": "Drobné poľné kvety",
+    "images": 21
+  },
+  {
+    "out": 14,
+    "source": "14",
+    "name": "Stopka fialy",
+    "images": 12
+  },
+  {
+    "out": 15,
+    "source": "15",
+    "name": "Vres s drobnými kvietkami",
+    "images": 3
+  },
+  {
+    "out": 16,
+    "source": "16",
+    "name": "Kytica drobných chryzantém",
+    "images": 3
+  },
+  {
+    "out": 17,
+    "source": "17",
+    "name": "Kytica magnólií krémová",
+    "images": 3
+  },
+  {
+    "out": 18,
+    "source": "18",
+    "name": "Kytica ruží s výplňou",
+    "images": 6
+  },
+  {
+    "out": 19,
+    "source": "19",
+    "name": "Kytica pivoniek",
+    "images": 6
+  },
+  {
+    "out": 20,
+    "source": "20",
+    "name": "Kytica hortenzií",
+    "images": 3
+  },
+  {
+    "out": 21,
+    "source": "21",
+    "name": "Kytica krémových ruží",
+    "images": 3
+  },
+  {
+    "out": 22,
+    "source": "22",
+    "name": "Hortenzia na stopke",
+    "images": 9
+  },
+  {
+    "out": 23,
+    "source": "23",
+    "name": "Kytica ruží",
+    "images": 12
+  },
+  {
+    "out": 24,
+    "source": "24",
+    "name": "Tulipán na stonke",
+    "images": 24
+  },
+  {
+    "out": 25,
+    "source": "25",
+    "name": "Kytica tulipánov",
+    "images": 9
+  },
+  {
+    "out": 26,
+    "source": "26",
+    "name": "Hortenzia na dlhej stopke",
+    "images": 15
+  },
+  {
+    "out": 27,
+    "source": "27",
+    "name": "Hortenzia",
+    "images": 9
+  },
+  {
+    "out": 28,
+    "source": "28",
+    "name": "Orgován na stonke",
+    "images": 9
+  },
+  {
+    "out": 29,
+    "source": "29",
+    "name": "Astra na stopke",
+    "images": 6
+  },
+  {
+    "out": 30,
+    "source": "30",
+    "name": "Pivonka na stopke",
+    "images": 15
+  },
+  {
+    "out": 31,
+    "source": "31",
+    "name": "Petúnia",
+    "images": 6
+  },
+  {
+    "out": 32,
+    "source": "32",
+    "name": "Cínia na stonke",
+    "images": 18
+  },
+  {
+    "out": 33,
+    "source": "33",
+    "name": "Kytica pivoniek",
+    "images": 6
+  },
+  {
+    "out": 34,
+    "source": "34",
+    "name": "Zväzok klinčekov",
+    "images": 6
+  },
+  {
+    "out": 35,
+    "source": "35",
+    "name": "Protea",
+    "images": 3
+  },
+  {
+    "out": 36,
+    "source": "36",
+    "name": "Kurkuma na stonke",
+    "images": 9
+  },
+  {
+    "out": 37,
+    "source": "37",
+    "name": "Protea na stopke",
+    "images": 9
+  },
+  {
+    "out": 38,
+    "source": "38",
+    "name": "Zelená listová halúzka",
+    "images": 3
+  },
+  {
+    "out": 39,
+    "source": "39",
+    "name": "Kytica iskerníkov",
+    "images": 6
+  },
+  {
+    "out": 40,
+    "source": "40",
+    "name": "Dekoratívna koralová vetvička",
+    "images": 12
+  },
+  {
+    "out": 41,
+    "source": "41",
+    "name": "Protea kráľovská",
+    "images": 12
+  },
+  {
+    "out": 42,
+    "source": "42",
+    "name": "Halúzka s drobnými bielymi kvetmi",
+    "images": 3
+  },
+  {
+    "out": 43,
+    "source": "43",
+    "name": "Palmový list",
+    "images": 12
+  },
+  {
+    "out": 44,
+    "source": "44",
+    "name": "Vetvička jasmínu",
+    "images": 15
+  },
+  {
+    "out": 45,
+    "source": "45",
+    "name": "Kvitnúca vetvička čerešne",
+    "images": 6
+  },
+  {
+    "out": 46,
+    "source": "46",
+    "name": "Kvitnúca halúzka s drobnými kvetmi",
+    "images": 6
+  },
+  {
+    "out": 47,
+    "source": "47",
+    "name": "Zeleň s drobnými púčikmi",
+    "images": 6
+  },
+  {
+    "out": 48,
+    "source": "48",
+    "name": "Kytica rozchodníka",
+    "images": 12
+  },
+  {
+    "out": 49,
+    "source": "49",
+    "name": "Kytica gerber",
+    "images": 6
+  },
+  {
+    "out": 50,
+    "source": "50",
+    "name": "Hortenzia na stopke",
+    "images": 6
+  },
+  {
+    "out": 51,
+    "source": "52",
+    "name": "Kytica chryzantém",
+    "images": 6
+  },
+  {
+    "out": 52,
+    "source": "53",
+    "name": "Kytica slnečníc",
+    "images": 3
+  },
+  {
+    "out": 53,
+    "source": "54",
+    "name": "Chryzantéma biela - stopka",
+    "images": 3
+  },
+  {
+    "out": 54,
+    "source": "55",
+    "name": "Kytica cínií",
+    "images": 3
+  },
+  {
+    "out": 55,
+    "source": "56",
+    "name": "Kytica ihlicovitých chryzantém",
+    "images": 3
+  },
+  {
+    "out": 56,
+    "source": "57",
+    "name": "Kytica chryzantém",
+    "images": 6
+  },
+  {
+    "out": 57,
+    "source": "58",
+    "name": "Chryzantéma na stopke",
+    "images": 6
+  },
+  {
+    "out": 58,
+    "source": "59",
+    "name": "Hortenzia na stopke",
+    "images": 12
+  },
+  {
+    "out": 59,
+    "source": "60",
+    "name": "Ihlicovitá protea",
+    "images": 6
+  },
+  {
+    "out": 60,
+    "source": "61",
+    "name": "Protea ihličkatá",
+    "images": 3
+  },
+  {
+    "out": 61,
+    "source": "62",
+    "name": "Margarétka krémová - vetvička",
+    "images": 3
+  },
+  {
+    "out": 62,
+    "source": "63",
+    "name": "Kytica georgín",
+    "images": 3
+  },
+  {
+    "out": 63,
+    "source": "64",
+    "name": "Jemná zeleň s farebnými končekmi",
+    "images": 6
+  },
+  {
+    "out": 64,
+    "source": "65",
+    "name": "Dekoratívna výplňová vetvička",
+    "images": 9
+  },
+  {
+    "out": 65,
+    "source": "66",
+    "name": "Kytica ruží s drobnými kvetmi",
+    "images": 6
+  },
+  {
+    "out": 66,
+    "source": "67",
+    "name": "Kytica pivoniek s levanduľou",
+    "images": 6
+  },
+  {
+    "out": 67,
+    "source": "68",
+    "name": "Kytica georgín",
+    "images": 9
+  },
+  {
+    "out": 68,
+    "source": "69",
+    "name": "Miešaná kytica s eukalyptom",
+    "images": 12
+  },
+  {
+    "out": 69,
+    "source": "70",
+    "name": "Kytica chryzantém",
+    "images": 9
+  },
+  {
+    "out": 70,
+    "source": "71",
+    "name": "Kytica pivoniek a hortenzií",
+    "images": 9
+  },
+  {
+    "out": 71,
+    "source": "72",
+    "name": "Alstroméria",
+    "images": 15
+  },
+  {
+    "out": 72,
+    "source": "73",
+    "name": "Gerbera na stonke",
+    "images": 21
+  },
+  {
+    "out": 73,
+    "source": "74",
+    "name": "Pivonka na stopke",
+    "images": 18
+  },
+  {
+    "out": 74,
+    "source": "75",
+    "name": "Artičoka na stopke",
+    "images": 12
+  },
+  {
+    "out": 75,
+    "source": "76",
+    "name": "Kytica ruží a hortenzií",
+    "images": 3
+  },
+  {
+    "out": 76,
+    "source": "77",
+    "name": "Kytica chryzantém",
+    "images": 3
+  },
+  {
+    "out": 77,
+    "source": "78",
+    "name": "Hortenzia na stopke",
+    "images": 6
+  },
+  {
+    "out": 78,
+    "source": "79",
+    "name": "Nevestin závoj na stopke",
+    "images": 3
+  },
+  {
+    "out": 79,
+    "source": "80",
+    "name": "Mečík biely",
+    "images": 3
+  },
+  {
+    "out": 80,
+    "source": "81",
+    "name": "Mečík na stonke",
+    "images": 18
+  },
+  {
+    "out": 81,
+    "source": "82",
+    "name": "Exotický hviezdicový kvet",
+    "images": 15
+  },
+  {
+    "out": 82,
+    "source": "83",
+    "name": "Kala na stopke",
+    "images": 6
+  },
+  {
+    "out": 83,
+    "source": "84",
+    "name": "Georgína",
+    "images": 9
+  },
+  {
+    "out": 84,
+    "source": "85",
+    "name": "Molučenka na stonke",
+    "images": 3
+  },
+  {
+    "out": 85,
+    "source": "86",
+    "name": "Fiala fialová",
+    "images": 3
+  },
+  {
+    "out": 86,
+    "source": "87",
+    "name": "Ľalia na stopke",
+    "images": 6
+  },
+  {
+    "out": 87,
+    "source": "88",
+    "name": "Klinček biely",
+    "images": 3
+  },
+  {
+    "out": 88,
+    "source": "89",
+    "name": "Hortenzia na stonke",
+    "images": 9
+  },
+  {
+    "out": 89,
+    "source": "90",
+    "name": "Fiala na stopke",
+    "images": 9
+  },
+  {
+    "out": 90,
+    "source": "91",
+    "name": "Antúria na stopke",
+    "images": 15
+  },
+  {
+    "out": 91,
+    "source": "92",
+    "name": "Kytica klinčekov",
+    "images": 3
+  },
+  {
+    "out": 92,
+    "source": "93",
+    "name": "Vintage kytica ruží a pivoniek",
+    "images": 3
+  },
+  {
+    "out": 93,
+    "source": "94",
+    "name": "Kytica iskerníkov bielo-fialová",
+    "images": 3
+  },
+  {
+    "out": 94,
+    "source": "95",
+    "name": "Kytica drobných pivoniek",
+    "images": 6
+  },
+  {
+    "out": 95,
+    "source": "96",
+    "name": "Eukalyptus",
+    "images": 12
+  },
+  {
+    "out": 96,
+    "source": "97",
+    "name": "Kytica eukalyptu a papradia",
+    "images": 3
+  },
+  {
+    "out": 97,
+    "source": "98",
+    "name": "Georgína na stopke",
+    "images": 18
+  },
+  {
+    "out": 98,
+    "source": "99",
+    "name": "Margarétka na stopke",
+    "images": 12
+  },
+  {
+    "out": 99,
+    "source": "100",
+    "name": "Zlatý dážď",
+    "images": 3
+  },
+  {
+    "out": 100,
+    "source": "101",
+    "name": "Chryzantéma pavúkovitá",
+    "images": 3
+  },
+  {
+    "out": 101,
+    "source": "102",
+    "name": "Kytica krémových georgín",
+    "images": 3
+  },
+  {
+    "out": 102,
+    "source": "103",
+    "name": "Kytica ľalií s bobuľkami",
+    "images": 9
+  }
+]
