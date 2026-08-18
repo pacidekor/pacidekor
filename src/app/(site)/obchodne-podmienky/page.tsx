@@ -5,6 +5,7 @@ import {
   LegalDocument,
   type LegalSection,
 } from "@/components/legal/LegalDocument";
+import { COMPANY, COMPANY_IDENTIFICATION_ITEMS } from "@/lib/company";
 import { MIN_ORDER_TOTAL } from "@/lib/price";
 
 export const metadata: Metadata = {
@@ -53,18 +54,9 @@ const sections: LegalSection[] = [
     content: (
       <>
         <P>
-          Predávajúcim je obchodná spoločnosť <strong>PACIDEKOR s.r.o.</strong>
+          Predávajúcim je obchodná spoločnosť <strong>{COMPANY.name}</strong>
         </P>
-        <Ul
-          items={[
-            "Sídlo / prevádzka: Kráľová nad Váhom 283, Slovenská republika",
-            "E-mail: info@pacidekor.sk",
-            "Telefón: +421 910 592 948",
-            "IČO: [doplniť podľa ORSR]",
-            "DIČ / IČ DPH: [doplniť podľa daňovej registrácie]",
-            "Zapísaná v Obchodnom registri: [doplniť súd, oddiel a vložku]",
-          ]}
-        />
+        <Ul items={[...COMPANY_IDENTIFICATION_ITEMS]} />
         <P>
           Aktuálne kontaktné údaje sú uvedené aj na stránke{" "}
           <Link href="/kontakt" className="font-medium text-[#75825B]">
@@ -343,7 +335,7 @@ export default function ObchodnePodmienkyPage() {
     <LegalDocument
       title="Všeobecné obchodné podmienky"
       subtitle="Pravidlá nákupu v e-shope PACIDEKOR - objednávky, platba, doprava, odstúpenie od zmluvy a reklamácie."
-      updatedAt="6. 8. 2026"
+      updatedAt="18. 8. 2026"
       sections={sections}
     />
   );

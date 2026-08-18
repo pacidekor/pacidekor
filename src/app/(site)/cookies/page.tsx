@@ -6,6 +6,7 @@ import {
   LegalDocument,
   type LegalSection,
 } from "@/components/legal/LegalDocument";
+import { COMPANY } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Nastavenia Cookies",
@@ -54,12 +55,13 @@ const sections: LegalSection[] = [
       <>
         <P>
           Cookies na webe pacidekor.sk spravuje spoločnosť{" "}
-          <strong>PACIDEKOR s.r.o.</strong>, Kráľová nad Váhom 283, e-mail{" "}
+          <strong>{COMPANY.name}</strong>, {COMPANY.address}, IČO {COMPANY.ico},
+          IČ DPH {COMPANY.icDph}, e-mail{" "}
           <a
-            href="mailto:info@pacidekor.sk"
+            href={`mailto:${COMPANY.email}`}
             className="font-medium text-[#75825B]"
           >
-            info@pacidekor.sk
+            {COMPANY.email}
           </a>
           .
         </P>
@@ -209,7 +211,7 @@ export default function CookiesPage() {
     <LegalDocument
       title="Nastavenia Cookies"
       subtitle="Informácie o cookies a podobných technológiách na webe PACIDEKOR a o tom, ako ich môžete spravovať."
-      updatedAt="6. 8. 2026"
+      updatedAt="18. 8. 2026"
       sections={sections}
     />
   );

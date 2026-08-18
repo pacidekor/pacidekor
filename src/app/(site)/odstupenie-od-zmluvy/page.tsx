@@ -6,6 +6,7 @@ import {
   type LegalSection,
 } from "@/components/legal/LegalDocument";
 import { WithdrawalOrderForm } from "@/components/legal/WithdrawalOrderForm";
+import { COMPANY } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Odstúpenie od zmluvy",
@@ -69,8 +70,10 @@ const sections: LegalSection[] = [
         </P>
         <Ul
           items={[
-            "PACIDEKOR s.r.o.",
-            "Kráľová nad Váhom 283, Slovenská republika",
+            COMPANY.name,
+            COMPANY.addressFull,
+            `IČO: ${COMPANY.ico}`,
+            `IČ DPH: ${COMPANY.icDph}`,
           ]}
         />
         <P>V oznámení uveďte najmä:</P>
@@ -218,7 +221,7 @@ export default function OdstupenieOdZmluvyPage() {
     <LegalDocument
       title="Odstúpenie od zmluvy"
       subtitle="Informácie pre spotrebiteľov o práve odstúpiť od zmluvy uzavretej na diaľku, vrátení tovaru a refundácii."
-      updatedAt="6. 8. 2026"
+      updatedAt="18. 8. 2026"
       beforeSections={<WithdrawalOrderForm />}
       sections={sections}
     />

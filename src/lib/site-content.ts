@@ -2,6 +2,7 @@ import {
   blogPosts as seedBlogPosts,
   type BlogPost,
 } from "@/lib/blog";
+import { COMPANY } from "@/lib/company";
 
 export const SITE_CONTENT_STORAGE_KEY = "pacidekor.admin.site-content";
 export const SITE_CONTENT_EVENT = "pacidekor:site-content-changed";
@@ -40,11 +41,11 @@ export function seedSiteContent(): SiteContentStore {
       ),
     })),
     contact: {
-      company: "PACIDEKOR s.r.o.",
-      phone: "+421 910 592 948",
+      company: COMPANY.name,
+      phone: COMPANY.phone,
       phoneHref: "tel:+421910592948",
-      email: "info@pacidekor.sk",
-      address: "Kráľová nad Váhom 283",
+      email: COMPANY.email,
+      address: COMPANY.address,
       stores: [
         {
           id: "store-mia-1",
@@ -63,8 +64,8 @@ export function seedSiteContent(): SiteContentStore {
         {
           id: "store-warehouse",
           name: "Veľkosklad",
-          address: "Kráľová nad Váhom 283",
-          mapsQuery: "Kráľová nad Váhom 283",
+          address: COMPANY.address,
+          mapsQuery: COMPANY.address,
         },
       ],
     },

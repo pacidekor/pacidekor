@@ -5,6 +5,7 @@ import {
   LegalDocument,
   type LegalSection,
 } from "@/components/legal/LegalDocument";
+import { COMPANY, COMPANY_IDENTIFICATION_ITEMS } from "@/lib/company";
 
 export const metadata: Metadata = {
   title: "Zásady spracúvania osobných údajov",
@@ -53,17 +54,9 @@ const sections: LegalSection[] = [
       <>
         <P>
           Prevádzkovateľom osobných údajov je obchodná spoločnosť{" "}
-          <strong>PACIDEKOR s.r.o.</strong>
+          <strong>{COMPANY.name}</strong>
         </P>
-        <Ul
-          items={[
-            "Sídlo / prevádzka: Kráľová nad Váhom 283, Slovenská republika",
-            "E-mail: info@pacidekor.sk",
-            "Telefón: +421 910 592 948",
-            "IČO: [doplniť podľa ORSR]",
-            "DIČ / IČ DPH: [doplniť podľa daňovej registrácie]",
-          ]}
-        />
+        <Ul items={[...COMPANY_IDENTIFICATION_ITEMS]} />
         <P>
           V otázkach ochrany osobných údajov nás môžete kontaktovať na e-maile{" "}
           <a
@@ -257,7 +250,7 @@ export default function OchranaUdajovPage() {
     <LegalDocument
       title="Zásady spracúvania osobných údajov"
       subtitle="Informácie o tom, aké osobné údaje v e-shope PACIDEKOR spracúvame, na aké účely a aké máte práva."
-      updatedAt="6. 8. 2026"
+      updatedAt="18. 8. 2026"
       sections={sections}
     />
   );
