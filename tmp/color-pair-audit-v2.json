@@ -1,0 +1,1276 @@
+{
+  "generatedAt": "2026-08-19T11:43:19.049Z",
+  "totalProducts": 216,
+  "stats": {
+    "withColorInName": 38,
+    "multiVariantHubs": 112,
+    "pairs": 16,
+    "unpairedColored": 22,
+    "multiHubGroups": 10
+  },
+  "pairs": [
+    {
+      "groupKey": "georgin::kytica",
+      "flower": "georgin",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-H77ZU33M",
+        "name": "Kytica špicatých georgín",
+        "colorCount": 3,
+        "colors": [
+          "Oranžovo-červená",
+          "Fialová",
+          "Staroružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-R6WCKM7X",
+        "name": "Georgína kytica tmavočervená",
+        "nameColorId": "cervena",
+        "colors": [
+          "Červená"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "georgin::kytica",
+      "flower": "georgin",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-H77ZU33M",
+        "name": "Kytica špicatých georgín",
+        "colorCount": 3,
+        "colors": [
+          "Oranžovo-červená",
+          "Fialová",
+          "Staroružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-VBKGGJYF",
+        "name": "Kytica krémových georgín",
+        "nameColorId": "kremova",
+        "colors": [
+          "Krémová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "hortenzia::general",
+      "flower": "hortenzia",
+      "form": "general",
+      "hub": {
+        "sku": "PD-P73SPS8U",
+        "name": "Hortenzia",
+        "colorCount": 3,
+        "colors": [
+          "Staroružová",
+          "Fialová",
+          "Oranžová"
+        ],
+        "form": "general"
+      },
+      "satellite": {
+        "sku": "PD-ZM9T7G26",
+        "name": "Hortenzia krémová",
+        "nameColorId": "kremova",
+        "colors": [
+          "Krémová"
+        ],
+        "form": "general",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "chryzantema::stopka",
+      "flower": "chryzantema",
+      "form": "stopka",
+      "hub": {
+        "sku": "PD-BA3TZLD2",
+        "name": "Chryzantéma na stopke",
+        "colorCount": 2,
+        "colors": [
+          "Krémová",
+          "Ružová"
+        ],
+        "form": "stopka"
+      },
+      "satellite": {
+        "sku": "PD-YA9PU8FG",
+        "name": "Chryzantéma biela - stopka",
+        "nameColorId": "biela",
+        "colors": [
+          "Biela"
+        ],
+        "form": "stopka",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "iskernik::kytica",
+      "flower": "iskernik",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-AGNWJVHS",
+        "name": "Kytica iskerníkov",
+        "colorCount": 2,
+        "colors": [
+          "Žltá",
+          "Staroružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-GDR4HC3F",
+        "name": "Kytica iskerníkov bielo-fialová",
+        "nameColorId": "biela",
+        "colors": [
+          "Bielo-fialová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "iskernik::kytica",
+      "flower": "iskernik",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-AGNWJVHS",
+        "name": "Kytica iskerníkov",
+        "colorCount": 2,
+        "colors": [
+          "Žltá",
+          "Staroružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-KFXU8BKF",
+        "name": "Kytica iskerníkov krémová",
+        "nameColorId": "kremova",
+        "colors": [
+          "Krémová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "mini_ruza::zvazok",
+      "flower": "mini_ruza",
+      "form": "zvazok",
+      "hub": {
+        "sku": "PD-UA3KCF6W",
+        "name": "Mini ruže - zväzok",
+        "colorCount": 4,
+        "colors": [
+          "Modrá",
+          "Ružová",
+          "Žltá",
+          "Oranžovoružová"
+        ],
+        "form": "zvazok"
+      },
+      "satellite": {
+        "sku": "PD-5HYNFUAL",
+        "name": "Mini ruže ružové - zväzok",
+        "nameColorId": "ruzova",
+        "colors": [
+          "Ružová"
+        ],
+        "form": "zvazok",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "pivonka::general",
+      "flower": "pivonka",
+      "form": "general",
+      "hub": {
+        "sku": "PD-XY5P2R7F",
+        "name": "Pivonka s púčikmi",
+        "colorCount": 6,
+        "colors": [
+          "Krémová",
+          "Ružová",
+          "Zelená",
+          "Staroružová",
+          "Fialová",
+          "Oranžová"
+        ],
+        "form": "general"
+      },
+      "satellite": {
+        "sku": "PD-2HULXW68",
+        "name": "Pivoňka biela",
+        "nameColorId": "biela",
+        "colors": [
+          "Biela"
+        ],
+        "form": "general",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "pivonka::kytica",
+      "flower": "pivonka",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-FWG994ZY",
+        "name": "Kytica drobných pivoniek",
+        "colorCount": 2,
+        "colors": [
+          "Bordová",
+          "Ružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-NQ4Z52ZH",
+        "name": "Pivonka kytica biela Exclusive 45 cm",
+        "nameColorId": "biela",
+        "colors": [
+          "Biela"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": [
+        {
+          "sku": "PD-3K695XDV",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-NSGKELTE",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Bordová",
+            "Krémová"
+          ]
+        },
+        {
+          "sku": "PD-8WZHZJGT",
+          "name": "Kytica pivoniek",
+          "colorCount": 4,
+          "colors": [
+            "Bordová",
+            "Krémová",
+            "Biela",
+            "Zelená"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "pivonka::stopka",
+      "flower": "pivonka",
+      "form": "stopka",
+      "hub": {
+        "sku": "PD-U9QXUULC",
+        "name": "Pivonka na stopke",
+        "colorCount": 5,
+        "colors": [
+          "Krémová",
+          "Staroružová",
+          "Ružová",
+          "Bledoružová",
+          "Oranžová"
+        ],
+        "form": "stopka"
+      },
+      "satellite": {
+        "sku": "PD-DEV49V3H",
+        "name": "Pivonka spray biely",
+        "nameColorId": "biela",
+        "colors": [
+          "Biela"
+        ],
+        "form": "stopka",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "ruza::kytica",
+      "flower": "ruza",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-S3LPHA87",
+        "name": "Kytica ruží",
+        "colorCount": 4,
+        "colors": [
+          "Staroružová",
+          "Červená",
+          "Biela",
+          "Tmavoružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-JLBY9GW3",
+        "name": "Kytica krémových ruží",
+        "nameColorId": "kremova",
+        "colors": [
+          "Krémová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": [
+        {
+          "sku": "PD-KQ4L9HSH",
+          "name": "Kytica ruží 36 cm",
+          "colorCount": 4,
+          "colors": [
+            "Krémová",
+            "Červená",
+            "Ružová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-CV7RHA8X",
+          "name": "Kytica ruží s drobnými kvetmi",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-EX4A5DWR",
+          "name": "Kytica ruží s výplňou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Staroružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "ruza::kytica",
+      "flower": "ruza",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-S3LPHA87",
+        "name": "Kytica ruží",
+        "colorCount": 4,
+        "colors": [
+          "Staroružová",
+          "Červená",
+          "Biela",
+          "Tmavoružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-H3GY6UTW",
+        "name": "Kytica ruží svetloružová",
+        "nameColorId": "ruzova",
+        "colors": [
+          "Ružová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": [
+        {
+          "sku": "PD-KQ4L9HSH",
+          "name": "Kytica ruží 36 cm",
+          "colorCount": 4,
+          "colors": [
+            "Krémová",
+            "Červená",
+            "Ružová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-CV7RHA8X",
+          "name": "Kytica ruží s drobnými kvetmi",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-EX4A5DWR",
+          "name": "Kytica ruží s výplňou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Staroružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "ruza::kytica",
+      "flower": "ruza",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-S3LPHA87",
+        "name": "Kytica ruží",
+        "colorCount": 4,
+        "colors": [
+          "Staroružová",
+          "Červená",
+          "Biela",
+          "Tmavoružová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-2SSHQQWS",
+        "name": "Pivonka kytica ružová",
+        "nameColorId": "ruzova",
+        "colors": [
+          "Ružová"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": [
+        {
+          "sku": "PD-KQ4L9HSH",
+          "name": "Kytica ruží 36 cm",
+          "colorCount": 4,
+          "colors": [
+            "Krémová",
+            "Červená",
+            "Ružová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-CV7RHA8X",
+          "name": "Kytica ruží s drobnými kvetmi",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-EX4A5DWR",
+          "name": "Kytica ruží s výplňou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Staroružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "ruza::stopka",
+      "flower": "ruza",
+      "form": "stopka",
+      "hub": {
+        "sku": "PD-9ATLJP9Q",
+        "name": "Ruža Beauty 38 cm",
+        "colorCount": 3,
+        "colors": [
+          "Červená",
+          "Ružová",
+          "Biela"
+        ],
+        "form": "stopka"
+      },
+      "satellite": {
+        "sku": "PD-L7CBK6X6",
+        "name": "Ruža krémová - spray",
+        "nameColorId": "kremova",
+        "colors": [
+          "Krémová"
+        ],
+        "form": "stopka",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": false,
+      "alternateHubs": [
+        {
+          "sku": "PD-44VCYE7D",
+          "name": "Ruža záhradná - dlhý stonok",
+          "colorCount": 3,
+          "colors": [
+            "Krémová",
+            "Ružová",
+            "Červená"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "zelen::kytica",
+      "flower": "zelen",
+      "form": "kytica",
+      "hub": {
+        "sku": "PD-ALL9V84K",
+        "name": "Kytica drobných kvietkov so zeleňou",
+        "colorCount": 3,
+        "colors": [
+          "Biela",
+          "Ružová",
+          "Fialová"
+        ],
+        "form": "kytica"
+      },
+      "satellite": {
+        "sku": "PD-ZHFBJGDT",
+        "name": "Kytica bielo-zelená",
+        "nameColorId": "biela",
+        "colors": [
+          "Bielo-zelená"
+        ],
+        "form": "kytica",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": []
+    },
+    {
+      "groupKey": "zelen::haluzka",
+      "flower": "zelen",
+      "form": "haluzka",
+      "hub": {
+        "sku": "PD-4L7MJ6WB",
+        "name": "Vinič - listová vetva",
+        "colorCount": 2,
+        "colors": [
+          "Sivozelená",
+          "Zelená"
+        ],
+        "form": "haluzka"
+      },
+      "satellite": {
+        "sku": "PD-A63ZBYYV",
+        "name": "Zelená listová halúzka",
+        "nameColorId": "zelena",
+        "colors": [
+          "Zelená"
+        ],
+        "form": "haluzka",
+        "inStock": true
+      },
+      "colorAlreadyOnHub": true,
+      "alternateHubs": []
+    }
+  ],
+  "unpairedColored": [
+    {
+      "sku": "PD-G6SWWGPL",
+      "name": "Drobné biele kvietky - zväzok",
+      "flower": null,
+      "form": "zvazok",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-G6W5K5GE",
+      "name": "Drobnokvet biely (zhluky)",
+      "flower": null,
+      "form": "general",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-DBDHXBGB",
+      "name": "Eukalyptus - vetva s hnedým stonkom",
+      "flower": "eukalyptus",
+      "form": "haluzka",
+      "nameColorId": "hneda",
+      "colors": [
+        "Zelená"
+      ]
+    },
+    {
+      "sku": "PD-E5VALBXA",
+      "name": "Fiala fialová",
+      "flower": "fiala",
+      "form": "general",
+      "nameColorId": "fialova",
+      "colors": [
+        "Fialová"
+      ]
+    },
+    {
+      "sku": "PD-7BHJ3NCA",
+      "name": "Fiala krémová",
+      "flower": "fiala",
+      "form": "general",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová",
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-D7TJ3235",
+      "name": "Gladiola biela - zväzok",
+      "flower": "gladiola",
+      "form": "zvazok",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-8VMKLWMT",
+      "name": "Halúzka s drobnými bielymi kvetmi",
+      "flower": null,
+      "form": "haluzka",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-2H78FKP6",
+      "name": "Iskerník biely",
+      "flower": "iskernik",
+      "form": "general",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-W46KRFGE",
+      "name": "Jazmínový spray biely",
+      "flower": null,
+      "form": "stopka",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-2PQSPSVK",
+      "name": "Klinček biely",
+      "flower": "klincek",
+      "form": "general",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-DGETMEPJ",
+      "name": "Kvitnúca halúzka biela",
+      "flower": null,
+      "form": "haluzka",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela",
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-J4L3H3T7",
+      "name": "Kytica krémové pompony",
+      "flower": null,
+      "form": "kytica",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-8Z24KT2L",
+      "name": "Kytica magnólií krémová",
+      "flower": "magnolia",
+      "form": "kytica",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-972HX445",
+      "name": "Magnólia - zväzok bielo-ružový",
+      "flower": "ruza",
+      "form": "zvazok",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-88NJ2LJK",
+      "name": "Margarétka krémová - vetvička",
+      "flower": "margaretka",
+      "form": "haluzka",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-NWDB3C22",
+      "name": "Mečík biely",
+      "flower": "mecik",
+      "form": "general",
+      "nameColorId": "biela",
+      "colors": [
+        "Biela"
+      ]
+    },
+    {
+      "sku": "PD-2USWX392",
+      "name": "Narcis bielo-žltý",
+      "flower": "narcis",
+      "form": "general",
+      "nameColorId": "biela",
+      "colors": [
+        "Bielo-žltá"
+      ]
+    },
+    {
+      "sku": "PD-9FJNTA4F",
+      "name": "Pivonka krémová - zväzok",
+      "flower": "pivonka",
+      "form": "zvazok",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-RNJNUNGD",
+      "name": "Ružičky - mix krémovo-petrolejová",
+      "flower": "ruza",
+      "form": "general",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémovo-petrolejová"
+      ]
+    },
+    {
+      "sku": "PD-N4B8Q2KQ",
+      "name": "Voskovka fialová",
+      "flower": "voskovka",
+      "form": "general",
+      "nameColorId": "fialova",
+      "colors": [
+        "Fialová"
+      ]
+    },
+    {
+      "sku": "PD-W3SBVZZP",
+      "name": "Voskovka krémová",
+      "flower": "voskovka",
+      "form": "general",
+      "nameColorId": "kremova",
+      "colors": [
+        "Krémová"
+      ]
+    },
+    {
+      "sku": "PD-5WSEPBAH",
+      "name": "Zeleň - zúbkaté listy (ružové listy)",
+      "flower": "ruza",
+      "form": "general",
+      "nameColorId": "ruzova",
+      "colors": [
+        "Zelená",
+        "Žltá"
+      ]
+    }
+  ],
+  "multiHubConflicts": [
+    {
+      "groupKey": "zelen::general",
+      "hubs": [
+        {
+          "sku": "PD-H6URQNEQ",
+          "name": "Drobnolistá výplňová zeleň",
+          "colorCount": 4,
+          "colors": [
+            "Žltá",
+            "Krémová",
+            "Marhuľová",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-TACKBR6V",
+          "name": "Drobnolistá zeleň",
+          "colorCount": 2,
+          "colors": [
+            "Zelená",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-WRTD9QD2",
+          "name": "Jemná zeleň s farebnými končekmi",
+          "colorCount": 2,
+          "colors": [
+            "Oranžová",
+            "Fialová"
+          ]
+        },
+        {
+          "sku": "PD-W9XYHRUD",
+          "name": "Zeleň - dlhé pruhované listy",
+          "colorCount": 2,
+          "colors": [
+            "Zelená",
+            "Svetlozelená"
+          ]
+        },
+        {
+          "sku": "PD-XVWRMB7C",
+          "name": "Zeleň s drobnými púčikmi",
+          "colorCount": 2,
+          "colors": [
+            "Ružová",
+            "Biela"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "zelen::list",
+      "hubs": [
+        {
+          "sku": "PD-MXW7YA3V",
+          "name": "Drobný filler - hviezdicové kvietky",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-SFKR4PAW",
+          "name": "Palmový list",
+          "colorCount": 4,
+          "colors": [
+            "Zelená",
+            "Modrá",
+            "Oranžová",
+            "Bordová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "eukalyptus::list",
+      "hubs": [
+        {
+          "sku": "PD-9YMB77VT",
+          "name": "Eukalyptus",
+          "colorCount": 4,
+          "colors": [
+            "Krémová",
+            "Hnedá",
+            "Oranžová",
+            "Zelená"
+          ]
+        },
+        {
+          "sku": "PD-X83Q8CN4",
+          "name": "Eukalyptus drobný okrúhly",
+          "colorCount": 3,
+          "colors": [
+            "Zelená",
+            "Sivozelená",
+            "Sivá"
+          ]
+        },
+        {
+          "sku": "PD-DY5G4E97",
+          "name": "Eukalyptus drobný okrúhly",
+          "colorCount": 2,
+          "colors": [
+            "Zelená",
+            "Sivozelená"
+          ]
+        },
+        {
+          "sku": "PD-YYHUWX3T",
+          "name": "Eukalyptus drobný okrúhly - farebné varianty",
+          "colorCount": 3,
+          "colors": [
+            "Sivozelená",
+            "Ružová",
+            "Hnedá"
+          ]
+        },
+        {
+          "sku": "PD-FERE5QDB",
+          "name": "Eukalyptus okrúhly",
+          "colorCount": 3,
+          "colors": [
+            "Tmavozelená",
+            "Svetlozelená",
+            "Bordová"
+          ]
+        },
+        {
+          "sku": "PD-B5RDZFV7",
+          "name": "Eukalyptus okrúhly",
+          "colorCount": 2,
+          "colors": [
+            "Ružová",
+            "Zelená"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "fiala::stopka",
+      "hubs": [
+        {
+          "sku": "PD-QMT2GGBK",
+          "name": "Fiala na stopke",
+          "colorCount": 3,
+          "colors": [
+            "Zeleno-ružová",
+            "Ružová",
+            "Fialová"
+          ]
+        },
+        {
+          "sku": "PD-X58777SR",
+          "name": "Stopka fialy",
+          "colorCount": 4,
+          "colors": [
+            "Fialová",
+            "Žltá",
+            "Ružová",
+            "Modrá"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "hortenzia::stopka",
+      "hubs": [
+        {
+          "sku": "PD-MHY4YWPN",
+          "name": "Hortenzia - stonok",
+          "colorCount": 4,
+          "colors": [
+            "Biela",
+            "Zelená",
+            "Modrá",
+            "Žltá"
+          ]
+        },
+        {
+          "sku": "PD-MFYC8XME",
+          "name": "Hortenzia - stonok 61 cm",
+          "colorCount": 3,
+          "colors": [
+            "Sivo-modrá",
+            "Fialová",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-PNDTQUKV",
+          "name": "Hortenzia na dlhej stopke",
+          "colorCount": 5,
+          "colors": [
+            "Biela",
+            "Oranžová",
+            "Limetková",
+            "Bordová",
+            "Zeleno-ružová"
+          ]
+        },
+        {
+          "sku": "PD-46BAR5MD",
+          "name": "Hortenzia na stonke",
+          "colorCount": 3,
+          "colors": [
+            "Oranžovo-žltá",
+            "Fialová",
+            "Staroružová"
+          ]
+        },
+        {
+          "sku": "PD-2VRMZHEH",
+          "name": "Hortenzia na stopke",
+          "colorCount": 3,
+          "colors": [
+            "Biela",
+            "Modrá",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-883T8ZKL",
+          "name": "Hortenzia na stopke",
+          "colorCount": 6,
+          "colors": [
+            "Krémová",
+            "Ružová",
+            "Bordová",
+            "Svetlozelená",
+            "Biela",
+            "Svetloružová"
+          ]
+        },
+        {
+          "sku": "PD-DQUM4397",
+          "name": "Hortenzia na stopke",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Limetková"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "klincek::zvazok",
+      "hubs": [
+        {
+          "sku": "PD-9PN37B4C",
+          "name": "Klinček - zväzok",
+          "colorCount": 2,
+          "colors": [
+            "Červená",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-ARRYCE9V",
+          "name": "Zväzok klinčekov",
+          "colorCount": 2,
+          "colors": [
+            "Ružová",
+            "Oranžová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "chryzantema::kytica",
+      "hubs": [
+        {
+          "sku": "PD-264E8NE9",
+          "name": "Kytica chryzantém",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-ABN8TRKA",
+          "name": "Kytica daisy chryzantém",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Žltá"
+          ]
+        },
+        {
+          "sku": "PD-TZDGX9ND",
+          "name": "Kytica pomponových chryzantém",
+          "colorCount": 2,
+          "colors": [
+            "Žltá",
+            "Krémová"
+          ]
+        },
+        {
+          "sku": "PD-YGWYYMFC",
+          "name": "Kytica riasených chryzantém",
+          "colorCount": 3,
+          "colors": [
+            "Oranžová",
+            "Biela",
+            "Ružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "pivonka::kytica",
+      "hubs": [
+        {
+          "sku": "PD-FWG994ZY",
+          "name": "Kytica drobných pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Bordová",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-3K695XDV",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-NSGKELTE",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Bordová",
+            "Krémová"
+          ]
+        },
+        {
+          "sku": "PD-8WZHZJGT",
+          "name": "Kytica pivoniek",
+          "colorCount": 4,
+          "colors": [
+            "Bordová",
+            "Krémová",
+            "Biela",
+            "Zelená"
+          ]
+        },
+        {
+          "sku": "PD-UAKLLPYU",
+          "name": "Kytica pivoniek a hortenzií",
+          "colorCount": 3,
+          "colors": [
+            "Červeno-ružová",
+            "Krémová",
+            "Vínovo-krémová"
+          ]
+        },
+        {
+          "sku": "PD-S4HKNGB6",
+          "name": "Kytica pivoniek s levanduľou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-GGQDU7WK",
+          "name": "Pivonka dlhá kytica",
+          "colorCount": 2,
+          "colors": [
+            "Zelená",
+            "Ružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "ruza::kytica",
+      "hubs": [
+        {
+          "sku": "PD-S3LPHA87",
+          "name": "Kytica ruží",
+          "colorCount": 4,
+          "colors": [
+            "Staroružová",
+            "Červená",
+            "Biela",
+            "Tmavoružová"
+          ]
+        },
+        {
+          "sku": "PD-KQ4L9HSH",
+          "name": "Kytica ruží 36 cm",
+          "colorCount": 4,
+          "colors": [
+            "Krémová",
+            "Červená",
+            "Ružová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-CV7RHA8X",
+          "name": "Kytica ruží s drobnými kvetmi",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-EX4A5DWR",
+          "name": "Kytica ruží s výplňou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Staroružová"
+          ]
+        }
+      ]
+    },
+    {
+      "groupKey": "ruza::stopka",
+      "hubs": [
+        {
+          "sku": "PD-9ATLJP9Q",
+          "name": "Ruža Beauty 38 cm",
+          "colorCount": 3,
+          "colors": [
+            "Červená",
+            "Ružová",
+            "Biela"
+          ]
+        },
+        {
+          "sku": "PD-44VCYE7D",
+          "name": "Ruža záhradná - dlhý stonok",
+          "colorCount": 3,
+          "colors": [
+            "Krémová",
+            "Ružová",
+            "Červená"
+          ]
+        }
+      ]
+    }
+  ]
+}

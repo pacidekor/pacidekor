@@ -45,3 +45,6 @@ next-env.d.ts
 # accidental / source assets
 *.exe
 *.psd
+
+# local audit snapshots (product images are in Supabase)
+tmp/visual-compare/

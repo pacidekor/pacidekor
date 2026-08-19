@@ -1,0 +1,300 @@
+{
+  "generatedAt": "2026-08-19T11:42:35.764Z",
+  "totalProducts": 216,
+  "coloredInName": 16,
+  "multiVariantHubs": 113,
+  "pairedCount": 3,
+  "unpairedColoredCount": 13,
+  "pairs": [
+    {
+      "key": "Umelé kvety::stopka::chryzantema",
+      "satellite": {
+        "sku": "PD-YA9PU8FG",
+        "name": "Chryzantéma biela - stopka",
+        "colors": [
+          "Biela"
+        ],
+        "nameColor": "Biela",
+        "nameColorId": "biela",
+        "form": "stopka",
+        "inStock": true
+      },
+      "hub": {
+        "sku": "PD-BA3TZLD2",
+        "name": "Chryzantéma na stopke",
+        "colors": [
+          "Krémová",
+          "Ružová"
+        ],
+        "colorCount": 2,
+        "form": "stopka",
+        "inStock": true
+      },
+      "hubHasColor": false,
+      "allHubCandidates": [
+        {
+          "sku": "PD-BA3TZLD2",
+          "name": "Chryzantéma na stopke",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Ružová"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Umelé kvety::kytica::pivonka",
+      "satellite": {
+        "sku": "PD-NQ4Z52ZH",
+        "name": "Pivonka kytica biela Exclusive 45 cm",
+        "colors": [
+          "Biela"
+        ],
+        "nameColor": "Biela",
+        "nameColorId": "biela",
+        "form": "kytica",
+        "inStock": true
+      },
+      "hub": {
+        "sku": "PD-8WZHZJGT",
+        "name": "Kytica pivoniek",
+        "colors": [
+          "Bordová",
+          "Krémová",
+          "Biela",
+          "Zelená"
+        ],
+        "colorCount": 4,
+        "form": "kytica",
+        "inStock": true
+      },
+      "hubHasColor": true,
+      "allHubCandidates": [
+        {
+          "sku": "PD-8WZHZJGT",
+          "name": "Kytica pivoniek",
+          "colorCount": 4,
+          "colors": [
+            "Bordová",
+            "Krémová",
+            "Biela",
+            "Zelená"
+          ]
+        },
+        {
+          "sku": "PD-FWG994ZY",
+          "name": "Kytica drobných pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Bordová",
+            "Ružová"
+          ]
+        },
+        {
+          "sku": "PD-3K695XDV",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Biela",
+            "Oranžová"
+          ]
+        },
+        {
+          "sku": "PD-NSGKELTE",
+          "name": "Kytica pivoniek",
+          "colorCount": 2,
+          "colors": [
+            "Bordová",
+            "Krémová"
+          ]
+        },
+        {
+          "sku": "PD-S4HKNGB6",
+          "name": "Kytica pivoniek s levanduľou",
+          "colorCount": 2,
+          "colors": [
+            "Krémová",
+            "Ružová"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "Umelé kvety::stopka::pivonka",
+      "satellite": {
+        "sku": "PD-DEV49V3H",
+        "name": "Pivonka spray biely",
+        "colors": [
+          "Biela"
+        ],
+        "nameColor": "Biela",
+        "nameColorId": "biela",
+        "form": "stopka",
+        "inStock": true
+      },
+      "hub": {
+        "sku": "PD-U9QXUULC",
+        "name": "Pivonka na stopke",
+        "colors": [
+          "Krémová",
+          "Staroružová",
+          "Ružová",
+          "Bledoružová",
+          "Oranžová"
+        ],
+        "colorCount": 5,
+        "form": "stopka",
+        "inStock": true
+      },
+      "hubHasColor": false,
+      "allHubCandidates": [
+        {
+          "sku": "PD-U9QXUULC",
+          "name": "Pivonka na stopke",
+          "colorCount": 5,
+          "colors": [
+            "Krémová",
+            "Staroružová",
+            "Ružová",
+            "Bledoružová",
+            "Oranžová"
+          ]
+        }
+      ]
+    }
+  ],
+  "unpairedColored": [
+    {
+      "sku": "PD-G6SWWGPL",
+      "name": "Drobné biele kvietky - zväzok",
+      "form": "zvazok",
+      "base": "drobne kvietky",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-G6W5K5GE",
+      "name": "Drobnokvet biely (zhluky)",
+      "form": "other",
+      "base": "drobnokvet zhluky",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-D7TJ3235",
+      "name": "Gladiola biela - zväzok",
+      "form": "zvazok",
+      "base": "gladiola",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-2H78FKP6",
+      "name": "Iskerník biely",
+      "form": "other",
+      "base": "iskernik",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-W46KRFGE",
+      "name": "Jazmínový spray biely",
+      "form": "stopka",
+      "base": "jazminovy",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-2PQSPSVK",
+      "name": "Klinček biely",
+      "form": "other",
+      "base": "klincek",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-DGETMEPJ",
+      "name": "Kvitnúca halúzka biela",
+      "form": "haluzka",
+      "base": "kvitnuca a",
+      "colors": [
+        "Biela",
+        "Krémová"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-ZHFBJGDT",
+      "name": "Kytica bielo-zelená",
+      "form": "kytica",
+      "base": "a",
+      "colors": [
+        "Bielo-zelená"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-GDR4HC3F",
+      "name": "Kytica iskerníkov bielo-fialová",
+      "form": "kytica",
+      "base": "iskernikov fialova",
+      "colors": [
+        "Bielo-fialová"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-972HX445",
+      "name": "Magnólia - zväzok bielo-ružový",
+      "form": "zvazok",
+      "base": "magnolia ruzovy",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-NWDB3C22",
+      "name": "Mečík biely",
+      "form": "other",
+      "base": "mecik",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-2USWX392",
+      "name": "Narcis bielo-žltý",
+      "form": "other",
+      "base": "narcis zlty",
+      "colors": [
+        "Bielo-žltá"
+      ],
+      "nameColor": "Biela"
+    },
+    {
+      "sku": "PD-2HULXW68",
+      "name": "Pivoňka biela",
+      "form": "other",
+      "base": "pivonka",
+      "colors": [
+        "Biela"
+      ],
+      "nameColor": "Biela"
+    }
+  ]
+}
