@@ -297,6 +297,47 @@ export type PromoCodeRow = {
   updated_at: string;
 };
 
+export type OrderRow = {
+  id: string;
+  order_number: string;
+  user_id: string | null;
+  status: string;
+  customer_name: string;
+  customer_email: string;
+  customer_phone: string;
+  customer_company: string | null;
+  customer_ico: string | null;
+  customer_dic: string | null;
+  customer_street: string;
+  customer_city: string;
+  customer_zip: string;
+  customer_country: string;
+  note: string | null;
+  shipping_method: string;
+  payment_method: string;
+  packeta_point_id: string | null;
+  packeta_point_name: string | null;
+  packeta_packet_id: string | null;
+  subtotal_eur: number;
+  discount_eur: number;
+  promo_code: string | null;
+  shipping_cost_eur: number;
+  total_eur: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type OrderItemRow = {
+  id: string;
+  order_id: string;
+  product_id: string;
+  product_name: string;
+  unit_price: string;
+  quantity: number;
+  color_id: string | null;
+  created_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -360,6 +401,36 @@ export type Database = {
         Update: Partial<PromoCodeRow>;
         Relationships: [];
       };
+      orders: {
+        Row: OrderRow;
+        Insert: Partial<OrderRow> & {
+          order_number: string;
+          customer_name: string;
+          customer_email: string;
+          customer_phone: string;
+          customer_street: string;
+          customer_city: string;
+          customer_zip: string;
+          shipping_method: string;
+          payment_method: string;
+          subtotal_eur: number;
+          total_eur: number;
+        };
+        Update: Partial<OrderRow>;
+        Relationships: [];
+      };
+      order_items: {
+        Row: OrderItemRow;
+        Insert: Partial<OrderItemRow> & {
+          order_id: string;
+          product_id: string;
+          product_name: string;
+          unit_price: string;
+          quantity: number;
+        };
+        Update: Partial<OrderItemRow>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -373,6 +444,10 @@ export type Database = {
           out_in_stock: boolean;
           out_stock_quantity: number | null;
         }[];
+      };
+      next_order_number: {
+        Args: Record<string, never>;
+        Returns: string;
       };
     };
     Enums: {

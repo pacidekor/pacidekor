@@ -5,10 +5,11 @@ import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
+import { cancelCustomerOrderAction } from "@/lib/actions/orders";
 import {
   ORDER_STATUS_META,
+  ORDERS_EVENT,
   canCancelOrder,
-  cancelOrder,
   formatOrderCreatedAt,
   formatOrderTotal,
   orderItemsSubtotal,
@@ -22,15 +23,18 @@ export function AccountOrderDetail({
   customerEmail,
   allowCancel = false,
   onClose,
+  onCancelled,
 }: {
   order: Order;
   customerEmail: string;
   allowCancel?: boolean;
   onClose: () => void;
+  onCancelled?: () => void;
 }) {
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [confirmCancel, setConfirmCancel] = useState(false);
+  const [cancelling, setCancelling] = useState(false);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const meta = ORDER_STATUS_META[order.status];
@@ -59,8 +63,13 @@ export function AccountOrderDetail({
     }, 320);
   }
 
-  function handleCancel() {
-    if (!cancelOrder(order.id, customerEmail)) return;
+  async function handleCancel() {
+    setCancelling(true);
+    const result = await cancelCustomerOrderAction(order.id, customerEmail);
+    setCancelling(false);
+    if (!result.ok) return;
+    window.dispatchEvent(new Event(ORDERS_EVENT));
+    onCancelled?.();
     closePanel();
   }
 

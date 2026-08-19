@@ -1,6 +1,5 @@
 import {
   ORDER_STATUS_META,
-  orders,
   orderTotal,
   type Order,
   type OrderStatus,
@@ -327,7 +326,10 @@ export function formatChangeHint(pct: number | null, compareLabel: string) {
   return `${sign}${pct} % ${compareLabel}`;
 }
 
-export function getRevenueKpis(now = new Date()): RevenueKpis {
+export function getRevenueKpis(
+  sourceOrders: Order[] = [],
+  now = new Date(),
+): RevenueKpis {
   const series = buildRevenueSeries(now);
   const today = series[series.length - 1]?.value ?? 0;
   const yesterday = series[series.length - 2]?.value ?? 0;
@@ -355,7 +357,7 @@ export function getRevenueKpis(now = new Date()): RevenueKpis {
     lastMonth = Math.round(month / 1.11);
   }
 
-  const billable = orders.filter(isBillableOrder);
+  const billable = sourceOrders.filter(isBillableOrder);
   const todayStart = startOfLocalDay(now);
   const tomorrow = new Date(todayStart);
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -386,15 +388,15 @@ export function getRevenueKpis(now = new Date()): RevenueKpis {
     monthChangePct: percentChange(month, lastMonth),
     last30,
     ordersToday,
-    ordersMonth: ordersMonth || 12,
-    avgOrderValueMonth: avgOrderValueMonth || month / 12,
+    ordersMonth: ordersMonth || 0,
+    avgOrderValueMonth: avgOrderValueMonth || 0,
   };
 }
 
-function ordersInRange(start: Date, end: Date) {
+function ordersInRange(sourceOrders: Order[], start: Date, end: Date) {
   const startMs = start.getTime();
   const endMs = end.getTime();
-  return orders.filter((order) => {
+  return sourceOrders.filter((order) => {
     if (!isBillableOrder(order)) return false;
     const t = orderDate(order).getTime();
     return t >= startMs && t < endMs;
@@ -402,12 +404,13 @@ function ordersInRange(start: Date, end: Date) {
 }
 
 export function getTopProductsFromOrders(
+  sourceOrders: Order[] = [],
   limit = 8,
   range?: { start: Date; end: Date },
 ): TopProductStat[] {
   const source = range
-    ? ordersInRange(range.start, range.end)
-    : orders.filter(isBillableOrder);
+    ? ordersInRange(sourceOrders, range.start, range.end)
+    : sourceOrders.filter(isBillableOrder);
 
   const map = new Map<
     string,
@@ -571,16 +574,18 @@ export function getDemoOrderStatusBreakdown(
   }));
 }
 
-export function getOrderStatusBreakdown(range?: {
+export function getOrderStatusBreakdown(
+  sourceOrders: Order[] = [],
+  range?: {
   start: Date;
   end: Date;
 }): StatusBreakdown[] {
   const source = range
-    ? orders.filter((order) => {
+    ? sourceOrders.filter((order) => {
         const t = orderDate(order).getTime();
         return t >= range.start.getTime() && t < range.end.getTime();
       })
-    : orders;
+    : sourceOrders;
 
   const counts = new Map<OrderStatus, { count: number; revenue: number }>();
 

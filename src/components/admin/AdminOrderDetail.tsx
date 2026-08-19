@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Check, Printer, X } from "lucide-react";
+import { printPacketaLabelAction } from "@/lib/actions/orders";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
   ORDER_STATUS_META,
@@ -26,6 +27,8 @@ export function AdminOrderDetail({
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [printed, setPrinted] = useState(false);
+  const [printing, setPrinting] = useState(false);
+  const [printError, setPrintError] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const meta = ORDER_STATUS_META[order.status];
@@ -56,7 +59,25 @@ export function AdminOrderDetail({
     }, 320);
   }
 
-  function handlePrintLabel() {
+  async function handlePrintLabel() {
+    setPrinting(true);
+    setPrintError(null);
+
+    const result = await printPacketaLabelAction(order.id);
+    setPrinting(false);
+
+    if (!result.ok) {
+      setPrintError(result.error);
+      return;
+    }
+
+    const blob = await fetch(
+      `data:application/pdf;base64,${result.data.pdfBase64}`,
+    ).then((response) => response.blob());
+    const url = URL.createObjectURL(blob);
+    window.open(url, "_blank", "noopener,noreferrer");
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
+
     setPrinted(true);
     window.setTimeout(() => setPrinted(false), 2500);
   }
@@ -235,6 +256,11 @@ export function AdminOrderDetail({
                 <div className="mt-2 space-y-3 rounded-xl border border-black/8 bg-[#faf8f5] px-4 py-3.5">
                   <InfoRow label="Platba">{order.paymentMethod}</InfoRow>
                   <InfoRow label="Doprava">{order.shippingMethod}</InfoRow>
+                  {order.packetaPointName ? (
+                    <InfoRow label="Výdajné miesto">
+                      <span className="leading-relaxed">{order.packetaPointName}</span>
+                    </InfoRow>
+                  ) : null}
                   {order.note ? (
                     <InfoRow label="Poznámka">
                       <span className="leading-relaxed">{order.note}</span>
@@ -248,10 +274,16 @@ export function AdminOrderDetail({
 
         {showPrint ? (
           <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
+            {printError ? (
+              <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                {printError}
+              </p>
+            ) : null}
             <button
               type="button"
-              onClick={handlePrintLabel}
-              className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90"
+              onClick={() => void handlePrintLabel()}
+              disabled={printing}
+              className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
             >
               {printed ? (
                 <>
@@ -261,7 +293,7 @@ export function AdminOrderDetail({
               ) : (
                 <>
                   <Printer className="size-4" strokeWidth={1.75} aria-hidden />
-                  Vytlačiť štítok
+                  {printing ? "Generujem štítok…" : "Vytlačiť štítok"}
                 </>
               )}
             </button>

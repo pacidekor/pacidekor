@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { getOrderByNumberAction } from "@/lib/actions/orders";
 import {
   formatOrderTotal,
-  getOrderById,
   ORDER_STATUS_META,
   type Order,
 } from "@/lib/orders";
@@ -43,6 +43,7 @@ export function WithdrawalOrderForm() {
   const [error, setError] = useState<string | null>(null);
   const [order, setOrder] = useState<Order | null>(null);
   const [withdrawnIds, setWithdrawnIds] = useState<string[]>([]);
+  const [lookupLoading, setLookupLoading] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -54,7 +55,7 @@ export function WithdrawalOrderForm() {
     order !== null &&
     (order.status === "stornovana" || withdrawnIds.includes(order.id));
 
-  function handleLookup(event: FormEvent) {
+  async function handleLookup(event: FormEvent) {
     event.preventDefault();
     setError(null);
     setSubmitted(false);
@@ -69,8 +70,14 @@ export function WithdrawalOrderForm() {
       return;
     }
 
-    const found = getOrderById(id);
-    if (!found || found.customer.email.toLowerCase() !== normalizedEmail) {
+    setLookupLoading(true);
+    const result = await getOrderByNumberAction(id);
+    setLookupLoading(false);
+
+    if (
+      !result.ok ||
+      result.data.customer.email.toLowerCase() !== normalizedEmail
+    ) {
       setOrder(null);
       setError(
         "Objednávku sme nenašli. Skontrolujte číslo objednávky a e-mail uvedený v objednávke.",
@@ -78,7 +85,7 @@ export function WithdrawalOrderForm() {
       return;
     }
 
-    setOrder(found);
+    setOrder(result.data);
   }
 
   function handleWithdraw() {

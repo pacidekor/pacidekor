@@ -24,69 +24,15 @@ import {
 } from "@/lib/analytics";
 import {
   orderStatusClass,
-  orders,
+  PENDING_ORDER_STATUSES,
   pendingOrdersForDashboard,
   recentOrdersForDashboard,
 } from "@/lib/orders";
+import { listOrdersFromDb } from "@/lib/orders.server";
 import { setProductCatalog } from "@/lib/product-catalog";
 import { listProducts } from "@/lib/products-server";
 
 export const dynamic = "force-dynamic";
-
-const newOrdersCount = orders.filter((o) => o.status === "nova").length;
-const unpaidOrdersCount = orders.filter(
-  (o) => o.status === "nezaplatena",
-).length;
-
-const kpis = getRevenueKpis();
-const revenueData = buildRevenueSeries();
-
-const stats: {
-  label: string;
-  value: string;
-  hint: string;
-  icon: LucideIcon;
-  href?: string;
-}[] = [
-  {
-    label: "Objednávky dnes",
-    value: "12",
-    hint: "+3 oproti včera",
-    icon: ShoppingCart,
-    href: "/admin/objednavky?status=nova",
-  },
-  {
-    label: "Čakajúce objednávky",
-    value: "7",
-    hint: "na vybavenie",
-    icon: Clock3,
-    href: "/admin/objednavky?status=cakajuce",
-  },
-  {
-    label: "Dnešné tržby",
-    value: formatEuro(kpis.today),
-    hint: formatChangeHint(kpis.todayChangePct, "oproti včera"),
-    icon: ShoppingBag,
-    href: "/admin/analytika?range=today",
-  },
-  {
-    label: "Tržby tento mesiac",
-    value: formatEuro(kpis.month),
-    hint: formatChangeHint(kpis.monthChangePct, "oproti minulému"),
-    icon: TrendingUp,
-    href: "/admin/analytika?range=month",
-  },
-  {
-    label: "Produkty s nízkym skladom",
-    value: "6",
-    hint: "vyžaduje doplnenie",
-    icon: Warehouse,
-    href: "/admin/produkty?stock=attention",
-  },
-];
-
-const pendingOrders = pendingOrdersForDashboard();
-const recentOrders = recentOrdersForDashboard(3);
 
 function hintClass(hint: string) {
   const trimmed = hint.trimStart();
@@ -133,9 +79,67 @@ function OrderRow({
 }
 
 export default async function AdminPage() {
+  const orders = await listOrdersFromDb();
   const pendingWholesaleCount = await countPendingWholesaleRegistrations();
   const catalog = await listProducts();
   setProductCatalog(catalog);
+
+  const kpis = getRevenueKpis(orders);
+  const revenueData = buildRevenueSeries();
+  const newOrdersCount = orders.filter((order) => order.status === "nova").length;
+  const pendingOrdersCount = orders.filter((order) =>
+    PENDING_ORDER_STATUSES.includes(order.status),
+  ).length;
+  const unpaidOrdersCount = orders.filter(
+    (order) => order.status === "nezaplatena",
+  ).length;
+  const pendingOrders = pendingOrdersForDashboard(orders);
+  const recentOrders = recentOrdersForDashboard(orders, 3);
+
+  const stats: {
+    label: string;
+    value: string;
+    hint: string;
+    icon: LucideIcon;
+    href?: string;
+  }[] = [
+    {
+      label: "Objednávky dnes",
+      value: String(kpis.ordersToday),
+      hint: "dnes vytvorené",
+      icon: ShoppingCart,
+      href: "/admin/objednavky?status=nova",
+    },
+    {
+      label: "Čakajúce objednávky",
+      value: String(pendingOrdersCount),
+      hint: "na vybavenie",
+      icon: Clock3,
+      href: "/admin/objednavky?status=cakajuce",
+    },
+    {
+      label: "Dnešné tržby",
+      value: formatEuro(kpis.today),
+      hint: formatChangeHint(kpis.todayChangePct, "oproti včera"),
+      icon: ShoppingBag,
+      href: "/admin/analytika?range=today",
+    },
+    {
+      label: "Tržby tento mesiac",
+      value: formatEuro(kpis.month),
+      hint: formatChangeHint(kpis.monthChangePct, "oproti minulému"),
+      icon: TrendingUp,
+      href: "/admin/analytika?range=month",
+    },
+    {
+      label: "Produkty s nízkym skladom",
+      value: "6",
+      hint: "vyžaduje doplnenie",
+      icon: Warehouse,
+      href: "/admin/produkty?stock=attention",
+    },
+  ];
+
   const topProducts = getTopProductsFallback(catalog, 5).map((product) => ({
     slug: product.productId,
     name: product.name,

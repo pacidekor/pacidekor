@@ -52,6 +52,7 @@ import {
   type OrderTemplate,
 } from "@/lib/order-templates";
 import { readCartItems, replaceCartContents, type CartFillLine } from "@/lib/cart";
+import { listCustomerOrdersAction } from "@/lib/actions/orders";
 import {
   ORDER_STATUS_META,
   ORDERS_EVENT,
@@ -167,6 +168,7 @@ export function ClientAccountSettings() {
   const [profile, setProfile] = useState<ProfileForm | null>(null);
   const [profileSaved, setProfileSaved] = useState(false);
   const [templates, setTemplates] = useState<OrderTemplate[]>([]);
+  const [customerOrders, setCustomerOrders] = useState<Order[]>([]);
   const [ordersTick, setOrdersTick] = useState(0);
 
   useEffect(() => {
@@ -215,13 +217,37 @@ export function ClientAccountSettings() {
     }
   }, [hydrated, customer, router]);
 
+  useEffect(() => {
+    if (!customer) {
+      setCustomerOrders([]);
+      return;
+    }
+
+    let cancelled = false;
+
+    void listCustomerOrdersAction(customer.email).then((result) => {
+      if (cancelled || !result.ok) return;
+      setCustomerOrders(result.data);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [customer, ordersTick]);
+
   const activeOrders = useMemo(
-    () => (customer ? getActiveOrdersForCustomerEmail(customer.email) : []),
-    [customer, ordersTick],
+    () =>
+      customer
+        ? getActiveOrdersForCustomerEmail(customerOrders, customer.email)
+        : [],
+    [customer, customerOrders],
   );
   const historyOrders = useMemo(
-    () => (customer ? getOrderHistoryForCustomerEmail(customer.email) : []),
-    [customer, ordersTick],
+    () =>
+      customer
+        ? getOrderHistoryForCustomerEmail(customerOrders, customer.email)
+        : [],
+    [customer, customerOrders],
   );
 
   const navGroups = useMemo(() => {
@@ -467,6 +493,7 @@ export function ClientAccountSettings() {
                   orders={activeOrders}
                   customerEmail={customer.email}
                   allowCancel
+                  onOrdersChanged={() => setOrdersTick((value) => value + 1)}
                   emptyTitle="Žiadne aktívne objednávky"
                   emptyBody="Keď odošlete novú objednávku, uvidíte ju tu až do doručenia."
                 />
@@ -1198,6 +1225,7 @@ function OrdersSection({
   enableReorderActions = false,
   onTemplatesChanged,
   onViewTemplates,
+  onOrdersChanged,
 }: {
   orders: Order[];
   emptyTitle: string;
@@ -1208,6 +1236,7 @@ function OrdersSection({
   enableReorderActions?: boolean;
   onTemplatesChanged?: () => void;
   onViewTemplates?: () => void;
+  onOrdersChanged?: () => void;
 }) {
   const router = useRouter();
   const [detailOrder, setDetailOrder] = useState<Order | null>(null);
@@ -1371,6 +1400,7 @@ function OrdersSection({
           customerEmail={customerEmail}
           allowCancel={allowCancel}
           onClose={() => setDetailOrder(null)}
+          onCancelled={() => onOrdersChanged?.()}
         />
       ) : null}
 

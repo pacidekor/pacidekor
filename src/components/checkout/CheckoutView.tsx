@@ -26,6 +26,7 @@ import {
   promoDiscountAmount,
   readAppliedPromo,
   PROMO_EVENT,
+  clearAppliedPromo,
   type AppliedPromo,
 } from "@/lib/promo";
 import {
@@ -33,6 +34,8 @@ import {
   PAYMENT_OPTIONS,
   SHIPPING_OPTIONS,
 } from "@/lib/shipping";
+import { createOrderAction } from "@/lib/actions/orders";
+import { clearCart } from "@/lib/cart";
 import { useCartItems } from "@/lib/use-cart";
 import { usePacketaWidget } from "@/lib/use-packeta-widget";
 
@@ -349,7 +352,8 @@ function BillingFields({
         </div>
         <div>
           <label htmlFor="checkout-dic" className={labelClass}>
-            DIČ
+            DIČ{" "}
+            <span className="font-normal text-[#2f2924]/40">(voliteľné)</span>
           </label>
           <input
             id="checkout-dic"
@@ -533,10 +537,40 @@ export function CheckoutView() {
     setSubmitting(true);
     setError(null);
 
-    // Mock place-order until payments / orders persistence are wired.
-    await new Promise((resolve) => window.setTimeout(resolve, 700));
-    const id = `PD-${Date.now().toString().slice(-8)}`;
-    setMockOrderId(id);
+    const result = await createOrderAction({
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      company: form.company,
+      ico: form.ico,
+      dic: form.dic,
+      street: form.street,
+      city: form.city,
+      zip: form.zip,
+      country: form.country,
+      note: form.note,
+      shippingMethod: form.shippingMethod,
+      paymentMethod: form.paymentMethod,
+      packetaPointId: form.packetaPointId,
+      packetaPointName: form.packetaPointName,
+      promoCode: promo?.code,
+      items: items.map((item) => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+        colorId: item.colorId,
+      })),
+    });
+
+    if (!result.ok) {
+      setError(result.error);
+      setSubmitting(false);
+      return;
+    }
+
+    await clearCart();
+    clearAppliedPromo();
+    setPromo(null);
+    setMockOrderId(result.data.orderNumber);
     setSubmitted(true);
     setSubmitting(false);
   }
@@ -570,27 +604,27 @@ export function CheckoutView() {
           <CheckCircle2 className="size-8" strokeWidth={1.75} aria-hidden />
         </div>
         <p className="mt-5 font-heading text-2xl font-semibold text-[#2f2924]">
-          Objednávka je pripravená
+          Ďakujeme za objednávku
         </p>
         <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#2f2924]/60">
-          Náhľad pokladne je hotový. Platba a uloženie objednávky ešte nie sú
-          napojené - číslo{" "}
+          Objednávka{" "}
           <span className="font-medium text-[#2f2924]">{mockOrderId}</span> je
-          len skúšobné.
+          uložená. Potvrdenie pošleme na{" "}
+          <span className="font-medium text-[#2f2924]">{form.email}</span>.
         </p>
         <div className="mt-8 flex w-full flex-col gap-3 sm:flex-row sm:justify-center">
-          <Link
-            href="/kosik"
-            className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-black/8 bg-white px-6 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] sm:w-auto"
-          >
-            Späť do košíka
-          </Link>
           <Link
             href="/"
             className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#75825B] px-6 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:w-auto"
           >
             <ShoppingBag className="size-4" strokeWidth={1.75} aria-hidden />
             Pokračovať v nákupe
+          </Link>
+          <Link
+            href="/ucet"
+            className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-black/8 bg-white px-6 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] sm:w-auto"
+          >
+            Moje objednávky
           </Link>
         </div>
       </div>
@@ -915,7 +949,8 @@ export function CheckoutView() {
             </button>
 
             <p className="mt-3 text-center text-xs leading-snug text-[#2f2924]/45">
-              Platba ešte nie je napojená — ide o prípravu procesu objednávky.
+              Po odoslaní objednávky vás budeme kontaktovať ohľadom platby a
+              doručenia.
             </p>
           </div>
         </div>

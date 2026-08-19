@@ -15,14 +15,16 @@ import {
   getOrderById,
   orderCustomerLabel,
   orderStatusClass,
-  orders,
+  type Order,
   type OrderStatusFilterId,
 } from "@/lib/orders";
 
 export function AdminOrdersManager({
+  orders,
   initialOrderId,
   initialStatusFilter = "all",
 }: {
+  orders: Order[];
   initialOrderId?: string;
   initialStatusFilter?: OrderStatusFilterId;
 }) {
@@ -32,14 +34,16 @@ export function AdminOrdersManager({
     useState<OrderStatusFilterId>(initialStatusFilter);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(
-    initialOrderId && getOrderById(initialOrderId) ? initialOrderId : null,
+    initialOrderId && getOrderById(orders, initialOrderId)
+      ? initialOrderId
+      : null,
   );
 
   useEffect(() => {
     setStatusFilter(initialStatusFilter);
   }, [initialStatusFilter]);
 
-  const selectedOrder = selectedId ? getOrderById(selectedId) : null;
+  const selectedOrder = selectedId ? getOrderById(orders, selectedId) : null;
   const activeFilterCount = statusFilter !== "all" ? 1 : 0;
 
   function openOrder(id: string) {
@@ -79,7 +83,7 @@ export function AdminOrdersManager({
 
       return haystack.includes(q);
     });
-  }, [query, statusFilter]);
+  }, [orders, query, statusFilter]);
 
   return (
     <div className="mt-5">
