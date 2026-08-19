@@ -277,6 +277,16 @@ export function getOrderHistoryForCustomerEmail(
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 }
 
+export function formatOrderShippingLine(
+  order: Pick<Order, "shippingMethod" | "packetaPointName">,
+) {
+  if (order.packetaPointName?.trim()) {
+    return `${order.shippingMethod} · ${order.packetaPointName.trim()}`;
+  }
+
+  return order.shippingMethod;
+}
+
 export function getOrderById(orders: Order[], id: string) {
   return orders.find((order) => order.id === id);
 }

@@ -8,7 +8,7 @@ import type {
   ProductDiscountRow,
   ProductDiscountUpdate,
 } from "@/lib/supabase/database.types";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 
 export type DiscountActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -27,7 +27,7 @@ export type DiscountUpsertInput = {
 };
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -69,7 +69,7 @@ function revalidateDiscountPaths() {
 export async function listDiscountsAction(): Promise<
   DiscountActionResult<ProductDiscount[]>
 > {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { data, error } = await supabase
     .from("product_discounts")
     .select("*")

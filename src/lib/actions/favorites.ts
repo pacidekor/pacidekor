@@ -1,13 +1,13 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createCustomerClient } from "@/lib/supabase/server";
 
 export type FavoriteActionResult<T = undefined> =
   | { ok: true; data: T }
   | { ok: false; error: string };
 
 async function requireCustomer() {
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   // Cookie session only — avoids Auth API roundtrip on every heart click.
   // RLS on `favorites` remains the access backstop.
   const {

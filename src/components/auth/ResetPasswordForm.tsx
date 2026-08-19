@@ -6,7 +6,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import { PasswordField } from "@/components/PasswordField";
 import { updatePasswordAfterReset } from "@/lib/actions/auth";
-import { createClient } from "@/lib/supabase/client";
+import { createCustomerClient } from "@/lib/supabase/client";
 import type { AuthSideSlide } from "@/lib/products";
 
 const fieldClass =
@@ -30,7 +30,7 @@ export function ResetPasswordForm({
   const [pending, setPending] = useState(false);
 
   useEffect(() => {
-    const supabase = createClient();
+    const supabase = createCustomerClient();
     let cancelled = false;
     let settled = false;
 

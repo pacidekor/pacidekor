@@ -1,10 +1,10 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
-import { logout as logoutAction } from "@/lib/actions/auth";
+import { createAdminClient } from "@/lib/supabase/client";
+import { logoutAdmin } from "@/lib/actions/auth";
 
 export async function isAdminAuthenticated(): Promise<boolean> {
-  const supabase = createClient();
+  const supabase = createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -20,5 +20,5 @@ export async function isAdminAuthenticated(): Promise<boolean> {
 }
 
 export async function clearAdminSession(): Promise<void> {
-  await logoutAction();
+  await logoutAdmin();
 }

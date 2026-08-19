@@ -1,5 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import {
+  AUTH_COOKIE_OPTIONS,
+  authAreaFromPathname,
+  getAuthCookieName,
+} from "@/lib/supabase/auth-area";
 import type { Database } from "@/lib/supabase/database.types";
 
 export async function updateSession(request: NextRequest) {
@@ -12,7 +17,13 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
+  const area = authAreaFromPathname(request.nextUrl.pathname);
+
   const supabase = createServerClient<Database>(url, anonKey, {
+    cookieOptions: {
+      name: getAuthCookieName(area, url),
+      ...AUTH_COOKIE_OPTIONS,
+    },
     cookies: {
       getAll() {
         return request.cookies.getAll();

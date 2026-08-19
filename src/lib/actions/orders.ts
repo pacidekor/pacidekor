@@ -27,7 +27,7 @@ import {
   type PaymentMethodId,
   type ShippingMethodId,
 } from "@/lib/shipping";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
 
 export type OrderActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -60,7 +60,7 @@ export type CreateOrderInput = {
 };
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -127,7 +127,7 @@ export async function createOrderAction(
     return { ok: false, error: "Objednávku momentálne nie je možné uložiť." };
   }
 
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

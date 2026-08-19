@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { createCustomerClient } from "@/lib/supabase/client";
 import {
   listFavoriteIdsAction,
   toggleFavoriteAction,
@@ -88,7 +88,7 @@ export function setFavoriteIdsSnapshot(ids: string[], userId?: string) {
  * Full reconcile still happens via hydrateFavorites().
  */
 export async function bootstrapFavoritesPreview(): Promise<void> {
-  const supabase = createClient();
+  const supabase = createCustomerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -105,7 +105,7 @@ export async function bootstrapFavoritesPreview(): Promise<void> {
 }
 
 export async function hydrateFavorites(): Promise<string[]> {
-  const supabase = createClient();
+  const supabase = createCustomerClient();
   const {
     data: { session },
   } = await supabase.auth.getSession();

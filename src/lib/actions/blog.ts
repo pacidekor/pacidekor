@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { listBlogPosts } from "@/lib/blog-server";
 import type { BlogBlock, BlogCategory, BlogPostWithId } from "@/lib/blog";
 import type { BlogPostInsert } from "@/lib/supabase/database.types";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 
 export type BlogActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -23,7 +23,7 @@ export type BlogSaveInput = {
 };
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

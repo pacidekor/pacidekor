@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createCustomerClient } from "@/lib/supabase/server";
 import type { CartItemRow } from "@/lib/supabase/database.types";
 
 export type CartLineInput = {
@@ -20,7 +20,7 @@ export type CartLineDto = {
 };
 
 async function requireCustomer() {
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   // Cookie session only — avoids Auth API roundtrip on every cart click.
   const {
     data: { session },
@@ -57,7 +57,7 @@ function mapRows(rows: CartItemRow[] | null): CartLineDto[] {
 }
 
 async function listLines(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+  supabase: Awaited<ReturnType<typeof createCustomerClient>>,
   userId: string,
 ): Promise<CartActionResult<CartLineDto[]>> {
   const { data, error } = await supabase

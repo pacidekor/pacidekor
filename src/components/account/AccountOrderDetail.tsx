@@ -11,6 +11,7 @@ import {
   ORDERS_EVENT,
   canCancelOrder,
   formatOrderCreatedAt,
+  formatOrderShippingLine,
   formatOrderTotal,
   orderItemsSubtotal,
   orderStatusClass,
@@ -237,7 +238,19 @@ export function AccountOrderDetail({
               </p>
               <div className="mt-2 space-y-3 rounded-xl border border-black/8 bg-[#faf8f5] px-4 py-3.5">
                 <InfoRow label="Platba">{order.paymentMethod}</InfoRow>
-                <InfoRow label="Doprava">{order.shippingMethod}</InfoRow>
+                <InfoRow label="Doprava">
+                  <span>
+                    {order.shippingMethod}
+                    {order.packetaPointName ? (
+                      <>
+                        <br />
+                        <span className="text-[#2f2924]/70">
+                          {order.packetaPointName}
+                        </span>
+                      </>
+                    ) : null}
+                  </span>
+                </InfoRow>
                 {order.note ? (
                   <InfoRow label="Poznámka">
                     <span className="leading-relaxed">{order.note}</span>

@@ -1,6 +1,6 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
+import { createClient as createCustomerBrowserClient } from "@/lib/supabase/client";
 import {
   profileToCustomer,
   type Customer,
@@ -34,7 +34,7 @@ export function getCachedClientAuthenticated(): boolean | null {
 }
 
 export async function fetchClientCustomer(): Promise<Customer | null> {
-  const supabase = createClient();
+  const supabase = createCustomerBrowserClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -84,7 +84,7 @@ export async function isClientAuthenticated(): Promise<boolean> {
 }
 
 export async function clearClientSession(): Promise<void> {
-  const supabase = createClient();
+  const supabase = createCustomerBrowserClient();
   await supabase.auth.signOut();
   setAuthCache(false);
   emitAuthChanged();
@@ -97,7 +97,7 @@ export function notifyClientAuthChanged() {
 }
 
 export function subscribeClientAuth(onChange: () => void): () => void {
-  const supabase = createClient();
+  const supabase = createCustomerBrowserClient();
   const {
     data: { subscription },
   } = supabase.auth.onAuthStateChange(() => {

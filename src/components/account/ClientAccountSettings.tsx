@@ -56,6 +56,7 @@ import { listCustomerOrdersAction } from "@/lib/actions/orders";
 import {
   ORDER_STATUS_META,
   ORDERS_EVENT,
+  formatOrderShippingLine,
   formatOrderTotal,
   getActiveOrdersForCustomerEmail,
   getOrderHistoryForCustomerEmail,
@@ -160,7 +161,11 @@ function initials(name: string) {
     .join("");
 }
 
-export function ClientAccountSettings() {
+export function ClientAccountSettings({
+  initialOrders,
+}: {
+  initialOrders?: Order[];
+}) {
   const router = useRouter();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [hydrated, setHydrated] = useState(false);
@@ -168,7 +173,10 @@ export function ClientAccountSettings() {
   const [profile, setProfile] = useState<ProfileForm | null>(null);
   const [profileSaved, setProfileSaved] = useState(false);
   const [templates, setTemplates] = useState<OrderTemplate[]>([]);
-  const [customerOrders, setCustomerOrders] = useState<Order[]>([]);
+  const [customerOrders, setCustomerOrders] = useState<Order[]>(
+    initialOrders ?? [],
+  );
+  const [ordersLoading, setOrdersLoading] = useState(initialOrders === undefined);
   const [ordersTick, setOrdersTick] = useState(0);
 
   useEffect(() => {
@@ -220,20 +228,28 @@ export function ClientAccountSettings() {
   useEffect(() => {
     if (!customer) {
       setCustomerOrders([]);
+      setOrdersLoading(false);
       return;
     }
 
     let cancelled = false;
+    const hasCachedOrders = (initialOrders?.length ?? 0) > 0;
+
+    if (!hasCachedOrders) {
+      setOrdersLoading(true);
+    }
 
     void listCustomerOrdersAction(customer.email).then((result) => {
-      if (cancelled || !result.ok) return;
+      if (cancelled) return;
+      setOrdersLoading(false);
+      if (!result.ok) return;
       setCustomerOrders(result.data);
     });
 
     return () => {
       cancelled = true;
     };
-  }, [customer, ordersTick]);
+  }, [customer, ordersTick, initialOrders]);
 
   const activeOrders = useMemo(
     () =>
@@ -491,6 +507,7 @@ export function ClientAccountSettings() {
               {section === "aktivne" ? (
                 <OrdersSection
                   orders={activeOrders}
+                  loading={ordersLoading}
                   customerEmail={customer.email}
                   allowCancel
                   onOrdersChanged={() => setOrdersTick((value) => value + 1)}
@@ -502,6 +519,7 @@ export function ClientAccountSettings() {
               {section === "historia" ? (
                 <OrdersSection
                   orders={historyOrders}
+                  loading={ordersLoading}
                   customerEmail={customer.email}
                   customerId={customer.id}
                   enableReorderActions
@@ -875,7 +893,7 @@ function EmailChangeCard({
       return;
     }
     setSuccess(
-      `Na ${result.data.email} sme poslali potvrdenie. Po overení sa e-mail zmení.`,
+      `Požiadavka bola odoslaná. Ak máte v Supabase nastavené SMTP, potvrdenie príde na ${result.data.email}. Skontrolujte aj spam.`,
     );
     setEmail("");
     setPassword("");
@@ -1217,6 +1235,7 @@ function ReplaceCartConfirmModal({
 
 function OrdersSection({
   orders,
+  loading = false,
   emptyTitle,
   emptyBody,
   customerEmail,
@@ -1228,6 +1247,7 @@ function OrdersSection({
   onOrdersChanged,
 }: {
   orders: Order[];
+  loading?: boolean;
   emptyTitle: string;
   emptyBody: string;
   customerEmail: string;
@@ -1271,6 +1291,26 @@ function OrdersSection({
       return;
     }
     void runRepeatOrder(order);
+  }
+
+  if (loading && orders.length === 0) {
+    return (
+      <div className="space-y-3" aria-busy="true" aria-label="Načítavam objednávky">
+        {[0, 1].map((key) => (
+          <div
+            key={key}
+            className="animate-pulse rounded-2xl border border-black/6 bg-[#faf8f5] px-5 py-5"
+          >
+            <div className="h-5 w-40 rounded bg-black/8" />
+            <div className="mt-3 h-3 w-64 rounded bg-black/6" />
+            <div className="mt-5 flex gap-2">
+              <div className="h-10 w-24 rounded-xl bg-black/6" />
+              <div className="h-10 w-28 rounded-xl bg-black/6" />
+            </div>
+          </div>
+        ))}
+      </div>
+    );
   }
 
   if (orders.length === 0) {
@@ -1336,7 +1376,7 @@ function OrdersSection({
                   </div>
                   <p className="mt-2 text-xs text-[#2f2924]/45">
                     {order.createdAtLabel} · {order.paymentMethod} ·{" "}
-                    {order.shippingMethod}
+                    {formatOrderShippingLine(order)}
                   </p>
                 </div>
 

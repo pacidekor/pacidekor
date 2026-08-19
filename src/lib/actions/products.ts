@@ -17,7 +17,7 @@ import type {
   ProductRow,
   ProductUpdate,
 } from "@/lib/supabase/database.types";
-import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/server";
 import type { ProductAttributes } from "@/lib/taxonomy";
 
 /** Raw upload ceiling (must stay under next.config serverActions.bodySizeLimit). */
@@ -51,7 +51,7 @@ export type ProductUpsertInput = {
 };
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -96,7 +96,7 @@ function revalidateProductPaths(slug?: string) {
 }
 
 async function uniqueSlug(
-  supabase: Awaited<ReturnType<typeof createClient>>,
+  supabase: Awaited<ReturnType<typeof createAdminClient>>,
   base: string,
   excludeId?: string,
 ) {

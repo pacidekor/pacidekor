@@ -2,13 +2,22 @@ import { createServerClient } from "@supabase/ssr";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { getSupabaseEnv } from "@/lib/supabase/env";
+import {
+  AUTH_COOKIE_OPTIONS,
+  getAuthCookieName,
+  type AuthArea,
+} from "@/lib/supabase/auth-area";
 import type { Database } from "@/lib/supabase/database.types";
 
-export async function createClient() {
+export async function createClient(area: AuthArea = "customer") {
   const cookieStore = await cookies();
   const { url, anonKey } = getSupabaseEnv();
 
   return createServerClient<Database>(url, anonKey, {
+    cookieOptions: {
+      name: getAuthCookieName(area, url),
+      ...AUTH_COOKIE_OPTIONS,
+    },
     cookies: {
       getAll() {
         return cookieStore.getAll();
@@ -24,6 +33,14 @@ export async function createClient() {
       },
     },
   });
+}
+
+export async function createCustomerClient() {
+  return createClient("customer");
+}
+
+export async function createAdminClient() {
+  return createClient("admin");
 }
 
 /** Cookie-less anon client for public reads (e.g. generateStaticParams / catalog). */

@@ -24,7 +24,7 @@ import {
   sanitizeZip,
   zipError,
 } from "@/lib/form-validation";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProfileRow, ProfileUpdate } from "@/lib/supabase/database.types";
 
 async function siteOrigin() {
@@ -68,7 +68,7 @@ function validateRetailInput(input: RetailRegistrationInput): string | null {
 }
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -122,7 +122,7 @@ export async function registerWholesale(
 
   const email = normalizeEmail(input.email);
   const birthDate = normalizeBirthDate(input.birthDate);
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -170,7 +170,7 @@ export async function registerRetail(
 
   const email = normalizeEmail(input.email);
   const birthDate = normalizeBirthDate(input.birthDate);
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
 
   const { data, error } = await supabase.auth.signUp({
     email,
@@ -229,7 +229,7 @@ async function loginWithTypeCheck(
   expectedType: CustomerType,
 ): Promise<ActionResult<{ customer: Customer }>> {
   const email = normalizeEmail(emailRaw);
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
 
   const { data, error } = await supabase.auth.signInWithPassword({
     email,
@@ -324,7 +324,7 @@ export async function loginAdmin(
     return { ok: false, error: "Nesprávne používateľské meno alebo heslo." };
   }
 
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const { data, error } = await supabase.auth.signInWithPassword({
     email: adminEmail,
     password,
@@ -348,9 +348,19 @@ export async function loginAdmin(
   return { ok: true, data: undefined };
 }
 
-export async function logout(): Promise<void> {
-  const supabase = await createClient();
+export async function logoutCustomer(): Promise<void> {
+  const supabase = await createCustomerClient();
   await supabase.auth.signOut();
+}
+
+export async function logoutAdmin(): Promise<void> {
+  const supabase = await createAdminClient();
+  await supabase.auth.signOut();
+}
+
+/** @deprecated Use logoutCustomer or logoutAdmin. */
+export async function logout(): Promise<void> {
+  await logoutCustomer();
 }
 
 /** Sends password-reset e-mail (retail + wholesale). Always OK to avoid enumeration. */
@@ -361,7 +371,7 @@ export async function requestPasswordReset(
   if (emailCheck) return { ok: false, error: emailCheck };
 
   const email = normalizeEmail(emailRaw);
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const origin = await siteOrigin();
 
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -382,7 +392,7 @@ export async function updatePasswordAfterReset(
     return { ok: false, error: "Heslo musí mať aspoň 6 znakov." };
   }
 
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -413,7 +423,7 @@ export async function changeOwnPassword(input: {
     return { ok: false, error: "Nové heslo musí byť iné ako súčasné." };
   }
 
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -448,7 +458,7 @@ export async function changeOwnEmail(input: {
   if (emailCheck) return { ok: false, error: emailCheck };
 
   const newEmail = normalizeEmail(input.newEmail);
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -495,7 +505,7 @@ export async function changeOwnEmail(input: {
 }
 
 export async function getCurrentCustomer(): Promise<Customer | null> {
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -528,7 +538,7 @@ export async function updateOwnProfile(input: {
   const birthErr = birthDateError(input.birthDate);
   if (birthErr) return { ok: false, error: birthErr };
 
-  const supabase = await createClient();
+  const supabase = await createCustomerClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

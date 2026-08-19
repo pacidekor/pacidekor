@@ -6,7 +6,7 @@ import {
   type ValidatePromoResult,
 } from "@/lib/promo";
 import type { PromoCodeRow } from "@/lib/supabase/database.types";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 
 export type PromoActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -58,7 +58,7 @@ function mapPromoRow(row: PromoCodeRow): AdminPromoCode {
 }
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

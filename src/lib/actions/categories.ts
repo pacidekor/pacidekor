@@ -7,7 +7,7 @@ import type {
   DruhInsert,
   SubcategoryInsert,
 } from "@/lib/supabase/database.types";
-import { createClient, createServiceClient } from "@/lib/supabase/server";
+import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 
 export type CategoryActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -24,7 +24,7 @@ export type CategorySaveInput = {
 };
 
 async function requireAdmin() {
-  const supabase = await createClient();
+  const supabase = await createAdminClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

@@ -1,6 +1,6 @@
 "use server";
 
-import { createClient } from "@/lib/supabase/server";
+import { createCustomerClient } from "@/lib/supabase/server";
 
 export type StockActionResult = {
   ok: true;
@@ -16,7 +16,7 @@ export async function adjustStockAction(
   delta: number,
 ): Promise<StockActionResult> {
   try {
-    const supabase = await createClient();
+    const supabase = await createCustomerClient();
     const { data, error } = await supabase.rpc("adjust_product_stock", {
       p_product_id: productId,
       p_delta: Math.trunc(delta),
