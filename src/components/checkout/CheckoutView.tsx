@@ -34,6 +34,7 @@ import {
   SHIPPING_OPTIONS,
 } from "@/lib/shipping";
 import { useCartItems } from "@/lib/use-cart";
+import { usePacketaWidget } from "@/lib/use-packeta-widget";
 
 const fieldClass =
   "h-11 w-full rounded-xl border border-black/10 bg-white px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -431,6 +432,11 @@ export function CheckoutView() {
   const [authReady, setAuthReady] = useState(false);
   const [editingBilling, setEditingBilling] = useState(false);
   const [promo, setPromo] = useState<AppliedPromo | null>(null);
+  const {
+    openPicker: openPacketaPicker,
+    loading: packetaLoading,
+    configured: packetaConfigured,
+  } = usePacketaWidget();
 
   useEffect(() => {
     let cancelled = false;
@@ -489,6 +495,30 @@ export function CheckoutView() {
   ) {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (error) setError(null);
+  }
+
+  async function handlePickPacketaPoint() {
+    if (!packetaConfigured) {
+      setError(
+        "Packeta widget nie je nakonfigurovaný. Skontrolujte NEXT_PUBLIC_PACKETA_API_KEY.",
+      );
+      return;
+    }
+
+    try {
+      await openPacketaPicker((selection) => {
+        if (!selection) return;
+
+        setForm((prev) => ({
+          ...prev,
+          packetaPointId: selection.id,
+          packetaPointName: selection.name,
+        }));
+        if (error) setError(null);
+      });
+    } catch {
+      setError("Packeta widget sa nepodarilo otvoriť. Skúste to znova.");
+    }
   }
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
@@ -710,16 +740,11 @@ export function CheckoutView() {
                                     </div>
                                     <button
                                       type="button"
-                                      onClick={() => {
-                                        setForm((prev) => ({
-                                          ...prev,
-                                          packetaPointId: "",
-                                          packetaPointName: "",
-                                        }));
-                                      }}
-                                      className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-black/8 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
+                                      onClick={() => void handlePickPacketaPoint()}
+                                      disabled={packetaLoading}
+                                      className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-black/8 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] disabled:cursor-wait disabled:opacity-70"
                                     >
-                                      Zmeniť
+                                      {packetaLoading ? "Načítavam…" : "Zmeniť"}
                                     </button>
                                   </div>
                                 ) : (
@@ -729,24 +754,19 @@ export function CheckoutView() {
                                         Výber výdajného miesta
                                       </p>
                                       <p className="mt-1 text-xs leading-relaxed text-[#2f2924]/55">
-                                        Tu sa napojí Packeta widget na výber
-                                        Z-BOX alebo výdajného miesta.
+                                        Otvorí sa mapa Packeta / Zásielkovňa na
+                                        výber Z-BOX alebo výdajného miesta.
                                       </p>
                                     </div>
                                     <button
                                       type="button"
-                                      onClick={() => {
-                                        setForm((prev) => ({
-                                          ...prev,
-                                          packetaPointId: "demo-zbox-001",
-                                          packetaPointName:
-                                            "Z-BOX Bratislava - ukážka (widget neskôr)",
-                                        }));
-                                        if (error) setError(null);
-                                      }}
-                                      className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                                      onClick={() => void handlePickPacketaPoint()}
+                                      disabled={packetaLoading || !packetaConfigured}
+                                      className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
                                     >
-                                      Vybrať miesto
+                                      {packetaLoading
+                                        ? "Načítavam…"
+                                        : "Vybrať miesto"}
                                     </button>
                                   </div>
                                 )
