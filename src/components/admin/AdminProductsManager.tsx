@@ -46,18 +46,21 @@ import {
 import { subscribeTaxonomy } from "@/lib/taxonomy-store";
 import {
   buildEvenColorImageMap,
+  buildCatalogCustomColors,
   colorsFromIds,
   colorSwatchStyle,
   DEFAULT_PRODUCT_DETAILS,
-  encodeCustomColorId,
   generateProductSku,
   isActiveNewProduct,
   NEW_PRODUCT_DAYS,
   parseCustomColorId,
   productHref,
+  resolveCustomColorId,
+  searchCatalogCustomColors,
   suggestColorName,
   suggestSplitColorName,
   productColorMatchesFilter,
+  type CatalogCustomColor,
   type Product,
   type ProductDetail,
 } from "@/lib/products";
@@ -233,6 +236,11 @@ export function AdminProductsManager({
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     };
   }, []);
+
+  const catalogCustomColors = useMemo(
+    () => buildCatalogCustomColors(products),
+    [products],
+  );
 
   const filtered = useMemo(() => {
     void inventoryTick;
@@ -764,6 +772,7 @@ export function AdminProductsManager({
           key={isCreating ? CREATE_DRAFT_ID : editing.id}
           product={editing}
           isNew={isCreating}
+          catalogCustomColors={catalogCustomColors}
           onClose={closeEditor}
           onSave={(next, stock) => saveOverride(editing.id, next, stock)}
           onDelete={
@@ -797,12 +806,14 @@ export function AdminProductsManager({
 function ProductEditor({
   product,
   isNew = false,
+  catalogCustomColors,
   onClose,
   onSave,
   onDelete,
 }: {
   product: Product;
   isNew?: boolean;
+  catalogCustomColors: CatalogCustomColor[];
   onClose: () => void;
   onSave: (
     next: ProductOverride,
@@ -854,6 +865,14 @@ function ProductEditor({
     suggestColorName("#d4a0a8"),
   );
   const [customLabelTouched, setCustomLabelTouched] = useState(false);
+  const [customLabelFocused, setCustomLabelFocused] = useState(false);
+  const customLabelSuggestions = useMemo(
+    () =>
+      customLabelFocused
+        ? searchCatalogCustomColors(catalogCustomColors, customDraftLabel)
+        : [],
+    [catalogCustomColors, customDraftLabel, customLabelFocused],
+  );
   const [packaging, setPackaging] = useState<PackagingOption[]>(
     product.attributes?.packaging ?? [],
   );
@@ -1290,6 +1309,16 @@ function ProductEditor({
     setCustomDraftSplit(false);
     setCustomDraftLabel(suggestColorName("#d4a0a8"));
     setCustomLabelTouched(false);
+    setCustomLabelFocused(false);
+  }
+
+  function applyCatalogCustomColor(color: CatalogCustomColor) {
+    setCustomDraftHex(color.hex);
+    setCustomDraftHexSecondary(color.hexSecondary ?? "#f5f2ec");
+    setCustomDraftSplit(Boolean(color.hexSecondary));
+    setCustomDraftLabel(color.label);
+    setCustomLabelTouched(true);
+    setCustomLabelFocused(false);
   }
 
   const categoryOptions = categoryLabels.map((label) => ({
@@ -1908,16 +1937,56 @@ function ProductEditor({
                     </div>
 
                     <FieldLabel label="Názov farby">
-                      <input
-                        type="text"
-                        value={customDraftLabel}
-                        onChange={(event) => {
-                          setCustomLabelTouched(true);
-                          setCustomDraftLabel(event.target.value);
-                        }}
-                        className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
-                        placeholder="Napr. Fialová"
-                      />
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={customDraftLabel}
+                          onChange={(event) => {
+                            setCustomLabelTouched(true);
+                            setCustomDraftLabel(event.target.value);
+                          }}
+                          onFocus={() => setCustomLabelFocused(true)}
+                          onBlur={() => {
+                            window.setTimeout(
+                              () => setCustomLabelFocused(false),
+                              120,
+                            );
+                          }}
+                          className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
+                          placeholder="Napr. Bordová — nájdite existujúcu farbu"
+                          autoComplete="off"
+                        />
+                        {customLabelSuggestions.length > 0 ? (
+                          <ul className="absolute top-[calc(100%+0.35rem)] z-20 max-h-52 w-full overflow-y-auto rounded-xl border border-black/10 bg-white py-1 shadow-[0_16px_40px_rgba(47,41,36,0.14)]">
+                            {customLabelSuggestions.map((color) => (
+                              <li key={color.id}>
+                                <button
+                                  type="button"
+                                  onMouseDown={(event) => event.preventDefault()}
+                                  onClick={() => applyCatalogCustomColor(color)}
+                                  className="flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left text-sm text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                                >
+                                  <span
+                                    className="size-4 shrink-0 rounded-full border border-black/10"
+                                    style={colorSwatchStyle(color)}
+                                    aria-hidden
+                                  />
+                                  <span className="min-w-0 flex-1 truncate font-medium">
+                                    {color.label}
+                                  </span>
+                                  <span className="shrink-0 text-[11px] text-[#2f2924]/45">
+                                    {color.usageCount}× v katalógu
+                                  </span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                      <p className="mt-1.5 text-xs leading-relaxed text-[#2f2924]/45">
+                        Začnite písať názov — ak farba už existuje, vyberte ju
+                        a znovu sa nevytvorí duplicita.
+                      </p>
                     </FieldLabel>
                     <div className="flex gap-2">
                       <button
@@ -1937,13 +2006,15 @@ function ProductEditor({
                             customDraftLabel.trim() ||
                             customDraftSuggestedLabel();
 
-                          const id = encodeCustomColorId(
-                            customDraftHex,
+                          const id = resolveCustomColorId({
+                            hex: customDraftHex,
                             label,
-                            customDraftSplit
+                            hexSecondary: customDraftSplit
                               ? customDraftHexSecondary
                               : undefined,
-                          );
+                            registry: catalogCustomColors,
+                            existingColorIds: colors,
+                          });
 
                           if (!colors.includes(id)) {
                             setColors((prev) => [...prev, id]);

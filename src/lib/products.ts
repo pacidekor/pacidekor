@@ -19,6 +19,11 @@ export type ProductColor = {
   hexSecondary?: string;
 };
 
+export type CatalogCustomColor = ProductColor & {
+  groupKey: string;
+  usageCount: number;
+};
+
 export type Product = {
   id: string;
   slug: string;
@@ -117,6 +122,240 @@ export function parseCustomColorId(id: string): ProductColor | null {
     id,
     label,
     hex: `#${hexPart.toLowerCase()}`,
+  };
+}
+
+export function normalizeColorLabel(label: string) {
+  return label
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "");
+}
+
+export function customColorGroupKeyFromParts(
+  label: string,
+  hex: string,
+  hexSecondary?: string,
+) {
+  const labelKey = normalizeColorLabel(label);
+  if (hexSecondary) {
+    const primary = normalizeHex(hex).slice(1);
+    const secondary = normalizeHex(hexSecondary).slice(1);
+    const [a, b] = [primary, secondary].sort();
+    return `${labelKey}|${a}-${b}`;
+  }
+  return labelKey;
+}
+
+export function customColorGroupKey(colorId: string) {
+  const parsed = parseCustomColorId(colorId);
+  if (!parsed) return null;
+  return customColorGroupKeyFromParts(
+    parsed.label,
+    parsed.hex,
+    parsed.hexSecondary,
+  );
+}
+
+function countCustomColorUsage(products: Product[]) {
+  const counts = new Map<string, number>();
+
+  for (const product of products) {
+    const ids =
+      product.attributes?.colors ??
+      product.colors?.map((color) => color.id) ??
+      [];
+    const seen = new Set<string>();
+    for (const id of ids) {
+      if (!isCustomColorId(id) || seen.has(id)) continue;
+      seen.add(id);
+      counts.set(id, (counts.get(id) ?? 0) + 1);
+    }
+  }
+
+  return counts;
+}
+
+export function buildCatalogCustomColors(
+  products: Product[],
+): CatalogCustomColor[] {
+  const usage = countCustomColorUsage(products);
+  const groups = new Map<
+    string,
+    { color: ProductColor; usageCount: number; id: string }
+  >();
+
+  for (const [id, usageCount] of usage) {
+    const parsed = parseCustomColorId(id);
+    if (!parsed) continue;
+    const groupKey = customColorGroupKey(id);
+    if (!groupKey) continue;
+
+    const existing = groups.get(groupKey);
+    if (
+      !existing ||
+      usageCount > existing.usageCount ||
+      (usageCount === existing.usageCount && id.length < existing.id.length)
+    ) {
+      groups.set(groupKey, {
+        id,
+        color: parsed,
+        usageCount,
+      });
+    }
+  }
+
+  return [...groups.entries()]
+    .map(([groupKey, entry]) => ({
+      ...entry.color,
+      id: entry.id,
+      groupKey,
+      usageCount: entry.usageCount,
+    }))
+    .sort((a, b) => a.label.localeCompare(b.label, "sk"));
+}
+
+export function customColorIdsShareGroup(a: string, b: string) {
+  const keyA = customColorGroupKey(a);
+  const keyB = customColorGroupKey(b);
+  return Boolean(keyA && keyB && keyA === keyB);
+}
+
+export function searchCatalogCustomColors(
+  colors: CatalogCustomColor[],
+  query: string,
+  limit = 8,
+) {
+  const normalized = normalizeColorLabel(query.trim());
+  if (!normalized) return colors.slice(0, limit);
+
+  const scored = colors
+    .map((color) => {
+      const labelKey = normalizeColorLabel(color.label);
+      if (labelKey === normalized) return { color, score: 0 };
+      if (labelKey.startsWith(normalized)) return { color, score: 1 };
+      if (labelKey.includes(normalized)) return { color, score: 2 };
+      return null;
+    })
+    .filter((entry): entry is { color: CatalogCustomColor; score: number } =>
+      Boolean(entry),
+    )
+    .sort(
+      (a, b) =>
+        a.score - b.score ||
+        b.color.usageCount - a.color.usageCount ||
+        a.color.label.localeCompare(b.color.label, "sk"),
+    );
+
+  return scored.slice(0, limit).map((entry) => entry.color);
+}
+
+export function findCatalogCustomColorByLabel(
+  colors: CatalogCustomColor[],
+  label: string,
+  hexSecondary?: string,
+) {
+  const labelKey = normalizeColorLabel(label);
+
+  if (hexSecondary) {
+    return (
+      colors.find(
+        (color) =>
+          color.hexSecondary &&
+          normalizeColorLabel(color.label) === labelKey,
+      ) ?? null
+    );
+  }
+
+  return (
+    colors.find(
+      (color) =>
+        !color.hexSecondary && normalizeColorLabel(color.label) === labelKey,
+    ) ?? null
+  );
+}
+
+export function resolveCustomColorId(input: {
+  hex: string;
+  label: string;
+  hexSecondary?: string;
+  registry?: CatalogCustomColor[];
+  existingColorIds?: string[];
+}) {
+  const label = input.label.trim();
+  const registry = input.registry ?? [];
+
+  const labelMatch = findCatalogCustomColorByLabel(
+    registry,
+    label,
+    input.hexSecondary,
+  );
+  if (labelMatch) return labelMatch.id;
+
+  const nextId = encodeCustomColorId(
+    input.hex,
+    label,
+    input.hexSecondary,
+  );
+
+  const duplicateOnProduct = input.existingColorIds?.find((id) =>
+    customColorIdsShareGroup(id, nextId),
+  );
+  if (duplicateOnProduct) return duplicateOnProduct;
+
+  return nextId;
+}
+
+export function buildCustomColorMigrationMap(colorUsage: Map<string, number>) {
+  const groups = new Map<string, { id: string; count: number }[]>();
+
+  for (const [id, count] of colorUsage) {
+    if (!isCustomColorId(id)) continue;
+    const groupKey = customColorGroupKey(id);
+    if (!groupKey) continue;
+    const bucket = groups.get(groupKey) ?? [];
+    bucket.push({ id, count });
+    groups.set(groupKey, bucket);
+  }
+
+  const migration = new Map<string, string>();
+
+  for (const entries of groups.values()) {
+    const canonical = [...entries].sort(
+      (a, b) => b.count - a.count || a.id.localeCompare(b.id, "sk"),
+    )[0]!.id;
+
+    for (const entry of entries) {
+      migration.set(entry.id, canonical);
+    }
+  }
+
+  return migration;
+}
+
+export function migrateProductColorFields(input: {
+  colorIds: string[];
+  colorImageMap: Record<string, number[]>;
+  migration: Map<string, string>;
+}) {
+  const nextIds: string[] = [];
+  const nextMap: Record<string, number[]> = {};
+
+  for (const id of input.colorIds) {
+    const mapped = input.migration.get(id) ?? id;
+    if (!nextIds.includes(mapped)) nextIds.push(mapped);
+  }
+
+  for (const [key, indexes] of Object.entries(input.colorImageMap)) {
+    const mapped = input.migration.get(key) ?? key;
+    const merged = [...(nextMap[mapped] ?? []), ...indexes];
+    nextMap[mapped] = [...new Set(merged)].sort((a, b) => a - b);
+  }
+
+  return {
+    colorIds: nextIds,
+    colorImageMap: nextMap,
   };
 }
 
@@ -272,36 +511,26 @@ export function productColorMatchesFilter(
   filterColorId: string,
 ) {
   if (productColorId === filterColorId) return true;
+  if (
+    isCustomColorId(productColorId) &&
+    isCustomColorId(filterColorId) &&
+    customColorIdsShareGroup(productColorId, filterColorId)
+  ) {
+    return true;
+  }
   if (isCustomColorId(filterColorId)) return false;
   const custom = parseCustomColorId(productColorId);
   if (!custom) return false;
   return nearestFilterColor(custom.hex).color.id === filterColorId;
 }
 
-/** Basic filter palette plus custom shades present in the given catalog slice. */
+/** Basic filter palette plus deduped custom shades present in the given catalog slice. */
 export function collectCatalogColorFilters(products: Product[]): TaxonomyValue[] {
-  const customById = new Map<string, TaxonomyValue>();
-
-  for (const product of products) {
-    const ids =
-      product.attributes?.colors ??
-      product.colors?.map((color) => color.id) ??
-      [];
-    for (const id of ids) {
-      const custom = parseCustomColorId(id);
-      if (custom) {
-        customById.set(custom.id, {
-          id: custom.id,
-          label: custom.label,
-          hex: custom.hex,
-        });
-      }
-    }
-  }
-
-  const customs = [...customById.values()].sort((a, b) =>
-    a.label.localeCompare(b.label, "sk"),
-  );
+  const customs = buildCatalogCustomColors(products).map((color) => ({
+    id: color.id,
+    label: color.label,
+    hex: color.hex,
+  }));
 
   return [...filterColors, ...customs];
 }

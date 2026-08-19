@@ -10,6 +10,60 @@ function escapeXml(value: string) {
     .replace(/"/g, "&quot;");
 }
 
+function parsePacketaFault(text: string) {
+  const faults: string[] = [];
+  const faultPattern = /<fault>\s*<name>[^<]*<\/name>\s*<fault>([^<]+)<\/fault>\s*<\/fault>/gi;
+  let match: RegExpExecArray | null;
+  while ((match = faultPattern.exec(text)) !== null) {
+    faults.push(match[1].trim());
+  }
+
+  if (faults.length > 0) {
+    return faults.join(" ");
+  }
+
+  const message = text.match(/<message>([^<]+)<\/message>/i)?.[1]?.trim();
+  if (message) return message;
+
+  const fault = text.match(/<fault>([^<]+)<\/fault>/i)?.[1]?.trim();
+  if (fault && fault !== "PacketAttributesFault") return fault;
+
+  const summary = text.match(/<string>([^<]+)<\/string>/i)?.[1]?.trim();
+  if (summary) return summary;
+
+  return "Packeta API vrátila chybu.";
+}
+
+function localizePacketaFault(message: string) {
+  if (/not approved for posting parcels/i.test(message)) {
+    return "Packeta účet ešte nie je schválený na odosielanie zásielok. Dokončite registráciu v klientskej sekcii Packety (Zásielkovňa) alebo kontaktujte ich podporu.";
+  }
+
+  if (/sender is not given/i.test(message)) {
+    return "V Packeta účte chýba alebo nie je nastavený odosielateľ (eshop indication). Skontrolujte PACKETA_ESHOP_INDICATION v .env.local.";
+  }
+
+  if (/pick up point is not valid/i.test(message)) {
+    return "Vybrané výdajné miesto Packeta už nie je platné alebo neprijíma zásielky.";
+  }
+
+  return message;
+}
+
+function sanitizePacketaOrderNumber(orderNumber: string) {
+  const normalized = orderNumber.replace(/[^0-9A-Za-z]/g, "");
+  return normalized.slice(0, 36) || "order";
+}
+
+function sanitizePacketaPhone(phone: string) {
+  const digits = phone.replace(/\D/g, "");
+  return digits.slice(0, 20);
+}
+
+function sanitizePacketaName(value: string) {
+  return value.trim().slice(0, 32);
+}
+
 function splitName(fullName: string) {
   const parts = fullName.trim().split(/\s+/).filter(Boolean);
   if (parts.length === 0) {
@@ -44,11 +98,7 @@ async function packetaRequest(xmlBody: string) {
 
   const statusMatch = text.match(/<status>([^<]+)<\/status>/i);
   if (statusMatch?.[1]?.toLowerCase() !== "ok") {
-    const fault = text.match(/<fault>([^<]+)<\/fault>/i)?.[1];
-    const message = text.match(/<message>([^<]+)<\/message>/i)?.[1];
-    throw new Error(
-      fault || message || "Packeta API vrátila chybu.",
-    );
+    throw new Error(localizePacketaFault(parsePacketaFault(text)));
   }
 
   return text;
@@ -80,17 +130,19 @@ export async function createPacketaPacket(
   const weight = Math.max(0.1, input.weightKg ?? 1).toFixed(2);
   const value = Math.max(0, input.valueEur).toFixed(2);
   const cod = Math.max(0, input.codEur ?? 0).toFixed(2);
+  const orderNumber = sanitizePacketaOrderNumber(input.orderNumber);
+  const phone = sanitizePacketaPhone(input.phone);
 
   const xml = `<?xml version="1.0" encoding="utf-8"?>
 <createPacket>
   <apiPassword>${escapeXml(password)}</apiPassword>
   <packetAttributes>
-    <number>${escapeXml(input.orderNumber)}</number>
-    <name>${escapeXml(name)}</name>
-    <surname>${escapeXml(surname)}</surname>
-    ${input.company ? `<company>${escapeXml(input.company)}</company>` : ""}
-    <email>${escapeXml(input.email)}</email>
-    <phone>${escapeXml(input.phone)}</phone>
+    <number>${escapeXml(orderNumber)}</number>
+    <name>${escapeXml(sanitizePacketaName(name))}</name>
+    <surname>${escapeXml(sanitizePacketaName(surname))}</surname>
+    ${input.company ? `<company>${escapeXml(sanitizePacketaName(input.company))}</company>` : ""}
+    <email>${escapeXml(input.email.trim())}</email>
+    <phone>${escapeXml(phone)}</phone>
     <addressId>${escapeXml(input.addressId)}</addressId>
     <cod>${cod}</cod>
     <value>${value}</value>

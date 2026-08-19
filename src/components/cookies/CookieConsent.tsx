@@ -153,59 +153,61 @@ export function CookieConsent() {
           role="dialog"
           aria-labelledby={titleId}
           aria-live="polite"
-          className={`fixed bottom-4 left-4 z-[70] max-w-[min(100%-2rem,48rem)] rounded-2xl border border-black/8 bg-[#faf8f5] px-4 py-3.5 shadow-[0_20px_48px_rgba(47,41,36,0.18)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:bottom-6 sm:left-6 sm:px-5 ${
+          className={`fixed inset-x-0 bottom-0 z-[70] rounded-t-3xl border border-black/8 border-b-0 bg-[#faf8f5] px-5 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] shadow-[0_-12px_40px_rgba(47,41,36,0.16)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-[48rem] sm:rounded-2xl sm:border-b sm:px-5 sm:py-3.5 sm:pb-3.5 sm:shadow-[0_20px_48px_rgba(47,41,36,0.18)] ${
             bannerVisible
               ? "translate-y-0 opacity-100"
               : "translate-y-3 opacity-0"
           }`}
         >
-          <div className="flex items-center gap-4">
-            <Cookie
-              className="size-6 shrink-0 text-[#75825B]"
-              strokeWidth={1.75}
-              aria-hidden
-            />
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-4">
+            <div className="flex items-start gap-3 sm:min-w-0 sm:flex-1 sm:items-center sm:gap-4">
+              <Cookie
+                className="size-8 shrink-0 text-[#75825B] sm:size-6"
+                strokeWidth={1.75}
+                aria-hidden
+              />
 
-            <div className="min-w-0 flex-1">
-              <h2
-                id={titleId}
-                className="font-heading text-base font-semibold text-[#2f2924]"
-              >
-                Cookies
-              </h2>
-              <p className="mt-0.5 max-w-[32rem] text-sm leading-snug text-[#2f2924]/70">
-                Používame cookies, aby e-shop fungoval spoľahlivo. Voliteľné
-                cookies môžete prijať alebo odmietnuť.{" "}
-                <Link
-                  href="/cookies"
-                  className="font-medium text-[#75825B] transition-opacity hover:opacity-80"
+              <div className="min-w-0 flex-1">
+                <h2
+                  id={titleId}
+                  className="font-heading text-xl font-semibold text-[#2f2924] sm:text-base"
                 >
-                  Viac info
-                </Link>
-              </p>
+                  Cookies
+                </h2>
+                <p className="mt-2 max-w-[32rem] text-base leading-relaxed text-[#2f2924]/70 sm:mt-0.5 sm:text-sm sm:leading-snug">
+                  Používame cookies, aby e-shop fungoval spoľahlivo. Voliteľné
+                  cookies môžete prijať alebo odmietnuť.{" "}
+                  <Link
+                    href="/cookies"
+                    className="font-medium text-[#75825B] transition-opacity hover:opacity-80"
+                  >
+                    Viac info
+                  </Link>
+                </p>
+              </div>
             </div>
 
-            <div className="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+            <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto sm:flex-row sm:items-center sm:gap-2">
               <button
                 type="button"
-                onClick={openSettingsFromBanner}
-                className="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#f3f1ed]"
+                onClick={() => savePreferences(ACCEPTED_COOKIE_PREFERENCES)}
+                className="inline-flex min-h-[3.25rem] w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-base font-semibold text-white transition-opacity hover:opacity-90 sm:min-h-10 sm:w-auto sm:px-4 sm:text-sm sm:font-medium"
               >
-                Nastavenia
+                Prijať
               </button>
               <button
                 type="button"
                 onClick={() => savePreferences(DEFAULT_COOKIE_PREFERENCES)}
-                className="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#f3f1ed]"
+                className="inline-flex min-h-[3.25rem] w-full cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-base font-semibold text-[#2f2924] transition-colors hover:bg-[#f3f1ed] sm:min-h-10 sm:w-auto sm:px-4 sm:text-sm sm:font-medium"
               >
                 Odmietnuť
               </button>
               <button
                 type="button"
-                onClick={() => savePreferences(ACCEPTED_COOKIE_PREFERENCES)}
-                className="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                onClick={openSettingsFromBanner}
+                className="inline-flex min-h-[3.25rem] w-full cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-5 text-base font-semibold text-[#2f2924] transition-colors hover:bg-[#f3f1ed] sm:min-h-10 sm:w-auto sm:px-4 sm:text-sm sm:font-medium"
               >
-                Prijať
+                Nastavenia
               </button>
             </div>
           </div>
