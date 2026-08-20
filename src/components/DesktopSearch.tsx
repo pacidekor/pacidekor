@@ -1,9 +1,14 @@
 "use client";
 
 import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { ProductSearchResults } from "@/components/ProductSearchResults";
-import { popularSearches, searchProducts } from "@/lib/search";
+import {
+  popularSearches,
+  searchProducts,
+  searchResultsHref,
+} from "@/lib/search";
 
 function ClearIcon() {
   return (
@@ -15,6 +20,7 @@ function ClearIcon() {
 }
 
 export function DesktopSearch() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const deferredQuery = useDeferredValue(query);
@@ -26,6 +32,13 @@ export function DesktopSearch() {
   const trimmed = deferredQuery.trim();
   const isTyping = trimmed.length > 0;
   const suggestions = isTyping ? searchProducts(trimmed) : [];
+
+  function goToResults(rawQuery = query) {
+    const next = rawQuery.trim();
+    if (!next) return;
+    setOpen(false);
+    router.push(searchResultsHref(next));
+  }
 
   useEffect(() => {
     return () => {
@@ -56,7 +69,10 @@ export function DesktopSearch() {
     <div ref={wrapRef} className="relative w-full min-w-0">
       <form
         role="search"
-        onSubmit={(event) => event.preventDefault()}
+        onSubmit={(event) => {
+          event.preventDefault();
+          goToResults();
+        }}
         className="relative"
       >
         <label htmlFor="site-search" className="sr-only">
@@ -141,7 +157,7 @@ export function DesktopSearch() {
                   onMouseDown={(event) => event.preventDefault()}
                   onClick={() => {
                     setQuery(term);
-                    inputRef.current?.focus();
+                    goToResults(term);
                   }}
                   className="inline-flex cursor-pointer items-center rounded-full bg-[#f4f1ec] px-3 py-1.5 text-sm text-[#2f2924]/75 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924]"
                 >

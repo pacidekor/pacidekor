@@ -2,7 +2,7 @@
 
 import { useDeferredValue, useEffect, useId, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Heart, LogOut, Mail, Phone, Search, User, X } from "lucide-react";
 import { CartButton } from "@/components/CartButton";
 import {
@@ -28,7 +28,11 @@ import {
   categoryList,
   navItems,
 } from "@/lib/navigation";
-import { popularSearches, searchProducts } from "@/lib/search";
+import {
+  popularSearches,
+  searchProducts,
+  searchResultsHref,
+} from "@/lib/search";
 
 type MenuView = "main" | "categories";
 
@@ -50,6 +54,7 @@ function initials(name: string) {
 
 export function MobileHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const taxonomy = useTaxonomy();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuView, setMenuView] = useState<MenuView>("main");
@@ -82,6 +87,13 @@ export function MobileHeader() {
   const trimmedQuery = deferredQuery.trim();
   const isTyping = trimmedQuery.length > 0;
   const suggestions = isTyping ? searchProducts(trimmedQuery) : [];
+
+  function goToResults(rawQuery = query) {
+    const next = rawQuery.trim();
+    if (!next) return;
+    setSearchOpen(false);
+    router.push(searchResultsHref(next));
+  }
 
   useEffect(() => {
     let cancelled = false;
@@ -392,7 +404,13 @@ export function MobileHeader() {
           }`}
         >
           <div className="mx-auto w-[var(--content-width)] py-5">
-            <form role="search" onSubmit={(event) => event.preventDefault()}>
+            <form
+              role="search"
+              onSubmit={(event) => {
+                event.preventDefault();
+                goToResults();
+              }}
+            >
               <label htmlFor="mobile-site-search" className="sr-only">
                 Hľadať
               </label>
@@ -452,7 +470,7 @@ export function MobileHeader() {
                       <button
                         key={term}
                         type="button"
-                        onClick={() => setQuery(term)}
+                        onClick={() => goToResults(term)}
                         className="inline-flex cursor-pointer items-center rounded-full border border-black/10 bg-white px-3.5 py-2 text-sm text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
                       >
                         {term}

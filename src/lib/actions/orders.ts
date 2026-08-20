@@ -20,6 +20,7 @@ import {
 } from "@/lib/orders.server";
 import { meetsMinOrder, parsePrice } from "@/lib/price";
 import { normalizePromoCode, promoDiscountAmount } from "@/lib/promo";
+import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import {
   FREE_SHIPPING_THRESHOLD,
   PAYMENT_OPTIONS,
@@ -117,6 +118,13 @@ function validateCreateOrderInput(input: CreateOrderInput): string | null {
 export async function createOrderAction(
   input: CreateOrderInput,
 ): Promise<OrderActionResult<{ orderNumber: string }>> {
+  if (!ORDERS_ENABLED) {
+    return {
+      ok: false,
+      error: "Táto funkcia zatiaľ nie je sprístupnená.",
+    };
+  }
+
   const validationError = validateCreateOrderInput(input);
   if (validationError) return { ok: false, error: validationError };
 

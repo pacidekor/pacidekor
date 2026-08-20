@@ -40,7 +40,6 @@ export default async function SiteLayout({
       <Footer />
       <ChatFab />
       <CookieConsent />
-      {/* Construction notice: vypnuto přes SHOW_CONSTRUCTION_NOTICE v ConstructionNoticeModal.tsx */}
       <ConstructionNoticeModal />
     </ProductCatalogProvider>
   );

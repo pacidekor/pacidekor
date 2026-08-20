@@ -11,43 +11,31 @@ function escapeXml(value: string) {
 }
 
 function parsePacketaFault(text: string) {
-  const faults: string[] = [];
-  const faultPattern = /<fault>\s*<name>[^<]*<\/name>\s*<fault>([^<]+)<\/fault>\s*<\/fault>/gi;
+  const faultCode =
+    text.match(/<status>fault<\/status>\s*<fault>([^<]+)<\/fault>/i)?.[1]?.trim() ??
+    text.match(/<fault>(PacketAttributesFault|PacketIdFault|PacketIdsFault|NotSupportedFault|SenderNotExists|UnknownError|[^<]+)<\/fault>/i)?.[1]?.trim();
+
+  const details: string[] = [];
+  const detailPattern =
+    /<fault>\s*<name>([^<]*)<\/name>\s*<fault>([^<]+)<\/fault>\s*<\/fault>/gi;
   let match: RegExpExecArray | null;
-  while ((match = faultPattern.exec(text)) !== null) {
-    faults.push(match[1].trim());
+  while ((match = detailPattern.exec(text)) !== null) {
+    const field = match[1]?.trim();
+    const message = match[2]?.trim();
+    if (!message) continue;
+    details.push(field ? `${field}: ${message}` : message);
   }
-
-  if (faults.length > 0) {
-    return faults.join(" ");
-  }
-
-  const message = text.match(/<message>([^<]+)<\/message>/i)?.[1]?.trim();
-  if (message) return message;
-
-  const fault = text.match(/<fault>([^<]+)<\/fault>/i)?.[1]?.trim();
-  if (fault && fault !== "PacketAttributesFault") return fault;
 
   const summary = text.match(/<string>([^<]+)<\/string>/i)?.[1]?.trim();
-  if (summary) return summary;
+  const message = text.match(/<message>([^<]+)<\/message>/i)?.[1]?.trim();
 
+  const parts = [
+    faultCode,
+    details.length > 0 ? details.join(" | ") : message || summary,
+  ].filter(Boolean);
+
+  if (parts.length > 0) return parts.join(" — ");
   return "Packeta API vrátila chybu.";
-}
-
-function localizePacketaFault(message: string) {
-  if (/not approved for posting parcels/i.test(message)) {
-    return "Packeta účet ešte nie je schválený na odosielanie zásielok. Dokončite registráciu v klientskej sekcii Packety (Zásielkovňa) alebo kontaktujte ich podporu.";
-  }
-
-  if (/sender is not given/i.test(message)) {
-    return "V Packeta účte chýba alebo nie je nastavený odosielateľ (eshop indication). Skontrolujte PACKETA_ESHOP_INDICATION v .env.local.";
-  }
-
-  if (/pick up point is not valid/i.test(message)) {
-    return "Vybrané výdajné miesto Packeta už nie je platné alebo neprijíma zásielky.";
-  }
-
-  return message;
 }
 
 function sanitizePacketaOrderNumber(orderNumber: string) {
@@ -98,7 +86,7 @@ async function packetaRequest(xmlBody: string) {
 
   const statusMatch = text.match(/<status>([^<]+)<\/status>/i);
   if (statusMatch?.[1]?.toLowerCase() !== "ok") {
-    throw new Error(localizePacketaFault(parsePacketaFault(text)));
+    throw new Error(parsePacketaFault(text));
   }
 
   return text;

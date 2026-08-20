@@ -157,14 +157,23 @@ export function NavBar() {
                   className="group flex cursor-pointer flex-col items-center gap-2 text-center transition-transform duration-200 hover:-translate-y-0.5"
                 >
                   <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#f3efe9] shadow-sm transition-shadow duration-200 group-hover:shadow-md">
-                    <Image
-                      src={image}
-                      alt=""
-                      fill
-                      sizes="(max-width: 768px) 30vw, 8vw"
-                      quality={90}
-                      className="object-cover"
-                    />
+                    {image.startsWith("http") ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={image}
+                        alt=""
+                        className="absolute inset-0 size-full object-cover"
+                      />
+                    ) : (
+                      <Image
+                        src={image}
+                        alt=""
+                        fill
+                        sizes="(max-width: 768px) 30vw, 8vw"
+                        quality={90}
+                        className="object-cover"
+                      />
+                    )}
                   </div>
                   <span className="font-heading text-xs leading-tight text-[#3d342c] transition-colors group-hover:text-[#75825B] sm:text-sm">
                     {label}

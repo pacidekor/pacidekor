@@ -41,19 +41,31 @@ import {
 } from "@/lib/inventory";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
+import {
+  formatAmountExVat,
+  formatPriceExVat,
+  priceExcludingVat,
+} from "@/lib/price";
+import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { useCartItems } from "@/lib/use-cart";
+import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 function CartLine({
   item,
   onQuantityChange,
   onRemove,
+  isWholesale,
 }: {
   item: CartItem;
   onQuantityChange: (quantity: number) => void;
   onRemove: () => void;
+  isWholesale: boolean;
 }) {
   const { product, quantity } = item;
-  const lineTotal = parsePrice(product.price) * quantity;
+  const lineTotalInc = parsePrice(product.price) * quantity;
+  const lineTotal = isWholesale
+    ? priceExcludingVat(lineTotalInc)
+    : lineTotalInc;
   const inventory = getInventoryForProduct(product);
   const remaining = inventoryMaxOrderable(inventory);
   const maxQty =
@@ -114,10 +126,17 @@ function CartLine({
           <div className="text-right">
             <p className="font-heading text-lg font-semibold text-[#2f2924]">
               {formatPrice(lineTotal)}
+              {isWholesale ? (
+                <span className="ml-1.5 text-xs font-normal text-[#2f2924]/45">
+                  bez DPH
+                </span>
+              ) : null}
             </p>
             {quantity > 1 ? (
               <p className="mt-0.5 text-xs text-[#2f2924]/45">
-                {product.price} / ks
+                {isWholesale
+                  ? `${formatPriceExVat(product.price)} / ks`
+                  : `${product.price} / ks`}
               </p>
             ) : null}
           </div>
@@ -131,10 +150,12 @@ function CartSummary({
   items,
   subtotal,
   customer,
+  isWholesale,
 }: {
   items: CartItem[];
   subtotal: number;
   customer: Customer | null;
+  isWholesale: boolean;
 }) {
   const count = cartItemCount(items);
   const [promo, setPromo] = useState<AppliedPromo | null>(null);
@@ -145,7 +166,7 @@ function CartSummary({
   const shippingThreshold = 100;
   const freeShipping = afterDiscount >= shippingThreshold;
   const remainingShipping = Math.max(0, shippingThreshold - afterDiscount);
-  const canCheckout = meetsMinOrder(subtotal);
+  const canCheckout = ORDERS_ENABLED && meetsMinOrder(subtotal);
   const remainingMinOrder = amountToMinOrder(subtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -181,16 +202,23 @@ function CartSummary({
 
         <div className="space-y-3.5 px-6 py-5 sm:px-7">
           <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="text-[#2f2924]/60">Medzisúčet</span>
+            <span className="text-[#2f2924]/60">
+              {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
+            </span>
             <span className="font-medium text-[#2f2924]">
-              {formatPrice(subtotal)}
+              {isWholesale ? formatAmountExVat(subtotal) : formatPrice(subtotal)}
             </span>
           </div>
 
           <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
 
           {discount > 0 && promo ? (
-            <AppliedPromoLine promo={promo} discountAmount={discount} />
+            <AppliedPromoLine
+              promo={promo}
+              discountAmount={
+                isWholesale ? priceExcludingVat(discount) : discount
+              }
+            />
           ) : null}
 
           <div className="flex items-baseline justify-between gap-3 text-sm">
@@ -208,16 +236,39 @@ function CartSummary({
 
           <div className="h-px bg-black/8" aria-hidden />
 
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
-            <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-              {formatPrice(afterDiscount)}
-            </span>
-          </div>
+          {isWholesale ? (
+            <div className="space-y-2">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-sm font-medium text-[#2f2924]">
+                  Celkom bez DPH
+                </span>
+                <span className="font-heading text-2xl font-semibold text-[#2f2924]">
+                  {formatAmountExVat(afterDiscount)}
+                </span>
+              </div>
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-sm text-[#2f2924]/60">Celkom s DPH</span>
+                <span className="text-base font-medium text-[#2f2924]/70">
+                  {formatPrice(afterDiscount)}
+                </span>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
+              <span className="font-heading text-2xl font-semibold text-[#2f2924]">
+                {formatPrice(afterDiscount)}
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="border-t border-black/6 px-6 py-5 sm:px-7">
-          {!canCheckout ? (
+          {!ORDERS_ENABLED ? (
+            <p className="mb-3 text-xs leading-snug text-[#2f2924]/50">
+              Táto funkcia zatiaľ nie je sprístupnená.
+            </p>
+          ) : !canCheckout ? (
             <p className="mb-3 text-xs leading-snug text-[#2f2924]/50">
               Minimálna objednávka {formatPrice(MIN_ORDER_TOTAL)}, chýba{" "}
               {formatPrice(remainingMinOrder)}.
@@ -304,6 +355,7 @@ function EmptyCart() {
 export function CartView() {
   const items = useCartItems();
   const [customer, setCustomer] = useState<Customer | null>(null);
+  const isWholesale = useIsWholesale();
 
   useEffect(() => {
     let cancelled = false;
@@ -411,6 +463,7 @@ export function CartView() {
             <CartLine
               key={item.product.id}
               item={item}
+              isWholesale={isWholesale}
               onQuantityChange={(quantity) =>
                 updateQuantity(item.product.id, quantity)
               }
@@ -420,7 +473,12 @@ export function CartView() {
         </ul>
       </section>
 
-      <CartSummary items={items} subtotal={subtotal} customer={customer} />
+      <CartSummary
+        items={items}
+        subtotal={subtotal}
+        customer={customer}
+        isWholesale={isWholesale}
+      />
     </div>
   );
 }

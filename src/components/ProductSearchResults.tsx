@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
+import { ProductPriceDisplay } from "@/components/ProductPriceDisplay";
 import { productHref, type Product } from "@/lib/products";
 import { usePricedProducts } from "@/lib/use-priced-product";
 
@@ -67,20 +68,11 @@ export function ProductSearchResults({
                 {product.name}
               </span>
               <span className="mt-0.5 block text-sm text-[#2f2924]/55">
-                {product.originalPrice ? (
-                  <>
-                    <span className="mr-1.5 line-through">
-                      {product.originalPrice}
-                    </span>
-                    <span className="font-semibold text-[#c45c4a]">
-                      {product.price}
-                    </span>
-                  </>
-                ) : (
-                  <span className="font-semibold text-[#2f2924]">
-                    {product.price}
-                  </span>
-                )}
+                <ProductPriceDisplay
+                  price={product.price}
+                  originalPrice={product.originalPrice}
+                  variant="inline"
+                />
               </span>
             </span>
             <ChevronRight

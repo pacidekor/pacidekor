@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { AddToCartButton } from "@/components/AddToCartButton";
 import { BellIcon } from "@/components/icons/BellIcon";
+import { ProductPriceDisplay } from "@/components/ProductPriceDisplay";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { ProductColorPills } from "@/components/product/ProductColorPills";
 import { RestockNotifyModal } from "@/components/product/RestockNotifyModal";
@@ -60,23 +61,45 @@ export function ProductPurchase({
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <div className="min-w-0">
-          {product.originalPrice ? (
-            <div className="flex items-baseline gap-3">
-              <span className="font-heading text-3xl font-semibold text-[#c45c4a] sm:text-4xl">
-                {product.price}
-              </span>
-              <span className="text-lg text-[#2f2924]/45 line-through">
-                {product.originalPrice}
-              </span>
-            </div>
-          ) : (
-            <p className="font-heading text-3xl font-semibold text-[#2f2924] sm:text-4xl">
-              {product.price}
-            </p>
-          )}
+          <ProductPriceDisplay
+            price={product.price}
+            originalPrice={product.originalPrice}
+            variant="pdp"
+          />
+        </div>
+
+        <div className="flex w-fit max-w-full flex-col items-end gap-1.5 self-end sm:self-auto">
+          <div className="flex items-center gap-3">
+            <QuantityStepper
+              value={quantity}
+              onChange={setQuantity}
+              max={typeof maxQty === "number" ? maxQty : undefined}
+              min={1}
+            />
+
+            <AddToCartButton
+              product={product}
+              quantity={quantity}
+              colorId={selectedColor || undefined}
+              disabled={!available}
+              size="page"
+            />
+
+            {!available ? (
+              <button
+                type="button"
+                onClick={() => setRestockOpen(true)}
+                aria-label="Upozorniť na naskladnenie"
+                title="Upozorniť na naskladnenie"
+                className="inline-flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white transition-[opacity,transform] hover:opacity-90 active:scale-[0.97]"
+              >
+                <BellIcon className="size-5" />
+              </button>
+            ) : null}
+          </div>
 
           <p
-            className={`mt-2 text-sm ${
+            className={`text-right text-sm ${
               available
                 ? "text-[#2f2924]/55"
                 : "font-medium text-[#c45c4a]"
@@ -88,35 +111,6 @@ export function ProductPurchase({
                 : "Na sklade"
               : "Momentálne nie je na sklade"}
           </p>
-        </div>
-
-        <div className="flex w-full items-center gap-3 sm:w-auto sm:shrink-0">
-          <QuantityStepper
-            value={quantity}
-            onChange={setQuantity}
-            max={typeof maxQty === "number" ? maxQty : undefined}
-            min={1}
-          />
-
-          <AddToCartButton
-            product={product}
-            quantity={quantity}
-            colorId={selectedColor || undefined}
-            disabled={!available}
-            size="page"
-          />
-
-          {!available ? (
-            <button
-              type="button"
-              onClick={() => setRestockOpen(true)}
-              aria-label="Upozorniť na naskladnenie"
-              title="Upozorniť na naskladnenie"
-              className="inline-flex size-12 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] text-white transition-[opacity,transform] hover:opacity-90 active:scale-[0.97]"
-            >
-              <BellIcon className="size-5" />
-            </button>
-          ) : null}
         </div>
       </div>
 

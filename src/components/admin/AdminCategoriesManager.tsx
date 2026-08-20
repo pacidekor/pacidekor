@@ -260,13 +260,7 @@ export function AdminCategoriesManager() {
                   >
                     <span className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
                       {category.image ? (
-                        <Image
-                          src={category.image}
-                          alt=""
-                          fill
-                          sizes="48px"
-                          className="object-cover"
-                        />
+                        <CategoryThumb src={category.image} />
                       ) : (
                         <span className="flex size-full items-center justify-center text-[#75825B]">
                           <FolderTree className="size-5" aria-hidden />
@@ -502,6 +496,13 @@ function CategoryEditor({
         return;
       }
       setImage(result.url);
+    } catch (error) {
+      console.error("category image upload", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Nahrávanie obrázka zlyhalo. Skúste to znova.",
+      );
     } finally {
       setUploading(false);
     }

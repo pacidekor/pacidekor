@@ -10,9 +10,14 @@ import {
   formatPrice,
   type CartItem,
 } from "@/lib/cart";
+import {
+  formatAmountExVat,
+  formatPriceExVatLabel,
+} from "@/lib/price";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
 import { useCartItems } from "@/lib/use-cart";
+import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 type CartButtonProps = {
   variant?: "desktop" | "mobile";
@@ -24,9 +29,11 @@ type CartButtonProps = {
 function CartItems({
   items,
   onSelect,
+  isWholesale,
 }: {
   items: CartItem[];
   onSelect?: () => void;
+  isWholesale: boolean;
 }) {
   if (items.length === 0) {
     return (
@@ -62,7 +69,9 @@ function CartItems({
               </span>
               <span className="mt-1 block text-sm text-[#2f2924]/55">
                 <span className="font-semibold text-[#2f2924]">
-                  {product.price}
+                  {isWholesale
+                    ? formatPriceExVatLabel(product.price)
+                    : product.price}
                 </span>
                 <span className="mx-1.5 text-[#2f2924]/30">·</span>
                 <span>{quantity}&nbsp;ks</span>
@@ -78,16 +87,20 @@ function CartItems({
 function CartFooter({
   subtotal,
   onSelect,
+  isWholesale,
 }: {
   subtotal: number;
   onSelect?: () => void;
+  isWholesale: boolean;
 }) {
   return (
     <div className="border-t border-black/8 pt-3.5">
       <div className="mb-3 flex items-baseline justify-between gap-3">
-        <span className="text-sm text-[#2f2924]/60">Medzisúčet</span>
+        <span className="text-sm text-[#2f2924]/60">
+          {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
+        </span>
         <span className="font-heading text-lg font-semibold text-[#2f2924]">
-          {formatPrice(subtotal)}
+          {isWholesale ? formatAmountExVat(subtotal) : formatPrice(subtotal)}
         </span>
       </div>
       <Link
@@ -109,6 +122,7 @@ export function CartButton({
   const [internalOpen, setInternalOpen] = useState(false);
   const panelId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
+  const isWholesale = useIsWholesale();
 
   const isControlled = openProp !== undefined;
   const open = isControlled ? openProp : internalOpen;
@@ -219,6 +233,7 @@ export function CartButton({
               <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain rounded-2xl border border-black/8 bg-white/90 px-3.5">
                 <CartItems
                   items={items}
+                  isWholesale={isWholesale}
                   onSelect={() => setOpenState(false)}
                 />
               </div>
@@ -227,6 +242,7 @@ export function CartButton({
                 <div className="mt-4 shrink-0">
                   <CartFooter
                     subtotal={subtotal}
+                    isWholesale={isWholesale}
                     onSelect={() => setOpenState(false)}
                   />
                 </div>
@@ -281,13 +297,18 @@ export function CartButton({
           </div>
 
           <div className="max-h-[min(18rem,45vh)] overflow-y-auto px-4">
-            <CartItems items={items} onSelect={() => setOpenState(false)} />
+            <CartItems
+              items={items}
+              isWholesale={isWholesale}
+              onSelect={() => setOpenState(false)}
+            />
           </div>
 
           {items.length > 0 ? (
-            <div className="bg-[#faf8f5] px-4 py-3.5">
+            <div className="bg-white px-4 py-3.5">
               <CartFooter
                 subtotal={subtotal}
+                isWholesale={isWholesale}
                 onSelect={() => setOpenState(false)}
               />
             </div>

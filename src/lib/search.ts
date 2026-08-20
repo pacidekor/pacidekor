@@ -9,7 +9,11 @@ import {
   getPackagingFormatById,
   getSubcategoryById,
 } from "@/lib/taxonomy";
-import { getAdminDruhById } from "@/lib/admin-categories-store";
+
+export type ProductSearchOptions = {
+  /** Optional druhId → label map (server taxonomy / client snapshot). */
+  druhLabels?: Record<string, string>;
+};
 
 export const popularSearches = [
   "Pivónie",
@@ -133,7 +137,10 @@ function tokensRelatedLoose(a: string, b: string) {
   return false;
 }
 
-function getDruhHaystack(product: Product): string[] {
+function getDruhHaystack(
+  product: Product,
+  options?: ProductSearchOptions,
+): string[] {
   if (!product.druhId) return [];
   const id = product.druhId;
   const parts = [
@@ -142,9 +149,9 @@ function getDruhHaystack(product: Product): string[] {
     ...id.split(/[-_]+/),
   ].filter(Boolean);
 
-  const fromStore = getAdminDruhById(product.druhId);
-  if (fromStore?.label) {
-    parts.push(fromStore.label, ...fromStore.label.split(/\s+/));
+  const label = options?.druhLabels?.[id]?.trim();
+  if (label) {
+    parts.push(label, ...label.split(/\s+/));
   }
 
   return parts;
@@ -154,7 +161,11 @@ function getDruhHaystack(product: Product): string[] {
  * Higher = better. Name / druh / SKU beat color & packaging so
  * “ruže” ranks “Ruža …” above “Eukalyptus ružový”.
  */
-export function scoreProductSearch(query: string, product: Product): number {
+export function scoreProductSearch(
+  query: string,
+  product: Product,
+  options?: ProductSearchOptions,
+): number {
   const q = normalizeSearchText(query);
   if (!q) return 0;
 
@@ -183,7 +194,7 @@ export function scoreProductSearch(query: string, product: Product): number {
     }
   }
 
-  const druhParts = getDruhHaystack(product);
+  const druhParts = getDruhHaystack(product, options);
   if (druhParts.length > 0) {
     for (const qt of expanded) {
       if (druhParts.some((part) => stemsMatchTight(qt, part))) {
@@ -306,16 +317,18 @@ export function scoreProductSearch(query: string, product: Product): number {
 export function productMatchesSearchQuery(
   product: Product,
   query: string,
+  options?: ProductSearchOptions,
 ): boolean {
   const q = query.trim();
   if (!q) return true;
-  return scoreProductSearch(q, product) > 0;
+  return scoreProductSearch(q, product, options) > 0;
 }
 
 /** Filter + rank any product list (admin pickers, šablóny, …). */
 export function filterProductsBySearchQuery(
   products: Product[],
   query: string,
+  options?: ProductSearchOptions,
 ): Product[] {
   const q = query.trim();
   if (!q) return products;
@@ -323,7 +336,7 @@ export function filterProductsBySearchQuery(
   return products
     .map((product) => ({
       product,
-      score: scoreProductSearch(q, product),
+      score: scoreProductSearch(q, product, options),
     }))
     .filter((item) => item.score > 0)
     .sort(
@@ -340,4 +353,11 @@ export function searchProducts(query: string, limit = 8): Product[] {
   if (!q) return [];
 
   return filterProductsBySearchQuery(getProductCatalog(), query).slice(0, limit);
+}
+
+/** Storefront search results URL (`/vyhladavanie?q=…`). */
+export function searchResultsHref(query: string) {
+  const q = query.trim();
+  if (!q) return "/vyhladavanie";
+  return `/vyhladavanie?q=${encodeURIComponent(q)}`;
 }

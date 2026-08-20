@@ -36,6 +36,7 @@ import {
 } from "@/lib/shipping";
 import { createOrderAction } from "@/lib/actions/orders";
 import { clearCart } from "@/lib/cart";
+import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { useCartItems } from "@/lib/use-cart";
 import { usePacketaWidget } from "@/lib/use-packeta-widget";
 
@@ -582,6 +583,17 @@ export function CheckoutView() {
         body="Pred pokračovaním k pokladni si pridajte produkty do košíka."
         href="/"
         cta="Prejsť na produkty"
+      />
+    );
+  }
+
+  if (!ORDERS_ENABLED && !submitted) {
+    return (
+      <CheckoutGuard
+        title="Objednávky zatiaľ nie sú aktívne"
+        body="Táto funkcia zatiaľ nie je sprístupnená. Hneď ako e-shop oficiálne spustíme, budete môcť dokončiť nákup."
+        href="/kosik"
+        cta="Späť do košíka"
       />
     );
   }

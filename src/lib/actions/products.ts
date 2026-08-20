@@ -17,7 +17,7 @@ import type {
   ProductRow,
   ProductUpdate,
 } from "@/lib/supabase/database.types";
-import { createAdminClient } from "@/lib/supabase/server";
+import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProductAttributes } from "@/lib/taxonomy";
 
 /** Raw upload ceiling (must stay under next.config serverActions.bodySizeLimit). */
@@ -359,61 +359,81 @@ export async function deleteProductAction(
 export async function uploadProductImageAction(
   formData: FormData,
 ): Promise<ProductActionResult<{ url: string }>> {
-  const auth = await requireAdmin();
-  if (!auth.ok) return { ok: false, error: auth.error };
-
-  const file = formData.get("file");
-  if (!(file instanceof File) || file.size === 0) {
-    return { ok: false, error: "Chýba súbor obrázka." };
-  }
-
-  if (file.type && !file.type.startsWith("image/")) {
-    return { ok: false, error: "Nahrajte obrázok (JPG, PNG, WEBP…)." };
-  }
-
-  if (file.size > MAX_UPLOAD_BYTES) {
-    return {
-      ok: false,
-      error: "Obrázok je príliš veľký (max. 12 MB). Skúste menší súbor.",
-    };
-  }
-
-  let compressed;
   try {
-    compressed = await compressProductImage(
-      new Uint8Array(await file.arrayBuffer()),
-    );
-  } catch {
+    const auth = await requireAdmin();
+    if (!auth.ok) return { ok: false, error: auth.error };
+
+    const file = formData.get("file");
+    if (!(file instanceof File) || file.size === 0) {
+      return { ok: false, error: "Chýba súbor obrázka." };
+    }
+
+    if (file.type && !file.type.startsWith("image/")) {
+      return { ok: false, error: "Nahrajte obrázok (JPG, PNG, WEBP…)." };
+    }
+
+    if (file.size > MAX_UPLOAD_BYTES) {
+      return {
+        ok: false,
+        error: "Obrázok je príliš veľký (max. 12 MB). Skúste menší súbor.",
+      };
+    }
+
+    let compressed;
+    try {
+      compressed = await compressProductImage(
+        new Uint8Array(await file.arrayBuffer()),
+      );
+    } catch {
+      return {
+        ok: false,
+        error: "Obrázok sa nepodarilo spracovať. Skúste iný súbor (JPG/PNG/WEBP).",
+      };
+    }
+
+    const path = `${auth.user.id}/${crypto.randomUUID()}.${compressed.extension}`;
+
+    // Pass Blob/Uint8Array, not Node Buffer. Buffer.toString("utf8") corrupts WebP
+    // (RIFF header becomes invalid and the <img> shows a broken icon).
+    const bytes = new Uint8Array(compressed.buffer);
+    const fileBody = new Blob([bytes], { type: compressed.contentType });
+
+    // Service role bypasses storage RLS — still gated by requireAdmin above.
+    let storage;
+    try {
+      storage = createServiceClient();
+    } catch {
+      return {
+        ok: false,
+        error: "Chýba konfigurácia úložiska (SUPABASE_SERVICE_ROLE_KEY).",
+      };
+    }
+
+    const { error } = await storage.storage
+      .from("product-images")
+      .upload(path, fileBody, {
+        contentType: compressed.contentType,
+        upsert: false,
+        cacheControl: "31536000",
+      });
+
+    if (error) {
+      return { ok: false, error: error.message };
+    }
+
+    const { data } = storage.storage.from("product-images").getPublicUrl(path);
+
+    return { ok: true, data: { url: data.publicUrl } };
+  } catch (error) {
+    console.error("uploadProductImageAction", error);
     return {
       ok: false,
-      error: "Obrázok sa nepodarilo spracovať. Skúste iný súbor.",
+      error:
+        error instanceof Error
+          ? error.message
+          : "Nahrávanie obrázka zlyhalo. Skúste to znova.",
     };
   }
-
-  const path = `${auth.user.id}/${crypto.randomUUID()}.${compressed.extension}`;
-
-  // Pass Blob/Uint8Array, not Node Buffer. Buffer.toString("utf8") corrupts WebP
-  // (RIFF header becomes invalid and the <img> shows a broken icon).
-  const bytes = new Uint8Array(compressed.buffer);
-  const fileBody = new Blob([bytes], { type: compressed.contentType });
-
-  const { error } = await auth.supabase.storage
-    .from("product-images")
-    .upload(path, fileBody, {
-      contentType: compressed.contentType,
-      upsert: false,
-      cacheControl: "31536000",
-    });
-
-  if (error) {
-    return { ok: false, error: error.message };
-  }
-
-  const { data } = auth.supabase.storage
-    .from("product-images")
-    .getPublicUrl(path);
-
-  return { ok: true, data: { url: data.publicUrl } };
 }
 
 function storagePathFromPublicUrl(url: string) {

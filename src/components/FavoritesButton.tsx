@@ -16,6 +16,8 @@ import {
   isInventoryAvailable,
 } from "@/lib/inventory";
 import { productHref, type Product } from "@/lib/products";
+import { formatPriceExVatLabel } from "@/lib/price";
+import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 function feedbackMessage(added: number, skipped: number) {
   if (added === 0) {
@@ -33,10 +35,12 @@ function FavoriteItems({
   products,
   onSelect,
   onAddedOne,
+  isWholesale,
 }: {
   products: Product[];
   onSelect?: () => void;
   onAddedOne?: (productId: string) => void;
+  isWholesale: boolean;
 }) {
   if (products.length === 0) {
     return (
@@ -73,7 +77,9 @@ function FavoriteItems({
                   {product.name}
                 </span>
                 <span className="mt-1 block text-sm font-semibold text-[#2f2924]">
-                  {product.price}
+                  {isWholesale
+                    ? formatPriceExVatLabel(product.price)
+                    : product.price}
                   {!available ? (
                     <span className="ml-2 font-normal text-[#9a4d3f]">
                       Vypredané
@@ -114,6 +120,7 @@ export function FavoritesButton() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const flashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const count = products.length;
+  const isWholesale = useIsWholesale();
 
   useEffect(() => {
     function sync() {
@@ -238,6 +245,7 @@ export function FavoritesButton() {
           <div className="max-h-[min(18rem,45vh)] overflow-y-auto px-4">
             <FavoriteItems
               products={products}
+              isWholesale={isWholesale}
               onSelect={() => setOpen(false)}
               onAddedOne={handleAddedOne}
             />
@@ -251,7 +259,7 @@ export function FavoritesButton() {
           ) : null}
 
           {count > 0 ? (
-            <div className="space-y-2 bg-[#faf8f5] px-4 py-3.5">
+            <div className="space-y-2 border-t border-black/6 bg-white px-4 py-3.5">
               <button
                 type="button"
                 onClick={handleAddAll}
