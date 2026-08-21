@@ -1,0 +1,12 @@
+nazov: Ginkgo žlté
+popis: Umelá vetva ginkgo s vejárovými žltými listami na tmavom stonku.
+kategoria: Umelé kvety
+subkategoria: listy
+druh: ginkgo
+zdroj_slozka: 20
+stav: NA_ESHOPU
+match_slug: ginkgo-zlte
+poznamka: Jasný match ginkgo-zlte.
+pocet_fotiek: 3
+barvy:
+  - Žltá (#E0C35A) -> fotky 1-3

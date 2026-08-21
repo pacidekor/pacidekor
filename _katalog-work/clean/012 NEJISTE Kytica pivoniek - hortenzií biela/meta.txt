@@ -1,0 +1,13 @@
+nazov: Kytica pivoniek / hortenzií biela
+popis: Umelá biela kytica plných kvetov (pivónia / hortenzia styl) so zubatými listami.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: pivonie
+zdroj_slozka: 45
+stav: NEJISTE
+match_slug: kytica-pivoniek
+poznamka: 6 fotiek - biela kytica. Overiť pivónia vs hortenzia vs duplicita so 011.
+pocet_fotiek: 6
+barvy:
+  - Biela (#F5F5F0) -> fotky 1-3
+  - Biela (2. sada) (#F5F5F0) -> fotky 4-6

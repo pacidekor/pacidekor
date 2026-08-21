@@ -1,0 +1,21 @@
+batch	src	clean	status	match_slug	name	note
+1	1	001 NA_ESHOPU Vres - drobnokvetý stonek	NA_ESHOPU	vres-s-drobnymi-kvietkami	Vres - drobnokvetý stonek	Podobné Vres s drobnými kvietkami - overiť, či ide o rovnaký produkt alebo inú farbu/variant.
+1	10	002 NA_ESHOPU Kytica ruží s drobnými kvetmi	NA_ESHOPU	kytica-ruzi-s-drobnymi-kvetmi	Kytica ruží s drobnými kvetmi	Vizualne blízke kytica-ruzi-s-drobnymi-kvetmi / kytica-ruzi-svetloruzova.
+1	11	003 OPRAVA Orchidea mini spray	OPRAVA	orchidea-mini-spray	Orchidea mini spray	20 fotiek - pravdepodobne orchidea-mini-spray. Treba zoradiť farby po trojiciach a overiť mapovanie.
+1	13	004 NA_ESHOPU Drobné hviezdicové kvety	NA_ESHOPU	drobne-hviezdicove-kvety	Drobné hviezdicové kvety	Možný match na drobne-hviezdicove-kvety / drobny-filler-hviezdicove-kvietky.
+1	18	005 NA_ESHOPU Listová vetva (lesklá)	NA_ESHOPU	listova-vetva-leskla	Listová vetva (lesklá)	Match listova-vetva-leskla / listovy-konar-leskly.
+1	19	006 NA_ESHOPU Drobnolistá zeleň	NA_ESHOPU	drobnolista-zelen	Drobnolistá zeleň	Match drobnolista-zelen.
+1	20	007 NA_ESHOPU Ginkgo žlté	NA_ESHOPU	ginkgo-zlte	Ginkgo žlté	Jasný match ginkgo-zlte.
+1	21	008 NA_ESHOPU Brečtan pestrobarevný	NA_ESHOPU	brectan-pestrobarevny	Brečtan pestrobarevný	Match brectan-pestrobarevny (na e-shope ma color_ids len zelena - mozna doplnit panase).
+1	22	009 NEJISTE List mečovitý (aspidistra) - matný - ojedený	NEJISTE	list-mecovity-aspidistra	List mečovitý (aspidistra) - matný - ojedený	Možno list-mecovity-aspidistra alebo iná zeleň - overiť textúru.
+1	40	010 NA_ESHOPU Ruža červená - zväzok	NA_ESHOPU	ruza-cervena-zvazok	Ruža červená - zväzok	Match ruza-cervena-zvazok / kytica-cervenych-ruzi…
+1	44	011 NA_ESHOPU Kytica pivoniek biela	NA_ESHOPU	kytica-pivoniek	Kytica pivoniek biela	Match kytica-pivoniek (biela) / kytica-pivoniek-biela-puciky.
+1	45	012 NEJISTE Kytica pivoniek - hortenzií biela	NEJISTE	kytica-pivoniek	Kytica pivoniek - hortenzií biela	6 fotiek - biela kytica. Overiť pivónia vs hortenzia vs duplicita so 011.
+1	50	013 NA_ESHOPU Georgína kytica tmavočervená	NA_ESHOPU	georgina-kytica-tmavocervena	Georgína kytica tmavočervená	Match georgina-kytica-tmavocervena. 7 fotiek - skontrolovať poradie.
+1	52	014 NEJISTE Chryzantéma - georgína spray biela	NEJISTE	chryzantema-pomponkova	Chryzantéma - georgína spray biela	18 fotiek - viac farieb. Overiť chryzantéma vs georgína mini.
+1	54	015 NA_ESHOPU Krásnoočko - cosmos	NA_ESHOPU	krasnoocko-cosmos	Krásnoočko - cosmos	Match krasnoocko-cosmos. 7 fotiek - skontrolovať ďalšie farby.
+1	6	016 OPRAVA Hortenzia na stopke - žltá - oranžová	OPRAVA	hortenzia-na-stonke	Hortenzia na stopke - žltá - oranžová	13 fotiek - hortenzia multi-color. Match hortenzia-na-stonke / hortenzia-stonok.
+1	B1__1004CR	017 NA_ESHOPU Hortenzia krémová	NA_ESHOPU	hortenzia-kremova	Hortenzia krémová	Match hortenzia-kremova / hortenzia-stonok (biela/krémová).
+1	77DOKONČIŤ!!	018 OPRAVA Eukalyptus drobný okrúhly - mauve	OPRAVA	eukalyptus-drobny-okruhly-farebne-varianty	Eukalyptus drobný okrúhly - mauve	DOKONČIŤ složka - eukalyptus mauve/sage gradient.
+1	B1__014_01_PREFOTIŤ	019 PREFOTIT Kytica ruží krémová s bobuľami	PREFOTIT	kytica-ruzi-s-drobnymi-kvetmi	Kytica ruží krémová s bobuľami	PREFOTIŤ - krémové ruže s bobuľami.
+1	B1__128YL_PREFOTIŤ	020 PREFOTIT Drobný filler - krémové kvietky	PREFOTIT	drobny-filler-hviezdicove-kvietky	Drobný filler - krémové kvietky	PREFOTIŤ - baby's breath styl filler.

@@ -1,0 +1,12 @@
+nazov: Brečtan pestrobarevný
+popis: Umelý panašovaný brečtan - zelené listy s krémovo-bielym okrajom.
+kategoria: Umelé kvety
+subkategoria: listy
+druh: zelen
+zdroj_slozka: 21
+stav: NA_ESHOPU
+match_slug: brectan-pestrobarevny
+poznamka: Match brectan-pestrobarevny (na e-shope ma color_ids len zelena - mozna doplnit panase).
+pocet_fotiek: 3
+barvy:
+  - Zeleno-biela (#6B7F5A-E8D9C4) -> fotky 1-3

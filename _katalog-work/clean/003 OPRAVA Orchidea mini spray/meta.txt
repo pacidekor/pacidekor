@@ -1,0 +1,17 @@
+nazov: Orchidea mini spray
+popis: Umelá orchidea typu mini spray na dlhej stopke. Viac farebných variantov (různé odtiene okvetných lístkov).
+kategoria: Umelé kvety
+subkategoria: stopkove-kvety
+druh: orchidea
+zdroj_slozka: 11
+stav: OPRAVA
+match_slug: orchidea-mini-spray
+poznamka: 20 fotiek - pravdepodobne orchidea-mini-spray. Treba zoradiť farby po trojiciach a overiť mapovanie.
+pocet_fotiek: 20
+barvy:
+  - Ružová (#E8A0B0) -> fotky 1-3
+  - Biela (#F5F5F0) -> fotky 4-6
+  - Fialová (#7A5F8A) -> fotky 7-9
+  - Krémová (#E8D9C4) -> fotky 10-12
+  - Zelená (#6B7F5A) -> fotky 13-15
+  - NEJISTE dalsie -> fotky 16-20

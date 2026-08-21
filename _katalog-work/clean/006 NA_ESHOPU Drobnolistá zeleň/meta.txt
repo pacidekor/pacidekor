@@ -1,0 +1,12 @@
+nazov: Drobnolistá zeleň
+popis: Umelá drobnolistá zeleň na stopkách - husté oválne lístky so zubatým okrajom.
+kategoria: Umelé kvety
+subkategoria: listy
+druh: zelen
+zdroj_slozka: 19
+stav: NA_ESHOPU
+match_slug: drobnolista-zelen
+poznamka: Match drobnolista-zelen.
+pocet_fotiek: 3
+barvy:
+  - Zelená (#6B7F5A) -> fotky 1-3

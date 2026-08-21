@@ -1,0 +1,12 @@
+nazov: Kytica pivoniek biela
+popis: Umelá kytica bielych pivoniek s púčikmi a zeleňou.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: pivonie
+zdroj_slozka: 44
+stav: NA_ESHOPU
+match_slug: kytica-pivoniek
+poznamka: Match kytica-pivoniek (biela) / kytica-pivoniek-biela-puciky.
+pocet_fotiek: 3
+barvy:
+  - Biela (#F5F5F0) -> fotky 1-3

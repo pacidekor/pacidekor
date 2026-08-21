@@ -1,0 +1,12 @@
+nazov: Listová vetva (lesklá)
+popis: Umelá listová vetva s lesklými oválnymi listami na drevenom stonku.
+kategoria: Umelé kvety
+subkategoria: listy
+druh: vetva
+zdroj_slozka: 18
+stav: NA_ESHOPU
+match_slug: listova-vetva-leskla
+poznamka: Match listova-vetva-leskla / listovy-konar-leskly.
+pocet_fotiek: 3
+barvy:
+  - Zelená (#6B7F5A) -> fotky 1-3

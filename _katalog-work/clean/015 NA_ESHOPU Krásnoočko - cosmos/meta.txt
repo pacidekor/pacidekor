@@ -1,0 +1,12 @@
+nazov: Krásnoočko - cosmos
+popis: Umelé krásnoočko (cosmos) s jemnými fialovo-bielymi okvetnými lístkami a žltým stredom.
+kategoria: Umelé kvety
+subkategoria: stopkove-kvety
+druh: krasnoocko
+zdroj_slozka: 54
+stav: NA_ESHOPU
+match_slug: krasnoocko-cosmos
+poznamka: Match krasnoocko-cosmos. 7 fotiek - skontrolovať ďalšie farby.
+pocet_fotiek: 7
+barvy:
+  - Fialová (#7A5F8A) -> fotky 1-3

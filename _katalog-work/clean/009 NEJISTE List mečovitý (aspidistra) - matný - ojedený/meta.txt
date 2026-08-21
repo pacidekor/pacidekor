@@ -1,0 +1,12 @@
+nazov: List mečovitý (aspidistra) - matný / ojedený
+popis: Umelé úzke mečovité listy s matným, prašným povrchom (sage/dusty look).
+kategoria: Umelé kvety
+subkategoria: listy
+druh: zelen
+zdroj_slozka: 22
+stav: NEJISTE
+match_slug: list-mecovity-aspidistra
+poznamka: Možno list-mecovity-aspidistra alebo iná zeleň - overiť textúru.
+pocet_fotiek: 3
+barvy:
+  - Zelená (#6B7F5A) -> fotky 1-3

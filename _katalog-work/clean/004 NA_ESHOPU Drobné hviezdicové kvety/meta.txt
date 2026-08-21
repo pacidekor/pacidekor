@@ -1,0 +1,12 @@
+nazov: Drobné hviezdicové kvety
+popis: Umelé drobné hviezdicové kvety na stopkách so zubatými listami. Vhodné ako filler.
+kategoria: Umelé kvety
+subkategoria: doplnky
+druh: drobnokvet
+zdroj_slozka: 13
+stav: NA_ESHOPU
+match_slug: drobne-hviezdicove-kvety
+poznamka: Možný match na drobne-hviezdicove-kvety / drobny-filler-hviezdicove-kvietky.
+pocet_fotiek: 3
+barvy:
+  - Biela (#F5F5F0) -> fotky 1-3

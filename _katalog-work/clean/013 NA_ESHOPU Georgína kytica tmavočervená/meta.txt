@@ -1,0 +1,12 @@
+nazov: Georgína kytica tmavočervená
+popis: Umelá kytica georgín v bordovej / tmavočervenej s drobnou bielou výplňou.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: georgina
+zdroj_slozka: 50
+stav: NA_ESHOPU
+match_slug: georgina-kytica-tmavocervena
+poznamka: Match georgina-kytica-tmavocervena. 7 fotiek - skontrolovať poradie.
+pocet_fotiek: 7
+barvy:
+  - Bordová (#800020) -> fotky 1-3

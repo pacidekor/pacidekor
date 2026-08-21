@@ -1,0 +1,12 @@
+nazov: Ruža červená - zväzok
+popis: Umelý zväzok červených ruží so zeleňou. Klasický aranžmán do vázy.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: ruze
+zdroj_slozka: 40
+stav: NA_ESHOPU
+match_slug: ruza-cervena-zvazok
+poznamka: Match ruza-cervena-zvazok / kytica-cervenych-ruzi…
+pocet_fotiek: 3
+barvy:
+  - Červená (#B43C3C) -> fotky 1-3

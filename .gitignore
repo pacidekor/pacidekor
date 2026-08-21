@@ -48,3 +48,8 @@ next-env.d.ts
 
 # local audit snapshots (product images are in Supabase)
 tmp/visual-compare/
+
+# local Drive photo dump + katalog inventory scratch (do not push raw JPGs)
+katalog_raw/
+_katalog-work/err*.txt
+_katalog-work/out*.txt

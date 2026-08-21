@@ -1,0 +1,12 @@
+nazov: Hortenzia krémová
+popis: Umelá hortenzia na stopke v krémovej / off-white farbe s veľkými zelenými listami.
+kategoria: Umelé kvety
+subkategoria: stopkove-kvety
+druh: hortenzia
+zdroj_slozka: B1__1004CR
+stav: NA_ESHOPU
+match_slug: hortenzia-kremova
+poznamka: Match hortenzia-kremova / hortenzia-stonok (biela/krémová).
+pocet_fotiek: 3
+barvy:
+  - Krémová (#E8D9C4) -> fotky 1-3

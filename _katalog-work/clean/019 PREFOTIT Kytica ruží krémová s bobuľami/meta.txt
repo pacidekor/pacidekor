@@ -1,0 +1,12 @@
+nazov: Kytica ruží krémová s bobuľami
+popis: Umelá kytica drobných krémových/bielych ruží s hnedými bobuľkami a zeleňou.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: ruze
+zdroj_slozka: B1__014_01_PREFOTIŤ
+stav: PREFOTIT
+match_slug: kytica-ruzi-s-drobnymi-kvetmi
+poznamka: PREFOTIŤ v názvu - fotky pravdepodobne na prefotenie. Match blízky kytica-ruzi-s-drobnymi-kvetmi (krémová).
+pocet_fotiek: 6
+barvy:
+  - Krémová (#E8D9C4) -> fotky 1-6

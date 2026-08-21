@@ -1,0 +1,12 @@
+nazov: Kytica ruží s drobnými kvetmi
+popis: Umelá kytica drobných ruží s bobuľkami a zeleňou. Kompaktný zväzok vhodný do vázy.
+kategoria: Umelé kvety
+subkategoria: kytice
+druh: ruze
+zdroj_slozka: 10
+stav: NA_ESHOPU
+match_slug: kytica-ruzi-s-drobnymi-kvetmi
+poznamka: Vizualne blízke kytica-ruzi-s-drobnymi-kvetmi / kytica-ruzi-svetloruzova.
+pocet_fotiek: 3
+barvy:
+  - Ružová (#E8A0B0) -> fotky 1-3
