@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogPostView } from "@/components/blog/BlogPostView";
+import { JsonLd } from "@/components/JsonLd";
 import { getBlogPostBySlug, listBlogPosts } from "@/lib/blog-server";
+import {
+  blogPostingJsonLd,
+  breadcrumbJsonLd,
+  pageMetadata,
+} from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -22,10 +28,13 @@ export async function generateMetadata({
     return { title: "Článok" };
   }
 
-  return {
+  return pageMetadata({
     title: post.title,
     description: post.excerpt,
-  };
+    path: `/blog/${post.slug}`,
+    image: post.coverImage,
+    type: "article",
+  });
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -48,6 +57,23 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
+      <JsonLd
+        data={[
+          blogPostingJsonLd({
+            title: post.title,
+            excerpt: post.excerpt,
+            slug: post.slug,
+            coverImage: post.coverImage,
+            publishedAt: post.publishedAt,
+            author: post.author,
+          }),
+          breadcrumbJsonLd([
+            { name: "Domov", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+        ]}
+      />
       <BlogPostView post={post} related={related} />
     </main>
   );

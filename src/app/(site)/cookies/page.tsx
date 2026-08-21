@@ -7,12 +7,14 @@ import {
   type LegalSection,
 } from "@/components/legal/LegalDocument";
 import { COMPANY } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Nastavenia Cookies",
   description:
     "Informácie o cookies a podobných technológiách používaných na webe PACIDEKOR a o možnostiach ich nastavenia.",
-};
+  path: "/cookies",
+});
 
 function P({ children }: { children: ReactNode }) {
   return <p>{children}</p>;

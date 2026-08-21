@@ -4,12 +4,14 @@ import { ConstructionNoticeModal } from "@/components/ConstructionNoticeModal";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { JsonLd } from "@/components/JsonLd";
 import { NavBar } from "@/components/NavBar";
 import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { listTaxonomy } from "@/lib/categories-server";
 import { listDiscounts } from "@/lib/discounts-server";
 import { listProducts } from "@/lib/products-server";
+import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 export default async function SiteLayout({
   children,
@@ -28,6 +30,7 @@ export default async function SiteLayout({
       discounts={discounts}
       taxonomy={taxonomy}
     >
+      <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <AccountDataSync />
       <ScrollToTop />
       <div className="sticky top-0 z-50">

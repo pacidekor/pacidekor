@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { ProductMediaPurchase } from "@/components/product/ProductMediaPurchase";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import { listTaxonomy } from "@/lib/categories-server";
@@ -10,18 +11,24 @@ import {
 } from "@/lib/discounts";
 import { listDiscounts } from "@/lib/discounts-server";
 import { categoryHrefById, categoryHref } from "@/lib/navigation";
+import { parsePrice } from "@/lib/price";
 import { getRelatedProducts } from "@/lib/products";
 import {
   getProductBySlug,
   listProducts,
 } from "@/lib/products-server";
+import {
+  breadcrumbJsonLd,
+  pageMetadata,
+  productJsonLd,
+} from "@/lib/seo";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ farba?: string | string[] }>;
 };
 
-/** Catalog changes in admin — prefer request-time rendering. */
+/** Catalog changes in admin - prefer request-time rendering. */
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
@@ -38,11 +45,16 @@ export async function generateMetadata({
   }
 
   const priced = applyDiscountToProduct(product, discounts);
+  const description =
+    priced.description?.trim() ||
+    `${priced.name} - umelé kvety a dekorácie v ponuke PACIDEKOR.`;
 
-  return {
+  return pageMetadata({
     title: priced.name,
-    description: priced.description,
-  };
+    description,
+    path: `/produkt/${priced.slug}`,
+    image: priced.image,
+  });
 }
 
 export default async function ProductPage({ params, searchParams }: PageProps) {
@@ -75,9 +87,31 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
   const categoryLink = categoryMatch
     ? categoryHrefById(categoryMatch.id)
     : categoryHref(product.category);
+  const categoryPath = categoryMatch
+    ? `/kategorie/${categoryMatch.id}`
+    : categoryLink;
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
+      <JsonLd
+        data={[
+          productJsonLd({
+            name: product.name,
+            description: product.description,
+            slug: product.slug,
+            image: product.image,
+            sku: product.sku,
+            price: parsePrice(product.price),
+            inStock: product.inStock,
+            category: product.category,
+          }),
+          breadcrumbJsonLd([
+            { name: "Domov", path: "/" },
+            { name: product.category, path: categoryPath },
+            { name: product.name, path: `/produkt/${product.slug}` },
+          ]),
+        ]}
+      />
       <nav className="mb-6 text-sm text-[#2f2924]/55">
         <Link href="/" className="transition-colors hover:text-[#75825B]">
           Domov

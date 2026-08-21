@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AkciaProductGrid } from "@/components/AkciaProductGrid";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Akcia",
-  description: "Aktuálne akciové produkty z ponuky PACIDEKOR.",
-};
+  description:
+    "Aktuálne akciové produkty - umelé kvety a dekorácie so zľavou od PACIDEKOR.",
+  path: "/akcia",
+});
 
 export default function AkciaPage() {
   return (

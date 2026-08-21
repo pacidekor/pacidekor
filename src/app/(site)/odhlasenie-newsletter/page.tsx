@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { NewsletterUnsubscribeForm } from "@/components/newsletter/NewsletterUnsubscribeForm";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Odhlásenie z newslettera",
   description: "Potvrdenie odhlásenia z newslettera PACIDEKOR.",
-  robots: { index: false, follow: false },
-};
+  path: "/odhlasenie-newsletter",
+  noIndex: true,
+});
 
 export default async function NewsletterUnsubscribePage({
   searchParams,

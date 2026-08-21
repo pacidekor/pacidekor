@@ -3,11 +3,14 @@ import { ClientAccountSettings } from "@/components/account/ClientAccountSetting
 import { createCustomerClient } from "@/lib/supabase/server";
 import { listOrdersForCustomerEmail } from "@/lib/orders.server";
 import type { Order } from "@/lib/orders";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Môj účet",
   description: "Nastavenie účtu, objednávky a šablóny PACIDEKOR.",
-};
+  path: "/ucet",
+  noIndex: true,
+});
 
 export default async function UcetPage() {
   let initialOrders: Order[] | undefined;

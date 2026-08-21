@@ -7,12 +7,14 @@ import {
 } from "@/components/legal/LegalDocument";
 import { WithdrawalOrderForm } from "@/components/legal/WithdrawalOrderForm";
 import { COMPANY } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Odstúpenie od zmluvy",
   description:
     "Informácie o práve spotrebiteľa odstúpiť od zmluvy uzavretej na diaľku v e-shope PACIDEKOR.",
-};
+  path: "/odstupenie-od-zmluvy",
+});
 
 function P({ children }: { children: ReactNode }) {
   return <p>{children}</p>;

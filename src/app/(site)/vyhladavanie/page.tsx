@@ -4,6 +4,7 @@ import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser"
 import { listTaxonomy } from "@/lib/categories-server";
 import { listPricedProducts } from "@/lib/products-server";
 import { filterProductsBySearchQuery } from "@/lib/search";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -22,16 +23,20 @@ export async function generateMetadata({
   const query = resolveQuery((await searchParams).q);
 
   if (!query) {
-    return {
+    return pageMetadata({
       title: "Vyhľadávanie",
       description: "Vyhľadávanie produktov v ponuke PACIDEKOR.",
-    };
+      path: "/vyhladavanie",
+      noIndex: true,
+    });
   }
 
-  return {
+  return pageMetadata({
     title: `Výsledok hľadania: ${query}`,
     description: `Produkty nájdené pre „${query}“.`,
-  };
+    path: `/vyhladavanie?q=${encodeURIComponent(query)}`,
+    noIndex: true,
+  });
 }
 
 export default async function VyhladavaniePage({ searchParams }: PageProps) {

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FavoritesView } from "@/components/favorites/FavoritesView";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Obľúbené",
   description: "Produkty, ktoré ste si uložili medzi obľúbené.",
-};
+  path: "/oblubene",
+  noIndex: true,
+});
 
 export default function OblubenePage() {
   return (

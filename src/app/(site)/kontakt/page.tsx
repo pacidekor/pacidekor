@@ -5,12 +5,14 @@ import {
   ContactDetails,
   ContactStores,
 } from "@/components/contact/ContactInfo";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Kontakt",
   description:
     "Kontaktujte PACIDEKOR - formulár, telefón, e-mail a adresy našich predajní.",
-};
+  path: "/kontakt",
+});
 
 export default function KontaktPage() {
   return (

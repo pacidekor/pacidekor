@@ -3,13 +3,16 @@ import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { getNewestProducts } from "@/lib/products";
 import { listPricedProducts } from "@/lib/products-server";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Novinky",
-  description: "Najnovšie produkty z ponuky PACIDEKOR.",
-};
+  description:
+    "Najnovšie umelé kvety, dekorácie a aranžérsky materiál v ponuke PACIDEKOR.",
+  path: "/novinky",
+});
 
 export default async function NovinkyPage() {
   const all = await listPricedProducts();

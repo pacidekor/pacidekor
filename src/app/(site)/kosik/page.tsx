@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CartView } from "@/components/cart/CartView";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Košík",
   description: "Prehľad produktov v košíku a súhrn objednávky.",
-};
+  path: "/kosik",
+  noIndex: true,
+});
 
 export default function KosikPage() {
   return (

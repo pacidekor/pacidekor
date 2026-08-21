@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { BlogPostsList } from "@/components/blog/BlogPostsList";
 import { listBlogPosts } from "@/lib/blog-server";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog",
   description:
     "Inšpirácie, tipy a novinky zo sveta umelých kvetov, dekorácií a aranžmánov od PACIDEKOR.",
-};
+  path: "/blog",
+});
 
 export default async function BlogPage() {
   const posts = await listBlogPosts();

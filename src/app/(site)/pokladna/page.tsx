@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckoutView } from "@/components/checkout/CheckoutView";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Pokladňa",
   description: "Vyplňte fakturačné údaje a dokončite objednávku.",
-};
+  path: "/pokladna",
+  noIndex: true,
+});
 
 export default function PokladnaPage() {
   return (

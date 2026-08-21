@@ -3,13 +3,16 @@ import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { getVypredajProducts } from "@/lib/products";
 import { listPricedProducts } from "@/lib/products-server";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Výpredaj",
-  description: "Výpredajové produkty z ponuky PACIDEKOR.",
-};
+  description:
+    "Výpredajové umelé kvety, dekorácie a aranžérsky materiál od PACIDEKOR.",
+  path: "/vypredaj",
+});
 
 export default async function VypredajPage() {
   const all = await listPricedProducts();

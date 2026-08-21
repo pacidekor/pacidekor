@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { NO_INDEX_ROBOTS } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: {
     absolute: "404 | PACIDEKOR",
   },
+  robots: NO_INDEX_ROBOTS,
 };
 
 export default function NotFound() {

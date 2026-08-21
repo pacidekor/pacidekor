@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { ForgotPasswordForm } from "@/components/auth/ForgotPasswordForm";
 import { listAuthSideSlides } from "@/lib/products-server";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Zabudnuté heslo",
   description: "Obnova hesla k účtu PACIDEKOR.",
-};
+  path: "/zabudnute-heslo",
+  noIndex: true,
+});
 
 export default async function ForgotPasswordPage({
   searchParams,

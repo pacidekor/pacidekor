@@ -6,12 +6,14 @@ import {
   type LegalSection,
 } from "@/components/legal/LegalDocument";
 import { COMPANY, COMPANY_IDENTIFICATION_ITEMS } from "@/lib/company";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Zásady spracúvania osobných údajov",
   description:
     "Informácie o spracúvaní osobných údajov v e-shope PACIDEKOR podľa GDPR a zákona o ochrane osobných údajov.",
-};
+  path: "/ochrana-udajov",
+});
 
 function P({ children }: { children: ReactNode }) {
   return <p>{children}</p>;

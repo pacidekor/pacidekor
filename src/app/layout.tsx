@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Montserrat } from "next/font/google";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_TITLE,
+  getSiteUrl,
+  SITE_NAME,
+} from "@/lib/seo";
 import "./globals.css";
 
 const montserrat = Montserrat({
@@ -16,12 +22,28 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
   title: {
-    default: "PACIDEKOR | Veľkoobchod a dodávateľ kvetov",
-    template: "%s | PACIDEKOR",
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "Veľkoobchod a dodávateľ umelých kvetov, dekorácií a aranžérskeho materiálu.",
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    locale: "sk_SK",
+    siteName: SITE_NAME,
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

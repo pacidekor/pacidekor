@@ -7,12 +7,14 @@ import {
 } from "@/components/legal/LegalDocument";
 import { COMPANY, COMPANY_IDENTIFICATION_ITEMS } from "@/lib/company";
 import { MIN_ORDER_TOTAL } from "@/lib/price";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Všeobecné obchodné podmienky",
   description:
     "Všeobecné obchodné podmienky e-shopu PACIDEKOR - informácie o objednávkach, platbe, doprave a reklamáciách.",
-};
+  path: "/obchodne-podmienky",
+});
 
 function P({ children }: { children: ReactNode }) {
   return <p>{children}</p>;

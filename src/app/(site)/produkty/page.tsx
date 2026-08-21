@@ -2,13 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { listPricedProducts } from "@/lib/products-server";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Produkty",
-  description: "Kompletná ponuka produktov PACIDEKOR.",
-};
+  description:
+    "Kompletná ponuka umelých kvetov, dekorácií a aranžérskeho materiálu PACIDEKOR.",
+  path: "/produkty",
+});
 
 export default async function ProduktyPage() {
   const products = await listPricedProducts();

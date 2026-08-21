@@ -15,7 +15,7 @@ export function BlogPostCard({ post }: BlogPostCardProps) {
       >
         <Image
           src={post.coverImage}
-          alt=""
+          alt={post.title}
           fill
           sizes="144px"
           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"

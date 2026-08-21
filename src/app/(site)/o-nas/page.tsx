@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "O nás",
   description:
     "PACIDEKOR - dovoz, predaj a distribúcia umelých kvetov, rastlín, sušiny, stúh, aranžérskeho materiálu a keramiky.",
-};
+  path: "/o-nas",
+});
 
 const paragraphs = [
   "Špecializujeme sa na dovoz, predaj a distribúciu umelých kvetov a rastlín, sušiny, stúh, aranžérskeho a obalového materiálu či keramiky.",

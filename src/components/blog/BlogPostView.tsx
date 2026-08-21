@@ -54,7 +54,7 @@ function RelatedPostLink({ post }: { post: BlogPost }) {
       <div className="relative aspect-square overflow-hidden rounded-xl bg-[#f3efe9]">
         <Image
           src={post.coverImage}
-          alt=""
+          alt={post.title}
           fill
           sizes="72px"
           unoptimized={post.coverImage.startsWith("data:")}
