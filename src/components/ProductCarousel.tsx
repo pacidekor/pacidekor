@@ -31,7 +31,11 @@ export function ProductCarousel({
 
     const sync = () => {
       const edge = Math.max(0, Math.round(wrap.getBoundingClientRect().left));
+      // Use layout viewport width (not 100vw) so scrollbar / mobile chrome
+      // cannot make the scroller wider than the page.
+      const vw = document.documentElement.clientWidth;
       wrap.style.setProperty("--carousel-edge", `${edge}px`);
+      wrap.style.setProperty("--carousel-vw", `${vw}px`);
     };
 
     sync();
@@ -170,7 +174,7 @@ export function ProductCarousel({
           ref={scrollerRef}
           className="flex overflow-x-auto overscroll-x-contain pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           style={{
-            width: "100vw",
+            width: "var(--carousel-vw, 100%)",
             marginLeft: "calc(0px - var(--carousel-edge, var(--page-gutter)))",
           }}
         >
@@ -188,7 +192,7 @@ export function ProductCarousel({
               className="shrink-0"
               style={{
                 width:
-                  "calc((100vw - var(--carousel-edge, var(--page-gutter)) - 0.75rem) / 2.25)",
+                  "calc((var(--carousel-vw, 100%) - var(--carousel-edge, var(--page-gutter)) - 0.75rem) / 2.25)",
                 marginRight:
                   index < products.length - 1 ? GAP_PX : undefined,
               }}

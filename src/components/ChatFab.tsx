@@ -418,19 +418,21 @@ export function ChatFab() {
     view === "history" ? "História chatov" : chatTitle;
 
   return (
-    <div
-      ref={wrapRef}
-      className="fixed right-4 bottom-4 z-[60] sm:right-6 sm:bottom-6"
-    >
+    // Clip to the viewport so the panel / off-screen honeypot cannot widen the page on mobile.
+    <div className="pointer-events-none fixed inset-0 z-[60] overflow-x-clip">
+      <div
+        ref={wrapRef}
+        className="pointer-events-auto absolute right-4 bottom-4 sm:right-6 sm:bottom-6"
+      >
       <div
         id={panelId}
         role="dialog"
         aria-label="PACIDEKOR asistent"
         aria-hidden={!open}
-        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex h-[min(32rem,78vh)] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl bg-[#75825B] shadow-[0_0_0_1px_rgba(45,35,25,0.16),0_0_28px_rgba(45,35,25,0.18),0_14px_36px_rgba(45,35,25,0.2)] outline-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right sm:h-[min(35rem,82vh)] ${
+        className={`absolute right-0 bottom-[calc(100%+0.75rem)] flex max-w-[calc(100vw-2rem)] flex-col overflow-hidden rounded-3xl bg-[#75825B] shadow-[0_0_0_1px_rgba(45,35,25,0.16),0_0_28px_rgba(45,35,25,0.18),0_14px_36px_rgba(45,35,25,0.2)] outline-none transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] origin-bottom-right ${
           open
-            ? "pointer-events-auto translate-y-0 scale-100 opacity-100"
-            : "pointer-events-none translate-y-3 scale-95 opacity-0"
+            ? "pointer-events-auto h-[min(32rem,78vh)] w-[min(22rem,calc(100vw-2rem))] translate-y-0 scale-100 opacity-100 sm:h-[min(35rem,82vh)]"
+            : "pointer-events-none h-0 w-0 translate-y-3 scale-95 overflow-hidden opacity-0"
         }`}
       >
         <div className="relative flex h-14 shrink-0 items-center justify-center bg-[#75825B] px-12">
@@ -594,7 +596,7 @@ export function ChatFab() {
                     autoComplete="off"
                     value={honeypot}
                     onChange={(event) => setHoneypot(event.target.value)}
-                    className="absolute -left-[9999px] h-0 w-0 opacity-0"
+                    className="sr-only"
                   />
                 </label>
                 <div className="flex items-center gap-2 rounded-full border border-black/8 bg-[#faf8f5] px-1.5 py-1.5">
@@ -660,6 +662,7 @@ export function ChatFab() {
           </svg>
         )}
       </button>
+      </div>
     </div>
   );
 }
