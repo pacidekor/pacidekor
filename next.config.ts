@@ -8,7 +8,10 @@ const nextConfig: NextConfig = {
   // Product photo uploads (raw JPG/PNG) before WebP compression on the server
   experimental: {
     serverActions: {
-      bodySizeLimit: "12mb",
+      // Vercel Functions hard-cap request bodies at 4.5 MB; admin uploads bypass
+      // Server Actions and go straight to Supabase Storage from the browser.
+      bodySizeLimit: "4mb",
+      allowedOrigins: ["pacidekor.sk", "www.pacidekor.sk"],
     },
   },
   serverExternalPackages: ["sharp"],

@@ -1223,6 +1223,13 @@ function ProductEditor({
             : `Niektoré súbory sa nepodarilo nahrať:\n${errors.join("\n")}`,
         );
       }
+    } catch (error) {
+      console.error("onFileSelected", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Nahrávanie obrázkov zlyhalo. Skúste to znova.",
+      );
     } finally {
       setUploading(false);
     }

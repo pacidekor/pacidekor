@@ -256,70 +256,81 @@ function toUpdatePayload(
 export async function upsertProductAction(
   input: ProductUpsertInput,
 ): Promise<ProductActionResult<Product>> {
-  const auth = await requireAdmin();
-  if (!auth.ok) return { ok: false, error: auth.error };
+  try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return { ok: false, error: auth.error };
 
-  if (!input.name.trim()) {
-    return { ok: false, error: "Zadajte názov produktu." };
-  }
-  if (!input.images.some((src) => src.trim())) {
-    return { ok: false, error: "Nahrajte aspoň jeden obrázok." };
-  }
+    if (!input.name.trim()) {
+      return { ok: false, error: "Zadajte názov produktu." };
+    }
+    if (!input.images.some((src) => src.trim())) {
+      return { ok: false, error: "Nahrajte aspoň jeden obrázok." };
+    }
 
-  const slug = await uniqueSlug(
-    auth.supabase,
-    toSlug(input.name),
-    input.id,
-  );
-
-  if (input.id) {
-    const { data: existing } = await auth.supabase
-      .from("products")
-      .select("is_new, new_until")
-      .eq("id", input.id)
-      .maybeSingle();
-
-    const updatePayload = toUpdatePayload(
-      input,
-      slug,
-      (existing as Pick<ProductRow, "is_new" | "new_until"> | null) ?? null,
+    const slug = await uniqueSlug(
+      auth.supabase,
+      toSlug(input.name),
+      input.id,
     );
+
+    if (input.id) {
+      const { data: existing } = await auth.supabase
+        .from("products")
+        .select("is_new, new_until")
+        .eq("id", input.id)
+        .maybeSingle();
+
+      const updatePayload = toUpdatePayload(
+        input,
+        slug,
+        (existing as Pick<ProductRow, "is_new" | "new_until"> | null) ?? null,
+      );
+      const { data, error } = await auth.supabase
+        .from("products")
+        .update(updatePayload)
+        .eq("id", input.id)
+        .select("*")
+        .single();
+
+      if (error || !data) {
+        return {
+          ok: false,
+          error: error?.message || "Nepodarilo sa uložiť produkt.",
+        };
+      }
+
+      const product = mapProductRow(data as ProductRow);
+      revalidateProductPaths(product.slug);
+      return { ok: true, data: product };
+    }
+
+    const payload = toInsertPayload(input, slug);
     const { data, error } = await auth.supabase
       .from("products")
-      .update(updatePayload)
-      .eq("id", input.id)
+      .insert(payload)
       .select("*")
       .single();
 
     if (error || !data) {
       return {
         ok: false,
-        error: error?.message || "Nepodarilo sa uložiť produkt.",
+        error: error?.message || "Nepodarilo sa vytvoriť produkt.",
       };
     }
 
     const product = mapProductRow(data as ProductRow);
     revalidateProductPaths(product.slug);
     return { ok: true, data: product };
-  }
-
-  const payload = toInsertPayload(input, slug);
-  const { data, error } = await auth.supabase
-    .from("products")
-    .insert(payload)
-    .select("*")
-    .single();
-
-  if (error || !data) {
+  } catch (error) {
+    console.error("upsertProductAction", error);
     return {
       ok: false,
-      error: error?.message || "Nepodarilo sa vytvoriť produkt.",
+      error:
+        error instanceof Error
+          ? error.message
+          : "Uloženie produktu zlyhalo. Skúste to znova.",
     };
   }
-
-  const product = mapProductRow(data as ProductRow);
-  revalidateProductPaths(product.slug);
-  return { ok: true, data: product };
 }
 
 export async function deleteProductAction(
