@@ -67,8 +67,8 @@ import {
 import { setProductCatalog } from "@/lib/product-catalog";
 import {
   deleteProductAction,
-  upsertProductAction,
 } from "@/lib/actions/products";
+import { saveAdminProduct } from "@/lib/admin-product-save";
 import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import {
   filterColors,
@@ -328,46 +328,56 @@ export function AdminProductsManager({
     ];
     const isCreate = productId === CREATE_DRAFT_ID;
 
-    const result = await upsertProductAction({
-      ...(isCreate ? {} : { id: productId }),
-      name: normalized.name,
-      description: normalized.description,
-      sku: normalized.sku || (isCreate ? generateProductSku() : undefined),
-      price: normalized.price,
-      category: normalized.category,
-      subcategoryId: normalized.subcategoryId,
-      druhId: normalized.druhId,
-      attributes: normalized.attributes,
-      images,
-      colorImageMap: normalized.colorImageMap,
-      inStock: stock.inStock,
-      stockQuantity: stock.inStock ? stock.quantity : null,
-      details: normalized.details,
-      markAsNew: normalized.markAsNew,
-      inVypredaj: normalized.inVypredaj,
-    });
+    try {
+      const result = await saveAdminProduct({
+        ...(isCreate ? {} : { id: productId }),
+        name: normalized.name,
+        description: normalized.description,
+        sku: normalized.sku || (isCreate ? generateProductSku() : undefined),
+        price: normalized.price,
+        category: normalized.category,
+        subcategoryId: normalized.subcategoryId,
+        druhId: normalized.druhId,
+        attributes: normalized.attributes,
+        images,
+        colorImageMap: normalized.colorImageMap,
+        inStock: stock.inStock,
+        stockQuantity: stock.inStock ? stock.quantity : null,
+        details: normalized.details,
+        markAsNew: normalized.markAsNew,
+        inVypredaj: normalized.inVypredaj,
+      });
 
-    if (!result.ok) {
-      window.alert(result.error);
+      if (!result.ok) {
+        window.alert(result.error);
+        return false;
+      }
+
+      const saved = result.data;
+      setProducts((prev) => {
+        const index = prev.findIndex((product) => product.id === saved.id);
+        if (index === -1) return [saved, ...prev];
+        const copy = [...prev];
+        copy[index] = saved;
+        return copy;
+      });
+
+      setInventory(saved.id, {
+        inStock: stock.inStock,
+        quantity: stock.inStock ? stock.quantity : null,
+      });
+
+      showSavedToast();
+      return true;
+    } catch (error) {
+      console.error("saveOverride", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Uloženie produktu zlyhalo. Skúste to znova.",
+      );
       return false;
     }
-
-    const saved = result.data;
-    setProducts((prev) => {
-      const index = prev.findIndex((product) => product.id === saved.id);
-      if (index === -1) return [saved, ...prev];
-      const copy = [...prev];
-      copy[index] = saved;
-      return copy;
-    });
-
-    setInventory(saved.id, {
-      inStock: stock.inStock,
-      quantity: stock.inStock ? stock.quantity : null,
-    });
-
-    showSavedToast();
-    return true;
   }
 
   async function deleteProduct(productId: string): Promise<boolean> {
@@ -1055,6 +1065,13 @@ function ProductEditor({
       );
       if (result === false) return;
       closePanel();
+    } catch (error) {
+      console.error("saveAndClose", error);
+      window.alert(
+        error instanceof Error
+          ? error.message
+          : "Uloženie produktu zlyhalo. Skúste to znova.",
+      );
     } finally {
       setSaving(false);
     }
