@@ -32,6 +32,9 @@ function RetailCardPrice({
         </span>
         <span className="block whitespace-nowrap font-sans text-sm font-bold text-[#c45c4a] sm:text-base">
           {inc}
+          <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
+            / ks
+          </span>
         </span>
       </div>
     );
@@ -40,6 +43,9 @@ function RetailCardPrice({
   return (
     <span className="min-w-0 shrink whitespace-nowrap font-sans text-sm font-semibold text-[#2f2924] sm:text-base">
       {inc}
+      <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
+        / ks
+      </span>
     </span>
   );
 }

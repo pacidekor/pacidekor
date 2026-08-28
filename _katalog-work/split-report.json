@@ -1,0 +1,429 @@
+[
+  {
+    "name": "002 hortenzia na_eshopu",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 5,
+    "imgs": 13
+  },
+  {
+    "name": "004 orchidea mini spray neni_vse_na_eshopu",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 7,
+    "imgs": 20
+  },
+  {
+    "name": "014 na_eshopu",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "015 neni_na_eshopu",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 6,
+    "imgs": 18
+  },
+  {
+    "name": "016 na_eshopu",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "025",
+    "maxD": 13,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "029",
+    "maxD": 24,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "037",
+    "maxD": 11,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "048",
+    "maxD": 6,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "053",
+    "maxD": 18,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "054",
+    "maxD": 31,
+    "action": "keep",
+    "groups": 6,
+    "imgs": 16
+  },
+  {
+    "name": "055",
+    "maxD": 29,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "056",
+    "maxD": 17,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 5
+  },
+  {
+    "name": "058",
+    "maxD": 64,
+    "action": "split",
+    "groups": 5,
+    "imgs": 13
+  },
+  {
+    "name": "059",
+    "maxD": 29,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "060",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 2,
+    "imgs": 6
+  },
+  {
+    "name": "061",
+    "maxD": 33,
+    "action": "keep",
+    "groups": 7,
+    "imgs": 20
+  },
+  {
+    "name": "062",
+    "maxD": 41,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "064",
+    "maxD": 13,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "065",
+    "maxD": 8,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "067",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 2,
+    "imgs": 6
+  },
+  {
+    "name": "068",
+    "maxD": 43,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "071",
+    "maxD": 27,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 4
+  },
+  {
+    "name": "072",
+    "maxD": 27,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "080",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 2,
+    "imgs": 6
+  },
+  {
+    "name": "081",
+    "maxD": 6,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "083",
+    "maxD": 14,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "088",
+    "maxD": 11,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "092",
+    "maxD": 12,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 4
+  },
+  {
+    "name": "093",
+    "maxD": 50,
+    "action": "split",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "095",
+    "maxD": 76,
+    "action": "split",
+    "groups": 2,
+    "imgs": 5
+  },
+  {
+    "name": "100",
+    "maxD": 26,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "101",
+    "maxD": 22,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "102",
+    "maxD": 36,
+    "action": "keep",
+    "groups": 5,
+    "imgs": 13
+  },
+  {
+    "name": "103",
+    "maxD": 18,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "104",
+    "maxD": 30,
+    "action": "keep",
+    "groups": 8,
+    "imgs": 23
+  },
+  {
+    "name": "105",
+    "maxD": 17,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "106",
+    "maxD": 21,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 4
+  },
+  {
+    "name": "107",
+    "maxD": 57,
+    "action": "split",
+    "groups": 8,
+    "imgs": 23
+  },
+  {
+    "name": "110",
+    "maxD": 67,
+    "action": "split",
+    "groups": 9,
+    "imgs": 26
+  },
+  {
+    "name": "111",
+    "maxD": 36,
+    "action": "keep",
+    "groups": 6,
+    "imgs": 16
+  },
+  {
+    "name": "115",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 2,
+    "imgs": 6
+  },
+  {
+    "name": "118",
+    "maxD": 106,
+    "action": "split",
+    "groups": 4,
+    "imgs": 12
+  },
+  {
+    "name": "119",
+    "maxD": 46,
+    "action": "keep",
+    "groups": 8,
+    "imgs": 22
+  },
+  {
+    "name": "120",
+    "maxD": 44,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "122",
+    "maxD": 8,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "123",
+    "maxD": 20,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "125",
+    "maxD": 62,
+    "action": "split",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "126",
+    "maxD": 10,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 4
+  },
+  {
+    "name": "128",
+    "maxD": 30,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "129",
+    "maxD": 34,
+    "action": "keep",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "130",
+    "maxD": 41,
+    "action": "keep",
+    "groups": 5,
+    "imgs": 13
+  },
+  {
+    "name": "131",
+    "maxD": 43,
+    "action": "keep",
+    "groups": 5,
+    "imgs": 14
+  },
+  {
+    "name": "133",
+    "maxD": 18,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 12
+  },
+  {
+    "name": "135",
+    "maxD": "override",
+    "action": "keep",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "136",
+    "maxD": 57,
+    "action": "split",
+    "groups": 3,
+    "imgs": 9
+  },
+  {
+    "name": "138",
+    "maxD": 50,
+    "action": "split",
+    "groups": 3,
+    "imgs": 7
+  },
+  {
+    "name": "139",
+    "maxD": 22,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "142",
+    "maxD": 23,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "144",
+    "maxD": 47,
+    "action": "keep",
+    "groups": 4,
+    "imgs": 10
+  },
+  {
+    "name": "145",
+    "maxD": 12,
+    "action": "keep",
+    "groups": 2,
+    "imgs": 4
+  }
+]

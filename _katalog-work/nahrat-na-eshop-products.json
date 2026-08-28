@@ -1,0 +1,239 @@
+[
+  {
+    "sourceFolder": "003 10 NENI_NA_ESHOPU",
+    "slug": "mini-ruze-ruzove-zvazok",
+    "name": "Mini ruže ružové – zväzok",
+    "desc": "Kompaktný zväzok drobných prašnoružových ruží so zelenými listami a drobnými bobuľovými filler akcentmi. Vhodné do menšej vázy.",
+    "type": "ruža",
+    "subcategory": "stopkove-kvety",
+    "colors": ["ružová"],
+    "colorIds": ["ruzova"],
+    "photos": ["kvety-63.jpg", "kvety-64.jpg", "kvety-65.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  },
+  {
+    "sourceFolder": "018 B1__1004CR NEJISTE",
+    "slug": "hortenzia-kremova",
+    "name": "Hortenzia krémová",
+    "desc": "Umelá hortenzia s hustými krémovými súkvetiami a veľkými tmavozelenými zúbkovanými listami.",
+    "type": "hortenzia",
+    "subcategory": "stopkove-kvety",
+    "colors": ["krémová"],
+    "colorIds": ["kremova"],
+    "photos": ["kvety-49.jpg", "kvety-45.jpg", "kvety-41.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  },
+  {
+    "sourceFolder": "025 B3__34505_01 NENI_NA_ESHOPU",
+    "slug": "pivonka-kremova-zvazok",
+    "name": "Pivonka krémová – zväzok",
+    "desc": "Umelý zväzok plnokvetých krémových pivoniek so žltým stredom, zelenými listami a hnedočervenými perovitými výplňovými vetvičkami.",
+    "type": "pivonka",
+    "subcategory": "kytice",
+    "colors": ["krémová"],
+    "colorIds": ["kremova"],
+    "mixedNote": "Pivonka + hnedočervené perovité filler vetvičky + drobná zelená výplň (jeden predajný zväzok).",
+    "photos": ["kvety-44.jpg", "kvety-45.jpg", "kvety-46.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  },
+  {
+    "sourceFolder": "036 B4__CAN319941 NENI_NA_ESHOPU",
+    "slug": "nevestin-zavoj-gypsofilka",
+    "name": "Nevestin závoj (gypsofilka)",
+    "desc": "Umelý stonok gypsofilky s drobnými hustými kvetmi na vetvenom stonku. Dostupné v bielej a ružovej.",
+    "type": "gypsofilka",
+    "subcategory": "stopkove-kvety",
+    "colors": ["biela", "ružová"],
+    "colorIds": ["biela", "ruzova"],
+    "photos": [
+      "kvety-35.jpg", "kvety-28.jpg", "kvety-24.jpg",
+      "kvety-33.jpg", "kvety-29.jpg", "kvety-25.jpg",
+      "kvety-32.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "037 B4__FMN1009 NEJISTE",
+    "slug": "mak",
+    "name": "Mak",
+    "desc": "Umelý mak s volánovitými okvetnými lístkami, púčikom a chlpatými zelenými listami na dlhom stonku. Tri farby.",
+    "type": "mak",
+    "subcategory": "stopkove-kvety",
+    "colors": ["červená", "ružová", "bordová"],
+    "colorIds": ["cervena", "ruzova", "fialova"],
+    "photos": [
+      "kvety-77.jpg", "kvety-82.jpg", "kvety-83.jpg",
+      "kvety-78.jpg", "kvety-81.jpg", "kvety-84.jpg",
+      "kvety-92.jpg", "kvety-94.jpg", "kvety-95.jpg",
+      "kvety-93.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "045 C16__3104 NENI_NA_ESHOPU",
+    "slug": "chryzantema-gulata-pompon",
+    "name": "Chryzantéma guľatá (pompon)",
+    "desc": "Umelý stonok s viacerými guľovitými pomponovými kvetmi a zúbkovanými zelenými listami. Farby krémová a biela.",
+    "type": "chryzantéma",
+    "subcategory": "stopkove-kvety",
+    "colors": ["krémová", "biela"],
+    "colorIds": ["kremova", "biela"],
+    "photos": [
+      "kvety-48.jpg", "kvety-44.jpg", "kvety-40.jpg",
+      "kvety-73.jpg", "kvety-74.jpg",
+      "kvety-75.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "048 D1__(za regalom) NENI_NA_ESHOPU",
+    "slug": "gypsofilka-drobnokvet-biely",
+    "name": "Gypsofilka / drobné súkvetia",
+    "desc": "Umelý stonok s drobnými bielymi guľovitými súkvetiami na vetvenom zelenom stonku. Filler do vázy.",
+    "type": "gypsofilka",
+    "subcategory": "stopkove-kvety",
+    "colors": ["biela"],
+    "colorIds": ["biela"],
+    "photos": ["kvety-97.jpg", "kvety-98.jpg", "kvety-96.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  },
+  {
+    "sourceFolder": "050 D1__5364 NENI_NA_ESHOPU",
+    "slug": "zelen-listova-husty-zvazok",
+    "name": "Zeleň listová – hustý zväzok",
+    "desc": "Umelý hustý zväzok zelene s oválnymi tmavozelenými listami a jemnejšími svetlozelenými končekmi. Vhodné do vázy alebo ako výplň.",
+    "type": "zeleň",
+    "subcategory": "listy",
+    "colors": ["zelená"],
+    "colorIds": ["zelena"],
+    "mixedNote": "Širšie oválne listy + jemnejšie svetlozelené vetvičky v tom istom zväzku.",
+    "photos": ["kvety-111.jpg", "kvety-115.jpg", "kvety-109.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  },
+  {
+    "sourceFolder": "082 D4__GYP1001 NENI_NA_ESHOPU",
+    "slug": "gypsofilka",
+    "name": "Gypsofilka",
+    "desc": "Klasická umelá gypsofilka s drobnými kvietkami na vetvených stonkách. Sedem farieb.",
+    "type": "gypsofilka",
+    "subcategory": "stopkove-kvety",
+    "colors": ["biela", "svetlomodrá", "svetloružová", "zelená", "ružová", "tmavoružová", "žltá"],
+    "colorIds": ["biela", "modra", "ruzova", "zelena", "ruzova", "ruzova", "zlta"],
+    "photos": [
+      "kvety-258.jpg", "kvety-277.jpg", "kvety-271.jpg",
+      "kvety-259.jpg", "kvety-279.jpg", "kvety-270.jpg",
+      "kvety-260.jpg", "kvety-275.jpg", "kvety-269.jpg",
+      "kvety-261.jpg", "kvety-276.jpg", "kvety-267.jpg",
+      "kvety-262.jpg", "kvety-278.jpg", "kvety-268.jpg",
+      "kvety-263.jpg", "kvety-280.jpg", "kvety-266.jpg",
+      "kvety-264.jpg", "kvety-274.jpg", "kvety-265.jpg",
+      "kvety-272.jpg", "kvety-273.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix", "mix"]
+  },
+  {
+    "sourceFolder": "085 D4__SUN-455 NENI_NA_ESHOPU",
+    "slug": "gypsofilka-husta",
+    "name": "Gypsofilka hustá",
+    "desc": "Umelá gypsofilka s hustejšími, plnšími súkvetiami. Päť farieb.",
+    "type": "gypsofilka",
+    "subcategory": "stopkove-kvety",
+    "colors": ["biela", "svetloružová", "ružová", "svetlofialová", "fialová"],
+    "colorIds": ["biela", "ruzova", "ruzova", "fialova", "fialova"],
+    "photos": [
+      "kvety-36.jpg", "kvety-14.jpg", "kvety-26.jpg",
+      "kvety-35.jpg", "kvety-17.jpg", "kvety-23.jpg",
+      "kvety-30.jpg", "kvety-27.jpg",
+      "kvety-33.jpg", "kvety-15.jpg", "kvety-24.jpg",
+      "kvety-31.jpg", "kvety-18.jpg", "kvety-28.jpg",
+      "kvety-21.jpg", "kvety-22.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix", "mix"]
+  },
+  {
+    "sourceFolder": "089 E1__LIL04 NENI_NA_ESHOPU",
+    "slug": "kytica-pomponovych-kvetov",
+    "name": "Kytica pomponových kvetov",
+    "desc": "Umelá kytica hustých pomponových hlávok (chryzantéma/dália) s bobuľovitými výplňami a listami. Päť farieb.",
+    "type": "kytica",
+    "subcategory": "kytice",
+    "colors": ["krémová", "staroružová", "svetloružová", "oranžová", "bordová"],
+    "colorIds": ["kremova", "ruzova", "ruzova", "oranzova", "fialova"],
+    "mixedNote": "Hlavné pomponové kvety s drobnými bobuľovitými výplňami a zúbkatými listami.",
+    "photos": [
+      "kvety-89.jpg", "kvety-79.jpg", "kvety-88.jpg",
+      "kvety-90.jpg", "kvety-80.jpg", "kvety-85.jpg",
+      "kvety-92.jpg", "kvety-81.jpg", "kvety-86.jpg",
+      "kvety-93.jpg", "kvety-82.jpg", "kvety-84.jpg",
+      "kvety-91.jpg", "kvety-83.jpg", "kvety-87.jpg",
+      "kvety-78.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "093 94 NENI_NA_ESHOPU",
+    "slug": "kytica-iskernikov-bordovo-kremova",
+    "name": "Kytica iskerníkov bordovo-krémová",
+    "desc": "Umelá kytica iskerníkov (ranunculus) v kombinácii bordovej a krémovej farby so zelenými listami a drobnými bielymi filler kvetmi. Vhodná do vázy.",
+    "type": "iskerník",
+    "subcategory": "kytice",
+    "colors": ["bordová", "krémová"],
+    "colorIds": ["fialova", "kremova"],
+    "mixedNote": "Jeden predajný aranžmán s dvoma odtieňmi kvetov.",
+    "photos": [
+      "29.6.2026 (9 of 82).jpg",
+      "29.6.2026 (7 of 82).jpg",
+      "29.6.2026 (8 of 82).jpg"
+    ],
+    "labels": ["detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "097 E3__PIV. KYT NENI_NA_ESHOPU",
+    "slug": "pivonkova-kytica-viacfarby",
+    "name": "Pivonková kytica – viacfarby",
+    "desc": "Umelá kytica plných pivoniek so zeleňou (papradie, sivozelené listy) a drobnými filler akcentmi. Štyri farby.",
+    "type": "pivonka",
+    "subcategory": "kytice",
+    "colors": ["krémová", "oranžová", "zelená", "ružová"],
+    "colorIds": ["kremova", "oranzova", "zelena", "ruzova"],
+    "mixedNote": "Pivonky + drobné filler kvety + papradie/sivozelené listy + bobuľové akcenty.",
+    "photos": [
+      "kvety-32.jpg", "kvety-41.jpg", "kvety-39.jpg",
+      "kvety-33.jpg", "kvety-43.jpg", "kvety-38.jpg",
+      "kvety-34.jpg", "kvety-42.jpg", "kvety-37.jpg",
+      "kvety-35.jpg", "kvety-51.jpg", "kvety-36.jpg",
+      "kvety-31.jpg", "kvety-40.jpg",
+      "kvety-44.jpg", "kvety-45.jpg", "kvety-46.jpg", "kvety-47.jpg",
+      "kvety-48.jpg", "kvety-49.jpg", "kvety-50.jpg", "kvety-52.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix", "mix", "extra", "extra", "extra", "extra", "extra", "extra", "extra", "extra"]
+  },
+  {
+    "sourceFolder": "116 F2__AL-8480 NENI_NA_ESHOPU",
+    "slug": "ruza-vetva-s-listami",
+    "name": "Ruža – vetva s listami",
+    "desc": "Umelá rozvetvená stonka s hustým zhlukom plných ruží a zúbkatými zelenými listami pod kvetmi.",
+    "type": "ruža",
+    "subcategory": "stopkove-kvety",
+    "colors": ["biela", "krémová"],
+    "colorIds": ["biela", "kremova"],
+    "photos": [
+      "kvety-83.jpg", "kvety-87.jpg", "kvety-81.jpg",
+      "kvety-84.jpg", "kvety-86.jpg", "kvety-82.jpg",
+      "kvety-85.jpg"
+    ],
+    "labels": ["pot/full", "detail", "stem", "pot/full", "detail", "stem", "mix"]
+  },
+  {
+    "sourceFolder": "NENI_NA_ESHOPU",
+    "slug": "levandula-kremova-vetvicka",
+    "name": "Levanduľa krémová – vetvička",
+    "desc": "Umelá dekoratívna vetvička pripomínajúca levanduľu v jemnej krémovej farbe. Husté klasovité kvety na tenkých zelených stonkách. Vhodná do vázy alebo aranžmánov.",
+    "type": "levanduľa",
+    "subcategory": "stopkove-kvety",
+    "colors": ["krémová"],
+    "colorIds": ["kremova"],
+    "photos": ["KVETY-186.jpg", "KVETY-187.jpg", "KVETY-185.jpg"],
+    "labels": ["pot/full", "detail", "stem"]
+  }
+]

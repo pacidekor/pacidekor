@@ -1,0 +1,1 @@
+SELECT COUNT(DISTINCT id) AS matched_products FROM products WHERE EXISTS (SELECT 1 FROM unnest(images) AS img WHERE regexp_replace(img, '.*([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}).*', '\1') IN ('22437e1d-5c63-4ecb-a461-0dffd2af4c52'));

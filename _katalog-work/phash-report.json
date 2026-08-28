@@ -1,0 +1,1134 @@
+{
+  "counts": {
+    "NA_ESHOPU": 125,
+    "NEJISTE": 0,
+    "NENI_NA_ESHOPU": 0
+  },
+  "rows": [
+    {
+      "folder": "001 NA_ESHOPU",
+      "base": "001",
+      "status": "NA_ESHOPU",
+      "dist": 0,
+      "local": "001\\kvety-86.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\103e9e2d-bef1-418f-b898-03e3a5ede294.jpg",
+      "images": 3
+    },
+    {
+      "folder": "002 NA_ESHOPU",
+      "base": "002",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "002\\kvety-64.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a55d07da-eda2-496a-9cf5-7347a9a8294b.webp",
+      "images": 3
+    },
+    {
+      "folder": "003 NA_ESHOPU",
+      "base": "003",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "003\\kvety-60.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2850d85b-9357-491c-be08-f72a44bf84db.webp",
+      "images": 3
+    },
+    {
+      "folder": "004 NA_ESHOPU",
+      "base": "004",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "004\\kvety-37.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\6ad6dbd4-9d23-4232-ad77-98789f4185a3.webp",
+      "images": 3
+    },
+    {
+      "folder": "005 NA_ESHOPU",
+      "base": "005",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "005\\kvety-40.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\313dc7d8-c96b-44ed-9fa4-efe3e727eb88.webp",
+      "images": 3
+    },
+    {
+      "folder": "006 NA_ESHOPU",
+      "base": "006",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "006\\kvety-49.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\3315078f-c916-4851-9b37-e9389efa480c.webp",
+      "images": 3
+    },
+    {
+      "folder": "007 NA_ESHOPU",
+      "base": "007",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "007\\kvety-50.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\27f9e771-cfc1-43b3-aa08-a937b7163dab.webp",
+      "images": 3
+    },
+    {
+      "folder": "008 NA_ESHOPU",
+      "base": "008",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "008\\kvety-51.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\0ac0c0bc-ffe4-4b94-adbf-ab7828706589.webp",
+      "images": 3
+    },
+    {
+      "folder": "009 NA_ESHOPU",
+      "base": "009",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "009\\kvety-67.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\02552647-57b4-47e0-a573-57ad3faa19e2.webp",
+      "images": 3
+    },
+    {
+      "folder": "010 NA_ESHOPU",
+      "base": "010",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "010\\kvety-54.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5a0fcdb6-6ede-4b03-bf57-fc213dcbe2c9.webp",
+      "images": 3
+    },
+    {
+      "folder": "011 NA_ESHOPU",
+      "base": "011",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "011\\kvety-64.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\b6860923-8dda-4314-bcff-0187db505787.webp",
+      "images": 3
+    },
+    {
+      "folder": "012 NA_ESHOPU",
+      "base": "012",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "012\\kvety-227.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1bd272c5-226c-41c5-a7c6-69babe4ae34c.webp",
+      "images": 3
+    },
+    {
+      "folder": "013 NA_ESHOPU",
+      "base": "013",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "013\\kvety-41.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2a6f10ee-d1be-4c92-87da-a2093ad4b0e7.webp",
+      "images": 3
+    },
+    {
+      "folder": "014 NA_ESHOPU",
+      "base": "014",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "014\\KVETY-28.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1dd40b7a-a528-4b43-8900-b625060e61e4.webp",
+      "images": 3
+    },
+    {
+      "folder": "015 NA_ESHOPU",
+      "base": "015",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "015\\kvety-7.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\12193404-f44a-414d-bb86-f863966e2cc9.webp",
+      "images": 3
+    },
+    {
+      "folder": "016 NA_ESHOPU",
+      "base": "016",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "016\\kvety-15.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\6c7cfeb4-e46f-4949-8260-2c44a99084e6.webp",
+      "images": 3
+    },
+    {
+      "folder": "017 NA_ESHOPU",
+      "base": "017",
+      "status": "NA_ESHOPU",
+      "dist": 8,
+      "local": "017\\kvety-46.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7f54da6d-caf3-4e15-9e2d-455f996834a3.webp",
+      "images": 3
+    },
+    {
+      "folder": "018 NA_ESHOPU",
+      "base": "018",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "018\\KVETY-206.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2516660e-cf02-4ed9-9936-2a061fafb438.webp",
+      "images": 3
+    },
+    {
+      "folder": "019 NA_ESHOPU",
+      "base": "019",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "019\\KVETY-179.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\13e74966-542a-44a9-8fbb-e95865ec572b.webp",
+      "images": 3
+    },
+    {
+      "folder": "020 NA_ESHOPU",
+      "base": "020",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "020\\kvety-4.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\9fa005b4-ff3d-48ac-a516-f1b35a0193b2.webp",
+      "images": 3
+    },
+    {
+      "folder": "021 NA_ESHOPU",
+      "base": "021",
+      "status": "NA_ESHOPU",
+      "dist": 7,
+      "local": "021\\KVETY-202.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\0891c8ee-dd76-468a-b43f-a9400f73d8fc.webp",
+      "images": 3
+    },
+    {
+      "folder": "022 NA_ESHOPU",
+      "base": "022",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "022\\kvety-3.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\d1fe9311-bc22-4755-8835-7ba32a5ad7cd.webp",
+      "images": 3
+    },
+    {
+      "folder": "023 NA_ESHOPU",
+      "base": "023",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "023\\kvety-5.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5b7e550a-c0fd-40c7-bb2b-92c525cbdb63.webp",
+      "images": 3
+    },
+    {
+      "folder": "024 NA_ESHOPU",
+      "base": "024",
+      "status": "NA_ESHOPU",
+      "dist": 8,
+      "local": "024\\kvety-54.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2e02c037-5a1a-45a0-82e9-89d44bfcc63f.webp",
+      "images": 3
+    },
+    {
+      "folder": "025 NA_ESHOPU",
+      "base": "025",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "025\\kvety-126.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\63da2e5a-b353-4f9e-a10f-fd0cfcbead02.webp",
+      "images": 3
+    },
+    {
+      "folder": "026 NA_ESHOPU",
+      "base": "026",
+      "status": "NA_ESHOPU",
+      "dist": 8,
+      "local": "026\\kvety-97.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\22c7e37a-9117-4275-be9d-b3c2fbf9d5b0.webp",
+      "images": 3
+    },
+    {
+      "folder": "027 NA_ESHOPU",
+      "base": "027",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "027\\kvety-118.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\86169b44-5f9d-4456-8fd7-8c378aba5f0e.webp",
+      "images": 3
+    },
+    {
+      "folder": "028 NA_ESHOPU",
+      "base": "028",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "028\\kvety-108.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\cdd8a161-a308-48c1-bb9e-08b2bd6b393a.webp",
+      "images": 3
+    },
+    {
+      "folder": "029 NA_ESHOPU",
+      "base": "029",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "029\\kvety-142.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c8d55dbf-9999-48d0-bb33-8b82f695000a.webp",
+      "images": 3
+    },
+    {
+      "folder": "030 NA_ESHOPU",
+      "base": "030",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "030\\kvety-193.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7d5b0524-61d7-4888-a1bc-5cde8e5e4cc2.webp",
+      "images": 3
+    },
+    {
+      "folder": "031 NA_ESHOPU",
+      "base": "031",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "031\\kvety-197.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c6f84c76-9c85-4fdd-8164-aa331609d252.webp",
+      "images": 3
+    },
+    {
+      "folder": "032 NA_ESHOPU",
+      "base": "032",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "032\\kvety-134.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\3e48c4b6-d38c-412f-bc08-e77cee0b700c.webp",
+      "images": 3
+    },
+    {
+      "folder": "033 NA_ESHOPU",
+      "base": "033",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "033\\kvety-137.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7a7099a5-aa6f-46d2-a4b9-604b1266059e.webp",
+      "images": 3
+    },
+    {
+      "folder": "034 NA_ESHOPU",
+      "base": "034",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "034\\kvety-145.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\243c5490-d069-4e74-a210-301620c55149.webp",
+      "images": 3
+    },
+    {
+      "folder": "035 NA_ESHOPU",
+      "base": "035",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "035\\kvety-174.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\53f2508b-7bfa-4620-878f-02b700439880.webp",
+      "images": 3
+    },
+    {
+      "folder": "036 NA_ESHOPU",
+      "base": "036",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "036\\kvety-157.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5bedcd63-48ff-4603-aa6b-a9093b78d813.webp",
+      "images": 3
+    },
+    {
+      "folder": "037 NA_ESHOPU",
+      "base": "037",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "037\\kvety-147.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\395d8a78-6375-42d8-8a99-e69125a92d6b.webp",
+      "images": 3
+    },
+    {
+      "folder": "038 NA_ESHOPU",
+      "base": "038",
+      "status": "NA_ESHOPU",
+      "dist": 7,
+      "local": "038\\kvety-79.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5a57a215-82df-4222-b4b6-1de487e8d4e1.webp",
+      "images": 3
+    },
+    {
+      "folder": "039 NA_ESHOPU",
+      "base": "039",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "039\\kvety-239.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\684ce16b-aaf2-479d-b6bd-5e0fcbd6992a.webp",
+      "images": 3
+    },
+    {
+      "folder": "040 NA_ESHOPU",
+      "base": "040",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "040\\kvety-238.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\bb563e91-31fa-4755-bcd7-6f08084aeef7.webp",
+      "images": 3
+    },
+    {
+      "folder": "041 NA_ESHOPU",
+      "base": "041",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "041\\kvety-256.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2f0065cb-f198-44ca-a831-066ad385222e.webp",
+      "images": 3
+    },
+    {
+      "folder": "042 NA_ESHOPU",
+      "base": "042",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "042\\kvety-234.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\675aefb5-ae0a-4f3a-a411-63dd01114ba1.webp",
+      "images": 3
+    },
+    {
+      "folder": "043 NA_ESHOPU",
+      "base": "043",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "043\\kvety-191.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\81c7c949-41da-4a7f-b896-99275f8a8de4.webp",
+      "images": 3
+    },
+    {
+      "folder": "044 NA_ESHOPU",
+      "base": "044",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "044\\kvety-253.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\d84ea999-d4cc-4af4-9db1-8dbe00cdde78.webp",
+      "images": 3
+    },
+    {
+      "folder": "045 NA_ESHOPU",
+      "base": "045",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "045\\kvety-287.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1b138d49-e3df-4f70-b983-e5b0d9a55e2c.webp",
+      "images": 3
+    },
+    {
+      "folder": "046 NA_ESHOPU",
+      "base": "046",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "046\\kvety-88.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7dc019e9-4d74-438a-b146-7e0db711b953.webp",
+      "images": 3
+    },
+    {
+      "folder": "047 NA_ESHOPU",
+      "base": "047",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "047\\kvety-214.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\8553b5ed-fb70-4120-bd18-4a0b409eaad5.webp",
+      "images": 3
+    },
+    {
+      "folder": "048 NA_ESHOPU",
+      "base": "048",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "048\\kvety-250.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\75e5bb98-eb54-4512-b876-05ad77bb761f.webp",
+      "images": 3
+    },
+    {
+      "folder": "049 NA_ESHOPU",
+      "base": "049",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "049\\kvety-4.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\3e0458a6-905c-4439-b153-46f5e659dd9f.webp",
+      "images": 3
+    },
+    {
+      "folder": "050 NA_ESHOPU",
+      "base": "050",
+      "status": "NA_ESHOPU",
+      "dist": 9,
+      "local": "050\\kvety-18.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\3315078f-c916-4851-9b37-e9389efa480c.webp",
+      "images": 3
+    },
+    {
+      "folder": "051 NA_ESHOPU",
+      "base": "051",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "051\\kvety-24.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\6304c08e-a553-4706-9b1f-8d7c0277421c.webp",
+      "images": 3
+    },
+    {
+      "folder": "052 NA_ESHOPU",
+      "base": "052",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "052\\kvety-2.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5504ef22-0a12-4dfc-9967-42675a6aadaf.webp",
+      "images": 3
+    },
+    {
+      "folder": "053 NA_ESHOPU",
+      "base": "053",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "053\\kvety-10.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\cb52ddc5-b02b-4930-9a45-4876456ef4f6.webp",
+      "images": 3
+    },
+    {
+      "folder": "054 NA_ESHOPU",
+      "base": "054",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "054\\kvety-230.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7ce5517e-76e8-43ab-a972-b5ec9059495c.webp",
+      "images": 3
+    },
+    {
+      "folder": "055 NA_ESHOPU",
+      "base": "055",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "055\\kvety-213.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\4358aa77-44e9-42d9-b10d-83991486a54c.webp",
+      "images": 3
+    },
+    {
+      "folder": "056 NA_ESHOPU",
+      "base": "056",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "056\\kvety-4.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\bbd2a2f1-175d-4fcf-897b-e2647c8ac99f.webp",
+      "images": 3
+    },
+    {
+      "folder": "057 NA_ESHOPU",
+      "base": "057",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "057\\kvety-138.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c412539d-4920-4f95-a3d5-721f57a9ed35.webp",
+      "images": 3
+    },
+    {
+      "folder": "058 NA_ESHOPU",
+      "base": "058",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "058\\kvety-135.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a939c592-9113-4d0d-b05b-b0a0f4ebcb7f.webp",
+      "images": 3
+    },
+    {
+      "folder": "059 NA_ESHOPU",
+      "base": "059",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "059\\kvety-58.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\bcdd3741-0d43-4694-aeb0-f2b55e33ce98.webp",
+      "images": 3
+    },
+    {
+      "folder": "060 NA_ESHOPU",
+      "base": "060",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "060\\kvety-61.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a87e8478-dbf1-4a83-aec2-124f5705c784.webp",
+      "images": 3
+    },
+    {
+      "folder": "061 NA_ESHOPU",
+      "base": "061",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "061\\KVETY-78.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\208eaf4e-9884-470e-b994-ce01922bcf0f.webp",
+      "images": 3
+    },
+    {
+      "folder": "062 NA_ESHOPU",
+      "base": "062",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "062\\KVETY2 (1).jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\4358aa77-44e9-42d9-b10d-83991486a54c.webp",
+      "images": 3
+    },
+    {
+      "folder": "063 NA_ESHOPU",
+      "base": "063",
+      "status": "NA_ESHOPU",
+      "dist": 9,
+      "local": "063\\kvety-59.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\ccc57042-ae59-4210-bded-e808e83e0fe8.webp",
+      "images": 3
+    },
+    {
+      "folder": "064 NA_ESHOPU",
+      "base": "064",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "064\\kvety-225.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\9471412d-7397-4d8c-ada8-71ffd896aa07.webp",
+      "images": 3
+    },
+    {
+      "folder": "065 NA_ESHOPU",
+      "base": "065",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "065\\kvety-50.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\be94b0d6-7354-44ac-9f0c-37c718dfa2dc.webp",
+      "images": 13
+    },
+    {
+      "folder": "066 NA_ESHOPU",
+      "base": "066",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "066\\kvety-120.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1a7bdedd-6147-4a17-9d23-03b8ecf7f456.webp",
+      "images": 20
+    },
+    {
+      "folder": "067 NA_ESHOPU",
+      "base": "067",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "067\\kvety-23.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\b3657013-3020-443a-bfa7-0ae09646a031.webp",
+      "images": 7
+    },
+    {
+      "folder": "068 NA_ESHOPU",
+      "base": "068",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "068\\kvety-30.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\afc555a0-2c21-4cb1-95c4-7d33f4e8c40b.webp",
+      "images": 18
+    },
+    {
+      "folder": "069 NA_ESHOPU",
+      "base": "069",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "069\\kvety-64.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\6a481dd2-a6e0-44d8-8f0f-02663a44b2b2.webp",
+      "images": 7
+    },
+    {
+      "folder": "070 NA_ESHOPU",
+      "base": "070",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "070\\kvety-51.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\33296b85-29a5-4c8e-85d0-d08dcd5dd3bb.webp",
+      "images": 7
+    },
+    {
+      "folder": "071 NA_ESHOPU",
+      "base": "071",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "071\\KVETY-126.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\67cd7fab-5d23-4ba4-8e4e-f1dfdad21bde.webp",
+      "images": 10
+    },
+    {
+      "folder": "072 NA_ESHOPU",
+      "base": "072",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "072\\kvety-8.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\cd29f97e-79bf-4503-ac24-6f09053cb984.webp",
+      "images": 7
+    },
+    {
+      "folder": "073 NA_ESHOPU",
+      "base": "073",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "073\\KVETY-153.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\975121ad-6180-42ac-9efe-76e390ac7b0e.webp",
+      "images": 7
+    },
+    {
+      "folder": "074 NA_ESHOPU",
+      "base": "074",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "074\\kvety-98.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\136f79fa-b27c-48f5-b720-f989b7f39060.webp",
+      "images": 7
+    },
+    {
+      "folder": "075 NA_ESHOPU",
+      "base": "075",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "075\\kvety-59.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\b5f26325-ddf4-4822-917d-f2a766670ea7.webp",
+      "images": 16
+    },
+    {
+      "folder": "076 NA_ESHOPU",
+      "base": "076",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "076\\kvety-92.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\21675ff2-9c5e-4aff-ace7-f99c341c3509.webp",
+      "images": 7
+    },
+    {
+      "folder": "077 NA_ESHOPU",
+      "base": "077",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "077\\kvety-21.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1107d32d-6fdb-4741-9062-8814247dfb13.webp",
+      "images": 5
+    },
+    {
+      "folder": "078 NA_ESHOPU",
+      "base": "078",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "078\\kvety-35.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\9a184bdf-22c3-4aa3-87ce-0fee474435be.webp",
+      "images": 13
+    },
+    {
+      "folder": "079 NA_ESHOPU",
+      "base": "079",
+      "status": "NA_ESHOPU",
+      "dist": 7,
+      "local": "079\\kvety-78.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\97fd76a2-7cf3-4150-aa10-f215a5efdaee.webp",
+      "images": 10
+    },
+    {
+      "folder": "080 NA_ESHOPU",
+      "base": "080",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "080\\kvety-103.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\54ef1e7e-7d97-4755-a883-5d1f2eb154aa.webp",
+      "images": 6
+    },
+    {
+      "folder": "081 NA_ESHOPU",
+      "base": "081",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "081\\kvety-73.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a74dda11-782e-4e54-9293-0b8a77e6a5bb.webp",
+      "images": 20
+    },
+    {
+      "folder": "082 NA_ESHOPU",
+      "base": "082",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "082\\kvety-9.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a4bf5ecf-8497-497c-9ce8-64f43e97c0fb.webp",
+      "images": 10
+    },
+    {
+      "folder": "083 NA_ESHOPU",
+      "base": "083",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "083\\kvety-26.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\18a5dab9-1b47-461f-85d5-4e649833564c.webp",
+      "images": 9
+    },
+    {
+      "folder": "084 NA_ESHOPU",
+      "base": "084",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "084\\kvety-37.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\209db5cc-ead0-4daf-83da-58ac5e18dcd1.webp",
+      "images": 7
+    },
+    {
+      "folder": "085 NA_ESHOPU",
+      "base": "085",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "085\\kvety-48.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\bed3fbe1-3325-4e94-9415-a1a61804337c.webp",
+      "images": 6
+    },
+    {
+      "folder": "086 NA_ESHOPU",
+      "base": "086",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "086\\kvety-28.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\d0d2905e-cb1b-4e61-b752-da1925176f1e.webp",
+      "images": 10
+    },
+    {
+      "folder": "087 NA_ESHOPU",
+      "base": "087",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "087\\kvety-127.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\cee98866-7d3f-4acd-b03f-add7ef51b34e.webp",
+      "images": 4
+    },
+    {
+      "folder": "088 NA_ESHOPU",
+      "base": "088",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "088\\kvety-113.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\92b83261-9651-4e46-9611-6f647f254c13.webp",
+      "images": 7
+    },
+    {
+      "folder": "089 NA_ESHOPU",
+      "base": "089",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "089\\kvety-100.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1f3abc66-1033-4c15-9f1c-5f660bd2ec39.webp",
+      "images": 6
+    },
+    {
+      "folder": "090 NA_ESHOPU",
+      "base": "090",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "090\\kvety-163.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a4ba46ce-9768-4864-aecf-ad8aa07862b7.webp",
+      "images": 7
+    },
+    {
+      "folder": "091 NA_ESHOPU",
+      "base": "091",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "091\\kvety-153.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\466d7fab-fe12-4851-a3c8-2223e111a2e3.webp",
+      "images": 7
+    },
+    {
+      "folder": "092 NA_ESHOPU",
+      "base": "092",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "092\\kvety-159.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\149c7c43-bf2c-4d31-9688-6cbbd6ad46a9.webp",
+      "images": 7
+    },
+    {
+      "folder": "093 NA_ESHOPU",
+      "base": "093",
+      "status": "NA_ESHOPU",
+      "dist": 7,
+      "local": "093\\kvety-243.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2bb3b73a-2545-4d33-895a-f85aa2950ead.webp",
+      "images": 4
+    },
+    {
+      "folder": "094 NA_ESHOPU",
+      "base": "094",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "094\\kvety-199.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\5507f621-b535-4eed-8113-033f17739f9a.webp",
+      "images": 10
+    },
+    {
+      "folder": "095 NA_ESHOPU",
+      "base": "095",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "095\\kvety-122.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\8d2cb7db-ac21-416a-8410-34e1d673a7a5.webp",
+      "images": 5
+    },
+    {
+      "folder": "096 NA_ESHOPU",
+      "base": "096",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "096\\kvety-289.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\147295e7-ae6a-4290-b184-57d2205332d1.webp",
+      "images": 7
+    },
+    {
+      "folder": "097 NA_ESHOPU",
+      "base": "097",
+      "status": "NA_ESHOPU",
+      "dist": 6,
+      "local": "097\\kvety-305.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c1ccb8e5-6e91-488d-a68a-1edc6d65f721.webp",
+      "images": 10
+    },
+    {
+      "folder": "098 NA_ESHOPU",
+      "base": "098",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "098\\kvety-11.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\4d2e52bc-86c3-4a01-b982-cf0d805eeb30.webp",
+      "images": 13
+    },
+    {
+      "folder": "099 NA_ESHOPU",
+      "base": "099",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "099\\kvety-330.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\d3324926-f5d3-4ff9-8c5a-419ea9ba9d23.webp",
+      "images": 9
+    },
+    {
+      "folder": "100 NA_ESHOPU",
+      "base": "100",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "100\\kvety-268.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2bb3b73a-2545-4d33-895a-f85aa2950ead.webp",
+      "images": 23
+    },
+    {
+      "folder": "101 NA_ESHOPU",
+      "base": "101",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "101\\kvety-181.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c04851f6-9a90-45f1-9393-87ee551e40d2.webp",
+      "images": 10
+    },
+    {
+      "folder": "102 NA_ESHOPU",
+      "base": "102",
+      "status": "NA_ESHOPU",
+      "dist": 7,
+      "local": "102\\kvety-283.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\11dc7edf-b449-4cda-80c1-2be8f0180a49.webp",
+      "images": 4
+    },
+    {
+      "folder": "103 NA_ESHOPU",
+      "base": "103",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "103\\kvety-33.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\88c541ab-2bef-42a6-80f8-dc28f7994e95.webp",
+      "images": 23
+    },
+    {
+      "folder": "104 NA_ESHOPU",
+      "base": "104",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "104\\kvety-76.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7ce5517e-76e8-43ab-a972-b5ec9059495c.webp",
+      "images": 26
+    },
+    {
+      "folder": "105 NA_ESHOPU",
+      "base": "105",
+      "status": "NA_ESHOPU",
+      "dist": 8,
+      "local": "105\\kvety-86.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\40ab77a5-7dec-4da5-b492-454e8a288524.webp",
+      "images": 16
+    },
+    {
+      "folder": "106 NA_ESHOPU",
+      "base": "106",
+      "status": "NA_ESHOPU",
+      "dist": 0,
+      "local": "106\\kvety-9.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\28cf6ca6-9296-49c5-8315-830fc8259e2c.webp",
+      "images": 6
+    },
+    {
+      "folder": "107 NA_ESHOPU",
+      "base": "107",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "107\\kvety-21.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\be4d3086-4d37-457e-abb4-e0acfac6ebc5.webp",
+      "images": 12
+    },
+    {
+      "folder": "108 NA_ESHOPU",
+      "base": "108",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "108\\kvety-44.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\07840c4d-a35b-4db5-b73e-a90279dedd8f.webp",
+      "images": 22
+    },
+    {
+      "folder": "109 NA_ESHOPU",
+      "base": "109",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "109\\kvety-339.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\6d8a0f4c-20c6-4da9-811d-62060c2bd0e0.webp",
+      "images": 9
+    },
+    {
+      "folder": "110 NA_ESHOPU",
+      "base": "110",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "110\\kvety-222.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\18fa2eb5-a620-431a-bed0-d3f8b03047bc.webp",
+      "images": 7
+    },
+    {
+      "folder": "111 NA_ESHOPU",
+      "base": "111",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "111\\kvety-301.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\b17f3ff5-0116-42fd-b78f-2dad8c0fd5bf.webp",
+      "images": 9
+    },
+    {
+      "folder": "112 NA_ESHOPU",
+      "base": "112",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "112\\kvety-18.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\b41ba0a8-1487-4b1a-ab7e-e819950f9b9c.webp",
+      "images": 7
+    },
+    {
+      "folder": "113 NA_ESHOPU",
+      "base": "113",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "113\\kvety-108.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2a905845-35fe-4afb-9ce9-e4ba731885f5.webp",
+      "images": 4
+    },
+    {
+      "folder": "114 NA_ESHOPU",
+      "base": "114",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "114\\kvety-113.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\0d47b6b7-8b1c-41c9-ada5-6864d104d10b.webp",
+      "images": 9
+    },
+    {
+      "folder": "115 NA_ESHOPU",
+      "base": "115",
+      "status": "NA_ESHOPU",
+      "dist": 0,
+      "local": "115\\kvety-100.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2eb947b0-8323-4d1c-b0a9-ec98dc651dac.webp",
+      "images": 7
+    },
+    {
+      "folder": "116 NA_ESHOPU",
+      "base": "116",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "116\\kvety-80.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\9447674f-bfa3-4080-a3e0-2bc40a2baa3b.webp",
+      "images": 13
+    },
+    {
+      "folder": "117 NA_ESHOPU",
+      "base": "117",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "117\\kvety-90.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\7ce5517e-76e8-43ab-a972-b5ec9059495c.webp",
+      "images": 14
+    },
+    {
+      "folder": "118 NA_ESHOPU",
+      "base": "118",
+      "status": "NA_ESHOPU",
+      "dist": 1,
+      "local": "118\\kvety-122.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\8f47fa3a-0809-424b-b541-6ea46d84fdda.webp",
+      "images": 12
+    },
+    {
+      "folder": "119 NA_ESHOPU",
+      "base": "119",
+      "status": "NA_ESHOPU",
+      "dist": 5,
+      "local": "119\\kvety-7.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\a9718bfd-f7e2-4888-a105-3de8440d6a13.webp",
+      "images": 9
+    },
+    {
+      "folder": "120 NA_ESHOPU",
+      "base": "120",
+      "status": "NA_ESHOPU",
+      "dist": 0,
+      "local": "120\\kvety-131.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\2bb3b73a-2545-4d33-895a-f85aa2950ead.webp",
+      "images": 9
+    },
+    {
+      "folder": "121 NA_ESHOPU",
+      "base": "121",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "121\\kvety-86.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\3b9c3dd0-af89-4c5b-b5bd-fc5102e3cec4.webp",
+      "images": 7
+    },
+    {
+      "folder": "122 NA_ESHOPU",
+      "base": "122",
+      "status": "NA_ESHOPU",
+      "dist": 4,
+      "local": "122\\kvety-75.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\71d9f8c4-476c-4a83-b1c6-67b064986ba4.webp",
+      "images": 10
+    },
+    {
+      "folder": "123 NA_ESHOPU",
+      "base": "123",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "123\\kvety-55.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\1e8d6b6e-ea72-44eb-8869-c352c60cb3e3.webp",
+      "images": 10
+    },
+    {
+      "folder": "124 NA_ESHOPU",
+      "base": "124",
+      "status": "NA_ESHOPU",
+      "dist": 3,
+      "local": "124\\KVETY3 (1).jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\c85ef650-f186-4f63-81de-ba2ef72bd9b4.webp",
+      "images": 10
+    },
+    {
+      "folder": "125 NA_ESHOPU",
+      "base": "125",
+      "status": "NA_ESHOPU",
+      "dist": 2,
+      "local": "125\\kvety-105.jpg",
+      "db": "22437e1d-5c63-4ecb-a461-0dffd2af4c52\\26be778d-d558-4ec5-8a86-bdd1835d4de1.webp",
+      "images": 4
+    }
+  ]
+}
