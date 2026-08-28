@@ -7,12 +7,13 @@ import { ShoppingCart, X } from "lucide-react";
 import {
   cartItemCount,
   cartSubtotal,
-  formatPrice,
   type CartItem,
 } from "@/lib/cart";
 import {
   formatAmountExVat,
+  formatAmountIncVat,
   formatPriceExVatLabel,
+  formatPriceIncVatLabel,
 } from "@/lib/price";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
@@ -71,7 +72,7 @@ function CartItems({
                 <span className="font-semibold text-[#2f2924]">
                   {isWholesale
                     ? formatPriceExVatLabel(product.price)
-                    : product.price}
+                    : formatPriceIncVatLabel(product.price)}
                 </span>
                 <span className="mx-1.5 text-[#2f2924]/30">·</span>
                 <span>{quantity}&nbsp;ks</span>
@@ -100,7 +101,9 @@ function CartFooter({
           {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
         </span>
         <span className="font-heading text-lg font-semibold text-[#2f2924]">
-          {isWholesale ? formatAmountExVat(subtotal) : formatPrice(subtotal)}
+          {isWholesale
+            ? formatAmountExVat(subtotal)
+            : formatAmountIncVat(subtotal)}
         </span>
       </div>
       <Link

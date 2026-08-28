@@ -9,6 +9,7 @@ import {
   ACTIVE_ORDER_STATUSES,
   CANCELLABLE_ORDER_STATUSES,
   canPrintShippingLabel,
+  normalizeOrderNumberInput,
   orderTotal,
   type Order,
 } from "@/lib/orders";
@@ -18,7 +19,7 @@ import {
   listOrdersForCustomerEmail,
   listOrdersFromDb,
 } from "@/lib/orders.server";
-import { meetsMinOrder, parsePrice } from "@/lib/price";
+import { formatPrice, meetsMinOrder, parsePrice, priceIncludingVat } from "@/lib/price";
 import { normalizePromoCode, promoDiscountAmount } from "@/lib/promo";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import {
@@ -141,15 +142,17 @@ export async function createOrderAction(
   } = await supabase.auth.getUser();
 
   let userId: string | null = null;
+  let isWholesale = false;
   if (user) {
     const { data: profile } = await supabase
       .from("profiles")
-      .select("role, status")
+      .select("role, status, type")
       .eq("id", user.id)
       .maybeSingle();
 
     if (profile && profile.role !== "admin" && profile.status === "aktivny") {
       userId = user.id;
+      isWholesale = profile.type === "velkoobchod";
     }
   }
 
@@ -197,8 +200,10 @@ export async function createOrderAction(
       };
     }
 
-    const unitPrice = product.price;
-    subtotal += parsePrice(unitPrice) * quantity;
+    const unitNet = parsePrice(product.price);
+    const unitAmount = isWholesale ? unitNet : priceIncludingVat(unitNet);
+    const unitPrice = formatPrice(unitAmount);
+    subtotal += unitAmount * quantity;
     orderLines.push({
       productId: product.id,
       productName: product.name,
@@ -529,11 +534,55 @@ export async function printPacketaLabelAction(
   }
 }
 
+/**
+ * Public lookup for withdrawal / guest flows.
+ * Requires both order number and email — never returns an order on number alone.
+ */
+export async function getOrderByNumberAndEmailAction(
+  orderNumber: string,
+  email: string,
+): Promise<OrderActionResult<Order>> {
+  try {
+    const normalizedNumber = normalizeOrderNumberInput(orderNumber);
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedNumber || !normalizedEmail) {
+      return {
+        ok: false,
+        error: "Vyplňte číslo objednávky aj e-mail.",
+      };
+    }
+
+    const order = await getOrderByNumberFromDb(normalizedNumber);
+    if (
+      !order ||
+      order.customer.email.trim().toLowerCase() !== normalizedEmail
+    ) {
+      return {
+        ok: false,
+        error:
+          "Objednávku sme nenašli. Skontrolujte číslo objednávky a e-mail uvedený v objednávke.",
+      };
+    }
+
+    return { ok: true, data: order };
+  } catch (error) {
+    return {
+      ok: false,
+      error:
+        error instanceof Error ? error.message : "Načítanie objednávky zlyhalo.",
+    };
+  }
+}
+
+/** @deprecated Prefer getOrderByNumberAndEmailAction for public flows. */
 export async function getOrderByNumberAction(
   orderNumber: string,
 ): Promise<OrderActionResult<Order>> {
   try {
-    const order = await getOrderByNumberFromDb(orderNumber);
+    const order = await getOrderByNumberFromDb(
+      normalizeOrderNumberInput(orderNumber),
+    );
     if (!order) return { ok: false, error: "Objednávka sa nenašla." };
     return { ok: true, data: order };
   } catch (error) {

@@ -25,8 +25,13 @@ export function buildOrderHandedToCarrierEmail(
     /\/$/,
     "",
   );
-  const accountUrl = vars.accountUrl ?? absolutize(siteUrl, "/ucet");
   const shopUrl = vars.shopUrl ?? siteUrl;
+  const orderUrl =
+    vars.orderUrl?.trim() ||
+    absolutize(
+      siteUrl,
+      `/objednavka/${encodeURIComponent(vars.orderNumber.trim() || "PD")}`,
+    );
   const orderNumber = vars.orderNumber.trim();
   const shippingMethod =
     vars.shippingMethod?.trim() ||
@@ -37,8 +42,8 @@ export function buildOrderHandedToCarrierEmail(
 
   const safeGreeting = escapeHtml(greeting);
   const safeSite = escapeHtml(siteUrl);
-  const safeAccountUrl = escapeHtml(accountUrl);
   const safeShopUrl = escapeHtml(shopUrl);
+  const safeOrderUrl = escapeHtml(orderUrl);
   const safeOrder = escapeHtml(orderNumber);
   const safeShipping = escapeHtml(shippingMethod);
 
@@ -59,7 +64,7 @@ export function buildOrderHandedToCarrierEmail(
     "",
     "O ďalšom priebehu zásielky vás bude informovať prepravca e-mailom alebo SMS. Dostanete informácie o sledovaní zásielky a jej doručení na adresu alebo výdajné miesto Packeta / Zásielkovňa.",
     "",
-    `Stav objednávky v účte: ${accountUrl}`,
+    `Detail objednávky: ${orderUrl}`,
     `Prejsť do obchodu: ${shopUrl}`,
     "",
     "S pozdravom",
@@ -126,20 +131,20 @@ export function buildOrderHandedToCarrierEmail(
           <tr>
             <td class="email-pad" style="padding: 24px 36px 8px 36px;">
               <!--[if mso]>
-              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="${safeAccountUrl}" style="height:46px;v-text-anchor:middle;width:220px;" arcsize="16%" stroke="f" fillcolor="${EMAIL_BRAND.primary}">
+              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="${safeOrderUrl}" style="height:46px;v-text-anchor:middle;width:240px;" arcsize="16%" stroke="f" fillcolor="${EMAIL_BRAND.primary}">
                 <w:anchorlock/>
                 <center style="color:${EMAIL_BRAND.white};font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;">
-                  Prejsť do môjho účtu
+                  Zobraziť detail objednávky
                 </center>
               </v:roundrect>
               <![endif]-->
               <!--[if !mso]><!-- -->
-              <a href="${safeAccountUrl}" style="display:inline-block; background-color:${EMAIL_BRAND.primary}; color:${EMAIL_BRAND.white}; font-family:${EMAIL_FONT_SANS}; font-size:15px; font-weight:600; line-height:46px; border-radius:12px; padding:0 24px; margin:0 10px 10px 0;">
-                Prejsť do môjho účtu
+              <a href="${safeOrderUrl}" style="display:inline-block; background-color:${EMAIL_BRAND.primary}; color:${EMAIL_BRAND.white}; font-family:${EMAIL_FONT_SANS}; font-size:15px; font-weight:600; line-height:46px; border-radius:12px; padding:0 24px; margin:0 10px 10px 0;">
+                Zobraziť detail objednávky
               </a>
               <!--<![endif]-->
               <!--[if mso]>
-              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="${safeShopUrl}" style="height:46px;v-text-anchor:middle;width:200px;" arcsize="16%" stroke="${EMAIL_BRAND.border}" fillcolor="${EMAIL_BRAND.white}">
+              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="${safeShopUrl}" style="height:46px;v-text-anchor:middle;width:180px;" arcsize="16%" stroke="${EMAIL_BRAND.border}" fillcolor="${EMAIL_BRAND.white}">
                 <w:anchorlock/>
                 <center style="color:${EMAIL_BRAND.ink};font-family:Arial,Helvetica,sans-serif;font-size:15px;font-weight:bold;">
                   Prejsť do obchodu

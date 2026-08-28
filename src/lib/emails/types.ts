@@ -110,6 +110,50 @@ export type OrderHandedToCarrierEmailVars = {
   orderNumber: string;
   /** Napr. „Packeta / Zásielkovňa - výdajné miesto“. */
   shippingMethod?: string;
+  /** Signed link na detail objednávky. */
+  orderUrl?: string;
+  siteUrl?: string;
+  shopUrl?: string;
+  accountUrl?: string;
+};
+
+/** Jedna položka v potvrdení zaplatenej objednávky. */
+export type OrderPaidEmailItem = {
+  name: string;
+  quantity: number;
+  /** Formátovaná jednotková cena, napr. „12,90 €“. */
+  unitPrice: string;
+  /** Formátovaná cena riadku (ks × cena), napr. „25,80 €“. */
+  lineTotal: string;
+  /** Voliteľný popis farby / variantu. */
+  variant?: string;
+};
+
+/**
+ * Potvrdenie po zaplatení / prijatí objednávky + súhrn nákupu.
+ * Zatiaľ template; napojenie na platobný webhook / checkout neskôr.
+ */
+export type OrderPaidEmailVars = {
+  customerName?: string;
+  orderNumber: string;
+  items: OrderPaidEmailItem[];
+  /** Celkový počet položiek (ak je väčší ako items.length, e-mail ukáže „+ N ďalších“). */
+  itemsTotalCount?: number;
+  /** Formátovaný súčet položiek, napr. „89,70 €“. */
+  subtotal: string;
+  /** Formátovaná doprava, napr. „3,99 €“ alebo „Zadarmo“. */
+  shippingCost: string;
+  /** Celkom k úhrade / zaplatené. */
+  total: string;
+  paymentMethod?: string;
+  shippingMethod?: string;
+  /** Napr. „Packeta · OC Aupark Bratislava“. */
+  deliveryLabel?: string;
+  /** Formátovaná zľava (kladná suma), napr. „5,00 €“. */
+  discount?: string;
+  promoCode?: string;
+  /** Signed link na detail objednávky. */
+  orderUrl?: string;
   siteUrl?: string;
   shopUrl?: string;
   accountUrl?: string;

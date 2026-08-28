@@ -290,3 +290,13 @@ export function formatOrderShippingLine(
 export function getOrderById(orders: Order[], id: string) {
   return orders.find((order) => order.id === id);
 }
+
+/** Normalize customer-entered order numbers (PD-YYYY-#####). */
+export function normalizeOrderNumberInput(value: string) {
+  let next = value.trim().replace(/^#/, "").toUpperCase();
+  if (!next) return "";
+  if (/^\d{4}-\d+$/.test(next)) {
+    next = `PD-${next}`;
+  }
+  return next;
+}

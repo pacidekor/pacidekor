@@ -25,6 +25,10 @@ import {
   parsePrice,
 } from "@/lib/price";
 import type { Product } from "@/lib/products";
+import {
+  getProductOrderMultiple,
+  snapQuantityToMultiple,
+} from "@/lib/taxonomy";
 
 export {
   amountToMinOrder,
@@ -264,7 +268,12 @@ export async function addToCart(
   quantity = 1,
   colorId?: string,
 ): Promise<CartItem[]> {
-  const qty = Math.max(1, Math.floor(quantity));
+  const multiple = getProductOrderMultiple(product.attributes?.packaging);
+  const qty = snapQuantityToMultiple(
+    Math.max(1, Math.floor(quantity)),
+    multiple,
+  );
+  if (qty <= 0) return readCartItems();
 
   if (getCachedClientAuthenticated() === true) {
     // Not hydrated yet — must wait for server (rare; AccountDataSync usually ran).
@@ -346,7 +355,12 @@ export async function setCartQuantity(
   productId: string,
   quantity: number,
 ): Promise<CartItem[]> {
-  const qty = Math.floor(quantity);
+  let qty = Math.floor(quantity);
+  if (qty > 0) {
+    const product = findCatalogProductById(productId);
+    const multiple = getProductOrderMultiple(product?.attributes?.packaging);
+    qty = snapQuantityToMultiple(qty, multiple);
+  }
 
   if (getCachedClientAuthenticated() === true) {
     if (accountCartCache === null) {
@@ -534,7 +548,15 @@ export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
   let skipped = 0;
 
   for (const line of lines) {
-    const qty = Math.max(1, Math.floor(line.quantity));
+    const multiple = getProductOrderMultiple(line.product.attributes?.packaging);
+    const qty = snapQuantityToMultiple(
+      Math.max(1, Math.floor(line.quantity)),
+      multiple,
+    );
+    if (qty <= 0) {
+      skipped += 1;
+      continue;
+    }
     const previous = getInventoryForProduct(line.product);
     const preview = previewInventoryDelta(line.product, -qty);
     if (!preview.ok) {

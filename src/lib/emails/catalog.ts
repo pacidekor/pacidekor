@@ -11,6 +11,7 @@ import {
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 import { buildBirthdayEmail } from "@/lib/emails/birthday";
 import { buildOrderHandedToCarrierEmail } from "@/lib/emails/order-handed-to-carrier";
+import { buildOrderPaidEmail } from "@/lib/emails/order-paid";
 import type {
   EmailTemplate,
   NewsletterProductCard,
@@ -168,6 +169,63 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
       }),
   },
   {
+    id: "order-paid",
+    label: "Objednávka zaplatená",
+    description:
+      "Potvrdenie po úspešnej platbe so súhrnom položiek, dopravy a celkovej sumy.",
+    trigger: "Po úspešnom zaplatení objednávky (checkout / platobný webhook)",
+    build: (siteUrl) =>
+      buildOrderPaidEmail({
+        customerName: "Mária Nováková",
+        orderNumber: "PD-2026-0042",
+        items: [
+          {
+            name: "Hortenzia krémová",
+            quantity: 2,
+            unitPrice: "12,90 €",
+            lineTotal: "25,80 €",
+            variant: "Krémová",
+          },
+          {
+            name: "Mini ruže ružové - zväzok",
+            quantity: 1,
+            unitPrice: "8,50 €",
+            lineTotal: "8,50 €",
+          },
+          {
+            name: "Gypsofilka biela",
+            quantity: 3,
+            unitPrice: "4,90 €",
+            lineTotal: "14,70 €",
+            variant: "Biela",
+          },
+          {
+            name: "Levanduľa krémová",
+            quantity: 2,
+            unitPrice: "6,90 €",
+            lineTotal: "13,80 €",
+          },
+          {
+            name: "Mak bordový",
+            quantity: 1,
+            unitPrice: "7,50 €",
+            lineTotal: "7,50 €",
+          },
+        ],
+        itemsTotalCount: 8,
+        subtotal: "49,00 €",
+        discount: "5,00 €",
+        promoCode: "KVETY5",
+        shippingCost: "3,99 €",
+        total: "47,99 €",
+        paymentMethod: "Online platba kartou",
+        shippingMethod: "Packeta / Zásielkovňa - výdajné miesto",
+        deliveryLabel: "OC Aupark, Bratislava",
+        orderUrl: `${siteUrl.replace(/\/$/, "")}/objednavka/nahled?t=preview`,
+        siteUrl,
+      }),
+  },
+  {
     id: "order-handed-to-carrier",
     label: "Objednávka u dopravcu",
     description:
@@ -178,6 +236,7 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
         customerName: "Mária Nováková",
         orderNumber: "PD-2026-0042",
         shippingMethod: "Packeta / Zásielkovňa - výdajné miesto",
+        orderUrl: `${siteUrl.replace(/\/$/, "")}/objednavka/nahled?t=preview`,
         siteUrl,
       }),
   },

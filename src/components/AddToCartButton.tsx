@@ -11,6 +11,10 @@ import {
   setInventory,
 } from "@/lib/inventory";
 import type { Product } from "@/lib/products";
+import {
+  getProductOrderMultiple,
+  snapQuantityToMultiple,
+} from "@/lib/taxonomy";
 
 type AddToCartButtonProps = {
   product: Product;
@@ -41,15 +45,31 @@ export function AddToCartButton({
   function handleClick() {
     if (added || disabled) return;
 
+    const multiple = getProductOrderMultiple(product.attributes?.packaging);
+    let rawQty = quantity;
+
+    // Ak práve edituje množstvo, ber hodnotu z inputu a snappni (15 → 12, 20 → 24).
+    if (typeof document !== "undefined") {
+      const active = document.activeElement;
+      if (active instanceof HTMLInputElement) {
+        const parsed = Number.parseInt(active.value, 10);
+        if (!Number.isNaN(parsed)) rawQty = parsed;
+        active.blur();
+      }
+    }
+
+    const qty =
+      snapQuantityToMultiple(rawQty, multiple) || Math.max(1, multiple);
+
     const previous = getInventoryForProduct(product);
-    const preview = previewInventoryDelta(product, -quantity);
+    const preview = previewInventoryDelta(product, -qty);
     if (!preview.ok) return;
 
     applyInventoryLocally(product.id, preview.entry);
 
     void (async () => {
       try {
-        await addToCart(product, quantity, colorId);
+        await addToCart(product, qty, colorId);
       } catch {
         applyInventoryLocally(product.id, previous);
         return;
@@ -60,7 +80,7 @@ export function AddToCartButton({
       timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);
 
       if (preview.needsServerSync) {
-        void adjustStockAction(product.id, -quantity).then((result) => {
+        void adjustStockAction(product.id, -qty).then((result) => {
           if (!result.ok) {
             applyInventoryLocally(product.id, previous);
             return;

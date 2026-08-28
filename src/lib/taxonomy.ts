@@ -130,6 +130,86 @@ export function getPackagingFormatById(id: string) {
   return packagingFormats.find((item) => item.id === id);
 }
 
+/** Najmenšia balíková jednotka > 1 ks = násobok objednávky (inak 1). */
+export function getProductOrderMultiple(
+  packaging: PackagingOption[] | undefined | null,
+): number {
+  const steps = (packaging ?? [])
+    .map((item) => Math.floor(Number(item.pieces) || 0))
+    .filter((pieces) => pieces > 1);
+  if (steps.length === 0) return 1;
+  return Math.min(...steps);
+}
+
+export function getPrimaryPackagingOption(
+  packaging: PackagingOption[] | undefined | null,
+): PackagingOption | null {
+  const options = (packaging ?? []).filter(
+    (item) => Math.floor(Number(item.pieces) || 0) > 1,
+  );
+  if (options.length === 0) return null;
+  return options.reduce((best, item) =>
+    item.pieces < best.pieces ? item : best,
+  );
+}
+
+/** napr. „Dodávané v krabiciach po 12 ks“ */
+export function formatPackagingDeliveryHint(
+  option: PackagingOption,
+): string {
+  const format = getPackagingFormatById(option.id);
+  const label = (option.label?.trim() || format?.label || "balenie").toLowerCase();
+  const pieces = Math.floor(Number(option.pieces) || 0);
+
+  if (option.id === "krabica" || label.includes("krab")) {
+    return `Dodávané v krabiciach po ${pieces} ks`;
+  }
+  if (option.id === "paleta" || label.includes("palet")) {
+    return `Dodávané na paletách po ${pieces} ks`;
+  }
+  return `Dodávané po ${pieces} ks (${option.label?.trim() || format?.label || "balenie"})`;
+}
+
+/** Krátky variant pre mobil: „Krabica po 12 ks“ */
+export function formatPackagingDeliveryHintShort(
+  option: PackagingOption,
+): string {
+  const format = getPackagingFormatById(option.id);
+  const name = option.label?.trim() || format?.label || "Balenie";
+  const pieces = Math.floor(Number(option.pieces) || 0);
+  return `${name} po ${pieces} ks`;
+}
+
+/** Zarovná množstvo na násobok balenia (min. 1 balenie). */
+export function snapQuantityToMultiple(
+  quantity: number,
+  multiple: number,
+  max?: number,
+): number {
+  const step = Math.max(1, Math.floor(multiple) || 1);
+  let next = Math.max(step, Math.floor(Number(quantity) || 0));
+  if (step > 1) {
+    next = Math.round(next / step) * step;
+    if (next < step) next = step;
+  }
+  if (typeof max === "number") {
+    const alignedMax = Math.floor(max / step) * step;
+    next = Math.min(next, Math.max(step, alignedMax));
+    if (alignedMax < step) return 0;
+  }
+  return next;
+}
+
+export function alignMaxToOrderMultiple(
+  max: number | undefined,
+  multiple: number,
+): number | undefined {
+  if (typeof max !== "number") return undefined;
+  const step = Math.max(1, Math.floor(multiple) || 1);
+  const aligned = Math.floor(max / step) * step;
+  return aligned >= step ? aligned : 0;
+}
+
 export function parseCategoryFilters(
   searchParams: Record<string, string | string[] | undefined>,
 ): CategoryFilters {

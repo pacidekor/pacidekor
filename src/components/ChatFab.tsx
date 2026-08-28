@@ -9,6 +9,7 @@ import {
   ChatRichText,
   hrefsInChatText,
 } from "@/components/chat/ChatRichText";
+import { ProductPriceDisplay } from "@/components/ProductPriceDisplay";
 import {
   createConversationId,
   deleteConversation,
@@ -125,14 +126,11 @@ function ProductCards({ products }: { products: ChatProductCard[] }) {
                 {product.name}
               </span>
               <span className="mt-1 flex flex-wrap items-baseline gap-1.5 text-xs">
-                <span className="font-semibold text-[#75825B]">
-                  {product.price}
-                </span>
-                {product.originalPrice ? (
-                  <span className="text-[#2f2924]/40 line-through">
-                    {product.originalPrice}
-                  </span>
-                ) : null}
+                <ProductPriceDisplay
+                  price={product.price}
+                  originalPrice={product.originalPrice}
+                  variant="inline"
+                />
                 {product.discount ? (
                   <span className="font-medium text-[#a05a3c]">
                     −{product.discount}&nbsp;%

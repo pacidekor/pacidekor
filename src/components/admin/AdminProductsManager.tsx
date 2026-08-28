@@ -28,7 +28,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { formatPrice, parsePrice } from "@/lib/cart";
+import { formatPrice, parsePrice } from "@/lib/price";
 import { productMatchesSearchQuery } from "@/lib/search";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
@@ -1456,7 +1456,10 @@ function ProductEditor({
                   />
                 </FieldLabel>
 
-                <FieldLabel label="Cena">
+                <FieldLabel
+                  label="Cena bez DPH"
+                  hint="Zadávajte cenu bez DPH. DPH (23 %) sa na webe dopočíta automaticky."
+                >
                   <div className="relative">
                     <input
                       type="text"
@@ -2500,14 +2503,19 @@ function ProductThumb({ src }: { src: string }) {
 
 function FieldLabel({
   label,
+  hint,
   children,
 }: {
   label: string;
+  hint?: string;
   children: ReactNode;
 }) {
   return (
     <label className="block text-sm font-medium text-[#2f2924]">
-      {label}
+      <span className="inline-flex items-center gap-1.5">
+        {label}
+        {hint ? <InfoHint text={hint} /> : null}
+      </span>
       <div className="mt-2">{children}</div>
     </label>
   );

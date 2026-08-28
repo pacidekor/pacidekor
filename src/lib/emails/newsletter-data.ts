@@ -1,5 +1,6 @@
 import "server-only";
 
+import { formatPriceIncVat } from "@/lib/price";
 import { getAkciaProductIds } from "@/lib/discounts";
 import { listDiscounts } from "@/lib/discounts-server";
 import type { NewsletterProductCard } from "@/lib/emails/types";
@@ -17,8 +18,10 @@ export function productToNewsletterCard(
   const image = product.image.trim();
   return {
     name: product.name,
-    price: product.price,
-    originalPrice: product.originalPrice,
+    price: formatPriceIncVat(product.price),
+    originalPrice: product.originalPrice
+      ? formatPriceIncVat(product.originalPrice)
+      : undefined,
     discountPercent: product.discount,
     url: absolutize(siteUrl, productHref(product.slug)),
     imageUrl: image ? absolutize(siteUrl, image) : undefined,

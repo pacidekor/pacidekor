@@ -43,9 +43,16 @@ import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
 import {
   formatAmountExVat,
+  formatAmountIncVat,
   formatPriceExVat,
-  priceExcludingVat,
+  formatPriceIncVat,
+  priceIncludingVat,
 } from "@/lib/price";
+import {
+  alignMaxToOrderMultiple,
+  getProductOrderMultiple,
+  snapQuantityToMultiple,
+} from "@/lib/taxonomy";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { useCartItems } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
@@ -62,16 +69,18 @@ function CartLine({
   isWholesale: boolean;
 }) {
   const { product, quantity } = item;
-  const lineTotalInc = parsePrice(product.price) * quantity;
+  const lineTotalNet = parsePrice(product.price) * quantity;
   const lineTotal = isWholesale
-    ? priceExcludingVat(lineTotalInc)
-    : lineTotalInc;
+    ? lineTotalNet
+    : priceIncludingVat(lineTotalNet);
   const inventory = getInventoryForProduct(product);
   const remaining = inventoryMaxOrderable(inventory);
-  const maxQty =
+  const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
+  const rawMax =
     typeof remaining === "number"
-      ? Math.max(1, remaining + quantity)
+      ? Math.max(orderMultiple, remaining + quantity)
       : undefined;
+  const maxQty = alignMaxToOrderMultiple(rawMax, orderMultiple);
 
   return (
     <li className="flex items-center gap-3.5 py-5 sm:gap-5">
@@ -119,6 +128,8 @@ function CartLine({
             value={quantity}
             onChange={onQuantityChange}
             max={maxQty}
+            min={orderMultiple}
+            step={orderMultiple}
             size="sm"
             aria-label={`Množstvo: ${product.name}`}
           />
@@ -136,7 +147,7 @@ function CartLine({
               <p className="mt-0.5 text-xs text-[#2f2924]/45">
                 {isWholesale
                   ? `${formatPriceExVat(product.price)} / ks`
-                  : `${product.price} / ks`}
+                  : `${formatPriceIncVat(product.price)} / ks`}
               </p>
             ) : null}
           </div>
@@ -163,11 +174,23 @@ function CartSummary({
     ? promoDiscountAmount(subtotal, promo.discountPercent)
     : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
+  const displaySubtotal = isWholesale
+    ? subtotal
+    : priceIncludingVat(subtotal);
+  const displayDiscount = isWholesale
+    ? discount
+    : priceIncludingVat(discount);
+  const displayAfterDiscount = isWholesale
+    ? afterDiscount
+    : priceIncludingVat(afterDiscount);
   const shippingThreshold = 100;
-  const freeShipping = afterDiscount >= shippingThreshold;
-  const remainingShipping = Math.max(0, shippingThreshold - afterDiscount);
-  const canCheckout = ORDERS_ENABLED && meetsMinOrder(subtotal);
-  const remainingMinOrder = amountToMinOrder(subtotal);
+  const freeShipping = displayAfterDiscount >= shippingThreshold;
+  const remainingShipping = Math.max(
+    0,
+    shippingThreshold - displayAfterDiscount,
+  );
+  const canCheckout = ORDERS_ENABLED && meetsMinOrder(displaySubtotal);
+  const remainingMinOrder = amountToMinOrder(displaySubtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -206,19 +229,16 @@ function CartSummary({
               {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
             </span>
             <span className="font-medium text-[#2f2924]">
-              {isWholesale ? formatAmountExVat(subtotal) : formatPrice(subtotal)}
+              {isWholesale
+                ? formatAmountExVat(subtotal)
+                : formatAmountIncVat(subtotal)}
             </span>
           </div>
 
           <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
 
           {discount > 0 && promo ? (
-            <AppliedPromoLine
-              promo={promo}
-              discountAmount={
-                isWholesale ? priceExcludingVat(discount) : discount
-              }
-            />
+            <AppliedPromoLine promo={promo} discountAmount={displayDiscount} />
           ) : null}
 
           <div className="flex items-baseline justify-between gap-3 text-sm">
@@ -249,7 +269,7 @@ function CartSummary({
               <div className="flex items-baseline justify-between gap-3">
                 <span className="text-sm text-[#2f2924]/60">Celkom s DPH</span>
                 <span className="text-base font-medium text-[#2f2924]/70">
-                  {formatPrice(afterDiscount)}
+                  {formatAmountIncVat(afterDiscount)}
                 </span>
               </div>
             </div>
@@ -257,7 +277,7 @@ function CartSummary({
             <div className="flex items-baseline justify-between gap-3">
               <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
               <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                {formatPrice(afterDiscount)}
+                {formatPrice(displayAfterDiscount)}
               </span>
             </div>
           )}
@@ -375,7 +395,9 @@ export function CartView() {
     const item = items.find((entry) => entry.product.id === productId);
     if (!item) return;
 
-    const clamped = Math.max(1, next);
+    const multiple = getProductOrderMultiple(item.product.attributes?.packaging);
+    const clamped = snapQuantityToMultiple(next, multiple);
+    if (clamped <= 0 || clamped === item.quantity) return;
     const delta = clamped - item.quantity;
     if (delta === 0) return;
 

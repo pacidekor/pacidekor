@@ -16,7 +16,7 @@ import {
   isInventoryAvailable,
 } from "@/lib/inventory";
 import { productHref, type Product } from "@/lib/products";
-import { formatPriceExVatLabel } from "@/lib/price";
+import { formatPriceExVatLabel, formatPriceIncVatLabel } from "@/lib/price";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 function feedbackMessage(added: number, skipped: number) {
@@ -79,7 +79,7 @@ function FavoriteItems({
                 <span className="mt-1 block text-sm font-semibold text-[#2f2924]">
                   {isWholesale
                     ? formatPriceExVatLabel(product.price)
-                    : product.price}
+                    : formatPriceIncVatLabel(product.price)}
                   {!available ? (
                     <span className="ml-2 font-normal text-[#9a4d3f]">
                       Vypredané

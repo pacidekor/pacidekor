@@ -12,6 +12,14 @@ import {
   isInventoryAvailable,
 } from "@/lib/inventory";
 import type { Product } from "@/lib/products";
+import {
+  alignMaxToOrderMultiple,
+  formatPackagingDeliveryHint,
+  formatPackagingDeliveryHintShort,
+  getPrimaryPackagingOption,
+  getProductOrderMultiple,
+  snapQuantityToMultiple,
+} from "@/lib/taxonomy";
 import { useProductInventory } from "@/lib/use-product-inventory";
 
 type ProductPurchaseProps = {
@@ -27,9 +35,22 @@ export function ProductPurchase({
 }: ProductPurchaseProps) {
   const inventory = useProductInventory(product);
   const available = isInventoryAvailable(inventory);
-  const maxQty = inventoryMaxOrderable(inventory);
+  const stockMax = inventoryMaxOrderable(inventory);
+  const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
+  const packagingOption = getPrimaryPackagingOption(
+    product.attributes?.packaging,
+  );
+  const packagingHint = packagingOption
+    ? formatPackagingDeliveryHint(packagingOption)
+    : null;
+  const packagingHintShort = packagingOption
+    ? formatPackagingDeliveryHintShort(packagingOption)
+    : null;
+  const maxQty = alignMaxToOrderMultiple(stockMax, orderMultiple);
+  const canOrderPack =
+    available && (typeof maxQty !== "number" || maxQty >= orderMultiple);
 
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(orderMultiple);
   const [restockOpen, setRestockOpen] = useState(false);
   const [internalColor, setInternalColor] = useState(
     product.colors?.[0]?.id ?? "",
@@ -38,19 +59,23 @@ export function ProductPurchase({
   const setSelectedColor = onSelectColor ?? setInternalColor;
 
   useEffect(() => {
-    if (!available) {
-      setQuantity(1);
+    if (!canOrderPack) {
+      setQuantity(orderMultiple);
       return;
     }
-    if (typeof maxQty === "number") {
-      setQuantity((prev) => Math.min(Math.max(1, prev), maxQty));
-    }
-  }, [available, maxQty]);
+    setQuantity((prev) =>
+      snapQuantityToMultiple(
+        prev,
+        orderMultiple,
+        typeof maxQty === "number" ? maxQty : undefined,
+      ) || orderMultiple,
+    );
+  }, [canOrderPack, maxQty, orderMultiple]);
 
   const hasColors = Boolean(product.colors && product.colors.length > 0);
 
   return (
-    <div className="mt-6 flex flex-col gap-6">
+    <div className="mt-6 flex flex-col gap-4">
       {hasColors ? (
         <ProductColorPills
           colors={product.colors!}
@@ -59,7 +84,7 @@ export function ProductPurchase({
         />
       ) : null}
 
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
         <div className="min-w-0">
           <ProductPriceDisplay
             price={product.price}
@@ -68,20 +93,21 @@ export function ProductPurchase({
           />
         </div>
 
-        <div className="flex w-fit max-w-full flex-col items-end gap-1.5 self-end sm:self-auto">
-          <div className="flex items-center gap-3">
+        <div className="flex w-full min-w-0 flex-col gap-1.5 sm:w-auto sm:max-w-full sm:items-end">
+          <div className="flex w-full items-center gap-3 sm:w-auto">
             <QuantityStepper
               value={quantity}
               onChange={setQuantity}
               max={typeof maxQty === "number" ? maxQty : undefined}
-              min={1}
+              min={orderMultiple}
+              step={orderMultiple}
             />
 
             <AddToCartButton
               product={product}
               quantity={quantity}
               colorId={selectedColor || undefined}
-              disabled={!available}
+              disabled={!canOrderPack}
               size="page"
             />
 
@@ -98,19 +124,52 @@ export function ProductPurchase({
             ) : null}
           </div>
 
-          <p
-            className={`text-right text-sm ${
-              available
+          <div
+            className={`w-full text-sm ${
+              canOrderPack
                 ? "text-[#2f2924]/55"
                 : "font-medium text-[#c45c4a]"
             }`}
           >
-            {available
-              ? typeof maxQty === "number"
-                ? `Na sklade: ${maxQty} ks`
-                : "Na sklade"
-              : "Momentálne nie je na sklade"}
-          </p>
+            {/* Mobil: balenie vľavo, sklad vpravo */}
+            <div className="flex items-baseline justify-between gap-3 sm:hidden">
+              {packagingHintShort ? (
+                <span className="min-w-0">{packagingHintShort}</span>
+              ) : (
+                <span />
+              )}
+              <span className="shrink-0 text-right">
+                {available
+                  ? typeof stockMax === "number"
+                    ? `Na sklade: ${stockMax} ks`
+                    : "Na sklade"
+                  : "Momentálne nie je na sklade"}
+              </span>
+            </div>
+
+            {/* Desktop: jeden riadok bez medzery okolo · */}
+            <p className="hidden text-right sm:block">
+              {packagingHint ? (
+                <>
+                  {packagingHint}
+                  <span className="mx-1.5 text-[#2f2924]/30" aria-hidden>
+                    ·
+                  </span>
+                </>
+              ) : null}
+              {available
+                ? typeof stockMax === "number"
+                  ? `Na sklade: ${stockMax} ks`
+                  : "Na sklade"
+                : "Momentálne nie je na sklade"}
+            </p>
+
+            {available && !canOrderPack && orderMultiple > 1 ? (
+              <p className="mt-0.5 text-right">
+                Nedostatok skladu na celé balenie ({orderMultiple} ks).
+              </p>
+            ) : null}
+          </div>
         </div>
       </div>
 

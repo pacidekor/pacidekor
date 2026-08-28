@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
-import { getOrderByNumberAction } from "@/lib/actions/orders";
+import { getOrderByNumberAndEmailAction } from "@/lib/actions/orders";
 import {
   formatOrderTotal,
   ORDER_STATUS_META,
@@ -33,10 +33,6 @@ function saveWithdrawalId(orderId: string) {
   window.localStorage.setItem(WITHDRAWAL_STORAGE_KEY, JSON.stringify(next));
 }
 
-function normalizeOrderId(value: string) {
-  return value.trim().replace(/^#/, "");
-}
-
 export function WithdrawalOrderForm() {
   const [orderId, setOrderId] = useState("");
   const [email, setEmail] = useState("");
@@ -61,27 +57,19 @@ export function WithdrawalOrderForm() {
     setSubmitted(false);
     setConfirmOpen(false);
 
-    const id = normalizeOrderId(orderId);
-    const normalizedEmail = email.trim().toLowerCase();
-
-    if (!id || !normalizedEmail) {
+    if (!orderId.trim() || !email.trim()) {
       setOrder(null);
       setError("Vyplňte číslo objednávky aj e-mail.");
       return;
     }
 
     setLookupLoading(true);
-    const result = await getOrderByNumberAction(id);
+    const result = await getOrderByNumberAndEmailAction(orderId, email);
     setLookupLoading(false);
 
-    if (
-      !result.ok ||
-      result.data.customer.email.toLowerCase() !== normalizedEmail
-    ) {
+    if (!result.ok) {
       setOrder(null);
-      setError(
-        "Objednávku sme nenašli. Skontrolujte číslo objednávky a e-mail uvedený v objednávke.",
-      );
+      setError(result.error);
       return;
     }
 
@@ -118,7 +106,7 @@ export function WithdrawalOrderForm() {
             type="text"
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
-            placeholder="napr. 2026-00124"
+            placeholder="napr. PD-2026-00124"
             autoComplete="off"
             className={inputClassName}
           />
@@ -140,9 +128,10 @@ export function WithdrawalOrderForm() {
 
         <button
           type="submit"
-          className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium whitespace-nowrap text-white transition-opacity hover:opacity-90"
+          disabled={lookupLoading}
+          className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-5 text-sm font-medium whitespace-nowrap text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
         >
-          Zobraziť objednávku
+          {lookupLoading ? "Hľadám…" : "Zobraziť objednávku"}
         </button>
       </form>
 

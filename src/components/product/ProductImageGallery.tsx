@@ -588,7 +588,6 @@ function GalleryNavButton({
 function GalleryDots({
   images,
   activeIndex,
-  onSelect,
   className = "",
 }: {
   images: string[];
@@ -600,28 +599,11 @@ function GalleryDots({
 
   return (
     <div
-      className={`absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2.5 sm:bottom-5 ${className}`}
+      className={`absolute inset-x-0 bottom-4 z-10 flex items-center justify-center sm:bottom-5 ${className}`}
     >
-      {images.map((_, index) => {
-        const isActive = index === activeIndex;
-        return (
-          <button
-            key={index}
-            type="button"
-            aria-label={`Obrázok ${index + 1} z ${images.length}`}
-            aria-current={isActive ? "true" : undefined}
-            onClick={(event) => {
-              event.stopPropagation();
-              onSelect(index);
-            }}
-            className={
-              isActive
-                ? "h-2.5 w-2.5 cursor-pointer rounded-full bg-white shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
-                : "h-2 w-2 cursor-pointer rounded-full bg-white/55 shadow-[0_2px_8px_rgba(0,0,0,0.45)] transition-opacity hover:bg-white/80"
-            }
-          />
-        );
-      })}
+      <span className="rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium tabular-nums text-white shadow-[0_2px_8px_rgba(0,0,0,0.35)] backdrop-blur-sm">
+        {activeIndex + 1}&nbsp;/&nbsp;{images.length}
+      </span>
     </div>
   );
 }

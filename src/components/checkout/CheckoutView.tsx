@@ -14,6 +14,13 @@ import {
   parsePrice,
   type CartItem,
 } from "@/lib/cart";
+import {
+  formatAmountExVat,
+  formatAmountIncVat,
+  formatPriceExVat,
+  formatPriceIncVat,
+  priceIncludingVat,
+} from "@/lib/price";
 import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeField";
 import {
   fetchClientCustomer,
@@ -38,6 +45,7 @@ import { createOrderAction } from "@/lib/actions/orders";
 import { clearCart } from "@/lib/cart";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { useCartItems } from "@/lib/use-cart";
+import { useIsWholesale } from "@/lib/use-is-wholesale";
 import { usePacketaWidget } from "@/lib/use-packeta-widget";
 
 const fieldClass =
@@ -166,11 +174,23 @@ function CheckoutGuard({
   );
 }
 
-function OrderLines({ items }: { items: CartItem[] }) {
+function OrderLines({
+  items,
+  isWholesale,
+}: {
+  items: CartItem[];
+  isWholesale: boolean;
+}) {
   return (
     <ul className="divide-y divide-black/6">
       {items.map((item) => {
-        const lineTotal = parsePrice(item.product.price) * item.quantity;
+        const lineTotalNet = parsePrice(item.product.price) * item.quantity;
+        const lineTotal = isWholesale
+          ? lineTotalNet
+          : priceIncludingVat(lineTotalNet);
+        const unitLabel = isWholesale
+          ? formatPriceExVat(item.product.price)
+          : formatPriceIncVat(item.product.price);
         return (
           <li
             key={item.product.id}
@@ -194,7 +214,7 @@ function OrderLines({ items }: { items: CartItem[] }) {
                 {item.product.name}
               </p>
               <p className="mt-0.5 text-xs text-[#2f2924]/50">
-                {item.quantity} × {item.product.price}
+                {item.quantity} × {unitLabel}
               </p>
             </div>
             <p className="shrink-0 text-sm font-medium text-[#2f2924]">
@@ -428,6 +448,7 @@ function BillingFields({
 export function CheckoutView() {
   const router = useRouter();
   const items = useCartItems();
+  const isWholesale = useIsWholesale();
   const [form, setForm] = useState<CheckoutForm>(INITIAL_FORM);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -480,13 +501,22 @@ export function CheckoutView() {
     ? promoDiscountAmount(subtotal, promo.discountPercent)
     : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
+  const displaySubtotal = isWholesale
+    ? subtotal
+    : priceIncludingVat(subtotal);
+  const displayDiscount = isWholesale
+    ? discount
+    : priceIncludingVat(discount);
+  const displayAfterDiscount = isWholesale
+    ? afterDiscount
+    : priceIncludingVat(afterDiscount);
   const shipping = SHIPPING_OPTIONS.find(
     (option) => option.id === form.shippingMethod,
   );
   const shippingCost = shipping?.cost ?? 0;
-  const freeShipping = afterDiscount >= FREE_SHIPPING_THRESHOLD;
+  const freeShipping = displayAfterDiscount >= FREE_SHIPPING_THRESHOLD;
   const effectiveShipping = freeShipping ? 0 : shippingCost;
-  const total = afterDiscount + effectiveShipping;
+  const total = displayAfterDiscount + effectiveShipping;
 
   const showBillingSummary =
     authReady &&
@@ -598,11 +628,11 @@ export function CheckoutView() {
     );
   }
 
-  if (!meetsMinOrder(subtotal) && !submitted) {
+  if (!meetsMinOrder(displaySubtotal) && !submitted) {
     return (
       <CheckoutGuard
         title="Minimálna objednávka"
-        body={`Na dokončenie objednávky potrebujete aspoň ${formatPrice(MIN_ORDER_TOTAL)}. Teraz máte ${formatPrice(subtotal)}.`}
+        body={`Na dokončenie objednávky potrebujete aspoň ${formatPrice(MIN_ORDER_TOTAL)}. Teraz máte ${formatPrice(displaySubtotal)}.`}
         href="/kosik"
         cta="Späť do košíka"
       />
@@ -896,21 +926,28 @@ export function CheckoutView() {
           </div>
 
           <div className="px-6 py-4 sm:px-7">
-            <OrderLines items={items} />
+            <OrderLines items={items} isWholesale={isWholesale} />
           </div>
 
           <div className="space-y-3 border-t border-black/6 px-6 py-5 sm:px-7">
             <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="text-[#2f2924]/60">Medzisúčet</span>
+              <span className="text-[#2f2924]/60">
+                {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
+              </span>
               <span className="font-medium text-[#2f2924]">
-                {formatPrice(subtotal)}
+                {isWholesale
+                  ? formatAmountExVat(subtotal)
+                  : formatAmountIncVat(subtotal)}
               </span>
             </div>
 
             <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
 
             {discount > 0 && promo ? (
-              <AppliedPromoLine promo={promo} discountAmount={discount} />
+              <AppliedPromoLine
+                promo={promo}
+                discountAmount={displayDiscount}
+              />
             ) : null}
 
             <div className="flex items-baseline justify-between gap-3 text-sm">
@@ -929,12 +966,35 @@ export function CheckoutView() {
 
             <div className="h-px bg-black/8" aria-hidden />
 
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
-              <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                {formatPrice(total)}
-              </span>
-            </div>
+            {isWholesale ? (
+              <div className="space-y-2">
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="text-sm font-medium text-[#2f2924]">
+                    Celkom bez DPH
+                  </span>
+                  <span className="font-heading text-2xl font-semibold text-[#2f2924]">
+                    {formatPrice(total)}
+                  </span>
+                </div>
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="text-sm text-[#2f2924]/60">
+                    Produkty s DPH + doprava
+                  </span>
+                  <span className="text-base font-medium text-[#2f2924]/70">
+                    {formatPrice(
+                      priceIncludingVat(afterDiscount) + effectiveShipping,
+                    )}
+                  </span>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
+                <span className="font-heading text-2xl font-semibold text-[#2f2924]">
+                  {formatPrice(total)}
+                </span>
+              </div>
+            )}
           </div>
 
           <div className="border-t border-black/6 px-6 py-5 sm:px-7">

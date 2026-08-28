@@ -10,8 +10,8 @@ import {
   type UIEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { Search, X } from "lucide-react";
-import { formatPrice, parsePrice } from "@/lib/cart";
+import { Info, Search, X } from "lucide-react";
+import { formatPrice, parsePrice } from "@/lib/price";
 import type { AdminPromoCode } from "@/lib/actions/promo";
 import {
   computePercent,
@@ -675,31 +675,43 @@ export function DiscountEditorPanel({
                     )}
                   </div>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <label className="block text-sm font-medium text-[#2f2924]">
-                      Pôvodná cena
-                      <input
-                        type="text"
-                        inputMode="decimal"
-                        value={originalPriceRaw}
-                        onChange={(event) =>
-                          updateOriginal(event.target.value)
-                        }
-                        placeholder="24,90"
-                        className={fieldInputClass}
-                      />
-                    </label>
-                    <label className="block text-sm font-medium text-[#2f2924]">
-                      Akciová cena
-                      <input
-                        type="text"
-                        inputMode="decimal"
-                        value={salePriceRaw}
-                        onChange={(event) => updateSale(event.target.value)}
-                        placeholder="17,90"
-                        className={fieldInputClass}
-                      />
-                    </label>
+                  <div>
+                    <p className="mb-3 inline-flex items-center gap-1.5 text-sm font-medium text-[#2f2924]">
+                      Ceny bez DPH
+                      <span
+                        className="inline-flex size-4 cursor-help items-center justify-center rounded-full text-[#2f2924]/40"
+                        title="Zadávajte ceny bez DPH. DPH (23 %) sa na webe dopočíta automaticky."
+                        aria-label="Zadávajte ceny bez DPH. DPH (23 %) sa na webe dopočíta automaticky."
+                      >
+                        <Info className="size-3.5" strokeWidth={1.75} aria-hidden />
+                      </span>
+                    </p>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <label className="block text-sm font-medium text-[#2f2924]">
+                        Pôvodná cena
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          value={originalPriceRaw}
+                          onChange={(event) =>
+                            updateOriginal(event.target.value)
+                          }
+                          placeholder="24,90"
+                          className={fieldInputClass}
+                        />
+                      </label>
+                      <label className="block text-sm font-medium text-[#2f2924]">
+                        Akciová cena
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          value={salePriceRaw}
+                          onChange={(event) => updateSale(event.target.value)}
+                          placeholder="17,90"
+                          className={fieldInputClass}
+                        />
+                      </label>
+                    </div>
                   </div>
 
                   <div>
