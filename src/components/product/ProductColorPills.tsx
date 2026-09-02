@@ -40,7 +40,9 @@ function ColorPillButton({
       }`}
     >
       <span
-        className="size-3.5 rounded-full border border-black/10"
+        className={`size-3.5 rounded-full border ${
+          selected ? "border-white" : "border-black/10"
+        }`}
         style={colorSwatchStyle(color)}
         aria-hidden
       />

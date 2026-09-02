@@ -9,8 +9,6 @@ import { upsertProductAdmin } from "@/lib/products-admin-server";
 import type { Product } from "@/lib/products";
 import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 
-export type { ProductActionResult, ProductUpsertInput };
-
 export async function upsertProductAction(
   input: ProductUpsertInput,
 ): Promise<ProductActionResult<Product>> {
