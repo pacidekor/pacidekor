@@ -304,3 +304,53 @@ export async function upsertProductAdmin(
     };
   }
 }
+
+function storagePathFromPublicUrl(url: string) {
+  const marker = "/storage/v1/object/public/product-images/";
+  const index = url.indexOf(marker);
+  if (index === -1) return null;
+  return decodeURIComponent(url.slice(index + marker.length));
+}
+
+export async function deleteProductAdmin(
+  productId: string,
+): Promise<ProductActionResult> {
+  try {
+    const auth = await requireAdmin();
+    if (!auth.ok) return { ok: false, error: auth.error };
+
+    const db = createServiceClient();
+    const { data: existing } = await db
+      .from("products")
+      .select("slug, images")
+      .eq("id", productId)
+      .maybeSingle();
+
+    const { error } = await db.from("products").delete().eq("id", productId);
+
+    if (error) {
+      return { ok: false, error: error.message };
+    }
+
+    const images = (existing?.images as string[] | null) ?? [];
+    const paths = images
+      .map((url) => storagePathFromPublicUrl(url))
+      .filter((path): path is string => Boolean(path));
+
+    if (paths.length > 0) {
+      await db.storage.from("product-images").remove(paths);
+    }
+
+    revalidateProductPaths(existing?.slug ?? undefined);
+    return { ok: true, data: undefined };
+  } catch (error) {
+    console.error("deleteProductAdmin", error);
+    return {
+      ok: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Vymazanie produktu zlyhalo. Skúste to znova.",
+    };
+  }
+}

@@ -65,9 +65,7 @@ import {
   type ProductDetail,
 } from "@/lib/products";
 import { setProductCatalog } from "@/lib/product-catalog";
-import {
-  deleteProductAction,
-} from "@/lib/actions/products";
+import { deleteAdminProduct } from "@/lib/admin-product-delete";
 import { saveAdminProduct } from "@/lib/admin-product-save";
 import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import {
@@ -383,7 +381,7 @@ export function AdminProductsManager({
   async function deleteProduct(productId: string): Promise<boolean> {
     if (productId === CREATE_DRAFT_ID) return false;
 
-    const result = await deleteProductAction(productId);
+    const result = await deleteAdminProduct(productId);
     if (!result.ok) {
       window.alert(result.error);
       return false;
