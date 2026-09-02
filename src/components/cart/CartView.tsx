@@ -54,6 +54,7 @@ import {
   snapQuantityToMultiple,
 } from "@/lib/taxonomy";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
+import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 import { useCartItems } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
@@ -157,6 +158,58 @@ function CartLine({
   );
 }
 
+function FreeShippingProgress({
+  current,
+  threshold,
+}: {
+  current: number;
+  threshold: number;
+}) {
+  const reached = current >= threshold;
+  const progress = reached
+    ? 100
+    : Math.min(100, (current / threshold) * 100);
+  const remaining = Math.max(0, threshold - current);
+
+  return (
+    <div className="space-y-2">
+      <p className="text-xs leading-snug text-[#2f2924]/50">
+        {reached ? (
+          "Máte dopravu zadarmo."
+        ) : (
+          <>
+            Pridajte ešte{" "}
+            <span className="font-semibold text-[#2f2924]/80 tabular-nums">
+              {formatPrice(remaining)}
+            </span>{" "}
+            a máte dopravu zdarma.
+          </>
+        )}
+      </p>
+
+      <div
+        className="h-1 overflow-hidden rounded-full bg-black/8"
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={threshold}
+        aria-valuenow={Math.min(current, threshold)}
+        aria-label={
+          reached
+            ? "Dosiahli ste dopravu zadarmo"
+            : `Pridajte ešte ${formatPrice(remaining)} a máte dopravu zdarma`
+        }
+      >
+        <div
+          className={`h-full rounded-full transition-[width] duration-300 ${
+            reached ? "w-full bg-[#75825B]" : "bg-[#75825B]/80"
+          }`}
+          style={{ width: `${progress}%` }}
+        />
+      </div>
+    </div>
+  );
+}
+
 function CartSummary({
   items,
   subtotal,
@@ -183,12 +236,7 @@ function CartSummary({
   const displayAfterDiscount = isWholesale
     ? afterDiscount
     : priceIncludingVat(afterDiscount);
-  const shippingThreshold = 100;
-  const freeShipping = displayAfterDiscount >= shippingThreshold;
-  const remainingShipping = Math.max(
-    0,
-    shippingThreshold - displayAfterDiscount,
-  );
+  const freeShipping = displayAfterDiscount >= FREE_SHIPPING_THRESHOLD;
   const canCheckout = ORDERS_ENABLED && meetsMinOrder(displaySubtotal);
   const remainingMinOrder = amountToMinOrder(displaySubtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
@@ -244,15 +292,14 @@ function CartSummary({
           <div className="flex items-baseline justify-between gap-3 text-sm">
             <span className="text-[#2f2924]/60">Doprava</span>
             <span className="font-medium text-[#2f2924]">
-              {freeShipping ? "Zadarmo" : "Pri pokladni"}
+              {freeShipping ? "Zadarmo" : "Vypočíta sa pri pokladni"}
             </span>
           </div>
 
-          <p className="text-xs leading-snug text-[#2f2924]/50">
-            {freeShipping
-              ? "Máte dopravu zadarmo."
-              : `Do dopravy zadarmo chýba ${formatPrice(remainingShipping)}.`}
-          </p>
+          <FreeShippingProgress
+            current={displayAfterDiscount}
+            threshold={FREE_SHIPPING_THRESHOLD}
+          />
 
           <div className="h-px bg-black/8" aria-hidden />
 
