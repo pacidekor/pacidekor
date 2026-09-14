@@ -85,6 +85,7 @@ export type ProductRow = {
   is_new: boolean;
   new_until: string | null;
   in_vypredaj: boolean;
+  is_bestseller: boolean;
   created_at: string;
   updated_at: string;
 };
@@ -111,6 +112,7 @@ export type ProductInsert = {
   is_new?: boolean;
   new_until?: string | null;
   in_vypredaj?: boolean;
+  is_bestseller?: boolean;
   created_at?: string;
   updated_at?: string;
 };

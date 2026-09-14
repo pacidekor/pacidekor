@@ -16,7 +16,7 @@ import {
 
 /**
  * E-mail po odovzdaní objednávky dopravcovi (Packeta / Zásielkovňa).
- * Zatiaľ template; napojenie na zmenu statusu objednávky neskôr.
+ * Odosiela sa automaticky po Packeta webhooku (stav predana_dopravcovi).
  */
 export function buildOrderHandedToCarrierEmail(
   vars: OrderHandedToCarrierEmailVars,

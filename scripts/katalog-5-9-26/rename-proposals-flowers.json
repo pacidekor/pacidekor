@@ -1,0 +1,388 @@
+{
+  "renames": [
+    {
+      "id": "11",
+      "newName": "Hlava ruže",
+      "reason": "Jednoduchá klasická otvorená hlava bez jednoznačného znaku, ktorý by ju spoľahlivo odlíšil od ostatných štandardných ruží na sheete.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "13",
+      "newName": "Hlava ruže so zvlnenými okrajmi",
+      "reason": "Vonkajšie lupienky majú jemne zvlnené/zahnuté okraje; rovnaký tvar ako 14, iná farba.",
+      "status": "ok"
+    },
+    {
+      "id": "14",
+      "newName": "Hlava ruže so zvlnenými okrajmi",
+      "reason": "Rovnaká stavba ako 13: vrstvený stred a zvlnené vonkajšie okraje lupienkov.",
+      "status": "ok"
+    },
+    {
+      "id": "21",
+      "newName": "Hlava ruže s pravidelným závitom",
+      "reason": "Hustý, pravidelný spirálový stred a hladké okraje lupienkov; klasický čajový tvar.",
+      "status": "ok"
+    },
+    {
+      "id": "24",
+      "newName": "Hlava ruže",
+      "reason": "Na sheete veľmi blízka k 21 (biela, hustý závit); bez spoľahlivého vizuálneho rozdielu.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "25",
+      "newName": "Hlava ruže s roztvorenými lupienkami",
+      "reason": "Výrazne otvorená hlava so širokými vonkajšími lupienkami, ktoré sa odkláňajú von.",
+      "status": "ok"
+    },
+    {
+      "id": "28",
+      "newName": "Hlava ruže s prehnutými lupienkami",
+      "reason": "Hustá pohárová/kapustovitá hlava s lupienkami zahnutými dovnútra; rovnaký tvar ako 32.",
+      "status": "ok"
+    },
+    {
+      "id": "32",
+      "newName": "Hlava ruže s prehnutými lupienkami",
+      "reason": "Rovnaká kapustovitá, dovnútra prehnutá stavba ako 28, len iné farby.",
+      "status": "ok"
+    },
+    {
+      "id": "34",
+      "newName": "Hlava ruže so zvrásnenými lupienkami",
+      "reason": "Kompaktná hlava s hustými, zvrásnenými/krčenými lupienkami.",
+      "status": "ok"
+    },
+    {
+      "id": "35",
+      "newName": "Hlava ruže so zvrásnenými lupienkami",
+      "reason": "Na sheete rovnaká kompaktná zvrásnená stavba ako 34; pravdepodobne ten istý model v iných farbách.",
+      "status": "ok"
+    },
+    {
+      "id": "36",
+      "newName": "Hlava ruže so zahnutými okrajmi",
+      "reason": "Veľká otvorená hlava s vonkajšími lupienkami zahnutými von; rovnaký tvar ako 38.",
+      "status": "ok"
+    },
+    {
+      "id": "38",
+      "newName": "Hlava ruže so zahnutými okrajmi",
+      "reason": "Rovnaká otvorená stavba so zahnutými okrajmi ako 36, iná farba.",
+      "status": "ok"
+    },
+    {
+      "id": "43",
+      "newName": "Hlava ruže - guľovitá",
+      "reason": "Výrazne guľovitá hlava s vonkajšími lupienkami, ktoré takmer uzatvárajú stred.",
+      "status": "ok"
+    },
+    {
+      "id": "46",
+      "newName": "Hlava ruže - guľovitá",
+      "reason": "V balení rovnaká guľovitá stavba ako 43; vyzerá ako balené prevedenie toho istého modelu.",
+      "status": "ok"
+    },
+    {
+      "id": "47",
+      "newName": "Hlava ruže",
+      "reason": "Štandardná hustá hlava v balení bez jednoznačného znaku oproti 59/62/64.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "51",
+      "newName": "Hlava ruže - pootvorená",
+      "reason": "Predĺžený, polootvorený tvar s lupienkami ešte pritiahnutými k stredu.",
+      "status": "ok"
+    },
+    {
+      "id": "53",
+      "newName": "Hlava ruže so zvlnenými lupienkami",
+      "reason": "Tenšie, voľnejšie usporiadané lupienky s výraznejším zvlnením okrajov.",
+      "status": "ok"
+    },
+    {
+      "id": "59",
+      "newName": "Hlava ruže",
+      "reason": "Štandardná balená hlava bez spoľahlivého vizuálneho rozdielu oproti 47/60/62/64.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "60",
+      "newName": "Hlava ruže",
+      "reason": "Pravidelný závit v balení; na sheete ťažko odlíšiteľná od ostatných štandardných balených ruží.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "61",
+      "newName": "Hlava ruže s výraznými kališnými lístkami",
+      "reason": "Výrazné kališné lístky pri základni hlavy, viditeľné pri všetkých kusoch v balení (bez farby v názve).",
+      "status": "ok"
+    },
+    {
+      "id": "62",
+      "newName": "Hlava ruže",
+      "reason": "Hustá balená hlava bez jasného znaku, ktorý by ju oddelil od 47/59/64.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "64",
+      "newName": "Hlava ruže",
+      "reason": "Hustá balená hlava; na sheete nerozoznateľná od ostatných štandardných balených ruží.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "71",
+      "newName": "Hlava ruže - plochá",
+      "reason": "Najviac roztvorená, nízka/plochá silueta oproti pohárovým a guľovitým ružiam.",
+      "status": "ok"
+    },
+    {
+      "id": "19",
+      "newName": "Hlava pivónie s hustými lupienkami",
+      "reason": "Kompaktná hlava s veľmi hustými, krátkymi vrstvami lupienkov.",
+      "status": "ok"
+    },
+    {
+      "id": "27",
+      "newName": "Hlava pivónie so zvlnenými lupienkami",
+      "reason": "Široké lupienky so zvlnenými/riasenými okrajmi, voľnejšia otvorená stavba.",
+      "status": "ok"
+    },
+    {
+      "id": "29",
+      "newName": "Hlava pivónie - pootvorená",
+      "reason": "Pohárový tvar: veľké vonkajšie lupienky obklopujú hustejší vnútorný zhluk; nie je ani púčik, ani plochý kvet.",
+      "status": "ok"
+    },
+    {
+      "id": "30",
+      "newName": "Hlava pivónie s tenkými lupienkami",
+      "reason": "Veľmi plná hlava z množstva tenkých, riasených lupienkov (načuchranejší vzhľad).",
+      "status": "ok"
+    },
+    {
+      "id": "33",
+      "newName": "Hlava pivónie - zatvorená",
+      "reason": "Takmer zatvorená hlava so širokými lupienkami zahnutými dovnútra.",
+      "status": "ok"
+    },
+    {
+      "id": "37",
+      "newName": "Hlava pivónie - guľovitá",
+      "reason": "Úhľadná guľovitá silueta s pravidelnými zaoblenými lupienkami.",
+      "status": "ok"
+    },
+    {
+      "id": "39",
+      "newName": "Hlava pivónie s prehĺbeným stredom",
+      "reason": "Misovitý tvar: vonkajšie lupienky tvoria misku okolo krátkeho, hustého stredu.",
+      "status": "ok"
+    },
+    {
+      "id": "40",
+      "newName": "Hlava pivónie so širokými lupienkami",
+      "reason": "Menej hustá stavba s výrazne širšími, väčšími lupienkami oproti hustým modelom.",
+      "status": "ok"
+    },
+    {
+      "id": "58",
+      "newName": "Hlava pivónie",
+      "reason": "Veľká vrstvená hlava; na sheete blízka pootvoreným modelom (29), bez istého unikátneho znaku.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "63",
+      "newName": "Hlava pivónie",
+      "reason": "V balení zatvorené hlavy; vizuálne blízke k 33, ťažké spoľahlivo odlíšiť bez mierky.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "67",
+      "newName": "Hlava pivónie s guľovitým stredom",
+      "reason": "Pootvorený pohár s výrazne guľovitým, hustým vnútorným stredom; rovnaká stavba ako 70.",
+      "status": "ok"
+    },
+    {
+      "id": "70",
+      "newName": "Hlava pivónie s guľovitým stredom",
+      "reason": "Rovnaká stavba ako 67 (pohár + guľovitý stred), iné farby.",
+      "status": "ok"
+    },
+    {
+      "id": "17",
+      "newName": "Hlava hortenzie",
+      "reason": "Štandardný hustý trs štvorlupienkových kvetov; bez jednoznačného znaku oproti 18/26/72/75/76.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "18",
+      "newName": "Hlava hortenzie",
+      "reason": "Rovnaká hustá stavba drobných kvetov ako 17 a 26; rozdiel len vo farbe.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "26",
+      "newName": "Hlava hortenzie",
+      "reason": "Rovnaký typ hustej hlavy ako 17/18; na sheete nerozoznateľná mimo farby.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "72",
+      "newName": "Hlava hortenzie",
+      "reason": "Balená hustá hlava; stavba blízka 17/18/26/75/76, bez unikátneho znaku.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "73",
+      "newName": "Hlava hortenzie s ozdobnými vetvičkami",
+      "reason": "Medzi kvetmi sú viditeľné ozdobné vetvičky/strapce drobných guľôčok – znak platný naprieč kusmi v balení.",
+      "status": "ok"
+    },
+    {
+      "id": "74",
+      "newName": "Hlava hortenzie s textúrovanými lupienkami",
+      "reason": "Lupienky majú výrazne pokrčenú/textúrovanú plochu oproti hladším hlavám v skupine.",
+      "status": "ok"
+    },
+    {
+      "id": "75",
+      "newName": "Hlava hortenzie",
+      "reason": "Balená krémová hlava bez vetvičiek ani silnej textúry; blízka 72/76.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "76",
+      "newName": "Hlava hortenzie",
+      "reason": "Balená hustá hlava (rovnaký typ kódu ako 72); bez unikátneho znaku oproti ostatným štandardným hortenziám.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "23",
+      "newName": "Hlava dálie s úzkymi špicatými lupienkami",
+      "reason": "Lupienky sú užšie a ihlicovitejšie špicaté než pri 56; stred zakrytý lupienkami.",
+      "status": "ok"
+    },
+    {
+      "id": "56",
+      "newName": "Hlava dálie so špicatými lupienkami",
+      "reason": "Špicaté, širšie vrstvené lupienky so zaplneným stredom; odlišné od úzkych 23 aj od 65 s otvoreným stredom.",
+      "status": "ok"
+    },
+    {
+      "id": "65",
+      "newName": "Hlava dálie s viditeľným stredom",
+      "reason": "Špicaté lupienky a jasne viditeľný bledý stred – znak overený na bielej, staroružovej aj bordovej variante.",
+      "status": "ok"
+    },
+    {
+      "id": "66",
+      "newName": "Hlava dálie - guľovitá",
+      "reason": "Hustá guľovitá hlava s okrúhlymi, dovnútra zahnutými lupienkami (nie špicatými).",
+      "status": "ok"
+    },
+    {
+      "id": "68",
+      "newName": "Hlava dálie - guľovitá",
+      "reason": "Rovnaká guľovitá stavba s okrúhlymi lupienkami ako 66; foto ukazuje farebný mix toho istého modelu.",
+      "status": "ok"
+    },
+    {
+      "id": "41",
+      "newName": "Hlava chryzantémy - guľovitá",
+      "reason": "Hustá pomponová/guľovitá hlava s krátkymi hustými lupienkami.",
+      "status": "ok"
+    },
+    {
+      "id": "55",
+      "newName": "Hlava chryzantémy s úzkymi lupienkami",
+      "reason": "Dlhé úzke lupienky vyčnievajúce von; tvar jasne odlišný od guľovitej 41.",
+      "status": "ok"
+    }
+  ],
+  "merges": [
+    {
+      "fromIds": ["68"],
+      "intoId": "66",
+      "action": "merge",
+      "reason": "68 má identickú guľovitú stavbu s okrúhlymi lupienkami a žltým stredom ako 66; oranžový kus v mixe 68 je nerozoznateľný od 66. 68 je prezentačný farebný mix toho istého produktu, nie samostatný model."
+    },
+    {
+      "fromIds": ["46"],
+      "intoId": "43",
+      "action": "k-overeni",
+      "reason": "46 v balení vyzerá ako guľovitá hlava rovnakého typu ako 43; treba overiť, či ide o to isté SKU (balené foto) alebo samostatnú položku."
+    },
+    {
+      "fromIds": ["35"],
+      "intoId": "34",
+      "action": "k-overeni",
+      "reason": "34 a 35 majú na sheete veľmi podobnú kompaktnú zvrásnenú stavbu; môžu byť ten istý model v iných farbách."
+    },
+    {
+      "fromIds": ["70"],
+      "intoId": "67",
+      "action": "k-overeni",
+      "reason": "67 a 70 majú rovnaký pohár s guľovitým stredom; vyzerajú ako farebné varianty jedného modelu."
+    },
+    {
+      "fromIds": ["18", "26"],
+      "intoId": "17",
+      "action": "k-overeni",
+      "reason": "17/18/26 sú vizuálne rovnaký hustý typ hortenzie, rozdiel len vo farbe a fotke."
+    },
+    {
+      "fromIds": ["76"],
+      "intoId": "72",
+      "action": "k-overeni",
+      "reason": "72 a 76 majú na etikete rovnaký kód 25957 a rovnakú stavbu hlavy; pravdepodobne farby jedného produktu."
+    }
+  ],
+  "questions": [
+    {
+      "id": "11",
+      "question": "Má 11 nejaký znak (počet vrstiev, tvar stredu, okraje), ktorým ju spoľahlivo odlíšime od 21/24, alebo ide o bežnú klasickú ružu bez unikátneho tvaru?"
+    },
+    {
+      "id": "24",
+      "question": "Je 24 ten istý model ako 21 (len iná fotografia), alebo má iný tvar/okraje lupienkov?"
+    },
+    {
+      "id": "34",
+      "question": "Sú 34 a 35 ten istý model v iných farbách, alebo majú iný stupeň otvorenia/púčika?"
+    },
+    {
+      "id": "43",
+      "question": "Je 46 len balené foto guľovitej 43, alebo samostatný produkt?"
+    },
+    {
+      "id": "47",
+      "question": "Čím sa 47, 59, 60, 62 a 64 líšia navzájom na tvare lupienkov/stredu (nie farbou ani balením)?"
+    },
+    {
+      "id": "58",
+      "question": "Je 58 iný model než 29 (pootvorená), alebo len iná farba/prezentácia tej istej pivónie?"
+    },
+    {
+      "id": "63",
+      "question": "Je 63 ten istý zatvorený model ako 33, len v balení, alebo iný tvar lupienkov?"
+    },
+    {
+      "id": "67",
+      "question": "Sú 67 a 70 ten istý model (len farby), a je guľovitý stred dostatočne odlišný od pootvorenej 29?"
+    },
+    {
+      "id": "17",
+      "question": "Sú 17, 18, 26, 72, 75 a 76 jeden spoločný štandardný model hortenzie (rôzne farby/fotky), alebo majú medzi sebou viditeľný rozdiel v tvare/textúre kvetov?"
+    },
+    {
+      "id": "72",
+      "question": "Potvrdiť podľa etikety/skladu: sú 72 a 76 (kód 25957) farby jedného SKU?"
+    },
+    {
+      "id": "23",
+      "question": "Súhlasí rozdelenie 23 = úzke špicaté, 56 = širšie špicaté, 65 = špicaté s viditeľným stredom, alebo treba 23 a 56 zlúčiť ako nerozoznateľné?"
+    }
+  ]
+}

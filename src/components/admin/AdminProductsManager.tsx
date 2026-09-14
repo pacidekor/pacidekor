@@ -117,6 +117,7 @@ type ProductOverride = {
   details: ProductDetail[];
   markAsNew: boolean;
   inVypredaj: boolean;
+  isBestseller: boolean;
 };
 
 function normalizePriceInput(value: string) {
@@ -162,6 +163,7 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
     details: DEFAULT_PRODUCT_DETAILS,
     markAsNew: value.markAsNew,
     inVypredaj: value.inVypredaj,
+    isBestseller: value.isBestseller,
   };
 }
 
@@ -344,6 +346,7 @@ export function AdminProductsManager({
         details: normalized.details,
         markAsNew: normalized.markAsNew,
         inVypredaj: normalized.inVypredaj,
+        isBestseller: normalized.isBestseller,
       });
 
       if (!result.ok) {
@@ -846,6 +849,9 @@ function ProductEditor({
   const [inVypredaj, setInVypredaj] = useState(() =>
     Boolean(product.inVypredaj),
   );
+  const [isBestseller, setIsBestseller] = useState(() =>
+    Boolean(product.isBestseller),
+  );
   const [images, setImages] = useState<string[]>(() =>
     [
       product.image,
@@ -925,6 +931,7 @@ function ProductEditor({
           : "",
       markAsNew: isNew ? true : isActiveNewProduct(product),
       inVypredaj: Boolean(product.inVypredaj),
+      isBestseller: Boolean(product.isBestseller),
     }),
   );
 
@@ -960,6 +967,7 @@ function ProductEditor({
       stockQuantity,
       markAsNew,
       inVypredaj,
+      isBestseller,
     }) !== initialSnapshotRef.current;
 
   useEffect(() => {
@@ -1054,6 +1062,7 @@ function ProductEditor({
           details: DEFAULT_PRODUCT_DETAILS,
           markAsNew,
           inVypredaj,
+          isBestseller,
         },
         {
           inStock,
@@ -1516,6 +1525,25 @@ function ProductEditor({
                     {inVypredaj
                       ? "Produkt ostane v katalógu a navyše sa zobrazí na stránke Výpredaj. Akciu naň stále môžete dať."
                       : "Produkt sa zobrazí len v bežnom katalógu."}
+                  </span>
+                </span>
+              </label>
+
+              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
+                <input
+                  type="checkbox"
+                  checked={isBestseller}
+                  onChange={(event) => setIsBestseller(event.target.checked)}
+                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
+                />
+                <span className="min-w-0">
+                  <span className="block text-sm font-medium text-[#2f2924]">
+                    Označiť ako bestseller
+                  </span>
+                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
+                    {isBestseller
+                      ? "Produkt sa zobrazí v sekcii Bestsellery na úvodnej stránke a na /bestsellery."
+                      : "Produkt sa v bestselleroch nezobrazí."}
                   </span>
                 </span>
               </label>
@@ -2432,6 +2460,7 @@ function serializeEditorSnapshot(value: {
   stockQuantity: string;
   markAsNew: boolean;
   inVypredaj: boolean;
+  isBestseller: boolean;
 }) {
   return JSON.stringify({
     name: value.name.trim(),
@@ -2455,6 +2484,7 @@ function serializeEditorSnapshot(value: {
     stockQuantity: value.stockQuantity.trim(),
     markAsNew: value.markAsNew,
     inVypredaj: value.inVypredaj,
+    isBestseller: value.isBestseller,
   });
 }
 

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "14",
+    "wasInto": "13",
+    "reason": "Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená."
+  },
+  {
+    "id": "32",
+    "wasInto": "28",
+    "reason": "Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená."
+  },
+  {
+    "id": "35",
+    "wasInto": "34",
+    "reason": "Vo v2 označené ok aj k-overeni naraz; bez potvrdenia SKU/balenia vrátené samostatne."
+  },
+  {
+    "id": "38",
+    "wasInto": "36",
+    "reason": "Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená."
+  },
+  {
+    "id": "46",
+    "wasInto": "43",
+    "reason": "Vo v2 označené ok aj k-overeni naraz; bez potvrdenia, či 46 je len balené foto 43, vrátené samostatne."
+  },
+  {
+    "id": "70",
+    "wasInto": "67",
+    "reason": "Vo v2 označené ok aj k-overeni naraz; bez potvrdenia SKU/balenia vrátené samostatne."
+  }
+]

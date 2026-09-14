@@ -19,6 +19,7 @@ import {
   listOrdersForCustomerEmail,
   listOrdersFromDb,
 } from "@/lib/orders.server";
+import { statusAfterLabelPrint } from "@/lib/packeta-tracking";
 import { formatPrice, meetsMinOrder, parsePrice, priceIncludingVat } from "@/lib/price";
 import { normalizePromoCode, promoDiscountAmount } from "@/lib/promo";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
@@ -458,7 +459,13 @@ export async function cancelCustomerOrderAction(
 
 export async function printPacketaLabelAction(
   orderNumber: string,
-): Promise<OrderActionResult<{ pdfBase64: string; packetId: string }>> {
+): Promise<
+  OrderActionResult<{
+    pdfBase64: string;
+    packetId: string;
+    status: Order["status"];
+  }>
+> {
   const auth = await requireAdmin();
   if (!auth.ok) return { ok: false, error: auth.error };
 
@@ -490,6 +497,7 @@ export async function printPacketaLabelAction(
   }
 
   let packetId = order.packetaPacketId;
+  let nextStatus = order.status;
 
   try {
     if (!packetId) {
@@ -505,24 +513,37 @@ export async function printPacketaLabelAction(
         note: order.note,
       });
       packetId = created.packetId;
+    }
 
-      await db
-        .from("orders")
-        .update({
-          packeta_packet_id: packetId,
-          status:
-            order.status === "zaplatena" ||
-            order.status === "pripravuje_sa" ||
-            order.status === "pripravena_na_odoslanie"
-              ? order.status
-              : "pripravena_na_odoslanie",
-        })
-        .eq("id", order.dbId);
+    const labelStatus = statusAfterLabelPrint(order.status);
+    if (labelStatus) nextStatus = labelStatus;
+
+    const updatePayload: {
+      packeta_packet_id: string;
+      status?: string;
+    } = {
+      packeta_packet_id: packetId,
+    };
+    if (labelStatus) {
+      updatePayload.status = labelStatus;
+    }
+
+    const { error: updateError } = await db
+      .from("orders")
+      .update(updatePayload)
+      .eq("id", order.dbId);
+
+    if (updateError) {
+      return { ok: false, error: updateError.message };
     }
 
     const pdfBase64 = await fetchPacketaLabelPdfBase64(packetId);
     revalidatePath("/admin/objednavky");
-    return { ok: true, data: { pdfBase64, packetId } };
+    revalidatePath("/ucet");
+    return {
+      ok: true,
+      data: { pdfBase64, packetId, status: nextStatus },
+    };
   } catch (error) {
     return {
       ok: false,

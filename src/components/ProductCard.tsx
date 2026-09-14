@@ -65,7 +65,7 @@ export const ProductCard = memo(function ProductCard({
   const hoverImage = preview.hoverImage ?? null;
 
   return (
-    <article className="flex min-w-0 flex-col">
+    <article className="flex min-w-0 flex-col" data-product-id={product.id}>
       <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
         <Link
           href={href}
@@ -100,10 +100,19 @@ export const ProductCard = memo(function ProductCard({
           className="absolute top-3 left-3 z-10"
         />
 
-        {priced.discount ? (
-          <span className="absolute top-3 right-3 z-10 rounded-full bg-[#c45c4a] px-2.5 py-1 text-xs font-bold text-white sm:text-sm">
-            -{priced.discount}%
-          </span>
+        {priced.discount || priced.isBestseller ? (
+          <div className="absolute top-3 right-3 z-10 flex flex-col items-end gap-1.5">
+            {priced.discount ? (
+              <span className="rounded-full bg-[#c45c4a] px-2.5 py-1 text-xs font-bold text-white sm:text-sm">
+                -{priced.discount}%
+              </span>
+            ) : null}
+            {priced.isBestseller ? (
+              <span className="rounded-full bg-white/90 px-2.5 py-1 text-xs font-bold tracking-wide text-[#2f2924] shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm sm:text-sm">
+                TOP
+              </span>
+            ) : null}
+          </div>
         ) : null}
 
         {showSwatches ? (

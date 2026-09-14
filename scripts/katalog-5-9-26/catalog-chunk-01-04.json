@@ -1,0 +1,61 @@
+[
+  {
+    "sourceFolder": "1",
+    "name": "Echinacea na stopke",
+    "description": "Umelá echinacea s výrazným kužeľovitým stredom a jemnými okvetnými lístkami na dlhej zelenej stopke s listami. Vhodná samostatne do vázy alebo ako výrazný akcent v aranžmánoch.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Echinacea",
+    "groups": [
+      { "color": "oranžová", "photos": ["108", "1", "102"] },
+      { "color": "ružová", "photos": ["109", "2", "103"] },
+      { "color": "biela", "photos": ["110", "3", "104"] },
+      { "color": "krémová", "photos": ["111", "4", "105"] },
+      { "color": "staroružová", "photos": ["112", "5", "106"] },
+      { "color": "žltá", "photos": ["113", "6", "107"] }
+    ],
+    "notes": "Mix 114 vynechaný. Nový druh Echinacea."
+  },
+  {
+    "sourceFolder": "2",
+    "name": "Artičoka na stopke",
+    "description": "Umelá sušená artičoka s hustými vrstvenými šupinami na dlhej stopke. Textúrovaný kvetný vrchol pôsobí prírodne a hodí sa do vázy aj do rustikálnych aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Artičoka",
+    "groups": [
+      { "color": "fialová", "photos": ["12", "7", "19"] },
+      { "color": "biela", "photos": ["14", "8", "18"] },
+      { "color": "oranžová", "photos": ["13", "10", "17"] },
+      { "color": "vínová", "photos": ["15", "9", "16"] }
+    ],
+    "notes": "Mix 11 vynechaný ak je zmiešaný; overené podľa sheetu."
+  },
+  {
+    "sourceFolder": "3",
+    "name": "Proso dekoratívne",
+    "description": "Umelá vetva s dlhými hnedými listami a hustým klasom na vrchole stonku. Vzdušný filler do jesenných a rustikálnych aranžmánov, vhodný aj samostatne do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "Zeleň / výplň",
+    "groups": [
+      { "color": "tmavofialová", "photos": ["24", "25", "20"] },
+      { "color": "sivá", "photos": ["23", "26", "21"] }
+    ],
+    "notes": "Mix 22 a duplicitný detail 27 vynechané."
+  },
+  {
+    "sourceFolder": "4",
+    "name": "Kytica klinčekov",
+    "description": "Zväzok umelých klinčekov s plnými riasenými kvetmi a zelenými listami. Kompaktná kytica vhodná do vázy ako hotová stolová dekorácia bez údržby.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "Klinček",
+    "groups": [
+      { "color": "žltá", "photos": ["34", "28", "35"] },
+      { "color": "biela", "photos": ["33", "29", "36"] },
+      { "color": "vínová", "photos": ["32", "30", "37"] }
+    ],
+    "notes": "Mix 31 vynechaný."
+  }
+]

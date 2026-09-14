@@ -10,6 +10,7 @@ import {
 } from "@/lib/emails/email-changed";
 import { buildNewsletterEmail } from "@/lib/emails/newsletter";
 import { buildBirthdayEmail } from "@/lib/emails/birthday";
+import { buildOrderDeliveredEmail } from "@/lib/emails/order-delivered";
 import { buildOrderHandedToCarrierEmail } from "@/lib/emails/order-handed-to-carrier";
 import { buildOrderPaidEmail } from "@/lib/emails/order-paid";
 import type {
@@ -230,13 +231,33 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Objednávka u dopravcu",
     description:
       "Objednávka je pripravená a odovzdaná dopravcovi (Packeta / Zásielkovňa).",
-    trigger: "Po zmene statusu objednávky na „Predaná dopravcovi“",
+    trigger:
+      "Automaticky po Packeta webhooku (zásielka prijatá / na ceste) — stav „Predaná dopravcovi“",
     build: (siteUrl) =>
       buildOrderHandedToCarrierEmail({
         customerName: "Mária Nováková",
         orderNumber: "PD-2026-0042",
         shippingMethod: "Packeta / Zásielkovňa - výdajné miesto",
         orderUrl: `${siteUrl.replace(/\/$/, "")}/objednavka/nahled?t=preview`,
+        siteUrl,
+      }),
+  },
+  {
+    id: "order-delivered",
+    label: "Objednávka doručená",
+    description:
+      "Zásielka je doručená / pripravená na vyzdvihnutie + CTA na Google Reviews.",
+    trigger:
+      "Automaticky po Packeta webhooku (doručené / ready for pickup) — stav „Doručená“",
+    build: (siteUrl) =>
+      buildOrderDeliveredEmail({
+        customerName: "Mária Nováková",
+        orderNumber: "PD-2026-0042",
+        shippingMethod: "Packeta / Zásielkovňa - výdajné miesto",
+        orderUrl: `${siteUrl.replace(/\/$/, "")}/objednavka/nahled?t=preview`,
+        reviewsUrl:
+          process.env.NEXT_PUBLIC_GOOGLE_REVIEWS_URL?.trim() ||
+          "https://g.page/r/preview",
         siteUrl,
       }),
   },

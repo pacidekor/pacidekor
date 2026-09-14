@@ -117,6 +117,18 @@ export type OrderHandedToCarrierEmailVars = {
   accountUrl?: string;
 };
 
+/** Objednávka doručená / pripravená na vyzdvihnutie. */
+export type OrderDeliveredEmailVars = {
+  customerName?: string;
+  orderNumber: string;
+  shippingMethod?: string;
+  orderUrl?: string;
+  /** Google Reviews / hodnotenie — ak chýba, CTA sa v e-maile nevykreslí. */
+  reviewsUrl?: string;
+  siteUrl?: string;
+  shopUrl?: string;
+};
+
 /** Jedna položka v potvrdení zaplatenej objednávky. */
 export type OrderPaidEmailItem = {
   name: string;

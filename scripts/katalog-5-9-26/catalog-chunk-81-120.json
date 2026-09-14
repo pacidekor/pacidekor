@@ -1,0 +1,490 @@
+[
+  {
+    "sourceFolder": "81",
+    "name": "Hlavička kvetu",
+    "description": "Drobné ozdobné hlavičky kvetov bez stonky vhodné na lepenie do vencov a aranžmánov. Detailne spracované okvetie pôsobí prirodzene a jemne. Hodí sa na sezónne aj celoročné floristické dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Hlavička kvetu",
+    "groups": [
+      { "color": "biela", "photos": ["71", "72"] },
+      { "color": "krémová", "photos": ["77", "78"] }
+    ],
+    "notes": "Dva odlišné tvary v jednom priečinku: biela s tmavým stredom (71–72) a krémová s hnedými okrajmi (77–78). Nový druh Hlavička kvetu."
+  },
+  {
+    "sourceFolder": "82",
+    "name": "Drevená ružička",
+    "description": "Drobné dekoračné hlavičky v tvare ruže vyrobené z prírodného materiálu. Ideálne na lepenie do vencov, machových obrazov a rustikálnych aranžmánov. Jemná vrstvená textúra dodá kompozícii naturálny charakter.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "hnedá", "photos": ["75", "76"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Drevené kvety. Materiál sola/drevo."
+  },
+  {
+    "sourceFolder": "83",
+    "name": "Drevená ružička",
+    "description": "Jemné hlavičky kvetov z prírodného materiálu s hustým vrstvením lupienkov. Vhodné na aranžovanie vencov a interiérových dekorácií. Pôsobia ľahko a naturálne.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "krémová", "photos": ["73", "74"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Drevené kvety."
+  },
+  {
+    "sourceFolder": "84",
+    "name": "Drevená hlavička kvetu",
+    "description": "Dekoračné hlavičky z prírodného materiálu s bohatým vrstvením lupienkov. Skvelo sa hodia na výrobu vencov a sezónnych aranžmánov. Matný povrch pôsobí rustikálne a prirodzene.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "hnedá", "photos": ["80"] },
+      { "color": "krémová", "photos": ["81"] },
+      { "color": "béžová", "photos": ["82"] }
+    ],
+    "notes": "Preskočené mix zábery 79 a 83. Nová kategória Dekorácie, subkategória Prírodniny."
+  },
+  {
+    "sourceFolder": "85",
+    "name": "Hlavička sasanky",
+    "description": "Textilné hlavičky kvetov s vrstvenými okvetnými lístkami a výrazným tmavým stredom. Určené na aranžovanie vencov, ikebán a floristických dekorácií. Realistický tvar pôsobí jemne a dekoratívne.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Sasanka",
+    "groups": [
+      { "color": "krémová", "photos": ["84", "85", "86", "87"] }
+    ],
+    "notes": "Nový druh Sasanka. Môže pripomínať aj margarétku."
+  },
+  {
+    "sourceFolder": "86",
+    "name": "Drevená hlavička kvetu",
+    "description": "Ozdobné hlavičky z prírodného materiálu s plným okrúhlym tvarom. Ideálne na lepenie do vencov a prírodných dekorácií. Detailné spracovanie dodáva aranžmánu jemnú textúru.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "hnedá", "photos": ["89", "92"] },
+      { "color": "krémová", "photos": ["90", "91"] }
+    ],
+    "notes": "Preskočené mix zábery 88 a 93. Nová kategória Dekorácie, subkategória Prírodniny."
+  },
+  {
+    "sourceFolder": "87",
+    "name": "Badián",
+    "description": "Prírodný dekoračný materiál v tvare hviezdicovitých plodov. Vynikne v jesenných a vianočných aranžmánoch aj vo vencoch. Dodáva kompozícii autentický a voňavý charakter sušiny.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Badián",
+    "groups": [
+      { "color": "hnedá", "photos": ["1"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Badián."
+  },
+  {
+    "sourceFolder": "88",
+    "name": "Sušený hviezdicový plod",
+    "description": "Prírodné drevité plody otvorené do hviezdicovitého tvaru. Hodí sa do vencov, mís a rustikálnych aranžmánov. Výrazná textúra pôsobí autenticky a dekoratívne.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["2", "3"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Sušené plody."
+  },
+  {
+    "sourceFolder": "89",
+    "name": "Prírodný veniec",
+    "description": "Hotový veniec zložený z plochých prírodných prvkov s jemnou štruktúrou. Vhodný ako základ na ďalšie aranžovanie alebo ako samostatná dekorácia. Pôsobí rustikálne a príjemne naturálne.",
+    "category": "Dekorácie",
+    "subcategory": "Vence",
+    "druh": "Prírodný veniec",
+    "groups": [
+      { "color": "hnedá", "photos": ["4"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Vence, druh Prírodný veniec. Materiál pripomína huby alebo hubovité plátky."
+  },
+  {
+    "sourceFolder": "90",
+    "name": "Lotosový plod",
+    "description": "Dekoratívne lotosové plody s charakteristickou pórovitou vrchnou časťou. Ideálne do vencov, ikebán a interiérových aranžmánov. Exotický tvar oživí každú floristickú kompozíciu.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Lotos",
+    "groups": [
+      { "color": "sivá", "photos": ["5", "6"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Lotos. Odtieň môže byť aj sivofialový."
+  },
+  {
+    "sourceFolder": "91",
+    "name": "Dekoračný mach",
+    "description": "Sušený dekoračný mach s bohatou vetvenou štruktúrou. Vhodný ako podklad do vencov, obrazov a floristických aranžmánov. Dodáva dekoráciám objem a prírodný vzhľad.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Mach",
+    "groups": [
+      { "color": "žltá", "photos": ["7", "8"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Mach. Typicky sobí/reniferový mach."
+  },
+  {
+    "sourceFolder": "92",
+    "name": "Sušený plod Bell Cup",
+    "description": "Prírodné drevité plody v tvare otvorených kalichov. Skvelo sa hodia do jesenných aranžmánov, vencov a mís. Pevná štruktúra zaručuje trvácnosť dekorácie.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Bell Cup",
+    "groups": [
+      { "color": "hnedá", "photos": ["9", "10"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Bell Cup."
+  },
+  {
+    "sourceFolder": "93",
+    "name": "Lotosový plod",
+    "description": "Drobné sušené lotosové plody s typickou štruktúrou otvorov. Vhodné na lepenie do vencov a machových dekorácií. Prírodný vzhľad doplní jesenné aj smútočné aranžmány.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Lotos",
+    "groups": [
+      { "color": "hnedá", "photos": ["11", "12"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Lotos. Menší formát než priečinok 90 a 105."
+  },
+  {
+    "sourceFolder": "94",
+    "name": "Sušený dekoračný plod",
+    "description": "Prírodné drevité plody s otvorenými okvetnými segmentmi. Ideálne na aranžovanie vencov a sezónnych dekorácií. Rustikálny tvar pôsobí autenticky a zaujímavo.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["13", "14"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Sušené plody."
+  },
+  {
+    "sourceFolder": "95",
+    "name": "Cédrová ružička",
+    "description": "Prírodné dekoračné prvky zo šišiek v tvare drobných ružičiek. Hodí sa na výrobu vencov a rustikálnych aranžmánov. Drevitá textúra dodáva dekorácii trvácny a prirodzený vzhľad.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Šišky",
+    "groups": [
+      { "color": "hnedá", "photos": ["15", "16"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Šišky. Typicky cédrové ruže."
+  },
+  {
+    "sourceFolder": "96",
+    "name": "Drevená hlavička kvetu",
+    "description": "Hlavičky kvetov z prírodného materiálu s mäkkým vrstvením lupienkov. Vhodné na lepenie do vencov a prírodných dekorácií. Pôsobia jemne a harmonicky v rustikálnych kompozíciách.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "béžová", "photos": ["17", "18"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Drevené kvety."
+  },
+  {
+    "sourceFolder": "97",
+    "name": "Sušený hviezdicový plod",
+    "description": "Prírodné drevité plody s hviezdicovitým tvarom a výraznou textúrou. Ideálne do jesenných a zimných aranžmánov aj vencov. Dodajú kompozícii rustikálny a originálny charakter.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["19", "21", "22"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny. Inventár nemá foto 20."
+  },
+  {
+    "sourceFolder": "98",
+    "name": "Cédrová ružička",
+    "description": "Drevité dekoračné prvky pripomínajúce otvorené ružičky. Vhodné na aranžovanie vencov a sezónnych dekorácií. Pevná štruktúra zachováva tvar aj pri dlhodobom použití.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Šišky",
+    "groups": [
+      { "color": "hnedá", "photos": ["23", "24"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Šišky."
+  },
+  {
+    "sourceFolder": "99",
+    "name": "Dekoračná guľôčka",
+    "description": "Drobné guľovité dekoračné prvky s vrstveným povrchom. Skvelo doplnia vence, machové obrazy a stolové aranžmány. Prirodzený vzhľad ladí s prírodnými materiálmi.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Dekoračné guľôčky",
+    "groups": [
+      { "color": "béžová", "photos": ["25", "26"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Dekoračné guľôčky."
+  },
+  {
+    "sourceFolder": "100",
+    "name": "Dekoračné šišky",
+    "description": "Drobné prírodné šišky vhodné na aranžovanie a výrobu vencov. Dodávajú dekoráciám rustikálny a autentický vzhľad. Dajú sa ľahko pripevniť k rôznym podkladom.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Šišky",
+    "groups": [
+      { "color": "hnedá", "photos": ["27", "28"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Šišky."
+  },
+  {
+    "sourceFolder": "101",
+    "name": "Dekoračný muškátový oriešok",
+    "description": "Realistické dekoračné plody v tvare muškátového orieška. Ideálne do jesenných vencov a aranžmánov. Textúrovaný povrch pôsobí prirodzene a detailne.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Muškátový oriešok",
+    "groups": [
+      { "color": "hnedá", "photos": ["29"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Muškátový oriešok. Pravdepodobne umelá imitácia."
+  },
+  {
+    "sourceFolder": "102",
+    "name": "Sušený kalichovitý plod",
+    "description": "Prírodné drevité plody s kalichovitým tvarom a vrstvenou štruktúrou. Vhodné do vencov a prírodných kompozícií. Vyniknú v jesenných aj celoročných dekoráciách.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["30", "31"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Sušené plody."
+  },
+  {
+    "sourceFolder": "103",
+    "name": "Bobuľová vetvička",
+    "description": "Dekoračná vetvička s lesklými bobuľami na ohybnej stonke. Hodí sa do vencov, kytíc a sviatočných aranžmánov. Lesklý povrch dodáva kompozícii elegantný a svieži vzhľad.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "Bobule",
+    "groups": [
+      { "color": "strieborná", "photos": ["32", "33"] }
+    ],
+    "notes": "Nový druh Bobule. Vhodné aj ako vianočná dekorácia."
+  },
+  {
+    "sourceFolder": "104",
+    "name": "Hlavička kvetu",
+    "description": "Plné umelé hlavičky s hustým vrstvením zaoblených okvetných lístkov. Určené na výrobu vencov a floristických dekorácií. Mäkký tvar pôsobí bohato a jemne.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "krémová", "photos": ["34", "35"] }
+    ],
+    "notes": "Môže pripomínať aj drobnú pivóniu alebo kaméliu."
+  },
+  {
+    "sourceFolder": "105",
+    "name": "Lotosový plod",
+    "description": "Sušené lotosové plody s typickou štruktúrou a otvormi na vrchole. Ideálne na aranžovanie vencov a prírodných dekorácií. Exotický tvar doplní jesenné aj smútočné kompozície.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Lotos",
+    "groups": [
+      { "color": "hnedá", "photos": ["36", "37"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Lotos."
+  },
+  {
+    "sourceFolder": "106",
+    "name": "Dekoračná vetvička so sušeným vzhľadom",
+    "description": "Umelá vetvička s hnedými špicatými plodmi a úzkymi listami. Vhodná ako výplň do kytíc, vencov a prírodných aranžmánov. Realistické spracovanie napodobňuje sušený rastlinný materiál.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "Zeleň / výplň",
+    "groups": [
+      { "color": "hnedá", "photos": ["38", "39"] }
+    ],
+    "notes": "Môže pripomínať leucadendron alebo sušený exotický plod."
+  },
+  {
+    "sourceFolder": "107",
+    "name": "Dekoračný púčik na stopke",
+    "description": "Umelý ozdobný púčik s vrstvenými šupinami na tenkej stopke. Ideálny doplnok do jesenných aranžmánov a vencov. Textúrovaný povrch pôsobí ako sušený rastlinný materiál.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "Sušený kvet",
+    "groups": [
+      { "color": "oranžová", "photos": ["40", "41"] }
+    ],
+    "notes": "Nový druh Sušený kvet. Odtieň môže byť aj hrdzavohnedý."
+  },
+  {
+    "sourceFolder": "108",
+    "name": "Sušený puk na drôtiku",
+    "description": "Prírodné sušené puky upevnené na ohybnom drôtiku. Ľahko sa zapracujú do vencov a floristických aranžmánov. Rustikálny vzhľad doplní prírodné aj sezónne dekorácie.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušina",
+    "groups": [
+      { "color": "hnedá", "photos": ["42", "43", "44"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Sušina."
+  },
+  {
+    "sourceFolder": "109",
+    "name": "Jutové vrecúško",
+    "description": "Malé ozdobné vrecúška z prírodnej jutovej tkaniny. Hodí sa na balenie drobných darčekov alebo ako rustikálny interiérový doplnok. Jednoduchý tvar pôsobí čisto a príjemne.",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "druh": "Vrecúška",
+    "groups": [
+      { "color": "prírodná", "photos": ["45"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Doplnky, druh Vrecúška."
+  },
+  {
+    "sourceFolder": "110",
+    "name": "Sušený hviezdicový plod",
+    "description": "Drevité sušené plody s piatimi zaoblenými segmentmi. Vhodné na lepenie do vencov a prírodných aranžmánov. Výrazná textúra dodáva dekorácii rustikálny charakter.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["46", "47"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Sušené plody."
+  },
+  {
+    "sourceFolder": "111",
+    "name": "Prútená guľa",
+    "description": "Ľahké duté gule z prepleteného prírodného materiálu. Ideálne do váz, misiek a priestorových aranžmánov. Ažúrová štruktúra pôsobí vzdušne a dekoratívne.",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "druh": "Prútené gule",
+    "groups": [
+      { "color": "krémová", "photos": ["48", "49"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Doplnky, druh Prútené gule."
+  },
+  {
+    "sourceFolder": "112",
+    "name": "Sušený plod Bell Cup",
+    "description": "Prírodné kalichovité plody s drevitou štruktúrou a členitým vnútrom. Skvelo sa hodia do jesenných vencov a aranžmánov. Pevný tvar zachováva prirodzený vzhľad.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Bell Cup",
+    "groups": [
+      { "color": "hnedá", "photos": ["50", "51"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny, druh Bell Cup."
+  },
+  {
+    "sourceFolder": "113",
+    "name": "Dekoračný kalíšok",
+    "description": "Drobné hladké kalíšky vhodné ako výplňový a dekoračný materiál. Hodí sa do vencov, misiek a kreatívnych aranžmánov. Jednoduchý tvar pôsobí čisto a univerzálne.",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "druh": "Kalíšky",
+    "groups": [
+      { "color": "krémová", "photos": ["52", "53"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Doplnky, druh Kalíšky."
+  },
+  {
+    "sourceFolder": "114",
+    "name": "Hlavička klinčeka",
+    "description": "Husto vrstvené hlavičky kvetov vhodné na lepenie do vencov a dekorácií. Bohaté okvetie pôsobí plne a jemne. Ideálne na kreatívnu floristickú tvorbu.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Klinček",
+    "groups": [
+      { "color": "krémová", "photos": ["54", "55"] }
+    ]
+  },
+  {
+    "sourceFolder": "115",
+    "name": "Drevená ružička",
+    "description": "Dekoračné hlavičky z prírodného materiálu so stočenými lupienkami. Vhodné do vencov, ikebán a rustikálnych aranžmánov. Naturálny vzhľad ladí so sezónnymi dekoráciami.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Drevené kvety",
+    "groups": [
+      { "color": "prírodná", "photos": ["56", "57"] }
+    ],
+    "notes": "Nová kategória Dekorácie, subkategória Prírodniny. Lupienky majú tmavšie okraje."
+  },
+  {
+    "sourceFolder": "116",
+    "name": "Dekoračná pichľavá guľôčka",
+    "description": "Drobné dekoračné plody so štruktúrovaným pichľavým povrchom. Ideálne na aranžovanie vencov, machových obrazov a sezónnych dekorácií. Výrazná textúra oživí každú kompozíciu.",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "druh": "Dekoračné plody",
+    "groups": [
+      { "color": "fialová", "photos": ["59"] },
+      { "color": "hnedá", "photos": ["60"] }
+    ],
+    "notes": "Preskočené mix zábery 58 a 61. Nová kategória Dekorácie, druh Dekoračné plody. Pripomína plody platana."
+  },
+  {
+    "sourceFolder": "117",
+    "name": "Sušený plod",
+    "description": "Prírodné otvorené plody s vláknitou vnútornou štruktúrou. Vhodné do vencov a rustikálnych aranžmánov. Zaujímavý tvar dodá dekorácii exotický a autentický charakter.",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "druh": "Sušené plody",
+    "groups": [
+      { "color": "hnedá", "photos": ["63"] },
+      { "color": "sivá", "photos": ["65"] }
+    ],
+    "notes": "Preskočené mix zábery 62 a 64. Nová kategória Dekorácie. Môže ísť o plody jacarandy alebo podobné sušené plody."
+  },
+  {
+    "sourceFolder": "118",
+    "name": "Artičoka na stopke",
+    "description": "Umelá dekorácia napodobňujúca sušenú artičoku s vrstvenými šupinami. Pevná stopka uľahčuje aranžovanie do váz a vencov. Detailná textúra pôsobí prirodzene a elegantne.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Artičoka",
+    "groups": [
+      { "color": "bordová", "photos": ["67"] },
+      { "color": "sivá", "photos": ["68"] },
+      { "color": "hnedá", "photos": ["69"] }
+    ],
+    "notes": "Preskočené mix zábery 66 a 70. Sivá môže byť aj strieborná; bordová môže byť aj fialová. Môže pripomínať aj bodliak."
+  },
+  {
+    "sourceFolder": "119",
+    "name": "Bodliak na stopke",
+    "description": "Dekoračný kvet pripomínajúci sušený bodliak s šupinatou textúrou. Vhodný do prírodných kytíc, vencov a jesenných aranžmánov. Stopka umožňuje jednoduché zapichovanie do aranžérskej hmoty.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Bodliak",
+    "groups": [
+      { "color": "krémová", "photos": ["71", "72"] }
+    ],
+    "notes": "Nový druh Bodliak. Môže ísť o umelú imitáciu sušeného puku."
+  },
+  {
+    "sourceFolder": "120",
+    "name": "Dekoračná tekvička",
+    "description": "Drobné dekoračné tekvičky s textúrovaným povrchom a krátkou stopkou. Ideálne na jesenné vence, košíky a interiérové aranžmány. Realistický tvar oživí sezónne dekorácie.",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "druh": "Tekvice",
+    "groups": [
+      { "color": "krémová", "photos": ["74"] },
+      { "color": "oranžová", "photos": ["75"] }
+    ],
+    "notes": "Preskočené mix zábery 73 a 76. Nová kategória Dekorácie, druh Tekvice. Materiál pripomína jutové vlákno."
+  }
+]

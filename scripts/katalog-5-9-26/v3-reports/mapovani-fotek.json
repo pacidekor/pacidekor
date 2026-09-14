@@ -1,0 +1,340 @@
+[
+  {
+    "action": "common-gallery",
+    "fromProduct": "68",
+    "toProduct": "66",
+    "fromFile": "1.webp",
+    "toFile": "10.webp"
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "68",
+    "toProduct": "66",
+    "fromFile": "2.webp",
+    "toFile": "11.webp"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "156",
+    "fromFile": "1.webp",
+    "toProduct": "156",
+    "toFile": "1.webp",
+    "color": "mentolová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "156",
+    "fromFile": "2.webp",
+    "toProduct": "156",
+    "toFile": "2.webp",
+    "color": "mentolová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "162",
+    "fromFile": "1.webp",
+    "toProduct": "156",
+    "toFile": "3.webp",
+    "color": "modrá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "162",
+    "fromFile": "2.webp",
+    "toProduct": "156",
+    "toFile": "4.webp",
+    "color": "svetloružová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "162",
+    "fromFile": "3.webp",
+    "toProduct": "156",
+    "toFile": "5.webp",
+    "color": "svetlozelená"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "162",
+    "fromFile": "4.webp",
+    "toProduct": "156",
+    "toFile": "6.webp",
+    "color": "marhuľová"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "162",
+    "toProduct": "156",
+    "archivePath": "_archived/162"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "127",
+    "fromFile": "1.webp",
+    "toProduct": "127",
+    "toFile": "1.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "127",
+    "fromFile": "2.webp",
+    "toProduct": "127",
+    "toFile": "2.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "180",
+    "fromFile": "1.webp",
+    "toProduct": "127",
+    "toFile": "3.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "180",
+    "fromFile": "2.webp",
+    "toProduct": "127",
+    "toFile": "4.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "180",
+    "toProduct": "127",
+    "archivePath": "_archived/180"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "83",
+    "fromFile": "1.webp",
+    "toProduct": "83",
+    "toFile": "1.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "83",
+    "fromFile": "2.webp",
+    "toProduct": "83",
+    "toFile": "2.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "116",
+    "fromFile": "1.webp",
+    "toProduct": "83",
+    "toFile": "3.webp",
+    "color": "prírodná"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "116",
+    "fromFile": "2.webp",
+    "toProduct": "83",
+    "toFile": "4.webp",
+    "color": "prírodná"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "116",
+    "toProduct": "83",
+    "archivePath": "_archived/116"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "1.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "87",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "2.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "87",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "3.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "4.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "87",
+    "fromFile": "3.webp",
+    "toProduct": "85",
+    "toFile": "5.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "87",
+    "fromFile": "4.webp",
+    "toProduct": "85",
+    "toFile": "6.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "3.webp",
+    "toProduct": "85",
+    "toFile": "7.webp",
+    "color": "béžová"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "87",
+    "toProduct": "85",
+    "archivePath": "_archived/87"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "1.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "2.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "3.webp",
+    "toProduct": "85",
+    "toFile": "3.webp",
+    "color": "hnedá"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "4.webp",
+    "toProduct": "85",
+    "toFile": "4.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "5.webp",
+    "toProduct": "85",
+    "toFile": "5.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "6.webp",
+    "toProduct": "85",
+    "toFile": "6.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "85",
+    "fromFile": "7.webp",
+    "toProduct": "85",
+    "toFile": "7.webp",
+    "color": "béžová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "97",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "8.webp",
+    "color": "béžová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "97",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "9.webp",
+    "color": "béžová"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "97",
+    "toProduct": "85",
+    "archivePath": "_archived/97"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "15",
+    "fromFile": "1.webp",
+    "toProduct": "15",
+    "toFile": "1.webp",
+    "color": "bordová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "15",
+    "fromFile": "2.webp",
+    "toProduct": "15",
+    "toFile": "2.webp",
+    "color": "bordová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "15",
+    "fromFile": "3.webp",
+    "toProduct": "15",
+    "toFile": "3.webp",
+    "color": "bordová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "16",
+    "fromFile": "1.webp",
+    "toProduct": "15",
+    "toFile": "4.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "16",
+    "fromFile": "2.webp",
+    "toProduct": "15",
+    "toFile": "5.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "merged-photo",
+    "fromProduct": "16",
+    "fromFile": "3.webp",
+    "toProduct": "15",
+    "toFile": "6.webp",
+    "color": "krémová"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "16",
+    "toProduct": "15",
+    "archivePath": "_archived/16"
+  }
+]

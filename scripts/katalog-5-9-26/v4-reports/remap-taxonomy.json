@@ -1,0 +1,494 @@
+{
+  "skipped": [
+    "178hotovo",
+    "179hotovo"
+  ],
+  "changes": [
+    {
+      "id": "100",
+      "name": "Dekoračná guľôčka",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "101",
+      "name": "Dekoračné šišky",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "102",
+      "name": "Dekoračný muškátový oriešok",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "103",
+      "name": "Sušený kalichovitý plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "104",
+      "name": "Bobuľová vetvička s lesklým povrchom",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "106",
+      "name": "Lotosový plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "109",
+      "name": "Sušený puk na drôtiku",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "110",
+      "name": "Jutové vrecúško",
+      "from": "Dekorácie / Doplnky",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "111",
+      "name": "Otvorený hviezdicový plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "112",
+      "name": "Prútená guľa",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "113",
+      "name": "Bell Cup",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "114",
+      "name": "Dekoračný kalíšok",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "117",
+      "name": "Dekoračná pichľavá guľôčka",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "118",
+      "name": "Sušený plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "121",
+      "name": "Dekoračná tekvička",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "122",
+      "name": "Dekoratívna tekvica",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "123",
+      "name": "Bobuľová vetvička s matným povrchom",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "124",
+      "name": "Kokosové vlákno",
+      "from": "Dekorácie / Doplnky",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "125",
+      "name": "Umelý mach",
+      "from": "Dekorácie / Doplnky",
+      "to": "Umelé kvety / Doplnky"
+    },
+    {
+      "id": "126",
+      "name": "Sisalové vlákno",
+      "from": "Dekorácie / Doplnky",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "127",
+      "name": "Predĺžené drevené špirálky",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "129",
+      "name": "Dekoratívne kalichy s dierovanou textúrou",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "130",
+      "name": "Dekoratívna škorica",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "131",
+      "name": "Sušené škrupiny",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "132",
+      "name": "Dekoratívne kalichy s hladkým povrchom",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "133",
+      "name": "Dekoratívne šišky",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "136",
+      "name": "Dekoračné tobolky",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "137",
+      "name": "Dekoračné plody",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "138",
+      "name": "Drevené zvitky",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "139",
+      "name": "Sušené plody",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "143",
+      "name": "Cédrová ruža",
+      "from": "Dekorácie / Doplnky",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "144",
+      "name": "Dekoratívna ružička",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "146",
+      "name": "Saténová stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "147",
+      "name": "Dekoračný sprej",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "148",
+      "name": "Floristický drôt",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "149",
+      "name": "Stuha s ornamentálnym kvetinovým okrajom",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "150",
+      "name": "Dekoratívna stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "151",
+      "name": "Saténová stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "152",
+      "name": "Široká dekoračná stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "153",
+      "name": "Margarétková stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Margarétkové stuhy"
+    },
+    {
+      "id": "154",
+      "name": "Dekoračná stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "155",
+      "name": "Dekoratívna stuha s čipkovaným lemom",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "156",
+      "name": "Saténová stuha s kvetinovým vzorom",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "157",
+      "name": "Saténová stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "158",
+      "name": "Saténová stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "159",
+      "name": "Plastová stonka",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "160",
+      "name": "Valcové ampulky na vodu",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "161",
+      "name": "Floristická skúmavka",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "163",
+      "name": "Kuželovité ampulky na vodu",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "164",
+      "name": "Saténová stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Saténové stuhy"
+    },
+    {
+      "id": "165",
+      "name": "Dekoračná stuha s textúrou",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "166",
+      "name": "Dekoratívna jutová páska",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Jutové stuhy"
+    },
+    {
+      "id": "167",
+      "name": "Umelé lýko",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "168",
+      "name": "Polypropylénový špagát",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "169",
+      "name": "Dekoratívna pavučinová sieťka",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Obalový materiál / Sieťka hačkovaná"
+    },
+    {
+      "id": "170",
+      "name": "Jutový copík",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "171",
+      "name": "Dekoratívna krútená šnúra",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "172",
+      "name": "Papierové lyko",
+      "from": "Dekorácie / Floristické potreby",
+      "to": "Aranž. materiál / (bez sub)"
+    },
+    {
+      "id": "173",
+      "name": "Károvaná stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Kárované stuhy"
+    },
+    {
+      "id": "174",
+      "name": "Károvaná textilná stuha",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Kárované stuhy"
+    },
+    {
+      "id": "175",
+      "name": "Stuha s ozdobnými linkami na okraji",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Dekoratívné stuhy"
+    },
+    {
+      "id": "176",
+      "name": "Károvaná stuha s textúrou",
+      "from": "Dekorácie / Stuhy",
+      "to": "Stuhy / Kárované stuhy"
+    },
+    {
+      "id": "77",
+      "name": "Lotosový plod s matným povrchom",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "78",
+      "name": "Hviezdicový plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "79",
+      "name": "Sušené drobné šištičky",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "80",
+      "name": "Malý Bell Cup",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "81",
+      "name": "Ploché drevené špirálky",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "83",
+      "name": "Dvojfarebná drevená ružička",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "84",
+      "name": "Jednoliatá drevená ružička",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "85",
+      "name": "Drevená hlava kvetu",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "88",
+      "name": "Badián",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "89",
+      "name": "Bielený hviezdicový plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "90",
+      "name": "Prírodný veniec",
+      "from": "Dekorácie / Vence",
+      "to": "Vencové základy / (bez sub)"
+    },
+    {
+      "id": "91",
+      "name": "Bielený lotosový plod",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "92",
+      "name": "Dekoračný mach",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "93",
+      "name": "Bell Cup",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "94",
+      "name": "Kúsky lotosového plodu",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "95",
+      "name": "Sušené lodičkové plody",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "96",
+      "name": "Plochá cédrová ružička",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "98",
+      "name": "Hviezdicový plod s predĺženými cípkami",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    },
+    {
+      "id": "99",
+      "name": "Kužeľovitá cédrová ružička",
+      "from": "Dekorácie / Prírodniny",
+      "to": "Sušina / (bez sub)"
+    }
+  ]
+}

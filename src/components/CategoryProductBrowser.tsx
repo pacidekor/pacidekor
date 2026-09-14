@@ -3,13 +3,15 @@
 import {
   useDeferredValue,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
   useTransition,
 } from "react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import Image from "next/image";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
@@ -25,6 +27,13 @@ import {
   getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
+import {
+  listingScrollKey,
+  peekListingScroll,
+  saveListingScroll,
+  takeListingScroll,
+  type ListingScrollSnapshot,
+} from "@/lib/listing-scroll";
 import { collectCatalogColorFilters, filterProducts } from "@/lib/products";
 import {
   buildCategoryFilterHref,
@@ -76,6 +85,7 @@ export function CategoryProductBrowser({
   products,
 }: CategoryProductBrowserProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -98,7 +108,16 @@ export function CategoryProductBrowser({
   );
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const loadMoreRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
   const applyingFiltersRef = useRef(false);
+  const filtersKeySnapshotRef = useRef(filtersKey(filters));
+  const visibleCountRef = useRef(visibleCount);
+  const pendingRestoreRef = useRef<(ListingScrollSnapshot & { visibleCount: number }) | null>(
+    null,
+  );
+  const didReadRestoreRef = useRef(false);
+
+  visibleCountRef.current = visibleCount;
 
   useEffect(() => {
     function refresh() {
@@ -147,9 +166,112 @@ export function CategoryProductBrowser({
   const deferredFiltered = useDeferredValue(filtered);
   const isFilterPending = filtered !== deferredFiltered;
 
+  // Read pending snapshot (from product click) and expand the lazy grid first.
+  useLayoutEffect(() => {
+    if (didReadRestoreRef.current) return;
+    didReadRestoreRef.current = true;
+    const key = listingScrollKey(pathname, filtersKey(filters));
+    const saved = peekListingScroll(key);
+    if (!saved) return;
+    const targetCount = Math.max(
+      PAGE_SIZE,
+      typeof saved.visibleCount === "number" ? saved.visibleCount : PAGE_SIZE,
+    );
+    pendingRestoreRef.current = { ...saved, visibleCount: targetCount };
+    if (targetCount > PAGE_SIZE) {
+      setVisibleCount(targetCount);
+    }
+  }, [pathname, filters]);
+
+  // After enough products are in the DOM, jump back to the product / scrollY.
+  useLayoutEffect(() => {
+    const pending = pendingRestoreRef.current;
+    if (!pending) return;
+    if (visibleCount < pending.visibleCount) return;
+
+    const key = listingScrollKey(pathname, filtersKeySnapshotRef.current);
+
+    function applyRestore() {
+      const still = pendingRestoreRef.current;
+      if (!still) return true;
+
+      if (still.productId) {
+        const el = document.querySelector(
+          `[data-product-id="${CSS.escape(still.productId)}"]`,
+        );
+        if (el) {
+          el.scrollIntoView({ block: "center" });
+          pendingRestoreRef.current = null;
+          takeListingScroll(key);
+          return true;
+        }
+      }
+
+      window.scrollTo(0, still.scrollY);
+      const tallEnough =
+        document.documentElement.scrollHeight >=
+        still.scrollY + window.innerHeight * 0.5;
+      if (!tallEnough) return false;
+
+      pendingRestoreRef.current = null;
+      takeListingScroll(key);
+      return true;
+    }
+
+    let tries = 0;
+    const run = () => {
+      if (applyRestore()) return;
+      tries += 1;
+      if (tries < 30) {
+        window.setTimeout(run, 50);
+      } else {
+        pendingRestoreRef.current = null;
+        takeListingScroll(key);
+      }
+    };
+
+    requestAnimationFrame(() => requestAnimationFrame(run));
+  }, [visibleCount, deferredFiltered.length, pathname]);
+
+  // Reset paging only when filters actually change (not on restore).
   useEffect(() => {
-    setVisibleCount(PAGE_SIZE);
+    const next = filtersKey(filters);
+    if (filtersKeySnapshotRef.current === next) return;
+    filtersKeySnapshotRef.current = next;
+    // Don't wipe a pending back-restore for the same visit.
+    if (!pendingRestoreRef.current) {
+      setVisibleCount(PAGE_SIZE);
+    }
   }, [filters]);
+
+  // Save listing position only when opening a product (so Back can return here).
+  useEffect(() => {
+    function onClick(event: MouseEvent) {
+      if (event.defaultPrevented || event.button !== 0) return;
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+        return;
+      }
+      const target = event.target as Element | null;
+      const anchor = target?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!anchor || !rootRef.current?.contains(anchor)) return;
+      const href = anchor.getAttribute("href") ?? "";
+      if (!href.includes("/produkt/")) return;
+
+      const productId =
+        anchor.closest("[data-product-id]")?.getAttribute("data-product-id") ??
+        undefined;
+
+      saveListingScroll(listingScrollKey(pathname, filtersKeySnapshotRef.current), {
+        scrollY: window.scrollY,
+        visibleCount: visibleCountRef.current,
+        productId: productId ?? undefined,
+        productHref: href,
+      });
+    }
+
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [pathname]);
 
   const visibleProducts = useMemo(
     () => deferredFiltered.slice(0, visibleCount),
@@ -196,10 +318,20 @@ export function CategoryProductBrowser({
   if (products.length === 0) {
     return (
       <div className="rounded-3xl bg-white px-6 py-12 text-center sm:px-10">
+        <div className="mx-auto mb-5 w-full max-w-[120px] sm:max-w-[140px]">
+          <Image
+            src="/tadynicneni.webp"
+            alt=""
+            width={280}
+            height={220}
+            className="mx-auto h-auto w-full"
+            priority
+          />
+        </div>
         <p className="font-heading text-xl text-[#2f2924] sm:text-2xl">
           Produkty pripravujeme
         </p>
-        <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-[#2f2924]/65 sm:text-base">
+        <p className="mx-auto mt-3 text-sm leading-relaxed text-[#2f2924]/65 sm:whitespace-nowrap sm:text-base">
           V tejto kategórii zatiaľ nie sú žiadne produkty. Čoskoro ich doplníme.
         </p>
         <Link
@@ -213,7 +345,7 @@ export function CategoryProductBrowser({
   }
 
   return (
-    <div>
+    <div ref={rootRef}>
       <div className="mb-6 flex items-center justify-between gap-4">
         <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{categoryLabel}</h1>
 

@@ -1,18 +1,20 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ChevronDown, Mail, Phone } from "lucide-react";
 import { useTaxonomy } from "@/components/ProductCatalogProvider";
 import { categoryHrefById, categoryList, navItems } from "@/lib/navigation";
+import { buildCategoryFilterHref } from "@/lib/taxonomy";
 
 export function NavBar() {
   const pathname = usePathname();
   const taxonomy = useTaxonomy();
   const [open, setOpen] = useState(false);
   const [menuReady, setMenuReady] = useState(false);
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const menuId = useId();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -34,6 +36,44 @@ export function NavBar() {
           href: categoryHrefById(category.slug),
         }));
 
+  const subsByCategory = useMemo(() => {
+    const map = new Map<
+      string,
+      { id: string; label: string; sortOrder: number }[]
+    >();
+    for (const sub of taxonomy.subcategories) {
+      const list = map.get(sub.categoryId) ?? [];
+      list.push({
+        id: sub.id,
+        label: sub.label,
+        sortOrder: sub.sortOrder,
+      });
+      map.set(sub.categoryId, list);
+    }
+
+    const cleaned = new Map<string, { id: string; label: string }[]>();
+    for (const [categoryId, list] of map) {
+      cleaned.set(
+        categoryId,
+        [...list]
+          .sort(
+            (a, b) =>
+              a.sortOrder - b.sortOrder ||
+              a.label.localeCompare(b.label, "sk"),
+          )
+          .map(({ id, label }) => ({ id, label })),
+      );
+    }
+    return cleaned;
+  }, [taxonomy.subcategories]);
+
+  const activeSubs = activeCategoryId
+    ? (subsByCategory.get(activeCategoryId) ?? [])
+    : [];
+  const activeCategoryLabel =
+    navCategories.find((category) => category.id === activeCategoryId)
+      ?.label ?? null;
+
   const openMenu = () => {
     if (closeTimer.current) {
       clearTimeout(closeTimer.current);
@@ -49,11 +89,15 @@ export function NavBar() {
       closeTimer.current = null;
     }
     setOpen(false);
+    setActiveCategoryId(null);
   };
 
   const scheduleClose = () => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
-    closeTimer.current = setTimeout(() => setOpen(false), 100);
+    closeTimer.current = setTimeout(() => {
+      setOpen(false);
+      setActiveCategoryId(null);
+    }, 100);
   };
 
   useEffect(() => {
@@ -147,39 +191,99 @@ export function NavBar() {
           }`}
         >
           {menuReady ? (
-            <div className="mx-auto grid w-[var(--content-width)] grid-cols-3 gap-2.5 py-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11">
-              {navCategories.map(({ id, label, image, href }) => (
-                <Link
-                  key={id}
-                  href={href}
-                  prefetch={false}
-                  onClick={closeMenu}
-                  className="group flex cursor-pointer flex-col items-center gap-2 text-center transition-transform duration-200 hover:-translate-y-0.5"
-                >
-                  <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-[#f3efe9] shadow-sm transition-shadow duration-200 group-hover:shadow-md">
-                    {image.startsWith("http") ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={image}
-                        alt=""
-                        className="absolute inset-0 size-full object-cover"
-                      />
-                    ) : (
-                      <Image
-                        src={image}
-                        alt=""
-                        fill
-                        sizes="(max-width: 768px) 30vw, 8vw"
-                        quality={90}
-                        className="object-cover"
-                      />
-                    )}
+            <div className="mx-auto w-[var(--content-width)] py-4">
+              <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-11">
+                {navCategories.map(({ id, label, image, href }) => {
+                  const hasSubs = (subsByCategory.get(id)?.length ?? 0) > 0;
+                  const isActive = activeCategoryId === id;
+
+                  return (
+                    <Link
+                      key={id}
+                      href={href}
+                      prefetch={false}
+                      onClick={closeMenu}
+                      onMouseEnter={() =>
+                        setActiveCategoryId(hasSubs ? id : null)
+                      }
+                      className="group flex cursor-pointer flex-col items-center gap-2 text-center"
+                    >
+                      <div
+                        className={`relative aspect-square w-full overflow-hidden rounded-xl bg-[#f3efe9] transition-[box-shadow,outline-color] duration-200 ${
+                          isActive
+                            ? "shadow-md outline outline-2 outline-[#75825B]"
+                            : "shadow-sm group-hover:shadow-md"
+                        }`}
+                      >
+                        {image.startsWith("http") ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={image}
+                            alt=""
+                            className="absolute inset-0 size-full object-cover"
+                          />
+                        ) : (
+                          <Image
+                            src={image}
+                            alt=""
+                            fill
+                            sizes="(max-width: 768px) 30vw, 8vw"
+                            quality={90}
+                            className="object-cover"
+                          />
+                        )}
+                      </div>
+                      <span
+                        className={`font-heading text-xs leading-tight transition-colors sm:text-sm ${
+                          isActive
+                            ? "text-[#75825B]"
+                            : "text-[#3d342c] group-hover:text-[#75825B]"
+                        }`}
+                      >
+                        {label}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+
+              <div
+                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  activeSubs.length > 0
+                    ? "mt-4 grid-rows-[1fr] opacity-100"
+                    : "mt-0 grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden">
+                  <div>
+                    <p className="mb-2.5 text-xs font-medium tracking-[0.14em] text-[#75825B] uppercase">
+                      Subkategórie
+                      {activeCategoryLabel ? (
+                        <span className="normal-case tracking-normal text-[#2f2924]/50">
+                          {" "}
+                          ({activeCategoryLabel})
+                        </span>
+                      ) : null}
+                    </p>
+                    <div className="flex flex-wrap justify-start gap-2">
+                      {activeSubs.map((sub) => (
+                        <Link
+                          key={sub.id}
+                          href={buildCategoryFilterHref(
+                            activeCategoryId ?? "",
+                            { sub: sub.id },
+                          )}
+                          prefetch={false}
+                          onClick={closeMenu}
+                          className="inline-flex h-11 cursor-pointer items-center rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-[#2f2924] transition-colors duration-200 hover:border-[#75825B] hover:bg-[#75825B] hover:text-white"
+                        >
+                          {sub.label}
+                        </Link>
+                      ))}
+                    </div>
                   </div>
-                  <span className="font-heading text-xs leading-tight text-[#3d342c] transition-colors group-hover:text-[#75825B] sm:text-sm">
-                    {label}
-                  </span>
-                </Link>
-              ))}
+                </div>
+              </div>
             </div>
           ) : null}
         </div>

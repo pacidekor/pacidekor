@@ -18,6 +18,18 @@ import {
   type Order,
 } from "@/lib/orders";
 import { findCatalogProductById } from "@/lib/product-catalog";
+import { colorsFromIds } from "@/lib/products";
+
+function orderLineCodeLabel(
+  sku: string | undefined,
+  colorId: string | undefined,
+) {
+  if (!sku) return null;
+  if (!colorId) return sku;
+  const color = colorsFromIds([colorId])[0];
+  if (!color?.label) return sku;
+  return `${sku} (${color.label})`;
+}
 
 export function AccountOrderDetail({
   order,
@@ -145,10 +157,14 @@ export function AccountOrderDetail({
                   parsePrice(line.unitPrice) * line.quantity,
                 );
                 const imageSrc = product?.image;
+                const codeLabel = orderLineCodeLabel(
+                  product?.sku,
+                  line.colorId,
+                );
 
                 return (
                   <li
-                    key={`${order.id}-${line.productId}`}
+                    key={`${order.id}-${line.productId}-${line.colorId ?? ""}`}
                     className="flex items-center gap-3.5 rounded-xl border border-black/8 bg-[#faf8f5] px-3.5 py-3"
                   >
                     <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-[#e8ebe2]">
@@ -158,9 +174,9 @@ export function AccountOrderDetail({
                       <p className="truncate text-sm font-medium text-[#2f2924]">
                         {line.name}
                       </p>
-                      {product?.sku ? (
-                        <p className="mt-0.5 text-xs text-[#2f2924]/45">
-                          {product.sku}
+                      {codeLabel ? (
+                        <p className="mt-0.5 truncate text-xs text-[#2f2924]/45">
+                          {codeLabel}
                         </p>
                       ) : null}
                       <p className="mt-1 text-xs text-[#2f2924]/55">

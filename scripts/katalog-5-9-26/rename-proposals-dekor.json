@@ -1,0 +1,1075 @@
+{
+  "renames": [
+    {
+      "id": "2",
+      "newName": "Artičoka na stopke",
+      "reason": "Sušená artičoka na stopke; vizuálne rovnaký typ ako 119 a 134 (rozdiel len v prezentácii/počte).",
+      "status": "k-overeni"
+    },
+    {
+      "id": "12",
+      "newName": "Plná hlava klinčeka",
+      "reason": "Voľné hlavy s výrazne nabitými, nariasenými lupienkami a guľatým objemom.",
+      "status": "ok"
+    },
+    {
+      "id": "15",
+      "newName": "Hlava iskerníka",
+      "reason": "Veľká otvorená hlava s hustými vrstvami lupienkov; oproti 16 len farba.",
+      "status": "ok"
+    },
+    {
+      "id": "16",
+      "newName": "Hlava iskerníka",
+      "reason": "Rovnaký tvar a veľkosť ako 15; jediný viditeľný rozdiel je farba.",
+      "status": "ok"
+    },
+    {
+      "id": "22",
+      "newName": "Hlava ľalie s úzkymi vlnitými lupienkami",
+      "reason": "Šesť užších okvetných lístkov s vlnitým okrajom.",
+      "status": "ok"
+    },
+    {
+      "id": "42",
+      "newName": "Hlava magnólie",
+      "reason": "Hlavy v balení pôsobia zatvorene/stlačene; oproti 49 nie je istý otvorený tvar.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "44",
+      "newName": "Hlava kaly",
+      "reason": "Jednofarebná hlava kaly bez kontrastného stredu.",
+      "status": "ok"
+    },
+    {
+      "id": "45",
+      "newName": "Hlava kaly s kontrastným stredom",
+      "reason": "Viditeľný farebný prechod/kontrast vo vnútri kalicha oproti jednoliatej 44.",
+      "status": "ok"
+    },
+    {
+      "id": "48",
+      "newName": "Hlava ľalie so širokými plochými lupienkami",
+      "reason": "Širšie, hladšie a plochejšie okvetné lístky oproti vlnitej 22.",
+      "status": "ok"
+    },
+    {
+      "id": "49",
+      "newName": "Otvorená hlava magnólie so žilkovaním",
+      "reason": "Plne otvorený kvet s výrazným žilkovaním lupienkov.",
+      "status": "ok"
+    },
+    {
+      "id": "50",
+      "newName": "Plochšia hlava klinčeka",
+      "reason": "Vrstvená hlava s menej nabitým, plochejším profilom než plná 12.",
+      "status": "ok"
+    },
+    {
+      "id": "57",
+      "newName": "Hlava iskerníka - kompaktná",
+      "reason": "Kompaktnejšie, zatvorenejšie hlavy oproti otvoreným 15/16; veľkosť bez mierky nepoužívať v názve.",
+      "status": "ok"
+    },
+    {
+      "id": "77",
+      "newName": "Lotosový plod s matným povrchom",
+      "reason": "Celé lotosové plody s výrazne matným/tmavším povrchom oproti prírodnému 106; farbu do názvu nedávame.",
+      "status": "ok"
+    },
+    {
+      "id": "78",
+      "newName": "Hviezdicový plod",
+      "reason": "Prírodný hviezdicový plod so zaoblenejšími cípkami; oproti 111 hlavne tón povrchu.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "79",
+      "newName": "Sušené drobné šištičky",
+      "reason": "Malé hrboľaté guľovité šištičky/plody, nie lodičkovité struky.",
+      "status": "ok"
+    },
+    {
+      "id": "80",
+      "newName": "Malý Bell Cup",
+      "reason": "Výrazne menšie kalichy oproti veľkým 93/113.",
+      "status": "ok"
+    },
+    {
+      "id": "81",
+      "newName": "Ploché drevené špirálky",
+      "reason": "Ploché kotúčovité stočené pásiky (slimákovitý tvar), nie predĺžené tyčinky.",
+      "status": "ok"
+    },
+    {
+      "id": "82",
+      "newName": "Hlava kvetu s kontrastným stredom",
+      "reason": "Ploché hlavy s ostrými lupienkami a veľkým kontrastným stredom.",
+      "status": "ok"
+    },
+    {
+      "id": "83",
+      "newName": "Dvojfarebná drevená ružička",
+      "reason": "Drevené ružičky so svetlým jadrom a tmavším vonkajším okrajom; vizuálne ako 116.",
+      "status": "ok"
+    },
+    {
+      "id": "84",
+      "newName": "Jednofarebná svetlá drevená ružička",
+      "reason": "Jednoliate svetlé/krémové drevené ružičky bez dvojitého tónu ako 83/116.",
+      "status": "ok"
+    },
+    {
+      "id": "85",
+      "newName": "Drevená hlava kvetu",
+      "reason": "Spirálovitá drevená hlava; vizuálne rovnaká ako 87 a 97.",
+      "status": "ok"
+    },
+    {
+      "id": "87",
+      "newName": "Drevená hlava kvetu",
+      "reason": "Rovnaký tvar a štruktúra ako 85 a 97; rozdiel len v focení.",
+      "status": "ok"
+    },
+    {
+      "id": "89",
+      "newName": "Bielený hviezdicový plod",
+      "reason": "Hviezdicové plody so svetlo-sivým/mrazivým bieleným povrchom.",
+      "status": "ok"
+    },
+    {
+      "id": "91",
+      "newName": "Bielený lotosový plod",
+      "reason": "Celé lotosové plody so svetlo-sivým/bieleným povrchom.",
+      "status": "ok"
+    },
+    {
+      "id": "93",
+      "newName": "Bell Cup",
+      "reason": "Veľké tmavohnedé kalichy; na sheete vizuálne rovnaké ako 113.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "94",
+      "newName": "Kúsky lotosového plodu",
+      "reason": "Rozlámané/nasekané kúsky lotosu, nie celé plody.",
+      "status": "ok"
+    },
+    {
+      "id": "95",
+      "newName": "Sušené lodičkové plody",
+      "reason": "Predĺžené lodičkovité struky s pozdĺžnymi pruhmi; odlišné od šištičiek 79.",
+      "status": "ok"
+    },
+    {
+      "id": "96",
+      "newName": "Plochá cédrová ružička",
+      "reason": "Ploché ružičkovité rezy šišky.",
+      "status": "ok"
+    },
+    {
+      "id": "97",
+      "newName": "Drevená hlava kvetu",
+      "reason": "Rovnaká spirálovitá drevená hlava ako 85 a 87, len v sáčku.",
+      "status": "ok"
+    },
+    {
+      "id": "98",
+      "newName": "Hviezdicový plod s predĺženými cípkami",
+      "reason": "Výrazne pretiahnuté, špicaté cípy oproti zaoblenejším 78/111.",
+      "status": "ok"
+    },
+    {
+      "id": "99",
+      "newName": "Kužeľovitá cédrová ružička",
+      "reason": "Objemnejší, kužeľovitý/3D tvar oproti plochým ružičkám 96.",
+      "status": "ok"
+    },
+    {
+      "id": "104",
+      "newName": "Bobuľová vetvička s lesklým povrchom",
+      "reason": "Vetvičky s lesklými/metalickými bobuľami oproti matnej prírodnej 123.",
+      "status": "ok"
+    },
+    {
+      "id": "105",
+      "newName": "Zaoblená hlava kvetu",
+      "reason": "Zaoblené viacvrstvové púčikovité hlavy bez tmavého stredu.",
+      "status": "ok"
+    },
+    {
+      "id": "106",
+      "newName": "Lotosový plod",
+      "reason": "Celé lotosové plody v prírodnom svetlohnedom tóne.",
+      "status": "ok"
+    },
+    {
+      "id": "111",
+      "newName": "Otvorený hviezdicový plod",
+      "reason": "Široko roztvorené ploché cípy; oproti 78 hlavne otvorenosť/tón - overiť či nejde o tú istú položku.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "113",
+      "newName": "Bell Cup",
+      "reason": "Veľké tmavohnedé kalichy; na sheete bez spoľahlivého vizuálneho rozdielu oproti 93.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "115",
+      "newName": "Nízka hlava klinčeka",
+      "reason": "Jednoduchšie, nízke/stohované vrstvy s zúbkovaným okrajom, menej objemu než 12.",
+      "status": "ok"
+    },
+    {
+      "id": "116",
+      "newName": "Dvojfarebná drevená ružička",
+      "reason": "Vizuálne rovnaké dvojtonové drevené ružičky ako 83.",
+      "status": "ok"
+    },
+    {
+      "id": "119",
+      "newName": "Artičoka na stopke",
+      "reason": "Rovnaký typ artičoky na stopke ako 2 a 134.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "123",
+      "newName": "Bobuľová vetvička s matným povrchom",
+      "reason": "Husté matné prírodné bobule na stonkách, bez lesklého/metalického povrchu.",
+      "status": "ok"
+    },
+    {
+      "id": "127",
+      "newName": "Predĺžené drevené špirálky",
+      "reason": "Predĺžené skrutkovité tyčinky; oproti 180 len farba.",
+      "status": "ok"
+    },
+    {
+      "id": "129",
+      "newName": "Dekoratívne kalichy s dierovanou textúrou",
+      "reason": "Kalichy s výrazne jamkovaným/dierovaným povrchom.",
+      "status": "ok"
+    },
+    {
+      "id": "132",
+      "newName": "Dekoratívne kalichy s hladkým povrchom",
+      "reason": "Hladké, bez dierovanej textúry oproti 129.",
+      "status": "ok"
+    },
+    {
+      "id": "134",
+      "newName": "Artičoka na stopke",
+      "reason": "Rovnaký typ artičoky na stopke; na fotke zväzok v fólii.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "144",
+      "newName": "Jednofarebná tmavá drevená ružička",
+      "reason": "Jednoliate tmavé drevené ružičky; oproti 84 len tón, oproti 83/116 bez dvojitého jadra.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "146",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha bez vzoru; šírka/dĺžka kotúča nie je overiteľná zo sheetu.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "147",
+      "newName": "Dekoračný sprej",
+      "reason": "Na etikete je Florist Deco Spray; text Snow/Sneh nie je viditeľný, farba v info je číra.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "149",
+      "newName": "Stuha s ornamentálnym kvetinovým okrajom",
+      "reason": "Široký stred a ornamentálny kvetinový lem na okrajoch; lepiaca vrstva z fotky nie je potvrdená.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "151",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; bez spoľahlivého vizuálneho rozdielu šírky oproti ostatným saténom.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "155",
+      "newName": "Dekoratívna stuha s čipkovaným lemom",
+      "reason": "Viditeľný čipkovaný/vlnitý lem na oboch okrajoch stuhy.",
+      "status": "ok"
+    },
+    {
+      "id": "156",
+      "newName": "Saténová stuha s kvetinovým vzorom",
+      "reason": "Satén so hustou kvetinovou potlačou; rovnaký vzor ako 162, líši sa len podkladová farba.",
+      "status": "ok"
+    },
+    {
+      "id": "157",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; šírku/kotúč treba overiť, nevymýšľať cm.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "158",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; na sheete pôsobí širšie, ale cm nie sú overené.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "160",
+      "newName": "Valcové ampulky na vodu",
+      "reason": "Valcový tvar s plochým dnom, dajú sa postaviť.",
+      "status": "ok"
+    },
+    {
+      "id": "162",
+      "newName": "Saténová stuha s kvetinovým vzorom",
+      "reason": "Rovnaký kvetinový vzor a šírka ako 156; rozdiel len farba podkladu.",
+      "status": "ok"
+    },
+    {
+      "id": "163",
+      "newName": "Kuželovité ampulky na vodu",
+      "reason": "Zúžený/špicatý spodok a samostatný uzáver oproti valcovým 160.",
+      "status": "ok"
+    },
+    {
+      "id": "164",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha na kompaktnom kotúči; šírka neoverená.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "173",
+      "newName": "Károvaná stuha",
+      "reason": "Klasické rovnomerné káro (gingham) na hladšom povrchu.",
+      "status": "ok"
+    },
+    {
+      "id": "175",
+      "newName": "Stuha s ozdobnými linkami na okraji",
+      "reason": "Dvojité ozdobné linky pozdĺž okrajov; farba liniek do názvu nepatrí.",
+      "status": "ok"
+    },
+    {
+      "id": "176",
+      "newName": "Károvaná stuha s textúrou",
+      "reason": "Káro tvorené hrubšou tkanou mriežkou s viditeľnou textúrou oproti hladkému 173.",
+      "status": "ok"
+    },
+    {
+      "id": "177",
+      "newName": "Stuha s ornamentálnym okrajom",
+      "reason": "Ornamentálny pás/lem na oboch okrajoch, stred jednofarebný.",
+      "status": "ok"
+    },
+    {
+      "id": "178",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; šírka/kotúč k overeniu.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "179",
+      "newName": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; bez overenej šírky/dĺžky kotúča.",
+      "status": "k-overeni"
+    },
+    {
+      "id": "180",
+      "newName": "Predĺžené drevené špirálky",
+      "reason": "Rovnaký predĺžený skrutkovitý tvar ako 127; rozdiel len farba.",
+      "status": "ok"
+    }
+  ],
+  "taxonomy": [
+    {
+      "id": "146",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Jednofarebná saténová stuha; patriť pod Stuhy namiesto Doplnkov."
+    },
+    {
+      "id": "147",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Dekoračný sprej",
+      "reason": "Sprej pre floristiku, nie stuha ani prírodnina."
+    },
+    {
+      "id": "149",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Dekoratívna stuha",
+      "reason": "Ornamentálna stuha/páska; do potvrdenia lepiacej vrstvy držať v Stuhách."
+    },
+    {
+      "id": "151",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "155",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Dekoratívna stuha",
+      "reason": "Stuha s čipkovaným lemom."
+    },
+    {
+      "id": "156",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha so vzorom."
+    },
+    {
+      "id": "157",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "158",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "162",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha so vzorom (rovnaký druh ako 156)."
+    },
+    {
+      "id": "164",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "166",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Jutová páska",
+      "reason": "Široká otvorená jutová/lnová páska s lineárnou textúrou."
+    },
+    {
+      "id": "167",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Umelé lýko",
+      "reason": "Na fotke/etikete rafia sztuczna (umelé lýko), nie sieťka."
+    },
+    {
+      "id": "168",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Umelé lýko",
+      "reason": "Kotúče umelého lýka/rafie bez sieťovej štruktúry."
+    },
+    {
+      "id": "169",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Dekoratívna sieťka",
+      "reason": "Pavučinová/otvorená dekoračná sieťka."
+    },
+    {
+      "id": "170",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Jutový špagát",
+      "reason": "Hrubší splietaný prírodný špagát na cievke."
+    },
+    {
+      "id": "171",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Dekoratívna šnúra",
+      "reason": "Krútená dekoračná šnúra (etiketa sznurek dekoracyjny)."
+    },
+    {
+      "id": "172",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Papierové lyko",
+      "reason": "Ploché lýko/rafia na kotúčoch (papierové/umelé lýko)."
+    },
+    {
+      "id": "173",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Károvaná stuha",
+      "reason": "Károvaná stuha."
+    },
+    {
+      "id": "175",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Dekoratívna stuha",
+      "reason": "Stuha s ozdobnými linkami na okraji."
+    },
+    {
+      "id": "176",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Károvaná stuha",
+      "reason": "Károvaná stuha s tkanou textúrou."
+    },
+    {
+      "id": "177",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Dekoratívna stuha",
+      "reason": "Stuha s ornamentálnym okrajom."
+    },
+    {
+      "id": "178",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "179",
+      "category": "Dekorácie",
+      "subcategory": "Stuhy",
+      "druh": "Saténová stuha",
+      "reason": "Saténová stuha."
+    },
+    {
+      "id": "160",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Ampulky na vodu",
+      "reason": "Floristické ampulky."
+    },
+    {
+      "id": "163",
+      "category": "Dekorácie",
+      "subcategory": "Floristické potreby",
+      "druh": "Ampulky na vodu",
+      "reason": "Floristické ampulky."
+    },
+    {
+      "id": "77",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Lotos",
+      "reason": "Lotosový plod."
+    },
+    {
+      "id": "91",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Lotos",
+      "reason": "Lotosový plod."
+    },
+    {
+      "id": "94",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Lotos",
+      "reason": "Kúsky lotosového plodu."
+    },
+    {
+      "id": "106",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Lotos",
+      "reason": "Lotosový plod."
+    },
+    {
+      "id": "78",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Hviezdicový plod."
+    },
+    {
+      "id": "89",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Hviezdicový plod."
+    },
+    {
+      "id": "98",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Hviezdicový plod."
+    },
+    {
+      "id": "111",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Hviezdicový plod."
+    },
+    {
+      "id": "80",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Bell Cup",
+      "reason": "Bell Cup."
+    },
+    {
+      "id": "93",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Bell Cup",
+      "reason": "Bell Cup."
+    },
+    {
+      "id": "113",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Bell Cup",
+      "reason": "Bell Cup."
+    },
+    {
+      "id": "81",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené špirálky",
+      "reason": "Drevené špirálky."
+    },
+    {
+      "id": "127",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené špirálky",
+      "reason": "Drevené špirálky."
+    },
+    {
+      "id": "180",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené špirálky",
+      "reason": "Drevené špirálky."
+    },
+    {
+      "id": "83",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená ružička."
+    },
+    {
+      "id": "84",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená ružička."
+    },
+    {
+      "id": "116",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená ružička."
+    },
+    {
+      "id": "144",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená ružička."
+    },
+    {
+      "id": "85",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená hlava."
+    },
+    {
+      "id": "87",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená hlava."
+    },
+    {
+      "id": "97",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Drevené kvety",
+      "reason": "Drevená hlava."
+    },
+    {
+      "id": "96",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Cédrová ruža",
+      "reason": "Cédrová ružička."
+    },
+    {
+      "id": "99",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Cédrová ruža",
+      "reason": "Cédrová ružička."
+    },
+    {
+      "id": "104",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Bobule",
+      "reason": "Bobuľová vetvička."
+    },
+    {
+      "id": "123",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Bobule",
+      "reason": "Bobuľová vetvička."
+    },
+    {
+      "id": "129",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Kalíšky",
+      "reason": "Dekoratívne kalichy."
+    },
+    {
+      "id": "132",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Kalíšky",
+      "reason": "Dekoratívne kalichy."
+    },
+    {
+      "id": "79",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Sušené drobné šištičky."
+    },
+    {
+      "id": "95",
+      "category": "Dekorácie",
+      "subcategory": "Prírodniny",
+      "druh": "Sušené plody",
+      "reason": "Sušené lodičkové plody."
+    },
+    {
+      "id": "2",
+      "category": "Umelé kvety",
+      "subcategory": "Stopkové kvety",
+      "druh": "Artičoka",
+      "reason": "Artičoka na stopke."
+    },
+    {
+      "id": "119",
+      "category": "Umelé kvety",
+      "subcategory": "Stopkové kvety",
+      "druh": "Artičoka",
+      "reason": "Artičoka na stopke."
+    },
+    {
+      "id": "134",
+      "category": "Umelé kvety",
+      "subcategory": "Stopkové kvety",
+      "druh": "Artičoka",
+      "reason": "Artičoka na stopke."
+    },
+    {
+      "id": "12",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Klinček",
+      "reason": "Hlava klinčeka."
+    },
+    {
+      "id": "50",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Klinček",
+      "reason": "Hlava klinčeka."
+    },
+    {
+      "id": "115",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Klinček",
+      "reason": "Hlava klinčeka."
+    },
+    {
+      "id": "15",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Iskerník",
+      "reason": "Hlava iskerníka."
+    },
+    {
+      "id": "16",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Iskerník",
+      "reason": "Hlava iskerníka."
+    },
+    {
+      "id": "57",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Iskerník",
+      "reason": "Malá hlava iskerníka."
+    },
+    {
+      "id": "22",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Ľalia",
+      "reason": "Hlava ľalie."
+    },
+    {
+      "id": "48",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Ľalia",
+      "reason": "Hlava ľalie."
+    },
+    {
+      "id": "42",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Magnólia",
+      "reason": "Hlava magnólie."
+    },
+    {
+      "id": "49",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Magnólia",
+      "reason": "Hlava magnólie."
+    },
+    {
+      "id": "44",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Kala",
+      "reason": "Hlava kaly."
+    },
+    {
+      "id": "45",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Kala",
+      "reason": "Hlava kaly."
+    },
+    {
+      "id": "82",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Hlava kvetu",
+      "reason": "Hlava kvetu."
+    },
+    {
+      "id": "105",
+      "category": "Umelé kvety",
+      "subcategory": "Venčovky",
+      "druh": "Hlava kvetu",
+      "reason": "Hlava kvetu."
+    }
+  ],
+  "questions": [
+    {
+      "id": "147",
+      "question": "Je to snehový sprej (Deco Snow), alebo číry Florist Deco Spray? Na etikete nie je text Snow/Sneh."
+    },
+    {
+      "id": "149",
+      "question": "Je 149 lepiaca páska, alebo klasická stuha? Z fotky nie je viditeľná lepiaca vrstva."
+    },
+    {
+      "id": "146",
+      "question": "Aká je šírka a dĺžka kotúča saténovej stuhy 146 (a či sa líši od 151/157/158/164/178/179)?"
+    },
+    {
+      "id": "151",
+      "question": "Aká je šírka/dĺžka kotúča 151 oproti ostatným jednofarebným saténom?"
+    },
+    {
+      "id": "157",
+      "question": "Aká je šírka/dĺžka kotúča 157 oproti ostatným jednofarebným saténom?"
+    },
+    {
+      "id": "158",
+      "question": "Je 158 skutočne širšia saténová stuha (cm na kotúči), alebo len iná farba/focenie?"
+    },
+    {
+      "id": "164",
+      "question": "Aká je šírka/dĺžka kotúča 164 (na sheete nie je rozvinutá)?"
+    },
+    {
+      "id": "178",
+      "question": "Aká je šírka/dĺžka kotúča 178 oproti ostatným jednofarebným saténom?"
+    },
+    {
+      "id": "179",
+      "question": "Aká je šírka/dĺžka kotúča 179 oproti ostatným jednofarebným saténom?"
+    },
+    {
+      "id": "42",
+      "question": "Sú hlavy 42 zatvorené púčiky, alebo len stlačené otvorené magnólie v sáčku?"
+    },
+    {
+      "id": "78",
+      "question": "Je medzi 78 a 111 iný druh/veľkosť, alebo len iný tón a otvorenosť rovnakého plodu?"
+    },
+    {
+      "id": "111",
+      "question": "Má 111 overene iný rozmer/otvorenosť než 78, alebo ide o tú istú položku?"
+    },
+    {
+      "id": "93",
+      "question": "Líši sa 93 od 113 veľkosťou, počtom v balení alebo SKU, alebo ide o duplicitu?"
+    },
+    {
+      "id": "113",
+      "question": "Líši sa 113 od 93 veľkosťou, počtom v balení alebo SKU, alebo ide o duplicitu?"
+    },
+    {
+      "id": "2",
+      "question": "Je 2/119/134 rovnaká artičoka na stopke (len iné focenie), alebo sa líšia dĺžkou stopky/počtom v balení?"
+    },
+    {
+      "id": "119",
+      "question": "Je 119 iná dĺžka stopky/počet kusov než 2 a 134?"
+    },
+    {
+      "id": "134",
+      "question": "Koľko kusov je v balení 134 a líši sa od 2/119?"
+    },
+    {
+      "id": "144",
+      "question": "Je 144 iný produkt než 84 (okrem tónu), napr. iná veľkosť hlavy?"
+    },
+    {
+      "id": "175",
+      "question": "Na fotke 175 sú dve šírky kotúča - ide o jeden produkt s variantmi šírky, alebo dve položky?"
+    }
+  ],
+  "merges": [
+    {
+      "fromIds": ["162"],
+      "intoId": "156",
+      "action": "merge",
+      "reason": "Rovnaký kvetinový vzor a šírka; líšia sa len farbou podkladu - vhodné ako farebné varianty jednej položky."
+    },
+    {
+      "fromIds": ["180"],
+      "intoId": "127",
+      "action": "merge",
+      "reason": "Rovnaké predĺžené drevené špirálky; rozdiel len farba."
+    },
+    {
+      "fromIds": ["113"],
+      "intoId": "93",
+      "action": "k-overeni",
+      "reason": "Na compare sheete veľké Bell Cup vyzerajú rovnako; treba overiť balenie/SKU."
+    },
+    {
+      "fromIds": ["116"],
+      "intoId": "83",
+      "action": "merge",
+      "reason": "Dvojfarebné drevené ružičky vizuálne totožné."
+    },
+    {
+      "fromIds": ["87", "97"],
+      "intoId": "85",
+      "action": "merge",
+      "reason": "Rovnaká spirálovitá drevená hlava; rozdiel len v prezentácii (mach vs sáčok)."
+    },
+    {
+      "fromIds": ["119", "134"],
+      "intoId": "2",
+      "action": "k-overeni",
+      "reason": "Rovnaký typ artičoky na stopke; overiť počet kusov a dĺžku stopky pred zlúčením."
+    },
+    {
+      "fromIds": ["16"],
+      "intoId": "15",
+      "action": "merge",
+      "reason": "Rovnaká veľká hlava iskerníka; rozdiel len farba."
+    },
+    {
+      "fromIds": ["151", "157", "158", "164", "178", "179"],
+      "intoId": "146",
+      "action": "k-overeni",
+      "reason": "Jednofarebné satény bez spoľahlivého vizuálneho rozdielu okrem farby; zlúčiť len po overení šírok/kotúčov."
+    },
+    {
+      "fromIds": ["177"],
+      "intoId": "149",
+      "action": "keep-separate",
+      "reason": "Oba majú ornamentálny okraj, ale iný vzor lemu (kvetinové vetvičky vs ornamentálny pás); plus 149 môže byť lepiaca."
+    },
+    {
+      "fromIds": ["176"],
+      "intoId": "173",
+      "action": "keep-separate",
+      "reason": "173 hladké gingham káro, 176 textúrovaná tkaná mriežka."
+    },
+    {
+      "fromIds": ["163"],
+      "intoId": "160",
+      "action": "keep-separate",
+      "reason": "Valec s plochým dnom vs kužeľ so špicatým koncom."
+    },
+    {
+      "fromIds": ["132"],
+      "intoId": "129",
+      "action": "keep-separate",
+      "reason": "Dierovaná textúra vs hladký povrch."
+    },
+    {
+      "fromIds": ["123"],
+      "intoId": "104",
+      "action": "keep-separate",
+      "reason": "Lesklé/metalické bobule vs matné prírodné."
+    },
+    {
+      "fromIds": ["99"],
+      "intoId": "96",
+      "action": "keep-separate",
+      "reason": "Ploché ružičky vs kužeľovitý 3D tvar."
+    },
+    {
+      "fromIds": ["95"],
+      "intoId": "79",
+      "action": "keep-separate",
+      "reason": "Drobné šištičky vs lodičkové struky."
+    },
+    {
+      "fromIds": ["105"],
+      "intoId": "82",
+      "action": "keep-separate",
+      "reason": "Ploché s tmavým stredom vs zaoblené púčikovité."
+    },
+    {
+      "fromIds": ["168"],
+      "intoId": "167",
+      "action": "k-overeni",
+      "reason": "Oba vyzerajú ako umelé lýko/rafia; overiť či ide o rovnaký tovar v inom balení."
+    },
+    {
+      "fromIds": ["172"],
+      "intoId": "167",
+      "action": "keep-separate",
+      "reason": "172 sú ploché kotúče lýka, 167/168 vláknité raffia kotúče."
+    }
+  ]
+}

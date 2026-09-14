@@ -13,6 +13,8 @@ type ProductImageGalleryProps = {
 const SWIPE_THRESHOLD_RATIO = 0.18;
 const TRANSITION = "transform 420ms cubic-bezier(0.22, 1, 0.36, 1)";
 const AUTO_MS = 5000;
+const LOUPE_SIZE_PX = 168;
+const LOUPE_ZOOM = 2.35;
 
 type DragState = {
   startX: number;
@@ -26,6 +28,13 @@ type NavCommand = {
   seq: number;
 };
 
+type LoupeState = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
 export function ProductImageGallery({
   images,
   alt,
@@ -33,10 +42,12 @@ export function ProductImageGallery({
 }: ProductImageGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [nav, setNav] = useState<NavCommand>({ index: 0, dir: 0, seq: 0 });
+  const [loupe, setLoupe] = useState<LoupeState | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
 
   const showNav = images.length > 1;
   const activeIndex = nav.index;
+  const activeSrc = images[activeIndex] ?? images[0];
 
   const goTo = useCallback(
     (index: number) => {
@@ -151,11 +162,36 @@ export function ProductImageGallery({
     };
   }, [showNav, lightboxOpen, goNext]);
 
+  function updateLoupe(event: React.MouseEvent<HTMLDivElement>) {
+    if (lightboxOpen) return;
+    // Touch / coarse pointers — no loupe
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+      setLoupe(null);
+      return;
+    }
+    // Don't show loupe over controls
+    const target = event.target as HTMLElement | null;
+    if (target?.closest("button")) {
+      setLoupe(null);
+      return;
+    }
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    setLoupe({
+      x: event.clientX - rect.left,
+      y: event.clientY - rect.top,
+      width: rect.width,
+      height: rect.height,
+    });
+  }
+
   return (
     <>
       <div
         ref={galleryRef}
         className="relative aspect-square overflow-hidden rounded-3xl bg-white"
+        onMouseMove={updateLoupe}
+        onMouseLeave={() => setLoupe(null)}
       >
         <ImageCarousel
           images={images}
@@ -167,6 +203,8 @@ export function ProductImageGallery({
           priority
           onSlideClick={() => setLightboxOpen(true)}
         />
+
+        {activeSrc && loupe ? <ImageLoupe src={activeSrc} loupe={loupe} /> : null}
 
         {discount ? (
           <span className="pointer-events-none absolute top-4 left-4 z-10 rounded-full bg-[#c45c4a] px-3 py-1.5 text-sm font-bold text-white">
@@ -258,6 +296,54 @@ export function ProductImageGallery({
         </div>
       ) : null}
     </>
+  );
+}
+
+function ImageLoupe({
+  src,
+  loupe,
+}: {
+  src: string;
+  loupe: LoupeState;
+}) {
+  const { x, y, width, height } = loupe;
+  const half = LOUPE_SIZE_PX / 2;
+  // Keep the lens fully inside the frame
+  const left = Math.min(width - half, Math.max(half, x));
+  const top = Math.min(height - half, Math.max(half, y));
+
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none absolute z-[6] hidden overflow-hidden rounded-full border-2 border-white/95 shadow-[0_8px_28px_rgba(0,0,0,0.28)] md:block"
+      style={{
+        width: LOUPE_SIZE_PX,
+        height: LOUPE_SIZE_PX,
+        left: left - half,
+        top: top - half,
+      }}
+    >
+      {/* Same cover framing as the gallery slide, scaled around the cursor */}
+      <div
+        className="absolute"
+        style={{
+          width,
+          height,
+          left: half - x,
+          top: half - y,
+          transform: `scale(${LOUPE_ZOOM})`,
+          transformOrigin: `${x}px ${y}px`,
+        }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element -- mirrors cover crop; already in browser cache */}
+        <img
+          src={src}
+          alt=""
+          draggable={false}
+          className="size-full object-cover select-none"
+        />
+      </div>
+    </div>
   );
 }
 

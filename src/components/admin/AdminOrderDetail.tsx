@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Check, Printer, X } from "lucide-react";
 import { printPacketaLabelAction } from "@/lib/actions/orders";
@@ -15,7 +16,19 @@ import {
   type Order,
 } from "@/lib/orders";
 import { findCatalogProductById } from "@/lib/product-catalog";
+import { colorsFromIds } from "@/lib/products";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
+
+function orderLineCodeLabel(
+  sku: string | undefined,
+  colorId: string | undefined,
+) {
+  if (!sku) return null;
+  if (!colorId) return sku;
+  const color = colorsFromIds([colorId])[0];
+  if (!color?.label) return sku;
+  return `${sku} (${color.label})`;
+}
 
 export function AdminOrderDetail({
   order,
@@ -24,6 +37,7 @@ export function AdminOrderDetail({
   order: Order;
   onClose: () => void;
 }) {
+  const router = useRouter();
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [printed, setPrinted] = useState(false);
@@ -80,6 +94,7 @@ export function AdminOrderDetail({
 
     setPrinted(true);
     window.setTimeout(() => setPrinted(false), 2500);
+    router.refresh();
   }
 
   return (
@@ -153,10 +168,14 @@ export function AdminOrderDetail({
                     parsePrice(line.unitPrice) * line.quantity,
                   );
                   const imageSrc = product?.image;
+                  const codeLabel = orderLineCodeLabel(
+                    product?.sku,
+                    line.colorId,
+                  );
 
                   return (
                     <li
-                      key={`${order.id}-${line.productId}`}
+                      key={`${order.id}-${line.productId}-${line.colorId ?? ""}`}
                       className="flex items-center gap-3.5 rounded-xl border border-black/8 bg-[#faf8f5] px-3.5 py-3"
                     >
                       <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-[#e8ebe2]">
@@ -167,10 +186,11 @@ export function AdminOrderDetail({
                         <p className="truncate text-sm font-medium text-[#2f2924]">
                           {line.name}
                         </p>
-                        <p className="mt-0.5 font-mono text-xs text-[#2f2924]/45">
-                          #{line.productId}
-                          {product?.sku ? ` · ${product.sku}` : ""}
-                        </p>
+                        {codeLabel ? (
+                          <p className="mt-0.5 truncate font-mono text-xs text-[#2f2924]/45">
+                            {codeLabel}
+                          </p>
+                        ) : null}
                         <p className="mt-1 text-xs text-[#2f2924]/55">
                           {line.quantity}× {line.unitPrice}
                         </p>
@@ -183,25 +203,6 @@ export function AdminOrderDetail({
                   );
                 })}
               </ul>
-
-              <div className="space-y-2 rounded-xl border border-black/8 bg-[#faf8f5] px-4 py-3.5">
-                <div className="flex items-center justify-between text-sm text-[#2f2924]/65">
-                  <span>Medzisúčet</span>
-                  <span className="tabular-nums">{formatPrice(subtotal)}</span>
-                </div>
-                <div className="flex items-center justify-between text-sm text-[#2f2924]/65">
-                  <span>Doprava</span>
-                  <span className="tabular-nums">{order.shippingCost}</span>
-                </div>
-                <div className="flex items-center justify-between border-t border-black/8 pt-2.5">
-                  <span className="text-sm font-semibold text-[#2f2924]">
-                    Celkom
-                  </span>
-                  <span className="font-heading text-lg font-semibold tabular-nums text-[#2f2924]">
-                    {formatOrderTotal(order)}
-                  </span>
-                </div>
-              </div>
             </section>
 
             <section className="min-w-0 space-y-5">
@@ -272,33 +273,52 @@ export function AdminOrderDetail({
           </div>
         </div>
 
-        {showPrint ? (
-          <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
-            {printError ? (
-              <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
-                {printError}
-              </p>
-            ) : null}
-            <button
-              type="button"
-              onClick={() => void handlePrintLabel()}
-              disabled={printing}
-              className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
-            >
-              {printed ? (
-                <>
-                  <Check className="size-4" strokeWidth={2} aria-hidden />
-                  Štítok pripravený
-                </>
-              ) : (
-                <>
-                  <Printer className="size-4" strokeWidth={1.75} aria-hidden />
-                  {printing ? "Generujem štítok…" : "Vytlačiť štítok"}
-                </>
-              )}
-            </button>
+        <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-sm text-[#2f2924]/65">
+              <span>Medzisúčet</span>
+              <span className="tabular-nums">{formatPrice(subtotal)}</span>
+            </div>
+            <div className="flex items-center justify-between text-sm text-[#2f2924]/65">
+              <span>Doprava</span>
+              <span className="tabular-nums">{order.shippingCost}</span>
+            </div>
+            <div className="flex items-center justify-between border-t border-black/8 pt-2.5">
+              <span className="text-sm font-semibold text-[#2f2924]">Celkom</span>
+              <span className="font-heading text-lg font-semibold tabular-nums text-[#2f2924]">
+                {formatOrderTotal(order)}
+              </span>
+            </div>
           </div>
-        ) : null}
+
+          {showPrint ? (
+            <div className="mt-4">
+              {printError ? (
+                <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                  {printError}
+                </p>
+              ) : null}
+              <button
+                type="button"
+                onClick={() => void handlePrintLabel()}
+                disabled={printing}
+                className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
+              >
+                {printed ? (
+                  <>
+                    <Check className="size-4" strokeWidth={2} aria-hidden />
+                    Štítok pripravený
+                  </>
+                ) : (
+                  <>
+                    <Printer className="size-4" strokeWidth={1.75} aria-hidden />
+                    {printing ? "Generujem štítok…" : "Vytlačiť štítok"}
+                  </>
+                )}
+              </button>
+            </div>
+          ) : null}
+        </div>
       </aside>
     </div>
   );

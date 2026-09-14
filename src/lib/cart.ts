@@ -185,6 +185,43 @@ function enqueueAccountCartWrite(task: () => Promise<void>) {
   accountCartWriteChain = accountCartWriteChain.then(task).catch(() => {});
 }
 
+/** Coalesce rapid qty changes — only the latest value hits the server. */
+const QUANTITY_SYNC_MS = 280;
+const pendingQuantitySync = new Map<
+  string,
+  { qty: number; timer: ReturnType<typeof setTimeout> }
+>();
+
+function scheduleAccountQuantitySync(productId: string, qty: number) {
+  const existing = pendingQuantitySync.get(productId);
+  if (existing) clearTimeout(existing.timer);
+
+  const timer = setTimeout(() => {
+    const pending = pendingQuantitySync.get(productId);
+    pendingQuantitySync.delete(productId);
+    const targetQty = pending?.qty ?? qty;
+
+    enqueueAccountCartWrite(async () => {
+      // Newer click scheduled again while we were queued — let that timer write.
+      if (pendingQuantitySync.has(productId)) return;
+
+      const result = await setCartItemQuantityAction(productId, targetQty);
+      if (!result.ok) {
+        if (lineQty(accountCartCache ?? [], productId) === targetQty) {
+          const listed = await listCartAction();
+          if (listed.ok) setAccountCart(listed.data);
+        }
+        window.alert(result.error);
+        return;
+      }
+
+      // Optimistic cache is source of truth — never apply a stale confirm.
+    });
+  }, QUANTITY_SYNC_MS);
+
+  pendingQuantitySync.set(productId, { qty, timer });
+}
+
 function patchAccountCartLine(
   lines: CartLineDto[],
   productId: string,
@@ -303,29 +340,20 @@ export async function addToCart(
         colorId,
       });
       if (!result.ok) {
-        setAccountCart(
-          patchAccountCartLine(
-            accountCartCache ?? snapshot,
-            product.id,
-            lineQty(snapshot, product.id),
-            colorId,
-          ),
-        );
+        if (lineQty(accountCartCache ?? [], product.id) === nextQty) {
+          setAccountCart(
+            patchAccountCartLine(
+              accountCartCache ?? snapshot,
+              product.id,
+              lineQty(snapshot, product.id),
+              colorId,
+            ),
+          );
+        }
         window.alert(result.error);
         return;
       }
-      // Confirm this line only — keep other optimistic lines intact.
-      const confirmed = result.data[0];
-      if (confirmed) {
-        setAccountCart(
-          patchAccountCartLine(
-            accountCartCache ?? snapshot,
-            confirmed.productId,
-            confirmed.quantity,
-            confirmed.colorId,
-          ),
-        );
-      }
+      // Keep optimistic cache — do not re-apply possibly stale server qty.
     });
 
     return readCartItems();
@@ -371,41 +399,8 @@ export async function setCartQuantity(
       return readCartItems();
     }
 
-    const snapshot = accountCartCache;
-    setAccountCart(patchAccountCartLine(snapshot, productId, qty));
-
-    enqueueAccountCartWrite(async () => {
-      const result = await setCartItemQuantityAction(productId, qty);
-      if (!result.ok) {
-        setAccountCart(
-          patchAccountCartLine(
-            accountCartCache ?? snapshot,
-            productId,
-            lineQty(snapshot, productId),
-          ),
-        );
-        window.alert(result.error);
-        return;
-      }
-      if (qty < 1) {
-        setAccountCart(
-          patchAccountCartLine(accountCartCache ?? snapshot, productId, 0),
-        );
-        return;
-      }
-      const confirmed = result.data[0];
-      if (confirmed) {
-        setAccountCart(
-          patchAccountCartLine(
-            accountCartCache ?? snapshot,
-            confirmed.productId,
-            confirmed.quantity,
-            confirmed.colorId,
-          ),
-        );
-      }
-    });
-
+    setAccountCart(patchAccountCartLine(accountCartCache, productId, qty));
+    scheduleAccountQuantitySync(productId, qty);
     return readCartItems();
   }
 

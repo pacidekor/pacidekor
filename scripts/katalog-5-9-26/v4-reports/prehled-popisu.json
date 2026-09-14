@@ -1,0 +1,1532 @@
+[
+  {
+    "id": "1",
+    "originalName": "Echinacea na stopke",
+    "newName": "Echinacea na stopke",
+    "originalDescription": "Dekoratívny echinacea na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelá echinacea na stopke s výrazným stredom a okolitými lupienkami. Hodí sa do vázy alebo do floristických aranžmánov.",
+    "originalDruh": "Echinacea",
+    "newDruh": "Echinacea",
+    "action": "description"
+  },
+  {
+    "id": "10",
+    "originalName": "Umelá fiala",
+    "newName": "Umelá fiala",
+    "originalDescription": "Dekoratívny umelá fiala vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelá fiala na stopke s hustým súkvetím. Hodí sa do vázy alebo do floristických aranžmánov.",
+    "originalDruh": "Fiala",
+    "newDruh": "Fiala",
+    "action": "description"
+  },
+  {
+    "id": "100",
+    "originalName": "Dekoračná guľôčka",
+    "newName": "Dekoračná guľôčka",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoračná guľôčka). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoračná guľôčka do výplne a aranžmánov. Hodí sa do mís, vencov a sezónnych dekorácií.",
+    "originalDruh": "Dekoračné guľôčky",
+    "newDruh": "Dekoračné guľôčky",
+    "action": "description"
+  },
+  {
+    "id": "101",
+    "originalName": "Dekoračné šišky",
+    "newName": "Dekoračné šišky",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoračné šišky). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoračné šišky do prírodných aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Šišky",
+    "newDruh": "Šišky",
+    "action": "description"
+  },
+  {
+    "id": "102",
+    "originalName": "Dekoračný muškátový oriešok",
+    "newName": "Dekoračný muškátový oriešok",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoračný muškátový oriešok). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoračný muškátový oriešok. Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Muškátový oriešok",
+    "newDruh": "Muškátový oriešok",
+    "action": "description"
+  },
+  {
+    "id": "103",
+    "originalName": "Sušený kalichovitý plod",
+    "newName": "Sušený kalichovitý plod",
+    "originalDescription": "Dekoratívny prírodný prvok (sušený kalichovitý plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený kalichovitý plod. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "104",
+    "originalName": "Bobuľová vetvička s lesklým povrchom",
+    "newName": "Bobuľová vetvička s lesklým povrchom",
+    "originalDescription": "Dekoratívny prírodný prvok (bobuľová vetvička s lesklým povrchom). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Bobuľová vetvička s lesklým povrchom. Hodí sa do vencov a sezónnych aranžmánov.",
+    "originalDruh": "Bobule",
+    "newDruh": "Bobule",
+    "action": "description"
+  },
+  {
+    "id": "105",
+    "originalName": "Zaoblená hlava kvetu",
+    "newName": "Zaoblená hlava kvetu",
+    "originalDescription": "Dekoratívny produkt (zaoblená hlava kvetu). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Zaoblená hlava kvetu s vrstvenými lupienkami. Hodí sa do vencov a aranžmánov.",
+    "originalDruh": "Hlava kvetu",
+    "newDruh": "Hlava kvetu",
+    "action": "description"
+  },
+  {
+    "id": "106",
+    "originalName": "Lotosový plod",
+    "newName": "Lotosový plod",
+    "originalDescription": "Dekoratívny prírodný prvok (lotosový plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Lotosový plod do prírodných aranžmánov. Hodí sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Lotos",
+    "newDruh": "Lotos",
+    "action": "description"
+  },
+  {
+    "id": "107",
+    "originalName": "Dekoračná vetvička so sušeným vzhľadom",
+    "newName": "Dekoračná vetvička so sušeným vzhľadom",
+    "originalDescription": "Dekoratívny produkt (dekoračná vetvička so sušeným vzhľadom). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračná vetvička so sušeným vzhľadom. Hodí sa do vencov a rustikálnych aranžmánov.",
+    "originalDruh": "Zeleň / výplň",
+    "newDruh": "Zeleň / výplň",
+    "action": "description"
+  },
+  {
+    "id": "108",
+    "originalName": "Dekoračný púčik na stopke",
+    "newName": "Dekoračný púčik na stopke",
+    "originalDescription": "Dekoratívny dekoračný púčik na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Dekoračný púčik na stopke vhodný do vázy alebo aranžmánu. Doplnok na jemné floristické väzby.",
+    "originalDruh": "Sušený kvet",
+    "newDruh": "Sušený kvet",
+    "action": "description"
+  },
+  {
+    "id": "109",
+    "originalName": "Sušený puk na drôtiku",
+    "newName": "Sušený puk na drôtiku",
+    "originalDescription": "Dekoratívny produkt (sušený puk na drôtiku). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Sušený puk na drôtiku na zápich do aranžmánov. Hodí sa do vencov a stolových väzieb.",
+    "originalDruh": "Sušina",
+    "newDruh": "Sušina",
+    "action": "description"
+  },
+  {
+    "id": "11",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "110",
+    "originalName": "Jutové vrecúško",
+    "newName": "Jutové vrecúško",
+    "originalDescription": "Dekoratívny produkt (jutové vrecúško). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Jutové vrecúško na drobné darčeky alebo výplň aranžmánov. Hodí sa na balenie a rustikálne dekorácie.",
+    "originalDruh": "Vrecúška",
+    "newDruh": "Vrecúška",
+    "action": "description"
+  },
+  {
+    "id": "111",
+    "originalName": "Otvorený hviezdicový plod",
+    "newName": "Otvorený hviezdicový plod",
+    "originalDescription": "Dekoratívny prírodný prvok (otvorený hviezdicový plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Otvorený hviezdicový plod. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "112",
+    "originalName": "Prútená guľa",
+    "newName": "Prútená guľa",
+    "originalDescription": "Dekoratívny produkt (prútená guľa). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Prútená guľa ako samostatná dekorácia alebo podklad. Hodí sa do mís a sezónnych aranžmánov.",
+    "originalDruh": "Prútené gule",
+    "newDruh": "Prútené gule",
+    "action": "description"
+  },
+  {
+    "id": "113",
+    "originalName": "Bell Cup",
+    "newName": "Bell Cup",
+    "originalDescription": "Dekoratívny prírodný prvok (bell cup). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený kalich Bell Cup. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Bell Cup",
+    "newDruh": "Bell Cup",
+    "action": "description"
+  },
+  {
+    "id": "114",
+    "originalName": "Dekoračný kalíšok",
+    "newName": "Dekoračný kalíšok",
+    "originalDescription": "Dekoratívny produkt (dekoračný kalíšok). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračný kalíšok na lepenie do aranžmánov. Hodí sa do vencov a stolových dekorácií.",
+    "originalDruh": "Kalíšky",
+    "newDruh": "Kalíšky",
+    "action": "description"
+  },
+  {
+    "id": "115",
+    "originalName": "Nízka hlava klinčeka",
+    "newName": "Nízka hlava klinčeka",
+    "originalDescription": "Dekoratívny produkt (nízka hlava klinčeka). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Nízka hlava klinčeka s hustým okvetím. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Klinček",
+    "newDruh": "Klinček",
+    "action": "description"
+  },
+  {
+    "id": "117",
+    "originalName": "Dekoračná pichľavá guľôčka",
+    "newName": "Dekoračná pichľavá guľôčka",
+    "originalDescription": "Dekoratívny produkt (dekoračná pichľavá guľôčka). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračná pichľavá guľôčka. Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Dekoračné plody",
+    "newDruh": "Dekoračné plody",
+    "action": "description"
+  },
+  {
+    "id": "118",
+    "originalName": "Sušený plod",
+    "newName": "Sušený plod",
+    "originalDescription": "Dekoratívny prírodný prvok (sušený plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený plod do prírodných aranžmánov. Hodí sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "119",
+    "originalName": "Artičoka na stopke",
+    "newName": "Artičoka na stopke",
+    "originalDescription": "Dekoratívny artičoka na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Dekoratívna artičoka na stopke s šupinatým povrchom hlavy. Hodí sa do vázy a do moderných aranžmánov.",
+    "originalDruh": "Artičoka",
+    "newDruh": "Artičoka",
+    "action": "description"
+  },
+  {
+    "id": "12",
+    "originalName": "Plná hlava klinčeka",
+    "newName": "Plná hlava klinčeka",
+    "originalDescription": "Dekoratívny produkt (plná hlava klinčeka). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Plná hlava klinčeka s hustými, nariasenými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Klinček",
+    "newDruh": "Klinček",
+    "action": "description"
+  },
+  {
+    "id": "120",
+    "originalName": "Bodliak na stopke",
+    "newName": "Bodliak na stopke",
+    "originalDescription": "Dekoratívny bodliak na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Dekoratívny bodliak na stopke s ostnatou hlavou. Hodí sa do vázy a do rustikálnych aranžmánov.",
+    "originalDruh": "Bodliak",
+    "newDruh": "Bodliak",
+    "action": "description"
+  },
+  {
+    "id": "121",
+    "originalName": "Dekoračná tekvička",
+    "newName": "Dekoračná tekvička",
+    "originalDescription": "Dekoratívny produkt (dekoračná tekvička). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračná tekvička do sezónnych aranžmánov. Hodí sa do mís, vencov a jesenných dekorácií.",
+    "originalDruh": "Tekvice",
+    "newDruh": "Tekvice",
+    "action": "description"
+  },
+  {
+    "id": "122",
+    "originalName": "Dekoratívna tekvica",
+    "newName": "Dekoratívna tekvica",
+    "originalDescription": "Dekoratívny produkt (dekoratívna tekvica). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívna tekvica do sezónnych aranžmánov. Hodí sa do mís, vencov a jesenných dekorácií.",
+    "originalDruh": "Tekvice",
+    "newDruh": "Tekvice",
+    "action": "description"
+  },
+  {
+    "id": "123",
+    "originalName": "Bobuľová vetvička s matným povrchom",
+    "newName": "Bobuľová vetvička s matným povrchom",
+    "originalDescription": "Dekoratívny prírodný prvok (bobuľová vetvička s matným povrchom). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Bobuľová vetvička s matným povrchom. Hodí sa do vencov a sezónnych aranžmánov.",
+    "originalDruh": "Bobule",
+    "newDruh": "Bobule",
+    "action": "description"
+  },
+  {
+    "id": "124",
+    "originalName": "Kokosové vlákno",
+    "newName": "Kokosové vlákno",
+    "originalDescription": "Dekoratívny produkt (kokosové vlákno). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Kokosové vlákno na výplň a viazanie. Hodí sa do vencov a rustikálnych aranžmánov.",
+    "originalDruh": "Kokosové vlákno",
+    "newDruh": "Kokosové vlákno",
+    "action": "description"
+  },
+  {
+    "id": "125",
+    "originalName": "Umelý mach",
+    "newName": "Umelý mach",
+    "originalDescription": "Dekoratívny produkt (umelý mach). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Umelý mach na výplň aranžmánov. Hodí sa do vencov, mís a terárií.",
+    "originalDruh": "Zeleň / výplň",
+    "newDruh": "Zeleň / výplň",
+    "action": "description"
+  },
+  {
+    "id": "126",
+    "originalName": "Sisalové vlákno",
+    "newName": "Sisalové vlákno",
+    "originalDescription": "Dekoratívny produkt (sisalové vlákno). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Sisalové vlákno na viazanie a výplň. Hodí sa do rustikálnych aranžmánov a balenia.",
+    "originalDruh": "Sisal",
+    "newDruh": "Sisal",
+    "action": "description"
+  },
+  {
+    "id": "127",
+    "originalName": "Predĺžené drevené špirálky",
+    "newName": "Predĺžené drevené špirálky",
+    "originalDescription": "Predĺžené dekoračné špirálky z tenkých drevených pásikov. Hodí sa do vencov, mís a suchých väzieb.",
+    "newDescription": "Predĺžené drevené špirálky z tenkých pásikov. Hodia sa do vencov, mís a suchých väzieb.",
+    "originalDruh": "Drevené špirálky",
+    "newDruh": "Drevené špirálky",
+    "action": "description"
+  },
+  {
+    "id": "128",
+    "originalName": "Drobné kvietky",
+    "newName": "Drobné kvietky",
+    "originalDescription": "Dekoratívny produkt (drobné kvietky). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Drobné dekoračné kvietky na lepenie. Hodia sa do vencov a detailných aranžmánov.",
+    "originalDruh": "Dekoratívny kvet",
+    "newDruh": "Dekoratívny kvet",
+    "action": "description"
+  },
+  {
+    "id": "129",
+    "originalName": "Dekoratívne kalichy s dierovanou textúrou",
+    "newName": "Dekoratívne kalichy s dierovanou textúrou",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoratívne kalichy s dierovanou textúrou). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoratívne kalichy s dierovanou textúrou. Hodia sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Kalíšky",
+    "newDruh": "Kalíšky",
+    "action": "description"
+  },
+  {
+    "id": "13",
+    "originalName": "Hlava ruže so zvlnenými okrajmi",
+    "newName": "Hlava ruže so zvlnenými okrajmi",
+    "originalDescription": "Dekoratívna hlava ruže so zvlnenými okrajmi. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava umelej ruže so zvlnenými okrajmi lupienkov. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "130",
+    "originalName": "Dekoratívna škorica",
+    "newName": "Dekoratívna škorica",
+    "originalDescription": "Dekoratívny produkt (dekoratívna škorica). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívna škorica do sezónnych aranžmánov. Hodí sa do vencov, mís a vonných dekorácií.",
+    "originalDruh": "Škorica",
+    "newDruh": "Škorica",
+    "action": "description"
+  },
+  {
+    "id": "131",
+    "originalName": "Sušené škrupiny",
+    "newName": "Sušené škrupiny",
+    "originalDescription": "Dekoratívny produkt (sušené škrupiny). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Sušené škrupiny do prírodných aranžmánov. Hodia sa do mís, vencov a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "132",
+    "originalName": "Dekoratívne kalichy s hladkým povrchom",
+    "newName": "Dekoratívne kalichy s hladkým povrchom",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoratívne kalichy s hladkým povrchom). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoratívne kalichy s hladkým povrchom. Hodia sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Kalíšky",
+    "newDruh": "Kalíšky",
+    "action": "description"
+  },
+  {
+    "id": "133",
+    "originalName": "Dekoratívne šišky",
+    "newName": "Dekoratívne šišky",
+    "originalDescription": "Dekoratívny produkt (dekoratívne šišky). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívne šišky do prírodných aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Šišky",
+    "newDruh": "Šišky",
+    "action": "description"
+  },
+  {
+    "id": "134",
+    "originalName": "Artičoka na stopke",
+    "newName": "Artičoka na stopke",
+    "originalDescription": "Dekoratívny artičoka na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Dekoratívna artičoka na stopke s šupinatým povrchom hlavy. Hodí sa do vázy a do moderných aranžmánov.",
+    "originalDruh": "Artičoka",
+    "newDruh": "Artičoka",
+    "action": "description"
+  },
+  {
+    "id": "135",
+    "originalName": "Palmový list vejár",
+    "newName": "Palmový list vejár",
+    "originalDescription": "Dekoratívny produkt (palmový list vejár). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Palmový list v tvare vejára. Hodí sa do veľkých aranžmánov a samostatných dekorácií.",
+    "originalDruh": "Listy",
+    "newDruh": "Listy",
+    "action": "description"
+  },
+  {
+    "id": "136",
+    "originalName": "Dekoračné tobolky",
+    "newName": "Dekoračné tobolky",
+    "originalDescription": "Dekoratívny produkt (dekoračné tobolky). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračné tobolky do prírodných aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "137",
+    "originalName": "Dekoračné plody",
+    "newName": "Dekoračné plody",
+    "originalDescription": "Dekoratívny produkt (dekoračné plody). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoračné plody do prírodných aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "138",
+    "originalName": "Drevené zvitky",
+    "newName": "Drevené zvitky",
+    "originalDescription": "Dekoratívny produkt (drevené zvitky). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Drevené zvitky do rustikálnych aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Drevené zvitky",
+    "newDruh": "Drevené zvitky",
+    "action": "description"
+  },
+  {
+    "id": "139",
+    "originalName": "Sušené plody",
+    "newName": "Sušené plody",
+    "originalDescription": "Dekoratívny produkt (sušené plody). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Sušené plody do prírodných aranžmánov. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "14",
+    "originalName": "Hlava ruže so zvlnenými okrajmi",
+    "newName": "Hlava ruže so zvlnenými okrajmi",
+    "originalDescription": "Dekoratívna hlava ruže so zvlnenými okrajmi. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava umelej ruže so zvlnenými okrajmi lupienkov. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "140",
+    "originalName": "Hviezdicovitá hlava",
+    "newName": "Hviezdicovitá hlava",
+    "originalDescription": "Dekoratívny produkt (hviezdicovitá hlava). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Hviezdicovitá dekoračná hlava. Hodí sa do vencov a stolových aranžmánov.",
+    "originalDruh": "Slamienka",
+    "newDruh": "Slamienka",
+    "action": "description"
+  },
+  {
+    "id": "141",
+    "originalName": "Dekoratívny sukulent",
+    "newName": "Dekoratívny sukulent",
+    "originalDescription": "Dekoratívny produkt (dekoratívny sukulent). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívny sukulent do moderných aranžmánov. Hodí sa do mís, vencov a terárií.",
+    "originalDruh": "Sukulent",
+    "newDruh": "Sukulent",
+    "action": "description"
+  },
+  {
+    "id": "142",
+    "originalName": "Dekoratívna hlava",
+    "newName": "Dekoratívna hlava",
+    "originalDescription": "Dekoratívny produkt (dekoratívna hlava). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívna hlava na lepenie do aranžmánov. Hodí sa do vencov a stolových dekorácií.",
+    "originalDruh": "Dekoratívny kvet",
+    "newDruh": "Dekoratívny kvet",
+    "action": "description"
+  },
+  {
+    "id": "143",
+    "originalName": "Cédrová ruža",
+    "newName": "Cédrová ruža",
+    "originalDescription": "Prírodná dekorácia v tvare ruže zo šupiniek šišky. Hodí sa na lepenie do vencov a sezónnych aranžmánov.",
+    "newDescription": "Cédrová ruža zo šupiniek šišky. Hodí sa na lepenie do vencov a sezónnych aranžmánov.",
+    "originalDruh": "Cédrová ruža",
+    "newDruh": "Cédrová ruža",
+    "action": "description"
+  },
+  {
+    "id": "144",
+    "originalName": "Cédrová ruža",
+    "newName": "Dekoratívna ružička",
+    "originalDescription": "Prírodná dekorácia v tvare ruže zo šupiniek šišky. Hodí sa na lepenie do vencov a sezónnych aranžmánov.",
+    "newDescription": "Dekoratívna ružička s vrstvenými šupinami. Hodí sa na lepenie do vencov a sezónnych aranžmánov.",
+    "originalDruh": "Cédrová ruža",
+    "newDruh": "Dekoratívna ružička",
+    "action": "renamed+description"
+  },
+  {
+    "id": "145",
+    "originalName": "Hlava slamienky",
+    "newName": "Hlava slamienky",
+    "originalDescription": "Dekoratívna hlava slamienky určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava slamienky s papierovým vzhľadom okvetia. Hodí sa do vencov a suchých aranžmánov.",
+    "originalDruh": "Slamienka",
+    "newDruh": "Slamienka",
+    "action": "description"
+  },
+  {
+    "id": "149",
+    "originalName": "Stuha s ornamentálnym kvetinovým okrajom",
+    "newName": "Stuha s ornamentálnym kvetinovým okrajom",
+    "originalDescription": "Dekoratívna stuha vhodná na viazanie kytíc a darčekové balenia. Jednoduchý doplnok pre floristiku.",
+    "newDescription": "Dekoratívna stuha alebo páska na viazanie a zdobenie. Hodí sa na kytice a darčekové balenia.",
+    "originalDruh": "Dekoratívna stuha",
+    "newDruh": "Dekoratívna stuha",
+    "action": "description"
+  },
+  {
+    "id": "15",
+    "originalName": "Hlava iskerníka",
+    "newName": "Hlava iskerníka",
+    "originalDescription": "Dekoratívna hlava iskerníka určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Veľká otvorená hlava iskerníka s hustými vrstvami lupienkov. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Iskerník",
+    "newDruh": "Iskerník",
+    "action": "description"
+  },
+  {
+    "id": "150",
+    "originalName": "Dekoratívna stuha",
+    "newName": "Dekoratívna stuha",
+    "originalDescription": "Dekoratívna stuha vhodná na viazanie kytíc a darčekové balenia. Jednoduchý doplnok pre floristiku.",
+    "newDescription": "Dekoratívna stuha na viazanie kytíc a balenie. Jednoduchý doplnok pre floristiku.",
+    "originalDruh": "Stuha",
+    "newDruh": "Stuha",
+    "action": "description"
+  },
+  {
+    "id": "152",
+    "originalName": "Široká dekoračná stuha",
+    "newName": "Široká dekoračná stuha",
+    "originalDescription": "Dekoratívna stuha vhodná na viazanie kytíc a darčekové balenia. Jednoduchý doplnok pre floristiku.",
+    "newDescription": "Široká dekoračná stuha na výrazné viazanie. Hodí sa na kytice a darčekové balenia.",
+    "originalDruh": "Stuha",
+    "newDruh": "Stuha",
+    "action": "description"
+  },
+  {
+    "id": "153",
+    "originalName": "Margarétková stuha",
+    "newName": "Margarétková stuha",
+    "originalDescription": "Dekoratívna stuha s margarétkovým vzorom. Hodí sa na zdobenie kytíc a darčekov.",
+    "newDescription": "Stuha s margarétkovým vzorom. Hodí sa na zdobenie kytíc a darčekov.",
+    "originalDruh": "Margarétková stuha",
+    "newDruh": "Margarétková stuha",
+    "action": "description"
+  },
+  {
+    "id": "154",
+    "originalName": "Dekoračná stuha",
+    "newName": "Dekoračná stuha",
+    "originalDescription": "Dekoratívna stuha vhodná na viazanie kytíc a darčekové balenia. Jednoduchý doplnok pre floristiku.",
+    "newDescription": "Dekoračná stuha na viazanie kytíc a balenie. Jednoduchý doplnok pre floristiku.",
+    "originalDruh": "Stuha",
+    "newDruh": "Stuha",
+    "action": "description"
+  },
+  {
+    "id": "160",
+    "originalName": "Valcové ampulky na vodu",
+    "newName": "Valcové ampulky na vodu",
+    "originalDescription": "Dekoratívny produkt (valcové ampulky na vodu). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Valcové floristické ampulky slúžia ako zásobník vody pri aranžovaní. Udržia čerstvý materiál vo vencoch a väzbách.",
+    "originalDruh": "Ampulky na vodu",
+    "newDruh": "Ampulky na vodu",
+    "action": "description"
+  },
+  {
+    "id": "161",
+    "originalName": "Floristická skúmavka",
+    "newName": "Floristická skúmavka",
+    "originalDescription": "Floristická skúmavka na vodu so zápichom. Hodí sa do vencov a aranžmánov s čerstvými stonkami.",
+    "newDescription": "Floristická skúmavka so zápichom slúži ako zásobník vody. Hodí sa do vencov a aranžmánov s čerstvým materiálom.",
+    "originalDruh": "Ampulky na vodu",
+    "newDruh": "Ampulky na vodu",
+    "action": "description"
+  },
+  {
+    "id": "163",
+    "originalName": "Kuželovité ampulky na vodu",
+    "newName": "Kuželovité ampulky na vodu",
+    "originalDescription": "Dekoratívny produkt (kuželovité ampulky na vodu). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Kuželovité floristické ampulky slúžia ako zásobník vody pri aranžovaní. Udržia čerstvý materiál vo vencoch a väzbách.",
+    "originalDruh": "Ampulky na vodu",
+    "newDruh": "Ampulky na vodu",
+    "action": "description"
+  },
+  {
+    "id": "165",
+    "originalName": "Dekoračná stuha s textúrou",
+    "newName": "Dekoračná stuha s textúrou",
+    "originalDescription": "Dekoratívna stuha s textúrovaným povrchom. Hodí sa na viazanie kytíc a darčekové balenia.",
+    "newDescription": "Dekoračná stuha s textúrovaným povrchom. Hodí sa na viazanie kytíc a darčekové balenia.",
+    "originalDruh": "Stuha",
+    "newDruh": "Stuha",
+    "action": "description"
+  },
+  {
+    "id": "166",
+    "originalName": "Dekoratívna jutová páska",
+    "newName": "Dekoratívna jutová páska",
+    "originalDescription": "Dekoratívna jutová páska. Hodí sa na rustikálne viazanie kytíc a balenie.",
+    "newDescription": "Dekoratívna jutová páska na rustikálne viazanie. Hodí sa na kytice a balenie.",
+    "originalDruh": "Jutová páska",
+    "newDruh": "Jutová páska",
+    "action": "description"
+  },
+  {
+    "id": "167",
+    "originalName": "Umelé lýko",
+    "newName": "Umelé lýko",
+    "originalDescription": "Umelé lýko (rafia) na viazanie a balenie. Hodí sa na kytice, darčekové balenia a floristické väzby.",
+    "newDescription": "Umelé lýko na viazanie a balenie. Hodí sa na kytice, darčekové balenia a floristické väzby.",
+    "originalDruh": "Umelé lýko",
+    "newDruh": "Umelé lýko",
+    "action": "description"
+  },
+  {
+    "id": "168",
+    "originalName": "Polypropylénový špagát",
+    "newName": "Polypropylénový špagát",
+    "originalDescription": "Viazací materiál na floristiku a balenie. Hodí sa na preväzovanie kytíc a dekorácií.",
+    "newDescription": "Polypropylénový špagát na viazanie kytíc a balenie. Drží uzol pri floristickej práci.",
+    "originalDruh": "Umelé lýko",
+    "newDruh": "Umelé lýko",
+    "action": "description"
+  },
+  {
+    "id": "169",
+    "originalName": "Dekoratívna pavučinová sieťka",
+    "newName": "Dekoratívna pavučinová sieťka",
+    "originalDescription": "Dekoračná sieťka na balenie a aranžovanie. Hodí sa do kytíc a darčekových balení.",
+    "newDescription": "Dekoratívna pavučinová sieťka na balenie a aranžovanie. Hodí sa do kytíc a darčekových balení.",
+    "originalDruh": "Dekoratívna sieťka",
+    "newDruh": "Dekoratívna sieťka",
+    "action": "description"
+  },
+  {
+    "id": "17",
+    "originalName": "Hlava hortenzie s hustým riaseným trsom",
+    "newName": "Hlava hortenzie s hustým riaseným trsom",
+    "originalDescription": "Hlava hortenzie s hustým riaseným trsom do floristických aranžmánov. Hodí sa do vencov, väzieb a stolových dekorácií.",
+    "newDescription": "Hlava hortenzie z hustého riaseného trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "170",
+    "originalName": "Jutový copík",
+    "newName": "Jutový copík",
+    "originalDescription": "Viazací materiál na floristiku a balenie. Hodí sa na preväzovanie kytíc a dekorácií.",
+    "newDescription": "Jutový copík na rustikálne viazanie. Hodí sa na kytice a prírodné dekorácie.",
+    "originalDruh": "Jutový špagát",
+    "newDruh": "Jutový špagát",
+    "action": "description"
+  },
+  {
+    "id": "171",
+    "originalName": "Dekoratívna krútená šnúra",
+    "newName": "Dekoratívna krútená šnúra",
+    "originalDescription": "Viazací materiál na floristiku a balenie. Hodí sa na preväzovanie kytíc a dekorácií.",
+    "newDescription": "Dekoratívna krútená šnúra na viazanie a zdobenie. Hodí sa na kytice a darčekové balenia.",
+    "originalDruh": "Dekoratívna šnúra",
+    "newDruh": "Dekoratívna šnúra",
+    "action": "description"
+  },
+  {
+    "id": "172",
+    "originalName": "Papierové lyko",
+    "newName": "Papierové lyko",
+    "originalDescription": "Viazací materiál na floristiku a balenie. Hodí sa na preväzovanie kytíc a dekorácií.",
+    "newDescription": "Papierové lyko na viazanie a balenie. Hodí sa na kytice a floristické väzby.",
+    "originalDruh": "Papierové lyko",
+    "newDruh": "Papierové lyko",
+    "action": "description"
+  },
+  {
+    "id": "173",
+    "originalName": "Károvaná stuha",
+    "newName": "Károvaná stuha",
+    "originalDescription": "Dekoratívna stuha s károvaným vzorom. Hodí sa na balenie darčekov a rustikálne aranžmány.",
+    "newDescription": "Károvaná stuha na rustikálne viazanie. Hodí sa na balenie darčekov a kytice.",
+    "originalDruh": "Károvaná stuha",
+    "newDruh": "Károvaná stuha",
+    "action": "description"
+  },
+  {
+    "id": "174",
+    "originalName": "Károvaná textilná stuha",
+    "newName": "Károvaná textilná stuha",
+    "originalDescription": "Dekoratívna stuha s károvaným vzorom. Hodí sa na balenie darčekov a rustikálne aranžmány.",
+    "newDescription": "Károvaná textilná stuha na viazanie a zdobenie. Hodí sa na kytice a darčekové balenia.",
+    "originalDruh": "Károvaná stuha",
+    "newDruh": "Károvaná stuha",
+    "action": "description"
+  },
+  {
+    "id": "176",
+    "originalName": "Károvaná stuha s textúrou",
+    "newName": "Károvaná stuha s textúrou",
+    "originalDescription": "Dekoratívna stuha s károvaným vzorom. Hodí sa na balenie darčekov a rustikálne aranžmány.",
+    "newDescription": "Károvaná stuha s tkanou textúrou. Hodí sa na balenie darčekov a rustikálne aranžmány.",
+    "originalDruh": "Károvaná stuha",
+    "newDruh": "Károvaná stuha",
+    "action": "description"
+  },
+  {
+    "id": "18",
+    "originalName": "Hlava hortenzie s hustým riaseným trsom",
+    "newName": "Hlava hortenzie s hustým riaseným trsom",
+    "originalDescription": "Hlava hortenzie s hustým riaseným trsom do floristických aranžmánov. Hodí sa do vencov, väzieb a stolových dekorácií.",
+    "newDescription": "Hlava hortenzie z hustého riaseného trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "19",
+    "originalName": "Hlava pivónie s hustými lupienkami",
+    "newName": "Hlava pivónie s hustými lupienkami",
+    "originalDescription": "Dekoratívna hlava pivónie s hustými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s hustými, krátkymi vrstvami lupienkov. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "2",
+    "originalName": "Artičoka na stopke",
+    "newName": "Artičoka na stopke",
+    "originalDescription": "Dekoratívny artičoka na stopke vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Dekoratívna artičoka na stopke s šupinatým povrchom hlavy. Hodí sa do vázy a do moderných aranžmánov.",
+    "originalDruh": "Artičoka",
+    "newDruh": "Artičoka",
+    "action": "description"
+  },
+  {
+    "id": "20",
+    "originalName": "Hlava pomponu",
+    "newName": "Hlava pomponu",
+    "originalDescription": "Dekoratívna hlava pomponu určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Guľovitá hlava pomponu s hustým okvetím. Hodí sa do vencov a drobných aranžmánov.",
+    "originalDruh": "Pompony",
+    "newDruh": "Pompony",
+    "action": "description"
+  },
+  {
+    "id": "21",
+    "originalName": "Hlava ruže s pravidelným závitom",
+    "newName": "Hlava ruže s pravidelným závitom",
+    "originalDescription": "Dekoratívna hlava ruže s pravidelným závitom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže s pravidelným spirálovým závitom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "22",
+    "originalName": "Hlava ľalie s úzkymi vlnitými lupienkami",
+    "newName": "Hlava ľalie s úzkymi vlnitými lupienkami",
+    "originalDescription": "Dekoratívna hlava ľalie s úzkymi vlnitými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ľalie s úzkymi vlnitými lupienkami. Hodí sa do vencov a smútočných aj sviatočných aranžmánov.",
+    "originalDruh": "Ľalia",
+    "newDruh": "Ľalia",
+    "action": "description"
+  },
+  {
+    "id": "23",
+    "originalName": "Hlava dálie s úzkymi špicatými lupienkami",
+    "newName": "Hlava dálie s úzkymi špicatými lupienkami",
+    "originalDescription": "Dekoratívna hlava dálie s úzkymi špicatými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "newDescription": "Hlava dálie s úzkymi špicatými lupienkami. Hodí sa do vencov a výrazných aranžmánov.",
+    "originalDruh": "Dálie",
+    "newDruh": "Dálie",
+    "action": "description"
+  },
+  {
+    "id": "24",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "25",
+    "originalName": "Hlava ruže s roztvorenými lupienkami",
+    "newName": "Hlava ruže s roztvorenými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže s roztvorenými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže s roztvorenými vonkajšími lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "26",
+    "originalName": "Hlava hortenzie s hustým riaseným trsom",
+    "newName": "Hlava hortenzie s hustým riaseným trsom",
+    "originalDescription": "Hlava hortenzie s hustým riaseným trsom do floristických aranžmánov. Hodí sa do vencov, väzieb a stolových dekorácií.",
+    "newDescription": "Hlava hortenzie z hustého riaseného trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "27",
+    "originalName": "Hlava pivónie so zvlnenými lupienkami",
+    "newName": "Hlava pivónie so zvlnenými lupienkami",
+    "originalDescription": "Dekoratívna hlava pivónie so zvlnenými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie so zvlnenými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "28",
+    "originalName": "Hlava ruže s prehnutými lupienkami",
+    "newName": "Hlava ruže s prehnutými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže s prehnutými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže s lupienkami prehnutými dovnútra. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "29",
+    "originalName": "Hlava pivónie - pootvorená",
+    "newName": "Hlava pivónie - pootvorená",
+    "originalDescription": "Dekoratívna hlava pivónie v pootvorenom pohárovom tvare. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie v pootvorenom pohárovom tvare. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "3",
+    "originalName": "Proso dekoratívne",
+    "newName": "Proso dekoratívne",
+    "originalDescription": "Dekoratívny produkt (proso dekoratívne). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Dekoratívne proso so súkvetím na tenkých stonkách. Hodí sa ako výplň do vencov a suchých väzieb.",
+    "originalDruh": "Zeleň / výplň",
+    "newDruh": "Zeleň / výplň",
+    "action": "description"
+  },
+  {
+    "id": "30",
+    "originalName": "Hlava pivónie s tenkými lupienkami",
+    "newName": "Hlava pivónie s tenkými lupienkami",
+    "originalDescription": "Dekoratívna hlava pivónie s tenkými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s tenkými, načuchranými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "31",
+    "originalName": "Hlava artičoky",
+    "newName": "Hlava artičoky",
+    "originalDescription": "Dekoratívna hlava artičoky určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava artičoky s šupinatým povrchom. Hodí sa do vencov a moderných aranžmánov.",
+    "originalDruh": "Artičoka",
+    "newDruh": "Artičoka",
+    "action": "description"
+  },
+  {
+    "id": "32",
+    "originalName": "Hlava ruže s prehnutými lupienkami",
+    "newName": "Hlava ruže s prehnutými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže s prehnutými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže s lupienkami prehnutými dovnútra. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "33",
+    "originalName": "Hlava pivónie - zatvorená",
+    "newName": "Hlava pivónie - zatvorená",
+    "originalDescription": "Dekoratívna hlava pivónie (zatvorená). Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Takmer zatvorená hlava pivónie so širokými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "34",
+    "originalName": "Hlava ruže so zvrásnenými lupienkami",
+    "newName": "Hlava ruže so zvrásnenými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže so zvrásnenými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Kompaktná hlava ruže so zvrásnenými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "35",
+    "originalName": "Hlava ruže so zvrásnenými lupienkami",
+    "newName": "Hlava ruže so zvrásnenými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže so zvrásnenými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Kompaktná hlava ruže so zvrásnenými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "36",
+    "originalName": "Hlava ruže so zahnutými okrajmi",
+    "newName": "Hlava ruže so zahnutými okrajmi",
+    "originalDescription": "Dekoratívna hlava ruže so zahnutými okrajmi. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Otvorená hlava ruže so zahnutými okrajmi lupienkov. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "37",
+    "originalName": "Hlava pivónie - guľovitá",
+    "newName": "Hlava pivónie - guľovitá",
+    "originalDescription": "Dekoratívna hlava pivónie s guľovitým tvarom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s guľovitým tvarom a pravidelnými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "38",
+    "originalName": "Hlava ruže so zahnutými okrajmi",
+    "newName": "Hlava ruže so zahnutými okrajmi",
+    "originalDescription": "Dekoratívna hlava ruže so zahnutými okrajmi. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Otvorená hlava ruže so zahnutými okrajmi lupienkov. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "39",
+    "originalName": "Hlava pivónie s prehĺbeným stredom",
+    "newName": "Hlava pivónie s prehĺbeným stredom",
+    "originalDescription": "Dekoratívna hlava pivónie s prehĺbeným stredom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s prehĺbeným, misovitým stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "4",
+    "originalName": "Kytica klinčekov",
+    "newName": "Kytica klinčekov",
+    "originalDescription": "Umelá kytica pripravená do vázy. Hodí sa ako hotová stolová dekorácia.",
+    "newDescription": "Hotová umelá kytica klinčekov pripravená do vázy. Hodí sa ako stolová dekorácia bez ďalšej úpravy.",
+    "originalDruh": "Klinček",
+    "newDruh": "Klinček",
+    "action": "description"
+  },
+  {
+    "id": "40",
+    "originalName": "Hlava pivónie so širokými lupienkami",
+    "newName": "Hlava pivónie so širokými lupienkami",
+    "originalDescription": "Dekoratívna hlava pivónie so širokými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie so širokými lupienkami a voľnejšou stavbou. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "42",
+    "originalName": "Hlava magnólie",
+    "newName": "Hlava magnólie",
+    "originalDescription": "Dekoratívna hlava magnólie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava magnólie so širokými okvetnými lístkami. Hodí sa do vencov a elegantných aranžmánov.",
+    "originalDruh": "Magnólia",
+    "newDruh": "Magnólia",
+    "action": "description"
+  },
+  {
+    "id": "43",
+    "originalName": "Hlava ruže - guľovitá",
+    "newName": "Hlava ruže - guľovitá",
+    "originalDescription": "Dekoratívna hlava ruže s guľovitým tvarom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Guľovitá hlava ruže s uzatvoreným stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "44",
+    "originalName": "Hlava kaly",
+    "newName": "Hlava kaly",
+    "originalDescription": "Dekoratívna hlava kaly určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava kaly s lievikovitým tvarom. Hodí sa do vencov a smútočných aj svadobných aranžmánov.",
+    "originalDruh": "Kala",
+    "newDruh": "Kala",
+    "action": "description"
+  },
+  {
+    "id": "45",
+    "originalName": "Hlava kaly s kontrastným stredom",
+    "newName": "Hlava kaly s kontrastným stredom",
+    "originalDescription": "Dekoratívna hlava kaly s kontrastným stredom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava kaly s lievikovitým tvarom a kontrastným stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Kala",
+    "newDruh": "Kala",
+    "action": "description"
+  },
+  {
+    "id": "46",
+    "originalName": "Hlava ruže - guľovitá",
+    "newName": "Hlava ruže - guľovitá",
+    "originalDescription": "Dekoratívna hlava ruže s guľovitým tvarom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Guľovitá hlava ruže s uzatvoreným stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "47",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "48",
+    "originalName": "Hlava ľalie so širokými plochými lupienkami",
+    "newName": "Hlava ľalie so širokými plochými lupienkami",
+    "originalDescription": "Dekoratívna hlava ľalie so širokými plochými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ľalie so širokými plochými lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ľalia",
+    "newDruh": "Ľalia",
+    "action": "description"
+  },
+  {
+    "id": "49",
+    "originalName": "Otvorená hlava magnólie so žilkovaním",
+    "newName": "Otvorená hlava magnólie so žilkovaním",
+    "originalDescription": "Dekoratívny produkt (otvorená hlava magnólie so žilkovaním). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Otvorená hlava magnólie s výrazným žilkovaním lupienkov. Hodí sa do vencov a elegantných aranžmánov.",
+    "originalDruh": "Magnólia",
+    "newDruh": "Magnólia",
+    "action": "description"
+  },
+  {
+    "id": "5",
+    "originalName": "Kytica dálie",
+    "newName": "Kytica dálie",
+    "originalDescription": "Umelá kytica pripravená do vázy. Hodí sa ako hotová stolová dekorácia.",
+    "newDescription": "Hotová umelá kytica dálie pripravená do vázy. Hodí sa ako stolová dekorácia bez ďalšej úpravy.",
+    "originalDruh": "Dálie",
+    "newDruh": "Dálie",
+    "action": "description"
+  },
+  {
+    "id": "50",
+    "originalName": "Plochšia hlava klinčeka",
+    "newName": "Plochšia hlava klinčeka",
+    "originalDescription": "Dekoratívny produkt (plochšia hlava klinčeka). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Plochšia hlava klinčeka s menej nabitým profilom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Klinček",
+    "newDruh": "Klinček",
+    "action": "description"
+  },
+  {
+    "id": "51",
+    "originalName": "Hlava ruže - pootvorená",
+    "newName": "Hlava ruže - pootvorená",
+    "originalDescription": "Dekoratívna hlava ruže (pootvorená). Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Pootvorená hlava ruže s lupienkami ešte pritiahnutými k stredu. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "52",
+    "originalName": "Hlava orchidey",
+    "newName": "Hlava orchidey",
+    "originalDescription": "Dekoratívna hlava orchidey určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava orchidey s typickým tvarom okvetia. Hodí sa do vencov a elegantných aranžmánov.",
+    "originalDruh": "Orchidea",
+    "newDruh": "Orchidea",
+    "action": "description"
+  },
+  {
+    "id": "53",
+    "originalName": "Hlava ruže so zvlnenými lupienkami",
+    "newName": "Hlava ruže so zvlnenými lupienkami",
+    "originalDescription": "Dekoratívna hlava ruže so zvlnenými lupienkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže so zvlnenými, voľnejšími lupienkami. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "54",
+    "originalName": "Hlava gerbery",
+    "newName": "Hlava gerbery",
+    "originalDescription": "Dekoratívna hlava gerbery určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava gerbery s radiálne usporiadanými lupienkami. Hodí sa do vencov a stolových aranžmánov.",
+    "originalDruh": "Gerbera",
+    "newDruh": "Gerbera",
+    "action": "description"
+  },
+  {
+    "id": "56",
+    "originalName": "Hlava dálie so špicatými lupienkami",
+    "newName": "Hlava dálie so špicatými lupienkami",
+    "originalDescription": "Dekoratívna hlava dálie so špicatými vrstvenými lupienkami. Hodí sa do vencov a výrazných kvetinových dekorácií.",
+    "newDescription": "Hlava dálie so špicatými vrstvenými lupienkami. Hodí sa do vencov a výrazných kvetinových dekorácií.",
+    "originalDruh": "Dálie",
+    "newDruh": "Dálie",
+    "action": "description"
+  },
+  {
+    "id": "57",
+    "originalName": "Hlava iskerníka - kompaktná",
+    "newName": "Hlava iskerníka - kompaktná",
+    "originalDescription": "Dekoratívna hlava iskerníka (kompaktná). Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Kompaktná hlava iskerníka s hustým okvetím. Hodí sa do vencov a drobných aranžmánov.",
+    "originalDruh": "Iskerník",
+    "newDruh": "Iskerník",
+    "action": "description"
+  },
+  {
+    "id": "58",
+    "originalName": "Hlava pivónie",
+    "newName": "Hlava pivónie",
+    "originalDescription": "Dekoratívna hlava pivónie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava pivónie na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "59",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "6",
+    "originalName": "Umelý hyacint",
+    "newName": "Umelý hyacint",
+    "originalDescription": "Dekoratívny umelý hyacint vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelý hyacint na stopke s hustým súkvetím. Hodí sa do vázy alebo do sezónnych aranžmánov.",
+    "originalDruh": "Hyacint",
+    "newDruh": "Hyacint",
+    "action": "description"
+  },
+  {
+    "id": "60",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "61",
+    "originalName": "Hlava ruže s výraznými kališnými lístkami",
+    "newName": "Hlava ruže s výraznými kališnými lístkami",
+    "originalDescription": "Dekoratívna hlava ruže s výraznými kališnými lístkami. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava ruže s výraznými kališnými lístkami pri základni. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "62",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "63",
+    "originalName": "Hlava pivónie",
+    "newName": "Hlava pivónie",
+    "originalDescription": "Dekoratívna hlava pivónie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava pivónie na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "64",
+    "originalName": "Hlava ruže",
+    "newName": "Hlava ruže",
+    "originalDescription": "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Samostatná hlava umelej ruže na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "65",
+    "originalName": "Hlava dálie s viditeľným stredom",
+    "newName": "Hlava dálie s viditeľným stredom",
+    "originalDescription": "Dekoratívna hlava dálie so špicatými lupienkami a otvoreným stredom. Hodí sa do vencov a aranžmánov.",
+    "newDescription": "Hlava dálie so špicatými lupienkami a otvoreným stredom. Hodí sa do vencov a aranžmánov.",
+    "originalDruh": "Dálie",
+    "newDruh": "Dálie",
+    "action": "description"
+  },
+  {
+    "id": "67",
+    "originalName": "Hlava pivónie s guľovitým stredom",
+    "newName": "Hlava pivónie s guľovitým stredom",
+    "originalDescription": "Dekoratívna hlava pivónie s guľovitým stredom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s guľovitým hustým stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "69",
+    "originalName": "Hlava antúrie",
+    "newName": "Hlava antúrie",
+    "originalDescription": "Dekoratívna hlava antúrie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava antúrie s charakteristickým srdcovitým tvarom. Hodí sa do vencov a moderných aranžmánov.",
+    "originalDruh": "Antúria",
+    "newDruh": "Antúria",
+    "action": "description"
+  },
+  {
+    "id": "7",
+    "originalName": "Umelý iskerník",
+    "newName": "Umelý iskerník",
+    "originalDescription": "Dekoratívny umelý iskerník vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelý iskerník na stopke s plným okvetím. Hodí sa do vázy alebo do floristických aranžmánov.",
+    "originalDruh": "Iskerník",
+    "newDruh": "Iskerník",
+    "action": "description"
+  },
+  {
+    "id": "70",
+    "originalName": "Hlava pivónie s guľovitým stredom",
+    "newName": "Hlava pivónie s guľovitým stredom",
+    "originalDescription": "Dekoratívna hlava pivónie s guľovitým stredom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Hlava pivónie s guľovitým hustým stredom. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Pivónie",
+    "newDruh": "Pivónie",
+    "action": "description"
+  },
+  {
+    "id": "71",
+    "originalName": "Hlava ruže - plochá",
+    "newName": "Hlava ruže - plochá",
+    "originalDescription": "Dekoratívna hlava ruže (plochá). Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Plochá, výrazne roztvorená hlava ruže. Hodí sa do vencov a floristických aranžmánov.",
+    "originalDruh": "Ruže",
+    "newDruh": "Ruže",
+    "action": "description"
+  },
+  {
+    "id": "72",
+    "originalName": "Hlava hortenzie",
+    "newName": "Hlava hortenzie",
+    "originalDescription": "Dekoratívna hlava hortenzie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava hortenzie z hustého trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "75",
+    "originalName": "Hlava hortenzie",
+    "newName": "Hlava hortenzie",
+    "originalDescription": "Dekoratívna hlava hortenzie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava hortenzie z hustého trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "76",
+    "originalName": "Hlava hortenzie",
+    "newName": "Hlava hortenzie",
+    "originalDescription": "Dekoratívna hlava hortenzie určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava hortenzie z hustého trsu. Hodí sa do vencov a objemných aranžmánov.",
+    "originalDruh": "Hortenzia",
+    "newDruh": "Hortenzia",
+    "action": "description"
+  },
+  {
+    "id": "77",
+    "originalName": "Lotosový plod s matným povrchom",
+    "newName": "Lotosový plod s matným povrchom",
+    "originalDescription": "Dekoratívny prírodný prvok (lotosový plod s matným povrchom). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Lotosový plod s matným povrchom. Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Lotos",
+    "newDruh": "Lotos",
+    "action": "description"
+  },
+  {
+    "id": "78",
+    "originalName": "Hviezdicový plod",
+    "newName": "Hviezdicový plod",
+    "originalDescription": "Dekoratívny prírodný prvok (hviezdicový plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený hviezdicový plod s rozvetvenými cípkami. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "79",
+    "originalName": "Sušené drobné šištičky",
+    "newName": "Sušené drobné šištičky",
+    "originalDescription": "Dekoratívny prírodný prvok (sušené drobné šištičky). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušené drobné šištičky s hrboľatým povrchom. Hodia sa do vencov, mís a sezónnych dekorácií.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "8",
+    "originalName": "Umelá artičoka",
+    "newName": "Umelá artičoka",
+    "originalDescription": "Dekoratívny umelá artičoka vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelá artičoka na stopke s detailne tvarovanou hlavou. Hodí sa do vázy a do moderných aranžmánov.",
+    "originalDruh": "Artičoka",
+    "newDruh": "Artičoka",
+    "action": "description"
+  },
+  {
+    "id": "80",
+    "originalName": "Malý Bell Cup",
+    "newName": "Malý Bell Cup",
+    "originalDescription": "Dekoratívny prírodný prvok (malý bell cup). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Menší sušený kalich Bell Cup. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Bell Cup",
+    "newDruh": "Bell Cup",
+    "action": "description"
+  },
+  {
+    "id": "81",
+    "originalName": "Ploché drevené špirálky",
+    "newName": "Ploché drevené špirálky",
+    "originalDescription": "Ploché kotúčovité drevené špirálky. Hodí sa do vencov a rustikálnych aranžmánov.",
+    "newDescription": "Ploché kotúčovité drevené špirálky. Hodia sa do vencov a rustikálnych aranžmánov.",
+    "originalDruh": "Drevené špirálky",
+    "newDruh": "Drevené špirálky",
+    "action": "description"
+  },
+  {
+    "id": "82",
+    "originalName": "Hlava kvetu s kontrastným stredom",
+    "newName": "Hlava kvetu s kontrastným stredom",
+    "originalDescription": "Dekoratívna hlava kvetu s kontrastným stredom. Hodí sa na výrobu vencov a floristických aranžmánov.",
+    "newDescription": "Plochá hlava kvetu s ostrými lupienkami a kontrastným stredom. Hodí sa do vencov a aranžmánov.",
+    "originalDruh": "Hlava kvetu",
+    "newDruh": "Hlava kvetu",
+    "action": "description"
+  },
+  {
+    "id": "83",
+    "originalName": "Dvojfarebná drevená ružička",
+    "newName": "Dvojfarebná drevená ružička",
+    "originalDescription": "Dekoratívna drevená ružička s kontrastným jadrom a okrajom lupienkov. Hodí sa do vencov a rustikálnych aranžmánov.",
+    "newDescription": "Drevená ružička s kontrastným jadrom a okrajom lupienkov. Hodí sa do vencov a rustikálnych aranžmánov.",
+    "originalDruh": "Drevené kvety",
+    "newDruh": "Drevené kvety",
+    "action": "description"
+  },
+  {
+    "id": "84",
+    "originalName": "Jednoliatá drevená ružička",
+    "newName": "Jednoliatá drevená ružička",
+    "originalDescription": "Dekoratívna drevená ružička s jednoliatym povrchom a vrstvenými lupienkami. Hodí sa na lepenie do vencov a prírodných aranžmánov.",
+    "newDescription": "Drevená ružička s jednoliatym povrchom a vrstvenými lupienkami. Hodí sa na lepenie do vencov a prírodných aranžmánov.",
+    "originalDruh": "Drevené kvety",
+    "newDruh": "Drevené kvety",
+    "action": "description"
+  },
+  {
+    "id": "86",
+    "originalName": "Hlava sasanky",
+    "newName": "Hlava sasanky",
+    "originalDescription": "Dekoratívna hlava sasanky určená na výrobu vencov a aranžmánov. Komponent bez stonky.",
+    "newDescription": "Hlava sasanky s otvoreným okvetím. Hodí sa do vencov a jemných aranžmánov.",
+    "originalDruh": "Sasanka",
+    "newDruh": "Sasanka",
+    "action": "description"
+  },
+  {
+    "id": "88",
+    "originalName": "Badián",
+    "newName": "Badián",
+    "originalDescription": "Dekoratívny prírodný prvok (badián). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený badián s hviezdicovitým tvarom. Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Badián",
+    "newDruh": "Badián",
+    "action": "description"
+  },
+  {
+    "id": "89",
+    "originalName": "Bielený hviezdicový plod",
+    "newName": "Bielený hviezdicový plod",
+    "originalDescription": "Dekoratívny prírodný prvok (bielený hviezdicový plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Hviezdicový plod s otvorenými cípkami. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "9",
+    "originalName": "Umelá alstroméria",
+    "newName": "Umelá alstroméria",
+    "originalDescription": "Dekoratívny umelá alstroméria vhodný do vázy alebo aranžmánu. Jednoduchý doplnok bez nutnosti údržby.",
+    "newDescription": "Umelá alstroméria na stopke s charakteristickými škvrnitými lupienkami. Hodí sa do vázy alebo do kytíc.",
+    "originalDruh": "Alstroméria",
+    "newDruh": "Alstroméria",
+    "action": "description"
+  },
+  {
+    "id": "90",
+    "originalName": "Prírodný veniec",
+    "newName": "Prírodný veniec",
+    "originalDescription": "Dekoratívny produkt (prírodný veniec). Hodí sa do vázy, vencov alebo stolových kompozícií.",
+    "newDescription": "Prírodný veniec pripravený ako základ alebo hotová dekorácia. Hodí sa na dvere, stenu alebo stolové aranžmány.",
+    "originalDruh": "Prírodný veniec",
+    "newDruh": "Prírodný veniec",
+    "action": "description"
+  },
+  {
+    "id": "91",
+    "originalName": "Bielený lotosový plod",
+    "newName": "Bielený lotosový plod",
+    "originalDescription": "Dekoratívny prírodný prvok (bielený lotosový plod). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Lotosový plod s otvorenými komorami. Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Lotos",
+    "newDruh": "Lotos",
+    "action": "description"
+  },
+  {
+    "id": "92",
+    "originalName": "Dekoračný mach",
+    "newName": "Dekoračný mach",
+    "originalDescription": "Dekoratívny prírodný prvok (dekoračný mach). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Dekoračný mach na výplň a podklad aranžmánov. Hodí sa do vencov, mís a terárií.",
+    "originalDruh": "Mach",
+    "newDruh": "Mach",
+    "action": "description"
+  },
+  {
+    "id": "93",
+    "originalName": "Bell Cup",
+    "newName": "Bell Cup",
+    "originalDescription": "Dekoratívny prírodný prvok (bell cup). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušený kalich Bell Cup. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Bell Cup",
+    "newDruh": "Bell Cup",
+    "action": "description"
+  },
+  {
+    "id": "94",
+    "originalName": "Kúsky lotosového plodu",
+    "newName": "Kúsky lotosového plodu",
+    "originalDescription": "Dekoratívny prírodný prvok (kúsky lotosového plodu). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Kúsky lotosového plodu na lepenie a výplň. Hodia sa do vencov a prírodných dekorácií.",
+    "originalDruh": "Lotos",
+    "newDruh": "Lotos",
+    "action": "description"
+  },
+  {
+    "id": "95",
+    "originalName": "Sušené lodičkové plody",
+    "newName": "Sušené lodičkové plody",
+    "originalDescription": "Dekoratívny prírodný prvok (sušené lodičkové plody). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Sušené lodičkové plody. Hodia sa do vencov, mís a sezónnych aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "96",
+    "originalName": "Plochá cédrová ružička",
+    "newName": "Plochá cédrová ružička",
+    "originalDescription": "Dekoratívny prírodný prvok (plochá cédrová ružička). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Plochá cédrová ružička zo šupiniek. Hodí sa na lepenie do vencov a sezónnych dekorácií.",
+    "originalDruh": "Cédrová ruža",
+    "newDruh": "Cédrová ruža",
+    "action": "description"
+  },
+  {
+    "id": "98",
+    "originalName": "Hviezdicový plod s predĺženými cípkami",
+    "newName": "Hviezdicový plod s predĺženými cípkami",
+    "originalDescription": "Dekoratívny prírodný prvok (hviezdicový plod s predĺženými cípkami). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Hviezdicový plod s predĺženými cípkami. Hodí sa do vencov a prírodných aranžmánov.",
+    "originalDruh": "Sušené plody",
+    "newDruh": "Sušené plody",
+    "action": "description"
+  },
+  {
+    "id": "99",
+    "originalName": "Kužeľovitá cédrová ružička",
+    "newName": "Kužeľovitá cédrová ružička",
+    "originalDescription": "Dekoratívny prírodný prvok (kužeľovitá cédrová ružička). Hodí sa do vencov, mís a sezónnych aranžmánov.",
+    "newDescription": "Kužeľovitá cédrová ružička zo šupiniek. Hodí sa na lepenie do vencov a sezónnych dekorácií.",
+    "originalDruh": "Cédrová ruža",
+    "newDruh": "Cédrová ruža",
+    "action": "description"
+  }
+]

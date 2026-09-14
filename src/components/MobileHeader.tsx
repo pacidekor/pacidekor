@@ -28,6 +28,7 @@ import {
   categoryList,
   navItems,
 } from "@/lib/navigation";
+import { lockPageScroll } from "@/lib/lock-page-scroll";
 import {
   popularSearches,
   searchProducts,
@@ -147,8 +148,7 @@ export function MobileHeader() {
   useEffect(() => {
     if (!menuOpen && !searchOpen && !cartOpen && !accountOpen) return;
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const unlock = lockPageScroll();
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -169,7 +169,7 @@ export function MobileHeader() {
 
     document.addEventListener("keydown", onKeyDown);
     return () => {
-      document.body.style.overflow = previousOverflow;
+      unlock();
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [menuOpen, menuView, searchOpen, cartOpen, accountOpen, selectedAccount]);
@@ -181,7 +181,7 @@ export function MobileHeader() {
 
   return (
     <>
-      <header className="relative z-50 bg-[#e8ebe2] md:hidden">
+      <header className="fixed inset-x-0 top-0 z-50 bg-[#e8ebe2] pt-[env(safe-area-inset-top,0px)] md:hidden">
         <div className="mx-auto flex h-16 w-[var(--content-width)] items-center justify-between gap-2">
           <div className="flex items-center gap-1">
             <button
@@ -275,10 +275,15 @@ export function MobileHeader() {
           aria-hidden
         />
       </header>
+      {/* Reserve space for the fixed mobile header */}
+      <div
+        className="h-[var(--mobile-header-offset)] md:hidden"
+        aria-hidden
+      />
 
       <div
         id={menuId}
-        className={`fixed inset-x-0 top-16 bottom-0 z-40 bg-[#e8ebe2] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
+        className={`fixed inset-x-0 top-[var(--mobile-header-offset)] bottom-0 z-40 bg-[#e8ebe2] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] md:hidden ${
           menuOpen
             ? "pointer-events-auto translate-y-0 opacity-100"
             : "pointer-events-none -translate-y-2 opacity-0"
@@ -385,7 +390,7 @@ export function MobileHeader() {
 
       {/* Search panel under header */}
       <div
-        className={`fixed inset-x-0 top-16 bottom-0 z-40 md:hidden ${
+        className={`fixed inset-x-0 top-[var(--mobile-header-offset)] bottom-0 z-40 md:hidden ${
           searchOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >
@@ -486,7 +491,7 @@ export function MobileHeader() {
 
       {/* Account type panel under header */}
       <div
-        className={`fixed inset-x-0 top-16 bottom-0 z-40 md:hidden ${
+        className={`fixed inset-x-0 top-[var(--mobile-header-offset)] bottom-0 z-40 md:hidden ${
           accountOpen ? "pointer-events-auto" : "pointer-events-none"
         }`}
       >

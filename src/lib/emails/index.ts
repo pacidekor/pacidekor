@@ -11,6 +11,7 @@ export {
 export { buildNewsletterEmail } from "@/lib/emails/newsletter";
 export { buildBirthdayEmail } from "@/lib/emails/birthday";
 export { buildOrderHandedToCarrierEmail } from "@/lib/emails/order-handed-to-carrier";
+export { buildOrderDeliveredEmail } from "@/lib/emails/order-delivered";
 export { buildOrderPaidEmail } from "@/lib/emails/order-paid";
 export { sendBrevoEmail, sendBrevoTemplateEmail } from "@/lib/emails/brevo";
 export {
@@ -32,6 +33,7 @@ export type {
   NewsletterProductCard,
   BirthdayEmailVars,
   OrderHandedToCarrierEmailVars,
+  OrderDeliveredEmailVars,
   OrderPaidEmailVars,
   OrderPaidEmailItem,
 } from "@/lib/emails/types";

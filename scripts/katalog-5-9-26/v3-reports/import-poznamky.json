@@ -1,0 +1,17 @@
+[
+  {
+    "productId": "147",
+    "issue": "empty-farby",
+    "note": "Farby prázdne zámerne - priesvitný uzáver nepotvrdzuje farbu obsahu. Foto 1.webp ostáva pri produkte. Importér musí podporiť produkt bez farebnej varianty alebo dočasný stav 'bez farby'."
+  },
+  {
+    "productId": "155",
+    "issue": "common-gallery-only",
+    "note": "Pole Farby prázdne; snímky v spoločnej galérii. Potrebné jednotlivé fotky farieb alebo potvrdenie, že ide o predávanú sadu. Importér potrebuje podporu všeobecnej galérie."
+  },
+  {
+    "productId": "172",
+    "issue": "common-gallery-only",
+    "note": "Pole Farby prázdne; snímky v spoločnej galérii. Potrebné jednotlivé fotky farieb alebo potvrdenie, že ide o predávanú sadu. Importér potrebuje podporu všeobecnej galérie."
+  }
+]

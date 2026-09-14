@@ -1,0 +1,28 @@
+[
+  {
+    "productId": "66",
+    "photos": [
+      10,
+      11
+    ],
+    "fromProduct": "68",
+    "note": "Prezentačný mix / spoločná galéria - nie farebná varianta v poli Farby. Importér potrebuje všeobecnú galériu."
+  },
+  {
+    "productId": "155",
+    "photos": [
+      1,
+      2,
+      3
+    ],
+    "note": "Len spoločné/mix fotografie - nie jednotlivé farebné varianty. Nepripravené na bezchybný farebný import."
+  },
+  {
+    "productId": "172",
+    "photos": [
+      1,
+      2
+    ],
+    "note": "Len spoločné/mix fotografie - nie jednotlivé farebné varianty. Nepripravené na bezchybný farebný import."
+  }
+]

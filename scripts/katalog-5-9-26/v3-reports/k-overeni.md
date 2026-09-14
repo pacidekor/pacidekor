@@ -1,0 +1,49 @@
+# Položky k ověření (v3)
+
+Každá otázka je rozhodnutelná. Uveďte ID a fotku.
+
+- **14->13** (foto: 14/1.webp a 13/1.webp): Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **32->28** (foto: 32/1.webp a 28/1.webp): Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **35->34** (foto: 35/1.webp a 34/1.webp): Vo v2 označené ok aj k-overeni naraz; bez potvrdenia SKU/balenia vrátené samostatne. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **38->36** (foto: 38/1.webp a 36/1.webp): Zlúčenie vo v2 len podľa spoločného AI názvu; totožnosť modelu a balenia nepotvrdená. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **46->43** (foto: 46/1.webp a 43/1.webp): Vo v2 označené ok aj k-overeni naraz; bez potvrdenia, či 46 je len balené foto 43, vrátené samostatne. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **70->67** (foto: 70/1.webp a 67/1.webp): Vo v2 označené ok aj k-overeni naraz; bez potvrdenia SKU/balenia vrátené samostatne. Potvrďte, či ide o ten istý model a rovnakú predajnú jednotku.
+- **11** (foto: 11/1.webp): Jednoduchá klasická otvorená hlava bez jednoznačného znaku, ktorý by ju spoľahlivo odlíšil od ostatných štandardných ruží na sheete.
+- **111** (foto: 111/1.webp): Široko roztvorené ploché cípy; oproti 78 hlavne otvorenosť/tón - overiť či nejde o tú istú položku.
+- **113** (foto: 113/1.webp): Veľké tmavohnedé kalichy; na sheete bez spoľahlivého vizuálneho rozdielu oproti 93.
+- **119** (foto: 119/1.webp): Rovnaký typ artičoky na stopke ako 2 a 134.
+- **134** (foto: 134/1.webp): Rovnaký typ artičoky na stopke; na fotke zväzok v fólii.
+- **144** (foto: 144/1.webp): Potvrďte, že 144 je cédrová ruža (šiška), nie drevená sola ružička ako 84. Majú sa zaradiť k 96/99/143?
+- **146** (foto: 146/1.webp): Jednofarebná saténová stuha bez vzoru; šírka/dĺžka kotúča nie je overiteľná zo sheetu.
+- **147** (foto: 147/1.webp): Akú farebnú/efektovú variantu spreja Florist Deco Spray skladujete (ak je na etiketě uvedené)? Priesvitný uzáver neberieme ako dôkaz čírej farby.
+- **149** (foto: 149/1.webp): Široký stred a ornamentálny kvetinový lem na okrajoch; lepiaca vrstva z fotky nie je potvrdená.
+- **151** (foto: 151/1.webp): Jednofarebná saténová stuha; bez spoľahlivého vizuálneho rozdielu šírky oproti ostatným saténom.
+- **155** (foto: 155/1.webp): Sú na fotkách 155 samostatne predávané farby stuhy, alebo sada/mix? Potrebujeme jednotlivé fotky farieb.
+- **157** (foto: 157/1.webp): Jednofarebná saténová stuha; šírku/kotúč treba overiť, nevymýšľať cm.
+- **158** (foto: 158/1.webp): Jednofarebná saténová stuha; na sheete pôsobí širšie, ale cm nie sú overené.
+- **164** (foto: 164/1.webp): Jednofarebná saténová stuha na kompaktnom kotúči; šírka neoverená.
+- **17** (foto: 17/1.webp): Štandardný hustý trs štvorlupienkových kvetov; bez jednoznačného znaku oproti 18/26/72/75/76.
+- **172** (foto: 172/1.webp): Je 172 sada kotúčov papierového lyka, alebo jednotlivé farby? Potrebujeme fotky jednotlivých kotúčov.
+- **178** (foto: 178/1.webp): Jednofarebná saténová stuha; šírka/kotúč k overeniu.
+- **179** (foto: 179/1.webp): Jednofarebná saténová stuha; bez overenej šírky/dĺžky kotúča.
+- **18** (foto: 18/1.webp): Rovnaká hustá stavba drobných kvetov ako 17 a 26; rozdiel len vo farbe.
+- **2** (foto: 2/1.webp): Sušená artičoka na stopke; vizuálne rovnaký typ ako 119 a 134 (rozdiel len v prezentácii/počte).
+- **24** (foto: 24/1.webp): Na sheete veľmi blízka k 21 (biela, hustý závit); bez spoľahlivého vizuálneho rozdielu.
+- **26** (foto: 26/1.webp): Rovnaký typ hustej hlavy ako 17/18; na sheete nerozoznateľná mimo farby.
+- **42** (foto: 42/1.webp): Hlavy v balení pôsobia zatvorene/stlačene; oproti 49 nie je istý otvorený tvar.
+- **47** (foto: 47/1.webp): Štandardná hustá hlava v balení bez jednoznačného znaku oproti 59/62/64.
+- **58** (foto: 58/1.webp): Veľká vrstvená hlava; na sheete blízka pootvoreným modelom (29), bez istého unikátneho znaku.
+- **59** (foto: 59/1.webp): Štandardná balená hlava bez spoľahlivého vizuálneho rozdielu oproti 47/60/62/64.
+- **60** (foto: 60/1.webp): Pravidelný závit v balení; na sheete ťažko odlíšiteľná od ostatných štandardných balených ruží.
+- **62** (foto: 62/1.webp): Hustá balená hlava bez jasného znaku, ktorý by ju oddelil od 47/59/64.
+- **63** (foto: 63/1.webp): V balení zatvorené hlavy; vizuálne blízke k 33, ťažké spoľahlivo odlíšiť bez mierky.
+- **64** (foto: 64/1.webp): Hustá balená hlava; na sheete nerozoznateľná od ostatných štandardných balených ruží.
+- **72** (foto: 72/1.webp): Balená hustá hlava; stavba blízka 17/18/26/75/76, bez unikátneho znaku.
+- **75** (foto: 75/1.webp): Balená krémová hlava bez vetvičiek ani silnej textúry; blízka 72/76.
+- **76** (foto: 76/1.webp): Balená hustá hlava (rovnaký typ kódu ako 72); bez unikátneho znaku oproti ostatným štandardným hortenziám.
+- **78** (foto: 78/1.webp): Prírodný hviezdicový plod so zaoblenejšími cípkami; oproti 111 hlavne tón povrchu.
+- **84** (foto: 84/1.webp oproti 83/1.webp): Je 84 konštrukčne iná (jednoliatá) než dvojfarebná 83, alebo len iná farba? So 144 neslučovať - 144 vyzerá ako cédrová šiška.
+- **93** (foto: 93/1.webp): Veľké tmavohnedé kalichy; na sheete vizuálne rovnaké ako 113.
+- **kolizia:11,24,47,59,60,62,64** (foto: 11/1.webp, 24/1.webp, 47/1.webp, 59/1.webp, 60/1.webp, 62/1.webp, 64/1.webp): Produkty 11, 24, 47, 59, 60, 62, 64 majú rovnaký pracovný názov „Hlava ruže". Označte spoľahlivý rozlišujúci znak alebo potvrďte, ktoré sú farebné varianty jedného modelu (vrátane šírky/balenia u stúh).
+- **kolizia:146,151,157,158,164,178,179** (foto: 146/1.webp, 151/1.webp, 157/1.webp, 158/1.webp, 164/1.webp, 178/1.webp, 179/1.webp): Produkty 146, 151, 157, 158, 164, 178, 179 majú rovnaký pracovný názov „Saténová stuha". Označte spoľahlivý rozlišujúci znak alebo potvrďte, ktoré sú farebné varianty jedného modelu (vrátane šírky/balenia u stúh).
+- **kolizia:72,75,76** (foto: 72/1.webp, 75/1.webp, 76/1.webp): Produkty 72, 75, 76 majú rovnaký pracovný názov „Hlava hortenzie". Označte spoľahlivý rozlišujúci znak alebo potvrďte, ktoré sú farebné varianty jedného modelu (vrátane šírky/balenia u stúh).

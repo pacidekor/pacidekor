@@ -1,0 +1,330 @@
+{
+  "changes": [
+    {
+      "id": "100",
+      "name": "Dekoračná guľôčka",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "101",
+      "name": "Dekoračné šišky",
+      "sub": "Šišky"
+    },
+    {
+      "id": "102",
+      "name": "Dekoračný muškátový oriešok",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "103",
+      "name": "Sušený kalichovitý plod",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "104",
+      "name": "Bobuľová vetvička s lesklým povrchom",
+      "sub": "Bobule a vetvičky"
+    },
+    {
+      "id": "106",
+      "name": "Lotosový plod",
+      "sub": "Lotos"
+    },
+    {
+      "id": "109",
+      "name": "Sušený puk na drôtiku",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "111",
+      "name": "Otvorený hviezdicový plod",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "112",
+      "name": "Prútená guľa",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "113",
+      "name": "Bell Cup",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "114",
+      "name": "Dekoračný kalíšok",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "117",
+      "name": "Dekoračná pichľavá guľôčka",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "118",
+      "name": "Sušený plod",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "121",
+      "name": "Dekoračná tekvička",
+      "sub": "Tekvice"
+    },
+    {
+      "id": "122",
+      "name": "Dekoratívna tekvica",
+      "sub": "Tekvice"
+    },
+    {
+      "id": "123",
+      "name": "Bobuľová vetvička s matným povrchom",
+      "sub": "Bobule a vetvičky"
+    },
+    {
+      "id": "127",
+      "name": "Predĺžené drevené špirálky",
+      "sub": "Drevené doplnky"
+    },
+    {
+      "id": "129",
+      "name": "Dekoratívne kalichy s dierovanou textúrou",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "130",
+      "name": "Dekoratívna škorica",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "131",
+      "name": "Sušené škrupiny",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "132",
+      "name": "Dekoratívne kalichy s hladkým povrchom",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "133",
+      "name": "Dekoratívne šišky",
+      "sub": "Šišky"
+    },
+    {
+      "id": "136",
+      "name": "Dekoračné tobolky",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "137",
+      "name": "Dekoračné plody",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "138",
+      "name": "Drevené zvitky",
+      "sub": "Drevené doplnky"
+    },
+    {
+      "id": "139",
+      "name": "Sušené plody",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "143",
+      "name": "Cédrová ruža",
+      "sub": "Cédrové a drevené ružičky"
+    },
+    {
+      "id": "144",
+      "name": "Dekoratívna ružička",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "77",
+      "name": "Lotosový plod s matným povrchom",
+      "sub": "Lotos"
+    },
+    {
+      "id": "78",
+      "name": "Hviezdicový plod",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "79",
+      "name": "Sušené drobné šištičky",
+      "sub": "Šišky"
+    },
+    {
+      "id": "80",
+      "name": "Malý Bell Cup",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "81",
+      "name": "Ploché drevené špirálky",
+      "sub": "Drevené doplnky"
+    },
+    {
+      "id": "83",
+      "name": "Dvojfarebná drevená ružička",
+      "sub": "Cédrové a drevené ružičky"
+    },
+    {
+      "id": "84",
+      "name": "Jednoliatá drevená ružička",
+      "sub": "Cédrové a drevené ružičky"
+    },
+    {
+      "id": "85",
+      "name": "Drevená hlava kvetu",
+      "sub": "Cédrové a drevené ružičky"
+    },
+    {
+      "id": "88",
+      "name": "Badián",
+      "sub": "Ostatné sušiny"
+    },
+    {
+      "id": "89",
+      "name": "Bielený hviezdicový plod",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "91",
+      "name": "Bielený lotosový plod",
+      "sub": "Lotos"
+    },
+    {
+      "id": "92",
+      "name": "Dekoračný mach",
+      "sub": "Mach"
+    },
+    {
+      "id": "93",
+      "name": "Bell Cup",
+      "sub": "Bell Cup / kalíšky"
+    },
+    {
+      "id": "94",
+      "name": "Kúsky lotosového plodu",
+      "sub": "Lotos"
+    },
+    {
+      "id": "95",
+      "name": "Sušené lodičkové plody",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "96",
+      "name": "Plochá cédrová ružička",
+      "sub": "Cédrové a drevené ružičky"
+    },
+    {
+      "id": "98",
+      "name": "Hviezdicový plod s predĺženými cípkami",
+      "sub": "Sušené plody"
+    },
+    {
+      "id": "99",
+      "name": "Kužeľovitá cédrová ružička",
+      "sub": "Cédrové a drevené ružičky"
+    }
+  ],
+  "skipped": [
+    "145hotovo",
+    "146hotovo",
+    "147hotovo",
+    "148hotovo",
+    "149hotovo",
+    "150hotovo",
+    "151hotovo",
+    "152hotovo",
+    "153hotovo",
+    "154hotovo",
+    "155hotovo",
+    "163hotovo",
+    "164hotovo",
+    "165hotovo",
+    "166hotovo",
+    "167hotovo",
+    "168hotovo",
+    "169hotovo",
+    "170hotovo",
+    "171hotovo",
+    "172hotovo",
+    "173hotovo",
+    "174hotovo",
+    "176hotovo",
+    "178hotovo",
+    "179hotovo"
+  ],
+  "bySub": {
+    "Ostatné sušiny": [
+      "100",
+      "102",
+      "109",
+      "112",
+      "117",
+      "130",
+      "144",
+      "88"
+    ],
+    "Šišky": [
+      "101",
+      "133",
+      "79"
+    ],
+    "Sušené plody": [
+      "103",
+      "111",
+      "118",
+      "131",
+      "136",
+      "137",
+      "139",
+      "78",
+      "89",
+      "95",
+      "98"
+    ],
+    "Bobule a vetvičky": [
+      "104",
+      "123"
+    ],
+    "Lotos": [
+      "106",
+      "77",
+      "91",
+      "94"
+    ],
+    "Bell Cup / kalíšky": [
+      "113",
+      "114",
+      "129",
+      "132",
+      "80",
+      "93"
+    ],
+    "Tekvice": [
+      "121",
+      "122"
+    ],
+    "Drevené doplnky": [
+      "127",
+      "138",
+      "81"
+    ],
+    "Cédrové a drevené ružičky": [
+      "143",
+      "83",
+      "84",
+      "85",
+      "96",
+      "99"
+    ],
+    "Mach": [
+      "92"
+    ]
+  }
+}

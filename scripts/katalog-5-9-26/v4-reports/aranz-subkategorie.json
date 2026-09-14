@@ -1,0 +1,87 @@
+{
+  "changes": [
+    {
+      "id": "110",
+      "name": "Jutové vrecúško",
+      "from": "(bez sub)",
+      "to": "Vrecúška"
+    },
+    {
+      "id": "124",
+      "name": "Kokosové vlákno",
+      "from": "(bez sub)",
+      "to": "Vlákna"
+    },
+    {
+      "id": "126",
+      "name": "Sisalové vlákno",
+      "from": "(bez sub)",
+      "to": "Vlákna"
+    },
+    {
+      "id": "147",
+      "name": "Dekoračný sprej",
+      "from": "(bez sub)",
+      "to": "Spreje"
+    },
+    {
+      "id": "148",
+      "name": "Floristický drôt",
+      "from": "(bez sub)",
+      "to": "Floristický drôt"
+    },
+    {
+      "id": "159",
+      "name": "Plastová stonka",
+      "from": "(bez sub)",
+      "to": "Plastové stonky"
+    },
+    {
+      "id": "160",
+      "name": "Valcové ampulky na vodu",
+      "from": "(bez sub)",
+      "to": "Ampulky na vodu"
+    },
+    {
+      "id": "161",
+      "name": "Floristická skúmavka",
+      "from": "(bez sub)",
+      "to": "Ampulky na vodu"
+    },
+    {
+      "id": "163",
+      "name": "Kuželovité ampulky na vodu",
+      "from": "(bez sub)",
+      "to": "Ampulky na vodu"
+    },
+    {
+      "id": "167",
+      "name": "Umelé lýko",
+      "from": "(bez sub)",
+      "to": "Umelé lýko"
+    },
+    {
+      "id": "168",
+      "name": "Polypropylénový špagát",
+      "from": "(bez sub)",
+      "to": "Špagáty a šnúry"
+    }
+  ],
+  "skipped": [
+    "170hotovo",
+    "171hotovo",
+    "172hotovo",
+    "173hotovo",
+    "174hotovo",
+    "176hotovo",
+    "178hotovo",
+    "179hotovo"
+  ],
+  "unresolved": [
+    {
+      "id": "109",
+      "name": "Sušený puk na drôtiku",
+      "druh": "Sušina"
+    }
+  ]
+}

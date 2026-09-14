@@ -1,0 +1,13 @@
+{
+  "activeProducts": 173,
+  "webpActive": 540,
+  "descriptionChanges": 153,
+  "confirmedMerges": 4,
+  "pendingMergeMoves": 3,
+  "validation": {
+    "emdash": [],
+    "badDesc": [],
+    "mechanical": [],
+    "missingWebp": 0
+  }
+}

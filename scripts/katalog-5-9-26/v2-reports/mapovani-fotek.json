@@ -1,0 +1,406 @@
+[
+  {
+    "action": "moved",
+    "fromProduct": "68",
+    "fromFile": "1.webp",
+    "toProduct": "66",
+    "toFile": "10.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "68",
+    "fromFile": "2.webp",
+    "toProduct": "66",
+    "toFile": "11.webp"
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "68",
+    "toProduct": "66",
+    "photos": [
+      10,
+      11
+    ],
+    "note": "krémová / ružová / oranžová / vínová / fialová"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "68",
+    "toProduct": "66",
+    "archivePath": "_archived/68"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "162",
+    "fromFile": "1.webp",
+    "toProduct": "156",
+    "toFile": "3.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "162",
+    "fromFile": "2.webp",
+    "toProduct": "156",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "162",
+    "fromFile": "3.webp",
+    "toProduct": "156",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "162",
+    "fromFile": "4.webp",
+    "toProduct": "156",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "162",
+    "toProduct": "156",
+    "archivePath": "_archived/162"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "180",
+    "fromFile": "1.webp",
+    "toProduct": "127",
+    "toFile": "3.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "180",
+    "fromFile": "2.webp",
+    "toProduct": "127",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "180",
+    "toProduct": "127",
+    "archivePath": "_archived/180"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "116",
+    "fromFile": "1.webp",
+    "toProduct": "83",
+    "toFile": "3.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "116",
+    "fromFile": "2.webp",
+    "toProduct": "83",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "116",
+    "toProduct": "83",
+    "archivePath": "_archived/116"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "87",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "87",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "87",
+    "fromFile": "3.webp",
+    "toProduct": "85",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "87",
+    "fromFile": "4.webp",
+    "toProduct": "85",
+    "toFile": "7.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "87",
+    "toProduct": "85",
+    "archivePath": "_archived/87"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "97",
+    "fromFile": "1.webp",
+    "toProduct": "85",
+    "toFile": "8.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "97",
+    "fromFile": "2.webp",
+    "toProduct": "85",
+    "toFile": "9.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "97",
+    "toProduct": "85",
+    "archivePath": "_archived/97"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "16",
+    "fromFile": "1.webp",
+    "toProduct": "15",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "16",
+    "fromFile": "2.webp",
+    "toProduct": "15",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "16",
+    "fromFile": "3.webp",
+    "toProduct": "15",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "16",
+    "toProduct": "15",
+    "archivePath": "_archived/16"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "14",
+    "fromFile": "1.webp",
+    "toProduct": "13",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "14",
+    "fromFile": "2.webp",
+    "toProduct": "13",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "14",
+    "fromFile": "3.webp",
+    "toProduct": "13",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "14",
+    "toProduct": "13",
+    "archivePath": "_archived/14"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "32",
+    "fromFile": "1.webp",
+    "toProduct": "28",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "32",
+    "fromFile": "2.webp",
+    "toProduct": "28",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "32",
+    "fromFile": "3.webp",
+    "toProduct": "28",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "32",
+    "fromFile": "4.webp",
+    "toProduct": "28",
+    "toFile": "7.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "32",
+    "toProduct": "28",
+    "archivePath": "_archived/32"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "35",
+    "fromFile": "1.webp",
+    "toProduct": "34",
+    "toFile": "11.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "35",
+    "fromFile": "2.webp",
+    "toProduct": "34",
+    "toFile": "12.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "35",
+    "fromFile": "3.webp",
+    "toProduct": "34",
+    "toFile": "13.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "35",
+    "fromFile": "4.webp",
+    "toProduct": "34",
+    "toFile": "14.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "35",
+    "toProduct": "34",
+    "archivePath": "_archived/35"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "38",
+    "fromFile": "1.webp",
+    "toProduct": "36",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "38",
+    "fromFile": "2.webp",
+    "toProduct": "36",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "38",
+    "toProduct": "36",
+    "archivePath": "_archived/38"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "46",
+    "fromFile": "1.webp",
+    "toProduct": "43",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "46",
+    "fromFile": "2.webp",
+    "toProduct": "43",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "46",
+    "toProduct": "43",
+    "archivePath": "_archived/46"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "70",
+    "fromFile": "1.webp",
+    "toProduct": "67",
+    "toFile": "4.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "70",
+    "fromFile": "2.webp",
+    "toProduct": "67",
+    "toFile": "5.webp"
+  },
+  {
+    "action": "moved",
+    "fromProduct": "70",
+    "fromFile": "3.webp",
+    "toProduct": "67",
+    "toFile": "6.webp"
+  },
+  {
+    "action": "archived-folder",
+    "fromProduct": "70",
+    "toProduct": "67",
+    "archivePath": "_archived/70"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "66",
+    "photos": [
+      10,
+      11
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "155",
+    "toProduct": "155",
+    "photos": [
+      1,
+      2,
+      3
+    ],
+    "note": "zelená / marhuľová"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "155",
+    "photos": [
+      1,
+      2,
+      3
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "172",
+    "toProduct": "172",
+    "photos": [
+      1,
+      2
+    ],
+    "note": "biela / hnedá / červená / ružová / fialová / zelená / svetlozelená / olivová"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "172",
+    "photos": [
+      1,
+      2
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  },
+  {
+    "action": "pending-color-photo",
+    "productId": "147",
+    "photos": [
+      1
+    ],
+    "note": "Odstránená neoverená farba „číry\". Snímok 1.webp ostáva pri produkte; farba sa doplní po potvrdení (sneh vs číry sprej)."
+  }
+]

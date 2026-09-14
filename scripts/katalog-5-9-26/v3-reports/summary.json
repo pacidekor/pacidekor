@@ -1,0 +1,23 @@
+{
+  "comparedTo": "katalog_raw/noveprodukty5.9.26-ready (originál) + korekcie voči chybám v2",
+  "activeProducts": 173,
+  "archivedMerged": 7,
+  "restoredSeparate": 6,
+  "renames": 86,
+  "questions": 45,
+  "webpActive": 540,
+  "webpArchivedOriginals": 19,
+  "expectedWebpActive": 540,
+  "validation": {
+    "emdash": [],
+    "badDesc": [],
+    "missingInfo": [],
+    "missingWebp": [],
+    "commaFarby": [],
+    "genericDesc": {
+      "Dekoratívna hlava ruže určená na výrobu vencov a aranžmánov. Komponent bez stonky.": 7,
+      "Saténová stuha s hladkým povrchom. Hodí sa na viazanie kytíc a darčekové balenia.": 7
+    }
+  },
+  "jpgVsWebp": "Zdrojový STAV uvádza 642 JPG, ready má 540 WebP. Konkrétny zoznam 102 vynechaných snímok tu nie je priložený; vysvetlenie (mix/duplicitné zábery pri exporte) je NEOVERENÉ bez inventúry zdrojových JPG."
+}

@@ -1,0 +1,15 @@
+{
+  "activeProducts": 167,
+  "archivedMerged": 13,
+  "changes": 180,
+  "renames": 65,
+  "merges": 13,
+  "questions": 49,
+  "validation": {
+    "emdash": [],
+    "badDesc": [],
+    "missingInfo": [],
+    "missingWebp": []
+  },
+  "note102": "Zdrojový STAV uvádza 642 JPG, ready má 540 WebP. Rozdiel 102 snímok vznikol pri prvom exporte (vynechané mix/duplicitné zábery). Originály JPG sú v katalog_raw/noveprodukty5.9.26/-III; náhradné obrázky nevznikli."
+}

@@ -16,18 +16,18 @@ type BannerSlide = {
 
 const slides: BannerSlide[] = [
   {
-    desktopSrc: "/banner2.webp",
-    mobileSrc: "/1bannermobile.webp",
-    href: "/produkty",
-    alt: "PACIDEKOR - expedícia do 24 hodín",
-    ctaLabel: "Všetky produkty",
-  },
-  {
-    desktopSrc: "/bannerkvety.webp",
-    mobileSrc: "/2bannermobile.webp",
+    desktopSrc: "/bannervsetko.webp",
+    mobileSrc: "/vsetkobannermobile.webp",
     href: "/registracia/velkoobchod",
     alt: "PACIDEKOR - umelé kvety, krása ktorá vydrží",
     ctaLabel: "Registrácia",
+  },
+  {
+    desktopSrc: "/banner2.webp",
+    mobileSrc: "/2bannermobile.webp",
+    href: "/produkty",
+    alt: "PACIDEKOR - expedícia do 24 hodín",
+    ctaLabel: "Všetky produkty",
   },
 ];
 

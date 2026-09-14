@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { AkciaSection } from "@/components/AkciaSection";
 import { BenefitsBar } from "@/components/BenefitsBar";
+import { BestsellerySection } from "@/components/BestsellerySection";
 import { HeroBanner } from "@/components/HeroBanner";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { NovinkySection } from "@/components/NovinkySection";
@@ -25,6 +26,7 @@ export default function Home() {
       <NovinkySection />
       <BenefitsBar />
       <AkciaSection />
+      <BestsellerySection />
       <NewsletterSection />
     </main>
   );

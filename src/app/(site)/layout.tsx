@@ -33,7 +33,7 @@ export default async function SiteLayout({
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <AccountDataSync />
       <ScrollToTop />
-      <div className="sticky top-0 z-50">
+      <div className="md:sticky md:top-0 md:z-50">
         <Header />
         <NavBar />
       </div>

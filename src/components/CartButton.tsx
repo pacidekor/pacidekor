@@ -3,10 +3,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart, X } from "lucide-react";
+import { ShoppingCart, Trash2, X } from "lucide-react";
 import {
   cartItemCount,
   cartSubtotal,
+  removeFromCart,
   type CartItem,
 } from "@/lib/cart";
 import {
@@ -47,12 +48,12 @@ function CartItems({
   return (
     <ul className="divide-y divide-black/6">
       {items.map(({ product, quantity }) => (
-        <li key={product.id}>
+        <li key={product.id} className="flex items-center gap-1.5 py-3">
           <Link
             href={productHref(product.slug)}
             prefetch={false}
             onClick={onSelect}
-            className="flex items-center gap-3 py-3 transition-colors hover:bg-black/[0.03]"
+            className="flex min-w-0 flex-1 items-center gap-3 rounded-xl transition-colors hover:bg-black/[0.03]"
           >
             <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9] sm:size-16">
               <Image
@@ -79,6 +80,16 @@ function CartItems({
               </span>
             </span>
           </Link>
+          <button
+            type="button"
+            aria-label={`Odstrániť ${product.name}`}
+            onClick={() => {
+              void removeFromCart(product.id);
+            }}
+            className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/40 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+          >
+            <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
+          </button>
         </li>
       ))}
     </ul>
@@ -191,7 +202,7 @@ export function CartButton({
         {trigger}
 
         <div
-          className={`fixed inset-x-0 top-16 bottom-0 z-40 md:hidden ${
+          className={`fixed inset-x-0 top-[var(--mobile-header-offset)] bottom-0 z-40 md:hidden ${
             open ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
@@ -209,7 +220,7 @@ export function CartButton({
             role="dialog"
             aria-label="Košík"
             aria-hidden={!open}
-            className={`relative flex max-h-[calc(100dvh-4rem)] flex-col border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+            className={`relative flex max-h-[calc(100dvh-var(--mobile-header-offset))] flex-col border-b border-black/8 bg-[#e8ebe2] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               open ? "translate-y-0" : "-translate-y-3 opacity-0"
             }`}
           >

@@ -165,6 +165,7 @@ function toInsertPayload(
     is_new: markAsNew,
     new_until: markAsNew ? computeNewUntil() : null,
     in_vypredaj: Boolean(input.inVypredaj),
+    is_bestseller: Boolean(input.isBestseller),
   };
 }
 
@@ -224,6 +225,7 @@ function toUpdatePayload(
   }
 
   payload.in_vypredaj = Boolean(input.inVypredaj);
+  payload.is_bestseller = Boolean(input.isBestseller);
 
   return payload;
 }

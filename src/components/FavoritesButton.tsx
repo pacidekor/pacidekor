@@ -4,17 +4,14 @@ import { startTransition, useEffect, useId, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Check, Heart, ShoppingCart, X } from "lucide-react";
+import { Check, Heart, ShoppingCart, Trash2, X } from "lucide-react";
 import { addLinesToCart } from "@/lib/cart";
 import {
   FAVORITES_EVENT,
   favoriteCountLabel,
   getFavoriteProducts,
+  toggleFavorite,
 } from "@/lib/favorites";
-import {
-  getInventoryForProduct,
-  isInventoryAvailable,
-} from "@/lib/inventory";
 import { productHref, type Product } from "@/lib/products";
 import { formatPriceExVatLabel, formatPriceIncVatLabel } from "@/lib/price";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
@@ -34,12 +31,10 @@ function feedbackMessage(added: number, skipped: number) {
 function FavoriteItems({
   products,
   onSelect,
-  onAddedOne,
   isWholesale,
 }: {
   products: Product[];
   onSelect?: () => void;
-  onAddedOne?: (productId: string) => void;
   isWholesale: boolean;
 }) {
   if (products.length === 0) {
@@ -52,61 +47,47 @@ function FavoriteItems({
 
   return (
     <ul className="divide-y divide-black/6">
-      {products.map((product) => {
-        const available = isInventoryAvailable(getInventoryForProduct(product));
-        return (
-          <li key={product.id} className="flex items-center gap-2 py-3">
-            <Link
-              href={productHref(product.slug)}
-              prefetch={false}
-              onClick={onSelect}
-              className="flex min-w-0 flex-1 items-center gap-3 rounded-xl transition-colors hover:bg-black/[0.03]"
-            >
-              <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9] sm:size-16">
-                <Image
-                  src={product.image}
-                  alt=""
-                  fill
-                  sizes="64px"
-                  quality={90}
-                  className="object-cover"
-                />
+      {products.map((product) => (
+        <li key={product.id} className="flex items-center gap-1.5 py-3">
+          <Link
+            href={productHref(product.slug)}
+            prefetch={false}
+            onClick={onSelect}
+            className="flex min-w-0 flex-1 items-center gap-3 rounded-xl transition-colors hover:bg-black/[0.03]"
+          >
+            <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9] sm:size-16">
+              <Image
+                src={product.image}
+                alt=""
+                fill
+                sizes="64px"
+                quality={90}
+                className="object-cover"
+              />
+            </span>
+            <span className="min-w-0 flex-1">
+              <span className="line-clamp-2 text-sm font-medium leading-snug text-[#2f2924]">
+                {product.name}
               </span>
-              <span className="min-w-0 flex-1">
-                <span className="line-clamp-2 text-sm font-medium leading-snug text-[#2f2924]">
-                  {product.name}
-                </span>
-                <span className="mt-1 block text-sm font-semibold text-[#2f2924]">
-                  {isWholesale
-                    ? formatPriceExVatLabel(product.price)
-                    : formatPriceIncVatLabel(product.price)}
-                  {!available ? (
-                    <span className="ml-2 font-normal text-[#9a4d3f]">
-                      Vypredané
-                    </span>
-                  ) : null}
-                </span>
+              <span className="mt-1 block text-sm font-semibold text-[#2f2924]">
+                {isWholesale
+                  ? formatPriceExVatLabel(product.price)
+                  : formatPriceIncVatLabel(product.price)}
               </span>
-            </Link>
-            <button
-              type="button"
-              disabled={!available}
-              aria-label={
-                available
-                  ? `Pridať ${product.name} do košíka`
-                  : `${product.name} je vypredané`
-              }
-              onClick={() => {
-                const result = addLinesToCart([{ product, quantity: 1 }]);
-                if (result.added > 0) onAddedOne?.(product.id);
-              }}
-              className="inline-flex size-10 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-black/10 text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:bg-[#75825B]/8 hover:text-[#5f6a49] disabled:cursor-not-allowed disabled:opacity-35 disabled:hover:border-black/10 disabled:hover:bg-transparent disabled:hover:text-[#2f2924]"
-            >
-              <ShoppingCart className="size-4" strokeWidth={1.75} aria-hidden />
-            </button>
-          </li>
-        );
-      })}
+            </span>
+          </Link>
+          <button
+            type="button"
+            aria-label={`Odstrániť ${product.name} z obľúbených`}
+            onClick={() => {
+              void toggleFavorite(product.id);
+            }}
+            className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/40 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+          >
+            <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
+          </button>
+        </li>
+      ))}
     </ul>
   );
 }
@@ -182,10 +163,6 @@ export function FavoritesButton() {
     }
   }
 
-  function handleAddedOne(_productId: string) {
-    showFlash("Pridané do košíka.");
-  }
-
   return (
     <div
       ref={wrapRef}
@@ -247,7 +224,6 @@ export function FavoritesButton() {
               products={products}
               isWholesale={isWholesale}
               onSelect={() => setOpen(false)}
-              onAddedOne={handleAddedOne}
             />
           </div>
 

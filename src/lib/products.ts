@@ -54,6 +54,8 @@ export type Product = {
   newUntil?: string;
   /** Admin flag: listed on /vypredaj (can still have an Akcia discount). */
   inVypredaj?: boolean;
+  /** Admin flag: listed in Bestsellery (homepage + /bestsellery). */
+  isBestseller?: boolean;
   createdAt?: string;
 };
 
@@ -631,6 +633,7 @@ export function mapProductRow(row: ProductRow): Product {
     isNew: row.is_new,
     newUntil: row.new_until ?? undefined,
     inVypredaj: row.in_vypredaj,
+    isBestseller: Boolean(row.is_bestseller),
     createdAt: row.created_at,
   };
 }
@@ -832,6 +835,11 @@ export function getNewestProducts(allProducts: Product[], count?: number) {
 
 export function getVypredajProducts(allProducts: Product[]) {
   return allProducts.filter((product) => product.inVypredaj);
+}
+
+export function getBestsellerProducts(allProducts: Product[], count?: number) {
+  const list = allProducts.filter((product) => product.isBestseller);
+  return count != null ? list.slice(0, count) : list;
 }
 
 export function getSaleProducts(allProducts: Product[]) {

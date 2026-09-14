@@ -9,6 +9,11 @@
   --border: rgba(47, 41, 36, 0.1);
   --muted: #e8ebe2;
   --chart-1: #75825b;
+  /* Mobile top bar (h-16) + notch — keep panels flush under the header */
+  --mobile-header-height: 4rem;
+  --mobile-header-offset: calc(
+    var(--mobile-header-height) + env(safe-area-inset-top, 0px)
+  );
 }
 
 @media (min-width: 768px) {

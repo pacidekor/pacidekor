@@ -1,0 +1,61 @@
+[
+  {
+    "action": "common-gallery",
+    "fromProduct": "68",
+    "toProduct": "66",
+    "photos": [
+      10,
+      11
+    ],
+    "note": "krémová / ružová / oranžová / vínová / fialová"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "66",
+    "photos": [
+      10,
+      11
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "155",
+    "toProduct": "155",
+    "photos": [
+      1,
+      2,
+      3
+    ],
+    "note": "zelená / marhuľová"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "155",
+    "photos": [
+      1,
+      2,
+      3
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  },
+  {
+    "action": "common-gallery",
+    "fromProduct": "172",
+    "toProduct": "172",
+    "photos": [
+      1,
+      2
+    ],
+    "note": "biela / hnedá / červená / ružová / fialová / zelená / svetlozelená / olivová"
+  },
+  {
+    "action": "common-gallery-summary",
+    "productId": "172",
+    "photos": [
+      1,
+      2
+    ],
+    "note": "Spoločné snímky mimo pole Farby - parser ich nesmie brať ako jednu farbu. Potrebné rozšírenie importu pre všeobecnú galériu."
+  }
+]

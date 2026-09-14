@@ -1,0 +1,51 @@
+[
+  {
+    "id": "68",
+    "intoId": "66",
+    "verification": "ok",
+    "reason": "Prezentačný mix guľovitej dálie; jednotlivé kusy na fotkách 68 zodpovedajú stavbe 66. Nie je samostatný predávaný model.",
+    "evidence": "vizuálna zhoda guľovitej stavby a stredu 66 vs mix 68"
+  },
+  {
+    "id": "162",
+    "intoId": "156",
+    "verification": "k-overeni",
+    "reason": "Vizuálne rovnaký kvetinový vzor, ale šírka a návin stuhy nie sú doložené. Pred publikovaním potvrdiť rovnakú predajnú jednotku.",
+    "evidence": "vizuálna zhoda vzoru; chýba meranie šírky/návinu"
+  },
+  {
+    "id": "180",
+    "intoId": "127",
+    "verification": "ok",
+    "reason": "Rovnaké predĺžené drevené špirálky; rozdiel len farba. Tvar tyčinkovitých špirálok je totožný.",
+    "evidence": "zhoda predĺženého tvaru 127 a 180"
+  },
+  {
+    "id": "116",
+    "intoId": "83",
+    "verification": "ok",
+    "reason": "Rovnaká dvojfarebná drevená ružička (kontrast jadra a okraja). 116 je ďalšia farebná prezentácia.",
+    "evidence": "zhoda dvojfarebnej stavby 83 a 116"
+  },
+  {
+    "id": "87",
+    "intoId": "85",
+    "verification": "k-overeni",
+    "reason": "Rovnaká spirálovitá drevená hlava, ale predajná jednotka a balenie nie sú doložené. Pred publikovaním potvrdiť.",
+    "evidence": "zhoda spirálovitej stavby; chýba potvrdenie balenia/SKU"
+  },
+  {
+    "id": "97",
+    "intoId": "85",
+    "verification": "k-overeni",
+    "reason": "Rovnaká spirálovitá drevená hlava, ale predajná jednotka a balenie nie sú doložené. Pred publikovaním potvrdiť.",
+    "evidence": "zhoda spirálovitej stavby; chýba potvrdenie balenia/SKU"
+  },
+  {
+    "id": "16",
+    "intoId": "15",
+    "verification": "ok",
+    "reason": "Rovnaká veľká otvorená hlava iskerníka; rozdiel len farba. Kontrast voči kompaktnej 57.",
+    "evidence": "zhoda veľkosti a vrstvenia 15 a 16"
+  }
+]

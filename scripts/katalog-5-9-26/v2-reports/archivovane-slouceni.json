@@ -1,0 +1,67 @@
+[
+  {
+    "id": "68",
+    "intoId": "66",
+    "reason": "68 má identickú guľovitú stavbu s okrúhlymi lupienkami a žltým stredom ako 66; oranžový kus v mixe 68 je nerozoznateľný od 66. 68 je prezentačný farebný mix toho istého produktu, nie samostatný model."
+  },
+  {
+    "id": "162",
+    "intoId": "156",
+    "reason": "Rovnaký kvetinový vzor a šírka; líšia sa len farbou podkladu - vhodné ako farebné varianty jednej položky."
+  },
+  {
+    "id": "180",
+    "intoId": "127",
+    "reason": "Rovnaké predĺžené drevené špirálky; rozdiel len farba."
+  },
+  {
+    "id": "116",
+    "intoId": "83",
+    "reason": "Dvojfarebné drevené ružičky vizuálne totožné."
+  },
+  {
+    "id": "87",
+    "intoId": "85",
+    "reason": "Rovnaká spirálovitá drevená hlava; rozdiel len v prezentácii (mach vs sáčok)."
+  },
+  {
+    "id": "97",
+    "intoId": "85",
+    "reason": "Rovnaká spirálovitá drevená hlava; rozdiel len v prezentácii (mach vs sáčok)."
+  },
+  {
+    "id": "16",
+    "intoId": "15",
+    "reason": "Rovnaká veľká hlava iskerníka; rozdiel len farba."
+  },
+  {
+    "id": "14",
+    "intoId": "13",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava ruže so zvlnenými okrajmi\"; farby sa zlúčia do jedného produktu."
+  },
+  {
+    "id": "32",
+    "intoId": "28",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava ruže s prehnutými lupienkami\"; farby sa zlúčia do jedného produktu."
+  },
+  {
+    "id": "35",
+    "intoId": "34",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava ruže so zvrásnenými lupienkami\"; farby sa zlúčia do jedného produktu."
+  },
+  {
+    "id": "38",
+    "intoId": "36",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava ruže so zahnutými okrajmi\"; farby sa zlúčia do jedného produktu."
+  },
+  {
+    "id": "46",
+    "intoId": "43",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava ruže - guľovitá\"; farby sa zlúčia do jedného produktu."
+  },
+  {
+    "id": "70",
+    "intoId": "67",
+    "reason": "Rovnaký model podľa spoločného názvu „Hlava pivónie s guľovitým stredom\"; farby sa zlúčia do jedného produktu."
+  }
+]

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 import { Minus, Plus } from "lucide-react";
 
@@ -27,11 +27,16 @@ export function QuantityStepper({
 }: QuantityStepperProps) {
   const increment = Math.max(1, Math.floor(step) || 1);
   const effectiveMin = Math.max(min, increment);
+  // Ref keeps pace with rapid +/− even before React re-renders.
+  const valueRef = useRef(value);
+  const [localValue, setLocalValue] = useState(value);
   const [draft, setDraft] = useState(String(value));
-  const atMin = value <= effectiveMin;
-  const atMax = typeof max === "number" ? value >= max : false;
+  const atMin = localValue <= effectiveMin;
+  const atMax = typeof max === "number" ? localValue >= max : false;
 
   useEffect(() => {
+    valueRef.current = value;
+    setLocalValue(value);
     setDraft(String(value));
   }, [value]);
 
@@ -50,20 +55,33 @@ export function QuantityStepper({
     return result;
   }
 
+  function apply(next: number) {
+    const snapped = snap(next);
+    if (snapped === valueRef.current) return;
+    valueRef.current = snapped;
+    setLocalValue(snapped);
+    setDraft(String(snapped));
+    onChange(snapped);
+  }
+
   function commit(raw: string) {
     const parsed = Number.parseInt(raw, 10);
     if (Number.isNaN(parsed)) {
-      setDraft(String(value));
+      setDraft(String(valueRef.current));
       return;
     }
     const next = snap(parsed);
-    setDraft(String(next));
-    if (next !== value) {
-      // Synchronne, aby klik na „Do košíka“ hneď videl správne množstvo.
-      flushSync(() => {
-        onChange(next);
-      });
+    if (next === valueRef.current) {
+      setDraft(String(next));
+      return;
     }
+    valueRef.current = next;
+    setLocalValue(next);
+    setDraft(String(next));
+    // Synchronne, aby klik na „Do košíka“ hneď videl správne množstvo.
+    flushSync(() => {
+      onChange(next);
+    });
   }
 
   const isSm = size === "sm";
@@ -76,7 +94,7 @@ export function QuantityStepper({
     >
       <button
         type="button"
-        onClick={() => onChange(snap(value - increment))}
+        onClick={() => apply(valueRef.current - increment)}
         disabled={atMin}
         aria-label="Znížiť množstvo"
         className={`flex cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30 ${
@@ -106,14 +124,14 @@ export function QuantityStepper({
             event.currentTarget.blur();
           }
         }}
-        className={`min-w-8 appearance-none border-0 bg-transparent text-center font-sans font-semibold text-[#2f2924] outline-none ${
+        className={`min-w-8 appearance-none border-0 bg-transparent text-center font-sans font-semibold tabular-nums text-[#2f2924] outline-none ${
           isSm ? "w-8 text-sm" : "w-10 text-base"
         }`}
       />
 
       <button
         type="button"
-        onClick={() => onChange(snap(value + increment))}
+        onClick={() => apply(valueRef.current + increment)}
         disabled={atMax}
         aria-label="Zvýšiť množstvo"
         className={`flex cursor-pointer items-center justify-center text-[#2f2924] transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:opacity-30 ${

@@ -1,0 +1,295 @@
+[
+  {
+    "sourceFolder": "5",
+    "name": "Kytica dálie",
+    "description": "Umelá kytica dálie s hustými guľovitými kvetmi a realistickými zelenými listami. Hodí sa do vázy ako hotová dekorácia alebo ako výrazný prvok vo väčších aranžmánoch.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "Dálie",
+    "groups": [
+      {
+        "color": "bordová",
+        "photos": ["44", "46", "38"]
+      },
+      {
+        "color": "krémová",
+        "photos": ["42", "45", "39", "40", "43", "47"]
+      }
+    ],
+    "notes": "Foto 41 zmiešaný záber oboch farieb vynechané."
+  },
+  {
+    "sourceFolder": "6",
+    "name": "Umelý hyacint",
+    "description": "Umelý hyacint s hustým súkvetím drobných hviezdičkovitých kvetov a dlhými špicatými listami na pevnej stonke. Vynikne samostatne v úzkej váze aj v jarných kyticiach.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Hyacint",
+    "groups": [
+      {
+        "color": "staroružová",
+        "photos": ["53", "48"]
+      },
+      {
+        "color": "biela",
+        "photos": ["54", "49"]
+      }
+    ],
+    "notes": "Fotá 50–52 sú zmiešané (jedna farba vo váze, druhá vedľa) a boli vynechané; chýbajú samostatné vázy."
+  },
+  {
+    "sourceFolder": "7",
+    "name": "Umelý iskerník",
+    "description": "Umelý iskerník s plným vrstveným kvetom a zúbkovanými listami na dlhej stonke. Skvele vynikne samostatne vo váze alebo ako dominantný kvet v kyticiach.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Iskerník",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": ["61", "55"]
+      },
+      {
+        "color": "zelená",
+        "photos": ["60", "56"]
+      }
+    ],
+    "notes": "Zelená varianta má vínové okraje a stred; fotá 57–59 zmiešané vynechané."
+  },
+  {
+    "sourceFolder": "8",
+    "name": "Umelá artičoka",
+    "description": "Umelá dekoratívna artičoka s detailne prepracovaným kvetom a realistickými zelenými listami na dlhej stonke. Pôsobí moderne a hodí sa do minimalistických váz aj do výrazných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Artičoka",
+    "groups": [
+      {
+        "color": "vínová",
+        "photos": ["67", "63", "69"]
+      },
+      {
+        "color": "fialová",
+        "photos": ["66", "62", "70"]
+      },
+      {
+        "color": "zelená",
+        "photos": ["68", "64", "71"]
+      }
+    ],
+    "notes": "Foto 65 zmiešaný záber troch farieb vynechané."
+  },
+  {
+    "sourceFolder": "9",
+    "name": "Umelá alstroméria",
+    "description": "Umelá alstroméria s viacerými ľaliovitými kvetmi na jednej stonke a dlhými zelenými listami. Hodí sa do vysokých váz aj ako doplnok do miešaných kytíc.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Alstroméria",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": ["74", "77", "73"]
+      },
+      {
+        "color": "krémová",
+        "photos": ["75", "76", "72"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "10",
+    "name": "Umelá fiala",
+    "description": "Umelá fiala s bohato kvitnúcim klasom drobných zvlnených kvetov a jemnými púčikmi na vrchole. Dlhá stonka vynikne samostatne vo vysokej váze alebo ako vertikálny prvok v dekoráciách.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "Fiala",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": ["97", "78", "87"]
+      },
+      {
+        "color": "ružová",
+        "photos": ["98", "79", "88"]
+      },
+      {
+        "color": "krémová",
+        "photos": ["99", "80", "89"]
+      },
+      {
+        "color": "fialová",
+        "photos": ["100", "81", "90"]
+      },
+      {
+        "color": "zelená",
+        "photos": ["101", "82", "91"]
+      },
+      {
+        "color": "bordová",
+        "photos": ["102", "83", "92"]
+      },
+      {
+        "color": "modrá",
+        "photos": ["103", "84", "93"]
+      },
+      {
+        "color": "tmavofialová",
+        "photos": ["104", "85", "94"]
+      },
+      {
+        "color": "žltá",
+        "photos": ["105", "86", "95"]
+      }
+    ],
+    "notes": "Foto 96 zmiešaná kytica všetkých farieb vynechané; modrá je skôr svetlomodrofialová."
+  },
+  {
+    "sourceFolder": "11",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s bohato vrstvenými okvetnými lístkami a realistickým tvarom. Ideálna na tvorbu vencov, aranžmánov a interiérových dekorácií.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": ["3", "4"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "12",
+    "name": "Hlavička klinčeka",
+    "description": "Umelá hlavička klinčeka s hustými zúbkovanými okvetnými lístkami. Hodí sa na aranžovanie vencov, ikebán a kvetinových dekorácií.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Klinček",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": ["6", "7"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "13",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s plnými vrstvenými okvetnými lístkami a prirodzeným tieňovaním. Vhodná na výrobu vencov, dekoratívnych mís a kvetinových boxov.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      {
+        "color": "staroružová",
+        "photos": ["13", "11"]
+      },
+      {
+        "color": "krémová",
+        "photos": ["12"]
+      }
+    ],
+    "notes": "Foto 10 balenie oboch farieb a 12 zmiešaný záber; krémová nemá samostatný celok, použitý najlepší dostupný záber."
+  },
+  {
+    "sourceFolder": "14",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s klasickým tvarom a bohato vrstvenými okvetnými lístkami. Ideálna na vencové aranžmány, ikebany a floristické dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": ["16", "15", "14"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "15",
+    "name": "Hlavička iskerníka",
+    "description": "Dekoratívna hlavička iskerníka s hustými vrstvenými okvetnými lístkami a plným guľovitým tvarom. Hodí sa na výrobu vencov, ikebán a floristických dekorácií.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Iskerník",
+    "groups": [
+      {
+        "color": "bordová",
+        "photos": ["19", "18", "17"]
+      }
+    ],
+    "notes": "Môže ísť aj o drobnú pivóniu; podľa vrstvenia zaradené ako Iskerník."
+  },
+  {
+    "sourceFolder": "16",
+    "name": "Hlavička iskerníka",
+    "description": "Umelá hlavička iskerníka s jemne vrstvenými okvetnými lístkami a realistickou textúrou. Vhodná na aranžovanie vencov, boxov a jemných kvetinových dekorácií.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Iskerník",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": ["22", "21", "20"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "17",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie zložená z množstva drobných štvorlupienkových kvetov. Skvele sa hodí na venčeky, veľké aranžmány a objemové dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Hortenzia",
+    "groups": [
+      {
+        "color": "staroružová",
+        "photos": ["25", "24", "23"]
+      }
+    ],
+    "notes": "Farba môže byť aj lososová podľa odtieňa."
+  },
+  {
+    "sourceFolder": "18",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie s detailne vypracovanými drobnými kvetmi a jemným prírodným tieňovaním. Ideálny základ pre venčeky, aranžmány a interiérové dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Hortenzia",
+    "groups": [
+      {
+        "color": "krémovo-zelená",
+        "photos": ["28", "27", "26"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "19",
+    "name": "Hlavička pivónie",
+    "description": "Drobná umelá hlavička pivónie s hustými vrstvenými okvetnými lístkami a prirodzeným tvarom. Hodí sa na venčeky, aranžmány a jemné floristické dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      {
+        "color": "staroružová",
+        "photos": ["31", "30", "29"]
+      }
+    ]
+  },
+  {
+    "sourceFolder": "20",
+    "name": "Hlavička pomponu",
+    "description": "Drobná umelá hlavička pomponu s bohato vrstvenými okvetnými lístkami v guľovitom tvare. Ideálna na venčeky, výplň do boxov a drobné floristické dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pompony",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": ["34", "33", "32"]
+      }
+    ],
+    "notes": "Alternatívne Chryzantéma; podľa tvaru zaradené ako Pompony."
+  }
+]

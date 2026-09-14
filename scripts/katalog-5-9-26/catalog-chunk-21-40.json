@@ -1,0 +1,248 @@
+[
+  {
+    "sourceFolder": "21",
+    "name": "Hlava ruže",
+    "description": "Samostatná hlavička umelej ruže s bohatým vrstvením okvetných lístkov. Hodí sa na výrobu vencov, kvetinových boxov aj iných floristických aranžmánov. Realistický tvar pôsobí prirodzene a elegantne.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "biela", "photos": ["37", "36", "35"] }
+    ]
+  },
+  {
+    "sourceFolder": "22",
+    "name": "Hlava ľalie",
+    "description": "Otvorená hlavička umelej ľalie so špicatými okvetnými lístkami a výrazným stredom. Ideálna na aranžovanie vencov, smútočných dekorácií aj elegantných ikebán. Detailné spracovanie dodáva kvetu prirodzený a dôstojný vzhľad.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ľalia",
+    "groups": [
+      { "color": "biela", "photos": ["40", "39", "38"] }
+    ]
+  },
+  {
+    "sourceFolder": "23",
+    "name": "Hlava dálie",
+    "description": "Hustá hlavička umelej dálie s dlhšími špicatými okvetnými lístkami usporiadanými do plného kvetu. Vynikne vo vencoch, stolových aranžmánoch aj sezónnych dekoráciách. Textúra okvetia pôsobí realisticky a dekoratívne.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Dálie",
+    "groups": [
+      { "color": "biela", "photos": ["43", "42", "41"] }
+    ]
+  },
+  {
+    "sourceFolder": "24",
+    "name": "Hlava ruže",
+    "description": "Klasická hlavička umelej ruže s jemným vrstvením okvetných lístkov. Skvelo sa hodí na výrobu vencov, kytíc a bytových dekorácií. Prirodzený tvar kvetu oživí každé floristické aranžmánie.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "biela", "photos": ["46", "45", "44"] }
+    ]
+  },
+  {
+    "sourceFolder": "25",
+    "name": "Hlava ruže",
+    "description": "Plná hlavička umelej ruže s bohatými vrstvami jemných okvetných lístkov. Určená na aranžovanie vencov, boxov a svadobných dekorácií. Realistické spracovanie dodá aranžmánu mäkký a elegantný charakter.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "krémová", "photos": ["49", "48", "47"] }
+    ]
+  },
+  {
+    "sourceFolder": "26",
+    "name": "Hlava hortenzie",
+    "description": "Objemná hlavička umelej hortenzie zložená z drobných štvorlupienkových kvetov. Výborná do vencov, veľkých aranžmánov aj ako samostatný dekoračný prvok. Bohatá štruktúra kvetu pôsobí plne a prirodzene.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Hortenzia",
+    "groups": [
+      { "color": "smotanová", "photos": ["52", "51", "50"] }
+    ]
+  },
+  {
+    "sourceFolder": "27",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s riasenými okvetnými lístkami. Ideálna na tvorbu vencov, kvetinových stien a luxusných aranžmánov. Hustý kvet pôsobí veľmi realisticky a jemne.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "staroružová", "photos": ["55", "54", "53"] }
+    ]
+  },
+  {
+    "sourceFolder": "28",
+    "name": "Hlava ruže",
+    "description": "Anglická hlavička umelej ruže s plným a bohatým okvetím. Hodí sa do vencov, svadobných dekorácií aj stolových aranžmánov. Jemné tieňovanie okvetných lístkov dodáva kvetu prirodzený vzhľad.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "krémová", "photos": ["58", "57", "56"] }
+    ]
+  },
+  {
+    "sourceFolder": "29",
+    "name": "Hlava pivónie",
+    "description": "Veľká hlavička umelej pivónie s hustými riasenými okvetnými lístkami. Vynikne vo vencoch, boxoch aj ako dominantný prvok aranžmánu. Kvalitné spracovanie zachováva tvar a realistický vzhľad.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "staroružová", "photos": ["61", "60", "59"] }
+    ]
+  },
+  {
+    "sourceFolder": "30",
+    "name": "Hlava pivónie",
+    "description": "Plná hlavička umelej pivónie s jemným a bohatým okvetím. Skvelo sa hodí na výrobu vencov a dekoratívnych aranžmánov. Realistická textúra okvetných lístkov pôsobí elegantne a prirodzene.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "ružová", "photos": ["64", "63", "62"] }
+    ]
+  },
+  {
+    "sourceFolder": "31",
+    "name": "Hlava artičoky",
+    "description": "Dekoračná hlavička umelej artičoky s detailne tvarovanými šupinami. Moderný textúrovaný prvok do vencov, ikebán a súčasných floristických aranžmánov. Dodá kompozícii zaujímavý tvar a prirodzený charakter.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Artičoka",
+    "groups": [
+      { "color": "zelená", "photos": ["67", "66"] },
+      { "color": "svetlofialová", "photos": ["70", "71"] }
+    ],
+    "notes": "Preskočené mix zábery 65, 68, 69."
+  },
+  {
+    "sourceFolder": "32",
+    "name": "Hlava ruže",
+    "description": "Kompaktná hlavička umelej ruže s hustým vrstvením okvetných lístkov. Určená na výrobu vencov, boxov a drobných dekorácií. Plný tvar kvetu pôsobí jemne a realisticky.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "zelená", "photos": ["73", "74"] },
+      { "color": "biela", "photos": ["77", "78"] }
+    ],
+    "notes": "Preskočené mix zábery 72, 75, 76. Môže pripomínať aj iskerník."
+  },
+  {
+    "sourceFolder": "33",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s mäkkými riasenými okvetnými lístkami. Ideálna na venčeky, kvetinové steny a interiérové aranžmány. Realistické tieňovanie dodáva kvetu prirodzenú hĺbku.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "staroružová", "photos": ["81", "80"] },
+      { "color": "krémová", "photos": ["85", "84"] }
+    ],
+    "notes": "Preskočené mix zábery 79, 82, 83."
+  },
+  {
+    "sourceFolder": "34",
+    "name": "Hlavička ruže",
+    "description": "Menšia hlavička umelej ruže s hustým a pravidelným okvetím. Výborná na výrobu vencov, girland a detailných aranžmánov. Kompaktný tvar dobre drží formu a pôsobí realisticky.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "bordová", "photos": ["88", "87"] },
+      { "color": "svetlofialová", "photos": ["90", "89"] },
+      { "color": "krémová", "photos": ["92", "91"] },
+      { "color": "tmavofialová", "photos": ["93", "94"] },
+      { "color": "ružová", "photos": ["96", "95"] }
+    ],
+    "notes": "Preskočené mix zábery 86, 97, 98. Farebný odtieň 89/90 môže byť aj staroružová."
+  },
+  {
+    "sourceFolder": "35",
+    "name": "Hlavička ruže",
+    "description": "Drobná hlavička umelej ruže s jemným spiralovým otváraním okvetia. Hodí sa na venčeky, boxy a precízne floristické detaily. Realistická textúra okvetných lístkov pôsobí prirodzene.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "ružová", "photos": ["101", "100", "102"] },
+      { "color": "bledoružová", "photos": ["103"] }
+    ],
+    "notes": "Preskočené mix a balenie 99, 104, 105, 106. V mixe je viditeľný aj tretí medzitón."
+  },
+  {
+    "sourceFolder": "36",
+    "name": "Hlava ruže",
+    "description": "Otvorená hlavička umelej ruže s bohatými vrstvami okvetných lístkov. Vhodná do vencov, ikebán aj bytových dekorácií. Plný kvet pôsobí elegantne a realisticky.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "fialová", "photos": ["108"] },
+      { "color": "ružová", "photos": ["109"] },
+      { "color": "oranžová", "photos": ["110"] }
+    ],
+    "notes": "Preskočené mix zábery 107, 111. Oranžová môže byť aj broskyňová."
+  },
+  {
+    "sourceFolder": "37",
+    "name": "Hlava pivónie",
+    "description": "Hustá hlavička umelej pivónie s bohatým riaseným okvetím. Skvele sa hodí na výrobu vencov a dekoratívnych aranžmánov. Jemné spracovanie dodáva kvetu mäkký a prirodzený vzhľad.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "biela", "photos": ["114"] },
+      { "color": "ružová", "photos": ["115", "116"] }
+    ],
+    "notes": "Preskočené mix zábery 112, 117. Chýba foto 113 v inventári."
+  },
+  {
+    "sourceFolder": "38",
+    "name": "Hlava ruže",
+    "description": "Plná hlavička umelej ruže s hustým a jemne riaseným okvetím. Ideálna na venčeky, aranžmány a interiérové dekorácie. Realistické tieňovanie okvetných lístkov pôsobí prirodzene.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Ruže",
+    "groups": [
+      { "color": "bordová", "photos": ["119"] },
+      { "color": "staroružová", "photos": ["120"] }
+    ],
+    "notes": "Preskočené mix zábery 118, 121. Tmavší odtieň môže byť aj tmavofialová."
+  },
+  {
+    "sourceFolder": "39",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s jemnými riasenými okvetnými lístkami. Určená na tvorbu vencov, boxov a dekoratívnych aranžmánov. Hustý tvar kvetu pôsobí luxusne a realisticky.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "staroružová", "photos": ["123"] },
+      { "color": "bledomodrá", "photos": ["124"] },
+      { "color": "svetlozelená", "photos": ["125"] },
+      { "color": "bordová", "photos": ["126"] }
+    ],
+    "notes": "Preskočené mix zábery 122, 127. Foto 124 môže byť podľa balenia skôr biela/krémová."
+  },
+  {
+    "sourceFolder": "40",
+    "name": "Hlava pivónie",
+    "description": "Objemná hlavička umelej pivónie s hustými textilnými okvetnými lístkami. Hodí sa na výrobu vencov a výrazných floristických dekorácií. Realistické spracovanie zachováva tvar aj pri dlhodobom použití.",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "druh": "Pivónie",
+    "groups": [
+      { "color": "biela", "photos": ["129"] },
+      { "color": "bordová", "photos": ["131"] }
+    ],
+    "notes": "Preskočené mix zábery 128, 130."
+  }
+]

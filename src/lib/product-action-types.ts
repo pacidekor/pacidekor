@@ -24,4 +24,5 @@ export type ProductUpsertInput = {
   details?: Product["details"];
   markAsNew?: boolean;
   inVypredaj?: boolean;
+  isBestseller?: boolean;
 };

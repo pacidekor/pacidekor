@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useDeferredValue, useEffect, useState } from "react";
 import { Layers, ShoppingBag, Trash2 } from "lucide-react";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { SaveCartTemplateModal } from "@/components/cart/SaveCartTemplateModal";
@@ -16,6 +16,7 @@ import {
   meetsMinOrder,
   MIN_ORDER_TOTAL,
   parsePrice,
+  readCartItems,
   removeFromCart,
   setCartQuantity,
   type CartItem,
@@ -58,6 +59,38 @@ import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 import { useCartItems } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
+/** Accumulate stock deltas while clicking; flush one server call after pause. */
+const STOCK_SYNC_MS = 320;
+const pendingStockDelta = new Map<
+  string,
+  { delta: number; timer: ReturnType<typeof setTimeout> }
+>();
+
+function scheduleStockSync(product: CartItem["product"], delta: number) {
+  const existing = pendingStockDelta.get(product.id);
+  if (existing) clearTimeout(existing.timer);
+
+  const nextDelta = (existing?.delta ?? 0) + delta;
+  const timer = setTimeout(() => {
+    pendingStockDelta.delete(product.id);
+    if (nextDelta === 0) return;
+
+    void adjustStockAction(product.id, nextDelta).then((result) => {
+      if (!result.ok) {
+        const undo = previewInventoryDelta(product, -nextDelta);
+        if (undo.ok) applyInventoryLocally(product.id, undo.entry);
+        return;
+      }
+      setInventory(product.id, {
+        inStock: result.data.inStock,
+        quantity: result.data.stockQuantity,
+      });
+    });
+  }, STOCK_SYNC_MS);
+
+  pendingStockDelta.set(product.id, { delta: nextDelta, timer });
+}
+
 function CartLine({
   item,
   onQuantityChange,
@@ -70,7 +103,8 @@ function CartLine({
   isWholesale: boolean;
 }) {
   const { product, quantity } = item;
-  const lineTotalNet = parsePrice(product.price) * quantity;
+  const deferredQuantity = useDeferredValue(quantity);
+  const lineTotalNet = parsePrice(product.price) * deferredQuantity;
   const lineTotal = isWholesale
     ? lineTotalNet
     : priceIncludingVat(lineTotalNet);
@@ -136,7 +170,7 @@ function CartLine({
           />
 
           <div className="text-right">
-            <p className="font-heading text-lg font-semibold text-[#2f2924]">
+            <p className="font-heading text-lg font-semibold tabular-nums text-[#2f2924]">
               {formatPrice(lineTotal)}
               {isWholesale ? (
                 <span className="ml-1.5 text-xs font-normal text-[#2f2924]/45">
@@ -144,7 +178,7 @@ function CartLine({
                 </span>
               ) : null}
             </p>
-            {quantity > 1 ? (
+            {deferredQuantity > 1 ? (
               <p className="mt-0.5 text-xs text-[#2f2924]/45">
                 {isWholesale
                   ? `${formatPriceExVat(product.price)} / ks`
@@ -421,6 +455,7 @@ function EmptyCart() {
 
 export function CartView() {
   const items = useCartItems();
+  const deferredItems = useDeferredValue(items);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const isWholesale = useIsWholesale();
 
@@ -439,7 +474,8 @@ export function CartView() {
   }, []);
 
   function updateQuantity(productId: string, next: number) {
-    const item = items.find((entry) => entry.product.id === productId);
+    // Always read latest cart — React `items` can lag behind rapid stepper clicks.
+    const item = readCartItems().find((entry) => entry.product.id === productId);
     if (!item) return;
 
     const multiple = getProductOrderMultiple(item.product.attributes?.packaging);
@@ -458,24 +494,21 @@ export function CartView() {
     });
 
     if (preview.needsServerSync) {
-      void adjustStockAction(item.product.id, -delta).then((result) => {
-        if (!result.ok) {
-          applyInventoryLocally(item.product.id, previous);
-          return;
-        }
-        setInventory(item.product.id, {
-          inStock: result.data.inStock,
-          quantity: result.data.stockQuantity,
-        });
-      });
+      scheduleStockSync(item.product, -delta);
     }
   }
 
   function removeItem(productId: string) {
-    const item = items.find((entry) => entry.product.id === productId);
+    const item = readCartItems().find((entry) => entry.product.id === productId);
     if (!item) {
       void removeFromCart(productId);
       return;
+    }
+
+    const pending = pendingStockDelta.get(productId);
+    if (pending) {
+      clearTimeout(pending.timer);
+      pendingStockDelta.delete(productId);
     }
 
     const previous = getInventoryForProduct(item.product);
@@ -489,16 +522,19 @@ export function CartView() {
     });
 
     if (preview.ok && preview.needsServerSync) {
-      void adjustStockAction(item.product.id, item.quantity).then((result) => {
-        if (!result.ok) {
-          applyInventoryLocally(item.product.id, previous);
-          return;
-        }
-        setInventory(item.product.id, {
-          inStock: result.data.inStock,
-          quantity: result.data.stockQuantity,
+      const flushDelta = (pending?.delta ?? 0) + item.quantity;
+      if (flushDelta !== 0) {
+        void adjustStockAction(item.product.id, flushDelta).then((result) => {
+          if (!result.ok) {
+            applyInventoryLocally(item.product.id, previous);
+            return;
+          }
+          setInventory(item.product.id, {
+            inStock: result.data.inStock,
+            quantity: result.data.stockQuantity,
+          });
         });
-      });
+      }
     }
   }
 
@@ -506,7 +542,7 @@ export function CartView() {
     return <EmptyCart />;
   }
 
-  const subtotal = cartSubtotal(items);
+  const subtotal = cartSubtotal(deferredItems);
   const count = cartItemCount(items);
 
   return (
@@ -543,7 +579,7 @@ export function CartView() {
       </section>
 
       <CartSummary
-        items={items}
+        items={deferredItems}
         subtotal={subtotal}
         customer={customer}
         isWholesale={isWholesale}

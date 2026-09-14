@@ -1,0 +1,5594 @@
+[
+  {
+    "id": "1",
+    "name": "Echinacea na stopke",
+    "description": "Umelá echinacea s výrazným kužeľovitým stredom a jemnými okvetnými lístkami na dlhej zelenej stopke s listami. Vhodná samostatne do vázy alebo ako výrazný akcent v aranžmánoch.",
+    "farbyRaw": "oranžová [1-3] | ružová [4-6] | biela [7-9] | krémová [10-12] | staroružová [13-15] | žltá [16-18]",
+    "farby": [
+      {
+        "color": "oranžová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "7-9",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "10-12",
+        "photos": [
+          10,
+          11,
+          12
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "13-15",
+        "photos": [
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "color": "žltá",
+        "range": "16-18",
+        "photos": [
+          16,
+          17,
+          18
+        ]
+      }
+    ],
+    "druh": "Echinacea",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "1",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18
+    ],
+    "webpCount": 18
+  },
+  {
+    "id": "2",
+    "name": "Artičoka na stopke",
+    "description": "Umelá sušená artičoka s hustými vrstvenými šupinami na dlhej stopke. Textúrovaný kvetný vrchol pôsobí prírodne a hodí sa do vázy aj do rustikálnych aranžmánov.",
+    "farbyRaw": "fialová [1-3] | biela [4-6] | oranžová [7-9] | vínová [10-12]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "7-9",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "vínová",
+        "range": "10-12",
+        "photos": [
+          10,
+          11,
+          12
+        ]
+      }
+    ],
+    "druh": "Artičoka",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "2",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "webpCount": 12
+  },
+  {
+    "id": "3",
+    "name": "Proso dekoratívne",
+    "description": "Umelá vetva s dlhými hnedými listami a hustým klasom na vrchole stonku. Vzdušný filler do jesenných a rustikálnych aranžmánov, vhodný aj samostatne do vázy.",
+    "farbyRaw": "tmavofialová [1-3] | sivá [4-6]",
+    "farby": [
+      {
+        "color": "tmavofialová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "sivá",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "druh": "Zeleň / výplň",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "sourceFolder": "3",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "webpCount": 6
+  },
+  {
+    "id": "4",
+    "name": "Kytica klinčekov",
+    "description": "Zväzok umelých klinčekov s plnými riasenými kvetmi a zelenými listami. Kompaktná kytica vhodná do vázy ako hotová stolová dekorácia bez údržby.",
+    "farbyRaw": "žltá [1-3] | biela [4-6] | vínová [7-9]",
+    "farby": [
+      {
+        "color": "žltá",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "vínová",
+        "range": "7-9",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "druh": "Klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "sourceFolder": "4",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "webpCount": 9
+  },
+  {
+    "id": "5",
+    "name": "Kytica dálie",
+    "description": "Umelá kytica dálie s hustými guľovitými kvetmi a realistickými zelenými listami. Hodí sa do vázy ako hotová dekorácia alebo ako výrazný prvok vo väčších aranžmánoch.",
+    "farbyRaw": "bordová [1-3] | krémová [4-9]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "4-9",
+        "photos": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "sourceFolder": "5",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "webpCount": 9
+  },
+  {
+    "id": "6",
+    "name": "Umelý hyacint",
+    "description": "Umelý hyacint s hustým súkvetím drobných hviezdičkovitých kvetov a dlhými špicatými listami na pevnej stonke. Vynikne samostatne v úzkej váze aj v jarných kyticiach.",
+    "farbyRaw": "staroružová [1-2] | biela [3-4]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Hyacint",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "6",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "7",
+    "name": "Umelý iskerník",
+    "description": "Umelý iskerník s plným vrstveným kvetom a zúbkovanými listami na dlhej stonke. Skvele vynikne samostatne vo váze alebo ako dominantný kvet v kyticiach.",
+    "farbyRaw": "oranžová [1-2] | zelená [3-4]",
+    "farby": [
+      {
+        "color": "oranžová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "zelená",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "7",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "8",
+    "name": "Umelá artičoka",
+    "description": "Umelá dekoratívna artičoka s detailne prepracovaným kvetom a realistickými zelenými listami na dlhej stonke. Pôsobí moderne a hodí sa do minimalistických váz aj do výrazných aranžmánov.",
+    "farbyRaw": "vínová [1-3] | fialová [4-6] | zelená [7-9]",
+    "farby": [
+      {
+        "color": "vínová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "zelená",
+        "range": "7-9",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "druh": "Artičoka",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "8",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "webpCount": 9
+  },
+  {
+    "id": "9",
+    "name": "Umelá alstroméria",
+    "description": "Umelá alstroméria s viacerými ľaliovitými kvetmi na jednej stonke a dlhými zelenými listami. Hodí sa do vysokých váz aj ako doplnok do miešaných kytíc.",
+    "farbyRaw": "ružová [1-3] | krémová [4-6]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      }
+    ],
+    "druh": "Alstroméria",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "9",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "webpCount": 6
+  },
+  {
+    "id": "10",
+    "name": "Umelá fiala",
+    "description": "Umelá fiala s bohato kvitnúcim klasom drobných zvlnených kvetov a jemnými púčikmi na vrchole. Dlhá stonka vynikne samostatne vo vysokej váze alebo ako vertikálny prvok v dekoráciách.",
+    "farbyRaw": "biela [1-3] | ružová [4-6] | krémová [7-9] | fialová [10-12] | zelená [13-15] | bordová [16-18] | modrá [19-21] | tmavofialová [22-24] | žltá [25-27]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "4-6",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "7-9",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "10-12",
+        "photos": [
+          10,
+          11,
+          12
+        ]
+      },
+      {
+        "color": "zelená",
+        "range": "13-15",
+        "photos": [
+          13,
+          14,
+          15
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "16-18",
+        "photos": [
+          16,
+          17,
+          18
+        ]
+      },
+      {
+        "color": "modrá",
+        "range": "19-21",
+        "photos": [
+          19,
+          20,
+          21
+        ]
+      },
+      {
+        "color": "tmavofialová",
+        "range": "22-24",
+        "photos": [
+          22,
+          23,
+          24
+        ]
+      },
+      {
+        "color": "žltá",
+        "range": "25-27",
+        "photos": [
+          25,
+          26,
+          27
+        ]
+      }
+    ],
+    "druh": "Fiala",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "10",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27
+    ],
+    "webpCount": 27
+  },
+  {
+    "id": "11",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s bohato vrstvenými okvetnými lístkami a realistickým tvarom. Ideálna na tvorbu vencov, aranžmánov a interiérových dekorácií.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "11",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "12",
+    "name": "Hlavička klinčeka",
+    "description": "Umelá hlavička klinčeka s hustými zúbkovanými okvetnými lístkami. Hodí sa na aranžovanie vencov, ikebán a kvetinových dekorácií.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "12",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "13",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s plnými vrstvenými okvetnými lístkami a prirodzeným tieňovaním. Vhodná na výrobu vencov, dekoratívnych mís a kvetinových boxov.",
+    "farbyRaw": "staroružová [1-2] | krémová [3]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "13",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "14",
+    "name": "Hlavička ruže",
+    "description": "Umelá hlavička ruže s klasickým tvarom a bohato vrstvenými okvetnými lístkami. Ideálna na vencové aranžmány, ikebany a floristické dekorácie.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "14",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "15",
+    "name": "Hlavička iskerníka",
+    "description": "Dekoratívna hlavička iskerníka s hustými vrstvenými okvetnými lístkami a plným guľovitým tvarom. Hodí sa na výrobu vencov, ikebán a floristických dekorácií.",
+    "farbyRaw": "bordová [1-3]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "15",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "16",
+    "name": "Hlavička iskerníka",
+    "description": "Umelá hlavička iskerníka s jemne vrstvenými okvetnými lístkami a realistickou textúrou. Vhodná na aranžovanie vencov, boxov a jemných kvetinových dekorácií.",
+    "farbyRaw": "krémová [1-3]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "16",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "17",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie zložená z množstva drobných štvorlupienkových kvetov. Skvele sa hodí na venčeky, veľké aranžmány a objemové dekorácie.",
+    "farbyRaw": "staroružová [1-3]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "17",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "18",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie s detailne vypracovanými drobnými kvetmi a jemným prírodným tieňovaním. Ideálny základ pre venčeky, aranžmány a interiérové dekorácie.",
+    "farbyRaw": "krémovo-zelená [1-3]",
+    "farby": [
+      {
+        "color": "krémovo-zelená",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "18",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "19",
+    "name": "Hlavička pivónie",
+    "description": "Drobná umelá hlavička pivónie s hustými vrstvenými okvetnými lístkami a prirodzeným tvarom. Hodí sa na venčeky, aranžmány a jemné floristické dekorácie.",
+    "farbyRaw": "staroružová [1-3]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "19",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "20",
+    "name": "Hlavička pomponu",
+    "description": "Drobná umelá hlavička pomponu s bohato vrstvenými okvetnými lístkami v guľovitom tvare. Ideálna na venčeky, výplň do boxov a drobné floristické dekorácie.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pompony",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "20",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "21",
+    "name": "Hlava ruže",
+    "description": "Samostatná hlavička umelej ruže s bohatým vrstvením okvetných lístkov. Hodí sa na výrobu vencov, kvetinových boxov aj iných floristických aranžmánov. Realistický tvar pôsobí prirodzene a elegantne.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "21",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "22",
+    "name": "Hlava ľalie",
+    "description": "Otvorená hlavička umelej ľalie so špicatými okvetnými lístkami a výrazným stredom. Ideálna na aranžovanie vencov, smútočných dekorácií aj elegantných ikebán. Detailné spracovanie dodáva kvetu prirodzený a dôstojný vzhľad.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ľalia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "22",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "23",
+    "name": "Hlava dálie",
+    "description": "Hustá hlavička umelej dálie s dlhšími špicatými okvetnými lístkami usporiadanými do plného kvetu. Vynikne vo vencoch, stolových aranžmánoch aj sezónnych dekoráciách. Textúra okvetia pôsobí realisticky a dekoratívne.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "23",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "24",
+    "name": "Hlava ruže",
+    "description": "Klasická hlavička umelej ruže s jemným vrstvením okvetných lístkov. Skvelo sa hodí na výrobu vencov, kytíc a bytových dekorácií. Prirodzený tvar kvetu oživí každé floristické aranžmánie.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "24",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "25",
+    "name": "Hlava ruže",
+    "description": "Plná hlavička umelej ruže s bohatými vrstvami jemných okvetných lístkov. Určená na aranžovanie vencov, boxov a svadobných dekorácií. Realistické spracovanie dodá aranžmánu mäkký a elegantný charakter.",
+    "farbyRaw": "krémová [1-3]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "25",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "26",
+    "name": "Hlava hortenzie",
+    "description": "Objemná hlavička umelej hortenzie zložená z drobných štvorlupienkových kvetov. Výborná do vencov, veľkých aranžmánov aj ako samostatný dekoračný prvok. Bohatá štruktúra kvetu pôsobí plne a prirodzene.",
+    "farbyRaw": "smotanová [1-3]",
+    "farby": [
+      {
+        "color": "smotanová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "26",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "27",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s riasenými okvetnými lístkami. Ideálna na tvorbu vencov, kvetinových stien a luxusných aranžmánov. Hustý kvet pôsobí veľmi realisticky a jemne.",
+    "farbyRaw": "staroružová [1-3]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "27",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "28",
+    "name": "Hlava ruže",
+    "description": "Anglická hlavička umelej ruže s plným a bohatým okvetím. Hodí sa do vencov, svadobných dekorácií aj stolových aranžmánov. Jemné tieňovanie okvetných lístkov dodáva kvetu prirodzený vzhľad.",
+    "farbyRaw": "krémová [1-3]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "28",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "29",
+    "name": "Hlava pivónie",
+    "description": "Veľká hlavička umelej pivónie s hustými riasenými okvetnými lístkami. Vynikne vo vencoch, boxoch aj ako dominantný prvok aranžmánu. Kvalitné spracovanie zachováva tvar a realistický vzhľad.",
+    "farbyRaw": "staroružová [1-3]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "29",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "30",
+    "name": "Hlava pivónie",
+    "description": "Plná hlavička umelej pivónie s jemným a bohatým okvetím. Skvelo sa hodí na výrobu vencov a dekoratívnych aranžmánov. Realistická textúra okvetných lístkov pôsobí elegantne a prirodzene.",
+    "farbyRaw": "ružová [1-3]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "30",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "31",
+    "name": "Hlava artičoky",
+    "description": "Dekoračná hlavička umelej artičoky s detailne tvarovanými šupinami. Moderný textúrovaný prvok do vencov, ikebán a súčasných floristických aranžmánov. Dodá kompozícii zaujímavý tvar a prirodzený charakter.",
+    "farbyRaw": "zelená [1-2] | svetlofialová [3-4]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "svetlofialová",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Artičoka",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "31",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "32",
+    "name": "Hlava ruže",
+    "description": "Kompaktná hlavička umelej ruže s hustým vrstvením okvetných lístkov. Určená na výrobu vencov, boxov a drobných dekorácií. Plný tvar kvetu pôsobí jemne a realisticky.",
+    "farbyRaw": "zelená [1-2] | biela [3-4]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "32",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "33",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s mäkkými riasenými okvetnými lístkami. Ideálna na venčeky, kvetinové steny a interiérové aranžmány. Realistické tieňovanie dodáva kvetu prirodzenú hĺbku.",
+    "farbyRaw": "staroružová [1-2] | krémová [3-4]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "33",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "34",
+    "name": "Hlavička ruže",
+    "description": "Menšia hlavička umelej ruže s hustým a pravidelným okvetím. Výborná na výrobu vencov, girland a detailných aranžmánov. Kompaktný tvar dobre drží formu a pôsobí realisticky.",
+    "farbyRaw": "bordová [1-2] | svetlofialová [3-4] | krémová [5-6] | tmavofialová [7-8] | ružová [9-10]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "svetlofialová",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "5-6",
+        "photos": [
+          5,
+          6
+        ]
+      },
+      {
+        "color": "tmavofialová",
+        "range": "7-8",
+        "photos": [
+          7,
+          8
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "9-10",
+        "photos": [
+          9,
+          10
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "34",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "webpCount": 10
+  },
+  {
+    "id": "35",
+    "name": "Hlavička ruže",
+    "description": "Drobná hlavička umelej ruže s jemným spiralovým otváraním okvetia. Hodí sa na venčeky, boxy a precízne floristické detaily. Realistická textúra okvetných lístkov pôsobí prirodzene.",
+    "farbyRaw": "ružová [1-3] | bledoružová [4]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "bledoružová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "35",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "36",
+    "name": "Hlava ruže",
+    "description": "Otvorená hlavička umelej ruže s bohatými vrstvami okvetných lístkov. Vhodná do vencov, ikebán aj bytových dekorácií. Plný kvet pôsobí elegantne a realisticky.",
+    "farbyRaw": "fialová [1] | ružová [2] | oranžová [3]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "36",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "37",
+    "name": "Hlava pivónie",
+    "description": "Hustá hlavička umelej pivónie s bohatým riaseným okvetím. Skvele sa hodí na výrobu vencov a dekoratívnych aranžmánov. Jemné spracovanie dodáva kvetu mäkký a prirodzený vzhľad.",
+    "farbyRaw": "biela [1] | ružová [2-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "2-3",
+        "photos": [
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "37",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "38",
+    "name": "Hlava ruže",
+    "description": "Plná hlavička umelej ruže s hustým a jemne riaseným okvetím. Ideálna na venčeky, aranžmány a interiérové dekorácie. Realistické tieňovanie okvetných lístkov pôsobí prirodzene.",
+    "farbyRaw": "bordová [1] | staroružová [2]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "38",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "39",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s jemnými riasenými okvetnými lístkami. Určená na tvorbu vencov, boxov a dekoratívnych aranžmánov. Hustý tvar kvetu pôsobí luxusne a realisticky.",
+    "farbyRaw": "staroružová [1] | bledomodrá [2] | svetlozelená [3] | bordová [4]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "bledomodrá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "svetlozelená",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "39",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "40",
+    "name": "Hlava pivónie",
+    "description": "Objemná hlavička umelej pivónie s hustými textilnými okvetnými lístkami. Hodí sa na výrobu vencov a výrazných floristických dekorácií. Realistické spracovanie zachováva tvar aj pri dlhodobom použití.",
+    "farbyRaw": "biela [1] | bordová [2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "40",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "41",
+    "name": "Hlava chryzantémy",
+    "description": "Guľovitá hlavička umelej chryzantémy s hustým pomponovým okvetím. Ideálna na výrobu vencov, boxov a objemových aranžmánov. Bohatá textúra lupienkov pôsobí realisticky a plne.",
+    "farbyRaw": "fialová [1] | tmavofialová [2] | biela [3-4] | krémová [5]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "tmavofialová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      }
+    ],
+    "druh": "Chryzantéma",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "41",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "webpCount": 5
+  },
+  {
+    "id": "42",
+    "name": "Hlava magnólie",
+    "description": "Otvorená hlavička umelej magnólie so širokými okvetnými lístkami a detailným stredom. Hodí sa na venčeky, ikebany aj elegantné interiérové aranžmány. Realistické spracovanie dodáva kvetu prirodzený charakter.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Magnólia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "42",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "43",
+    "name": "Hlava ruže",
+    "description": "Kompaktná hlavička umelej ruže s hustým vrstvením okvetných lístkov. Určená na výrobu vencov, boxov a drobných dekorácií. Plný tvar kvetu pôsobí jemne a realisticky.",
+    "farbyRaw": "svetlozelená [1] | biela [2] | čierna [3]",
+    "farby": [
+      {
+        "color": "svetlozelená",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "čierna",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "43",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "44",
+    "name": "Hlava kaly",
+    "description": "Elegantná hlavička umelej kaly s charakteristickým lievikovitým tvarom. Ideálna na venčeky, svadobné aranžmány a smútočnú floristiku. Hladké okvetie pôsobí čisto a dôstojne.",
+    "farbyRaw": "biela [1-4]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-4",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Kala",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "44",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "45",
+    "name": "Hlava kaly",
+    "description": "Hlavička umelej kaly s jemným lievikovitým okvetím a výrazným stredom. Hodí sa na výrobu vencov a dekoratívnych aranžmánov. Kvalitné spracovanie zachováva tvar aj pri dlhodobom použití.",
+    "farbyRaw": "ružová [1] | biela [2-3]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "2-3",
+        "photos": [
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Kala",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "45",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "46",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s bohatým vrstvením okvetných lístkov a jemným prechodom odtieňov. Skvelo sa hodí na venčeky a floristické aranžmány. Realistická textúra lupienkov pôsobí prirodzene.",
+    "farbyRaw": "svetlozelená [1-2]",
+    "farby": [
+      {
+        "color": "svetlozelená",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "46",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "47",
+    "name": "Hlava ruže",
+    "description": "Klasická hlavička umelej ruže s hustým a pravidelným okvetím. Určená na výrobu vencov, boxov a interiérových dekorácií. Plný tvar kvetu pôsobí elegantne a realisticky.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "47",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "48",
+    "name": "Hlava ľalie",
+    "description": "Otvorená hlavička umelej ľalie so špicatými okvetnými lístkami a detailnými tyčinkami. Ideálna na venčeky, smútočné aj sviatočné aranžmány. Realistické spracovanie dodáva kvetu dôstojný vzhľad.",
+    "farbyRaw": "biela [1] | svetloružová [2] | ružová [3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Ľalia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "48",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "49",
+    "name": "Hlava magnólie",
+    "description": "Široká hlavička umelej magnólie s veľkými okvetnými lístkami a výrazným stredom. Vhodná na tvorbu vencov a dekoratívnych aranžmánov. Jemné tieňovanie lupienkov pôsobí prirodzene a elegantne.",
+    "farbyRaw": "cyklámenová [1] | staroružová [2] | bordová [3] | biela [4]",
+    "farby": [
+      {
+        "color": "cyklámenová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Magnólia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "49",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "50",
+    "name": "Hlava klinčeka",
+    "description": "Hlavička umelého klinčeka s typicky riasenými okvetnými lístkami. Ideálna na venčeky, smútočné aj sviatočné aranžmány. Husté okvetie pôsobí plne a realisticky.",
+    "farbyRaw": "staroružová [1-2]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "50",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "51",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s bohatým vrstvením jemných okvetných lístkov. Hodí sa na výrobu vencov, boxov a bytových dekorácií. Realistický tvar kvetu oživí každé floristické aranžmánie.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "51",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "52",
+    "name": "Hlava orchidey",
+    "description": "Hlavička umelej orchidey s typickým tvarom okvetia a detailným stredom. Skvelo sa hodí na venčeky a elegantné interiérové aranžmány. Precízne spracovanie dodáva kvetu luxusný a prirodzený vzhľad.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Orchidea",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "52",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "53",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s jemne špicatými okvetnými lístkami a plným tvarom. Určená na aranžovanie vencov a dekoratívnych kompozícií. Realistická textúra lupienkov pôsobí prirodzene.",
+    "farbyRaw": "ružová [1-2]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "53",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "54",
+    "name": "Hlava gerbery",
+    "description": "Hlavička umelej gerbery s radiálne usporiadanými okvetnými lístkami a výrazným stredom. Ideálna na venčeky, stolové aranžmány a veselé dekorácie. Detailné spracovanie stredu dodáva kvetu realistický charakter.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Gerbera",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "54",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "55",
+    "name": "Hlava chryzantémy",
+    "description": "Hlavička umelej chryzantémy s dlhými úzkymi okvetnými lístkami v pavúčom štýle. Hodí sa na smútočnú floristiku, vence a veľké aranžmány. Bohaté okvetie pôsobí vzdušne a prirodzene.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Chryzantéma",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "55",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "56",
+    "name": "Hlava dálie",
+    "description": "Hustá hlavička umelej dálie s vrstvenými špicatými okvetnými lístkami. Ideálna na výrobu vencov a výrazných floristických dekorácií. Plný okrúhly tvar pôsobí realisticky a dekoratívne.",
+    "farbyRaw": "tehlová [1] | staroružová [2] | bledomodrá [3] | fialová [4] | púdrová [5]",
+    "farby": [
+      {
+        "color": "tehlová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "bledomodrá",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "púdrová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "56",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "webpCount": 5
+  },
+  {
+    "id": "57",
+    "name": "Hlavička iskerníka",
+    "description": "Drobná hlavička umelého iskerníka s hustým vrstvením okvetných lístkov. Výborná na venčeky, girlandy a detailné aranžmány. Kompaktný tvar dobre drží formu a pôsobí realisticky.",
+    "farbyRaw": "ružová [1] | biela [2-3] | svetloružová [4]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "2-3",
+        "photos": [
+          2,
+          3
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Iskerník",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "57",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "58",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s mäkkými riasenými okvetnými lístkami. Ideálna na tvorbu vencov, kvetinových stien a luxusných aranžmánov. Hustý kvet pôsobí veľmi realisticky a jemne.",
+    "farbyRaw": "cyklámenová [1-2] | marhuľová [3] | krémová [4]",
+    "farby": [
+      {
+        "color": "cyklámenová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "58",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "59",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s bohatým a pravidelným okvetím. Hodí sa na výrobu vencov, boxov a interiérových dekorácií. Realistické spracovanie lupienkov pôsobí elegantne.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "59",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "60",
+    "name": "Hlava ruže",
+    "description": "Plná hlavička umelej ruže s hustými vrstvami okvetných lístkov. Určená na aranžovanie vencov a dekoratívnych kompozícií. Prirodzený tvar kvetu oživí každé floristické aranžmánie.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "60",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "61",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s detailne vypracovanými okvetnými lístkami. Ideálna na tvorbu vencov a rôznych floristických aranžmánov. Kvet pôsobí jemne a realisticky.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "61",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "62",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s bohatým vrstvením okvetných lístkov a jemným stredom. Skvelo sa hodí na venčeky a sviatočné dekorácie. Realistická textúra lupienkov pôsobí prirodzene.",
+    "farbyRaw": "lososová [1-2]",
+    "farby": [
+      {
+        "color": "lososová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "62",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "63",
+    "name": "Hlava pivónie",
+    "description": "Hustá hlavička umelej pivónie s mäkkými riasenými okvetnými lístkami. Vhodná na výrobu vencov a jemných floristických aranžmánov. Plný tvar kvetu pôsobí realisticky a elegantne.",
+    "farbyRaw": "bledoružová [1-2]",
+    "farby": [
+      {
+        "color": "bledoružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "63",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "64",
+    "name": "Hlava ruže",
+    "description": "Hlavička umelej ruže s bohatým vrstvením lupienkov a jemným matným vzhľadom. Ideálna na lepenie do vencov a kreatívnych kompozícií. Realistické spracovanie dodáva aranžmánu plný charakter.",
+    "farbyRaw": "staroružová [1-2]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "64",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "65",
+    "name": "Hlava dálie",
+    "description": "Bohato vrstvená hlavička umelej dálie s hustými okvetnými lístkami. Ideálna na tvorbu vencov a dekoratívnych aranžmánov. Pôsobí veľmi prirodzene a zachováva tvar pri dlhodobom použití.",
+    "farbyRaw": "biela [1] | staroružová [2] | bordová [3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "65",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "66",
+    "name": "Hlava dálie",
+    "description": "Guľovitá hlavička umelej dálie s hustým pomponovým okvetím. Vynikajúci doplnok na vence a bohaté floristické aranžmány. Kvalitné spracovanie zaručuje stálu krásu dekorácie.",
+    "farbyRaw": "hrdzavá [1] | marhuľová [2] | svetloružová [3] | fialová [4] | krémová [5] | ružová [6-7] | oranžová [8] | bordová [9]",
+    "farby": [
+      {
+        "color": "hrdzavá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "6-7",
+        "photos": [
+          6,
+          7
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "8",
+        "photos": [
+          8
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "9",
+        "photos": [
+          9
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "66",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "webpCount": 9
+  },
+  {
+    "id": "67",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s realistickým okvetím. Ideálny komponent na tvorbu vencov a kvetinových aranžmánov. Detailné spracovanie lupienkov pôsobí prirodzene a jemne.",
+    "farbyRaw": "marhuľová [1] | fialová [2] | krémová [3]",
+    "farby": [
+      {
+        "color": "marhuľová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "67",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "68",
+    "name": "Hlava dálie",
+    "description": "Hustá hlavička umelej dálie so špicatými vrstvenými okvetnými lístkami. Hodí sa na výrobu vencov a výrazných aranžmánov. Realistické spracovanie zaručuje trvácny vzhľad dekorácie.",
+    "farbyRaw": "krémová / ružová / oranžová / vínová / fialová [1-2]",
+    "farby": [
+      {
+        "color": "krémová / ružová / oranžová / vínová / fialová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Dálie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "68",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "69",
+    "name": "Hlava antúrie",
+    "description": "Hlavička umelej antúrie s charakteristickým srdcovitým okvetím a výrazným stredom. Vhodná do moderných aranžmánov, vencov a interiérových dekorácií. Textúrovaný povrch pôsobí realisticky a elegantne.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Antúria",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "68",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "70",
+    "name": "Hlava pivónie",
+    "description": "Bohato vrstvená hlavička umelej pivónie s realistickým vzhľadom. Vhodná na tvorbu kvetinových dekorácií a celoročných vencov. Kvalitný materiál zachováva tvar aj pri dlhodobom použití.",
+    "farbyRaw": "svetlozelená [1] | bordová [2] | biela [3]",
+    "farby": [
+      {
+        "color": "svetlozelená",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "69",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "71",
+    "name": "Hlava ruže",
+    "description": "Kvalitná hlavička umelej ruže s detailne vypracovanými okvetnými lístkami. Ideálny komponent na tvorbu venčekov a kvetinových dekorácií. Pôsobí prirodzeným a jemným dojmom.",
+    "farbyRaw": "krémová [1-3]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "70",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "72",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie zložená z hustého trsu drobných kvetov. Ideálna na aranžovanie vencov, boxov a objemových dekorácií. Jemné spracovanie lupienkov pôsobí realisticky a mäkkým dojmom.",
+    "farbyRaw": "ružová [1-2]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "71",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "73",
+    "name": "Hlava hortenzie",
+    "description": "Hlavička umelej hortenzie s jemným prechodom odtieňov na okvetných lístkoch. Hodí sa na venčeky a dekoratívne aranžmány. Detailný stred a vrstvené lupene pôsobia prirodzene.",
+    "farbyRaw": "ružová [1-2]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "72",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "74",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlavička hortenzie s jemnými okvetnými lístkami a detailným stredom. Ideálna na aranžovanie vencov a interiérových dekorácií. Realistická textúra dodá eleganciu každému floristickému projektu.",
+    "farbyRaw": "staroružová [1-2]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "73",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "75",
+    "name": "Hlava hortenzie",
+    "description": "Jemne vrstvená hlavička umelej hortenzie s mäkkým okvetím. Vhodná ako doplnok do kytíc, vencov a kreatívnych aranžmánov. Prirodzený vzhľad oživí každú dekoráciu.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "74",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "76",
+    "name": "Hlava hortenzie",
+    "description": "Umelá hlava hortenzie s husto usporiadanými drobnými kvetmi. Ideálna na tvorbu vencov, kvetinových boxov a interiérových dekorácií. Kvalitné vypracovanie zabezpečuje prirodzený a estetický vzhľad.",
+    "farbyRaw": "lososová [1-2]",
+    "farby": [
+      {
+        "color": "lososová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Hortenzia",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "75",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "77",
+    "name": "Lotosový plod",
+    "description": "Drobné sušené lotosové plody s typickou štruktúrou otvorov. Vhodné na lepenie do vencov a machových dekorácií. Prírodný vzhľad doplní jesenné aj smútočné aranžmány.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Lotos",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "76",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "78",
+    "name": "Sušený hviezdicový plod",
+    "description": "Prírodné drevité plody otvorené do hviezdicovitého tvaru. Hodí sa do vencov, mís a rustikálnych aranžmánov. Výrazná textúra pôsobí autenticky a dekoratívne.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "77",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "79",
+    "name": "Sušený dekoračný plod",
+    "description": "Ozdobné sušené plody s výraznou textúrou a drobnými otvormi. Sú vhodnou voľbou na dotvorenie vencov, machových obrazov alebo ako výplň do dekoračných mís. Vynikajú odolnosťou a stálosťou.",
+    "farbyRaw": "sivohnedá [1-2]",
+    "farby": [
+      {
+        "color": "sivohnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "78",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "80",
+    "name": "Sušený plod Bell Cup",
+    "description": "Prírodné drevité plody v tvare otvorených kalichov. Skvelo sa hodia do jesenných aranžmánov, vencov a mís. Pevná štruktúra zaručuje trvácnosť dekorácie.",
+    "farbyRaw": "sivohnedá [1-2]",
+    "farby": [
+      {
+        "color": "sivohnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bell Cup",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "79",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "81",
+    "name": "Drevené špirálky",
+    "description": "Dekoračné prvky v tvare špirály s výraznou textúrou a prirodzeným vzhľadom. Sú vynikajúcim doplnkom pre floristické aranžmány, vence alebo sezónne dekorácie. Vďaka tvaru dodávajú kompozíciám unikátny detail.",
+    "farbyRaw": "svetlohnedá [1] | tmavohnedá [2]",
+    "farby": [
+      {
+        "color": "svetlohnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "tmavohnedá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené špirálky",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "80",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "82",
+    "name": "Hlavička kvetu",
+    "description": "Drobné ozdobné hlavičky kvetov bez stonky vhodné na lepenie do vencov a aranžmánov. Detailne spracované okvetie pôsobí prirodzene a jemne. Hodí sa na sezónne aj celoročné floristické dekorácie.",
+    "farbyRaw": "biela [1-2] | krémová [3-4]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Hlavička kvetu",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "81",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "83",
+    "name": "Drevená ružička",
+    "description": "Drobné dekoračné hlavičky v tvare ruže vyrobené z prírodného materiálu. Ideálne na lepenie do vencov, machových obrazov a rustikálnych aranžmánov. Jemná vrstvená textúra dodá kompozícii naturálny charakter.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "82",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "84",
+    "name": "Drevená ružička",
+    "description": "Jemné hlavičky kvetov z prírodného materiálu s hustým vrstvením lupienkov. Vhodné na aranžovanie vencov a interiérových dekorácií. Pôsobia ľahko a naturálne.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "83",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "85",
+    "name": "Drevená hlavička kvetu",
+    "description": "Dekoračné hlavičky z prírodného materiálu s bohatým vrstvením lupienkov. Skvelo sa hodia na výrobu vencov a sezónnych aranžmánov. Matný povrch pôsobí rustikálne a prirodzene.",
+    "farbyRaw": "hnedá [1] | krémová [2] | béžová [3]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "béžová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "84",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "86",
+    "name": "Hlavička sasanky",
+    "description": "Textilné hlavičky kvetov s vrstvenými okvetnými lístkami a výrazným tmavým stredom. Určené na aranžovanie vencov, ikebán a floristických dekorácií. Realistický tvar pôsobí jemne a dekoratívne.",
+    "farbyRaw": "krémová [1-4]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-4",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Sasanka",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "85",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "87",
+    "name": "Drevená hlavička kvetu",
+    "description": "Ozdobné hlavičky z prírodného materiálu s plným okrúhlym tvarom. Ideálne na lepenie do vencov a prírodných dekorácií. Detailné spracovanie dodáva aranžmánu jemnú textúru.",
+    "farbyRaw": "hnedá [1-2] | krémová [3-4]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3-4",
+        "photos": [
+          3,
+          4
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "86",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "88",
+    "name": "Badián",
+    "description": "Prírodný dekoračný materiál v tvare hviezdicovitých plodov. Vynikne v jesenných a vianočných aranžmánoch aj vo vencoch. Dodáva kompozícii autentický a voňavý charakter sušiny.",
+    "farbyRaw": "hnedá [1]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Badián",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "87",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "89",
+    "name": "Sušený hviezdicový plod",
+    "description": "Prírodné drevité plody otvorené do hviezdicovitého tvaru. Hodí sa do vencov, mís a rustikálnych aranžmánov. Výrazná textúra pôsobí autenticky a dekoratívne.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "88",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "90",
+    "name": "Prírodný veniec",
+    "description": "Hotový veniec zložený z plochých prírodných prvkov s jemnou štruktúrou. Vhodný ako základ na ďalšie aranžovanie alebo ako samostatná dekorácia. Pôsobí rustikálne a príjemne naturálne.",
+    "farbyRaw": "hnedá [1]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Prírodný veniec",
+    "category": "Dekorácie",
+    "subcategory": "Vence",
+    "sourceFolder": "89",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "91",
+    "name": "Lotosový plod",
+    "description": "Dekoratívne lotosové plody s charakteristickou pórovitou vrchnou časťou. Ideálne do vencov, ikebán a interiérových aranžmánov. Exotický tvar oživí každú floristickú kompozíciu.",
+    "farbyRaw": "sivá [1-2]",
+    "farby": [
+      {
+        "color": "sivá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Lotos",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "90",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "92",
+    "name": "Dekoračný mach",
+    "description": "Sušený dekoračný mach s bohatou vetvenou štruktúrou. Vhodný ako podklad do vencov, obrazov a floristických aranžmánov. Dodáva dekoráciám objem a prírodný vzhľad.",
+    "farbyRaw": "žltá [1-2]",
+    "farby": [
+      {
+        "color": "žltá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Mach",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "91",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "93",
+    "name": "Sušený plod Bell Cup",
+    "description": "Prírodné drevité plody v tvare otvorených kalichov. Skvelo sa hodia do jesenných aranžmánov, vencov a mís. Pevná štruktúra zaručuje trvácnosť dekorácie.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bell Cup",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "92",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "94",
+    "name": "Lotosový plod",
+    "description": "Drobné sušené lotosové plody s typickou štruktúrou otvorov. Vhodné na lepenie do vencov a machových dekorácií. Prírodný vzhľad doplní jesenné aj smútočné aranžmány.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Lotos",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "93",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "95",
+    "name": "Sušený dekoračný plod",
+    "description": "Prírodné drevité plody s otvorenými okvetnými segmentmi. Ideálne na aranžovanie vencov a sezónnych dekorácií. Rustikálny tvar pôsobí autenticky a zaujímavo.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "94",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "96",
+    "name": "Cédrová ružička",
+    "description": "Prírodné dekoračné prvky zo šišiek v tvare drobných ružičiek. Hodí sa na výrobu vencov a rustikálnych aranžmánov. Drevitá textúra dodáva dekorácii trvácny a prirodzený vzhľad.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Šišky",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "95",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "97",
+    "name": "Drevená hlavička kvetu",
+    "description": "Hlavičky kvetov z prírodného materiálu s mäkkým vrstvením lupienkov. Vhodné na lepenie do vencov a prírodných dekorácií. Pôsobia jemne a harmonicky v rustikálnych kompozíciách.",
+    "farbyRaw": "béžová [1-2]",
+    "farby": [
+      {
+        "color": "béžová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "96",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "98",
+    "name": "Sušený hviezdicový plod",
+    "description": "Prírodné drevité plody s hviezdicovitým tvarom a výraznou textúrou. Ideálne do jesenných a zimných aranžmánov aj vencov. Dodajú kompozícii rustikálny a originálny charakter.",
+    "farbyRaw": "hnedá [1-3]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "97",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "99",
+    "name": "Cédrová ružička",
+    "description": "Drevité dekoračné prvky pripomínajúce otvorené ružičky. Vhodné na aranžovanie vencov a sezónnych dekorácií. Pevná štruktúra zachováva tvar aj pri dlhodobom použití.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Šišky",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "98",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "100",
+    "name": "Dekoračná guľôčka",
+    "description": "Drobné guľovité dekoračné prvky s vrstveným povrchom. Skvelo doplnia vence, machové obrazy a stolové aranžmány. Prirodzený vzhľad ladí s prírodnými materiálmi.",
+    "farbyRaw": "béžová [1-2]",
+    "farby": [
+      {
+        "color": "béžová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoračné guľôčky",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "99",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "101",
+    "name": "Dekoračné šišky",
+    "description": "Drobné prírodné šišky vhodné na aranžovanie a výrobu vencov. Dodávajú dekoráciám rustikálny a autentický vzhľad. Dajú sa ľahko pripevniť k rôznym podkladom.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Šišky",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "100",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "102",
+    "name": "Dekoračný muškátový oriešok",
+    "description": "Realistické dekoračné plody v tvare muškátového orieška. Ideálne do jesenných vencov a aranžmánov. Textúrovaný povrch pôsobí prirodzene a detailne.",
+    "farbyRaw": "hnedá [1]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Muškátový oriešok",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "101",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "103",
+    "name": "Sušený kalichovitý plod",
+    "description": "Prírodné drevité plody s kalichovitým tvarom a vrstvenou štruktúrou. Vhodné do vencov a prírodných kompozícií. Vyniknú v jesenných aj celoročných dekoráciách.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "102",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "104",
+    "name": "Bobuľová vetvička",
+    "description": "Dekoračná vetvička s lesklými bobuľami na ohybnej stonke. Hodí sa do vencov, kytíc a sviatočných aranžmánov. Lesklý povrch dodáva kompozícii elegantný a svieži vzhľad.",
+    "farbyRaw": "strieborná [1-2]",
+    "farby": [
+      {
+        "color": "strieborná",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bobule",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "sourceFolder": "103",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "105",
+    "name": "Hlavička kvetu",
+    "description": "Plné umelé hlavičky s hustým vrstvením zaoblených okvetných lístkov. Určené na výrobu vencov a floristických dekorácií. Mäkký tvar pôsobí bohato a jemne.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Pivónie",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "104",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "106",
+    "name": "Lotosový plod",
+    "description": "Sušené lotosové plody s typickou štruktúrou a otvormi na vrchole. Ideálne na aranžovanie vencov a prírodných dekorácií. Exotický tvar doplní jesenné aj smútočné kompozície.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Lotos",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "105",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "107",
+    "name": "Dekoračná vetvička so sušeným vzhľadom",
+    "description": "Umelá vetvička s hnedými špicatými plodmi a úzkymi listami. Vhodná ako výplň do kytíc, vencov a prírodných aranžmánov. Realistické spracovanie napodobňuje sušený rastlinný materiál.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Zeleň / výplň",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "sourceFolder": "106",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "108",
+    "name": "Dekoračný púčik na stopke",
+    "description": "Umelý ozdobný púčik s vrstvenými šupinami na tenkej stopke. Ideálny doplnok do jesenných aranžmánov a vencov. Textúrovaný povrch pôsobí ako sušený rastlinný materiál.",
+    "farbyRaw": "oranžová [1-2]",
+    "farby": [
+      {
+        "color": "oranžová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušený kvet",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "sourceFolder": "107",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "109",
+    "name": "Sušený puk na drôtiku",
+    "description": "Prírodné sušené puky upevnené na ohybnom drôtiku. Ľahko sa zapracujú do vencov a floristických aranžmánov. Rustikálny vzhľad doplní prírodné aj sezónne dekorácie.",
+    "farbyRaw": "hnedá [1-3]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Sušina",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "108",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "110",
+    "name": "Jutové vrecúško",
+    "description": "Malé ozdobné vrecúška z prírodnej jutovej tkaniny. Hodí sa na balenie drobných darčekov alebo ako rustikálny interiérový doplnok. Jednoduchý tvar pôsobí čisto a príjemne.",
+    "farbyRaw": "prírodná [1]",
+    "farby": [
+      {
+        "color": "prírodná",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Vrecúška",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "109",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "111",
+    "name": "Sušený hviezdicový plod",
+    "description": "Drevité sušené plody s piatimi zaoblenými segmentmi. Vhodné na lepenie do vencov a prírodných aranžmánov. Výrazná textúra dodáva dekorácii rustikálny charakter.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "110",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "112",
+    "name": "Prútená guľa",
+    "description": "Ľahké duté gule z prepleteného prírodného materiálu. Ideálne do váz, misiek a priestorových aranžmánov. Ažúrová štruktúra pôsobí vzdušne a dekoratívne.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Prútené gule",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "111",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "113",
+    "name": "Sušený plod Bell Cup",
+    "description": "Prírodné kalichovité plody s drevitou štruktúrou a členitým vnútrom. Skvelo sa hodia do jesenných vencov a aranžmánov. Pevný tvar zachováva prirodzený vzhľad.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bell Cup",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "112",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "114",
+    "name": "Dekoračný kalíšok",
+    "description": "Drobné hladké kalíšky vhodné ako výplňový a dekoračný materiál. Hodí sa do vencov, misiek a kreatívnych aranžmánov. Jednoduchý tvar pôsobí čisto a univerzálne.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Kalíšky",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "113",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "115",
+    "name": "Hlavička klinčeka",
+    "description": "Husto vrstvené hlavičky kvetov vhodné na lepenie do vencov a dekorácií. Bohaté okvetie pôsobí plne a jemne. Ideálne na kreatívnu floristickú tvorbu.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Klinček",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "114",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "116",
+    "name": "Drevená ružička",
+    "description": "Dekoračné hlavičky z prírodného materiálu so stočenými lupienkami. Vhodné do vencov, ikebán a rustikálnych aranžmánov. Naturálny vzhľad ladí so sezónnymi dekoráciami.",
+    "farbyRaw": "prírodná [1-2]",
+    "farby": [
+      {
+        "color": "prírodná",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené kvety",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "115",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "117",
+    "name": "Dekoračná pichľavá guľôčka",
+    "description": "Drobné dekoračné plody so štruktúrovaným pichľavým povrchom. Ideálne na aranžovanie vencov, machových obrazov a sezónnych dekorácií. Výrazná textúra oživí každú kompozíciu.",
+    "farbyRaw": "fialová [1] | hnedá [2]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "hnedá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoračné plody",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "116",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "118",
+    "name": "Sušený plod",
+    "description": "Prírodné otvorené plody s vláknitou vnútornou štruktúrou. Vhodné do vencov a rustikálnych aranžmánov. Zaujímavý tvar dodá dekorácii exotický a autentický charakter.",
+    "farbyRaw": "hnedá [1] | sivá [2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "sivá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Prírodniny",
+    "sourceFolder": "117",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "119",
+    "name": "Artičoka na stopke",
+    "description": "Umelá dekorácia napodobňujúca sušenú artičoku s vrstvenými šupinami. Pevná stopka uľahčuje aranžovanie do váz a vencov. Detailná textúra pôsobí prirodzene a elegantne.",
+    "farbyRaw": "bordová [1] | sivá [2] | hnedá [3]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "sivá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "hnedá",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      }
+    ],
+    "druh": "Artičoka",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "118",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "120",
+    "name": "Bodliak na stopke",
+    "description": "Dekoračný kvet pripomínajúci sušený bodliak s šupinatou textúrou. Vhodný do prírodných kytíc, vencov a jesenných aranžmánov. Stopka umožňuje jednoduché zapichovanie do aranžérskej hmoty.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bodliak",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "119",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "121",
+    "name": "Dekoračná tekvička",
+    "description": "Drobné dekoračné tekvičky s textúrovaným povrchom a krátkou stopkou. Ideálne na jesenné vence, košíky a interiérové aranžmány. Realistický tvar oživí sezónne dekorácie.",
+    "farbyRaw": "krémová [1] | oranžová [2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Tekvice",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "120",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "122",
+    "name": "Dekoratívna tekvica",
+    "description": "Drobné dekoračné plody v tvare tekvice majú zaujímavý vláknitý povrch. Hodía sa na jesenné aranžmány, vence aj stolové dekorácie. Vyniknú v kombinácii s machom a inými prírodnými materiálmi.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Tekvica",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "121",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "123",
+    "name": "Bobuľová vetvička",
+    "description": "Dekoračná vetvička s hustými drobnými bobuľami je vhodná na doplnenie kytíc a vencov. Flexibilná stonka umožňuje ľahké tvarovanie do aranžmánov. Textúra bobúľ pôsobí prirodzene a dekoratívne.",
+    "farbyRaw": "hnedá [1] | biela [2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoratívna vetvička",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "sourceFolder": "122",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "124",
+    "name": "Kokosové vlákno",
+    "description": "Prírodný dekoračný materiál s hustou vláknitou štruktúrou. Hodí sa ako podklad alebo výplň do vencov a floristických aranžmánov. Dodá kompozícii naturálny a rustikálny charakter.",
+    "farbyRaw": "hnedá [1]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Kokosové vlákno",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "123",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "125",
+    "name": "Umelý mach",
+    "description": "Jemný dekoračný materiál s vzdušnou a spletenou štruktúrou. Ideálny na vyplnenie vencov, mís a floristických kompozícií. Pôsobí prirodzene a oživí aranžmány celoročne.",
+    "farbyRaw": "zelená [1]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Zeleň / výplň",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "124",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "126",
+    "name": "Sisalové vlákno",
+    "description": "Jemné dekoračné vlákno vhodné na výplň aranžmánov a darčekových balení. Má jemnú textúru a ľahko sa tvaruje. Skvelo dopĺňa kvetinové aj prírodné dekorácie.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sisal",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "125",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "127",
+    "name": "Drevené špirálky",
+    "description": "Dekoračné špirálky z tenkých prírodných pásikov. Vnášajú do aranžmánov zaujímavý pohyb a textúru. Hodí sa do vencov, mís aj suchých väzieb.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené špirálky",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "126",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "128",
+    "name": "Drobné kvietky",
+    "description": "Malé dekoračné hlavičky kvetov bez stonky sú ideálne na lepenie do vencov a machových dekorácií. Jednoduchý tvar pôsobí jemne a prirodzene. Skvelo doplnia aj väčšie aranžmány ako výplň.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoratívny kvet",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "127",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "129",
+    "name": "Dekoratívne kalichy",
+    "description": "Dekoračné kalichy s dierkovaným povrchom prinášajú do aranžmánov výraznú textúru. Hodí sa na machové obrazy, vence aj prírodné dekorácie. Naturálny vzhľad sa ľahko kombinuje s ďalším rastlinným materiálom.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Bell cup",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "128",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "130",
+    "name": "Dekoratívna škorica",
+    "description": "Prírodné tyčinky škorice sú obľúbeným doplnkom sezónnych aranžmánov. Rustikálny vzhľad vynikne najmä vo vianočných vencoch a suchých väzbách. Dajú sa lepiť aj voľne vkladať do dekoratívnych nádob.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Škorica",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "129",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "131",
+    "name": "Sušené škrupiny",
+    "description": "Prírodné sušené škrupiny s výraznou rebrovanou textúrou. Vhodné do venčekov, suchých väzieb aj kreatívnych dekorácií. Dodajú aranžmánu autentický a rustikálny charakter.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "130",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "132",
+    "name": "Dekoratívne kalichy",
+    "description": "Okrúhle dekoračné plody s otvorom sú praktickým doplnkom na lepenie do vencov. Matný povrch pôsobí naturálne a elegantne. Hodí sa aj ako výplň do misiek a floristických kompozícií.",
+    "farbyRaw": "krémová [1]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Bell cup",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "131",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "133",
+    "name": "Dekoratívne šišky",
+    "description": "Drobné prírodné šišky sú ideálnym doplnkom sezónnych aranžmánov a vencov. Autentický vzhľad prináša do interiéru lesnú atmosféru. Vhodné na lepenie aj ako voľne sypaná dekorácia.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Šišky",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "132",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "134",
+    "name": "Artičoka na stopke",
+    "description": "Dekoračná umelá artičoka s detailne vypracovanými šupinami na tenkej stonke. Pôsobí ako sušený plod a hodí sa do rustikálnych kytíc aj jesenných aranžmánov. Dlhá stopka uľahčuje zapichovanie do floristickej peny.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Artičoka",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "sourceFolder": "133",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "135",
+    "name": "Palmový list vejár",
+    "description": "Dekoratívny list v tvare vejára s výrazným skladaným povrchom. Skvelo dopĺňa moderné aj minimalistické floristické kompozície. Prirodzený vzhľad imituje sušenú palmú.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Listy",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "sourceFolder": "134",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "136",
+    "name": "Dekoračné tobolky",
+    "description": "Drobné sušené tobolky s pohárovitým tvarom. Ideálne do vencov, machových obrazov aj ako naturálna výplň. Matná textúra pôsobí prirodzene a rustikálne.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "135",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "137",
+    "name": "Dekoračné plody",
+    "description": "Otvorené drevnaté plody sú výrazným doplnkom aranžmánov a vencov. Prirodzený tvar dodá kompozícii rustikálny charakter. Vhodné na lepenie aj voľné uloženie v dekoráciách.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "136",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "138",
+    "name": "Drevené zvitky",
+    "description": "Jemné dekoračné zvitky z tenkého prírodného materiálu. Vhodné na doplnenie vencov a kvetinových aranžmánov. Pôsobia elegantne v rustikálnom aj romantickom štýle.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené zvitky",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "137",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "139",
+    "name": "Sušené plody",
+    "description": "Drobné drevnaté dekoračné plody vhodné do machových a sezónnych dekorácií. Výrazná textúra oživí vence aj suché väzby. Naturálny vzhľad sa ľahko kombinuje s ďalšími prírodninami.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sušené plody",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "138",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "140",
+    "name": "Hviezdicovitá hlavička",
+    "description": "Drobná dekoračná hlavička s množstvom špicatých lupienkov. Ideálna na aranžovanie vencov a ako texturálny doplnok kompozícií. Detailné spracovanie pôsobí ako sušený kvet.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Slamienka",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "139",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "141",
+    "name": "Dekoratívny sukulent",
+    "description": "Drobná dekoračná hlavička s tenkými zahnutými listami. Hodí sa na vence, machové steny aj moderné aranžmány. Matný povrch dodáva prvku realistický vzhľad.",
+    "farbyRaw": "fialová [1-2]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Sukulent",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "140",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "142",
+    "name": "Dekoratívna hlavička",
+    "description": "Dekoračná hlavička v tvare suchej tobolky s nepravidelnými okrajmi. Vhodná na výrobu vencov a texturálnych aranžmánov. Matný povrch pôsobí prírodne a rustikálne.",
+    "farbyRaw": "fialová [1-2]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoratívny kvet",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "141",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "143",
+    "name": "Cédrová ruža",
+    "description": "Prírodná dekorácia v tvare drobného kvetu je ideálna na kreatívne aranžovanie. Hodí sa na ozdobu vencov a sezónnych dekorácií. Pevný materiál zachováva tvar a pôsobí autenticky.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Cédrová ruža",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "142",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "144",
+    "name": "Drevená ružička",
+    "description": "Drobné dekoračné hlavičky v tvare ruží sú ideálne na aranžovanie a dozdobovanie vencov. Detailné vypracovanie dodá dekoráciám rustikálny charakter. Vhodné pre celoročnú výzdobu aj kreatívne projekty.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ruže",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "143",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "145",
+    "name": "Hlavička slamienky",
+    "description": "Dekoračné hlavičky kvetov sú vhodné na aranžovanie a výrobu vencov. Majú detailne vypracované okvetné lístky a výrazný stred. Pôsobia prirodzeným dojmom vďaka svojej štruktúre.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Slamienka",
+    "category": "Umelé kvety",
+    "subcategory": "Venčovky",
+    "sourceFolder": "144",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "146",
+    "name": "Saténová stuha",
+    "description": "Kvalitná saténová stuha s jemným leskom je ideálnym doplnkom pre kvetinové aranžmány a darčekové balenia. Pevný materiál uľahčuje vytváranie elegantných mašlí. Hodí sa na floristiku aj kreatívnu tvorbu.",
+    "farbyRaw": "fialová [1] | svetlozelená [2] | staroružová [3] | olivová [4] | tmavozelená [5]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "svetlozelená",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "staroružová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "olivová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "tmavozelená",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "145",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "webpCount": 5
+  },
+  {
+    "id": "147",
+    "name": "Dekoračný sprej",
+    "description": "Profesionálny dekoračný sprej určený pre floristov a kreatívne aranžovanie. Hodí sa na konečnú úpravu a oživenie floristických povrchov. Praktická pomôcka pri tvorbe výzdoby.",
+    "farbyRaw": "číry [1]",
+    "farby": [
+      {
+        "color": "číry",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Dekoračný sprej",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "146",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "148",
+    "name": "Floristický drôt",
+    "description": "Tenký aranžérsky drôt slúži na spevnenie a tvarovanie stoniek. Uľahčuje prácu pri viazaní kytíc a tvorbe vencov. Nevyhnutná pomôcka pre profesionálnu aj domácu floristiku.",
+    "farbyRaw": "zelená [1-2]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Floristický drôt",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "147",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "149",
+    "name": "Dekoratívna lepiaca páska",
+    "description": "Elegantná dekoračná páska je ideálna na kreatívne tvorenie a balenie darčekov. Ornamentálny vzor po okrajoch dodáva projektom luxusný vzhľad. Praktický doplnok pre ručné práce aj floristiku.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Lepiaca páska",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "148",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "150",
+    "name": "Dekoratívna stuha",
+    "description": "Elegantná stuha s ornamentálnym okrajom je vhodná na zdobenie kytíc a darčekové balenie. Materiál má jemný lesk a pevný okraj. Skvelo doplní svadobné aj sviatočné aranžmány.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "149",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "151",
+    "name": "Saténová stuha",
+    "description": "Elegantná saténová stuha s jemným leskom je ideálnym doplnkom pre aranžovanie a dekorovanie. Pevné okraje uľahčujú manipuláciu pri viazaní mašlí. Využitie nájde pri balení darčekov aj pri tvorbe kvetinových dekorácií.",
+    "farbyRaw": "biela [1-3]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "150",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "152",
+    "name": "Široká dekoračná stuha",
+    "description": "Široká ozdobná stuha na cievke je ideálna na aranžovanie a tvorbu dekorácií. Má hladký povrch s jemným lemovaním po okrajoch. Materiál je vhodný pre floristiku aj smútočnú väzbu.",
+    "farbyRaw": "biela [1-2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "151",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "153",
+    "name": "Margarétková stuha",
+    "description": "Dekoratívna stuha zložená z malých textilných margarétok spojených do súvislého pásu. Ideálna na kreatívnu tvorbu a zdobenie textílií či aranžmánov. Balená na praktickej kartónovej cievke.",
+    "farbyRaw": "biela [1-2] | ružová [3] | svetlomodrá [4]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "svetlomodrá",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Margarétková stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "152",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "154",
+    "name": "Dekoračná stuha",
+    "description": "Široká dekoračná stuha vhodná na aranžovanie a balenie. Má jemne štruktúrovaný povrch s vylisovanými líniami pozdĺž okrajov. Pôsobí elegantne a jednoducho sa s ňou pracuje.",
+    "farbyRaw": "smotanová [1-2]",
+    "farby": [
+      {
+        "color": "smotanová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "153",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "155",
+    "name": "Dekoratívna stuha s krajkou",
+    "description": "Ozdobná stuha spája romantický kvetinový vzor s jemným čipkovaným lemom. Je vynikajúcou voľbou pre kreatívne tvorenie a štýlové balenie darčekov. Kvalitné spracovanie zaručuje dlhú životnosť a estetický vzhľad.",
+    "farbyRaw": "zelená / marhuľová [1-3]",
+    "farby": [
+      {
+        "color": "zelená / marhuľová",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ozdobná stuha",
+    "category": "Dekorácie",
+    "subcategory": "Stuhy",
+    "sourceFolder": "154",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "156",
+    "name": "Saténová stuha s kvetinovým vzorom",
+    "description": "Elegantná saténová stuha s jemným leskom a detailnou kvetinovou potlačou. Je vhodná na balenie darčekov, zdobenie kytíc alebo iné kreatívne aranžovanie. Hladký povrch zaručuje jednoduchú manipuláciu.",
+    "farbyRaw": "mentolová [1-2]",
+    "farby": [
+      {
+        "color": "mentolová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "155",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "157",
+    "name": "Saténová stuha",
+    "description": "Lesklá saténová stuha vhodná na dekoračné účely a balenie darčekov. Má hladký povrch a elegantný vzhľad. Skvelo sa hodí na viazanie kytíc a tvorbu ozdobných mašlí.",
+    "farbyRaw": "ružová [1] | oranžová [2] | čierna [3] | žltá [4] | bordová [5]",
+    "farby": [
+      {
+        "color": "ružová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "čierna",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "žltá",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "156",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "webpCount": 5
+  },
+  {
+    "id": "158",
+    "name": "Saténová stuha",
+    "description": "Elegantná saténová stuha s jemným leskom je ideálna na dekorovanie a balenie darčekov. Má hladký povrch a pevný okraj pre jednoduchú manipuláciu. Je vhodná na aranžovanie kytíc a tvorbu ozdobných mašlí.",
+    "farbyRaw": "biela [1] | krémová [2] | žltá [3] | čierna [4] | bordová [5] | červená [6]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "žltá",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "čierna",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "bordová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      },
+      {
+        "color": "červená",
+        "range": "6",
+        "photos": [
+          6
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "157",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "webpCount": 6
+  },
+  {
+    "id": "159",
+    "name": "Plastová stonka",
+    "description": "Praktická plastová stonka s rozšíreným kalichom slúži ako základ pre umelé kvetinové puky. Umožňuje predĺženie kvetov a ich zapichovanie do aranžmánov. Pevný materiál zabezpečuje stabilitu dekorácie.",
+    "farbyRaw": "zelená [1-3]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Plastová stonka",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "158",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "160",
+    "name": "Ampulky na kvety",
+    "description": "Praktické plastové ampulky sú určené na hydratáciu stoniek v aranžmánoch. Každá nádobka má pružný uzáver s otvorom pre jednoduché vloženie stonky. Uľahčujú floristickú prácu mimo vázy.",
+    "farbyRaw": "zelená [1-2]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ampulky na vodu",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "159",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "161",
+    "name": "Floristická skúmavka",
+    "description": "Praktická pomôcka slúži na zabezpečenie vlahy pre jednotlivé stonky kvetov. Plastová nádobka s pružným uzáverom uľahčuje aranžovanie. Predlžuje životnosť rastlín v kompozíciách.",
+    "farbyRaw": "zelená [1-3]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1-3",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "druh": "Ampulky na vodu",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "160",
+    "webps": [
+      1,
+      2,
+      3
+    ],
+    "webpCount": 3
+  },
+  {
+    "id": "162",
+    "name": "Saténová stuha s kvetinovým vzorom",
+    "description": "Elegantná saténová stuha s detailnou potlačou drobných kvietkov a ruží. Vhodná na dekoračné účely, balenie darčekov alebo oživenie kvetinových aranžmánov. Materiál má jemný lesk a príjemný omak.",
+    "farbyRaw": "modrá [1] | svetloružová [2] | svetlozelená [3] | marhuľová [4]",
+    "farby": [
+      {
+        "color": "modrá",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "svetloružová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "svetlozelená",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "161",
+    "webps": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "webpCount": 4
+  },
+  {
+    "id": "163",
+    "name": "Ampulky na kvety",
+    "description": "Priehľadné floristické ampulky s uzáverom na vloženie stonky. Umožňujú hydratáciu jednotlivých kvetov v aranžmánoch. Praktický doplnok pre viazanie kytíc a väčšie dekorácie.",
+    "farbyRaw": "priehľadná [1-2]",
+    "farby": [
+      {
+        "color": "priehľadná",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Ampulky na vodu",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "162",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "164",
+    "name": "Saténová stuha",
+    "description": "Elegantná saténová stuha s jemným leskom je vhodná na aranžovanie a balenie darčekov. Hladký povrch uľahčuje viazanie mašlí. Skvelo doplní kvetinové aj sviatočné dekorácie.",
+    "farbyRaw": "olivová [1-2]",
+    "farby": [
+      {
+        "color": "olivová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "163",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "165",
+    "name": "Dekoračná stuha s textúrou",
+    "description": "Dekoračná stuha s jemnou reliéfnou textúrou je ideálna na viazanie kytíc. Materiál je pevný a zároveň ľahko tvarovateľný. Hodí sa do floristických aranžmánov aj darčekových balení.",
+    "farbyRaw": "olivová [1-2]",
+    "farby": [
+      {
+        "color": "olivová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "164",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "166",
+    "name": "Dekoratívna jutová páska",
+    "description": "Pevná ozdobná páska s výraznou pozdĺžnou textúrou je vhodná na kreatívne tvorenie. Využíva sa pri aranžovaní kvetinových dekorácií a balení darčekov. Má prirodzený matný povrch.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Jutová páska",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "165",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "167",
+    "name": "Dekoračná sieťka",
+    "description": "Dekoračná sieťka je praktickým pomocníkom pri aranžovaní kytíc a balení darčekov. Pružný materiál umožňuje ľahké tvarovanie a dodáva kompozíciám profesionálny vzhľad. Vhodná pre floristiku aj kreatívne projekty.",
+    "farbyRaw": "zelená [1]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Dekoračná sieťka",
+    "category": "Dekorácie",
+    "subcategory": "Floristické potreby",
+    "sourceFolder": "166",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "168",
+    "name": "Polypropylénový špagát",
+    "description": "Pevný viazací špagát vhodný na viazanie kytíc, balenie a dekorácie. Drží uzol a hodí sa do floristiky aj na bežné viazanie.",
+    "farbyRaw": "zelená [1]",
+    "farby": [
+      {
+        "color": "zelená",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      }
+    ],
+    "druh": "Špagát",
+    "category": "Dekorácie",
+    "subcategory": "Floristické potreby",
+    "sourceFolder": "166",
+    "webps": [
+      1
+    ],
+    "webpCount": 1
+  },
+  {
+    "id": "169",
+    "name": "Dekoratívna pavučinová sieťka",
+    "description": "Dekoratívna sieťka s pavučinovým vzorom je ideálna na aranžovanie a balenie kytíc. Materiál pôsobí vzdušne a dodáva dekoráciám elegantný vzhľad. Vhodná pre rôzne kreatívne projekty.",
+    "farbyRaw": "oranžová [1] | červená [2] | žltá [3] | biela [4] | krémová [5] | fialová [6] | ružová [7]",
+    "farby": [
+      {
+        "color": "oranžová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "červená",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "žltá",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      },
+      {
+        "color": "fialová",
+        "range": "6",
+        "photos": [
+          6
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "7",
+        "photos": [
+          7
+        ]
+      }
+    ],
+    "druh": "Dekoratívna sieťka",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "167",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "webpCount": 7
+  },
+  {
+    "id": "170",
+    "name": "Jutový copík",
+    "description": "Dekoratívny zapletený špagát z prírodnej juty navinutý na cievke. Pevná štruktúra s výrazným pleteným vzorom je ideálna na aranžovanie a balenie darčekov. Dodá dekoráciám rustikálny charakter.",
+    "farbyRaw": "prírodná [1-2]",
+    "farby": [
+      {
+        "color": "prírodná",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Jutový špagát",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "168",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "171",
+    "name": "Dekoratívna krútená šnúra",
+    "description": "Elegantná krútená šnúra s jemným odleskom je ideálna na dozdobenie kvetinových aranžmánov alebo darčekových balení. Vďaka pevnosti nájde využitie pri rôznych kreatívnych projektoch. Jemná textúra dodáva dekoráciám upravený vzhľad.",
+    "farbyRaw": "staroružová [1-2]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoratívna šnúra",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "169",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "172",
+    "name": "Papierové lyko",
+    "description": "Pevné a ohybné papierové lyko určené na dekoračné účely a floristiku. Skvele sa hodí na preväzovanie kytíc, balenie darčekov alebo výrobu ozdôb. Materiál pôsobí prirodzene a ľahko sa viaže.",
+    "farbyRaw": "biela / hnedá / červená / ružová / fialová / zelená / svetlozelená / olivová [1-2]",
+    "farby": [
+      {
+        "color": "biela / hnedá / červená / ružová / fialová / zelená / svetlozelená / olivová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Papierové lyko",
+    "category": "Dekorácie",
+    "subcategory": "Floristické potreby",
+    "sourceFolder": "170",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "173",
+    "name": "Károvaná stuha",
+    "description": "Dekoratívna stuha s jemným károvaným vzorom je ideálna na balenie darčekov a aranžovanie. Kvalitný materiál zaručuje jednoduchú manipuláciu. Pôsobí vkusne v rustikálnych aj sviatočných dekoráciách.",
+    "farbyRaw": "fialová [1] | hnedá [2] | krémová [3] | ružová [4] | zelená [5]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "hnedá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "zelená",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      }
+    ],
+    "druh": "Károvaná stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "171",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "webpCount": 5
+  },
+  {
+    "id": "174",
+    "name": "Károvaná textilná stuha",
+    "description": "Dekoratívna textilná stuha s klasickým károvaným vzorom je ideálna na balenie darčekov alebo floristické aranžovanie. Materiál je pevný a dobre drží tvar pri viazaní mašlí. Skvelo dopĺňa aranžmány v prírodnom štýle.",
+    "farbyRaw": "fialová [1] | hnedá [2]",
+    "farby": [
+      {
+        "color": "fialová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "hnedá",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Károvaná stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "172",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "175",
+    "name": "Saténová stuha so zlatým lemom",
+    "description": "Elegantná dekoračná stuha s hladkým povrchom a ozdobným okrajom. Ideálna na vytváranie mašlí a dopĺňanie kvetinových väzieb. Kvalitný materiál uľahčuje prácu pri aranžovaní a balení.",
+    "farbyRaw": "krémová [1-2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "173",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "176",
+    "name": "Károvaná stuha",
+    "description": "Dekoratívna stuha s klasickým károvaným vzorom je vhodná na balenie darčekov a floristiku. Pevný materiál dobre drží tvar mašlí. Hodí sa na sviatočné aj rustikálne aranžmány.",
+    "farbyRaw": "krémová [1] | červená [2]",
+    "farby": [
+      {
+        "color": "krémová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "červená",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Károvaná stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "174",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "177",
+    "name": "Dekoratívna stuha so zlatým okrajom",
+    "description": "Elegantná stuha s jemným zlatým vzorom po okrajoch je vhodná na aranžovanie. Pevný materiál s lesklým povrchom dodáva dekoráciám štýlový vzhľad. Skvelo doplní kytice aj darčekové balenia.",
+    "farbyRaw": "biela [1] | krémová [2]",
+    "farby": [
+      {
+        "color": "biela",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Dekoratívna stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "175",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "178",
+    "name": "Saténová stuha",
+    "description": "Elegantná saténová stuha s jemným leskom a hladkým povrchom je ideálnym doplnkom pre kreatívnu tvorbu. Hodí sa na zdobenie kvetinových aranžmánov a darčekové balenie. Pevné tkané okraje uľahčujú viazanie mašlí.",
+    "farbyRaw": "staroružová [1] | marhuľová [2]",
+    "farby": [
+      {
+        "color": "staroružová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "marhuľová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "176",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  },
+  {
+    "id": "179",
+    "name": "Saténová stuha",
+    "description": "Elegantná saténová stuha s jemným leskom je ideálna na dekorovanie a balenie darčekov. Pevný materiál uľahčuje vytváranie ozdobných mašlí. Je vhodná na floristické aranžmány aj svadobnú výzdobu.",
+    "farbyRaw": "bordová [1] | oranžová [2] | strieborná [3] | ružová [4] | krémová [5] | biela [6]",
+    "farby": [
+      {
+        "color": "bordová",
+        "range": "1",
+        "photos": [
+          1
+        ]
+      },
+      {
+        "color": "oranžová",
+        "range": "2",
+        "photos": [
+          2
+        ]
+      },
+      {
+        "color": "strieborná",
+        "range": "3",
+        "photos": [
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "range": "4",
+        "photos": [
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "range": "5",
+        "photos": [
+          5
+        ]
+      },
+      {
+        "color": "biela",
+        "range": "6",
+        "photos": [
+          6
+        ]
+      }
+    ],
+    "druh": "Saténová stuha",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "177",
+    "webps": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "webpCount": 6
+  },
+  {
+    "id": "180",
+    "name": "Drevené špirálky",
+    "description": "Ozdobné drevené špirály sú ideálnym doplnkom pre rôzne aranžmány. Prírodný materiál s výraznou textúrou dodáva dekoráciám rustikálny vzhľad. Vyniknú v kombinácii s machom alebo inými prírodnými prvkami.",
+    "farbyRaw": "hnedá [1-2]",
+    "farby": [
+      {
+        "color": "hnedá",
+        "range": "1-2",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "druh": "Drevené špirálky",
+    "category": "Dekorácie",
+    "subcategory": "Doplnky",
+    "sourceFolder": "178",
+    "webps": [
+      1,
+      2
+    ],
+    "webpCount": 2
+  }
+]

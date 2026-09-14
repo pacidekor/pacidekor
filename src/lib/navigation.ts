@@ -101,6 +101,7 @@ export function getCategoryBySlug(slug: string) {
 export const navItems = [
   { label: "Novinky", href: "/novinky" },
   { label: "Akcia", href: "/akcia" },
+  { label: "Bestsellery", href: "/bestsellery" },
   { label: "Výpredaj", href: "/vypredaj" },
   { label: "Blog", href: "/blog" },
   { label: "O nás", href: "/o-nas" },
