@@ -367,7 +367,7 @@ function BlogEditor({
         slug,
         title: title.trim(),
         excerpt: excerpt.trim(),
-        coverImage: coverImage.trim() || "/produkty_new/1.jpg",
+        coverImage: coverImage.trim() || "/banner2.webp",
         category,
         author: author.trim() || "PACIDEKOR",
         publishedAt,

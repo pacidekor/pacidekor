@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
     title: "Jarné trendy 2026: čo bude hrať prim v dekoráciách",
     excerpt:
       "Od jemných pastelov po bujné aranžmány - pozrite si, aké farby, materiály a formy budú tento rok dominovať vo výkladoch aj v domácnostiach.",
-    coverImage: "/produkty_new/2.jpg",
+    coverImage: "/banner2.webp",
     category: "Inšpirácia",
     author: "PACIDEKOR",
     publishedAt: "2026-03-12",
@@ -75,7 +75,7 @@ export const blogPosts: BlogPost[] = [
     title: "Ako vybrať umelé kvety do vázy, aby vyzerali prirodzene",
     excerpt:
       "Realistický vzhľad nie je náhoda. Stačí dodržať pár pravidiel pri výbere výšky, farieb a hustoty - a výsledok bude ako z kvetinárstva.",
-    coverImage: "/produkty_new/1.jpg",
+    coverImage: "/banner1.webp",
     category: "Tipy",
     author: "PACIDEKOR",
     publishedAt: "2026-02-28",

@@ -1,0 +1,24 @@
+# Bulk foto dumpy - produkty jsou na Supabase Storage.
+# Bez tohohle kazdy deploy znovu natahne stovky MB a plni Deployment Storage.
+
+# Stary lokalni katalog produktu (~850 MB)
+public/products
+public/products/**
+
+# Dalsi lokalni foto slozky (nepouzivaji se z DB)
+public/produkty
+public/produkty/**
+public/produkty_new
+public/produkty_new/**
+public/akcie_new
+public/akcie_new/**
+
+# Lokalni pracovni dumpy (uz jsou v .gitignore, pojistka pro CLI deploy)
+katalog_raw
+katalog_raw/**
+_katalog-work
+_katalog-work/**
+tmp
+tmp/**
+scripts/katalog-5-9-26
+scripts/katalog-5-9-26/**
