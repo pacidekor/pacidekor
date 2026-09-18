@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { headers } from "next/headers";
 import {
   createPacketaPacket,
   fetchPacketaLabelPdfBase64,
@@ -10,6 +11,7 @@ import {
   CANCELLABLE_ORDER_STATUSES,
   canPrintShippingLabel,
   normalizeOrderNumberInput,
+  orderEligibleForInvoice,
   orderTotal,
   type Order,
 } from "@/lib/orders";
@@ -20,9 +22,23 @@ import {
   listOrdersFromDb,
 } from "@/lib/orders.server";
 import { statusAfterLabelPrint } from "@/lib/packeta-tracking";
-import { formatPrice, meetsMinOrder, parsePrice, priceIncludingVat } from "@/lib/price";
+import { formatPrice, meetsMinOrder, parsePrice, audienceNetPrice, priceIncludingVat } from "@/lib/price";
 import { normalizePromoCode, promoDiscountAmount } from "@/lib/promo";
+import {
+  createGopayPayment,
+  mapCountryToGopayCode,
+} from "@/lib/gopay";
+import {
+  isDiscountEffectivelyActive,
+  type ProductDiscount,
+} from "@/lib/discounts";
+import { mapDiscountRow } from "@/lib/discounts-server";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
+import { getSiteUrl } from "@/lib/seo";
+import {
+  ensureInvoiceForOrder,
+  renderInvoicePdf,
+} from "@/lib/invoicing";
 import {
   FREE_SHIPPING_THRESHOLD,
   PAYMENT_OPTIONS,
@@ -30,6 +46,7 @@ import {
   type PaymentMethodId,
   type ShippingMethodId,
 } from "@/lib/shipping";
+import type { ProductDiscountRow } from "@/lib/supabase/database.types";
 import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
 
 export type OrderActionResult<T = undefined> =
@@ -86,7 +103,37 @@ async function requireAdmin() {
 }
 
 function initialStatusForPayment(paymentMethod: PaymentMethodId) {
-  return paymentMethod === "transfer" ? "nezaplatena" : "nova";
+  if (paymentMethod === "card") {
+    return "nezaplatena";
+  }
+  return "nova";
+}
+
+async function paymentCallbackBaseUrl() {
+  const override = process.env.GOPAY_CALLBACK_BASE_URL?.trim();
+  if (override) return override.replace(/\/$/, "");
+
+  try {
+    const h = await headers();
+    const host = h.get("x-forwarded-host") || h.get("host");
+    const proto = h.get("x-forwarded-proto") || "http";
+    if (host) return `${proto}://${host}`.replace(/\/$/, "");
+  } catch {
+    // Server action without request context — fall through.
+  }
+
+  return getSiteUrl();
+}
+
+/** Match storefront catalog: active product discount sale price wins over DB price. */
+function resolveCatalogUnitNet(
+  catalogPrice: string,
+  discount: ProductDiscount | undefined,
+) {
+  if (discount && isDiscountEffectivelyActive(discount)) {
+    return parsePrice(discount.salePrice);
+  }
+  return parsePrice(catalogPrice);
 }
 
 function validateCreateOrderInput(input: CreateOrderInput): string | null {
@@ -119,7 +166,9 @@ function validateCreateOrderInput(input: CreateOrderInput): string | null {
 
 export async function createOrderAction(
   input: CreateOrderInput,
-): Promise<OrderActionResult<{ orderNumber: string }>> {
+): Promise<
+  OrderActionResult<{ orderNumber: string; paymentUrl?: string }>
+> {
   if (!ORDERS_ENABLED) {
     return {
       ok: false,
@@ -167,6 +216,23 @@ export async function createOrderAction(
     return { ok: false, error: productsError.message };
   }
 
+  const { data: discountRows, error: discountsError } = await db
+    .from("product_discounts")
+    .select("*")
+    .in("product_id", productIds)
+    .eq("active", true);
+
+  if (discountsError) {
+    return { ok: false, error: discountsError.message };
+  }
+
+  const discountByProductId = new Map<string, ProductDiscount>();
+  for (const row of (discountRows as ProductDiscountRow[] | null) ?? []) {
+    const discount = mapDiscountRow(row);
+    if (!isDiscountEffectivelyActive(discount)) continue;
+    discountByProductId.set(discount.productId, discount);
+  }
+
   const productMap = new Map(
     (products ?? []).map((product) => [product.id, product] as const),
   );
@@ -201,8 +267,16 @@ export async function createOrderAction(
       };
     }
 
-    const unitNet = parsePrice(product.price);
-    const unitAmount = isWholesale ? unitNet : priceIncludingVat(unitNet);
+    const unitNet = resolveCatalogUnitNet(
+      product.price,
+      discountByProductId.get(product.id),
+    );
+    if (!Number.isFinite(unitNet) || unitNet < 0) {
+      return { ok: false, error: `Neplatná cena produktu ${product.name}.` };
+    }
+
+    // VO = katalóg; maloobchod / verejnosť = +50 %. Objednávka a GoPay = bez DPH.
+    const unitAmount = audienceNetPrice(unitNet, isWholesale);
     const unitPrice = formatPrice(unitAmount);
     subtotal += unitAmount * quantity;
     orderLines.push({
@@ -272,7 +346,8 @@ export async function createOrderAction(
   );
   const shippingCost =
     afterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : (shippingOption?.cost ?? 0);
-  const total = afterDiscount + shippingCost;
+  // GoPay / úhrada = produkty s DPH + doprava (sedí s „Celkom k úhrade“ v pokladni).
+  const total = priceIncludingVat(afterDiscount) + shippingCost;
 
   const { data: orderNumber, error: numberError } = await db.rpc(
     "next_order_number",
@@ -374,11 +449,69 @@ export async function createOrderAction(
     await db.from("cart_items").delete().eq("user_id", userId);
   }
 
+  let paymentUrl: string | undefined;
+
+  if (input.paymentMethod === "card") {
+    const site = await paymentCallbackBaseUrl();
+    try {
+      const payment = await createGopayPayment({
+        orderNumber,
+        amountEur: total,
+        description: `Objednávka ${orderNumber}`,
+        customer: {
+          name: input.name.trim(),
+          email: input.email.trim(),
+          phone: input.phone.trim(),
+          street: input.street.trim(),
+          city: input.city.trim(),
+          zip: input.zip.trim(),
+          countryCode: mapCountryToGopayCode(input.country),
+        },
+        returnUrl: `${site}/pokladna/vysledok?order=${encodeURIComponent(orderNumber)}`,
+        notificationUrl: `${site}/api/gopay/notify`,
+      });
+
+      const { error: gopayUpdateError } = await db
+        .from("orders")
+        .update({ gopay_payment_id: String(payment.id) })
+        .eq("id", orderRow.id);
+
+      if (gopayUpdateError) {
+        console.error("gopay_payment_id update:", gopayUpdateError.message);
+        return {
+          ok: false,
+          error:
+            "Objednávka vznikla, ale platbu sa nepodarilo prepojiť. Kontaktujte nás s číslom objednávky.",
+        };
+      }
+
+      paymentUrl = payment.gwUrl;
+    } catch (error) {
+      console.error("createOrderAction gopay:", error);
+      return {
+        ok: false,
+        error:
+          error instanceof Error
+            ? error.message
+            : "Online platbu sa nepodarilo spustiť.",
+      };
+    }
+  }
+
   revalidatePath("/admin");
   revalidatePath("/admin/objednavky");
   revalidatePath("/ucet");
 
-  return { ok: true, data: { orderNumber } };
+  if (input.paymentMethod === "cod") {
+    try {
+      const fullOrder = await getOrderByDbIdFromDb(orderRow.id);
+      if (fullOrder) await ensureInvoiceForOrder(fullOrder);
+    } catch (error) {
+      console.error("createOrderAction invoice (cod):", error);
+    }
+  }
+
+  return { ok: true, data: { orderNumber, paymentUrl } };
 }
 
 export async function listAdminOrdersAction(): Promise<
@@ -639,4 +772,79 @@ export async function getCustomerOrderHistoryAction(
       (order) => !ACTIVE_ORDER_STATUSES.includes(order.status),
     ),
   };
+}
+
+/**
+ * Vygeneruje (alebo načíta) PDF faktúru k objednávke.
+ * Admin: ľubovoľná oprávnená objednávka.
+ * Zákazník: musí sedieť e-mail a objednávka musí byť eligible.
+ */
+export async function downloadInvoicePdfAction(
+  orderNumber: string,
+  customerEmail?: string,
+): Promise<
+  OrderActionResult<{ pdfBase64: string; invoiceNumber: string }>
+> {
+  const normalized = normalizeOrderNumberInput(orderNumber);
+  if (!normalized) {
+    return { ok: false, error: "Chýba číslo objednávky." };
+  }
+
+  const order = await getOrderByNumberFromDb(normalized);
+  if (!order?.dbId) {
+    return { ok: false, error: "Objednávka sa nenašla." };
+  }
+
+  if (customerEmail !== undefined) {
+    const email = customerEmail.trim().toLowerCase();
+    if (
+      !email ||
+      order.customer.email.trim().toLowerCase() !== email
+    ) {
+      return { ok: false, error: "Objednávka sa nenašla." };
+    }
+    if (!orderEligibleForInvoice(order)) {
+      return {
+        ok: false,
+        error: "Faktúra ešte nie je dostupná pre túto objednávku.",
+      };
+    }
+  } else {
+    const auth = await requireAdmin();
+    if (!auth.ok) return { ok: false, error: auth.error };
+    if (!orderEligibleForInvoice(order)) {
+      return {
+        ok: false,
+        error: "Faktúra ešte nie je dostupná pre túto objednávku.",
+      };
+    }
+  }
+
+  try {
+    const invoice = await ensureInvoiceForOrder(order, {
+      paid:
+        order.status === "zaplatena" ||
+        order.status === "pripravuje_sa" ||
+        order.status === "pripravena_na_odoslanie" ||
+        order.status === "predana_dopravcovi" ||
+        order.status === "dorucena",
+    });
+    const pdf = await renderInvoicePdf(invoice);
+    return {
+      ok: true,
+      data: {
+        pdfBase64: pdf.toString("base64"),
+        invoiceNumber: invoice.invoice_number,
+      },
+    };
+  } catch (error) {
+    console.error("downloadInvoicePdfAction:", error);
+    return {
+      ok: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Faktúru sa nepodarilo vygenerovať.",
+    };
+  }
 }

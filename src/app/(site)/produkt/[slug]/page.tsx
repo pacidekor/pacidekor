@@ -11,7 +11,7 @@ import {
 } from "@/lib/discounts";
 import { listDiscounts } from "@/lib/discounts-server";
 import { categoryHrefById, categoryHref } from "@/lib/navigation";
-import { parsePrice } from "@/lib/price";
+import { audienceNetPrice, parsePrice, priceIncludingVat } from "@/lib/price";
 import { getRelatedProducts } from "@/lib/products";
 import {
   getProductBySlug,
@@ -101,7 +101,9 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
             slug: product.slug,
             image: product.image,
             sku: product.sku,
-            price: parsePrice(product.price),
+            price: priceIncludingVat(
+              audienceNetPrice(parsePrice(product.price), false),
+            ),
             inStock: product.inStock,
             category: product.category,
           }),

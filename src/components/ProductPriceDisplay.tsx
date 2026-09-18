@@ -1,8 +1,8 @@
 "use client";
 
 import {
-  formatPriceExVat,
-  formatPriceIncVat,
+  formatAudiencePriceExVat,
+  formatAudiencePriceIncVat,
 } from "@/lib/price";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
@@ -12,58 +12,22 @@ type ProductPriceDisplayProps = {
   variant?: "card" | "pdp" | "inline";
 };
 
-function RetailCardPrice({
+function CardPrice({
   price,
   originalPrice,
+  isWholesale,
 }: {
   price: string;
   originalPrice?: string;
+  isWholesale: boolean;
 }) {
-  const inc = formatPriceIncVat(price);
-  const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
-    : undefined;
-
-  if (originalPrice && incOriginal) {
-    return (
-      <div className="min-w-0 shrink">
-        <span className="block whitespace-nowrap font-sans text-[11px] text-[#2f2924]/50 line-through sm:text-sm">
-          {incOriginal}
-        </span>
-        <span className="block whitespace-nowrap font-sans text-sm font-bold text-[#c45c4a] sm:text-base">
-          {inc}
-          <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
-            / ks
-          </span>
-        </span>
-      </div>
-    );
-  }
-
-  return (
-    <span className="min-w-0 shrink whitespace-nowrap font-sans text-sm font-semibold text-[#2f2924] sm:text-base">
-      {inc}
-      <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
-        / ks
-      </span>
-    </span>
-  );
-}
-
-function WholesaleCardPrice({
-  price,
-  originalPrice,
-}: {
-  price: string;
-  originalPrice?: string;
-}) {
-  const exVat = formatPriceExVat(price);
+  const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
-    ? formatPriceExVat(originalPrice)
+    ? formatAudiencePriceExVat(originalPrice, isWholesale)
     : undefined;
-  const inc = formatPriceIncVat(price);
+  const inc = formatAudiencePriceIncVat(price, isWholesale);
   const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
+    ? formatAudiencePriceIncVat(originalPrice, isWholesale)
     : undefined;
 
   if (originalPrice && exVatOriginal) {
@@ -105,56 +69,22 @@ function WholesaleCardPrice({
   );
 }
 
-function RetailPdpPrice({
+function PdpPrice({
   price,
   originalPrice,
+  isWholesale,
 }: {
   price: string;
   originalPrice?: string;
+  isWholesale: boolean;
 }) {
-  const inc = formatPriceIncVat(price);
-  const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
-    : undefined;
-
-  if (originalPrice && incOriginal) {
-    return (
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="font-heading text-3xl font-semibold text-[#c45c4a] sm:text-4xl">
-          {inc}
-        </span>
-        <span className="text-lg text-[#2f2924]/45 line-through">
-          {incOriginal}
-        </span>
-        <span className="text-sm font-medium text-[#2f2924]/55">s DPH / ks</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1">
-      <p className="font-heading text-3xl font-semibold text-[#2f2924] sm:text-4xl">
-        {inc}
-      </p>
-      <span className="text-sm font-medium text-[#2f2924]/55">s DPH / ks</span>
-    </div>
-  );
-}
-
-function WholesalePdpPrice({
-  price,
-  originalPrice,
-}: {
-  price: string;
-  originalPrice?: string;
-}) {
-  const exVat = formatPriceExVat(price);
+  const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
-    ? formatPriceExVat(originalPrice)
+    ? formatAudiencePriceExVat(originalPrice, isWholesale)
     : undefined;
-  const inc = formatPriceIncVat(price);
+  const inc = formatAudiencePriceIncVat(price, isWholesale);
   const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
+    ? formatAudiencePriceIncVat(originalPrice, isWholesale)
     : undefined;
 
   return (
@@ -198,44 +128,22 @@ function WholesalePdpPrice({
   );
 }
 
-function RetailInlinePrice({
+function InlinePrice({
   price,
   originalPrice,
+  isWholesale,
 }: {
   price: string;
   originalPrice?: string;
+  isWholesale: boolean;
 }) {
-  const inc = formatPriceIncVat(price);
-  const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
-    : undefined;
-
-  if (originalPrice && incOriginal) {
-    return (
-      <>
-        <span className="mr-1.5 line-through">{incOriginal}</span>
-        <span className="font-semibold text-[#c45c4a]">{inc}</span>
-      </>
-    );
-  }
-
-  return <span className="font-semibold text-[#2f2924]">{inc}</span>;
-}
-
-function WholesaleInlinePrice({
-  price,
-  originalPrice,
-}: {
-  price: string;
-  originalPrice?: string;
-}) {
-  const exVat = formatPriceExVat(price);
+  const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
-    ? formatPriceExVat(originalPrice)
+    ? formatAudiencePriceExVat(originalPrice, isWholesale)
     : undefined;
-  const inc = formatPriceIncVat(price);
+  const inc = formatAudiencePriceIncVat(price, isWholesale);
   const incOriginal = originalPrice
-    ? formatPriceIncVat(originalPrice)
+    ? formatAudiencePriceIncVat(originalPrice, isWholesale)
     : undefined;
 
   if (originalPrice && exVatOriginal) {
@@ -269,24 +177,30 @@ export function ProductPriceDisplay({
   const isWholesale = useIsWholesale();
 
   if (variant === "pdp") {
-    return isWholesale ? (
-      <WholesalePdpPrice price={price} originalPrice={originalPrice} />
-    ) : (
-      <RetailPdpPrice price={price} originalPrice={originalPrice} />
+    return (
+      <PdpPrice
+        price={price}
+        originalPrice={originalPrice}
+        isWholesale={isWholesale}
+      />
     );
   }
 
   if (variant === "inline") {
-    return isWholesale ? (
-      <WholesaleInlinePrice price={price} originalPrice={originalPrice} />
-    ) : (
-      <RetailInlinePrice price={price} originalPrice={originalPrice} />
+    return (
+      <InlinePrice
+        price={price}
+        originalPrice={originalPrice}
+        isWholesale={isWholesale}
+      />
     );
   }
 
-  return isWholesale ? (
-    <WholesaleCardPrice price={price} originalPrice={originalPrice} />
-  ) : (
-    <RetailCardPrice price={price} originalPrice={originalPrice} />
+  return (
+    <CardPrice
+      price={price}
+      originalPrice={originalPrice}
+      isWholesale={isWholesale}
+    />
   );
 }

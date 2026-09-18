@@ -13,7 +13,7 @@ import {
   toggleFavorite,
 } from "@/lib/favorites";
 import { productHref, type Product } from "@/lib/products";
-import { formatPriceExVatLabel, formatPriceIncVatLabel } from "@/lib/price";
+import { formatAudiencePriceExVatLabel } from "@/lib/price";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 function feedbackMessage(added: number, skipped: number) {
@@ -70,9 +70,7 @@ function FavoriteItems({
                 {product.name}
               </span>
               <span className="mt-1 block text-sm font-semibold text-[#2f2924]">
-                {isWholesale
-                  ? formatPriceExVatLabel(product.price)
-                  : formatPriceIncVatLabel(product.price)}
+                {formatAudiencePriceExVatLabel(product.price, isWholesale)}
               </span>
             </span>
           </Link>

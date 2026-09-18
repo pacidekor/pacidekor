@@ -31,6 +31,7 @@ export type OrderRow = {
   packeta_point_id: string | null;
   packeta_point_name: string | null;
   packeta_packet_id: string | null;
+  gopay_payment_id?: string | null;
   subtotal_eur: number | string;
   discount_eur: number | string;
   promo_code: string | null;

@@ -205,6 +205,21 @@ export function canPrintShippingLabel(order: Order) {
   );
 }
 
+/** Faktúra po online platbe alebo pri dobierke (nie nezaplatená / stornovaná). */
+export function orderEligibleForInvoice(order: Order) {
+  if (order.status === "stornovana" || order.status === "nezaplatena") {
+    return false;
+  }
+  if (order.paymentMethodId === "cod") return true;
+  return (
+    order.status === "zaplatena" ||
+    order.status === "pripravuje_sa" ||
+    order.status === "pripravena_na_odoslanie" ||
+    order.status === "predana_dopravcovi" ||
+    order.status === "dorucena"
+  );
+}
+
 export function orderStatusClass(status: OrderStatus | string) {
   if (status in ORDER_STATUS_META) {
     return ORDER_STATUS_META[status as OrderStatus].className;

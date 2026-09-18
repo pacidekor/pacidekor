@@ -3,27 +3,40 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Check } from "lucide-react";
+import { unsubscribeNewsletterAction } from "@/lib/actions/newsletter";
 
-type Phase = "confirm" | "done";
+type Phase = "confirm" | "done" | "error";
 
-/**
- * MVP: potvrdenie odhlásenia z newslettera.
- * Skutočné uloženie do DB / Brevo napojíme spolu so signupom.
- */
 export function NewsletterUnsubscribeForm({
   email,
+  token,
 }: {
   email?: string;
+  token?: string;
 }) {
   const [phase, setPhase] = useState<Phase>("confirm");
   const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  function confirmUnsubscribe() {
+  async function confirmUnsubscribe() {
+    if (!email || !token) {
+      setError("Odkaz na odhlásenie je neplatný. Použite odkaz z newslettera.");
+      setPhase("error");
+      return;
+    }
+
     setPending(true);
-    window.setTimeout(() => {
-      setPending(false);
-      setPhase("done");
-    }, 350);
+    setError(null);
+    const result = await unsubscribeNewsletterAction({ email, token });
+    setPending(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      setPhase("error");
+      return;
+    }
+
+    setPhase("done");
   }
 
   if (phase === "done") {
@@ -77,10 +90,19 @@ export function NewsletterUnsubscribeForm({
         webe.
       </p>
 
+      {error || phase === "error" ? (
+        <p
+          role="alert"
+          className="mt-4 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]"
+        >
+          {error ?? "Odhlásenie zlyhalo."}
+        </p>
+      ) : null}
+
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <button
           type="button"
-          onClick={confirmUnsubscribe}
+          onClick={() => void confirmUnsubscribe()}
           disabled={pending}
           className="inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70 sm:flex-1"
         >

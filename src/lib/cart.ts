@@ -19,6 +19,7 @@ import {
 } from "@/lib/inventory";
 import {
   amountToMinOrder,
+  audienceNetFromCatalogPrice,
   formatPrice,
   meetsMinOrder,
   MIN_ORDER_TOTAL,
@@ -595,6 +596,20 @@ export function cartPieceCount(items: CartItem[]) {
 export function cartSubtotal(items: CartItem[]) {
   return items.reduce(
     (sum, item) => sum + parsePrice(item.product.price) * item.quantity,
+    0,
+  );
+}
+
+/** Medzisúčet v cenách pre dané publikum (VO = katalóg, inak +50 %). */
+export function cartSubtotalForAudience(
+  items: CartItem[],
+  isWholesale: boolean,
+) {
+  return items.reduce(
+    (sum, item) =>
+      sum +
+      audienceNetFromCatalogPrice(item.product.price, isWholesale) *
+        item.quantity,
     0,
   );
 }

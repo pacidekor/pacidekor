@@ -11,11 +11,10 @@ import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeFie
 import {
   amountToMinOrder,
   cartItemCount,
-  cartSubtotal,
+  cartSubtotalForAudience,
   formatPrice,
   meetsMinOrder,
   MIN_ORDER_TOTAL,
-  parsePrice,
   readCartItems,
   removeFromCart,
   setCartQuantity,
@@ -43,10 +42,11 @@ import {
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
 import {
+  audienceNetFromCatalogPrice,
   formatAmountExVat,
   formatAmountIncVat,
-  formatPriceExVat,
-  formatPriceIncVat,
+  formatAudiencePriceExVat,
+  formatAudiencePriceIncVat,
   priceIncludingVat,
 } from "@/lib/price";
 import {
@@ -104,10 +104,9 @@ function CartLine({
 }) {
   const { product, quantity } = item;
   const deferredQuantity = useDeferredValue(quantity);
-  const lineTotalNet = parsePrice(product.price) * deferredQuantity;
-  const lineTotal = isWholesale
-    ? lineTotalNet
-    : priceIncludingVat(lineTotalNet);
+  const lineTotalNet =
+    audienceNetFromCatalogPrice(product.price, isWholesale) * deferredQuantity;
+  const lineTotalInc = priceIncludingVat(lineTotalNet);
   const inventory = getInventoryForProduct(product);
   const remaining = inventoryMaxOrderable(inventory);
   const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
@@ -171,20 +170,17 @@ function CartLine({
 
           <div className="text-right">
             <p className="font-heading text-lg font-semibold tabular-nums text-[#2f2924]">
-              {formatPrice(lineTotal)}
-              {isWholesale ? (
-                <span className="ml-1.5 text-xs font-normal text-[#2f2924]/45">
-                  bez DPH
-                </span>
-              ) : null}
+              {formatPrice(lineTotalNet)}
+              <span className="ml-1.5 text-xs font-normal text-[#2f2924]/45">
+                bez DPH
+              </span>
             </p>
-            {deferredQuantity > 1 ? (
-              <p className="mt-0.5 text-xs text-[#2f2924]/45">
-                {isWholesale
-                  ? `${formatPriceExVat(product.price)} / ks`
-                  : `${formatPriceIncVat(product.price)} / ks`}
-              </p>
-            ) : null}
+            <p className="mt-0.5 text-xs text-[#2f2924]/45">
+              {formatPrice(lineTotalInc)} s DPH
+              {deferredQuantity > 1
+                ? ` · ${formatAudiencePriceExVat(product.price, isWholesale)} / ks`
+                : ""}
+            </p>
           </div>
         </div>
       </div>
@@ -248,12 +244,10 @@ function CartSummary({
   items,
   subtotal,
   customer,
-  isWholesale,
 }: {
   items: CartItem[];
   subtotal: number;
   customer: Customer | null;
-  isWholesale: boolean;
 }) {
   const count = cartItemCount(items);
   const [promo, setPromo] = useState<AppliedPromo | null>(null);
@@ -261,18 +255,9 @@ function CartSummary({
     ? promoDiscountAmount(subtotal, promo.discountPercent)
     : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
-  const displaySubtotal = isWholesale
-    ? subtotal
-    : priceIncludingVat(subtotal);
-  const displayDiscount = isWholesale
-    ? discount
-    : priceIncludingVat(discount);
-  const displayAfterDiscount = isWholesale
-    ? afterDiscount
-    : priceIncludingVat(afterDiscount);
-  const freeShipping = displayAfterDiscount >= FREE_SHIPPING_THRESHOLD;
-  const canCheckout = ORDERS_ENABLED && meetsMinOrder(displaySubtotal);
-  const remainingMinOrder = amountToMinOrder(displaySubtotal);
+  const freeShipping = afterDiscount >= FREE_SHIPPING_THRESHOLD;
+  const canCheckout = ORDERS_ENABLED && meetsMinOrder(subtotal);
+  const remainingMinOrder = amountToMinOrder(subtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
 
@@ -307,20 +292,16 @@ function CartSummary({
 
         <div className="space-y-3.5 px-6 py-5 sm:px-7">
           <div className="flex items-baseline justify-between gap-3 text-sm">
-            <span className="text-[#2f2924]/60">
-              {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
-            </span>
+            <span className="text-[#2f2924]/60">Medzisúčet bez DPH</span>
             <span className="font-medium text-[#2f2924]">
-              {isWholesale
-                ? formatAmountExVat(subtotal)
-                : formatAmountIncVat(subtotal)}
+              {formatAmountExVat(subtotal)}
             </span>
           </div>
 
           <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
 
           {discount > 0 && promo ? (
-            <AppliedPromoLine promo={promo} discountAmount={displayDiscount} />
+            <AppliedPromoLine promo={promo} discountAmount={discount} />
           ) : null}
 
           <div className="flex items-baseline justify-between gap-3 text-sm">
@@ -331,37 +312,34 @@ function CartSummary({
           </div>
 
           <FreeShippingProgress
-            current={displayAfterDiscount}
+            current={afterDiscount}
             threshold={FREE_SHIPPING_THRESHOLD}
           />
 
+          <div className="flex items-baseline justify-between gap-3 text-sm">
+            <span className="text-[#2f2924]/60">Celkom bez DPH</span>
+            <span className="font-medium tabular-nums text-[#2f2924]">
+              {formatAmountExVat(afterDiscount)}
+            </span>
+          </div>
+
+          <div className="flex items-baseline justify-between gap-3 text-sm">
+            <span className="text-[#2f2924]/60">DPH (23 %)</span>
+            <span className="font-medium tabular-nums text-[#2f2924]">
+              {formatPrice(priceIncludingVat(afterDiscount) - afterDiscount)}
+            </span>
+          </div>
+
           <div className="h-px bg-black/8" aria-hidden />
 
-          {isWholesale ? (
-            <div className="space-y-2">
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="text-sm font-medium text-[#2f2924]">
-                  Celkom bez DPH
-                </span>
-                <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                  {formatAmountExVat(afterDiscount)}
-                </span>
-              </div>
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="text-sm text-[#2f2924]/60">Celkom s DPH</span>
-                <span className="text-base font-medium text-[#2f2924]/70">
-                  {formatAmountIncVat(afterDiscount)}
-                </span>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-baseline justify-between gap-3">
-              <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
-              <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                {formatPrice(displayAfterDiscount)}
-              </span>
-            </div>
-          )}
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-sm font-medium text-[#2f2924]">
+              Celkom k úhrade
+            </span>
+            <span className="font-heading text-2xl font-semibold tabular-nums text-[#2f2924]">
+              {formatAmountIncVat(afterDiscount)}
+            </span>
+          </div>
         </div>
 
         <div className="border-t border-black/6 px-6 py-5 sm:px-7">
@@ -542,7 +520,7 @@ export function CartView() {
     return <EmptyCart />;
   }
 
-  const subtotal = cartSubtotal(deferredItems);
+  const subtotal = cartSubtotalForAudience(deferredItems, isWholesale);
   const count = cartItemCount(items);
 
   return (
@@ -582,7 +560,6 @@ export function CartView() {
         items={deferredItems}
         subtotal={subtotal}
         customer={customer}
-        isWholesale={isWholesale}
       />
     </div>
   );

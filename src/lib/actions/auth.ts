@@ -26,6 +26,18 @@ import {
 } from "@/lib/form-validation";
 import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProfileRow, ProfileUpdate } from "@/lib/supabase/database.types";
+import {
+  issueAndSendEmailVerifyCode,
+  notifyWholesaleApproved,
+  verifyEmailCode,
+  type EmailVerifyPurpose,
+} from "@/lib/email-verification-server";
+import { normalizeEmailVerifyCode } from "@/lib/email-verification";
+import {
+  sendEmailChangedNotifications,
+  sendPasswordChangedEmail,
+  sendPasswordResetEmail,
+} from "@/lib/auth-emails";
 
 async function siteOrigin() {
   const h = await headers();
@@ -157,6 +169,16 @@ export async function registerWholesale(
   // Wholesale must wait for approval — do not keep a session.
   await supabase.auth.signOut();
 
+  const verifySend = await issueAndSendEmailVerifyCode({
+    email,
+    customerName: input.name.trim(),
+    purpose: "wholesale_register",
+    companyName: input.company.trim(),
+  });
+  if (!verifySend.ok) {
+    console.error("registerWholesale verify e-mail:", verifySend.error);
+  }
+
   return { ok: true, data: { customerId: data.user.id } };
 }
 
@@ -218,6 +240,15 @@ export async function registerRetail(
       ok: false,
       error: "Účet vznikol, ale profil sa nenačítal. Skúste sa prihlásiť.",
     };
+  }
+
+  const verifySend = await issueAndSendEmailVerifyCode({
+    email,
+    customerName: input.name.trim(),
+    purpose: "retail_register",
+  });
+  if (!verifySend.ok) {
+    console.error("registerRetail verify e-mail:", verifySend.error);
   }
 
   return { ok: true, data: { customer: profileToCustomer(profile) } };
@@ -371,15 +402,25 @@ export async function requestPasswordReset(
   if (emailCheck) return { ok: false, error: emailCheck };
 
   const email = normalizeEmail(emailRaw);
-  const supabase = await createCustomerClient();
   const origin = await siteOrigin();
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/obnova-hesla`,
-  });
+  try {
+    const db = createServiceClient();
+    const { data: profile } = await db
+      .from("profiles")
+      .select("id")
+      .ilike("email", email)
+      .maybeSingle();
 
-  if (error) {
-    console.error("requestPasswordReset:", error.message);
+    // Enumeration-safe: only generate/send when the account exists.
+    if (profile) {
+      await sendPasswordResetEmail({
+        email,
+        redirectTo: `${origin}/obnova-hesla`,
+      });
+    }
+  } catch (error) {
+    console.error("requestPasswordReset:", error);
   }
 
   return { ok: true, data: null };
@@ -407,6 +448,10 @@ export async function updatePasswordAfterReset(
   const { error } = await supabase.auth.updateUser({ password });
   if (error) {
     return { ok: false, error: mapAuthError(error.message) };
+  }
+
+  if (user.email) {
+    void sendPasswordChangedEmail({ email: user.email });
   }
 
   return { ok: true, data: null };
@@ -446,6 +491,8 @@ export async function changeOwnPassword(input: {
   if (error) {
     return { ok: false, error: mapAuthError(error.message) };
   }
+
+  void sendPasswordChangedEmail({ email: user.email });
 
   return { ok: true, data: null };
 }
@@ -490,6 +537,7 @@ export async function changeOwnEmail(input: {
   }
 
   const origin = await siteOrigin();
+  const oldEmail = user.email;
   const { error } = await supabase.auth.updateUser(
     { email: newEmail },
     { emailRedirectTo: `${origin}/ucet` },
@@ -497,6 +545,11 @@ export async function changeOwnEmail(input: {
   if (error) {
     return { ok: false, error: mapAuthError(error.message) };
   }
+
+  void sendEmailChangedNotifications({
+    oldEmail,
+    newEmail,
+  });
 
   return {
     ok: true,
@@ -656,7 +709,16 @@ async function setCustomerStatus(
 }
 
 export async function approveCustomer(id: string) {
-  return setCustomerStatus(id, "aktivny", { setRegisteredAt: true });
+  const result = await setCustomerStatus(id, "aktivny", { setRegisteredAt: true });
+  if (result.ok && result.data.customer.type === "velkoobchod") {
+    const customer = result.data.customer;
+    void notifyWholesaleApproved({
+      email: customer.email,
+      customerName: customer.name,
+      companyName: customer.company?.trim() || customer.name,
+    });
+  }
+  return result;
 }
 
 export async function rejectCustomer(id: string) {
@@ -695,4 +757,51 @@ export async function deleteCustomer(id: string): Promise<ActionResult> {
   revalidatePath("/admin/zakaznici");
   revalidatePath("/admin/velkoobchodne-ucty");
   return { ok: true, data: undefined };
+}
+
+/** Client: overenie 5-miestneho kódu z e-mailu po registrácii. */
+export async function verifyEmailCodeAction(input: {
+  email: string;
+  code: string;
+}): Promise<ActionResult> {
+  const emailCheck = emailError(input.email);
+  if (emailCheck) return { ok: false, error: emailCheck };
+  return verifyEmailCode({
+    email: input.email,
+    code: normalizeEmailVerifyCode(input.code),
+  });
+}
+
+/** Client: znova odoslať overovací kód (použije uložený purpose / meno). */
+export async function resendEmailVerifyCodeAction(
+  emailRaw: string,
+): Promise<ActionResult> {
+  const emailCheck = emailError(emailRaw);
+  if (emailCheck) return { ok: false, error: emailCheck };
+
+  const email = normalizeEmail(emailRaw);
+  const db = createServiceClient();
+  const { data, error } = await db
+    .from("email_verification_codes")
+    .select("purpose, customer_name, company_name")
+    .eq("email", email)
+    .maybeSingle();
+
+  if (error) {
+    console.error("resendEmailVerifyCodeAction:", error.message);
+    return { ok: false, error: "Nepodarilo sa odoslať nový kód." };
+  }
+  if (!data) {
+    return {
+      ok: false,
+      error: "Kód už nie je platný. Skúste registráciu znova.",
+    };
+  }
+
+  return issueAndSendEmailVerifyCode({
+    email,
+    customerName: data.customer_name?.trim() || "",
+    purpose: data.purpose as EmailVerifyPurpose,
+    companyName: data.company_name?.trim() || undefined,
+  });
 }

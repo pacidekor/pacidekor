@@ -320,6 +320,7 @@ export type OrderRow = {
   packeta_point_id: string | null;
   packeta_point_name: string | null;
   packeta_packet_id: string | null;
+  gopay_payment_id: string | null;
   subtotal_eur: number;
   discount_eur: number;
   promo_code: string | null;
@@ -433,6 +434,186 @@ export type Database = {
         Update: Partial<OrderItemRow>;
         Relationships: [];
       };
+      email_verification_codes: {
+        Row: {
+          email: string;
+          code_hash: string;
+          purpose: "retail_register" | "wholesale_register";
+          customer_name: string | null;
+          company_name: string | null;
+          expires_at: string;
+          created_at: string;
+        };
+        Insert: {
+          email: string;
+          code_hash: string;
+          purpose: "retail_register" | "wholesale_register";
+          customer_name?: string | null;
+          company_name?: string | null;
+          expires_at: string;
+          created_at?: string;
+        };
+        Update: Partial<{
+          email: string;
+          code_hash: string;
+          purpose: "retail_register" | "wholesale_register";
+          customer_name: string | null;
+          company_name: string | null;
+          expires_at: string;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
+      newsletter_subscribers: {
+        Row: {
+          email: string;
+          name: string | null;
+          unsubscribe_token: string;
+          active: boolean;
+          subscribed_at: string;
+          unsubscribed_at: string | null;
+        };
+        Insert: {
+          email: string;
+          name?: string | null;
+          unsubscribe_token: string;
+          active?: boolean;
+          subscribed_at?: string;
+          unsubscribed_at?: string | null;
+        };
+        Update: Partial<{
+          email: string;
+          name: string | null;
+          unsubscribe_token: string;
+          active: boolean;
+          subscribed_at: string;
+          unsubscribed_at: string | null;
+        }>;
+        Relationships: [];
+      };
+      birthday_emails_sent: {
+        Row: {
+          profile_id: string;
+          year: number;
+          promo_code: string;
+          sent_at: string;
+        };
+        Insert: {
+          profile_id: string;
+          year: number;
+          promo_code: string;
+          sent_at?: string;
+        };
+        Update: Partial<{
+          profile_id: string;
+          year: number;
+          promo_code: string;
+          sent_at: string;
+        }>;
+        Relationships: [];
+      };
+      invoice_sequences: {
+        Row: {
+          year: number;
+          last_number: number;
+        };
+        Insert: {
+          year: number;
+          last_number?: number;
+        };
+        Update: Partial<{
+          year: number;
+          last_number: number;
+        }>;
+        Relationships: [];
+      };
+      invoices: {
+        Row: {
+          id: string;
+          order_id: string;
+          invoice_number: string;
+          variable_symbol: string;
+          issued_at: string;
+          due_at: string;
+          currency: string;
+          subtotal_ex_vat: number;
+          vat_amount: number;
+          total_inc_vat: number;
+          payment_method: string;
+          paid: boolean;
+          customer: {
+            name: string;
+            address: string;
+            ico?: string;
+            dic?: string;
+            email?: string;
+          };
+          items: Array<{
+            description: string;
+            quantity: number;
+            unitPriceExVat: number;
+            lineTotalExVat: number;
+          }>;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          order_id: string;
+          invoice_number: string;
+          variable_symbol: string;
+          issued_at: string;
+          due_at: string;
+          currency?: string;
+          subtotal_ex_vat: number;
+          vat_amount: number;
+          total_inc_vat: number;
+          payment_method: string;
+          paid?: boolean;
+          customer: {
+            name: string;
+            address: string;
+            ico?: string;
+            dic?: string;
+            email?: string;
+          };
+          items: Array<{
+            description: string;
+            quantity: number;
+            unitPriceExVat: number;
+            lineTotalExVat: number;
+          }>;
+          created_at?: string;
+        };
+        Update: Partial<{
+          id: string;
+          order_id: string;
+          invoice_number: string;
+          variable_symbol: string;
+          issued_at: string;
+          due_at: string;
+          currency: string;
+          subtotal_ex_vat: number;
+          vat_amount: number;
+          total_inc_vat: number;
+          payment_method: string;
+          paid: boolean;
+          customer: {
+            name: string;
+            address: string;
+            ico?: string;
+            dic?: string;
+            email?: string;
+          };
+          items: Array<{
+            description: string;
+            quantity: number;
+            unitPriceExVat: number;
+            lineTotalExVat: number;
+          }>;
+          created_at: string;
+        }>;
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: {
@@ -448,6 +629,10 @@ export type Database = {
         }[];
       };
       next_order_number: {
+        Args: Record<string, never>;
+        Returns: string;
+      };
+      next_invoice_number: {
         Args: Record<string, never>;
         Returns: string;
       };

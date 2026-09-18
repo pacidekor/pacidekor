@@ -28,7 +28,7 @@ import {
   Trash2,
   X,
 } from "lucide-react";
-import { formatPrice, parsePrice } from "@/lib/price";
+import { formatPrice, formatPriceExVat, parsePrice } from "@/lib/price";
 import { productMatchesSearchQuery } from "@/lib/search";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
@@ -169,6 +169,21 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
 
 type StockFilter = AdminStockFilter;
 
+type ProductSort =
+  | "newest"
+  | "oldest"
+  | "price_asc"
+  | "price_desc"
+  | "name_asc";
+
+const PRODUCT_SORT_OPTIONS: { value: ProductSort; label: string }[] = [
+  { value: "newest", label: "Od najnovšieho" },
+  { value: "oldest", label: "Od najstaršieho" },
+  { value: "price_asc", label: "Od najlacnejšieho" },
+  { value: "price_desc", label: "Od najdrahšieho" },
+  { value: "name_asc", label: "Podľa názvu A–Z" },
+];
+
 const LOW_STOCK_THRESHOLD = 5;
 
 const CUSTOM_COLOR_PRESETS = [
@@ -207,6 +222,7 @@ export function AdminProductsManager({
     useState<StockFilter>(initialStockFilter);
   const [colorFilter, setColorFilter] = useState<string[]>([]);
   const [packagingFilter, setPackagingFilter] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<ProductSort>("newest");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [inventoryTick, setInventoryTick] = useState(0);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -246,7 +262,7 @@ export function AdminProductsManager({
     void inventoryTick;
     const q = query.trim().toLowerCase();
 
-    return products.filter((product) => {
+    const list = products.filter((product) => {
       if (categoryFilter !== "all" && product.category !== categoryFilter) {
         return false;
       }
@@ -295,6 +311,34 @@ export function AdminProductsManager({
       if (!q) return true;
       return productMatchesSearchQuery(product, q);
     });
+
+    const createdTime = (product: Product) => {
+      const raw = product.createdAt;
+      if (!raw) return 0;
+      const time = new Date(raw).getTime();
+      return Number.isFinite(time) ? time : 0;
+    };
+
+    const priceValue = (product: Product) => {
+      const value = parsePrice(product.price);
+      return Number.isFinite(value) ? value : 0;
+    };
+
+    return [...list].sort((a, b) => {
+      switch (sortBy) {
+        case "oldest":
+          return createdTime(a) - createdTime(b) || a.name.localeCompare(b.name, "sk");
+        case "price_asc":
+          return priceValue(a) - priceValue(b) || a.name.localeCompare(b.name, "sk");
+        case "price_desc":
+          return priceValue(b) - priceValue(a) || a.name.localeCompare(b.name, "sk");
+        case "name_asc":
+          return a.name.localeCompare(b.name, "sk");
+        case "newest":
+        default:
+          return createdTime(b) - createdTime(a) || a.name.localeCompare(b.name, "sk");
+      }
+    });
   }, [
     products,
     query,
@@ -302,6 +346,7 @@ export function AdminProductsManager({
     stockFilter,
     colorFilter,
     packagingFilter,
+    sortBy,
     inventoryTick,
   ]);
 
@@ -430,13 +475,15 @@ export function AdminProductsManager({
     (categoryFilter !== "all" ? 1 : 0) +
     (stockFilter !== "all" ? 1 : 0) +
     (colorFilter.length > 0 ? 1 : 0) +
-    (packagingFilter.length > 0 ? 1 : 0);
+    (packagingFilter.length > 0 ? 1 : 0) +
+    (sortBy !== "newest" ? 1 : 0);
 
   function clearFilters() {
     setCategoryFilter("all");
     setStockFilter("all");
     setColorFilter([]);
     setPackagingFilter([]);
+    setSortBy("newest");
   }
 
   function toggleColor(colorId: string) {
@@ -541,6 +588,12 @@ export function AdminProductsManager({
                         {product.category}
                         {subcategoryLabel ? ` · ${subcategoryLabel}` : ""}
                       </p>
+                      <p className="mt-1 text-sm font-medium tabular-nums text-[#2f2924]">
+                        {formatPriceExVat(product.price)}
+                        <span className="ml-1 font-normal text-[#2f2924]/45">
+                          bez DPH
+                        </span>
+                      </p>
                       <div className="mt-2 flex flex-wrap items-center gap-2">
                         <span
                           className={`inline-flex rounded-md px-2 py-1 text-xs font-semibold ${
@@ -594,12 +647,13 @@ export function AdminProductsManager({
       {/* Desktop table */}
       <div className="hidden overflow-hidden rounded-2xl border border-black/6 bg-white md:block">
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[760px] text-left text-[15px]">
+          <table className="w-full min-w-[860px] text-left text-[15px]">
             <thead className="border-b border-black/6 bg-white text-xs tracking-wide text-[#2f2924]/55 uppercase">
               <tr>
                 <th className="px-4 py-3 font-medium">Produkt</th>
                 <th className="px-4 py-3 font-medium">Kategória</th>
                 <th className="px-4 py-3 font-medium">Subkategória</th>
+                <th className="px-4 py-3 font-medium">Cena bez DPH</th>
                 <th className="px-4 py-3 font-medium">Sklad</th>
                 <th className="px-4 py-3 text-right font-medium">Akcie</th>
               </tr>
@@ -641,6 +695,9 @@ export function AdminProductsManager({
                       {subcategoryLabel || (
                         <span className="text-[#2f2924]/35">—</span>
                       )}
+                    </td>
+                    <td className="px-4 py-3.5 tabular-nums text-[#2f2924]">
+                      {formatPriceExVat(product.price)}
                     </td>
                     <td className="px-4 py-3.5">
                       <span
@@ -711,6 +768,22 @@ export function AdminProductsManager({
         }
       >
         <div className="space-y-7">
+          <div>
+            <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+              Radenie
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {PRODUCT_SORT_OPTIONS.map((option) => (
+                <FilterChip
+                  key={option.value}
+                  label={option.label}
+                  active={sortBy === option.value}
+                  onClick={() => setSortBy(option.value)}
+                />
+              ))}
+            </div>
+          </div>
+
           <div>
             <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
               Kategória

@@ -2,6 +2,12 @@ import "server-only";
 
 import type { EmailTemplate } from "@/lib/emails/types";
 
+export type BrevoAttachment = {
+  /** Base64 bez data: prefixu */
+  content: string;
+  name: string;
+};
+
 export type BrevoSendInput = {
   to: string;
   subject: string;
@@ -9,6 +15,7 @@ export type BrevoSendInput = {
   text?: string;
   /** Optional tags in Brevo dashboard */
   tags?: string[];
+  attachments?: BrevoAttachment[];
 };
 
 export type BrevoSendResult =
@@ -69,6 +76,14 @@ export async function sendBrevoEmail(
         htmlContent: input.html,
         ...(input.text ? { textContent: input.text } : {}),
         ...(input.tags?.length ? { tags: input.tags } : {}),
+        ...(input.attachments?.length
+          ? {
+              attachment: input.attachments.map((file) => ({
+                content: file.content,
+                name: file.name,
+              })),
+            }
+          : {}),
       }),
     });
 
@@ -100,6 +115,7 @@ export async function sendBrevoTemplateEmail(input: {
   to: string;
   email: EmailTemplate;
   tags?: string[];
+  attachments?: BrevoAttachment[];
 }): Promise<BrevoSendResult> {
   return sendBrevoEmail({
     to: input.to,
@@ -107,5 +123,6 @@ export async function sendBrevoTemplateEmail(input: {
     html: input.email.html,
     text: input.email.text,
     tags: input.tags ?? ["pacidekor", input.email.id],
+    attachments: input.attachments,
   });
 }

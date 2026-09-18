@@ -114,7 +114,7 @@ function sectionHtml(input: {
 
 /**
  * Pravidelný B2C newsletter (novinky + akcie).
- * Zatiaľ template + preview; odosielanie a signup neskôr.
+ * Odosiela sa cronom / admin akciou aktívnym odberateľom.
  */
 export function buildNewsletterEmail(
   vars: NewsletterEmailVars,

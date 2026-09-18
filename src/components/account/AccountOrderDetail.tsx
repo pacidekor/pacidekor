@@ -2,17 +2,20 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { X } from "lucide-react";
+import { FileText, X } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
-import { cancelCustomerOrderAction } from "@/lib/actions/orders";
+import {
+  cancelCustomerOrderAction,
+  downloadInvoicePdfAction,
+} from "@/lib/actions/orders";
 import {
   ORDER_STATUS_META,
   ORDERS_EVENT,
   canCancelOrder,
   formatOrderCreatedAt,
-  formatOrderShippingLine,
   formatOrderTotal,
+  orderEligibleForInvoice,
   orderItemsSubtotal,
   orderStatusClass,
   type Order,
@@ -48,6 +51,8 @@ export function AccountOrderDetail({
   const [exiting, setExiting] = useState(false);
   const [confirmCancel, setConfirmCancel] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
+  const [invoiceError, setInvoiceError] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const meta = ORDER_STATUS_META[order.status];
@@ -55,6 +60,7 @@ export function AccountOrderDetail({
   const panelOpen = entered && !exiting;
   const itemCount = order.items.reduce((sum, line) => sum + line.quantity, 0);
   const showCancel = allowCancel && canCancelOrder(order);
+  const showInvoice = orderEligibleForInvoice(order);
 
   useEffect(() => {
     const unlock = lockPageScroll();
@@ -84,6 +90,26 @@ export function AccountOrderDetail({
     window.dispatchEvent(new Event(ORDERS_EVENT));
     onCancelled?.();
     closePanel();
+  }
+
+  async function handleDownloadInvoice() {
+    setInvoiceLoading(true);
+    setInvoiceError(null);
+    const result = await downloadInvoicePdfAction(order.id, customerEmail);
+    setInvoiceLoading(false);
+    if (!result.ok) {
+      setInvoiceError(result.error);
+      return;
+    }
+    const blob = await fetch(
+      `data:application/pdf;base64,${result.data.pdfBase64}`,
+    ).then((response) => response.blob());
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${result.data.invoiceNumber}.pdf`;
+    a.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
   }
 
   return (
@@ -277,39 +303,58 @@ export function AccountOrderDetail({
           </section>
         </div>
 
-        {showCancel ? (
+        {(showInvoice || showCancel) ? (
           <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
-            {confirmCancel ? (
-              <div className="space-y-3">
-                <p className="text-sm text-[#9a4d3f]">
-                  Naozaj chcete stornovať objednávku #{order.id}?
-                </p>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setConfirmCancel(false)}
-                    className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
-                  >
-                    Späť
-                  </button>
-                  <button
-                    type="button"
-                    onClick={handleCancel}
-                    className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
-                  >
-                    Potvrdiť storno
-                  </button>
-                </div>
-              </div>
-            ) : (
+            {invoiceError ? (
+              <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                {invoiceError}
+              </p>
+            ) : null}
+            {showInvoice ? (
               <button
                 type="button"
-                onClick={() => setConfirmCancel(true)}
-                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                onClick={() => void handleDownloadInvoice()}
+                disabled={invoiceLoading}
+                className={`inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-70 ${showCancel ? "mb-2" : ""}`}
               >
-                Stornovať objednávku
+                <FileText className="size-4" strokeWidth={1.75} aria-hidden />
+                {invoiceLoading ? "Generujem faktúru…" : "Stiahnuť faktúru"}
               </button>
-            )}
+            ) : null}
+            {showCancel ? (
+              confirmCancel ? (
+                <div className="space-y-3">
+                  <p className="text-sm text-[#9a4d3f]">
+                    Naozaj chcete stornovať objednávku #{order.id}?
+                  </p>
+                  <div className="flex gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setConfirmCancel(false)}
+                      className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                    >
+                      Späť
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleCancel}
+                      disabled={cancelling}
+                      className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:opacity-70"
+                    >
+                      {cancelling ? "Ruším…" : "Potvrdiť storno"}
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setConfirmCancel(true)}
+                  className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#c45c4a] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  Stornovať objednávku
+                </button>
+              )
+            ) : null}
           </div>
         ) : null}
       </aside>

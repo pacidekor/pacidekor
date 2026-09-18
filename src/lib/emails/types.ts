@@ -142,8 +142,8 @@ export type OrderPaidEmailItem = {
 };
 
 /**
- * Potvrdenie po zaplatení / prijatí objednávky + súhrn nákupu.
- * Zatiaľ template; napojenie na platobný webhook / checkout neskôr.
+ * Potvrdenie po zaplatení objednávky + súhrn nákupu.
+ * Odosiela sa cez Brevo po úspešnom GoPay syncu (`notifyOrderPaid`).
  */
 export type OrderPaidEmailVars = {
   customerName?: string;
@@ -166,6 +166,8 @@ export type OrderPaidEmailVars = {
   promoCode?: string;
   /** Signed link na detail objednávky. */
   orderUrl?: string;
+  /** Signed link na PDF faktúru (príloha je zároveň v e-maile). */
+  invoiceUrl?: string;
   siteUrl?: string;
   shopUrl?: string;
   accountUrl?: string;

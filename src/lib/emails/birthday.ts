@@ -16,7 +16,7 @@ import {
 
 /**
  * Narodeninový marketingový e-mail so zľavovým kódom.
- * Odosielanie na dátum narodenia napojíme neskôr.
+ * Odosiela denný cron `/api/cron/birthday`.
  */
 export function buildBirthdayEmail(vars: BirthdayEmailVars): EmailTemplate {
   const siteUrl = (vars.siteUrl ?? EMAIL_BRAND.defaultSiteUrl).replace(

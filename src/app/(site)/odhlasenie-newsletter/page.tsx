@@ -13,10 +13,11 @@ export const metadata: Metadata = pageMetadata({
 export default async function NewsletterUnsubscribePage({
   searchParams,
 }: {
-  searchParams: Promise<{ email?: string }>;
+  searchParams: Promise<{ email?: string; t?: string }>;
 }) {
   const params = await searchParams;
   const email = params.email?.trim() || undefined;
+  const token = params.t?.trim() || undefined;
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -30,7 +31,7 @@ export default async function NewsletterUnsubscribePage({
         <span className="text-[#2f2924]">Odhlásenie z newslettera</span>
       </nav>
 
-      <NewsletterUnsubscribeForm email={email} />
+      <NewsletterUnsubscribeForm email={email} token={token} />
     </main>
   );
 }

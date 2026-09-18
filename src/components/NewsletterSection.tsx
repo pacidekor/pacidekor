@@ -1,6 +1,33 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
 import Image from "next/image";
+import { subscribeNewsletterAction } from "@/lib/actions/newsletter";
 
 export function NewsletterSection() {
+  const [email, setEmail] = useState("");
+  const [pending, setPending] = useState(false);
+  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setPending(true);
+    setMessage(null);
+    setError(null);
+
+    const result = await subscribeNewsletterAction({ email });
+    setPending(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+
+    setEmail("");
+    setMessage("Ďakujeme! Ste prihlásení na odber noviniek.");
+  }
+
   return (
     <section
       aria-labelledby="newsletter-heading"
@@ -33,7 +60,10 @@ export function NewsletterSection() {
           akciám pre členov.
         </p>
 
-        <form className="mt-6 flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:items-center">
+        <form
+          onSubmit={(event) => void handleSubmit(event)}
+          className="mt-6 flex w-full max-w-lg flex-col gap-3 sm:flex-row sm:items-center"
+        >
           <label htmlFor="newsletter-email" className="sr-only">
             E-mailová adresa
           </label>
@@ -43,20 +73,34 @@ export function NewsletterSection() {
             name="email"
             required
             autoComplete="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             placeholder="Vaša e-mailová adresa"
             className="h-11 w-full rounded-full border border-black/8 bg-white px-5 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/40 transition-colors focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/20"
           />
           <button
             type="submit"
-            className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:px-8"
+            disabled={pending}
+            className="inline-flex h-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-[#75825B] px-7 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70 sm:px-8"
           >
-            Odoberať
+            {pending ? "Prihlasujem…" : "Odoberať"}
           </button>
         </form>
 
-        <p className="mt-3 text-xs text-[#2f2924]/55">
-          Vážime si vaše súkromie. Odhlásiť sa môžete kedykoľvek.
-        </p>
+        {error ? (
+          <p role="alert" className="mt-3 text-xs text-[#9a4d3f]">
+            {error}
+          </p>
+        ) : null}
+        {message ? (
+          <p role="status" className="mt-3 text-xs text-[#5a6648]">
+            {message}
+          </p>
+        ) : (
+          <p className="mt-3 text-xs text-[#2f2924]/55">
+            Vážime si vaše súkromie. Odhlásiť sa môžete kedykoľvek.
+          </p>
+        )}
       </div>
     </section>
   );

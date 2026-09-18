@@ -66,8 +66,8 @@ function summaryRowHtml(label: string, value: string, emphasize = false) {
 }
 
 /**
- * E-mail po zaplatení / prijatí objednávky so súhrnom nákupu.
- * Zatiaľ template; napojenie na checkout / platobný webhook neskôr.
+ * E-mail po zaplatení objednávky so súhrnom nákupu.
+ * Odosiela sa z `notifyOrderPaid` po GoPay syncu (notify + return page).
  */
 export function buildOrderPaidEmail(
   vars: OrderPaidEmailVars,
@@ -92,6 +92,7 @@ export function buildOrderPaidEmail(
   const deliveryLabel = vars.deliveryLabel?.trim() || "";
   const discount = vars.discount?.trim() || "";
   const promoCode = vars.promoCode?.trim() || "";
+  const invoiceUrl = vars.invoiceUrl?.trim() || "";
 
   const firstName = firstNameFrom((vars.customerName ?? "").trim());
   const greeting = firstName ? `Dobrý deň, ${firstName},` : "Dobrý deň,";
@@ -100,6 +101,7 @@ export function buildOrderPaidEmail(
   const safeSite = escapeHtml(siteUrl);
   const safeShopUrl = escapeHtml(shopUrl);
   const safeOrderUrl = escapeHtml(orderUrl);
+  const safeInvoiceUrl = invoiceUrl ? escapeHtml(invoiceUrl) : "";
   const safeOrder = escapeHtml(orderNumber);
   const safePayment = escapeHtml(paymentMethod);
   const safeShipping = escapeHtml(shippingMethod);
@@ -169,6 +171,7 @@ export function buildOrderPaidEmail(
     "",
     "Objednávku teraz pripravíme na odoslanie. O odovzdaní dopravcovi vás budeme informovať samostatným e-mailom.",
     "",
+    invoiceUrl ? `Faktúra (PDF): ${invoiceUrl}` : "Faktúra je v prílohe e-mailu.",
     `Detail objednávky: ${orderUrl}`,
     `Prejsť do obchodu: ${shopUrl}`,
     "",
@@ -227,6 +230,14 @@ export function buildOrderPaidEmail(
                 Objednávku teraz pripravíme na odoslanie. O odovzdaní dopravcovi
                 vás budeme informovať samostatným e-mailom.
               </p>
+              ${
+                safeInvoiceUrl
+                  ? `<p style="margin:12px 0 0 0; color:${EMAIL_BRAND.muted};">
+                Faktúru nájdete v prílohe tohto e-mailu alebo
+                <a href="${safeInvoiceUrl}" style="color:${EMAIL_BRAND.primary}; text-decoration:underline;">si ju stiahnite tu</a>.
+              </p>`
+                  : ""
+              }
             </td>
           </tr>
 

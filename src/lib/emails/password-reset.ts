@@ -13,8 +13,7 @@ import {
 
 /**
  * E-mail po žiadosti o obnovenie hesla (zabudnuté heslo).
- * Odkaz vedie na stránku /obnova-hesla.
- * Zatiaľ len template, vlastné odosielanie napojíme neskôr.
+ * Odosiela sa cez Brevo s recovery linkom zo Supabase generateLink.
  */
 export function buildPasswordResetEmail(
   vars: PasswordResetEmailVars,

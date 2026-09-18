@@ -9,14 +9,17 @@ import {
 } from "react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
 import {
-  DEV_EMAIL_VERIFY_CODE,
+  resendEmailVerifyCodeAction,
+  verifyEmailCodeAction,
+} from "@/lib/actions/auth";
+import {
+  EMAIL_VERIFY_CODE_LENGTH,
   EMAIL_VERIFY_RESEND_SECONDS,
-  isValidEmailVerifyCode,
   normalizeEmailVerifyCode,
 } from "@/lib/email-verification";
 import type { AuthSideSlide } from "@/lib/products";
 
-const CODE_LENGTH = 5;
+const CODE_LENGTH = EMAIL_VERIFY_CODE_LENGTH;
 
 const digitClass =
   "aspect-square min-w-0 flex-1 rounded-xl border border-black/10 bg-white text-center font-heading text-2xl font-semibold text-[#2f2924] outline-none transition-colors focus:border-[#75825B] focus:ring-2 focus:ring-[#75825B]/15";
@@ -129,11 +132,11 @@ export function EmailVerificationStep({
 
     if (event.key === "Enter") {
       event.preventDefault();
-      handleSubmit();
+      void handleSubmit();
     }
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
     setError("");
     const normalized = normalizeEmailVerifyCode(code);
     if (normalized.length !== CODE_LENGTH) {
@@ -142,25 +145,33 @@ export function EmailVerificationStep({
     }
 
     setPending(true);
-    window.setTimeout(() => {
-      setPending(false);
-      if (!isValidEmailVerifyCode(normalized)) {
-        setError("Nesprávny kód. Skúste to znova.");
-        return;
-      }
-      onVerified();
-    }, 250);
+    const result = await verifyEmailCodeAction({ email, code: normalized });
+    setPending(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+
+    onVerified();
   }
 
-  function handleResend() {
+  async function handleResend() {
     if (resendSeconds > 0) return;
     setError("");
+    setPending(true);
+    const result = await resendEmailVerifyCodeAction(email);
+    setPending(false);
+
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+
     setDigits(Array.from({ length: CODE_LENGTH }, () => ""));
     setResendSeconds(EMAIL_VERIFY_RESEND_SECONDS);
     setResendFlash("Nový kód sme odoslali na váš e-mail.");
     requestAnimationFrame(() => focusIndex(0));
-    // Mock: skutočné odosielanie napojíme neskôr. Dev kód ostáva 11111.
-    void DEV_EMAIL_VERIFY_CODE;
   }
 
   return (
@@ -214,7 +225,7 @@ export function EmailVerificationStep({
             ))}
           </div>
           <p className="mt-2 text-xs text-[#2f2924]/40">
-            Dočasne funguje kód <span className="font-medium">11111</span>.
+            Kód platí 15&nbsp;minút. Ak e-mail nepríde, skontrolujte spam.
           </p>
         </div>
 
@@ -238,7 +249,7 @@ export function EmailVerificationStep({
 
         <button
           type="button"
-          onClick={handleSubmit}
+          onClick={() => void handleSubmit()}
           disabled={pending || code.length !== CODE_LENGTH}
           className="mt-6 inline-flex h-12 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-55"
         >
@@ -256,8 +267,9 @@ export function EmailVerificationStep({
           ) : (
             <button
               type="button"
-              onClick={handleResend}
-              className="cursor-pointer font-medium text-[#75825B] transition-colors hover:text-[#5f6a49]"
+              onClick={() => void handleResend()}
+              disabled={pending}
+              className="cursor-pointer font-medium text-[#75825B] transition-colors hover:text-[#5f6a49] disabled:cursor-not-allowed disabled:opacity-55"
             >
               Poslať kód znova
             </button>

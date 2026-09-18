@@ -3,14 +3,15 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Check, Printer, X } from "lucide-react";
-import { printPacketaLabelAction } from "@/lib/actions/orders";
+import { Check, FileText, Printer, X } from "lucide-react";
+import { printPacketaLabelAction, downloadInvoicePdfAction } from "@/lib/actions/orders";
 import { formatPrice, parsePrice } from "@/lib/cart";
 import {
   ORDER_STATUS_META,
   canPrintShippingLabel,
   formatOrderTotal,
   orderCustomerLabel,
+  orderEligibleForInvoice,
   orderItemsSubtotal,
   orderStatusClass,
   type Order,
@@ -43,10 +44,13 @@ export function AdminOrderDetail({
   const [printed, setPrinted] = useState(false);
   const [printing, setPrinting] = useState(false);
   const [printError, setPrintError] = useState<string | null>(null);
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
+  const [invoiceError, setInvoiceError] = useState<string | null>(null);
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const meta = ORDER_STATUS_META[order.status];
   const showPrint = canPrintShippingLabel(order);
+  const showInvoice = orderEligibleForInvoice(order);
   const subtotal = orderItemsSubtotal(order);
   const panelOpen = entered && !exiting;
   const itemCount = order.items.reduce((sum, line) => sum + line.quantity, 0);
@@ -95,6 +99,29 @@ export function AdminOrderDetail({
     setPrinted(true);
     window.setTimeout(() => setPrinted(false), 2500);
     router.refresh();
+  }
+
+  async function handleDownloadInvoice() {
+    setInvoiceLoading(true);
+    setInvoiceError(null);
+
+    const result = await downloadInvoicePdfAction(order.id);
+    setInvoiceLoading(false);
+
+    if (!result.ok) {
+      setInvoiceError(result.error);
+      return;
+    }
+
+    const blob = await fetch(
+      `data:application/pdf;base64,${result.data.pdfBase64}`,
+    ).then((response) => response.blob());
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${result.data.invoiceNumber}.pdf`;
+    a.click();
+    window.setTimeout(() => URL.revokeObjectURL(url), 60_000);
   }
 
   return (
@@ -291,31 +318,51 @@ export function AdminOrderDetail({
             </div>
           </div>
 
-          {showPrint ? (
-            <div className="mt-4">
-              {printError ? (
-                <p className="mb-3 rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
-                  {printError}
+          {showInvoice || showPrint ? (
+            <div className="mt-4 space-y-2">
+              {invoiceError ? (
+                <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                  {invoiceError}
                 </p>
               ) : null}
-              <button
-                type="button"
-                onClick={() => void handlePrintLabel()}
-                disabled={printing}
-                className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
-              >
-                {printed ? (
-                  <>
-                    <Check className="size-4" strokeWidth={2} aria-hidden />
-                    Štítok pripravený
-                  </>
-                ) : (
-                  <>
-                    <Printer className="size-4" strokeWidth={1.75} aria-hidden />
-                    {printing ? "Generujem štítok…" : "Vytlačiť štítok"}
-                  </>
-                )}
-              </button>
+              {showInvoice ? (
+                <button
+                  type="button"
+                  onClick={() => void handleDownloadInvoice()}
+                  disabled={invoiceLoading}
+                  className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl border border-black/10 bg-white text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#faf8f5] disabled:cursor-wait disabled:opacity-70"
+                >
+                  <FileText className="size-4" strokeWidth={1.75} aria-hidden />
+                  {invoiceLoading ? "Generujem faktúru…" : "Stiahnuť faktúru"}
+                </button>
+              ) : null}
+              {showPrint ? (
+                <>
+                  {printError ? (
+                    <p className="rounded-xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-3.5 py-2.5 text-sm text-[#9a4d3f]">
+                      {printError}
+                    </p>
+                  ) : null}
+                  <button
+                    type="button"
+                    onClick={() => void handlePrintLabel()}
+                    disabled={printing}
+                    className="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-wait disabled:opacity-70"
+                  >
+                    {printed ? (
+                      <>
+                        <Check className="size-4" strokeWidth={2} aria-hidden />
+                        Štítok pripravený
+                      </>
+                    ) : (
+                      <>
+                        <Printer className="size-4" strokeWidth={1.75} aria-hidden />
+                        {printing ? "Generujem štítok…" : "Vytlačiť štítok"}
+                      </>
+                    )}
+                  </button>
+                </>
+              ) : null}
             </div>
           ) : null}
         </div>

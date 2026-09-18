@@ -7,18 +7,16 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import { CheckCircle2, Pencil, ShoppingBag } from "lucide-react";
 import {
   cartItemCount,
-  cartSubtotal,
+  cartSubtotalForAudience,
   formatPrice,
   meetsMinOrder,
   MIN_ORDER_TOTAL,
-  parsePrice,
   type CartItem,
 } from "@/lib/cart";
 import {
+  audienceNetFromCatalogPrice,
   formatAmountExVat,
-  formatAmountIncVat,
-  formatPriceExVat,
-  formatPriceIncVat,
+  formatAudiencePriceExVat,
   priceIncludingVat,
 } from "@/lib/price";
 import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeField";
@@ -84,7 +82,7 @@ const INITIAL_FORM: CheckoutForm = {
   country: "Slovensko",
   note: "",
   shippingMethod: "packeta_point",
-  paymentMethod: "transfer",
+  paymentMethod: "card",
   packetaPointId: "",
   packetaPointName: "",
 };
@@ -139,8 +137,11 @@ function validateForm(form: CheckoutForm): string | null {
   return null;
 }
 
-function formatShippingCost(option: (typeof SHIPPING_OPTIONS)[number]) {
-  if (option.cost === 0) return "Zadarmo";
+function formatShippingCost(
+  option: (typeof SHIPPING_OPTIONS)[number],
+  freeShipping: boolean,
+) {
+  if (freeShipping || option.cost === 0) return "Zadarmo";
   const price = formatPrice(option.cost);
   return option.costFrom ? `od ${price}` : price;
 }
@@ -184,13 +185,13 @@ function OrderLines({
   return (
     <ul className="divide-y divide-black/6">
       {items.map((item) => {
-        const lineTotalNet = parsePrice(item.product.price) * item.quantity;
-        const lineTotal = isWholesale
-          ? lineTotalNet
-          : priceIncludingVat(lineTotalNet);
-        const unitLabel = isWholesale
-          ? formatPriceExVat(item.product.price)
-          : formatPriceIncVat(item.product.price);
+        const lineTotalNet =
+          audienceNetFromCatalogPrice(item.product.price, isWholesale) *
+          item.quantity;
+        const unitLabel = formatAudiencePriceExVat(
+          item.product.price,
+          isWholesale,
+        );
         return (
           <li
             key={item.product.id}
@@ -217,9 +218,14 @@ function OrderLines({
                 {item.quantity} × {unitLabel}
               </p>
             </div>
-            <p className="shrink-0 text-sm font-medium text-[#2f2924]">
-              {formatPrice(lineTotal)}
-            </p>
+            <div className="shrink-0 text-right">
+              <p className="text-sm font-medium tabular-nums text-[#2f2924]">
+                {formatPrice(lineTotalNet)}
+              </p>
+              <p className="text-[11px] text-[#2f2924]/45">
+                {formatPrice(priceIncludingVat(lineTotalNet))} s DPH
+              </p>
+            </div>
           </li>
         );
       })}
@@ -452,6 +458,7 @@ export function CheckoutView() {
   const [form, setForm] = useState<CheckoutForm>(INITIAL_FORM);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [redirectingToPayment, setRedirectingToPayment] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [mockOrderId, setMockOrderId] = useState("");
   const [customer, setCustomer] = useState<Customer | null>(null);
@@ -495,28 +502,25 @@ export function CheckoutView() {
     return () => window.removeEventListener(PROMO_EVENT, sync);
   }, []);
 
-  const subtotal = useMemo(() => cartSubtotal(items), [items]);
+  const subtotal = useMemo(
+    () => cartSubtotalForAudience(items, isWholesale),
+    [items, isWholesale],
+  );
   const count = cartItemCount(items);
   const discount = promo
     ? promoDiscountAmount(subtotal, promo.discountPercent)
     : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
-  const displaySubtotal = isWholesale
-    ? subtotal
-    : priceIncludingVat(subtotal);
-  const displayDiscount = isWholesale
-    ? discount
-    : priceIncludingVat(discount);
-  const displayAfterDiscount = isWholesale
-    ? afterDiscount
-    : priceIncludingVat(afterDiscount);
   const shipping = SHIPPING_OPTIONS.find(
     (option) => option.id === form.shippingMethod,
   );
   const shippingCost = shipping?.cost ?? 0;
-  const freeShipping = displayAfterDiscount >= FREE_SHIPPING_THRESHOLD;
+  const freeShipping = afterDiscount >= FREE_SHIPPING_THRESHOLD;
   const effectiveShipping = freeShipping ? 0 : shippingCost;
-  const total = displayAfterDiscount + effectiveShipping;
+  const totalExVat = afterDiscount + effectiveShipping;
+  const totalPayable =
+    priceIncludingVat(afterDiscount) + effectiveShipping;
+  const vatAmount = totalPayable - totalExVat;
 
   const showBillingSummary =
     authReady &&
@@ -598,12 +602,35 @@ export function CheckoutView() {
       return;
     }
 
+    if (result.data.paymentUrl) {
+      setRedirectingToPayment(true);
+      clearAppliedPromo();
+      setPromo(null);
+      // Don't await clearCart — otherwise checkout briefly shows "empty cart".
+      void clearCart();
+      window.location.assign(result.data.paymentUrl);
+      return;
+    }
+
     await clearCart();
     clearAppliedPromo();
     setPromo(null);
     setMockOrderId(result.data.orderNumber);
     setSubmitted(true);
     setSubmitting(false);
+  }
+
+  if (redirectingToPayment) {
+    return (
+      <div className="overflow-hidden rounded-3xl border border-black/6 bg-white px-6 py-14 text-center sm:px-10">
+        <p className="font-heading text-2xl font-semibold text-[#2f2924]">
+          Presmerovávame na platbu…
+        </p>
+        <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#2f2924]/60">
+          Okamih a otvorí sa bezpečná platobná brána GoPay.
+        </p>
+      </div>
+    );
   }
 
   if (items.length === 0 && !submitted) {
@@ -628,11 +655,11 @@ export function CheckoutView() {
     );
   }
 
-  if (!meetsMinOrder(displaySubtotal) && !submitted) {
+  if (!meetsMinOrder(subtotal) && !submitted) {
     return (
       <CheckoutGuard
         title="Minimálna objednávka"
-        body={`Na dokončenie objednávky potrebujete aspoň ${formatPrice(MIN_ORDER_TOTAL)}. Teraz máte ${formatPrice(displaySubtotal)}.`}
+        body={`Na dokončenie objednávky potrebujete aspoň ${formatPrice(MIN_ORDER_TOTAL)}. Teraz máte ${formatPrice(subtotal)}.`}
         href="/kosik"
         cta="Späť do košíka"
       />
@@ -742,9 +769,7 @@ export function CheckoutView() {
               <div className="space-y-2.5">
                 {SHIPPING_OPTIONS.map((option) => {
                   const selected = form.shippingMethod === option.id;
-                  const expandable =
-                    option.id === "packeta_point" ||
-                    option.id === "packeta_address";
+                  const expandable = option.id === "packeta_point";
 
                   return (
                     <div
@@ -787,7 +812,7 @@ export function CheckoutView() {
                           </span>
                         </span>
                         <span className="shrink-0 text-sm text-[#2f2924]/65">
-                          {formatShippingCost(option)}
+                          {formatShippingCost(option, freeShipping)}
                         </span>
                       </label>
 
@@ -803,56 +828,47 @@ export function CheckoutView() {
                                 selected ? "opacity-100" : "opacity-0"
                               }`}
                             >
-                              {option.id === "packeta_point" ? (
-                                form.packetaPointId ? (
-                                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                    <div className="min-w-0">
-                                      <p className="text-xs font-medium tracking-[0.08em] text-[#75825B] uppercase">
-                                        Vybrané výdajné miesto
-                                      </p>
-                                      <p className="mt-1 text-sm font-medium text-[#2f2924]">
-                                        {form.packetaPointName}
-                                      </p>
-                                    </div>
-                                    <button
-                                      type="button"
-                                      onClick={() => void handlePickPacketaPoint()}
-                                      disabled={packetaLoading}
-                                      className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-black/8 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] disabled:cursor-wait disabled:opacity-70"
-                                    >
-                                      {packetaLoading ? "Načítavam…" : "Zmeniť"}
-                                    </button>
+                              {form.packetaPointId ? (
+                                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                  <div className="min-w-0">
+                                    <p className="text-xs font-medium tracking-[0.08em] text-[#75825B] uppercase">
+                                      Vybrané výdajné miesto
+                                    </p>
+                                    <p className="mt-1 text-sm font-medium text-[#2f2924]">
+                                      {form.packetaPointName}
+                                    </p>
                                   </div>
-                                ) : (
-                                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                                    <div className="min-w-0">
-                                      <p className="text-sm font-medium text-[#2f2924]">
-                                        Výber výdajného miesta
-                                      </p>
-                                      <p className="mt-1 text-xs leading-relaxed text-[#2f2924]/55">
-                                        Otvorí sa mapa Packeta / Zásielkovňa na
-                                        výber Z-BOX alebo výdajného miesta.
-                                      </p>
-                                    </div>
-                                    <button
-                                      type="button"
-                                      onClick={() => void handlePickPacketaPoint()}
-                                      disabled={packetaLoading || !packetaConfigured}
-                                      className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
-                                    >
-                                      {packetaLoading
-                                        ? "Načítavam…"
-                                        : "Vybrať miesto"}
-                                    </button>
-                                  </div>
-                                )
+                                  <button
+                                    type="button"
+                                    onClick={() => void handlePickPacketaPoint()}
+                                    disabled={packetaLoading}
+                                    className="inline-flex h-10 cursor-pointer items-center justify-center rounded-xl border border-black/8 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] disabled:cursor-wait disabled:opacity-70"
+                                  >
+                                    {packetaLoading ? "Načítavam…" : "Zmeniť"}
+                                  </button>
+                                </div>
                               ) : (
-                                <p className="text-xs leading-relaxed text-[#2f2924]/60">
-                                  Balík doručíme na adresu z fakturačných údajov
-                                  {form.street.trim()
-                                    ? `: ${form.street}, ${form.zip} ${form.city}`
-                                    : "."}
-                                </p>
+                                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                                  <div className="min-w-0">
+                                    <p className="text-sm font-medium text-[#2f2924]">
+                                      Výber výdajného miesta
+                                    </p>
+                                    <p className="mt-1 text-xs leading-relaxed text-[#2f2924]/55">
+                                      Otvorí sa mapa Packeta / Zásielkovňa na
+                                      výber Z-BOX alebo výdajného miesta.
+                                    </p>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={() => void handlePickPacketaPoint()}
+                                    disabled={packetaLoading || !packetaConfigured}
+                                    className="inline-flex h-10 shrink-0 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                                  >
+                                    {packetaLoading
+                                      ? "Načítavam…"
+                                      : "Vybrať miesto"}
+                                  </button>
+                                </div>
                               )}
                             </div>
                           </div>
@@ -872,7 +888,7 @@ export function CheckoutView() {
                   return (
                     <label
                       key={option.id}
-                      className={`flex cursor-pointer items-center gap-3 rounded-xl border px-4 py-3 transition-colors ${
+                      className={`flex cursor-pointer items-start gap-3 rounded-xl border px-4 py-3 transition-colors ${
                         selected
                           ? "border-[#75825B] bg-[#75825B]/6"
                           : "border-black/8 hover:border-black/15"
@@ -884,10 +900,17 @@ export function CheckoutView() {
                         value={option.id}
                         checked={selected}
                         onChange={() => patch("paymentMethod", option.id)}
-                        className="size-4 accent-[#75825B]"
+                        className="mt-0.5 size-4 accent-[#75825B]"
                       />
-                      <span className="text-sm font-medium text-[#2f2924]">
-                        {option.label}
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium text-[#2f2924]">
+                          {option.label}
+                        </span>
+                        {"description" in option && option.description ? (
+                          <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
+                            {option.description}
+                          </span>
+                        ) : null}
                       </span>
                     </label>
                   );
@@ -931,27 +954,20 @@ export function CheckoutView() {
 
           <div className="space-y-3 border-t border-black/6 px-6 py-5 sm:px-7">
             <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="text-[#2f2924]/60">
-                {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
-              </span>
+              <span className="text-[#2f2924]/60">Medzisúčet bez DPH</span>
               <span className="font-medium text-[#2f2924]">
-                {isWholesale
-                  ? formatAmountExVat(subtotal)
-                  : formatAmountIncVat(subtotal)}
+                {formatAmountExVat(subtotal)}
               </span>
             </div>
 
             <PromoCodeField subtotal={subtotal} onPromoChange={setPromo} />
 
             {discount > 0 && promo ? (
-              <AppliedPromoLine
-                promo={promo}
-                discountAmount={displayDiscount}
-              />
+              <AppliedPromoLine promo={promo} discountAmount={discount} />
             ) : null}
 
             <div className="flex items-baseline justify-between gap-3 text-sm">
-              <span className="text-[#2f2924]/60">Doprava</span>
+              <span className="text-[#2f2924]/60">Doprava bez DPH</span>
               <span className="font-medium text-[#2f2924]">
                 {effectiveShipping === 0
                   ? "Zadarmo"
@@ -964,37 +980,30 @@ export function CheckoutView() {
               </p>
             ) : null}
 
+            <div className="flex items-baseline justify-between gap-3 text-sm">
+              <span className="text-[#2f2924]/60">Celkom bez DPH</span>
+              <span className="font-medium tabular-nums text-[#2f2924]">
+                {formatPrice(totalExVat)}
+              </span>
+            </div>
+
+            <div className="flex items-baseline justify-between gap-3 text-sm">
+              <span className="text-[#2f2924]/60">DPH (23 %)</span>
+              <span className="font-medium tabular-nums text-[#2f2924]">
+                {formatPrice(vatAmount)}
+              </span>
+            </div>
+
             <div className="h-px bg-black/8" aria-hidden />
 
-            {isWholesale ? (
-              <div className="space-y-2">
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-sm font-medium text-[#2f2924]">
-                    Celkom bez DPH
-                  </span>
-                  <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                    {formatPrice(total)}
-                  </span>
-                </div>
-                <div className="flex items-baseline justify-between gap-3">
-                  <span className="text-sm text-[#2f2924]/60">
-                    Produkty s DPH + doprava
-                  </span>
-                  <span className="text-base font-medium text-[#2f2924]/70">
-                    {formatPrice(
-                      priceIncludingVat(afterDiscount) + effectiveShipping,
-                    )}
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <div className="flex items-baseline justify-between gap-3">
-                <span className="text-sm font-medium text-[#2f2924]">Celkom</span>
-                <span className="font-heading text-2xl font-semibold text-[#2f2924]">
-                  {formatPrice(total)}
-                </span>
-              </div>
-            )}
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-sm font-medium text-[#2f2924]">
+                Celkom k úhrade
+              </span>
+              <span className="font-heading text-2xl font-semibold tabular-nums text-[#2f2924]">
+                {formatPrice(totalPayable)}
+              </span>
+            </div>
           </div>
 
           <div className="border-t border-black/6 px-6 py-5 sm:px-7">
@@ -1021,8 +1030,7 @@ export function CheckoutView() {
             </button>
 
             <p className="mt-3 text-center text-xs leading-snug text-[#2f2924]/45">
-              Po odoslaní objednávky vás budeme kontaktovať ohľadom platby a
-              doručenia.
+              Pri online platbe vás presmerujeme na bezpečnú bránu GoPay.
             </p>
           </div>
         </div>

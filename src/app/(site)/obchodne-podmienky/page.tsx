@@ -134,14 +134,15 @@ const sections: LegalSection[] = [
         <P>Kupujúci môže za tovar zaplatiť najmä týmito spôsobmi:</P>
         <Ul
           items={[
-            "bankovým prevodom na účet predávajúceho (po odoslaní platobných údajov / faktúry),",
+            "online platbou cez platobnú bránu GoPay (platobná karta alebo bankový prevod v rámci brány),",
             "dobierkou pri doručení tovaru (ak je táto možnosť pri objednávke dostupná).",
           ]}
         />
         <P>
-          Pri platbe prevodom je tovar expedovaný spravidla po pripísaní platby
-          na účet predávajúceho. Pri dobierke môže byť účtovaný príplatok podľa
-          aktuálnej ponuky v pokladni.
+          Pri online platbe cez GoPay je tovar expedovaný spravidla po úspešnom
+          pripísaní platby. Pri dobierke môže byť účtovaný príplatok podľa
+          aktuálnej ponuky v pokladni; sumu vyberie dopravca pri prevzatí
+          zásielky.
         </P>
       </>
     ),
@@ -160,7 +161,6 @@ const sections: LegalSection[] = [
         <Ul
           items={[
             "Packeta / Zásielkovňa - výdajné miesto alebo Z-BOX (cena od 2,30 €),",
-            "Packeta / Zásielkovňa - doručenie na adresu (cena od 3,60 €),",
             "osobný odber po dohode (zadarmo).",
           ]}
         />

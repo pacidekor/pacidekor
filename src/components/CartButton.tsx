@@ -6,15 +6,14 @@ import Link from "next/link";
 import { ShoppingCart, Trash2, X } from "lucide-react";
 import {
   cartItemCount,
-  cartSubtotal,
+  cartSubtotalForAudience,
   removeFromCart,
   type CartItem,
 } from "@/lib/cart";
 import {
   formatAmountExVat,
   formatAmountIncVat,
-  formatPriceExVatLabel,
-  formatPriceIncVatLabel,
+  formatAudiencePriceExVatLabel,
 } from "@/lib/price";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
@@ -71,9 +70,7 @@ function CartItems({
               </span>
               <span className="mt-1 block text-sm text-[#2f2924]/55">
                 <span className="font-semibold text-[#2f2924]">
-                  {isWholesale
-                    ? formatPriceExVatLabel(product.price)
-                    : formatPriceIncVatLabel(product.price)}
+                  {formatAudiencePriceExVatLabel(product.price, isWholesale)}
                 </span>
                 <span className="mx-1.5 text-[#2f2924]/30">·</span>
                 <span>{quantity}&nbsp;ks</span>
@@ -99,24 +96,21 @@ function CartItems({
 function CartFooter({
   subtotal,
   onSelect,
-  isWholesale,
 }: {
   subtotal: number;
   onSelect?: () => void;
-  isWholesale: boolean;
 }) {
   return (
     <div className="border-t border-black/8 pt-3.5">
       <div className="mb-3 flex items-baseline justify-between gap-3">
-        <span className="text-sm text-[#2f2924]/60">
-          {isWholesale ? "Medzisúčet bez DPH" : "Medzisúčet"}
-        </span>
+        <span className="text-sm text-[#2f2924]/60">Medzisúčet bez DPH</span>
         <span className="font-heading text-lg font-semibold text-[#2f2924]">
-          {isWholesale
-            ? formatAmountExVat(subtotal)
-            : formatAmountIncVat(subtotal)}
+          {formatAmountExVat(subtotal)}
         </span>
       </div>
+      <p className="mb-3 -mt-1 text-right text-xs text-[#2f2924]/45">
+        {formatAmountIncVat(subtotal)} s DPH
+      </p>
       <Link
         href="/kosik"
         onClick={onSelect}
@@ -143,7 +137,7 @@ export function CartButton({
 
   const items = useCartItems();
   const count = cartItemCount(items);
-  const subtotal = cartSubtotal(items);
+  const subtotal = cartSubtotalForAudience(items, isWholesale);
   const isMobile = variant === "mobile";
 
   const setOpenState = (next: boolean) => {
@@ -256,7 +250,6 @@ export function CartButton({
                 <div className="mt-4 shrink-0">
                   <CartFooter
                     subtotal={subtotal}
-                    isWholesale={isWholesale}
                     onSelect={() => setOpenState(false)}
                   />
                 </div>
@@ -322,7 +315,6 @@ export function CartButton({
             <div className="bg-white px-4 py-3.5">
               <CartFooter
                 subtotal={subtotal}
-                isWholesale={isWholesale}
                 onSelect={() => setOpenState(false)}
               />
             </div>

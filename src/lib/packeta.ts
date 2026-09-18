@@ -37,13 +37,26 @@ export function resolvePacketaPointId(point: PacketaPoint): string {
 
 export function formatPacketaPointLabel(point: PacketaPoint): string {
   const title = point.name?.trim() || point.place?.trim() || "Výdajné miesto";
-  const address = [point.street, point.city].filter(Boolean).join(", ");
+  const street = point.street?.trim() || "";
+  const city = point.city?.trim() || "";
+  const address = [street, city].filter(Boolean).join(", ");
+
+  // Avoid "Z-BOX · Z-BOX Foo, Street — Street, City" (widget often puts address in name).
+  const titleLooksLikeAddress =
+    Boolean(street) &&
+    (title.includes(street) ||
+      (city ? title.toLowerCase().includes(city.toLowerCase()) : false));
 
   if (point.group === "zbox") {
-    return address ? `Z-BOX · ${title} — ${address}` : `Z-BOX · ${title}`;
+    const headed = title.toLowerCase().startsWith("z-box")
+      ? title
+      : `Z-BOX · ${title}`;
+    if (!address || titleLooksLikeAddress) return headed;
+    return `${headed}, ${address}`;
   }
 
-  return address ? `${title} — ${address}` : title;
+  if (!address || titleLooksLikeAddress) return title;
+  return `${title}, ${address}`;
 }
 
 export function toPacketaPointSelection(

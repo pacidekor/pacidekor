@@ -1,7 +1,13 @@
 /** Shared price helpers safe for server and client. */
 
-/** Slovak standard VAT rate. Catalog prices are stored excluding VAT. */
+/** Slovak standard VAT rate. Catalog prices are stored excluding VAT (wholesale net). */
 export const VAT_RATE = 0.23;
+
+/**
+ * Maloobchod / verejnosť: +50 % nad veľkoobchodnú (katalógovú) cenu bez DPH.
+ * Hardcoded — nie je v admin nastaveniach.
+ */
+export const RETAIL_MARKUP_RATE = 0.5;
 
 export function parsePrice(price: string) {
   return Number.parseFloat(
@@ -30,6 +36,27 @@ export function priceExcludingVat(priceIncludingVatAmount: number) {
   return priceIncludingVatAmount / (1 + VAT_RATE);
 }
 
+/**
+ * Katalógová VO cena → cena pre publikum (bez DPH).
+ * Veľkoobchod = katalóg; maloobchod / hosť = +50 %.
+ */
+export function audienceNetPrice(
+  catalogNet: number,
+  isWholesale: boolean,
+): number {
+  if (!Number.isFinite(catalogNet) || catalogNet <= 0) return 0;
+  if (isWholesale) return catalogNet;
+  return catalogNet * (1 + RETAIL_MARKUP_RATE);
+}
+
+/** Parse catalog price string → audience net (€). */
+export function audienceNetFromCatalogPrice(
+  catalogPrice: string,
+  isWholesale: boolean,
+): number {
+  return audienceNetPrice(parsePrice(catalogPrice), isWholesale);
+}
+
 /** Format a catalog (ex-VAT) price string as the with-VAT amount. */
 export function formatPriceIncVat(priceExcludingVat: string) {
   return formatPrice(priceIncludingVat(parsePrice(priceExcludingVat)));
@@ -52,17 +79,49 @@ export function formatPriceExVatLabel(priceExcludingVat: string) {
   return `${formatPriceExVat(priceExcludingVat)} bez DPH`;
 }
 
-/** Net amount already in euros (cart subtotal for wholesale). */
+/** Audience-aware unit price string (bez DPH), from catalog price. */
+export function formatAudiencePriceExVat(
+  catalogPrice: string,
+  isWholesale: boolean,
+) {
+  return formatPrice(audienceNetFromCatalogPrice(catalogPrice, isWholesale));
+}
+
+/** Audience-aware unit price string (s DPH), from catalog price. */
+export function formatAudiencePriceIncVat(
+  catalogPrice: string,
+  isWholesale: boolean,
+) {
+  return formatPrice(
+    priceIncludingVat(audienceNetFromCatalogPrice(catalogPrice, isWholesale)),
+  );
+}
+
+export function formatAudiencePriceExVatLabel(
+  catalogPrice: string,
+  isWholesale: boolean,
+) {
+  return `${formatAudiencePriceExVat(catalogPrice, isWholesale)} bez DPH`;
+}
+
+export function formatAudiencePriceIncVatLabel(
+  catalogPrice: string,
+  isWholesale: boolean,
+) {
+  return `${formatAudiencePriceIncVat(catalogPrice, isWholesale)} s DPH`;
+}
+
+/** Net amount already in euros. */
 export function formatAmountExVat(amountExcludingVat: number) {
   return formatPrice(amountExcludingVat);
 }
 
-/** Net cart amount → display with VAT (retail). */
+/** Net cart amount → display with VAT. */
 export function formatAmountIncVat(amountExcludingVat: number) {
   return formatPrice(priceIncludingVat(amountExcludingVat));
 }
 
-/** Minimum cart subtotal (€, customer-facing) required to continue to checkout. */
+/** Minimum cart subtotal (€, customer-facing bez DPH) required to continue to checkout. */
 export const MIN_ORDER_TOTAL = 10;
 
 export function amountToMinOrder(subtotal: number) {

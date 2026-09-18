@@ -40,7 +40,7 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     id: "welcome-retail",
     label: "Vitajte (maloobchod)",
     description: "Uvítací e-mail po úspešnej registrácii maloobchodného účtu.",
-    trigger: "Po vytvorení maloobchodného účtu (automaticky schválený)",
+    trigger: "Automaticky po overení e-mailu pri maloobchodnej registrácii",
     build: (siteUrl) =>
       buildWelcomeRetailEmail({
         customerName: "Mária Nováková",
@@ -54,7 +54,7 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Žiadosť odoslaná (veľkoobchod)",
     description:
       "Potvrdenie, že žiadosť o veľkoobchodnú registráciu bola prijatá.",
-    trigger: "Po odoslaní žiadosti o veľkoobchodný účet",
+    trigger: "Automaticky po overení e-mailu pri veľkoobchodnej žiadosti",
     build: (siteUrl) =>
       buildWholesaleRequestReceivedEmail({
         customerName: "Peter Kováč",
@@ -66,7 +66,7 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     id: "wholesale-approved",
     label: "Účet schválený (veľkoobchod)",
     description: "Potvrdenie schválenia veľkoobchodného účtu.",
-    trigger: "Po schválení veľkoobchodnej registrácie administrátorom",
+    trigger: "Automaticky po schválení veľkoobchodného účtu administrátorom",
     build: (siteUrl) =>
       buildWholesaleApprovedEmail({
         customerName: "Peter Kováč",
@@ -78,7 +78,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     id: "verify-email-code",
     label: "Overenie e-mailu",
     description: "E-mail s 5-miestnym overovacím kódom po registrácii.",
-    trigger: "Po odoslaní registrácie (maloobchod aj veľkoobchod)",
+    trigger:
+      "Automaticky po odoslaní registrácie (maloobchod aj veľkoobchod) + pri opätovnom odoslaní kódu",
     build: (siteUrl) =>
       buildVerifyEmailCodeEmail({
         customerName: "Mária Nováková",
@@ -91,7 +92,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Obnovenie hesla",
     description:
       "E-mail s odkazom na nastavenie nového hesla po žiadosti o obnovu.",
-    trigger: "Po odoslaní formulára Zabudnuté heslo",
+    trigger:
+      "Automaticky po žiadosti o obnovu hesla (Brevo + Supabase recovery link)",
     build: (siteUrl) =>
       buildPasswordResetEmail({
         customerName: "Mária Nováková",
@@ -103,7 +105,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     id: "password-changed",
     label: "Heslo zmenené",
     description: "Potvrdenie, že heslo k účtu bolo úspešne zmenené.",
-    trigger: "Po úspešnom uložení nového hesla (obnova alebo zmena v účte)",
+    trigger:
+      "Automaticky po úspešnej zmene hesla (obnova alebo nastavenia účtu)",
     build: (siteUrl) =>
       buildPasswordChangedEmail({
         customerName: "Mária Nováková",
@@ -115,7 +118,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Zmena e-mailu (starý)",
     description:
       "Informácia na pôvodnú adresu, že účet bol presunutý na nový e-mail.",
-    trigger: "Po zmene e-mailu v nastavení účtu (odoslané na starý e-mail)",
+    trigger:
+      "Automaticky po žiadosti o zmenu e-mailu (odoslané na starý e-mail)",
     build: (siteUrl) =>
       buildEmailChangedOldEmail({
         customerName: "Mária Nováková",
@@ -128,7 +132,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Zmena e-mailu (nový)",
     description:
       "Potvrdenie na novú adresu, že e-mail k účtu bol úspešne zmenený.",
-    trigger: "Po zmene e-mailu v nastavení účtu (odoslané na nový e-mail)",
+    trigger:
+      "Automaticky po žiadosti o zmenu e-mailu (odoslané na nový e-mail)",
     build: (siteUrl) =>
       buildEmailChangedNewEmail({
         customerName: "Mária Nováková",
@@ -142,7 +147,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Newsletter",
     description:
       "Pravidelný B2C newsletter: novinky a akcie ako kompaktné karty.",
-    trigger: "Každých 14 dní, ak je obsah (novinky / akcie / sezónny text)",
+    trigger:
+      "Týždenný cron (utorok) — len ak ≥2 čerstvé novinky za 7 dní; akcie ako bonus",
     build: (siteUrl, ctx) =>
       buildNewsletterEmail({
         customerName: "Mária Nováková",
@@ -159,7 +165,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Narodeniny",
     description:
       "Narodeninový e-mail so zľavovým kódom pre zákazníkov s dátumom narodenia.",
-    trigger: "V deň narodenín (ak je v účte vyplnený dátum narodenia)",
+    trigger:
+      "Denný cron o 7:00 Europe/Bratislava (ak je v profile dátum narodenia)",
     build: (siteUrl) =>
       buildBirthdayEmail({
         customerName: "Mária Nováková",
@@ -174,7 +181,8 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
     label: "Objednávka zaplatená",
     description:
       "Potvrdenie po úspešnej platbe so súhrnom položiek, dopravy a celkovej sumy.",
-    trigger: "Po úspešnom zaplatení objednávky (checkout / platobný webhook)",
+    trigger:
+      "Automaticky po úspešnej GoPay platbe (notify webhook / návratová stránka)",
     build: (siteUrl) =>
       buildOrderPaidEmail({
         customerName: "Mária Nováková",
@@ -219,7 +227,7 @@ export const emailPreviewCatalog: EmailPreviewDefinition[] = [
         promoCode: "KVETY5",
         shippingCost: "3,99 €",
         total: "47,99 €",
-        paymentMethod: "Online platba kartou",
+        paymentMethod: "Online platba (GoPay)",
         shippingMethod: "Packeta / Zásielkovňa - výdajné miesto",
         deliveryLabel: "OC Aupark, Bratislava",
         orderUrl: `${siteUrl.replace(/\/$/, "")}/objednavka/nahled?t=preview`,
