@@ -43,6 +43,7 @@ import {
 } from "@/lib/search";
 
 type StatusFilter = "all" | DiscountStatus;
+type TypeFilter = "all" | "product" | "promo";
 
 type EditorTarget =
   | { mode: "create" }
@@ -55,6 +56,12 @@ const STATUS_FILTERS: { id: StatusFilter; label: string }[] = [
   { id: "inactive", label: "Neaktívne" },
   { id: "scheduled", label: "Naplánované" },
   { id: "expired", label: "Vypršané" },
+];
+
+const TYPE_FILTERS: { id: TypeFilter; label: string }[] = [
+  { id: "all", label: "Všetky typy" },
+  { id: "product", label: "Produktové zľavy" },
+  { id: "promo", label: "Zľavové kódy" },
 ];
 
 function getPromoStatus(promo: AdminPromoCode): DiscountStatus {
@@ -83,6 +90,7 @@ export function AdminDiscountsManager() {
   const [hydrated, setHydrated] = useState(false);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [typeFilter, setTypeFilter] = useState<TypeFilter>("all");
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [editor, setEditor] = useState<EditorTarget | null>(null);
   const [savedFlash, setSavedFlash] = useState(false);
@@ -100,6 +108,7 @@ export function AdminDiscountsManager() {
   }, []);
 
   const filteredProducts = useMemo(() => {
+    if (typeFilter === "promo") return [];
     const q = query.trim().toLowerCase();
 
     return list.filter((discount) => {
@@ -122,9 +131,10 @@ export function AdminDiscountsManager() {
 
       return haystack.includes(normalizeSearchText(q));
     });
-  }, [list, query, statusFilter]);
+  }, [list, query, statusFilter, typeFilter]);
 
   const filteredPromos = useMemo(() => {
+    if (typeFilter === "product") return [];
     const q = query.trim().toLowerCase();
 
     return promos.filter((promo) => {
@@ -147,11 +157,12 @@ export function AdminDiscountsManager() {
 
       return haystack.includes(normalizeSearchText(q));
     });
-  }, [promos, query, statusFilter]);
+  }, [promos, query, statusFilter, typeFilter]);
 
   const totalVisible = filteredProducts.length + filteredPromos.length;
   const totalAll = list.length + promos.length;
-  const activeFilterCount = statusFilter !== "all" ? 1 : 0;
+  const activeFilterCount =
+    (statusFilter !== "all" ? 1 : 0) + (typeFilter !== "all" ? 1 : 0);
 
   const productsWithDiscount = useMemo(
     () => new Set(list.map((item) => item.productId)),
@@ -567,12 +578,31 @@ export function AdminDiscountsManager() {
         footer={
           <FilterSheetFooter
             hasActiveFilters={activeFilterCount > 0}
-            onClear={() => setStatusFilter("all")}
+            onClear={() => {
+              setStatusFilter("all");
+              setTypeFilter("all");
+            }}
             onDone={() => setFiltersOpen(false)}
           />
         }
       >
         <div>
+          <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
+            Typ zľavy
+          </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {TYPE_FILTERS.map((filter) => (
+              <FilterChip
+                key={filter.id}
+                label={filter.label}
+                active={typeFilter === filter.id}
+                onClick={() => setTypeFilter(filter.id)}
+              />
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6">
           <p className="text-xs font-medium tracking-[0.12em] text-[#75825B] uppercase">
             Stav zľavy
           </p>

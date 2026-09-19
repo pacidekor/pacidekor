@@ -241,8 +241,8 @@ export default async function AdminPage() {
 
       {/* Pending orders 70% + Attention 30% */}
       <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
-        <section className="min-w-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="flex items-center justify-between gap-3 px-4 pt-4 pb-3">
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="flex shrink-0 items-center justify-between gap-3 px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Objednávky čakajúce na vybavenie
             </h2>
@@ -251,7 +251,7 @@ export default async function AdminPage() {
             </span>
           </div>
 
-          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] border-t border-black/[0.05]">
             {pendingOrders.map((order) => (
               <li key={order.number}>
                 <OrderRow order={order} />
@@ -259,7 +259,7 @@ export default async function AdminPage() {
             ))}
           </ul>
 
-          <div className="border-t border-black/[0.05] px-4 py-3">
+          <div className="mt-auto shrink-0 border-t border-black/[0.05] px-4 py-3">
             <Link
               href="/admin/objednavky"
               className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"

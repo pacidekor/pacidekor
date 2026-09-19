@@ -720,8 +720,9 @@ function CustomerDetail({
                 <button
                   type="button"
                   onClick={() => runAndClose(onReject)}
-                  className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8"
+                  className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8"
                 >
+                  <X className="size-4" strokeWidth={1.75} aria-hidden />
                   Zamietnuť
                 </button>
               </div>

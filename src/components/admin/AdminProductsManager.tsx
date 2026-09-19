@@ -29,7 +29,10 @@ import {
   X,
 } from "lucide-react";
 import { formatPrice, formatPriceExVat, parsePrice } from "@/lib/price";
-import { productMatchesSearchQuery } from "@/lib/search";
+import {
+  normalizeSearchText,
+  productMatchesSearchQuery,
+} from "@/lib/search";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
@@ -1562,64 +1565,35 @@ function ProductEditor({
                 </FieldLabel>
               </div>
 
-              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
-                <input
-                  type="checkbox"
-                  checked={markAsNew}
-                  onChange={(event) => setMarkAsNew(event.target.checked)}
-                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
-                />
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium text-[#2f2924]">
-                    Označiť ako novinku
-                  </span>
-                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
-                    {markAsNew
-                      ? !isNew && isActiveNewProduct(product)
+              <div>
+                <p className="text-sm font-medium text-[#2f2924]">
+                  Označenie produktu
+                </p>
+                <div className="mt-2 grid grid-cols-3 gap-2.5">
+                  <ProductFlagToggle
+                    label="Novinka"
+                    active={markAsNew}
+                    onClick={() => setMarkAsNew((prev) => !prev)}
+                    hint={
+                      markAsNew && !isNew && isActiveNewProduct(product)
                         ? `V Novinkách do ${formatNewUntilLabel(product.newUntil)}.`
                         : `Po uložení bude v Novinkách ${NEW_PRODUCT_DAYS} dní.`
-                      : "Produkt sa zobrazí len v bežnom katalógu."}
-                  </span>
-                </span>
-              </label>
-
-              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
-                <input
-                  type="checkbox"
-                  checked={inVypredaj}
-                  onChange={(event) => setInVypredaj(event.target.checked)}
-                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
-                />
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium text-[#2f2924]">
-                    Zaradiť do výpredaja
-                  </span>
-                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
-                    {inVypredaj
-                      ? "Produkt ostane v katalógu a navyše sa zobrazí na stránke Výpredaj. Akciu naň stále môžete dať."
-                      : "Produkt sa zobrazí len v bežnom katalógu."}
-                  </span>
-                </span>
-              </label>
-
-              <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3 transition-colors hover:border-[#75825B]/35">
-                <input
-                  type="checkbox"
-                  checked={isBestseller}
-                  onChange={(event) => setIsBestseller(event.target.checked)}
-                  className="mt-0.5 size-4 shrink-0 cursor-pointer rounded border-black/20 accent-[#75825B]"
-                />
-                <span className="min-w-0">
-                  <span className="block text-sm font-medium text-[#2f2924]">
-                    Označiť ako bestseller
-                  </span>
-                  <span className="mt-0.5 block text-xs leading-relaxed text-[#2f2924]/55">
-                    {isBestseller
-                      ? "Produkt sa zobrazí v sekcii Bestsellery na úvodnej stránke a na /bestsellery."
-                      : "Produkt sa v bestselleroch nezobrazí."}
-                  </span>
-                </span>
-              </label>
+                    }
+                  />
+                  <ProductFlagToggle
+                    label="Výpredaj"
+                    active={inVypredaj}
+                    onClick={() => setInVypredaj((prev) => !prev)}
+                    hint="Produkt ostane v katalógu a navyše sa zobrazí na stránke Výpredaj. Akciu naň stále môžete dať."
+                  />
+                  <ProductFlagToggle
+                    label="Bestseller"
+                    active={isBestseller}
+                    onClick={() => setIsBestseller((prev) => !prev)}
+                    hint="Produkt sa zobrazí v sekcii Bestsellery na úvodnej stránke a na /bestsellery."
+                  />
+                </div>
+              </div>
 
               <div>
                 <div className="flex items-center gap-1.5">
@@ -1781,6 +1755,7 @@ function ProductEditor({
                   value={category}
                   options={categoryOptions}
                   onChange={setCategory}
+                  searchPlaceholder="Hľadať kategóriu…"
                 />
               </FieldLabel>
 
@@ -1790,6 +1765,7 @@ function ProductEditor({
                   options={subcategoryOptions}
                   onChange={setSubcategoryId}
                   disabled={availableSubs.length === 0}
+                  searchPlaceholder="Hľadať subkategóriu…"
                 />
               </FieldLabel>
 
@@ -1799,6 +1775,7 @@ function ProductEditor({
                   options={druhOptions}
                   onChange={setDruhId}
                   disabled={availableDruhy.length === 0}
+                  searchPlaceholder="Hľadať druh…"
                 />
               </FieldLabel>
 
@@ -2602,6 +2579,44 @@ function ProductThumb({ src }: { src: string }) {
   );
 }
 
+function ProductFlagToggle({
+  label,
+  active,
+  onClick,
+  hint,
+}: {
+  label: string;
+  active: boolean;
+  onClick: () => void;
+  hint: string;
+}) {
+  return (
+    <div className="group relative min-w-0">
+      <label
+        className={`flex h-11 w-full cursor-pointer items-center gap-2 rounded-xl border px-2.5 text-sm font-medium transition-colors ${
+          active
+            ? "border-[#75825B] bg-[#75825B] text-white"
+            : "border-black/10 bg-[#faf8f5] text-[#2f2924] hover:border-[#75825B]/40"
+        }`}
+      >
+        <input
+          type="checkbox"
+          checked={active}
+          onChange={onClick}
+          className="size-4 shrink-0 accent-[#75825B]"
+        />
+        <span className="min-w-0 truncate">{label}</span>
+      </label>
+      <span
+        role="tooltip"
+        className="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-20 w-max max-w-[min(220px,70vw)] -translate-x-1/2 rounded-lg bg-[#2f2924] px-2.5 py-1.5 text-center text-[11px] leading-snug text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100"
+      >
+        {hint}
+      </span>
+    </div>
+  );
+}
+
 function FieldLabel({
   label,
   hint,
@@ -2766,20 +2781,41 @@ function AdminSelect({
   options,
   onChange,
   disabled = false,
+  searchable = true,
+  searchPlaceholder = "Hľadať…",
 }: {
   value: string;
   options: { value: string; label: string }[];
   onChange: (next: string) => void;
   disabled?: boolean;
+  searchable?: boolean;
+  searchPlaceholder?: string;
 }) {
   const [open, setOpen] = useState(false);
+  const [query, setQuery] = useState("");
   const rootRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const listId = useId();
   const selected =
     options.find((option) => option.value === value) ?? options[0];
 
+  const filteredOptions = useMemo(() => {
+    const q = normalizeSearchText(query);
+    if (!q) return options;
+    return options.filter((option) =>
+      normalizeSearchText(option.label).includes(q),
+    );
+  }, [options, query]);
+
   useEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setQuery("");
+      return;
+    }
+
+    const frame = requestAnimationFrame(() => {
+      searchRef.current?.focus();
+    });
 
     function onPointerDown(event: MouseEvent) {
       if (!rootRef.current?.contains(event.target as Node)) {
@@ -2794,6 +2830,7 @@ function AdminSelect({
     document.addEventListener("mousedown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
+      cancelAnimationFrame(frame);
       document.removeEventListener("mousedown", onPointerDown);
       document.removeEventListener("keydown", onKeyDown);
     };
@@ -2823,42 +2860,70 @@ function AdminSelect({
       </button>
 
       {open && !disabled ? (
-        <ul
-          id={listId}
-          role="listbox"
-          className="absolute z-20 mt-1.5 max-h-60 w-full overflow-auto rounded-xl border border-black/8 bg-white p-1.5 shadow-[0_12px_32px_rgba(47,41,36,0.12)]"
-        >
-          {options.map((option) => {
-            const isActive = option.value === value;
-            return (
-              <li key={option.value || "__empty"}>
-                <button
-                  type="button"
-                  role="option"
-                  aria-selected={isActive}
-                  onClick={() => {
-                    onChange(option.value);
-                    setOpen(false);
-                  }}
-                  className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
-                    isActive
-                      ? "bg-[#e8ebe2] font-medium text-[#2f2924]"
-                      : "text-[#2f2924]/80 hover:bg-[#faf8f5]"
-                  }`}
-                >
-                  <span className="truncate">{option.label}</span>
-                  {isActive ? (
-                    <Check
-                      className="size-3.5 shrink-0 text-[#75825B]"
-                      strokeWidth={2}
-                      aria-hidden
-                    />
-                  ) : null}
-                </button>
+        <div className="absolute z-20 mt-1.5 w-full overflow-hidden rounded-xl border border-black/8 bg-white shadow-[0_12px_32px_rgba(47,41,36,0.12)]">
+          {searchable ? (
+            <div className="border-b border-black/[0.06] p-1.5">
+              <div className="relative">
+                <Search
+                  className="pointer-events-none absolute top-1/2 left-2.5 size-3.5 -translate-y-1/2 text-[#2f2924]/35"
+                  strokeWidth={1.75}
+                  aria-hidden
+                />
+                <input
+                  ref={searchRef}
+                  type="search"
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder={searchPlaceholder}
+                  autoComplete="off"
+                  className="h-9 w-full rounded-lg border border-black/10 bg-[#faf8f5] pr-3 pl-8 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white"
+                />
+              </div>
+            </div>
+          ) : null}
+          <ul
+            id={listId}
+            role="listbox"
+            className="max-h-56 overflow-auto p-1.5"
+          >
+            {filteredOptions.length === 0 ? (
+              <li className="px-3 py-3 text-center text-sm text-[#2f2924]/45">
+                Nič sa nenašlo
               </li>
-            );
-          })}
-        </ul>
+            ) : (
+              filteredOptions.map((option) => {
+                const isActive = option.value === value;
+                return (
+                  <li key={option.value || "__empty"}>
+                    <button
+                      type="button"
+                      role="option"
+                      aria-selected={isActive}
+                      onClick={() => {
+                        onChange(option.value);
+                        setOpen(false);
+                      }}
+                      className={`flex w-full cursor-pointer items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-sm transition-colors ${
+                        isActive
+                          ? "bg-[#e8ebe2] font-medium text-[#2f2924]"
+                          : "text-[#2f2924]/80 hover:bg-[#faf8f5]"
+                      }`}
+                    >
+                      <span className="truncate">{option.label}</span>
+                      {isActive ? (
+                        <Check
+                          className="size-3.5 shrink-0 text-[#75825B]"
+                          strokeWidth={2}
+                          aria-hidden
+                        />
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })
+            )}
+          </ul>
+        </div>
       ) : null}
     </div>
   );

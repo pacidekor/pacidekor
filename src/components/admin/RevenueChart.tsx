@@ -147,8 +147,8 @@ export function RevenueChart({
   return (
     <ChartContainer
       config={chartConfig}
-      className={`!aspect-auto h-[260px] w-full sm:h-[340px] ${className}`}
-      initialDimension={{ width: 640, height: 320 }}
+      className={`!aspect-auto h-full min-h-[280px] w-full ${className}`}
+      initialDimension={{ width: 640, height: 360 }}
     >
       <ComposedChart
         accessibilityLayer

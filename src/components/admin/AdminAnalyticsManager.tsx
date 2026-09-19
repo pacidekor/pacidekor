@@ -4,8 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
+  ArrowUpRight,
   BadgePercent,
-  Gift,
   Package,
   ShoppingBag,
   ShoppingCart,
@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { RevenueChart } from "@/components/admin/RevenueChart";
 import {
-  FUTURE_CAMPAIGN_PLACEHOLDERS,
   formatChangeHint,
   formatEuro,
   formatProductRevenue,
@@ -188,9 +187,9 @@ export function AdminAnalyticsManager({
         </div>
       </section>
 
-      <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,3fr)_minmax(0,1fr)]">
-        <section className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="flex flex-col gap-1 px-4 pt-4 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+      <div className="mt-3 grid min-w-0 items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        <section className="flex min-h-0 min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white sm:col-span-2 xl:col-span-3">
+          <div className="flex shrink-0 flex-col gap-1 px-4 pt-4 pb-3 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               {analytics.chartTitle}
             </h2>
@@ -198,58 +197,51 @@ export function AdminAnalyticsManager({
               {formatEuro(analytics.revenue)}
             </p>
           </div>
-          <div className="min-w-0 flex-1 overflow-hidden border-t border-black/[0.05] px-2 py-3 sm:px-3 sm:py-5">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden border-t border-black/[0.05] px-2 py-3 sm:px-3 sm:py-4">
             <RevenueChart
               data={analytics.series}
               granularity={analytics.granularity}
+              className="min-h-[280px] flex-1 sm:min-h-[320px]"
             />
           </div>
         </section>
 
-        <section className="flex min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="flex items-start justify-between gap-2 px-4 pt-4 pb-3">
-            <div className="min-w-0">
-              <h2 className="font-heading text-base font-semibold text-[#2f2924]">
-                Najpredávanejšie
-              </h2>
-              <p className="mt-1 text-xs text-[#2f2924]/45">
-                V zvolenom období
-              </p>
-            </div>
-            <Link
-              href="/admin/produkty"
-              className="shrink-0 text-sm font-medium text-[#75825B] hover:underline"
-            >
-              Všetky
-            </Link>
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white sm:col-span-2 xl:col-span-1">
+          <div className="shrink-0 px-4 pt-4 pb-3">
+            <h2 className="font-heading text-base font-semibold text-[#2f2924]">
+              Najpredávanejšie produkty
+            </h2>
+            <p className="mt-1 text-xs text-[#2f2924]/45">
+              V zvolenom období
+            </p>
           </div>
-          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] overflow-y-auto border-t border-black/[0.05]">
-            {analytics.topProducts.slice(0, 6).map((product, index) => (
+          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] border-t border-black/[0.05]">
+            {analytics.topProducts.slice(0, 5).map((product, index) => (
               <li key={product.productId}>
-                <div className="flex items-center gap-2.5 px-3.5 py-2.5">
-                  <span className="w-3.5 shrink-0 text-xs font-semibold tabular-nums text-[#2f2924]/35">
+                <div className="flex items-center gap-3 px-4 py-3.5">
+                  <span className="w-4 shrink-0 text-sm font-semibold tabular-nums text-[#2f2924]/35">
                     {index + 1}
                   </span>
-                  <div className="relative size-9 shrink-0 overflow-hidden rounded-lg bg-[#f3efe9]">
+                  <div className="relative size-12 shrink-0 overflow-hidden rounded-xl bg-[#f3efe9]">
                     {product.image ? (
                       <Image
                         src={product.image}
                         alt=""
                         fill
-                        sizes="36px"
+                        sizes="48px"
                         className="object-cover"
                       />
                     ) : null}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-sm font-medium text-[#2f2924]">
+                    <p className="truncate text-sm font-semibold text-[#2f2924]">
                       {product.name}
                     </p>
-                    <p className="mt-0.5 text-[11px] text-[#2f2924]/40">
+                    <p className="mt-0.5 text-xs text-[#2f2924]/45">
                       {product.quantity} ks
                     </p>
                   </div>
-                  <p className="shrink-0 text-xs font-semibold tabular-nums text-[#2f2924]">
+                  <p className="shrink-0 text-sm font-semibold tabular-nums text-[#2f2924]">
                     {formatProductRevenue(product.revenue)}
                   </p>
                 </div>
@@ -261,12 +253,21 @@ export function AdminAnalyticsManager({
               </li>
             )}
           </ul>
+          <div className="mt-auto shrink-0 border-t border-black/[0.05] px-4 py-3">
+            <Link
+              href="/admin/produkty"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
+            >
+              Zobraziť všetky produkty
+              <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </section>
       </div>
 
-      <div className="mt-5 grid min-w-0 gap-4 xl:grid-cols-3">
-        <section className="min-w-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-4 pt-4 pb-3">
+      <div className="mt-3 grid min-w-0 items-stretch gap-3 xl:grid-cols-3">
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="shrink-0 px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Zľavové kódy
             </h2>
@@ -274,7 +275,7 @@ export function AdminAnalyticsManager({
               {periodPromoUses} použití v období · {demoPromos.length} kódov
             </p>
           </div>
-          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] border-t border-black/[0.05]">
             {demoPromos.map((promo) => {
               return (
                 <li
@@ -301,11 +302,25 @@ export function AdminAnalyticsManager({
                 </li>
               );
             })}
+            {demoPromos.length === 0 && (
+              <li className="px-4 py-8 text-center text-sm text-[#2f2924]/45">
+                Žiadne zľavové kódy
+              </li>
+            )}
           </ul>
+          <div className="mt-auto shrink-0 border-t border-black/[0.05] px-4 py-3">
+            <Link
+              href="/admin/zlavy"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
+            >
+              Spravovať zľavové kódy
+              <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </section>
 
-        <section className="min-w-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-4 pt-4 pb-3">
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="shrink-0 px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Produktové zľavy
             </h2>
@@ -313,7 +328,7 @@ export function AdminAnalyticsManager({
               Aktívne a naplánované akcie
             </p>
           </div>
-          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] border-t border-black/[0.05]">
             {displayDiscounts.slice(0, 6).map((row) => {
               const meta = DISCOUNT_STATUS_META[row.status];
               return (
@@ -337,11 +352,25 @@ export function AdminAnalyticsManager({
                 </li>
               );
             })}
+            {displayDiscounts.length === 0 && (
+              <li className="px-4 py-8 text-center text-sm text-[#2f2924]/45">
+                Žiadne produktové zľavy
+              </li>
+            )}
           </ul>
+          <div className="mt-auto shrink-0 border-t border-black/[0.05] px-4 py-3">
+            <Link
+              href="/admin/zlavy"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
+            >
+              Prejsť do sekcie zľavy
+              <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </section>
 
-        <section className="min-w-0 overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
-          <div className="px-4 pt-4 pb-3">
+        <section className="flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-black/[0.06] bg-white">
+          <div className="shrink-0 px-4 pt-4 pb-3">
             <h2 className="font-heading text-base font-semibold text-[#2f2924]">
               Stav objednávok
             </h2>
@@ -349,20 +378,18 @@ export function AdminAnalyticsManager({
               Rozloženie v zvolenom období
             </p>
           </div>
-          <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
+          <ul className="min-h-0 flex-1 divide-y divide-black/[0.05] border-t border-black/[0.05]">
             {analytics.statusBreakdown.map((row) => (
               <li
                 key={row.status}
                 className="flex items-center justify-between gap-3 px-4 py-3"
               >
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-[#2f2924]">
-                    {row.label}
-                  </p>
-                  <p className="mt-0.5 text-xs text-[#2f2924]/40">
-                    {formatEuro(row.revenue)}
-                  </p>
-                </div>
+                <p className="min-w-0 truncate text-sm font-medium text-[#2f2924]">
+                  {row.label}{" "}
+                  <span className="font-normal text-[#2f2924]/45">
+                    ({formatEuro(row.revenue)})
+                  </span>
+                </p>
                 <span className="shrink-0 font-heading text-lg font-semibold tabular-nums text-[#2f2924]">
                   {row.count}
                 </span>
@@ -374,40 +401,17 @@ export function AdminAnalyticsManager({
               </li>
             )}
           </ul>
+          <div className="mt-auto shrink-0 border-t border-black/[0.05] px-4 py-3">
+            <Link
+              href="/admin/objednavky"
+              className="inline-flex items-center gap-1 text-sm font-medium text-[#75825B] transition-opacity hover:opacity-75"
+            >
+              Zobraziť všetky objednávky
+              <ArrowUpRight className="size-3.5" aria-hidden />
+            </Link>
+          </div>
         </section>
       </div>
-
-      <section className="mt-5 min-w-0 overflow-hidden rounded-2xl border border-dashed border-[#75825B]/35 bg-[#f7f8f4]/60">
-        <div className="px-4 pt-4 pb-3">
-          <div className="flex items-center gap-2">
-            <Gift className="size-4 text-[#75825B]" strokeWidth={1.75} />
-            <h2 className="font-heading text-base font-semibold text-[#2f2924]">
-              Kampane (pripravované)
-            </h2>
-          </div>
-          <p className="mt-1 text-xs text-[#2f2924]/50">
-            Sem neskôr pribudnú štatistiky akcií typu 3+1 zdarma, balíčky a flash
-            zľavy.
-          </p>
-        </div>
-        <ul className="divide-y divide-black/[0.05] border-t border-black/[0.05]">
-          {FUTURE_CAMPAIGN_PLACEHOLDERS.map((campaign) => (
-            <li key={campaign.id} className="px-4 py-4">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold text-[#2f2924]">
-                  {campaign.name}
-                </p>
-                <span className="rounded-md bg-[#e8ebe2] px-2 py-0.5 text-[11px] font-semibold text-[#5a6648]">
-                  Čoskoro
-                </span>
-              </div>
-              <p className="mt-1.5 text-xs leading-relaxed text-[#2f2924]/50">
-                {campaign.description}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </section>
     </>
   );
 }
