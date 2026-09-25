@@ -28,7 +28,7 @@ import {
   pendingOrdersForDashboard,
   recentOrdersForDashboard,
 } from "@/lib/orders";
-import { listOrdersFromDb } from "@/lib/orders.server";
+import { listOrdersForAdminList } from "@/lib/orders.server";
 import { setProductCatalog } from "@/lib/product-catalog";
 import { listProductsForAdmin } from "@/lib/products-server";
 
@@ -79,7 +79,7 @@ function OrderRow({
 }
 
 export default async function AdminPage() {
-  const orders = await listOrdersFromDb();
+  const orders = await listOrdersForAdminList();
   const pendingWholesaleCount = await countPendingWholesaleRegistrations();
   const catalog = await listProductsForAdmin();
   setProductCatalog(catalog);

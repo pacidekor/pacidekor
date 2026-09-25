@@ -168,6 +168,49 @@ export async function listOrdersFromDb(): Promise<Order[]> {
   );
 }
 
+/**
+ * Admin list — full order rows + quantity totals only (no line-item payload).
+ * Open detail → getOrderByNumberFromDb / API for items.
+ */
+export async function listOrdersForAdminList(): Promise<Order[]> {
+  const db = createServiceClient();
+  const { data, error } = await db
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) throw new Error(error.message);
+
+  const rows = (data as OrderRow[] | null) ?? [];
+  if (rows.length === 0) return [];
+
+  const { data: qtyRows, error: qtyError } = await db
+    .from("order_items")
+    .select("order_id, quantity")
+    .in(
+      "order_id",
+      rows.map((row) => row.id),
+    );
+
+  if (qtyError) throw new Error(qtyError.message);
+
+  const qtyByOrder = new Map<string, number>();
+  for (const row of (qtyRows as { order_id: string; quantity: number }[] | null) ?? []) {
+    qtyByOrder.set(
+      row.order_id,
+      (qtyByOrder.get(row.order_id) ?? 0) + Number(row.quantity || 0),
+    );
+  }
+
+  return rows.map((row) => {
+    const order = mapDbOrderToOrder(row, []);
+    return {
+      ...order,
+      itemCount: qtyByOrder.get(row.id) ?? 0,
+    };
+  });
+}
+
 export async function getOrderByNumberFromDb(
   orderNumber: string,
 ): Promise<Order | null> {

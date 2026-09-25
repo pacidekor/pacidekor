@@ -47,14 +47,17 @@ export async function listProductsForAdmin(): Promise<Product[]> {
     return [];
   }
 
-  return ((data as Partial<ProductRow>[] | null) ?? []).map((row) =>
-    mapProductRow({
+  return ((data as Partial<ProductRow>[] | null) ?? []).map((row) => {
+    const images = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
+    return mapProductRow({
       description: "",
       details: [],
       color_image_map: {},
       ...row,
-    } as ProductRow),
-  );
+      // List thumb only — full gallery loads with getProductById on edit.
+      images: images.slice(0, 1),
+    } as ProductRow);
+  });
 }
 
 /** Katalog s aplikovanými aktívnymi zľavami (cena, originalPrice, discount %). */

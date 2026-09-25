@@ -43,6 +43,8 @@ export type Order = {
   createdAtLabel: string;
   customer: OrderCustomer;
   items: OrderItem[];
+  /** List-only aggregate when `items` is empty (admin list payload). */
+  itemCount?: number;
   shippingCost: string;
   paymentMethod: string;
   shippingMethod: string;

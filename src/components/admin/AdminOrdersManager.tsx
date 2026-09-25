@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { ChevronRight, ListFilter, Search } from "lucide-react";
 import { AdminOrderDetail } from "@/components/admin/AdminOrderDetail";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
+import { fetchAdminOrder } from "@/lib/admin-order-fetch";
 import {
   ORDER_STATUS_FILTERS,
   ORDER_STATUS_META,
@@ -19,8 +19,23 @@ import {
   type OrderStatusFilterId,
 } from "@/lib/orders";
 
+const PAGE_SIZE = 40;
+
+function syncOrderIdInUrl(orderId: string | null) {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  if (orderId) url.searchParams.set("id", orderId);
+  else url.searchParams.delete("id");
+  window.history.replaceState(window.history.state, "", url.pathname + url.search);
+}
+
+function orderPieces(order: Order) {
+  if (typeof order.itemCount === "number") return order.itemCount;
+  return order.items.reduce((sum, line) => sum + line.quantity, 0);
+}
+
 export function AdminOrdersManager({
-  orders,
+  orders: initialOrders,
   initialOrderId,
   initialStatusFilter = "all",
 }: {
@@ -28,34 +43,84 @@ export function AdminOrdersManager({
   initialOrderId?: string;
   initialStatusFilter?: OrderStatusFilterId;
 }) {
-  const router = useRouter();
+  const [orders, setOrders] = useState(initialOrders);
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] =
     useState<OrderStatusFilterId>(initialStatusFilter);
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [page, setPage] = useState(1);
   const [selectedId, setSelectedId] = useState<string | null>(
-    initialOrderId && getOrderById(orders, initialOrderId)
+    initialOrderId && getOrderById(initialOrders, initialOrderId)
       ? initialOrderId
       : null,
   );
+  const [detailLoading, setDetailLoading] = useState(false);
+  const [detailOrder, setDetailOrder] = useState<Order | null>(null);
+
+  useEffect(() => {
+    setOrders(initialOrders);
+  }, [initialOrders]);
 
   useEffect(() => {
     setStatusFilter(initialStatusFilter);
   }, [initialStatusFilter]);
 
-  const selectedOrder = selectedId ? getOrderById(orders, selectedId) : null;
+  useEffect(() => {
+    setPage(1);
+  }, [query, statusFilter]);
+
+  useEffect(() => {
+    if (!selectedId) {
+      setDetailOrder(null);
+      setDetailLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+    setDetailLoading(true);
+
+    void fetchAdminOrder(selectedId).then((result) => {
+      if (cancelled) return;
+      if (!result.ok) {
+        window.alert(result.error);
+        setSelectedId(null);
+        syncOrderIdInUrl(null);
+        setDetailLoading(false);
+        return;
+      }
+      setDetailOrder(result.data);
+      setOrders((prev) => {
+        const index = prev.findIndex((order) => order.id === result.data.id);
+        if (index === -1) return prev;
+        const copy = [...prev];
+        copy[index] = {
+          ...prev[index]!,
+          ...result.data,
+          itemCount:
+            result.data.itemCount ??
+            result.data.items.reduce((sum, line) => sum + line.quantity, 0),
+        };
+        return copy;
+      });
+      setDetailLoading(false);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedId]);
+
   const activeFilterCount = statusFilter !== "all" ? 1 : 0;
 
   function openOrder(id: string) {
     setSelectedId(id);
-    router.replace(`/admin/objednavky?id=${encodeURIComponent(id)}`, {
-      scroll: false,
-    });
+    syncOrderIdInUrl(id);
   }
 
   function closeOrder() {
     setSelectedId(null);
-    router.replace("/admin/objednavky", { scroll: false });
+    setDetailOrder(null);
+    syncOrderIdInUrl(null);
   }
 
   const filtered = useMemo(() => {
@@ -85,6 +150,13 @@ export function AdminOrdersManager({
     });
   }, [orders, query, statusFilter]);
 
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const pageItems = filtered.slice(
+    (safePage - 1) * PAGE_SIZE,
+    safePage * PAGE_SIZE,
+  );
+
   return (
     <div className="mt-5">
       <div className="mb-4 flex items-center gap-2.5 sm:gap-3">
@@ -105,7 +177,7 @@ export function AdminOrdersManager({
         <button
           type="button"
           onClick={() => setFiltersOpen(true)}
-          className="inline-flex h-11 min-w-0 flex-[3] cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:w-auto sm:flex-none sm:gap-2 sm:px-4 sm:ml-auto"
+          className="inline-flex h-11 min-w-0 flex-[3] cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-2.5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 sm:ml-auto sm:w-auto sm:flex-none sm:gap-2 sm:px-4"
         >
           <ListFilter className="size-4 shrink-0" strokeWidth={1.75} aria-hidden />
           <span className="truncate">Filtrovať</span>
@@ -138,12 +210,9 @@ export function AdminOrdersManager({
           </div>
         ) : (
           <ul className="divide-y divide-black/[0.05]">
-            {filtered.map((order) => {
+            {pageItems.map((order) => {
               const meta = ORDER_STATUS_META[order.status];
-              const pieces = order.items.reduce(
-                (sum, line) => sum + line.quantity,
-                0,
-              );
+              const pieces = orderPieces(order);
 
               return (
                 <li key={order.id}>
@@ -201,6 +270,32 @@ export function AdminOrdersManager({
         )}
       </section>
 
+      {filtered.length > PAGE_SIZE ? (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-[#2f2924]/55">
+            {filtered.length} objednávok · strana {safePage} / {pageCount}
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={safePage <= 1}
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Predchádzajúca
+            </button>
+            <button
+              type="button"
+              disabled={safePage >= pageCount}
+              onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
+              className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Ďalšia
+            </button>
+          </div>
+        </div>
+      ) : null}
+
       <FilterSheet
         open={filtersOpen}
         onClose={() => setFiltersOpen(false)}
@@ -229,10 +324,21 @@ export function AdminOrdersManager({
         </div>
       </FilterSheet>
 
-      {selectedOrder ? (
+      {detailLoading ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2f2924]/25 backdrop-blur-[1px]">
+          <div className="rounded-2xl bg-white px-6 py-5 shadow-lg">
+            <div className="mx-auto h-9 w-9 animate-pulse rounded-full bg-[#75825B]/25" />
+            <p className="mt-3 text-sm text-[#2f2924]/65">
+              Načítavam objednávku…
+            </p>
+          </div>
+        </div>
+      ) : null}
+
+      {detailOrder && !detailLoading ? (
         <AdminOrderDetail
-          key={selectedOrder.id}
-          order={selectedOrder}
+          key={detailOrder.id}
+          order={detailOrder}
           onClose={closeOrder}
         />
       ) : null}

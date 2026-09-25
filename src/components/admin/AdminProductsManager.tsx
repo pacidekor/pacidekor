@@ -91,6 +91,7 @@ import { lockPageScroll } from "@/lib/lock-page-scroll";
 import type { AdminStockFilter } from "@/lib/admin-product-filters";
 
 const CREATE_DRAFT_ID = "__new__";
+const PRODUCT_PAGE_SIZE = 50;
 
 const CREATE_DRAFT_PRODUCT: Product = {
   id: CREATE_DRAFT_ID,
@@ -231,6 +232,7 @@ export function AdminProductsManager({
   const [packagingFilter, setPackagingFilter] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<ProductSort>("newest");
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [page, setPage] = useState(1);
   const [inventoryTick, setInventoryTick] = useState(0);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -356,6 +358,24 @@ export function AdminProductsManager({
     sortBy,
     inventoryTick,
   ]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [
+    query,
+    categoryFilter,
+    stockFilter,
+    colorFilter,
+    packagingFilter,
+    sortBy,
+  ]);
+
+  const pageCount = Math.max(1, Math.ceil(filtered.length / PRODUCT_PAGE_SIZE));
+  const safePage = Math.min(page, pageCount);
+  const pageItems = filtered.slice(
+    (safePage - 1) * PRODUCT_PAGE_SIZE,
+    safePage * PRODUCT_PAGE_SIZE,
+  );
 
   const editing = isCreating
     ? { ...CREATE_DRAFT_PRODUCT, sku: draftSku }
@@ -596,7 +616,7 @@ export function AdminProductsManager({
           </p>
         ) : (
           <ul className="divide-y divide-black/5">
-            {filtered.map((product) => {
+            {pageItems.map((product) => {
               const inventory = getInventoryForProduct(product);
               const subcategoryLabel =
                 getAdminSubcategoryById(product.subcategoryId)?.label ?? "";
@@ -692,7 +712,7 @@ export function AdminProductsManager({
               </tr>
             </thead>
             <tbody>
-              {filtered.map((product) => {
+              {pageItems.map((product) => {
                 const inventory = getInventoryForProduct(product);
                 const subcategoryLabel =
                   getAdminSubcategoryById(product.subcategoryId)?.label ?? "";
@@ -787,6 +807,34 @@ export function AdminProductsManager({
         <p className="mt-4 text-center text-sm text-[#2f2924]/55">
           Žiadne produkty pre zvolené filtre.
         </p>
+      ) : null}
+
+      {filtered.length > PRODUCT_PAGE_SIZE ? (
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+          <p className="text-sm text-[#2f2924]/55">
+            {filtered.length} produktov · strana {safePage} / {pageCount}
+          </p>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              disabled={safePage <= 1}
+              onClick={() => setPage((value) => Math.max(1, value - 1))}
+              className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Predchádzajúca
+            </button>
+            <button
+              type="button"
+              disabled={safePage >= pageCount}
+              onClick={() =>
+                setPage((value) => Math.min(pageCount, value + 1))
+              }
+              className="inline-flex h-10 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Ďalšia
+            </button>
+          </div>
+        </div>
       ) : null}
 
       <FilterSheet
