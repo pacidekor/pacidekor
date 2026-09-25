@@ -78,10 +78,20 @@ function buildMigrationMap(colorUsage) {
     groups.set(groupKey, bucket);
   }
 
+  const FALLBACK_GREY = "9a9a96";
+  const isGrey = (id) => {
+    const parsed = parseCustomColorId(id);
+    return parsed && !parsed.hexSecondary && parsed.hex === `#${FALLBACK_GREY}`;
+  };
+
   const migration = new Map();
   for (const entries of groups.values()) {
+    // Prefer most-used; on tie prefer non-fallback-grey hex from catalog.
     const canonical = [...entries].sort(
-      (a, b) => b.count - a.count || a.id.localeCompare(b.id, "sk"),
+      (a, b) =>
+        b.count - a.count ||
+        Number(isGrey(a.id)) - Number(isGrey(b.id)) ||
+        a.id.localeCompare(b.id, "sk"),
     )[0].id;
     for (const entry of entries) migration.set(entry.id, canonical);
   }

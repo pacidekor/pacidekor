@@ -1,22 +1,19 @@
 /**
- * Bulk import public/249produkty-ready → Supabase products + Storage.
- * SKU prefix: IMP-249- (filterable vs IMP-NEJ-).
+ * Bulk import public/nejnovejsiprodukty-ready → Supabase products + Storage.
  *
  * Usage:
- *   node scripts/import-249produkty.mjs --dry-run
- *   node scripts/import-249produkty.mjs --limit 3
- *   node scripts/import-249produkty.mjs
- *   node scripts/import-249produkty.mjs --only 2,35
+ *   node scripts/import-nejnovejsiprodukty.mjs --dry-run
+ *   node scripts/import-nejnovejsiprodukty.mjs --limit 3
+ *   node scripts/import-nejnovejsiprodukty.mjs
+ *   node scripts/import-nejnovejsiprodukty.mjs --only 2,35,110
  */
 import { createClient } from "@supabase/supabase-js";
-import { createHash } from "node:crypto";
+import { createHash, randomUUID } from "node:crypto";
 import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { resolve, join } from "node:path";
 
-const ROOT = resolve("public/249produkty-ready");
+const ROOT = resolve("public/nejnovejsiprodukty-ready");
 const BUCKET = "product-images";
-const SKU_PREFIX = "IMP-249";
-const STORAGE_PREFIX = "bulk-249";
 const NEW_PRODUCT_DAYS = 60;
 const PROGRESS_PATH = resolve(ROOT, "_import-progress.json");
 
@@ -64,6 +61,7 @@ function encodeCustomColorId(hex, label) {
   return `custom:${clean}:${encodeURIComponent(label)}`;
 }
 
+/** Map catalog color label → filter id or custom:* */
 const COLOR_MAP = {
   biela: "biela",
   bílá: "biela",
@@ -74,11 +72,8 @@ const COLOR_MAP = {
   ružová: "ruzova",
   ruzova: "ruzova",
   staroružová: encodeCustomColorId("c08081", "Staroružová"),
-  staroruzova: encodeCustomColorId("c08081", "Staroružová"),
   fialová: "fialova",
-  fialova: "fialova",
   zelená: "zelena",
-  zelena: "zelena",
   krémová: "kremova",
   kremova: "kremova",
   oranžová: "oranzova",
@@ -86,7 +81,6 @@ const COLOR_MAP = {
   žltá: "zlta",
   zlta: "zlta",
   modrá: "modra",
-  modra: "modra",
   hnedá: "hneda",
   hneda: "hneda",
   sivá: "seda",
@@ -107,15 +101,9 @@ const COLOR_MAP = {
   tyrkysová: encodeCustomColorId("4aa3a2", "Tyrkysová"),
   vínová: encodeCustomColorId("6b2d3c", "Vínová"),
   vinova: encodeCustomColorId("6b2d3c", "Vínová"),
-  modrozelená: encodeCustomColorId("2f6f6a", "Modrozelená"),
-  modrozelena: encodeCustomColorId("2f6f6a", "Modrozelená"),
-  medená: encodeCustomColorId("b87333", "Medená"),
-  medena: encodeCustomColorId("b87333", "Medená"),
+  // Katalogové vlastní barvy (hex z existujících produktů)
   olivová: encodeCustomColorId("6b7c3a", "Olivová"),
   olivova: encodeCustomColorId("6b7c3a", "Olivová"),
-  okrová: encodeCustomColorId("c4a35a", "Okrová"),
-  okrova: encodeCustomColorId("c4a35a", "Okrová"),
-  // Katalogové vlastní barvy (hex z existujících produktů)
   broskyňová: encodeCustomColorId("ffe5b4", "Broskyňová"),
   broskynova: encodeCustomColorId("ffe5b4", "Broskyňová"),
   limetková: encodeCustomColorId("00ff00", "Limetková"),
@@ -140,13 +128,19 @@ function mapColor(label) {
     .toLowerCase();
   if (!key) return null;
   if (COLOR_MAP[key]) return COLOR_MAP[key];
+  // fallback custom grey
   return encodeCustomColorId(
     "9a9a96",
     label.trim().replace(/^./, (c) => c.toUpperCase()),
   );
 }
 
+/**
+ * Normalize subcategory label from catalog → DB subcategory id.
+ * Built at runtime from DB + aliases.
+ */
 const SUB_ALIASES = {
+  // Stuhy
   "dekoratívne stuhy": "ozdobne-stuhy",
   "dekoračné stuhy": "ozdobne-stuhy",
   "ozdobné stuhy": "ozdobne-stuhy",
@@ -154,12 +148,15 @@ const SUB_ALIASES = {
   "pohrebné stuhy": "pohrebne-stuhy",
   "zamatové stuhy": "sametove-stuhy",
   "sametové stuhy": "sametove-stuhy",
-  čipky: "cipkove-stuhy",
+  "čipky": "cipkove-stuhy",
   "čipkové stuhy": "cipkove-stuhy",
   "čipkované stuhy": "cipkove-stuhy",
+  "špagáty": "spagaty-a-snury", // prefer aranž; overridden per category below
+  // Umelé kvety
   vence: "vencovky",
   venčovky: "vencovky",
   zeleň: "doplnky",
+  // Flowerboxy
   srdce: "flowerboxy-srdce",
   okrúhle: "flowerboxy-okruhle",
   "tašky na kvety": "flowerboxy-tasky-na-kvety",
@@ -174,16 +171,20 @@ function resolveSubcategoryId(categoryLabel, subcategoryLabel, byCategoryLabel) 
   const raw = subcategoryLabel.trim();
   const lower = raw.toLowerCase();
 
+  // exact label match in DB for this category
   if (catMap.has(lower)) return catMap.get(lower);
 
+  // alias
   let alias = SUB_ALIASES[lower];
   if (lower === "špagáty" || lower === "spagaty") {
     alias =
       categoryLabel === "Stuhy" ? "dekoračne-snury" : "spagaty-a-snury";
   }
   if (alias && [...catMap.values()].includes(alias)) return alias;
+  // alias might be global id — check all
   if (alias) return alias;
 
+  // fuzzy contains
   for (const [label, id] of catMap) {
     if (label.includes(lower) || lower.includes(label)) return id;
   }
@@ -198,6 +199,7 @@ function listWebps(dir) {
 
 function buildColorImageMap(colorIds, imageCount) {
   if (!colorIds.length || imageCount === 0) return {};
+  // Common pattern: 1 = group overview, 2.. = one per color
   if (imageCount === colorIds.length + 1) {
     const map = {};
     colorIds.forEach((id, i) => {
@@ -212,6 +214,7 @@ function buildColorImageMap(colorIds, imageCount) {
     });
     return map;
   }
+  // fallback: all images available for each color
   const all = Array.from({ length: imageCount }, (_, i) => i);
   const map = {};
   for (const id of colorIds) map[id] = all;
@@ -268,7 +271,11 @@ async function main() {
   });
 
   const catalog = JSON.parse(readFileSync(join(ROOT, "catalog.json"), "utf8"));
+  const folderMap = JSON.parse(
+    readFileSync(join(ROOT, "_folder-map.json"), "utf8"),
+  );
 
+  // taxonomy from DB
   const { data: categories, error: catErr } = await supabase
     .from("categories")
     .select("id, label");
@@ -297,19 +304,18 @@ async function main() {
   let failed = 0;
 
   console.log(
-    `Import ${items.length} products as ${SKU_PREFIX}-*${args.dryRun ? " (DRY RUN)" : ""}…`,
+    `Import ${items.length} products${args.dryRun ? " (DRY RUN)" : ""}…`,
   );
 
   for (const product of items) {
-    const sku = `${SKU_PREFIX}-${String(product.id).padStart(3, "0")}`;
+    const sku = `IMP-NEJ-${String(product.id).padStart(3, "0")}`;
     if (progress.done[sku]) {
       console.log(`#${product.id} skip (already imported ${progress.done[sku]})`);
       skipped++;
       continue;
     }
 
-    const folderName =
-      product.readyFolder || product.sourceFolder || String(product.id);
+    const folderName = folderMap[String(product.id)] || folderMap[product.id] || String(product.id);
     const dir = join(ROOT, folderName);
     if (!existsSync(dir)) {
       console.error(`#${product.id} missing folder ${folderName}`);
@@ -342,9 +348,7 @@ async function main() {
       );
     }
 
-    const colorIds = [
-      ...new Set((product.colors || []).map(mapColor).filter(Boolean)),
-    ];
+    const colorIds = [...new Set((product.colors || []).map(mapColor).filter(Boolean))];
     const colorImageMap = buildColorImageMap(colorIds, webps.length);
     const slugBase = toSlug(product.name);
     const name = product.name.trim();
@@ -359,6 +363,7 @@ async function main() {
       continue;
     }
 
+    // resume-safe: skip if SKU already in DB
     const { data: existing } = await supabase
       .from("products")
       .select("id")
@@ -372,12 +377,12 @@ async function main() {
       continue;
     }
 
+    const imageUrls = [];
     try {
-      const imageUrls = [];
       for (const file of webps) {
         const buf = readFileSync(join(dir, file));
         const hash = createHash("sha1").update(buf).digest("hex").slice(0, 12);
-        const path = `${STORAGE_PREFIX}/${product.id}/${hash}-${file}`;
+        const path = `bulk-nej/${product.id}/${hash}-${file}`;
         const { error: upErr } = await supabase.storage
           .from(BUCKET)
           .upload(path, buf, {

@@ -1115,6 +1115,25 @@ function ProductEditor({
     const parsed = parseCustomColorId(id);
     return parsed ? [parsed] : [];
   });
+  /** Image index → labels of colors assigned via color_image_map */
+  const imageColorLabels = useMemo(() => {
+    const byIndex = new Map<number, string[]>();
+    const selected = new Set(colors);
+    for (const [colorId, indexes] of Object.entries(colorImageMap)) {
+      if (!selected.has(colorId)) continue;
+      const label =
+        colorsFromIds([colorId])[0]?.label ??
+        parseCustomColorId(colorId)?.label ??
+        colorId;
+      for (const index of indexes ?? []) {
+        if (!Number.isInteger(index) || index < 0) continue;
+        const list = byIndex.get(index) ?? [];
+        if (!list.includes(label)) list.push(label);
+        byIndex.set(index, list);
+      }
+    }
+    return byIndex;
+  }, [colorImageMap, colors]);
   const panelOpen = entered && !exiting;
   const isDirty =
     serializeEditorSnapshot({
@@ -1694,6 +1713,12 @@ function ProductEditor({
                   {images.map((src, index) => {
                     const role = imageRoleLabel(index);
                     const isDragOver = dragOverImageIndex === index;
+                    const assignedColorLabels =
+                      imageColorLabels.get(index) ?? [];
+                    const colorBadge =
+                      assignedColorLabels.length > 0
+                        ? assignedColorLabels.join(" · ")
+                        : null;
                     return (
                       <div
                         key={`${src}-${index}`}
@@ -1768,6 +1793,14 @@ function ProductEditor({
                             {index + 1}
                           </span>
                         )}
+                        {colorBadge ? (
+                          <span
+                            className="pointer-events-none absolute bottom-2 left-2 z-[1] max-w-[calc(100%-1rem)] truncate rounded-md bg-white/90 px-1.5 py-0.5 text-[10px] font-medium text-[#2f2924] shadow-sm transition-opacity group-hover:opacity-0"
+                            title={colorBadge}
+                          >
+                            {colorBadge}
+                          </span>
+                        ) : null}
                         <div className="pointer-events-none absolute inset-0 flex items-end justify-between gap-1 bg-gradient-to-t from-black/45 via-transparent to-transparent p-2 opacity-0 transition-opacity group-hover:opacity-100">
                           <button
                             type="button"
