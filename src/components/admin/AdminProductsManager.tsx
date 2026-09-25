@@ -935,7 +935,10 @@ export function AdminProductsManager({
       {editorLoading ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2f2924]/25 backdrop-blur-[1px]">
           <div className="rounded-2xl bg-white px-6 py-5 shadow-lg">
-            <div className="mx-auto h-9 w-9 animate-pulse rounded-full bg-[#75825B]/25" />
+            <div
+              className="mx-auto size-9 animate-spin rounded-full border-2 border-[#75825B]/25 border-t-[#75825B]"
+              aria-hidden
+            />
             <p className="mt-3 text-sm text-[#2f2924]/65">Načítavam produkt…</p>
           </div>
         </div>
