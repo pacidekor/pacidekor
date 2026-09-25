@@ -3,15 +3,17 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { listTaxonomy } from "@/lib/categories-server";
 import { listDiscounts } from "@/lib/discounts-server";
-import { listProducts } from "@/lib/products-server";
 
+/**
+ * Shell only — no full product catalog on every admin navigation.
+ * Pages that need products fetch their own (light) lists.
+ */
 export default async function AdminPanelLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [products, discounts, taxonomy] = await Promise.all([
-    listProducts(),
+  const [discounts, taxonomy] = await Promise.all([
     listDiscounts(),
     listTaxonomy(),
   ]);
@@ -19,7 +21,7 @@ export default async function AdminPanelLayout({
   return (
     <AdminAuthGate>
       <ProductCatalogProvider
-        products={products}
+        products={[]}
         discounts={discounts}
         taxonomy={taxonomy}
       >

@@ -67,10 +67,12 @@ import {
   type Product,
   type ProductDetail,
 } from "@/lib/products";
-import { setProductCatalog } from "@/lib/product-catalog";
+import { fetchAdminProduct } from "@/lib/admin-product-fetch";
 import { deleteAdminProduct } from "@/lib/admin-product-delete";
 import { saveAdminProduct } from "@/lib/admin-product-save";
 import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
+import { adminImageThumbUrl } from "@/lib/admin-image-url";
+import { setProductCatalog } from "@/lib/product-catalog";
 import {
   filterColors,
   getPackagingFormatById,
@@ -214,9 +216,11 @@ export function AdminProductsManager({
   initialStockFilter?: StockFilter;
 }) {
   const taxonomy = useTaxonomy();
+  const isDesktop = useIsDesktopMd();
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isCreating, setIsCreating] = useState(false);
+  const [editorLoading, setEditorLoading] = useState(false);
   const [draftSku, setDraftSku] = useState(() => generateProductSku());
   const [savedFlash, setSavedFlash] = useState(false);
   const [query, setQuery] = useState("");
@@ -445,12 +449,36 @@ export function AdminProductsManager({
   function openCreate() {
     setDraftSku(generateProductSku());
     setEditingId(null);
+    setEditorLoading(false);
     setIsCreating(true);
   }
 
   function closeEditor() {
     setEditingId(null);
     setIsCreating(false);
+    setEditorLoading(false);
+  }
+
+  async function openEdit(productId: string) {
+    setIsCreating(false);
+    setEditorLoading(true);
+
+    const result = await fetchAdminProduct(productId);
+    if (!result.ok) {
+      window.alert(result.error);
+      setEditorLoading(false);
+      return;
+    }
+
+    setProducts((prev) => {
+      const index = prev.findIndex((product) => product.id === result.data.id);
+      if (index === -1) return [result.data, ...prev];
+      const copy = [...prev];
+      copy[index] = result.data;
+      return copy;
+    });
+    setEditingId(productId);
+    setEditorLoading(false);
   }
 
   const categoryOptions = [
@@ -560,7 +588,8 @@ export function AdminProductsManager({
       </div>
 
       {/* Mobile cards */}
-      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white md:hidden">
+      {!isDesktop ? (
+      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white">
         {filtered.length === 0 ? (
           <p className="px-4 py-10 text-center text-sm text-[#2f2924]/55">
             Žiadne produkty pre zvolené filtre.
@@ -577,7 +606,7 @@ export function AdminProductsManager({
                   <div className="flex items-start gap-3">
                     <span className="relative size-14 shrink-0 overflow-hidden rounded-xl bg-[#e8ebe2]">
                       {product.image ? (
-                        <ProductThumb src={product.image} />
+                        <ProductThumb src={product.image} size={112} />
                       ) : null}
                     </span>
                     <div className="min-w-0 flex-1">
@@ -627,8 +656,7 @@ export function AdminProductsManager({
                     <button
                       type="button"
                       onClick={() => {
-                        setIsCreating(false);
-                        setEditingId(product.id);
+                        void openEdit(product.id);
                       }}
                       className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-xl bg-[#75825B] px-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
                     >
@@ -646,9 +674,11 @@ export function AdminProductsManager({
           </ul>
         )}
       </div>
+      ) : null}
 
       {/* Desktop table */}
-      <div className="hidden overflow-hidden rounded-2xl border border-black/6 bg-white md:block">
+      {isDesktop ? (
+      <div className="overflow-hidden rounded-2xl border border-black/6 bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[860px] text-left text-[15px]">
             <thead className="border-b border-black/6 bg-white text-xs tracking-wide text-[#2f2924]/55 uppercase">
@@ -676,7 +706,7 @@ export function AdminProductsManager({
                       <div className="flex items-center gap-3">
                         <span className="relative size-11 shrink-0 overflow-hidden rounded-lg bg-[#e8ebe2]">
                           {product.image ? (
-                            <ProductThumb src={product.image} />
+                            <ProductThumb src={product.image} size={112} />
                           ) : null}
                         </span>
                         <div className="min-w-0">
@@ -731,8 +761,7 @@ export function AdminProductsManager({
                         <button
                           type="button"
                           onClick={() => {
-                            setIsCreating(false);
-                            setEditingId(product.id);
+                            void openEdit(product.id);
                           }}
                           className="inline-flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-[#75825B] transition-colors hover:bg-[#e8ebe2]"
                         >
@@ -752,9 +781,10 @@ export function AdminProductsManager({
           </table>
         </div>
       </div>
+      ) : null}
 
-      {filtered.length === 0 ? (
-        <p className="mt-4 hidden text-center text-sm text-[#2f2924]/55 md:block">
+      {isDesktop && filtered.length === 0 ? (
+        <p className="mt-4 text-center text-sm text-[#2f2924]/55">
           Žiadne produkty pre zvolené filtre.
         </p>
       ) : null}
@@ -853,6 +883,15 @@ export function AdminProductsManager({
           </div>
         </div>
       </FilterSheet>
+
+      {editorLoading ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2f2924]/25 backdrop-blur-[1px]">
+          <div className="rounded-2xl bg-white px-6 py-5 shadow-lg">
+            <div className="mx-auto h-9 w-9 animate-pulse rounded-full bg-[#75825B]/25" />
+            <p className="mt-3 text-sm text-[#2f2924]/65">Načítavam produkt…</p>
+          </div>
+        </div>
+      ) : null}
 
       {editing ? (
         <ProductEditor
@@ -1644,7 +1683,7 @@ function ProductEditor({
                           className="absolute inset-0 cursor-zoom-in"
                           aria-label={`Zobraziť obrázok ${index + 1} na celú obrazovku`}
                         >
-                          <ProductThumb src={src} />
+                          <ProductThumb src={src} size={320} />
                         </button>
                         <span
                           draggable
@@ -2564,18 +2603,48 @@ function formatPackagingSummary(packaging?: PackagingOption[]) {
     .join(", ");
 }
 
-function ProductThumb({ src }: { src: string }) {
+function useIsDesktopMd() {
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setIsDesktop(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  return isDesktop;
+}
+
+function ProductThumb({
+  src,
+  size = 160,
+}: {
+  src: string;
+  size?: number;
+}) {
+  const [useOriginal, setUseOriginal] = useState(false);
   const isLocalPath = src.startsWith("/");
+  const displaySrc =
+    useOriginal || isLocalPath ? src : adminImageThumbUrl(src, size);
 
   if (isLocalPath) {
     return (
-      <Image src={src} alt="" fill sizes="160px" className="object-cover" />
+      <Image src={src} alt="" fill sizes={`${size}px`} className="object-cover" />
     );
   }
 
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src={src} alt="" className="absolute inset-0 size-full object-cover" />
+    <img
+      src={displaySrc}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      onError={() => setUseOriginal(true)}
+      className="absolute inset-0 size-full object-cover"
+    />
   );
 }
 

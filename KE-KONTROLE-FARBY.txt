@@ -1,0 +1,165 @@
+Ke kontrole farieb – celkom 65 produktov
+(IMP-NEJ: 41 + IMP-249: 24)
+
+========== IMP-NEJ (41) ==========
+
+IMP-NEJ-049
+Farebná jutová stuha
+
+IMP-NEJ-052
+Sieťovaná dekoračná stuha
+
+IMP-NEJ-053
+Krútená ozdobná šnúra
+
+IMP-NEJ-054
+Jutová stuha s bodkami
+
+IMP-NEJ-057
+Jutová stuha s čipkovým lemom
+
+IMP-NEJ-059
+Rypsová stuha s volánikom
+
+IMP-NEJ-060
+Dekoračný špagát
+
+IMP-NEJ-061
+Zamatová stuha Flo-art 2,5 cm
+
+IMP-NEJ-062
+Čipkovaná stuha s kvetinovým stredom 4 cm
+
+IMP-NEJ-063
+Šifónová stuha s bodkami 2,5 cm
+
+IMP-NEJ-064
+Saténová stuha – mix farieb
+
+IMP-NEJ-065
+Taška na kvety s dlhými rúčkami
+
+IMP-NEJ-066
+Štvorcová taška na kvety s dlhými rúčkami
+
+IMP-NEJ-067
+Taška na kvety so srdiečkami
+
+IMP-NEJ-068
+Taška na kvety s medvedíkom
+
+IMP-NEJ-070
+Sada okrúhlych flowerboxov – levanduľa
+
+IMP-NEJ-072
+Okrúhly flowerbox s rebrovanou textúrou
+
+IMP-NEJ-075
+Sada 3 okrúhlych flowerboxov s motívom listov
+
+IMP-NEJ-083
+Okrúhly flowerbox so šnúrkou – mix farieb
+
+IMP-NEJ-085
+Sada 3 semišových okrúhlych flowerboxov
+
+IMP-NEJ-086
+Sada 3 okrúhlych flowerboxov s metalickými frkancami
+
+IMP-NEJ-087
+Sada okrúhlych flowerboxov s vláknitým povrchom
+
+IMP-NEJ-088
+Sada 3 okrúhlych flowerboxov s mramorovým vzorom
+
+IMP-NEJ-096
+Srdcový flowerbox s mašľou a visačkou
+
+IMP-NEJ-098
+Srdcový flowerbox rebrovaný
+
+IMP-NEJ-100
+Hranatý flowerbox károvaný
+
+IMP-NEJ-101
+Okrúhly flowerbox
+
+IMP-NEJ-102
+Mini okrúhly flowerbox
+
+IMP-NEJ-104
+Okrúhly flowerbox so šnúrkou
+
+========== IMP-249 (24) ==========
+
+IMP-249-001
+Eukalyptus vetvička
+
+IMP-249-005
+Šípková vetvička
+
+IMP-249-006
+Bobuľová vetvička
+
+IMP-249-007
+Bobule na stopke
+
+IMP-249-008
+Banksia na stopke
+
+IMP-249-010
+Bodliak guľovitý
+
+IMP-249-011
+Previsnutá zeleň
+
+IMP-249-012
+Vetvička s drobnými listami
+
+IMP-249-013
+Zväzok paprade a listov
+
+IMP-249-014
+Eukalyptus jesenný
+
+IMP-249-015
+Bobule jarabiny
+
+IMP-249-017
+Hortenzia na stopke
+
+IMP-249-018
+Papraď zväzok
+
+IMP-249-021
+Previsnutý eukalyptus s bobuľami
+
+IMP-249-022
+Jesenný zápich s tekvicami
+
+IMP-249-023
+Jesenný zápich s bielymi tekvicami
+
+IMP-249-024
+Eukalyptus vetvička
+
+IMP-249-026
+Artičoka na stopke
+
+IMP-249-030
+Ruža na stopke
+
+IMP-249-032
+Pivónia na stopke
+
+IMP-249-033
+Pivónia s púčikom
+
+IMP-249-035
+Hypericum bobule
+
+IMP-249-037
+Eukalyptus púdrový
+
+IMP-249-039
+Kytica pivónií

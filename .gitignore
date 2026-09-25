@@ -53,3 +53,13 @@ tmp/visual-compare/
 katalog_raw/
 _katalog-work/err*.txt
 _katalog-work/out*.txt
+
+# bulk nove produkty (Drive dump + ready WebP) — upload do Storage, ne do gitu
+public/nejnovejsiprodukty/
+public/nejnovejsiprodukty/**
+public/nejnovejsiprodukty-ready/
+public/nejnovejsiprodukty-ready/**
+public/249produkty/
+public/249produkty/**
+public/249produkty-ready/
+public/249produkty-ready/**

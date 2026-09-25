@@ -6,7 +6,7 @@ import {
   getDiscountStatus,
   getProductForDiscount,
 } from "@/lib/discounts";
-import { listProducts } from "@/lib/products-server";
+import { listProductsForAdmin } from "@/lib/products-server";
 import { setProductCatalog } from "@/lib/product-catalog";
 
 export const dynamic = "force-dynamic";
@@ -19,7 +19,7 @@ export default async function AdminAnalytikaPage({
   searchParams: SearchParams;
 }) {
   const params = await searchParams;
-  const catalog = await listProducts();
+  const catalog = await listProductsForAdmin();
   setProductCatalog(catalog);
 
   const discountResult = await listDiscountsAction();

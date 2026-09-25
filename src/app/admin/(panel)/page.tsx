@@ -30,7 +30,7 @@ import {
 } from "@/lib/orders";
 import { listOrdersFromDb } from "@/lib/orders.server";
 import { setProductCatalog } from "@/lib/product-catalog";
-import { listProducts } from "@/lib/products-server";
+import { listProductsForAdmin } from "@/lib/products-server";
 
 export const dynamic = "force-dynamic";
 
@@ -81,7 +81,7 @@ function OrderRow({
 export default async function AdminPage() {
   const orders = await listOrdersFromDb();
   const pendingWholesaleCount = await countPendingWholesaleRegistrations();
-  const catalog = await listProducts();
+  const catalog = await listProductsForAdmin();
   setProductCatalog(catalog);
 
   const kpis = getRevenueKpis(orders);

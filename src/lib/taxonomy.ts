@@ -39,7 +39,7 @@ export const subcategories: Subcategory[] = [
   { id: "vencovky", label: "Venčovky", category: "Umelé kvety" },
   { id: "listy", label: "Listy", category: "Umelé kvety" },
   { id: "doplnky", label: "Doplnky", category: "Umelé kvety" },
-  { id: "ozdobne-stuhy", label: "Ozdobné stuhy", category: "Stuhy" },
+  { id: "ozdobne-stuhy", label: "Dekoratívne stuhy", category: "Stuhy" },
   { id: "satinove-stuhy", label: "Saténové stuhy", category: "Stuhy" },
   { id: "pohrebne-stuhy", label: "Pohrebné stuhy", category: "Stuhy" },
   {
@@ -50,6 +50,13 @@ export const subcategories: Subcategory[] = [
   { id: "jutove-stuhy", label: "Jutové stuhy", category: "Stuhy" },
   { id: "sametove-stuhy", label: "Sametové stuhy", category: "Stuhy" },
   { id: "viazacky", label: "Viazačky", category: "Stuhy" },
+  { id: "karovane-stuhy", label: "Kárované stuhy", category: "Stuhy" },
+  { id: "margaretkove-stuhy", label: "Margarétkové stuhy", category: "Stuhy" },
+  { id: "cipkove-stuhy", label: "Čipkové stuhy", category: "Stuhy" },
+  { id: "rypsove-stuhy", label: "Rypsové stuhy", category: "Stuhy" },
+  { id: "sietovane-stuhy", label: "Sieťované stuhy", category: "Stuhy" },
+  { id: "sifonove-stuhy", label: "Šifónové stuhy", category: "Stuhy" },
+  { id: "dekoračne-snury", label: "Dekoračné šnúry", category: "Stuhy" },
   { id: "folie", label: "Fólie", category: "Obalový materiál" },
   { id: "folie-harky", label: "Fólie hárky", category: "Obalový materiál" },
   {
@@ -83,6 +90,44 @@ export const subcategories: Subcategory[] = [
     id: "cipkova-rolka",
     label: "Čipková rolka",
     category: "Obalový materiál",
+  },
+  { id: "obal-doplnky", label: "Doplnky", category: "Obalový materiál" },
+  { id: "aranz-doplnky", label: "Doplnky", category: "Aranž. materiál" },
+  { id: "perlicky", label: "Perličky", category: "Aranž. materiál" },
+  {
+    id: "flowerboxy-okruhle",
+    label: "Okrúhle",
+    category: "Flowerboxy",
+  },
+  { id: "flowerboxy-srdce", label: "Srdce", category: "Flowerboxy" },
+  {
+    id: "flowerboxy-tasky-na-kvety",
+    label: "Tašky na kvety",
+    category: "Flowerboxy",
+  },
+  { id: "flowerboxy-hranate", label: "Hranaté", category: "Flowerboxy" },
+  { id: "flowerboxy-stvorcove", label: "Štvorcové", category: "Flowerboxy" },
+  { id: "flowerboxy-semisove", label: "Semišové", category: "Flowerboxy" },
+  {
+    id: "prutene-vence",
+    label: "Prútené vence",
+    category: "Vencové základy",
+  },
+  { id: "umele-vence", label: "Umelé vence", category: "Vencové základy" },
+  {
+    id: "machove-vence",
+    label: "Machové vence",
+    category: "Vencové základy",
+  },
+  {
+    id: "prutene-srdcia",
+    label: "Prútené srdcia",
+    category: "Vencové základy",
+  },
+  {
+    id: "slamene-vence",
+    label: "Slamené vence",
+    category: "Vencové základy",
   },
 ];
 

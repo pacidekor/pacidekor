@@ -1,6 +1,6 @@
 import { AdminProductsManager } from "@/components/admin/AdminProductsManager";
 import { isValidStockFilter } from "@/lib/admin-product-filters";
-import { listProducts } from "@/lib/products-server";
+import { listProductsForAdmin } from "@/lib/products-server";
 
 export default async function AdminProduktyPage({
   searchParams,
@@ -8,7 +8,7 @@ export default async function AdminProduktyPage({
   searchParams: Promise<{ stock?: string }>;
 }) {
   const { stock } = await searchParams;
-  const products = await listProducts();
+  const products = await listProductsForAdmin();
   const initialStockFilter = isValidStockFilter(stock) ? stock : "all";
 
   return (

@@ -54,13 +54,13 @@ async function requireAdmin() {
 
 function revalidateProductPaths(slug?: string) {
   try {
+    // Storefront only — admin list updates from client state after save.
     revalidatePath("/");
     revalidatePath("/produkty");
     revalidatePath("/novinky");
     revalidatePath("/akcia");
     revalidatePath("/vypredaj");
-    revalidatePath("/admin");
-    revalidatePath("/admin/produkty");
+    revalidatePath("/bestsellery");
     revalidatePath("/kategorie", "layout");
     if (slug) {
       revalidatePath(`/produkt/${slug}`);

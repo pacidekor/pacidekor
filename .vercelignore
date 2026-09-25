@@ -22,3 +22,13 @@ tmp
 tmp/**
 scripts/katalog-5-9-26
 scripts/katalog-5-9-26/**
+
+# Bulk nove produkty (Drive + ready WebP)
+public/nejnovejsiprodukty
+public/nejnovejsiprodukty/**
+public/nejnovejsiprodukty-ready
+public/nejnovejsiprodukty-ready/**
+public/249produkty
+public/249produkty/**
+public/249produkty-ready
+public/249produkty-ready/**
