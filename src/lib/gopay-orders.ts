@@ -1,10 +1,22 @@
 import "server-only";
 
 import { revalidatePath } from "next/cache";
+import { after } from "next/server";
 import { getGopayPaymentStatus, isGopayPaidState } from "@/lib/gopay";
 import type { OrderStatus } from "@/lib/orders";
 import { getOrderByDbIdFromDb } from "@/lib/orders.server";
 import { createServiceClient } from "@/lib/supabase/server";
+
+async function sendPaidNotification(orderId: string) {
+  try {
+    const fullOrder = await getOrderByDbIdFromDb(orderId);
+    if (!fullOrder) return;
+    const { notifyOrderPaid } = await import("@/lib/order-paid-notify");
+    await notifyOrderPaid(fullOrder);
+  } catch (error) {
+    console.error("syncOrderPaidFromGopayPayment notify:", error);
+  }
+}
 
 /**
  * Fetch GoPay status and mark matching order as paid when applicable.
@@ -13,8 +25,9 @@ import { createServiceClient } from "@/lib/supabase/server";
  * Do NOT pass revalidate:true from a Server Component render —
  * revalidatePath during render throws in Next.js.
  *
- * Invoice/email (react-pdf) is loaded only after a successful paid transition
- * via dynamic import — keeps /pokladna/vysledok cold path light.
+ * Invoice/email (react-pdf) loads only after a paid transition.
+ * On the return page (`revalidate: false`) that work runs in `after()`
+ * so the success UI is not blocked / killed by PDF generation.
  */
 export async function syncOrderPaidFromGopayPayment(
   paymentId: string | number,
@@ -84,20 +97,13 @@ export async function syncOrderPaidFromGopayPayment(
 
   const markedPaid = updated?.status === "zaplatena";
   if (markedPaid) {
-    try {
-      const fullOrder = await getOrderByDbIdFromDb(order.id);
-      if (fullOrder) {
-        const { notifyOrderPaid } = await import("@/lib/order-paid-notify");
-        await notifyOrderPaid(fullOrder);
-      }
-    } catch (error) {
-      console.error("syncOrderPaidFromGopayPayment notify:", error);
-    }
-
     if (options?.revalidate) {
+      await sendPaidNotification(order.id);
       revalidatePath("/admin");
       revalidatePath("/admin/objednavky");
       revalidatePath("/ucet");
+    } else {
+      after(() => sendPaidNotification(order.id));
     }
   }
 
