@@ -3,10 +3,6 @@
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import {
-  createPacketaPacket,
-  fetchPacketaLabelPdfBase64,
-} from "@/lib/packeta-api";
-import {
   ACTIVE_ORDER_STATUSES,
   CANCELLABLE_ORDER_STATUSES,
   canPrintShippingLabel,
@@ -35,10 +31,6 @@ import {
 import { mapDiscountRow } from "@/lib/discounts-server";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { getSiteUrl } from "@/lib/seo";
-import {
-  ensureInvoiceForOrder,
-  renderInvoicePdf,
-} from "@/lib/invoicing";
 import {
   FREE_SHIPPING_THRESHOLD,
   PAYMENT_OPTIONS,
@@ -169,349 +161,364 @@ export async function createOrderAction(
 ): Promise<
   OrderActionResult<{ orderNumber: string; paymentUrl?: string }>
 > {
-  if (!ORDERS_ENABLED) {
-    return {
-      ok: false,
-      error: "Táto funkcia zatiaľ nie je sprístupnená.",
-    };
-  }
-
-  const validationError = validateCreateOrderInput(input);
-  if (validationError) return { ok: false, error: validationError };
-
-  let db;
   try {
-    db = createServiceClient();
-  } catch {
-    return { ok: false, error: "Objednávku momentálne nie je možné uložiť." };
-  }
-
-  const supabase = await createCustomerClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  let userId: string | null = null;
-  let isWholesale = false;
-  if (user) {
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role, status, type")
-      .eq("id", user.id)
-      .maybeSingle();
-
-    if (profile && profile.role !== "admin" && profile.status === "aktivny") {
-      userId = user.id;
-      isWholesale = profile.type === "velkoobchod";
-    }
-  }
-
-  const productIds = [...new Set(input.items.map((line) => line.productId))];
-  const { data: products, error: productsError } = await db
-    .from("products")
-    .select("id, name, price, in_stock, stock_quantity")
-    .in("id", productIds);
-
-  if (productsError) {
-    return { ok: false, error: productsError.message };
-  }
-
-  const { data: discountRows, error: discountsError } = await db
-    .from("product_discounts")
-    .select("*")
-    .in("product_id", productIds)
-    .eq("active", true);
-
-  if (discountsError) {
-    return { ok: false, error: discountsError.message };
-  }
-
-  const discountByProductId = new Map<string, ProductDiscount>();
-  for (const row of (discountRows as ProductDiscountRow[] | null) ?? []) {
-    const discount = mapDiscountRow(row);
-    if (!isDiscountEffectivelyActive(discount)) continue;
-    discountByProductId.set(discount.productId, discount);
-  }
-
-  const productMap = new Map(
-    (products ?? []).map((product) => [product.id, product] as const),
-  );
-
-  const orderLines: Array<{
-    productId: string;
-    productName: string;
-    unitPrice: string;
-    quantity: number;
-    colorId?: string;
-  }> = [];
-
-  let subtotal = 0;
-
-  for (const line of input.items) {
-    const product = productMap.get(line.productId);
-    if (!product) {
-      return { ok: false, error: "Jeden z produktov v košíku už neexistuje." };
-    }
-
-    const quantity = Math.max(1, Math.floor(line.quantity));
-    if (!product.in_stock) {
-      return { ok: false, error: `${product.name} nie je na sklade.` };
-    }
-    if (
-      product.stock_quantity != null &&
-      product.stock_quantity < quantity
-    ) {
+    if (!ORDERS_ENABLED) {
       return {
         ok: false,
-        error: `Nedostatok skladu pre ${product.name}.`,
+        error: "Táto funkcia zatiaľ nie je sprístupnená.",
       };
     }
 
-    const unitNet = resolveCatalogUnitNet(
-      product.price,
-      discountByProductId.get(product.id),
-    );
-    if (!Number.isFinite(unitNet) || unitNet < 0) {
-      return { ok: false, error: `Neplatná cena produktu ${product.name}.` };
-    }
+    const validationError = validateCreateOrderInput(input);
+    if (validationError) return { ok: false, error: validationError };
 
-    // VO = katalóg; maloobchod / verejnosť = +50 %. Objednávka a GoPay = bez DPH.
-    const unitAmount = audienceNetPrice(unitNet, isWholesale);
-    const unitPrice = formatPrice(unitAmount);
-    subtotal += unitAmount * quantity;
-    orderLines.push({
-      productId: product.id,
-      productName: product.name,
-      unitPrice,
-      quantity,
-      colorId: line.colorId?.trim() || undefined,
-    });
-  }
-
-  if (!meetsMinOrder(subtotal)) {
-    return {
-      ok: false,
-      error: "Minimálna hodnota objednávky nie je splnená.",
-    };
-  }
-
-  let discount = 0;
-  let promoCode: string | null = null;
-
-  const normalizedPromo = normalizePromoCode(input.promoCode ?? "");
-  if (normalizedPromo) {
-    const { data: promo, error: promoError } = await db
-      .from("promo_codes")
-      .select("*")
-      .eq("code", normalizedPromo)
-      .maybeSingle();
-
-    if (promoError) {
-      return { ok: false, error: "Overenie zľavového kódu zlyhalo." };
-    }
-    if (!promo || !promo.active) {
-      return { ok: false, error: "Zľavový kód nie je platný." };
-    }
-
-    const todayIso = new Date().toISOString().slice(0, 10);
-    if (promo.starts_at && promo.starts_at > todayIso) {
-      return { ok: false, error: "Zľavový kód ešte nie je aktívny." };
-    }
-    if (promo.ends_at && promo.ends_at < todayIso) {
-      return { ok: false, error: "Zľavový kód už vypršal." };
-    }
-    if (
-      typeof promo.max_uses === "number" &&
-      promo.used_count >= promo.max_uses
-    ) {
-      return { ok: false, error: "Zľavový kód bol vyčerpaný." };
-    }
-
-    const minOrder =
-      promo.min_order_eur == null ? 0 : Number(promo.min_order_eur);
-    if (minOrder > 0 && subtotal < minOrder) {
-      return {
-        ok: false,
-        error: `Zľavový kód platí od ${minOrder.toFixed(2).replace(".", ",")} €.`,
-      };
-    }
-
-    discount = promoDiscountAmount(subtotal, promo.discount_percent);
-    promoCode = promo.code;
-  }
-
-  const afterDiscount = Math.max(0, subtotal - discount);
-  const shippingOption = SHIPPING_OPTIONS.find(
-    (option) => option.id === input.shippingMethod,
-  );
-  const shippingCost =
-    afterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : (shippingOption?.cost ?? 0);
-  // GoPay / úhrada = produkty s DPH + doprava (sedí s „Celkom k úhrade“ v pokladni).
-  const total = priceIncludingVat(afterDiscount) + shippingCost;
-
-  const { data: orderNumber, error: numberError } = await db.rpc(
-    "next_order_number",
-  );
-
-  if (numberError || !orderNumber) {
-    return {
-      ok: false,
-      error: numberError?.message ?? "Nepodarilo sa vygenerovať číslo objednávky.",
-    };
-  }
-
-  const { data: orderRow, error: orderError } = await db
-    .from("orders")
-    .insert({
-      order_number: orderNumber,
-      user_id: userId,
-      status: initialStatusForPayment(input.paymentMethod),
-      customer_name: input.name.trim(),
-      customer_email: input.email.trim(),
-      customer_phone: input.phone.trim(),
-      customer_company: input.company?.trim() || null,
-      customer_ico: input.ico?.trim() || null,
-      customer_dic: input.dic?.trim() || null,
-      customer_street: input.street.trim(),
-      customer_city: input.city.trim(),
-      customer_zip: input.zip.trim(),
-      customer_country: input.country.trim() || "Slovensko",
-      note: input.note?.trim() || null,
-      shipping_method: input.shippingMethod,
-      payment_method: input.paymentMethod,
-      packeta_point_id: input.packetaPointId?.trim() || null,
-      packeta_point_name: input.packetaPointName?.trim() || null,
-      subtotal_eur: subtotal,
-      discount_eur: discount,
-      promo_code: promoCode,
-      shipping_cost_eur: shippingCost,
-      total_eur: total,
-    })
-    .select("id")
-    .single();
-
-  if (orderError || !orderRow) {
-    return {
-      ok: false,
-      error: orderError?.message ?? "Uloženie objednávky zlyhalo.",
-    };
-  }
-
-  const { error: itemsError } = await db.from("order_items").insert(
-    orderLines.map((line) => ({
-      order_id: orderRow.id,
-      product_id: line.productId,
-      product_name: line.productName,
-      unit_price: line.unitPrice,
-      quantity: line.quantity,
-      color_id: line.colorId ?? null,
-    })),
-  );
-
-  if (itemsError) {
-    await db.from("orders").delete().eq("id", orderRow.id);
-    return { ok: false, error: itemsError.message };
-  }
-
-  for (const line of orderLines) {
-    const { error: stockError } = await db.rpc("adjust_product_stock", {
-      p_product_id: line.productId,
-      p_delta: -line.quantity,
-    });
-
-    if (stockError) {
-      return {
-        ok: false,
-        error: `Objednávka bola uložená, ale sklad sa nepodarilo upraviť: ${stockError.message}`,
-      };
-    }
-  }
-
-  if (promoCode) {
-    const { data: promo } = await db
-      .from("promo_codes")
-      .select("used_count")
-      .eq("code", promoCode)
-      .maybeSingle();
-
-    if (promo) {
-      await db
-        .from("promo_codes")
-        .update({
-          used_count: promo.used_count + 1,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("code", promoCode);
-    }
-  }
-
-  if (userId) {
-    await db.from("cart_items").delete().eq("user_id", userId);
-  }
-
-  let paymentUrl: string | undefined;
-
-  if (input.paymentMethod === "card") {
-    const site = await paymentCallbackBaseUrl();
+    let db;
     try {
-      const payment = await createGopayPayment({
-        orderNumber,
-        amountEur: total,
-        description: `Objednávka ${orderNumber}`,
-        customer: {
-          name: input.name.trim(),
-          email: input.email.trim(),
-          phone: input.phone.trim(),
-          street: input.street.trim(),
-          city: input.city.trim(),
-          zip: input.zip.trim(),
-          countryCode: mapCountryToGopayCode(input.country),
-        },
-        returnUrl: `${site}/pokladna/vysledok?order=${encodeURIComponent(orderNumber)}`,
-        notificationUrl: `${site}/api/gopay/notify`,
-      });
+      db = createServiceClient();
+    } catch {
+      return { ok: false, error: "Objednávku momentálne nie je možné uložiť." };
+    }
 
-      const { error: gopayUpdateError } = await db
-        .from("orders")
-        .update({ gopay_payment_id: String(payment.id) })
-        .eq("id", orderRow.id);
+    const supabase = await createCustomerClient();
+    const { data: authData, error: authError } = await supabase.auth.getUser();
+    if (authError) {
+      console.error("createOrderAction auth:", authError.message);
+    }
+    const user = authData?.user ?? null;
 
-      if (gopayUpdateError) {
-        console.error("gopay_payment_id update:", gopayUpdateError.message);
+    let userId: string | null = null;
+    let isWholesale = false;
+    if (user) {
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("role, status, type")
+        .eq("id", user.id)
+        .maybeSingle();
+
+      if (profile && profile.role !== "admin" && profile.status === "aktivny") {
+        userId = user.id;
+        isWholesale = profile.type === "velkoobchod";
+      }
+    }
+
+    const productIds = [...new Set(input.items.map((line) => line.productId))];
+    const { data: products, error: productsError } = await db
+      .from("products")
+      .select("id, name, price, in_stock, stock_quantity")
+      .in("id", productIds);
+
+    if (productsError) {
+      return { ok: false, error: productsError.message };
+    }
+
+    const { data: discountRows, error: discountsError } = await db
+      .from("product_discounts")
+      .select("*")
+      .in("product_id", productIds)
+      .eq("active", true);
+
+    if (discountsError) {
+      return { ok: false, error: discountsError.message };
+    }
+
+    const discountByProductId = new Map<string, ProductDiscount>();
+    for (const row of (discountRows as ProductDiscountRow[] | null) ?? []) {
+      const discount = mapDiscountRow(row);
+      if (!isDiscountEffectivelyActive(discount)) continue;
+      discountByProductId.set(discount.productId, discount);
+    }
+
+    const productMap = new Map(
+      (products ?? []).map((product) => [product.id, product] as const),
+    );
+
+    const orderLines: Array<{
+      productId: string;
+      productName: string;
+      unitPrice: string;
+      quantity: number;
+      colorId?: string;
+    }> = [];
+
+    let subtotal = 0;
+
+    for (const line of input.items) {
+      const product = productMap.get(line.productId);
+      if (!product) {
+        return { ok: false, error: "Jeden z produktov v košíku už neexistuje." };
+      }
+
+      const quantity = Math.max(1, Math.floor(line.quantity));
+      if (!product.in_stock) {
+        return { ok: false, error: `${product.name} nie je na sklade.` };
+      }
+      if (
+        product.stock_quantity != null &&
+        product.stock_quantity < quantity
+      ) {
         return {
           ok: false,
-          error:
-            "Objednávka vznikla, ale platbu sa nepodarilo prepojiť. Kontaktujte nás s číslom objednávky.",
+          error: `Nedostatok skladu pre ${product.name}.`,
         };
       }
 
-      paymentUrl = payment.gwUrl;
-    } catch (error) {
-      console.error("createOrderAction gopay:", error);
+      const unitNet = resolveCatalogUnitNet(
+        product.price,
+        discountByProductId.get(product.id),
+      );
+      if (!Number.isFinite(unitNet) || unitNet < 0) {
+        return { ok: false, error: `Neplatná cena produktu ${product.name}.` };
+      }
+
+      // VO = katalóg; maloobchod / verejnosť = +50 %. Objednávka a GoPay = bez DPH.
+      const unitAmount = audienceNetPrice(unitNet, isWholesale);
+      const unitPrice = formatPrice(unitAmount);
+      subtotal += unitAmount * quantity;
+      orderLines.push({
+        productId: product.id,
+        productName: product.name,
+        unitPrice,
+        quantity,
+        colorId: line.colorId?.trim() || undefined,
+      });
+    }
+
+    if (!meetsMinOrder(subtotal)) {
+      return {
+        ok: false,
+        error: "Minimálna hodnota objednávky nie je splnená.",
+      };
+    }
+
+    let discount = 0;
+    let promoCode: string | null = null;
+
+    const normalizedPromo = normalizePromoCode(input.promoCode ?? "");
+    if (normalizedPromo) {
+      const { data: promo, error: promoError } = await db
+        .from("promo_codes")
+        .select("*")
+        .eq("code", normalizedPromo)
+        .maybeSingle();
+
+      if (promoError) {
+        return { ok: false, error: "Overenie zľavového kódu zlyhalo." };
+      }
+      if (!promo || !promo.active) {
+        return { ok: false, error: "Zľavový kód nie je platný." };
+      }
+
+      const todayIso = new Date().toISOString().slice(0, 10);
+      if (promo.starts_at && promo.starts_at > todayIso) {
+        return { ok: false, error: "Zľavový kód ešte nie je aktívny." };
+      }
+      if (promo.ends_at && promo.ends_at < todayIso) {
+        return { ok: false, error: "Zľavový kód už vypršal." };
+      }
+      if (
+        typeof promo.max_uses === "number" &&
+        promo.used_count >= promo.max_uses
+      ) {
+        return { ok: false, error: "Zľavový kód bol vyčerpaný." };
+      }
+
+      const minOrder =
+        promo.min_order_eur == null ? 0 : Number(promo.min_order_eur);
+      if (minOrder > 0 && subtotal < minOrder) {
+        return {
+          ok: false,
+          error: `Zľavový kód platí od ${minOrder.toFixed(2).replace(".", ",")} €.`,
+        };
+      }
+
+      discount = promoDiscountAmount(subtotal, promo.discount_percent);
+      promoCode = promo.code;
+    }
+
+    const afterDiscount = Math.max(0, subtotal - discount);
+    const shippingOption = SHIPPING_OPTIONS.find(
+      (option) => option.id === input.shippingMethod,
+    );
+    const shippingCost =
+      afterDiscount >= FREE_SHIPPING_THRESHOLD ? 0 : (shippingOption?.cost ?? 0);
+    // GoPay / úhrada = produkty s DPH + doprava (sedí s „Celkom k úhrade“ v pokladni).
+    const total = priceIncludingVat(afterDiscount) + shippingCost;
+
+    const { data: orderNumber, error: numberError } = await db.rpc(
+      "next_order_number",
+    );
+
+    if (numberError || !orderNumber) {
       return {
         ok: false,
         error:
-          error instanceof Error
-            ? error.message
-            : "Online platbu sa nepodarilo spustiť.",
+          numberError?.message ?? "Nepodarilo sa vygenerovať číslo objednávky.",
       };
     }
-  }
 
-  revalidatePath("/admin");
-  revalidatePath("/admin/objednavky");
-  revalidatePath("/ucet");
+    const { data: orderRow, error: orderError } = await db
+      .from("orders")
+      .insert({
+        order_number: orderNumber,
+        user_id: userId,
+        status: initialStatusForPayment(input.paymentMethod),
+        customer_name: input.name.trim(),
+        customer_email: input.email.trim(),
+        customer_phone: input.phone.trim(),
+        customer_company: input.company?.trim() || null,
+        customer_ico: input.ico?.trim() || null,
+        customer_dic: input.dic?.trim() || null,
+        customer_street: input.street.trim(),
+        customer_city: input.city.trim(),
+        customer_zip: input.zip.trim(),
+        customer_country: input.country.trim() || "Slovensko",
+        note: input.note?.trim() || null,
+        shipping_method: input.shippingMethod,
+        payment_method: input.paymentMethod,
+        packeta_point_id: input.packetaPointId?.trim() || null,
+        packeta_point_name: input.packetaPointName?.trim() || null,
+        subtotal_eur: subtotal,
+        discount_eur: discount,
+        promo_code: promoCode,
+        shipping_cost_eur: shippingCost,
+        total_eur: total,
+      })
+      .select("id")
+      .single();
 
-  if (input.paymentMethod === "cod") {
-    try {
-      const fullOrder = await getOrderByDbIdFromDb(orderRow.id);
-      if (fullOrder) await ensureInvoiceForOrder(fullOrder);
-    } catch (error) {
-      console.error("createOrderAction invoice (cod):", error);
+    if (orderError || !orderRow) {
+      return {
+        ok: false,
+        error: orderError?.message ?? "Uloženie objednávky zlyhalo.",
+      };
     }
-  }
 
-  return { ok: true, data: { orderNumber, paymentUrl } };
+    const { error: itemsError } = await db.from("order_items").insert(
+      orderLines.map((line) => ({
+        order_id: orderRow.id,
+        product_id: line.productId,
+        product_name: line.productName,
+        unit_price: line.unitPrice,
+        quantity: line.quantity,
+        color_id: line.colorId ?? null,
+      })),
+    );
+
+    if (itemsError) {
+      await db.from("orders").delete().eq("id", orderRow.id);
+      return { ok: false, error: itemsError.message };
+    }
+
+    for (const line of orderLines) {
+      const { error: stockError } = await db.rpc("adjust_product_stock", {
+        p_product_id: line.productId,
+        p_delta: -line.quantity,
+      });
+
+      if (stockError) {
+        return {
+          ok: false,
+          error: `Objednávka bola uložená, ale sklad sa nepodarilo upraviť: ${stockError.message}`,
+        };
+      }
+    }
+
+    if (promoCode) {
+      const { data: promo } = await db
+        .from("promo_codes")
+        .select("used_count")
+        .eq("code", promoCode)
+        .maybeSingle();
+
+      if (promo) {
+        await db
+          .from("promo_codes")
+          .update({
+            used_count: promo.used_count + 1,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("code", promoCode);
+      }
+    }
+
+    if (userId) {
+      await db.from("cart_items").delete().eq("user_id", userId);
+    }
+
+    let paymentUrl: string | undefined;
+
+    if (input.paymentMethod === "card") {
+      const site = await paymentCallbackBaseUrl();
+      try {
+        const payment = await createGopayPayment({
+          orderNumber,
+          amountEur: total,
+          description: `Objednávka ${orderNumber}`,
+          customer: {
+            name: input.name.trim(),
+            email: input.email.trim(),
+            phone: input.phone.trim(),
+            street: input.street.trim(),
+            city: input.city.trim(),
+            zip: input.zip.trim(),
+            countryCode: mapCountryToGopayCode(input.country),
+          },
+          returnUrl: `${site}/pokladna/vysledok?order=${encodeURIComponent(orderNumber)}`,
+          notificationUrl: `${site}/api/gopay/notify`,
+        });
+
+        const { error: gopayUpdateError } = await db
+          .from("orders")
+          .update({ gopay_payment_id: String(payment.id) })
+          .eq("id", orderRow.id);
+
+        if (gopayUpdateError) {
+          console.error("gopay_payment_id update:", gopayUpdateError.message);
+          return {
+            ok: false,
+            error:
+              "Objednávka vznikla, ale platbu sa nepodarilo prepojiť. Kontaktujte nás s číslom objednávky.",
+          };
+        }
+
+        paymentUrl = payment.gwUrl;
+      } catch (error) {
+        console.error("createOrderAction gopay:", error);
+        return {
+          ok: false,
+          error:
+            error instanceof Error
+              ? error.message
+              : "Online platbu sa nepodarilo spustiť.",
+        };
+      }
+    }
+
+    revalidatePath("/admin");
+    revalidatePath("/admin/objednavky");
+    revalidatePath("/ucet");
+
+    if (input.paymentMethod === "cod") {
+      try {
+        const { ensureInvoiceForOrder } = await import("@/lib/invoicing");
+        const fullOrder = await getOrderByDbIdFromDb(orderRow.id);
+        if (fullOrder) await ensureInvoiceForOrder(fullOrder);
+      } catch (error) {
+        console.error("createOrderAction invoice (cod):", error);
+      }
+    }
+
+    return { ok: true, data: { orderNumber, paymentUrl } };
+  } catch (error) {
+    console.error("createOrderAction:", error);
+    return {
+      ok: false,
+      error:
+        error instanceof Error
+          ? error.message
+          : "Objednávku sa nepodarilo vytvoriť. Skúste to znova.",
+    };
+  }
 }
 
 export async function listAdminOrdersAction(): Promise<
@@ -633,6 +640,11 @@ export async function printPacketaLabelAction(
   let nextStatus = order.status;
 
   try {
+    const {
+      createPacketaPacket,
+      fetchPacketaLabelPdfBase64,
+    } = await import("@/lib/packeta-api");
+
     if (!packetId) {
       const created = await createPacketaPacket({
         orderNumber: order.id,
@@ -821,6 +833,9 @@ export async function downloadInvoicePdfAction(
   }
 
   try {
+    const { ensureInvoiceForOrder, renderInvoicePdf } = await import(
+      "@/lib/invoicing"
+    );
     const invoice = await ensureInvoiceForOrder(order, {
       paid:
         order.status === "zaplatena" ||

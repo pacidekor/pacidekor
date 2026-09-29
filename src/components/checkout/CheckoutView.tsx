@@ -367,7 +367,8 @@ function BillingFields({
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="checkout-ico" className={labelClass}>
-            IČO
+            IČO{" "}
+            <span className="font-normal text-[#2f2924]/40">(voliteľné)</span>
           </label>
           <input
             id="checkout-ico"
@@ -572,52 +573,61 @@ export function CheckoutView() {
     setSubmitting(true);
     setError(null);
 
-    const result = await createOrderAction({
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      company: form.company,
-      ico: form.ico,
-      dic: form.dic,
-      street: form.street,
-      city: form.city,
-      zip: form.zip,
-      country: form.country,
-      note: form.note,
-      shippingMethod: form.shippingMethod,
-      paymentMethod: form.paymentMethod,
-      packetaPointId: form.packetaPointId,
-      packetaPointName: form.packetaPointName,
-      promoCode: promo?.code,
-      items: items.map((item) => ({
-        productId: item.product.id,
-        quantity: item.quantity,
-        colorId: item.colorId,
-      })),
-    });
+    try {
+      const result = await createOrderAction({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        company: form.company,
+        ico: form.ico,
+        dic: form.dic,
+        street: form.street,
+        city: form.city,
+        zip: form.zip,
+        country: form.country,
+        note: form.note,
+        shippingMethod: form.shippingMethod,
+        paymentMethod: form.paymentMethod,
+        packetaPointId: form.packetaPointId,
+        packetaPointName: form.packetaPointName,
+        promoCode: promo?.code,
+        items: items.map((item) => ({
+          productId: item.product.id,
+          quantity: item.quantity,
+          colorId: item.colorId,
+        })),
+      });
 
-    if (!result.ok) {
-      setError(result.error);
-      setSubmitting(false);
-      return;
-    }
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
 
-    if (result.data.paymentUrl) {
-      setRedirectingToPayment(true);
+      if (result.data.paymentUrl) {
+        setRedirectingToPayment(true);
+        clearAppliedPromo();
+        setPromo(null);
+        // Don't await clearCart — otherwise checkout briefly shows "empty cart".
+        void clearCart();
+        window.location.assign(result.data.paymentUrl);
+        return;
+      }
+
+      await clearCart();
       clearAppliedPromo();
       setPromo(null);
-      // Don't await clearCart — otherwise checkout briefly shows "empty cart".
-      void clearCart();
-      window.location.assign(result.data.paymentUrl);
-      return;
+      setMockOrderId(result.data.orderNumber);
+      setSubmitted(true);
+    } catch (error) {
+      console.error("checkout onSubmit:", error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Objednávku sa nepodarilo odoslať. Skúste to znova.",
+      );
+    } finally {
+      setSubmitting(false);
     }
-
-    await clearCart();
-    clearAppliedPromo();
-    setPromo(null);
-    setMockOrderId(result.data.orderNumber);
-    setSubmitted(true);
-    setSubmitting(false);
   }
 
   if (redirectingToPayment) {

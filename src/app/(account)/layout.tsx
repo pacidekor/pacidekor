@@ -9,11 +9,19 @@ export default async function AccountLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [products, discounts, taxonomy] = await Promise.all([
-    listProducts(),
-    listDiscounts(),
-    listTaxonomy(),
-  ]);
+  let products: Awaited<ReturnType<typeof listProducts>> = [];
+  let discounts: Awaited<ReturnType<typeof listDiscounts>> = [];
+  let taxonomy: Awaited<ReturnType<typeof listTaxonomy>> | undefined;
+
+  try {
+    [products, discounts, taxonomy] = await Promise.all([
+      listProducts(),
+      listDiscounts(),
+      listTaxonomy(),
+    ]);
+  } catch (error) {
+    console.error("AccountLayout catalog:", error);
+  }
 
   return (
     <ProductCatalogProvider
