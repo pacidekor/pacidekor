@@ -2,11 +2,6 @@ import "server-only";
 
 import { buildOrderPaidEmail } from "@/lib/emails/order-paid";
 import { sendBrevoTemplateEmail } from "@/lib/emails/brevo";
-import {
-  buildInvoiceDownloadUrl,
-  ensureInvoiceForOrder,
-  renderInvoicePdf,
-} from "@/lib/invoicing";
 import { buildOrderViewUrl } from "@/lib/order-view-token";
 import {
   formatOrderTotal,
@@ -26,6 +21,9 @@ function siteUrl() {
  * Pošle zákazníkovi potvrdenie „Objednávka zaplatená“ + PDF faktúru.
  * Volaj len pri prvom prechode do stavu zaplatená (idempotentné volania
  * syncOrderPaidFromGopayPayment už `markedPaid: false` pri opätovnom syncu).
+ *
+ * Invoicing/react-pdf is dynamically imported so callers (return page, notify)
+ * do not pull PDF into their cold path.
  */
 export async function notifyOrderPaid(order: Order): Promise<void> {
   const to = order.customer.email.trim();
@@ -40,6 +38,11 @@ export async function notifyOrderPaid(order: Order): Promise<void> {
     | undefined;
 
   try {
+    const {
+      buildInvoiceDownloadUrl,
+      ensureInvoiceForOrder,
+      renderInvoicePdf,
+    } = await import("@/lib/invoicing");
     const invoice = await ensureInvoiceForOrder(order, { paid: true });
     invoiceUrl = buildInvoiceDownloadUrl(invoice.invoice_number, base);
     const pdf = await renderInvoicePdf(invoice);

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CheckCircle2, ShoppingBag, XCircle } from "lucide-react";
-import { syncOrderPaidFromGopayPayment } from "@/lib/gopay-orders";
 import { isGopayPaidState } from "@/lib/gopay";
 import { pageMetadata } from "@/lib/seo";
 
@@ -11,6 +10,9 @@ export const metadata: Metadata = pageMetadata({
   path: "/pokladna/vysledok",
   noIndex: true,
 });
+
+/** Always resolve against live GoPay status (return URL query). */
+export const dynamic = "force-dynamic";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -43,6 +45,10 @@ export default async function CheckoutResultPage({
 
   if (paymentId) {
     try {
+      // Dynamic import: keep this route free of invoice/PDF module graph.
+      const { syncOrderPaidFromGopayPayment } = await import(
+        "@/lib/gopay-orders"
+      );
       // No revalidatePath here — this page runs during render.
       const result = await syncOrderPaidFromGopayPayment(paymentId, {
         revalidate: false,
@@ -50,6 +56,7 @@ export default async function CheckoutResultPage({
       orderNumber = result.orderNumber || orderFromQuery;
       state = result.state;
     } catch (err) {
+      console.error("CheckoutResultPage sync:", err);
       error = err instanceof Error ? err.message : "Overenie platby zlyhalo.";
     }
   } else if (!orderFromQuery) {

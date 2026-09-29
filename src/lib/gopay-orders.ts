@@ -3,7 +3,6 @@ import "server-only";
 import { revalidatePath } from "next/cache";
 import { getGopayPaymentStatus, isGopayPaidState } from "@/lib/gopay";
 import type { OrderStatus } from "@/lib/orders";
-import { notifyOrderPaid } from "@/lib/order-paid-notify";
 import { getOrderByDbIdFromDb } from "@/lib/orders.server";
 import { createServiceClient } from "@/lib/supabase/server";
 
@@ -13,6 +12,9 @@ import { createServiceClient } from "@/lib/supabase/server";
  *
  * Do NOT pass revalidate:true from a Server Component render —
  * revalidatePath during render throws in Next.js.
+ *
+ * Invoice/email (react-pdf) is loaded only after a successful paid transition
+ * via dynamic import — keeps /pokladna/vysledok cold path light.
  */
 export async function syncOrderPaidFromGopayPayment(
   paymentId: string | number,
@@ -84,7 +86,10 @@ export async function syncOrderPaidFromGopayPayment(
   if (markedPaid) {
     try {
       const fullOrder = await getOrderByDbIdFromDb(order.id);
-      if (fullOrder) await notifyOrderPaid(fullOrder);
+      if (fullOrder) {
+        const { notifyOrderPaid } = await import("@/lib/order-paid-notify");
+        await notifyOrderPaid(fullOrder);
+      }
     } catch (error) {
       console.error("syncOrderPaidFromGopayPayment notify:", error);
     }
