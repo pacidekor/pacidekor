@@ -885,10 +885,11 @@ export function CheckoutView() {
               <div className="space-y-2.5">
                 {PAYMENT_OPTIONS.map((option) => {
                   const selected = form.paymentMethod === option.id;
+                  const isGopay = option.id === "card";
                   return (
                     <label
                       key={option.id}
-                      className={`flex cursor-pointer items-start gap-3 rounded-xl border px-4 py-3 transition-colors ${
+                      className={`relative flex cursor-pointer items-start gap-3 rounded-xl border px-4 py-3 transition-colors ${
                         selected
                           ? "border-[#75825B] bg-[#75825B]/6"
                           : "border-black/8 hover:border-black/15"
@@ -903,7 +904,11 @@ export function CheckoutView() {
                         className="mt-0.5 size-4 accent-[#75825B]"
                       />
                       <span className="min-w-0 flex-1">
-                        <span className="block text-sm font-medium text-[#2f2924]">
+                        <span
+                          className={`block text-sm font-medium text-[#2f2924] ${
+                            isGopay ? "pr-20 sm:pr-24" : ""
+                          }`}
+                        >
                           {option.label}
                         </span>
                         {"description" in option && option.description ? (
@@ -911,7 +916,50 @@ export function CheckoutView() {
                             {option.description}
                           </span>
                         ) : null}
+                        {isGopay ? (
+                          <span className="mt-2.5 flex flex-wrap items-center gap-x-3.5 gap-y-2">
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src="/payments/visa.svg"
+                              alt="Visa"
+                              className="h-3 w-auto"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src="/payments/mastercard.svg"
+                              alt="MasterCard"
+                              className="h-5 w-auto"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src="/payments/maestro.svg"
+                              alt="Maestro"
+                              className="h-5 w-auto"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src="/payments/verified-by-visa.svg"
+                              alt="Verified by VISA"
+                              className="h-5 w-auto"
+                            />
+                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                            <img
+                              src="/payments/mastercard-securecode.svg"
+                              alt="Mastercard SecureCode"
+                              className="h-4 w-auto"
+                            />
+                          </span>
+                        ) : null}
                       </span>
+                      {isGopay ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src="/payments/gopay.svg"
+                          alt=""
+                          aria-hidden
+                          className="pointer-events-none absolute top-3 right-3 h-6 w-auto sm:h-7"
+                        />
+                      ) : null}
                     </label>
                   );
                 })}

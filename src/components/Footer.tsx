@@ -152,31 +152,78 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-4 border-t border-black/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-[#2f2924]/75">
-            © {year} PACIDEKOR. Všetky práva vyhradené.
-          </p>
+        <div className="mt-12">
           <a
-            href="https://www.rezit.cz"
+            href="https://www.gopay.cz"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="REZIT"
-            className="group relative inline-block self-start sm:self-auto"
+            aria-label="Platby cez GoPay — Visa, MasterCard, Maestro, 3D Secure"
+            className="mb-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-4 transition-opacity hover:opacity-90 sm:gap-x-10"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/rezitsignature1dark.webp"
-              alt="REZIT"
-              className="h-6 w-auto transition-opacity duration-500 ease-in-out group-hover:opacity-0 sm:h-7"
+              src="/payments/gopay.svg"
+              alt="GoPay"
+              className="h-5 w-auto sm:h-6"
             />
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/rezitsignature2dark.webp"
-              alt=""
-              aria-hidden
-              className="pointer-events-none absolute top-0 left-0 h-6 w-auto opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 sm:h-7"
+              src="/payments/visa.svg"
+              alt="Visa"
+              className="h-3.5 w-auto sm:h-4"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/payments/mastercard.svg"
+              alt="MasterCard"
+              className="h-6 w-auto sm:h-7"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/payments/maestro.svg"
+              alt="Maestro"
+              className="h-6 w-auto sm:h-7"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/payments/verified-by-visa.svg"
+              alt="Verified by VISA"
+              className="h-6 w-auto sm:h-7"
+            />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/payments/mastercard-securecode.svg"
+              alt="Mastercard SecureCode"
+              className="h-5 w-auto sm:h-6"
             />
           </a>
+
+          <div className="flex flex-col gap-4 border-t border-black/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-[#2f2924]/75">
+              © {year} PACIDEKOR. Všetky práva vyhradené.
+            </p>
+            <a
+              href="https://www.rezit.cz"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="REZIT"
+              className="group relative inline-block self-start sm:self-auto"
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/rezitsignature1dark.webp"
+                alt="REZIT"
+                className="h-6 w-auto transition-opacity duration-500 ease-in-out group-hover:opacity-0 sm:h-7"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/rezitsignature2dark.webp"
+                alt=""
+                aria-hidden
+                className="pointer-events-none absolute top-0 left-0 h-6 w-auto opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 sm:h-7"
+              />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

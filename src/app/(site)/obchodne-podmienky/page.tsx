@@ -144,6 +144,12 @@ const sections: LegalSection[] = [
           aktuálnej ponuky v pokladni; sumu vyberie dopravca pri prevzatí
           zásielky.
         </P>
+        <P>
+          Online platby prebiehajú cez zabezpečenú platobnú bránu GoPay.
+          Prenos údajov medzi e-shopom, platobnou bránou a bankou je chránený
+          šifrovaním protokolom SSL/TLS. Údaje o platobnej karte kupujúci zadáva
+          výhradne v prostredí GoPay; predávajúci ich neuchováva.
+        </P>
       </>
     ),
   },
@@ -337,7 +343,7 @@ export default function ObchodnePodmienkyPage() {
     <LegalDocument
       title="Všeobecné obchodné podmienky"
       subtitle="Pravidlá nákupu v e-shope PACIDEKOR - objednávky, platba, doprava, odstúpenie od zmluvy a reklamácie."
-      updatedAt="18. 8. 2026"
+      updatedAt="29. 9. 2026"
       sections={sections}
     />
   );
