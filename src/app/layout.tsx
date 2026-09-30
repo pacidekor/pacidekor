@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { Inter, Montserrat } from "next/font/google";
 import {
   DEFAULT_DESCRIPTION,
@@ -59,6 +60,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col font-sans" suppressHydrationWarning>
         {children}
+        <Analytics />
       </body>
     </html>
   );
