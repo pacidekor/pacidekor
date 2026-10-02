@@ -37,7 +37,7 @@ function CardPrice({
           <span className="font-sans text-[11px] text-[#2f2924]/45 line-through sm:text-sm">
             {exVatOriginal}
           </span>
-          <span className="font-sans text-sm font-bold text-[#c45c4a] sm:text-base">
+          <span className="font-sans text-lg font-bold text-[#c45c4a] sm:text-xl">
             {exVat}
             <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
               / ks
@@ -56,7 +56,7 @@ function CardPrice({
 
   return (
     <div className="min-w-0 shrink">
-      <span className="block whitespace-nowrap font-sans text-sm font-semibold text-[#2f2924] sm:text-base">
+      <span className="block whitespace-nowrap font-sans text-lg font-semibold text-[#2f2924] sm:text-xl">
         {exVat}
         <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
           / ks
