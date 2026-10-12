@@ -35,6 +35,27 @@ type LoupeState = {
   height: number;
 };
 
+type ZoomState = {
+  scale: number;
+  x: number;
+  y: number;
+};
+
+const ZOOM_MIN = 1;
+const ZOOM_MAX = 4;
+const ZOOM_EPSILON = 0.02;
+
+function touchDistance(a: Touch, b: Touch) {
+  return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+}
+
+function touchMidpoint(a: Touch, b: Touch) {
+  return {
+    x: (a.clientX + b.clientX) / 2,
+    y: (a.clientY + b.clientY) / 2,
+  };
+}
+
 export function ProductImageGallery({
   images,
   alt,
@@ -201,6 +222,7 @@ export function ProductImageGallery({
           objectFit="cover"
           sizes="(max-width: 1024px) 100vw, 40vw"
           priority
+          enableZoom
           onSlideClick={() => setLightboxOpen(true)}
         />
 
@@ -283,6 +305,7 @@ export function ProductImageGallery({
                 objectFit="contain"
                 sizes="100vw"
                 priority
+                enableZoom
               />
             </div>
 
@@ -355,6 +378,7 @@ type ImageCarouselProps = {
   objectFit: "cover" | "contain";
   sizes: string;
   priority?: boolean;
+  enableZoom?: boolean;
   onSlideClick?: () => void;
 };
 
@@ -366,6 +390,7 @@ function ImageCarousel({
   objectFit,
   sizes,
   priority = false,
+  enableZoom = false,
   onSlideClick,
 }: ImageCarouselProps) {
   const loop = images.length > 1;
@@ -381,6 +406,43 @@ function ImageCarousel({
   const didDragRef = useRef(false);
   const ignoreNextNavRef = useRef(false);
   const animatingRef = useRef(false);
+  const [zoom, setZoom] = useState<ZoomState>({ scale: 1, x: 0, y: 0 });
+  const zoomRef = useRef(zoom);
+  zoomRef.current = zoom;
+  const pinchRef = useRef<{
+    startDist: number;
+    startScale: number;
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+  } | null>(null);
+  const panRef = useRef<{
+    startX: number;
+    startY: number;
+    originX: number;
+    originY: number;
+    pointerId: number;
+  } | null>(null);
+  const multiTouchRef = useRef(false);
+
+  const clampPan = useCallback((scale: number, x: number, y: number) => {
+    const width = widthRef.current || viewportRef.current?.clientWidth || 0;
+    const height = viewportRef.current?.clientHeight || 0;
+    if (!width || !height || scale <= 1) return { x: 0, y: 0 };
+    const maxX = ((scale - 1) * width) / 2;
+    const maxY = ((scale - 1) * height) / 2;
+    return {
+      x: Math.min(maxX, Math.max(-maxX, x)),
+      y: Math.min(maxY, Math.max(-maxY, y)),
+    };
+  }, []);
+
+  const resetZoom = useCallback(() => {
+    pinchRef.current = null;
+    panRef.current = null;
+    setZoom({ scale: 1, x: 0, y: 0 });
+  }, []);
 
   const toRealIndex = useCallback(
     (trackIndex: number) => {
@@ -446,6 +508,24 @@ function ImageCarousel({
     return () => observer.disconnect();
   }, [measure]);
 
+  // Non-passive touchmove so preventDefault actually blocks browser scroll/gestures.
+  useEffect(() => {
+    if (!enableZoom) return;
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    const block = (event: TouchEvent) => {
+      if (event.touches.length >= 2 || zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+        event.preventDefault();
+      } else if (dragRef.current) {
+        event.preventDefault();
+      }
+    };
+
+    viewport.addEventListener("touchmove", block, { passive: false });
+    return () => viewport.removeEventListener("touchmove", block);
+  }, [enableZoom]);
+
   useEffect(() => {
     const track = trackRef.current;
     if (!track || !loop) return;
@@ -464,6 +544,7 @@ function ImageCarousel({
   useEffect(() => {
     if (nav.seq === lastSeqRef.current) return;
     lastSeqRef.current = nav.seq;
+    resetZoom();
 
     if (ignoreNextNavRef.current) {
       ignoreNextNavRef.current = false;
@@ -496,16 +577,38 @@ function ImageCarousel({
     // Dots / external sync: land on real slide slot
     trackIndexRef.current = nav.index + 1;
     applyTransform(trackIndexRef.current, 0, true);
-  }, [applyTransform, lastTrack, loop, nav, normalizeClone]);
+  }, [applyTransform, lastTrack, loop, nav, normalizeClone, resetZoom]);
 
   function onPointerDown(event: React.PointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
+    if (multiTouchRef.current) return;
 
-    // Block native image / file drag
-    event.preventDefault();
+    // Touch pinch/pan is handled via touch events when zoom is enabled.
+    if (enableZoom && event.pointerType === "touch") return;
+
     didDragRef.current = false;
 
-    if (!loop) return;
+    // Pan when already zoomed (mouse / pen)
+    if (enableZoom && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+      event.preventDefault();
+      panRef.current = {
+        startX: event.clientX,
+        startY: event.clientY,
+        originX: zoomRef.current.x,
+        originY: zoomRef.current.y,
+        pointerId: event.pointerId,
+      };
+      event.currentTarget.setPointerCapture(event.pointerId);
+      return;
+    }
+
+    if (!loop) {
+      // Block native image drag on click-to-open
+      if (onSlideClick) event.preventDefault();
+      return;
+    }
+
+    event.preventDefault();
 
     // If a wrap animation just finished visually but clone jump is pending,
     // or user interrupts mid-animation on a clone edge — settle first.
@@ -526,6 +629,21 @@ function ImageCarousel({
   }
 
   function onPointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    const pan = panRef.current;
+    if (pan && pan.pointerId === event.pointerId) {
+      event.preventDefault();
+      const next = clampPan(
+        zoomRef.current.scale,
+        pan.originX + (event.clientX - pan.startX),
+        pan.originY + (event.clientY - pan.startY),
+      );
+      if (Math.hypot(event.clientX - pan.startX, event.clientY - pan.startY) > 8) {
+        didDragRef.current = true;
+      }
+      setZoom((prev) => ({ ...prev, ...next }));
+      return;
+    }
+
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
 
@@ -538,6 +656,15 @@ function ImageCarousel({
   }
 
   function onPointerUp(event: React.PointerEvent<HTMLDivElement>) {
+    const pan = panRef.current;
+    if (pan && pan.pointerId === event.pointerId) {
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+        event.currentTarget.releasePointerCapture(event.pointerId);
+      }
+      panRef.current = null;
+      return;
+    }
+
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
 
@@ -567,11 +694,177 @@ function ImageCarousel({
   }
 
   function onPointerCancel(event: React.PointerEvent<HTMLDivElement>) {
+    const pan = panRef.current;
+    if (pan && pan.pointerId === event.pointerId) {
+      panRef.current = null;
+      return;
+    }
     const drag = dragRef.current;
     if (!drag || drag.pointerId !== event.pointerId) return;
     dragRef.current = null;
     applyTransform(trackIndexRef.current, 0, true);
   }
+
+  function onTouchStart(event: React.TouchEvent<HTMLDivElement>) {
+    if (!enableZoom) return;
+
+    if (event.touches.length >= 2) {
+      multiTouchRef.current = true;
+      dragRef.current = null;
+      panRef.current = null;
+      didDragRef.current = true;
+      const [a, b] = [event.touches[0], event.touches[1]];
+      const mid = touchMidpoint(a, b);
+      const rect = viewportRef.current?.getBoundingClientRect();
+      pinchRef.current = {
+        startDist: Math.max(1, touchDistance(a, b)),
+        startScale: zoomRef.current.scale,
+        startX: zoomRef.current.x,
+        startY: zoomRef.current.y,
+        originX: mid.x - (rect?.left ?? 0),
+        originY: mid.y - (rect?.top ?? 0),
+      };
+      return;
+    }
+
+    if (event.touches.length === 1 && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+      const t = event.touches[0];
+      panRef.current = {
+        startX: t.clientX,
+        startY: t.clientY,
+        originX: zoomRef.current.x,
+        originY: zoomRef.current.y,
+        pointerId: -1,
+      };
+      didDragRef.current = false;
+      return;
+    }
+
+    // Single finger at scale 1 — keep carousel swipe via touch→synthetic path below
+    if (event.touches.length === 1 && loop && zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
+      if (animatingRef.current) {
+        const track = trackRef.current;
+        if (track) track.style.transition = "none";
+        animatingRef.current = false;
+      }
+      normalizeClone();
+      dragRef.current = {
+        startX: event.touches[0].clientX,
+        deltaX: 0,
+        pointerId: -1,
+      };
+      didDragRef.current = false;
+      applyTransform(trackIndexRef.current, 0, false);
+    }
+  }
+
+  function onTouchMove(event: React.TouchEvent<HTMLDivElement>) {
+    if (!enableZoom) return;
+
+    if (event.touches.length >= 2 && pinchRef.current) {
+      event.preventDefault();
+      const [a, b] = [event.touches[0], event.touches[1]];
+      const pinch = pinchRef.current;
+      const dist = Math.max(1, touchDistance(a, b));
+      const rawScale = pinch.startScale * (dist / pinch.startDist);
+      const scale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, rawScale));
+      const mid = touchMidpoint(a, b);
+      const rect = viewportRef.current?.getBoundingClientRect();
+      const midX = mid.x - (rect?.left ?? 0);
+      const midY = mid.y - (rect?.top ?? 0);
+      const ratio = scale / Math.max(pinch.startScale, ZOOM_MIN);
+      const next = clampPan(
+        scale,
+        pinch.startX * ratio + (midX - pinch.originX),
+        pinch.startY * ratio + (midY - pinch.originY),
+      );
+      setZoom({ scale, ...next });
+      return;
+    }
+
+    if (event.touches.length === 1 && panRef.current && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+      event.preventDefault();
+      const t = event.touches[0];
+      const pan = panRef.current;
+      if (Math.hypot(t.clientX - pan.startX, t.clientY - pan.startY) > 8) {
+        didDragRef.current = true;
+      }
+      const next = clampPan(
+        zoomRef.current.scale,
+        pan.originX + (t.clientX - pan.startX),
+        pan.originY + (t.clientY - pan.startY),
+      );
+      setZoom((prev) => ({ ...prev, ...next }));
+      return;
+    }
+
+    const drag = dragRef.current;
+    if (event.touches.length === 1 && drag && drag.pointerId === -1) {
+      event.preventDefault();
+      const deltaX = event.touches[0].clientX - drag.startX;
+      if (Math.abs(deltaX) > 8) didDragRef.current = true;
+      drag.deltaX = deltaX;
+      applyTransform(trackIndexRef.current, deltaX, false);
+    }
+  }
+
+  function onTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
+    if (!enableZoom) return;
+
+    if (event.touches.length < 2) {
+      multiTouchRef.current = false;
+      pinchRef.current = null;
+      if (zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
+        setZoom({ scale: 1, x: 0, y: 0 });
+      } else {
+        setZoom((prev) => ({
+          scale: prev.scale,
+          ...clampPan(prev.scale, prev.x, prev.y),
+        }));
+      }
+    }
+
+    if (event.touches.length === 0) {
+      panRef.current = null;
+
+      const drag = dragRef.current;
+      if (drag && drag.pointerId === -1) {
+        dragRef.current = null;
+        const width = widthRef.current || 1;
+        const threshold = width * SWIPE_THRESHOLD_RATIO;
+        const deltaX = drag.deltaX;
+        let nextTrack = trackIndexRef.current;
+
+        if (zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
+          if (deltaX <= -threshold) nextTrack += 1;
+          else if (deltaX >= threshold) nextTrack -= 1;
+        }
+
+        nextTrack = Math.min(lastTrack, Math.max(0, nextTrack));
+        trackIndexRef.current = nextTrack;
+
+        const nextReal = toRealIndex(nextTrack);
+        if (nextReal !== nav.index) {
+          ignoreNextNavRef.current = true;
+          resetZoom();
+          onIndexChange(nextReal);
+        }
+
+        applyTransform(nextTrack, 0, true);
+      }
+    } else if (event.touches.length === 1 && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+      const t = event.touches[0];
+      panRef.current = {
+        startX: t.clientX,
+        startY: t.clientY,
+        originX: zoomRef.current.x,
+        originY: zoomRef.current.y,
+        pointerId: -1,
+      };
+    }
+  }
+
+  const zoomed = zoom.scale > 1 + ZOOM_EPSILON;
 
   return (
     <div
@@ -579,16 +872,23 @@ function ImageCarousel({
       tabIndex={onSlideClick ? 0 : undefined}
       aria-label={onSlideClick ? `Zobraziť ${alt} na celú obrazovku` : undefined}
       className={`absolute inset-0 overflow-hidden outline-none select-none [-webkit-user-drag:none] ${
-        loop
+        loop || zoomed
           ? "cursor-grab touch-none active:cursor-grabbing"
           : onSlideClick
             ? "cursor-zoom-in"
-            : ""
+            : enableZoom
+              ? "touch-none"
+              : ""
       }`}
+      style={enableZoom ? { touchAction: "none" } : undefined}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerCancel}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchEnd}
       onDragStart={(event) => event.preventDefault()}
       onClick={() => {
         if (didDragRef.current) return;
@@ -602,6 +902,17 @@ function ImageCarousel({
         }
       }}
     >
+      <div
+        className="h-full w-full will-change-transform"
+        style={
+          enableZoom
+            ? {
+                transform: `translate3d(${zoom.x}px, ${zoom.y}px, 0) scale(${zoom.scale})`,
+                transformOrigin: "center center",
+              }
+            : undefined
+        }
+      >
       <div
         ref={trackRef}
         className="flex h-full will-change-transform select-none [-webkit-user-drag:none]"
@@ -634,6 +945,7 @@ function ImageCarousel({
             </div>
           );
         })}
+      </div>
       </div>
     </div>
   );
