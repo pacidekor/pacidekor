@@ -14,6 +14,8 @@ import {
 } from "@/lib/products";
 import { usePricedProduct } from "@/lib/use-priced-product";
 
+const MAX_CARD_SWATCHES = 5;
+
 type ProductCardProps = {
   product: Product;
   /** Active color filter IDs — preview switches to the matching variant. */
@@ -117,11 +119,11 @@ export const ProductCard = memo(function ProductCard({
 
         {showSwatches ? (
           <div
-            className="absolute bottom-3 left-3 z-10 hidden max-w-[calc(100%-1.5rem)] flex-wrap items-center gap-1.5 rounded-full bg-white/85 px-2 py-1.5 shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm md:flex"
+            className="absolute bottom-3 left-3 z-10 hidden max-w-[calc(100%-1.5rem)] items-center gap-1.5 overflow-hidden rounded-full bg-white/85 px-2 py-1.5 shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm md:flex"
             role="list"
             aria-label="Farby"
           >
-            {colors.map((color) => {
+            {colors.slice(0, MAX_CARD_SWATCHES).map((color) => {
               const selected = selectedColorId === color.id;
               return (
                 <button
@@ -149,6 +151,15 @@ export const ProductCard = memo(function ProductCard({
                 />
               );
             })}
+            {colors.length > MAX_CARD_SWATCHES ? (
+              <span
+                role="listitem"
+                className="shrink-0 px-0.5 text-[10px] font-semibold tabular-nums leading-none text-[#2f2924]/70 sm:text-[11px]"
+                title={`Ďalších ${colors.length - MAX_CARD_SWATCHES} farieb`}
+              >
+                +{colors.length - MAX_CARD_SWATCHES}
+              </span>
+            ) : null}
           </div>
         ) : null}
       </div>
