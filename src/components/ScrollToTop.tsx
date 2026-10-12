@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect } from "react";
 import { usePathname } from "next/navigation";
 import {
   clearListingScrollForPath,
@@ -10,8 +10,12 @@ import {
 const POP_FLAG = "pacidekor.listing.pop";
 
 /**
- * Scroll to top on forward navigations.
- * On browser Back/Forward, leave listing restore snapshots alone.
+ * Scroll to top on normal navigations.
+ * On browser Back into a listing with a restore snapshot, leave scroll alone
+ * (CategoryProductBrowser / ProductCollectionBrowser restore it).
+ * On browser Forward into a PDP (or any page without a listing snapshot),
+ * still reset to top — otherwise the tall listing scrollY sticks and the
+ * short PDP clamps to the bottom.
  */
 export function ScrollToTop() {
   const pathname = usePathname();
@@ -32,7 +36,7 @@ export function ScrollToTop() {
     return () => window.removeEventListener("popstate", onPopState);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let wasPop = false;
     try {
       wasPop = sessionStorage.getItem(POP_FLAG) === "1";
@@ -49,6 +53,14 @@ export function ScrollToTop() {
           // ignore
         }
       }, 500);
+
+      // Back → listing with snapshot: browser/listing restore handles scroll.
+      // Forward → PDP (no listing snapshot): must reset or we stay at the
+      // previous category scrollY and land at the bottom of the short page.
+      if (!hasListingScrollForPath(pathname)) {
+        window.scrollTo(0, 0);
+      }
+
       return () => window.clearTimeout(id);
     }
 

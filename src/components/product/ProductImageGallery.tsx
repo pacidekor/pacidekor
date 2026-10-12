@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useEffectEvent, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
@@ -64,9 +65,14 @@ export function ProductImageGallery({
   discount,
 }: ProductImageGalleryProps) {
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxMounted, setLightboxMounted] = useState(false);
   const [nav, setNav] = useState<NavCommand>({ index: 0, dir: 0, seq: 0 });
   const [loupe, setLoupe] = useState<LoupeState | null>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setLightboxMounted(true);
+  }, []);
 
   const showNav = images.length > 1;
   const activeIndex = nav.index;
@@ -224,7 +230,6 @@ export function ProductImageGallery({
           objectFit="cover"
           sizes="(max-width: 1024px) 100vw, 40vw"
           priority
-          enableZoom
           onSlideClick={() => setLightboxOpen(true)}
         />
 
@@ -260,66 +265,70 @@ export function ProductImageGallery({
         />
       </div>
 
-      {lightboxOpen ? (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={alt}
-          className="fixed inset-0 z-50 bg-black/92"
-          onClick={() => setLightboxOpen(false)}
-        >
-          <button
-            type="button"
-            aria-label="Zavrieť"
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-4 right-4 z-20 flex size-11 cursor-pointer items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25"
-          >
-            <X className="size-5" strokeWidth={1.75} aria-hidden />
-          </button>
+      {lightboxMounted && lightboxOpen
+        ? createPortal(
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-label={alt}
+              className="fixed inset-0 z-[100] bg-black/95"
+              onClick={() => setLightboxOpen(false)}
+            >
+              <button
+                type="button"
+                aria-label="Zavrieť"
+                onClick={() => setLightboxOpen(false)}
+                className="absolute top-[max(0.75rem,env(safe-area-inset-top))] right-3 z-20 flex size-11 cursor-pointer items-center justify-center rounded-full bg-white/15 text-white transition-colors hover:bg-white/25 sm:top-4 sm:right-4"
+              >
+                <X className="size-5" strokeWidth={1.75} aria-hidden />
+              </button>
 
-          <div
-            className="relative flex h-full w-full items-center justify-center px-14 py-16 sm:px-20"
-            onClick={(event) => event.stopPropagation()}
-          >
-            {showNav ? (
-              <>
-                <GalleryNavButton
-                  direction="prev"
-                  onClick={goPrev}
-                  className="left-3 hidden md:flex md:left-6"
-                  variant="dark"
+              <div
+                className="relative flex h-full w-full items-center justify-center px-1 pt-14 pb-12 sm:px-10 sm:py-16 md:px-16"
+                onClick={(event) => event.stopPropagation()}
+              >
+                {showNav ? (
+                  <>
+                    <GalleryNavButton
+                      direction="prev"
+                      onClick={goPrev}
+                      className="left-3 hidden md:flex md:left-6"
+                      variant="dark"
+                    />
+                    <GalleryNavButton
+                      direction="next"
+                      onClick={goNext}
+                      className="right-3 hidden md:flex md:right-6"
+                      variant="dark"
+                    />
+                  </>
+                ) : null}
+
+                {/* Near-fullscreen on mobile — preview must be larger than the page gallery. */}
+                <div className="relative h-full w-full max-w-none overflow-hidden sm:max-w-5xl">
+                  <ImageCarousel
+                    images={images}
+                    alt={alt}
+                    nav={nav}
+                    onIndexChange={onCarouselIndexChange}
+                    objectFit="contain"
+                    sizes="100vw"
+                    priority
+                    enableZoom
+                  />
+                </div>
+
+                <GalleryDots
+                  images={images}
+                  activeIndex={activeIndex}
+                  onSelect={goTo}
+                  className="bottom-[max(1rem,env(safe-area-inset-bottom))] sm:bottom-8"
                 />
-                <GalleryNavButton
-                  direction="next"
-                  onClick={goNext}
-                  className="right-3 hidden md:flex md:right-6"
-                  variant="dark"
-                />
-              </>
-            ) : null}
-
-            <div className="relative h-full w-full max-w-5xl overflow-hidden">
-              <ImageCarousel
-                images={images}
-                alt={alt}
-                nav={nav}
-                onIndexChange={onCarouselIndexChange}
-                objectFit="contain"
-                sizes="100vw"
-                priority
-                enableZoom
-              />
-            </div>
-
-            <GalleryDots
-              images={images}
-              activeIndex={activeIndex}
-              onSelect={goTo}
-              className="bottom-6 sm:bottom-8"
-            />
-          </div>
-        </div>
-      ) : null}
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </>
   );
 }
