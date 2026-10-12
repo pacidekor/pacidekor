@@ -45,11 +45,13 @@ const ZOOM_MIN = 1;
 const ZOOM_MAX = 4;
 const ZOOM_EPSILON = 0.02;
 
-function touchDistance(a: Touch, b: Touch) {
+type TouchPoint = { clientX: number; clientY: number };
+
+function touchDistance(a: TouchPoint, b: TouchPoint) {
   return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
 }
 
-function touchMidpoint(a: Touch, b: Touch) {
+function touchMidpoint(a: TouchPoint, b: TouchPoint) {
   return {
     x: (a.clientX + b.clientX) / 2,
     y: (a.clientY + b.clientY) / 2,
