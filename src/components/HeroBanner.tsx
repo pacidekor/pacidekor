@@ -12,9 +12,22 @@ type BannerSlide = {
   href: string;
   alt: string;
   ctaLabel: string;
+  /** Optional left-aligned copy (vertically centered). */
+  eyebrow?: string;
+  title?: string;
+  subtitle?: string;
+  /** Tailwind object-position for cover crop (esp. mobile). */
+  objectPositionClass?: string;
 };
 
 const slides: BannerSlide[] = [
+  {
+    desktopSrc: "/bannerdusickydesktop.webp",
+    mobileSrc: "/bannerdusickymobile.webp",
+    href: "/produkty",
+    alt: "PACIDEKOR - Dušičky: pietne aranžmány a dekorácie",
+    ctaLabel: "Všetky produkty",
+  },
   {
     desktopSrc: "/bannervsetko.webp",
     mobileSrc: "/vsetkobannermobile.webp",
@@ -270,12 +283,12 @@ export function HeroBanner() {
       }}
     >
       <Image
-        src="/banner1.webp"
+        src="/bannerdusickydesktop.webp"
         alt=""
-        width={1920}
-        height={640}
+        width={2588}
+        height={503}
         priority
-        quality={90}
+        quality={95}
         sizes="80vw"
         aria-hidden
         draggable={false}
@@ -297,7 +310,7 @@ export function HeroBanner() {
             return (
               <div
                 key={`${slide.desktopSrc}-${index}`}
-                className="relative h-full shrink-0 select-none [-webkit-user-drag:none]"
+                className="relative h-full shrink-0 select-none bg-[#ebe6df] [-webkit-user-drag:none]"
                 style={{ width: `${100 / trackSlides.length}%` }}
                 aria-hidden={realIndex !== activeIndex}
                 draggable={false}
@@ -307,26 +320,57 @@ export function HeroBanner() {
                   alt={realIndex === activeIndex ? slide.alt : ""}
                   fill
                   priority={realIndex === 0}
-                  quality={90}
+                  quality={95}
                   sizes="94vw"
                   draggable={false}
-                  className="object-cover md:hidden"
+                  className={`object-cover md:hidden ${slide.objectPositionClass ?? ""}`}
                 />
                 <Image
                   src={slide.desktopSrc}
                   alt={realIndex === activeIndex ? slide.alt : ""}
                   fill
                   priority={realIndex === 0}
-                  quality={90}
+                  quality={95}
                   sizes="80vw"
                   draggable={false}
-                  className="hidden object-cover md:block"
+                  className={`hidden object-cover md:block ${slide.objectPositionClass ?? ""}`}
                 />
               </div>
             );
           })}
         </div>
       </div>
+
+      {activeSlide?.title ? (
+        <div
+          className={`pointer-events-none absolute inset-0 z-10 ${
+            isDragging ? "opacity-0" : "opacity-100"
+          } transition-opacity duration-200`}
+        >
+          {/* Soft wash on the empty left side for legibility */}
+          <div
+            className="absolute inset-y-0 left-0 w-[58%] max-w-[50%] bg-gradient-to-r from-[#f3efe9]/88 via-[#f3efe9]/55 to-transparent sm:w-[50%]"
+            aria-hidden
+          />
+          <div className="absolute inset-y-0 left-0 flex w-[50%] max-w-lg items-center px-5 sm:px-8 md:px-10 lg:px-12">
+            <div className="w-full max-w-md">
+              {activeSlide.eyebrow ? (
+                <p className="font-sans text-[0.7rem] font-bold tracking-[0.2em] text-[#75825B] uppercase sm:text-xs">
+                  {activeSlide.eyebrow}
+                </p>
+              ) : null}
+              <p className="mt-2 font-heading text-2xl font-bold uppercase leading-tight tracking-[0.04em] text-[#2f2924] sm:text-3xl md:text-4xl lg:text-[2.5rem]">
+                {activeSlide.title}
+              </p>
+              {activeSlide.subtitle ? (
+                <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-[#2f2924]/75 sm:mt-3 sm:text-base">
+                  {activeSlide.subtitle}
+                </p>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {activeSlide ? (
         <div
