@@ -27,9 +27,6 @@ const slides: BannerSlide[] = [
     href: "/produkty",
     alt: "PACIDEKOR - Dušičky: pietne aranžmány a dekorácie",
     ctaLabel: "Všetky produkty",
-    title: "Spomienka v kvetoch",
-    subtitle:
-      "Chryzantémy, lístie a dekorácie pre tiché aranžmány a pietne chvíle.",
   },
   {
     desktopSrc: "/bannervsetko.webp",
@@ -288,8 +285,8 @@ export function HeroBanner() {
       <Image
         src="/bannerdusickydesktop.webp"
         alt=""
-        width={2135}
-        height={415}
+        width={2588}
+        height={503}
         priority
         quality={100}
         sizes="80vw"
@@ -350,26 +347,25 @@ export function HeroBanner() {
             isDragging ? "opacity-0" : "opacity-100"
           } transition-opacity duration-200`}
         >
-          <div className="absolute inset-y-0 left-0 flex w-[55%] max-w-xl items-center px-5 sm:px-8 md:px-10 lg:px-12">
+          {/* Soft wash on the empty left side for legibility */}
+          <div
+            className="absolute inset-y-0 left-0 w-[58%] max-w-[50%] bg-gradient-to-r from-[#f3efe9]/88 via-[#f3efe9]/55 to-transparent sm:w-[50%]"
+            aria-hidden
+          />
+          <div className="absolute inset-y-0 left-0 flex w-[50%] max-w-lg items-center px-5 sm:px-8 md:px-10 lg:px-12">
             <div className="w-full max-w-md">
               {activeSlide.eyebrow ? (
                 <p className="font-sans text-[0.7rem] font-bold tracking-[0.2em] text-[#75825B] uppercase sm:text-xs">
                   {activeSlide.eyebrow}
                 </p>
               ) : null}
-              <p className="font-heading text-2xl font-bold uppercase leading-tight tracking-[0.04em] text-[#75825B] sm:text-3xl md:text-4xl lg:text-[2.5rem]">
+              <p className="mt-2 font-heading text-2xl font-bold uppercase leading-tight tracking-[0.04em] text-[#2f2924] sm:text-3xl md:text-4xl lg:text-[2.5rem]">
                 {activeSlide.title}
               </p>
               {activeSlide.subtitle ? (
-                <>
-                  <div
-                    className="mt-3 h-px w-16 bg-[#75825B]/70 sm:mt-3.5 sm:w-20"
-                    aria-hidden
-                  />
-                  <p className="mt-3 max-w-sm text-sm leading-relaxed text-[#2f2924]/80 sm:mt-3.5 sm:text-base">
-                    {activeSlide.subtitle}
-                  </p>
-                </>
+                <p className="mt-2.5 max-w-sm text-sm leading-relaxed text-[#2f2924]/75 sm:mt-3 sm:text-base">
+                  {activeSlide.subtitle}
+                </p>
               ) : null}
             </div>
           </div>
