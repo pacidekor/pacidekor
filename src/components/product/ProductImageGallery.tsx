@@ -19,8 +19,11 @@ const LOUPE_ZOOM = 2.35;
 
 type DragState = {
   startX: number;
+  startY: number;
   deltaX: number;
   pointerId: number;
+  /** Axis lock for page gallery: null until gesture direction is clear. */
+  axis: "h" | "v" | null;
 };
 
 type NavCommand = {
@@ -519,16 +522,32 @@ function ImageCarousel({
     return () => observer.disconnect();
   }, [measure]);
 
-  // Non-passive touchmove so preventDefault actually blocks browser scroll/gestures.
+  // Non-passive touchmove so preventDefault works when we claim the gesture.
   useEffect(() => {
-    if (!enableZoom) return;
     const viewport = viewportRef.current;
     if (!viewport) return;
 
     const block = (event: TouchEvent) => {
-      if (event.touches.length >= 2 || zoomRef.current.scale > 1 + ZOOM_EPSILON) {
-        event.preventDefault();
-      } else if (dragRef.current) {
+      if (enableZoom) {
+        if (
+          event.touches.length >= 2 ||
+          zoomRef.current.scale > 1 + ZOOM_EPSILON ||
+          dragRef.current
+        ) {
+          event.preventDefault();
+        }
+        return;
+      }
+
+      // Page gallery: only claim single-finger horizontal swipes.
+      // Two-finger pinch must reach the browser so the whole page zooms.
+      const drag = dragRef.current;
+      if (
+        event.touches.length === 1 &&
+        drag &&
+        drag.pointerId === -1 &&
+        drag.axis === "h"
+      ) {
         event.preventDefault();
       }
     };
@@ -594,8 +613,8 @@ function ImageCarousel({
     if (event.button !== 0) return;
     if (multiTouchRef.current) return;
 
-    // Touch pinch/pan is handled via touch events when zoom is enabled.
-    if (enableZoom && event.pointerType === "touch") return;
+    // All touch gestures go through onTouch* so page pinch isn't stolen.
+    if (event.pointerType === "touch") return;
 
     didDragRef.current = false;
 
@@ -632,8 +651,10 @@ function ImageCarousel({
 
     dragRef.current = {
       startX: event.clientX,
+      startY: event.clientY,
       deltaX: 0,
       pointerId: event.pointerId,
+      axis: "h",
     };
     applyTransform(trackIndexRef.current, 0, false);
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -716,14 +737,71 @@ function ImageCarousel({
     applyTransform(trackIndexRef.current, 0, true);
   }
 
-  function onTouchStart(event: React.TouchEvent<HTMLDivElement>) {
-    if (!enableZoom) return;
+  function beginTouchSwipe(touch: TouchPoint) {
+    if (!loop) return;
+    if (animatingRef.current) {
+      const track = trackRef.current;
+      if (track) track.style.transition = "none";
+      animatingRef.current = false;
+    }
+    normalizeClone();
+    dragRef.current = {
+      startX: touch.clientX,
+      startY: touch.clientY,
+      deltaX: 0,
+      pointerId: -1,
+      axis: enableZoom ? "h" : null,
+    };
+    didDragRef.current = false;
+    applyTransform(trackIndexRef.current, 0, false);
+  }
 
+  function finishTouchSwipe() {
+    const drag = dragRef.current;
+    if (!drag || drag.pointerId !== -1) return;
+    dragRef.current = null;
+
+    // Vertical page scroll gesture — don't change slides.
+    if (drag.axis === "v") {
+      applyTransform(trackIndexRef.current, 0, true);
+      return;
+    }
+
+    const width = widthRef.current || 1;
+    const threshold = width * SWIPE_THRESHOLD_RATIO;
+    const deltaX = drag.deltaX;
+    let nextTrack = trackIndexRef.current;
+
+    if (!enableZoom || zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
+      if (deltaX <= -threshold) nextTrack += 1;
+      else if (deltaX >= threshold) nextTrack -= 1;
+    }
+
+    nextTrack = Math.min(lastTrack, Math.max(0, nextTrack));
+    trackIndexRef.current = nextTrack;
+
+    const nextReal = toRealIndex(nextTrack);
+    if (nextReal !== nav.index) {
+      ignoreNextNavRef.current = true;
+      resetZoom();
+      onIndexChange(nextReal);
+    }
+
+    applyTransform(nextTrack, 0, true);
+  }
+
+  function onTouchStart(event: React.TouchEvent<HTMLDivElement>) {
     if (event.touches.length >= 2) {
       multiTouchRef.current = true;
       dragRef.current = null;
       panRef.current = null;
       didDragRef.current = true;
+
+      if (!enableZoom) {
+        // Let the browser zoom the whole page.
+        return;
+      }
+
       const [a, b] = [event.touches[0], event.touches[1]];
       const mid = touchMidpoint(a, b);
       const rect = viewportRef.current?.getBoundingClientRect();
@@ -738,81 +816,107 @@ function ImageCarousel({
       return;
     }
 
-    if (event.touches.length === 1 && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
-      const t = event.touches[0];
-      panRef.current = {
-        startX: t.clientX,
-        startY: t.clientY,
-        originX: zoomRef.current.x,
-        originY: zoomRef.current.y,
-        pointerId: -1,
-      };
-      didDragRef.current = false;
+    multiTouchRef.current = false;
+
+    if (enableZoom) {
+      if (event.touches.length === 1 && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+        const t = event.touches[0];
+        panRef.current = {
+          startX: t.clientX,
+          startY: t.clientY,
+          originX: zoomRef.current.x,
+          originY: zoomRef.current.y,
+          pointerId: -1,
+        };
+        didDragRef.current = false;
+        return;
+      }
+
+      if (
+        event.touches.length === 1 &&
+        loop &&
+        zoomRef.current.scale <= 1 + ZOOM_EPSILON
+      ) {
+        beginTouchSwipe(event.touches[0]);
+      }
       return;
     }
 
-    // Single finger at scale 1 — keep carousel swipe via touch→synthetic path below
-    if (event.touches.length === 1 && loop && zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
-      if (animatingRef.current) {
-        const track = trackRef.current;
-        if (track) track.style.transition = "none";
-        animatingRef.current = false;
-      }
-      normalizeClone();
-      dragRef.current = {
-        startX: event.touches[0].clientX,
-        deltaX: 0,
-        pointerId: -1,
-      };
-      didDragRef.current = false;
-      applyTransform(trackIndexRef.current, 0, false);
+    // Page gallery: single-finger swipe only (pinch = browser page zoom).
+    if (event.touches.length === 1 && loop) {
+      beginTouchSwipe(event.touches[0]);
     }
   }
 
   function onTouchMove(event: React.TouchEvent<HTMLDivElement>) {
-    if (!enableZoom) return;
-
-    if (event.touches.length >= 2 && pinchRef.current) {
-      event.preventDefault();
-      const [a, b] = [event.touches[0], event.touches[1]];
-      const pinch = pinchRef.current;
-      const dist = Math.max(1, touchDistance(a, b));
-      const rawScale = pinch.startScale * (dist / pinch.startDist);
-      const scale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, rawScale));
-      const mid = touchMidpoint(a, b);
-      const rect = viewportRef.current?.getBoundingClientRect();
-      const midX = mid.x - (rect?.left ?? 0);
-      const midY = mid.y - (rect?.top ?? 0);
-      const ratio = scale / Math.max(pinch.startScale, ZOOM_MIN);
-      const next = clampPan(
-        scale,
-        pinch.startX * ratio + (midX - pinch.originX),
-        pinch.startY * ratio + (midY - pinch.originY),
-      );
-      setZoom({ scale, ...next });
-      return;
-    }
-
-    if (event.touches.length === 1 && panRef.current && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
-      event.preventDefault();
-      const t = event.touches[0];
-      const pan = panRef.current;
-      if (Math.hypot(t.clientX - pan.startX, t.clientY - pan.startY) > 8) {
-        didDragRef.current = true;
+    if (enableZoom) {
+      if (event.touches.length >= 2 && pinchRef.current) {
+        event.preventDefault();
+        const [a, b] = [event.touches[0], event.touches[1]];
+        const pinch = pinchRef.current;
+        const dist = Math.max(1, touchDistance(a, b));
+        const rawScale = pinch.startScale * (dist / pinch.startDist);
+        const scale = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, rawScale));
+        const mid = touchMidpoint(a, b);
+        const rect = viewportRef.current?.getBoundingClientRect();
+        const midX = mid.x - (rect?.left ?? 0);
+        const midY = mid.y - (rect?.top ?? 0);
+        const ratio = scale / Math.max(pinch.startScale, ZOOM_MIN);
+        const next = clampPan(
+          scale,
+          pinch.startX * ratio + (midX - pinch.originX),
+          pinch.startY * ratio + (midY - pinch.originY),
+        );
+        setZoom({ scale, ...next });
+        return;
       }
-      const next = clampPan(
-        zoomRef.current.scale,
-        pan.originX + (t.clientX - pan.startX),
-        pan.originY + (t.clientY - pan.startY),
-      );
-      setZoom((prev) => ({ ...prev, ...next }));
+
+      if (
+        event.touches.length === 1 &&
+        panRef.current &&
+        zoomRef.current.scale > 1 + ZOOM_EPSILON
+      ) {
+        event.preventDefault();
+        const t = event.touches[0];
+        const pan = panRef.current;
+        if (Math.hypot(t.clientX - pan.startX, t.clientY - pan.startY) > 8) {
+          didDragRef.current = true;
+        }
+        const next = clampPan(
+          zoomRef.current.scale,
+          pan.originX + (t.clientX - pan.startX),
+          pan.originY + (t.clientY - pan.startY),
+        );
+        setZoom((prev) => ({ ...prev, ...next }));
+        return;
+      }
+    } else if (event.touches.length >= 2) {
+      // Abort carousel drag — browser owns the pinch.
+      dragRef.current = null;
       return;
     }
 
     const drag = dragRef.current;
     if (event.touches.length === 1 && drag && drag.pointerId === -1) {
+      const t = event.touches[0];
+      const deltaX = t.clientX - drag.startX;
+      const deltaY = t.clientY - drag.startY;
+
+      if (!enableZoom && drag.axis == null) {
+        if (Math.abs(deltaX) < 10 && Math.abs(deltaY) < 10) return;
+        // Vertical intent → release to page scroll (same as rest of the site).
+        if (Math.abs(deltaY) > Math.abs(deltaX)) {
+          drag.axis = "v";
+          dragRef.current = null;
+          applyTransform(trackIndexRef.current, 0, true);
+          return;
+        }
+        drag.axis = "h";
+      }
+
+      if (!enableZoom && drag.axis !== "h") return;
+
       event.preventDefault();
-      const deltaX = event.touches[0].clientX - drag.startX;
       if (Math.abs(deltaX) > 8) didDragRef.current = true;
       drag.deltaX = deltaX;
       applyTransform(trackIndexRef.current, deltaX, false);
@@ -820,50 +924,29 @@ function ImageCarousel({
   }
 
   function onTouchEnd(event: React.TouchEvent<HTMLDivElement>) {
-    if (!enableZoom) return;
-
     if (event.touches.length < 2) {
       multiTouchRef.current = false;
       pinchRef.current = null;
-      if (zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
-        setZoom({ scale: 1, x: 0, y: 0 });
-      } else {
-        setZoom((prev) => ({
-          scale: prev.scale,
-          ...clampPan(prev.scale, prev.x, prev.y),
-        }));
+      if (enableZoom) {
+        if (zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
+          setZoom({ scale: 1, x: 0, y: 0 });
+        } else {
+          setZoom((prev) => ({
+            scale: prev.scale,
+            ...clampPan(prev.scale, prev.x, prev.y),
+          }));
+        }
       }
     }
 
     if (event.touches.length === 0) {
       panRef.current = null;
-
-      const drag = dragRef.current;
-      if (drag && drag.pointerId === -1) {
-        dragRef.current = null;
-        const width = widthRef.current || 1;
-        const threshold = width * SWIPE_THRESHOLD_RATIO;
-        const deltaX = drag.deltaX;
-        let nextTrack = trackIndexRef.current;
-
-        if (zoomRef.current.scale <= 1 + ZOOM_EPSILON) {
-          if (deltaX <= -threshold) nextTrack += 1;
-          else if (deltaX >= threshold) nextTrack -= 1;
-        }
-
-        nextTrack = Math.min(lastTrack, Math.max(0, nextTrack));
-        trackIndexRef.current = nextTrack;
-
-        const nextReal = toRealIndex(nextTrack);
-        if (nextReal !== nav.index) {
-          ignoreNextNavRef.current = true;
-          resetZoom();
-          onIndexChange(nextReal);
-        }
-
-        applyTransform(nextTrack, 0, true);
-      }
-    } else if (event.touches.length === 1 && zoomRef.current.scale > 1 + ZOOM_EPSILON) {
+      finishTouchSwipe();
+    } else if (
+      enableZoom &&
+      event.touches.length === 1 &&
+      zoomRef.current.scale > 1 + ZOOM_EPSILON
+    ) {
       const t = event.touches[0];
       panRef.current = {
         startX: t.clientX,
@@ -883,15 +966,21 @@ function ImageCarousel({
       tabIndex={onSlideClick ? 0 : undefined}
       aria-label={onSlideClick ? `Zobraziť ${alt} na celú obrazovku` : undefined}
       className={`absolute inset-0 overflow-hidden outline-none select-none [-webkit-user-drag:none] ${
-        loop || zoomed
+        enableZoom || zoomed
           ? "cursor-grab touch-none active:cursor-grabbing"
-          : onSlideClick
-            ? "cursor-zoom-in"
-            : enableZoom
-              ? "touch-none"
+          : loop
+            ? "cursor-grab active:cursor-grabbing"
+            : onSlideClick
+              ? "cursor-zoom-in"
               : ""
       }`}
-      style={enableZoom ? { touchAction: "none" } : undefined}
+      style={
+        enableZoom
+          ? { touchAction: "none" }
+          : // Page gallery: allow browser page pinch + vertical scroll;
+            // horizontal swipe is claimed only after axis lock.
+            { touchAction: "pan-y pinch-zoom" }
+      }
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}

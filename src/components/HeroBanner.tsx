@@ -22,22 +22,22 @@ type BannerSlide = {
 
 const slides: BannerSlide[] = [
   {
-    desktopSrc: "/bannerdusickydesktop.webp",
-    mobileSrc: "/bannerdusickymobile.webp",
+    desktopSrc: "/bannery/bannery_squooshed/bannerdusickydesktop.webp",
+    mobileSrc: "/bannery/bannery_squooshed/bannerdusickymobile.webp",
     href: "/produkty",
     alt: "PACIDEKOR - Dušičky: pietne aranžmány a dekorácie",
     ctaLabel: "Všetky produkty",
   },
   {
-    desktopSrc: "/bannervsetko.webp",
-    mobileSrc: "/vsetkobannermobile.webp",
+    desktopSrc: "/bannery/bannery_squooshed/bannervsetkodesktop.webp",
+    mobileSrc: "/bannery/bannery_squooshed/bannervsetkomobile.webp",
     href: "/registracia/velkoobchod",
     alt: "PACIDEKOR - umelé kvety, krása ktorá vydrží",
     ctaLabel: "Registrácia",
   },
   {
-    desktopSrc: "/banner2.webp",
-    mobileSrc: "/2bannermobile.webp",
+    desktopSrc: "/bannery/bannery_squooshed/bannerdopravadesktop.webp",
+    mobileSrc: "/bannery/bannery_squooshed/bannerdopravamobile.webp",
     href: "/produkty",
     alt: "PACIDEKOR - expedícia do 24 hodín",
     ctaLabel: "Všetky produkty",
@@ -283,10 +283,10 @@ export function HeroBanner() {
       }}
     >
       <Image
-        src="/bannerdusickydesktop.webp"
+        src="/bannery/bannery_squooshed/bannerdusickydesktop.webp"
         alt=""
-        width={2588}
-        height={503}
+        width={12940}
+        height={2515}
         priority
         quality={100}
         sizes="80vw"
