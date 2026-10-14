@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import { getBestsellerProducts } from "@/lib/products";
+import { getBestsellerProducts, type Product } from "@/lib/products";
 import { listPricedProducts } from "@/lib/products-server";
 
-export async function BestsellerySection() {
-  const all = await listPricedProducts();
-  const products = getBestsellerProducts(all, 5);
+type BestsellerySectionProps = {
+  /** When provided (e.g. homepage), skips an extra catalog fetch. */
+  products?: Product[];
+};
 
-  if (products.length === 0) return null;
+export async function BestsellerySection({
+  products,
+}: BestsellerySectionProps = {}) {
+  const source = products ?? (await listPricedProducts());
+  const bestsellers = getBestsellerProducts(source, 5);
+
+  if (bestsellers.length === 0) return null;
 
   return (
     <section className="mt-14 w-full">
@@ -24,7 +31,7 @@ export async function BestsellerySection() {
         </Link>
       </div>
 
-      <ProductCarousel products={products} />
+      <ProductCarousel products={bestsellers} />
     </section>
   );
 }

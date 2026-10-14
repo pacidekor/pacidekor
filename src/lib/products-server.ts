@@ -1,8 +1,10 @@
 import "server-only";
 
+import { cache } from "react";
 import { applyDiscountsToProducts } from "@/lib/discounts";
 import { listDiscounts } from "@/lib/discounts-server";
 import {
+  getRelatedProducts,
   mapProductRow,
   type AuthSideSlide,
   type Product,
@@ -12,12 +14,28 @@ import type { ProductRow } from "@/lib/supabase/database.types";
 
 export type { AuthSideSlide };
 
-/** Full rows — storefront / PDP / full editor. */
-export async function listProducts(): Promise<Product[]> {
+/**
+ * Storefront catalog cards / nav / related — skips heavy text (description, details).
+ * Full row still comes from getProductBySlug / getProductById on PDP & admin editor.
+ */
+const STOREFRONT_LIST_COLUMNS =
+  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+
+function mapStorefrontListRow(row: Partial<ProductRow>): Product {
+  return mapProductRow({
+    description: "",
+    details: [],
+    color_image_map: {},
+    ...row,
+  } as ProductRow);
+}
+
+/** Full catalog for storefront provider — request-deduped via React.cache. */
+export const listProducts = cache(async (): Promise<Product[]> => {
   const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("products")
-    .select("*")
+    .select(STOREFRONT_LIST_COLUMNS)
     .order("created_at", { ascending: false });
 
   if (error) {
@@ -25,8 +43,8 @@ export async function listProducts(): Promise<Product[]> {
     return [];
   }
 
-  return (data as ProductRow[]).map(mapProductRow);
-}
+  return ((data as Partial<ProductRow>[] | null) ?? []).map(mapStorefrontListRow);
+});
 
 /**
  * Admin list / dashboard — skips heavy text fields (description, details, color maps).
@@ -61,31 +79,31 @@ export async function listProductsForAdmin(): Promise<Product[]> {
 }
 
 /** Katalog s aplikovanými aktívnymi zľavami (cena, originalPrice, discount %). */
-export async function listPricedProducts(): Promise<Product[]> {
+export const listPricedProducts = cache(async (): Promise<Product[]> => {
   const [products, discounts] = await Promise.all([
     listProducts(),
     listDiscounts(),
   ]);
   return applyDiscountsToProducts(products, discounts);
-}
+});
 
-export async function getProductBySlug(
-  slug: string,
-): Promise<Product | undefined> {
-  const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select("*")
-    .eq("slug", slug)
-    .maybeSingle();
+export const getProductBySlug = cache(
+  async (slug: string): Promise<Product | undefined> => {
+    const supabase = createPublicClient();
+    const { data, error } = await supabase
+      .from("products")
+      .select("*")
+      .eq("slug", slug)
+      .maybeSingle();
 
-  if (error) {
-    console.error("getProductBySlug:", error.message);
-    return undefined;
-  }
+    if (error) {
+      console.error("getProductBySlug:", error.message);
+      return undefined;
+    }
 
-  return data ? mapProductRow(data as ProductRow) : undefined;
-}
+    return data ? mapProductRow(data as ProductRow) : undefined;
+  },
+);
 
 export async function getProductById(
   id: string,
@@ -103,6 +121,17 @@ export async function getProductById(
   }
 
   return data ? mapProductRow(data as ProductRow) : undefined;
+}
+
+/**
+ * Related cards for PDP — reuses request-cached storefront list (no second full scan).
+ */
+export async function listRelatedProducts(
+  slug: string,
+  count = 4,
+): Promise<Product[]> {
+  const products = await listProducts();
+  return getRelatedProducts(products, slug, count);
 }
 
 /** Unique main product slides for auth side panel slideshow. */

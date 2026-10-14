@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import type {
   CategoryRow,
   DruhRow,
@@ -43,7 +44,7 @@ export function mapDruhRow(row: DruhRow): TaxonomyDruh {
   };
 }
 
-export async function listTaxonomy(): Promise<TaxonomyStore> {
+export const listTaxonomy = cache(async (): Promise<TaxonomyStore> => {
   const supabase = createPublicClient();
   const [categoriesRes, subcategoriesRes, druhyRes] = await Promise.all([
     supabase.from("categories").select("*").order("sort_order", { ascending: true }),
@@ -73,7 +74,7 @@ export async function listTaxonomy(): Promise<TaxonomyStore> {
     ),
     druhy: ((druhyRes.data as DruhRow[] | null) ?? []).map(mapDruhRow),
   };
-}
+});
 
 export async function listSubcategoriesForCategoryId(categoryId: string) {
   const supabase = createPublicClient();

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ProductDetailsCards } from "@/components/product/ProductDetailsCards";
 import { ProductImageGallery } from "@/components/product/ProductImageGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
@@ -12,8 +13,6 @@ import {
 
 type ProductMediaPurchaseProps = {
   product: Product;
-  /** Color from catalog filter / card (`?farba=`). */
-  initialColorId?: string;
 };
 
 function resolveInitialColor(product: Product, initialColorId?: string) {
@@ -29,13 +28,23 @@ function resolveInitialColor(product: Product, initialColorId?: string) {
   );
 }
 
-export function ProductMediaPurchase({
-  product,
-  initialColorId,
-}: ProductMediaPurchaseProps) {
+function colorIdFromSearchParams(searchParams: URLSearchParams) {
+  const raw = searchParams.get("farba");
+  if (!raw) return undefined;
+  return raw.split(",")[0] || undefined;
+}
+
+export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
+  const searchParams = useSearchParams();
+  const farbaFromUrl = colorIdFromSearchParams(searchParams);
+
   const [selectedColor, setSelectedColor] = useState(() =>
-    resolveInitialColor(product, initialColorId),
+    resolveInitialColor(product, farbaFromUrl),
   );
+
+  useEffect(() => {
+    setSelectedColor(resolveInitialColor(product, farbaFromUrl));
+  }, [product, farbaFromUrl]);
 
   const gallery = getGalleryForColor(
     product,

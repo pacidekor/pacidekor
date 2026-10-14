@@ -52,7 +52,9 @@ function revalidateCategoryPaths() {
   revalidatePath("/novinky");
   revalidatePath("/akcia");
   revalidatePath("/vypredaj");
+  revalidatePath("/bestsellery");
   revalidatePath("/kategorie", "layout");
+  revalidatePath("/produkt", "layout");
   revalidatePath("/admin/kategorie");
   revalidatePath("/admin/produkty");
   revalidatePath("/admin", "layout");

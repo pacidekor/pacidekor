@@ -13,6 +13,9 @@ import { listDiscounts } from "@/lib/discounts-server";
 import { listProducts } from "@/lib/products-server";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
+/** Align with catalog ISR pages — shared layout payload is cacheable. */
+export const revalidate = 120;
+
 export default async function SiteLayout({
   children,
 }: Readonly<{

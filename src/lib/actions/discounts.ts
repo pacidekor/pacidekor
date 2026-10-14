@@ -58,11 +58,14 @@ async function requireAdmin() {
 }
 
 function revalidateDiscountPaths() {
-  revalidatePath("/");
+  revalidatePath("/", "layout");
   revalidatePath("/akcia");
   revalidatePath("/produkty");
   revalidatePath("/novinky");
   revalidatePath("/vypredaj");
+  revalidatePath("/bestsellery");
+  revalidatePath("/kategorie", "layout");
+  revalidatePath("/produkt", "layout");
   revalidatePath("/admin/zlavy");
 }
 

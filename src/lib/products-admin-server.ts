@@ -52,18 +52,28 @@ async function requireAdmin() {
   return { ok: true as const };
 }
 
-function revalidateProductPaths(slug?: string) {
+function revalidateProductPaths(options?: {
+  slug?: string;
+  previousSlug?: string;
+}) {
   try {
     // Storefront only — admin list updates from client state after save.
-    revalidatePath("/");
+    revalidatePath("/", "layout");
     revalidatePath("/produkty");
     revalidatePath("/novinky");
     revalidatePath("/akcia");
     revalidatePath("/vypredaj");
     revalidatePath("/bestsellery");
     revalidatePath("/kategorie", "layout");
-    if (slug) {
-      revalidatePath(`/produkt/${slug}`);
+    revalidatePath("/produkt", "layout");
+    if (options?.slug) {
+      revalidatePath(`/produkt/${options.slug}`);
+    }
+    if (
+      options?.previousSlug &&
+      options.previousSlug !== options.slug
+    ) {
+      revalidatePath(`/produkt/${options.previousSlug}`);
     }
   } catch (error) {
     console.error("revalidateProductPaths", error);
@@ -250,9 +260,12 @@ export async function upsertProductAdmin(
     if (input.id) {
       const { data: existing } = await db
         .from("products")
-        .select("is_new, new_until")
+        .select("slug, is_new, new_until")
         .eq("id", input.id)
         .maybeSingle();
+
+      const previousSlug =
+        (existing as Pick<ProductRow, "slug"> | null)?.slug ?? undefined;
 
       const updatePayload = toUpdatePayload(
         input,
@@ -274,7 +287,10 @@ export async function upsertProductAdmin(
       }
 
       const product = mapProductRow(data as ProductRow);
-      revalidateProductPaths(product.slug);
+      revalidateProductPaths({
+        slug: product.slug,
+        previousSlug,
+      });
       return { ok: true, data: product };
     }
 
@@ -293,7 +309,7 @@ export async function upsertProductAdmin(
     }
 
     const product = mapProductRow(data as ProductRow);
-    revalidateProductPaths(product.slug);
+    revalidateProductPaths({ slug: product.slug });
     return { ok: true, data: product };
   } catch (error) {
     console.error("upsertProductAdmin", error);
@@ -343,7 +359,9 @@ export async function deleteProductAdmin(
       await db.storage.from("product-images").remove(paths);
     }
 
-    revalidateProductPaths(existing?.slug ?? undefined);
+    revalidateProductPaths({
+      slug: existing?.slug ?? undefined,
+    });
     return { ok: true, data: undefined };
   } catch (error) {
     console.error("deleteProductAdmin", error);

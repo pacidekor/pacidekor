@@ -204,7 +204,7 @@ export async function createOrderAction(
     const productIds = [...new Set(input.items.map((line) => line.productId))];
     const { data: products, error: productsError } = await db
       .from("products")
-      .select("id, name, price, in_stock, stock_quantity")
+      .select("id, slug, name, price, in_stock, stock_quantity")
       .in("id", productIds);
 
     if (productsError) {
@@ -497,6 +497,19 @@ export async function createOrderAction(
     revalidatePath("/admin");
     revalidatePath("/admin/objednavky");
     revalidatePath("/ucet");
+    // Stock may have changed — bust ISR for affected catalog pages.
+    revalidatePath("/", "layout");
+    revalidatePath("/produkty");
+    revalidatePath("/novinky");
+    revalidatePath("/vypredaj");
+    revalidatePath("/bestsellery");
+    revalidatePath("/kategorie", "layout");
+    revalidatePath("/produkt", "layout");
+    for (const product of products ?? []) {
+      if (product.slug) {
+        revalidatePath(`/produkt/${product.slug}`);
+      }
+    }
 
     if (input.paymentMethod === "cod") {
       try {

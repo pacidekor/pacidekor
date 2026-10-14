@@ -14,8 +14,8 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-/** Taxonomy + discounts change in admin - render on request. */
-export const dynamic = "force-dynamic";
+/** ISR — admin taxonomy/product writes still bust cache via revalidatePath. */
+export const revalidate = 120;
 
 /** Older public URLs that should still resolve after renames. */
 const CATEGORY_SLUG_ALIASES: Record<string, string> = {

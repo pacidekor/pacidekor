@@ -1,5 +1,6 @@
 import "server-only";
 
+import { cache } from "react";
 import type { ProductDiscount } from "@/lib/discounts";
 import type { ProductDiscountRow } from "@/lib/supabase/database.types";
 import { createPublicClient } from "@/lib/supabase/server";
@@ -20,7 +21,7 @@ export function mapDiscountRow(row: ProductDiscountRow): ProductDiscount {
   };
 }
 
-export async function listDiscounts(): Promise<ProductDiscount[]> {
+export const listDiscounts = cache(async (): Promise<ProductDiscount[]> => {
   const supabase = createPublicClient();
   const { data, error } = await supabase
     .from("product_discounts")
@@ -33,4 +34,4 @@ export async function listDiscounts(): Promise<ProductDiscount[]> {
   }
 
   return ((data as ProductDiscountRow[] | null) ?? []).map(mapDiscountRow);
-}
+});

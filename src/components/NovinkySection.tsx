@@ -1,14 +1,19 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import { getNewestProducts } from "@/lib/products";
+import { getNewestProducts, type Product } from "@/lib/products";
 import { listPricedProducts } from "@/lib/products-server";
 
-export async function NovinkySection() {
-  const all = await listPricedProducts();
-  const products = getNewestProducts(all, 5);
+type NovinkySectionProps = {
+  /** When provided (e.g. homepage), skips an extra catalog fetch. */
+  products?: Product[];
+};
 
-  if (products.length === 0) return null;
+export async function NovinkySection({ products }: NovinkySectionProps = {}) {
+  const source = products ?? (await listPricedProducts());
+  const newest = getNewestProducts(source, 5);
+
+  if (newest.length === 0) return null;
 
   return (
     <section className="mt-14 w-full">
@@ -24,7 +29,7 @@ export async function NovinkySection() {
         </Link>
       </div>
 
-      <ProductCarousel products={products} />
+      <ProductCarousel products={newest} />
     </section>
   );
 }

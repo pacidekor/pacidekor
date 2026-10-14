@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Suspense } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductMediaPurchase } from "@/components/product/ProductMediaPurchase";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
@@ -12,10 +13,9 @@ import {
 import { listDiscounts } from "@/lib/discounts-server";
 import { categoryHrefById, categoryHref } from "@/lib/navigation";
 import { audienceNetPrice, parsePrice, priceIncludingVat } from "@/lib/price";
-import { getRelatedProducts } from "@/lib/products";
 import {
   getProductBySlug,
-  listProducts,
+  listRelatedProducts,
 } from "@/lib/products-server";
 import {
   breadcrumbJsonLd,
@@ -25,11 +25,10 @@ import {
 
 type PageProps = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ farba?: string | string[] }>;
 };
 
-/** Catalog changes in admin - prefer request-time rendering. */
-export const dynamic = "force-dynamic";
+/** ISR — admin writes still bust cache via revalidatePath. */
+export const revalidate = 120;
 
 export async function generateMetadata({
   params,
@@ -57,18 +56,13 @@ export async function generateMetadata({
   });
 }
 
-export default async function ProductPage({ params, searchParams }: PageProps) {
+export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
-  const query = await searchParams;
-  const farbaRaw = query.farba;
-  const initialColorId = Array.isArray(farbaRaw)
-    ? farbaRaw[0]
-    : farbaRaw?.split(",")[0];
 
-  const [rawProduct, discounts, allProducts, taxonomy] = await Promise.all([
+  const [rawProduct, discounts, relatedRaw, taxonomy] = await Promise.all([
     getProductBySlug(slug),
     listDiscounts(),
-    listProducts(),
+    listRelatedProducts(slug),
     listTaxonomy(),
   ]);
 
@@ -77,10 +71,7 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
   }
 
   const product = applyDiscountToProduct(rawProduct, discounts);
-  const related = getRelatedProducts(
-    applyDiscountsToProducts(allProducts, discounts),
-    product.slug,
-  );
+  const related = applyDiscountsToProducts(relatedRaw, discounts);
   const categoryMatch = taxonomy.categories.find(
     (category) => category.label === product.category,
   );
@@ -134,10 +125,13 @@ export default async function ProductPage({ params, searchParams }: PageProps) {
       </nav>
 
       <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-12">
-        <ProductMediaPurchase
-          product={product}
-          initialColorId={initialColorId}
-        />
+        <Suspense
+          fallback={
+            <ProductMediaPurchase product={product} />
+          }
+        >
+          <ProductMediaPurchase product={product} />
+        </Suspense>
       </div>
 
       <RelatedProducts products={related} />

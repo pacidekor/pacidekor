@@ -7,7 +7,27 @@ import {
 } from "@/lib/supabase/auth-area";
 import type { Database } from "@/lib/supabase/database.types";
 
+/** Routes that need session refresh / auth gates. Public catalog skips getUser. */
+function needsAuthSession(pathname: string) {
+  return (
+    pathname.startsWith("/ucet") ||
+    pathname.startsWith("/admin") ||
+    pathname.startsWith("/pokladna") ||
+    pathname.startsWith("/objednavka") ||
+    pathname.startsWith("/prihlasenie") ||
+    pathname.startsWith("/registracia") ||
+    pathname.startsWith("/odhlasenie") ||
+    pathname.startsWith("/api/")
+  );
+}
+
 export async function updateSession(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  if (!needsAuthSession(pathname)) {
+    return NextResponse.next({ request });
+  }
+
   let supabaseResponse = NextResponse.next({ request });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,7 +37,7 @@ export async function updateSession(request: NextRequest) {
     return supabaseResponse;
   }
 
-  const area = authAreaFromPathname(request.nextUrl.pathname);
+  const area = authAreaFromPathname(pathname);
 
   const supabase = createServerClient<Database>(url, anonKey, {
     cookieOptions: {
@@ -43,8 +63,6 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-
-  const pathname = request.nextUrl.pathname;
 
   if (pathname.startsWith("/ucet") && !user) {
     const redirectUrl = request.nextUrl.clone();
