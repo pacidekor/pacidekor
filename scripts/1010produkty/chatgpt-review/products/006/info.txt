@@ -1,0 +1,9 @@
+Názov: Kosatec na stonke
+Popis: Umelý kosatec na dlhej stonke s mečovitými listami. Vhodný do vysokých váz alebo ako výrazný stopkový doplnok.
+Farby: biela [1,5,9,11] | modrá [2,5,8,10] | fialová [3,5,6,13] | žltá [4,5,7,12]
+Druh: kosatec
+Kategória: Umelé kvety
+Subkategória: Stopkové kvety
+Zdrojová zložka: 6
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/6
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

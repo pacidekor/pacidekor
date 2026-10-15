@@ -1,0 +1,1204 @@
+[
+  {
+    "id": 1,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::1",
+    "sourceFolder": "1",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/1",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Kytica umelých pivoniek",
+    "description": "Bohatá kytica umelých pivoniek s viacvrstvovými kvetmi a realistickou zeleňou. Vhodná do vázy alebo ako súčasť aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      {
+        "color": "žltá",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          4,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          4,
+          8,
+          9,
+          10
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Tri farby pivoniek. Foto 4 je mix všetkých farieb vo váze."
+  },
+  {
+    "id": 2,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::2",
+    "sourceFolder": "2+3",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/2",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 14,
+    "videos": [],
+    "name": "Doplnková kytička drobných kvetov",
+    "description": "Jemná umelá kytička s drobnými hviezdičkovitými kvietkami na tenkých stonkách. Ideálna ako výplň do aranžmánov alebo do malej vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "kytička",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          12,
+          13,
+          14
+        ]
+      },
+      {
+        "color": "žltá",
+        "photos": [
+          1,
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          8,
+          9,
+          10,
+          11
+        ]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "Rovnaký model ako 003. Po zlúčení: fotky 1-7 zo 002, 8-14 zo 003. Farby biela/žltá/ružová. | merged photos from 003 as 8-14"
+  },
+  {
+    "id": 3,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::3",
+    "sourceFolder": "3",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/3",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "(zlúčené do 002)",
+    "description": "Umelá doplnková kytička s hustým trsom drobných hviezdičkovitých kvietkov. Vhodná ako výplňová zeleň alebo samostatná dekorácia.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "kytička",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "biela",
+        "photos": [
+          2,
+          3,
+          5,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": "merged-into:002 — neimportovať",
+    "skipImport": true
+  },
+  {
+    "id": 4,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::4",
+    "sourceFolder": "4",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/4",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 8,
+    "videos": [],
+    "name": "Magnólia na stonke",
+    "description": "Umelá vetvička magnólie s otvorenými kvetmi, púčikmi a drobnými listami na drevenej stonke. Vhodná do vysokej vázy alebo aranžmánu.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "magnólia",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "zelená",
+        "photos": [
+          3,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "lososová",
+        "photos": [
+          3,
+          7,
+          8
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 3 je skupinová (všetky farby v ratanovej váze). Zelená = žltozelené kvety, nie len lístie."
+  },
+  {
+    "id": 5,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::5",
+    "sourceFolder": "5",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/5",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Kytica umelých ruží",
+    "description": "Bohatá kytica umelých ruží doplnená zeleňou, drobnými kvietkami a bobuľkami. Vhodná ako hotová dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          2,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": "Ružová má slabšie solo zábery (hlavne 7); 2/5/6 sú spoločné s krémovou."
+  },
+  {
+    "id": 6,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::6",
+    "sourceFolder": "6",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/6",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 13,
+    "videos": [],
+    "name": "Kosatec na stonke",
+    "description": "Umelý kosatec na dlhej stonke s mečovitými listami. Vhodný do vysokých váz alebo ako výrazný stopkový doplnok.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kosatec",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "modrá",
+        "photos": [
+          2,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "color": "fialová",
+        "photos": [
+          2,
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "color": "žltá",
+        "photos": [
+          2,
+          11,
+          12,
+          13
+        ]
+      }
+    ],
+    "confidence": 0.96,
+    "notes": "Štyri farby kosatca. Foto 2 je mix. Draft mapovanie bolo posunuté."
+  },
+  {
+    "id": 7,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::7",
+    "sourceFolder": "7",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/7",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Stračonôžka na stonke",
+    "description": "Vysoká umelá kvetina s hustým klasovitým kvetenstvom na dlhej stonke. Vhodná do vysokých váz a veľkých aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "stračonôžka",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          3,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 3 je mix oranžová+krémová."
+  },
+  {
+    "id": 8,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::8",
+    "sourceFolder": "8",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/8",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Orchidea cymbidium na stonke",
+    "description": "Dlhá stonka umelej orchidey cymbidium s viacerými kvetmi. Vhodná do vysokej vázy alebo ako dominantný prvok aranžmánu.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "orchidea",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 1 je mix."
+  },
+  {
+    "id": 9,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::9",
+    "sourceFolder": "9",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/9",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 13,
+    "videos": [],
+    "name": "Echinacea na stonke",
+    "description": "Dlhá stonka umelej echinacey s viacerými kvetmi v rôznych fázach kvitnutia. Ideálna do vysokých váz alebo ako výrazný prvok v aranžmánoch.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "echinacea",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          5,
+          6,
+          7,
+          8
+        ]
+      },
+      {
+        "color": "biela",
+        "photos": [
+          9,
+          10
+        ]
+      },
+      {
+        "color": "zelenožltá",
+        "photos": [
+          11,
+          12,
+          13
+        ]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": "Štyri odtiene echinacey. Draft indexy sedeli zle."
+  },
+  {
+    "id": 10,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::10",
+    "sourceFolder": "10",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/10",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Hortenzia na stonke krémová",
+    "description": "Veľké guľovité kvetenstvo umelej hortenzie v jemnej krémovej farbe s realistickými listami na dlhej stonke. Vhodná do vázy aj do bohatších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "hortenzia",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.96,
+    "notes": "Jeden model, jedna farba. Iný tvar/styling ako 011 - ponechať oddelené."
+  },
+  {
+    "id": 11,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::11",
+    "sourceFolder": "11",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/11",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Hortenzia na stonke",
+    "description": "Realistická umelá hortenzia s hustým guľovitým kvetenstvom a zelenými listami na dlhej stonke. Vhodná do vysokých váz aj do dekoračných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "hortenzia",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "modrá",
+        "photos": [
+          1,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          7,
+          8,
+          9,
+          10
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 1 je mix troch farieb. Iný model ako 010 (čierna váza, hustejšie súkvetie)."
+  },
+  {
+    "id": 12,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::12",
+    "sourceFolder": "12",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/12",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kytica pivoniek s papraďou",
+    "description": "Kompaktná kytica umelých pivoniek s hustými okvetnými lístkami, papraďovou zeleňou a tmavými listami. Ideálna do vázy alebo ako hotová dekorácia.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "Jedna farba (krémová/bledoružová), nie dve. Iný model ako 001."
+  },
+  {
+    "id": 13,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::13",
+    "sourceFolder": "13",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/13",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Kytica alstromérie",
+    "description": "Kytica umelej alstromérie s otvorenými kvetmi, zelenými púčikmi a úzkymi listami. Vhodná do vázy aj do väčších kvetinových aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "alstroméria",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": "Foto 1-2 sú spoločné zábery oboch farieb."
+  },
+  {
+    "id": 14,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::14",
+    "sourceFolder": "14",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/14",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Kytica orchidey",
+    "description": "Elegantná umelá kytica orchidey s listami a jemnými dekoračnými trávami. Ideálna ako samostatná dekorácia do vázy alebo súčasť väčších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "orchidea",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 1 je mix. Skôr stopkové orchidey než viazaná kytica - názov OK ako kytica."
+  },
+  {
+    "id": 15,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::15",
+    "sourceFolder": "15",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/15",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Vetvička s bobuľami",
+    "description": "Dekoratívna umelá vetvička s úzkymi zelenými listami a trsmi drobných bobúľ. Vhodná ako výplň do kytíc, vencov alebo samostatná dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "bobule",
+    "groups": [
+      {
+        "color": "zelená",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          3,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Foto 3 je mix. Zelená = zelené bobule, nie len lístie."
+  },
+  {
+    "id": 16,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::16",
+    "sourceFolder": "16",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/16",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Klinček na stonke",
+    "description": "Dlhá zelená stonka s viacerými kvetmi krémovej farby pripomínajúcimi klinčeky. Ideálna dekorácia do vázy alebo základ pre väčšie aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "klinček",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "OK."
+  },
+  {
+    "id": 17,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::17",
+    "sourceFolder": "17",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/17",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Ruža na stonke",
+    "description": "Umelá biela ruža na dlhej zelenej stonke s dvoma rozkvitnutými kvetmi a jedným púčikom. Realistické listy ju predurčujú do vysokej vázy alebo do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Iný model ako 022 (menej kvetov, svetlejšie listy)."
+  },
+  {
+    "id": 18,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::18",
+    "sourceFolder": "18",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/18",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Žltá halúzka drobných kvetov",
+    "description": "Dekoratívna umelá halúzka s hustými zhlukmi drobných žltých kvietkov a zelenými lístkami na hnedej stonke. Hodí sa do vázy aj do jarných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "groups": [
+      {
+        "color": "žltá",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "OK."
+  },
+  {
+    "id": 19,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::19",
+    "sourceFolder": "19",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/19",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kytica ruží a hortenzií",
+    "description": "Bohatá umelá kytica v staroružovej farbe kombinujúca plné kvety ruží a drobné súkvetia hortenzie. Doplnená zelenými listami, vhodná ako hotová dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "groups": [
+      {
+        "color": "staroružová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": "OK."
+  },
+  {
+    "id": 20,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::20",
+    "sourceFolder": "20",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/20",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kala na stonke",
+    "description": "Elegantná umelá kala s tromi krémovobielymi kvetmi na jednej stonke a výraznými tmavozelenými listami. Ideálna do vysokej vázy alebo do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kala",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Stopková kala - iný model ako 021 (kytica)."
+  },
+  {
+    "id": 21,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::21",
+    "sourceFolder": "21",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/21",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Kytica kál",
+    "description": "Elegantná kytica umelých kál s bohatými zelenými listami na spoločnej stonke. Vhodná ako hotová dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica kál",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": "Všetky fotky sú biele/krémovobiele kaly - nie dva farebné varianty. Draft biela|krémová zrušený."
+  },
+  {
+    "id": 22,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::22",
+    "sourceFolder": "22",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/22",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 2,
+    "videos": [],
+    "name": "Viackvetá ruža na stonke",
+    "description": "Dlhá umelá stonka s viacerými bielymi ružami a tmavými listami. Vhodná do vysokých váz a vzdušných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2
+        ]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "Viackvetá stonka, tmavšie listy - iný model ako 017."
+  },
+  {
+    "id": 23,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::23",
+    "sourceFolder": "23",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/23",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Perovitá zeleň na stonke",
+    "description": "Dekoratívna umelá vetvička s jemným perovitým listom na dlhej stonke. Vynikne vo vysokej váze alebo ako vzdušný doplnok aranžmánu.",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "druh": "tráva",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "zelená",
+        "photos": [
+          1,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": "Foto 1 je mix. Zelená = zelená farba listov/vetvičky ako predajný variant."
+  },
+  {
+    "id": 24,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::24",
+    "sourceFolder": "24",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/24",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kotúč na stonke",
+    "description": "Umelá stonka s drobnými pichľavými súkvetiami v krémovom, jemne striebristom odtieni. Vhodná ako moderný doplnok do vázy alebo do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kotúč",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": "OK."
+  },
+  {
+    "id": 25,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::25",
+    "sourceFolder": "25",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/25",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Drobnokvet na stonke",
+    "description": "Umelá stonka s bohatými trsmi drobných päťlupienkových kvietkov a jemnou ihlovitou zeleňou. Vhodná do vázy alebo ako výplň do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "drobnokvet",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "lososová",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "mix",
+        "photos": [
+          10
+        ]
+      }
+    ],
+    "confidence": 0.96,
+    "notes": "Foto 10 je skupinová. Draft mal iné indexy."
+  },
+  {
+    "id": 26,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::26",
+    "sourceFolder": "26",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/26",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Veternica na stonke",
+    "description": "Umelá veternica s viacerými kvetmi na jednej stonke, tmavým stredom a zelenými listami. Ideálna do vázy alebo jesenných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "veternica",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "žltá",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "mix",
+        "photos": [
+          10
+        ]
+      }
+    ],
+    "confidence": 0.96,
+    "notes": "Foto 10 je mix troch farieb."
+  },
+  {
+    "id": 27,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::27",
+    "sourceFolder": "27",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/27",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Orchidea na stonke",
+    "description": "Elegantná umelá orchidea na dlhej stonke s otvorenými kvetmi a zelenými púčikmi na konci. Vhodná do vysokých váz alebo aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "orchidea",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3,
+          10
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          4,
+          5,
+          6,
+          10
+        ]
+      },
+      {
+        "color": "lososová",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": "Foto 10 ukazuje bielu+ružovú. Lososová/bodkovaná ako tretí variant."
+  },
+  {
+    "id": 28,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::28",
+    "sourceFolder": "28",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/28",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 7,
+    "videos": [],
+    "name": "Kytica zelene s bielymi kvietkami",
+    "description": "Umelá výplňová kytica so zeleňou v štýle eukalyptu, zelenými guľovitými hlavičkami a drobnými krémovobielymi kvietkami.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "groups": [
+      {
+        "color": "mix",
+        "photos": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Jeden model, bez farebného výberu."
+  },
+  {
+    "id": 29,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::29",
+    "sourceFolder": "29",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/29",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kytička drobných fialových kvetov",
+    "description": "Dekoratívna umelá kytička s hustými súkvetiami drobných fialových kvietkov a zelenými pukmi. Ideálna ako výplň do vázy alebo väčších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "kytica",
+    "groups": [
+      {
+        "color": "fialová",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": "Skôr drobná kytička/doplnok než veľká kytica - upravený názov a subkategória."
+  },
+  {
+    "id": 30,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::30",
+    "sourceFolder": "30",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/30",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 10,
+    "videos": [],
+    "name": "Kytica orchidey cymbidium",
+    "description": "Umelá kytica orchidey cymbidium s detailne vypracovanými kvetmi na viazaných stonkách. Vhodná do vázy alebo ako súčasť aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "orchidea",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "color": "zelená",
+        "photos": [
+          7,
+          8,
+          9
+        ]
+      },
+      {
+        "color": "mix",
+        "photos": [
+          10
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "Zelená = zelené kvety orchidey. Foto 10 je mix. Draft mal mix ako foto 1."
+  },
+  {
+    "id": 31,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::31",
+    "sourceFolder": "31",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/31",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 3,
+    "videos": [],
+    "name": "Kytička bielych kvetov",
+    "description": "Umelá kytička s drobnými bielymi kvietkami so žltým stredom, zelenými púčikmi a vrúbkovanými listami. Vhodná do menších vázičiek.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kytička",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": "OK."
+  },
+  {
+    "id": 32,
+    "sourceKey": "NAHRATÉ 10.10.2026::PREFOTENÉ::32",
+    "sourceFolder": "32",
+    "sourcePath": "C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/32",
+    "batch": "NAHRATÉ 10.10.2026",
+    "group": "PREFOTENÉ",
+    "imageCount": 14,
+    "videos": [],
+    "name": "Kytica ruží a orchideí",
+    "description": "Bohatá umelá kytica kombinujúca plné ruže s orchideami a zelenými listami na spoločnej stonke. Ideálna ako samostatná dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "groups": [
+      {
+        "color": "žltá",
+        "photos": [
+          1,
+          2,
+          3,
+          4
+        ]
+      },
+      {
+        "color": "krémová",
+        "photos": [
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "color": "ružová",
+        "photos": [
+          8,
+          9,
+          10
+        ]
+      },
+      {
+        "color": "oranžová",
+        "photos": [
+          11,
+          12,
+          13
+        ]
+      },
+      {
+        "color": "mix",
+        "photos": [
+          14
+        ]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "Štyri farebné varianty + skupinová 14. Draft indexy boli pomiešané."
+  }
+]

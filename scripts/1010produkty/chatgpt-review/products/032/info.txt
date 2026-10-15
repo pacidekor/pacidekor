@@ -1,0 +1,9 @@
+Názov: Kytica ruží a orchideí
+Popis: Bohatá umelá kytica kombinujúca plné ruže s orchideami a zelenými listami na spoločnej stonke. Ideálna ako samostatná dekorácia do vázy.
+Farby: žltá [1,6,8,12] | krémová [3,4,10] | ružová [5,9,11] | oranžová [2,7,13] | mix [14]
+Druh: kytica
+Kategória: Umelé kvety
+Subkategória: Kytice
+Zdrojová zložka: 32
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/32
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

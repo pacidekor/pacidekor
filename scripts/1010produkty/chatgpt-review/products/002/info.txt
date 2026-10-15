@@ -1,0 +1,9 @@
+Názov: Doplnková kytička drobných kvetov bielo-žltá
+Popis: Jemná umelá kytička s drobnými hviezdičkovitými kvietkami na tenkých stonkách. Ideálna ako výplň do aranžmánov alebo do malej vázy.
+Farby: biela [1,2,3,6] | žltá [1,4,5,7]
+Druh: kytička
+Kategória: Umelé kvety
+Subkategória: Doplnky
+Zdrojová zložka: 2
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/2
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

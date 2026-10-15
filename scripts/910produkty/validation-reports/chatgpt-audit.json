@@ -1,0 +1,3557 @@
+{
+  "summary": {
+    "reviewed": 51,
+    "ok_as_is": 16,
+    "fix_farby": 31,
+    "fix_meta": 9,
+    "split_or_reject": 4,
+    "needs_human": 6,
+    "ready_after_fix": 25,
+    "verdictCounts": {
+      "yes_after_fix": 25,
+      "yes": 16,
+      "needs_human": 6,
+      "no_split_needed": 4
+    },
+    "photosReviewed": 290,
+    "productsOmitted": [],
+    "okAsIsIds": [
+      "031",
+      "050",
+      "064",
+      "161",
+      "258",
+      "271",
+      "122",
+      "123",
+      "125",
+      "126",
+      "129",
+      "132",
+      "137",
+      "142",
+      "143",
+      "151"
+    ],
+    "readyAfterFixIds": [
+      "002",
+      "004",
+      "007",
+      "009",
+      "010",
+      "019",
+      "020",
+      "023",
+      "026",
+      "027",
+      "028",
+      "032",
+      "035",
+      "036",
+      "248",
+      "250",
+      "048",
+      "245",
+      "246",
+      "136",
+      "145",
+      "147",
+      "152",
+      "196",
+      "268"
+    ],
+    "splitIds": [
+      "160",
+      "165",
+      "170",
+      "144"
+    ],
+    "needsHumanIds": [
+      "254",
+      "153",
+      "228",
+      "230",
+      "239",
+      "270"
+    ],
+    "countingNote": "Počty podľa verdict sú vzájomne výlučné a spolu tvoria 51. fix_farby a fix_meta sa môžu prekrývať a zahŕňajú aj zablokované produkty. fix_farby zahŕňa aj prípady, kde je aktuálne mapovanie nevyhovujúce a proposedFarby je null.",
+    "reviewMethod": "Vizuálna kontrola všetkých 51 súborov _sheet.jpg obsahujúcich všetkých 290 očíslovaných fotografií, porovnanie s info.txt a manifest.json, doplnené samostatnými fotografiami pri nejasnostiach. Automatické flagy sú podnet, nie dôkaz chyby.",
+    "metadataSource": "Názov a popis sú posudzované z info.txt. Poškodené názvy v manifest.json a hlavičkách prehľadov sa nepovažujú za aktuálne názvy produktu.",
+    "reviewOrder": "Najprv viacfarebné kvety, zeleň a ďalšie viacfarebné položky, potom keramika so spoločnými fotografiami, nakoniec ostatné položky.",
+    "schemaNotes": {
+      "confidence": "Odhad spoľahlivosti celkového rozhodnutia na škále 0 až 1. Neistota nad 20 % vedie k needs_human.",
+      "proposedNull": "Null pri proposedName/Description/Category/Subcategory znamená ponechať aktuálnu hodnotu. Null pri proposedFarby znamená, že nie je možné bezpečne schváliť úplné predajné mapovanie.",
+      "farbyChanged": "True znamená, že pôvodné Farby sa nesmú použiť bez opravy alebo ručného rozhodnutia. Neznamená, že sa zmena už vykonala.",
+      "no_split_needed": "Podľa definície v PROMPT.md znamená rozdeliť alebo vyradiť. Napriek názvu enumu neznamená schválenie jedného produktu.",
+      "realColorVariantCount": "Počet odlíšených farebných vyhotovení produktu. Pri jednom kombinovanom vyhotovení je 1. Null znamená neistý počet predajných možností; detaily sú v colorVariantCountNote.",
+      "photoIndices": "Všetky indexy vrátane splitPlan odkazujú na pôvodné 1.jpg až N.jpg. Po rozdelení produktov treba indexy prepočítať podľa novej galérie.",
+      "groupPhotos": "Spoločné fotografie sú spravidla priradené všetkým viditeľným variantom. Pri 031 je ponechané platné pôvodné priradenie iba jednej farbe. Fotografie viacerých kusov tej istej farby nevytvárajú nový variant.",
+      "humanProposals": "Pri needs_human sú aj vyplnené proposed* len návrh na potvrdenie. Pri 254 a 270 je photoNotes.assignTo iba vizuálny opis, nie importný zoznam SKU.",
+      "scope": "Vizuálny audit neoveruje skladové SKU, rozmery, ceny ani predajnú jednotku v externom systéme. Zmeny nie sú aplikované do pôvodných súborov ani do e-shopu."
+    }
+  },
+  "products": [
+    {
+      "id": "002",
+      "verdict": "yes_after_fix",
+      "confidence": 0.97,
+      "currentFarby": "krémová [1-5] | hnedá [1,2,6,7]",
+      "proposedFarby": "krémová [1,2,4,5] | hnedá [1,3,6,7]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Lístie je doplnok kytice, nie samostatná predajná farba.",
+      "notes": "Foto 1 je spoločné pre oba varianty. Foto 2 zachytáva iba krémový variant, foto 3 iba hnedý. Doplnkové plody a lístie nie sú ďalšie varianty.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: krémová, hnedá.",
+          "assignTo": [
+            "krémová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "004",
+      "verdict": "yes_after_fix",
+      "confidence": 0.98,
+      "currentFarby": "hnedá [1-4] | krémová [1,5,6,7]",
+      "proposedFarby": "hnedá [1,2,4,6] | krémová [1,3,5,7]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je iba lístie a výplň kytice.",
+      "notes": "Foto 1 patrí obom farbám. Foto 3 je krémové a foto 6 hnedé; aktuálne sú prehodené.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: hnedá, krémová.",
+          "assignTo": [
+            "hnedá",
+            "krémová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "007",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "oranžová [1-2] | krémová [3-5] | ružová [6-9]",
+      "proposedFarby": "oranžová [1,7,9] | krémová [3-5] | ružová [2,6,8]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": "Bohato kvitnúca kytica s realisticky spracovanými kvetmi dálie a listami. Vhodná do vázy aj do väčších aranžmánov.",
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je iba lístie a výplň.",
+      "notes": "Tri farebné vyhotovenia rovnakého modelu. Foto 2 je ružové, foto 7 a 9 oranžové. Nie je tu spoločná fotografia viacerých farieb.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "farba_v_popise"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "009",
+      "verdict": "yes_after_fix",
+      "confidence": 0.93,
+      "currentFarby": "oranžová [1-3] | krémová [4-7] | hnedá [8-10] | fialová [11-15]",
+      "proposedFarby": "oranžová [1,9,12] | bordová [2,10,11] | hnedá [3,8,13] | krémová [4,7,14] | fialová [5,6,15]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Olivový nádych patrí okvetným lístkom hnedého variantu, nie iba lístiu. Je to stále ten istý variant na 3, 8 a 13.",
+      "notes": "Päť odlíšiteľných vyhotovení, každé má detail, samostatnú stopku a záber vo váze. Súvislé rozsahy sú nesprávne. Hnedý variant má tmavé olivovo-hnedé okvetné lístky; nevytvárať z neho dodatočný zelený variant.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 11,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 12,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 13,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 14,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 15,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuci_farebny_variant"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "010",
+      "verdict": "yes_after_fix",
+      "confidence": 0.95,
+      "currentFarby": "hnedá [1-7] | krémová [8-14] | bordová [15]",
+      "proposedFarby": "hnedá [1,4,14] | fialová [2,5,13] | bordová [3,11,15] | krémová [6,8,12] | oranžová [7,9,10]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Listy a papraď sú doplnky; samostatný zelený variant nie je doložený.",
+      "notes": "Päť farebných vyhotovení kytice. Pôvodné tri farby a ich rozsahy miešajú všetky varianty. Tieňovanie v rámci jednej kytice nie je samostatný variant.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 11,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 12,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 13,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 14,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 15,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuce_farebne_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "019",
+      "verdict": "yes_after_fix",
+      "confidence": 0.92,
+      "currentFarby": "bordová [1-3] | fialová [4-5] | zelená [2,6,7]",
+      "proposedFarby": "bordová [1,2,7] | olivová [2-4] | zelená [2,5,6]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": "Doplnková zeleň",
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Ide o dekoratívnu listovú halúzku. Zelené listy sú hlavným produktom, preto je zelená platný predajný variant.",
+      "notes": "Foto 2 obsahuje všetky tri vyhotovenia. Foto 3 a 4 sú tlmené olivové listy s fialovou žilnatinou, nie samostatný fialový variant. Foto 5 a 6 sú zelené, foto 7 bordové.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: bordová, olivová, zelená.",
+          "assignTo": [
+            "bordová",
+            "olivová",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: olivová.",
+          "assignTo": [
+            "olivová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: olivová.",
+          "assignTo": [
+            "olivová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "nespravny_nazov_farby",
+        "nespravna_subkategoria"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "020",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "broskyňová [1-8] | hnedá [5,6,9,10]",
+      "proposedFarby": "broskyňová [1,4-6] | oranžová [2,3,5,8] | hnedá [5,7,9,10]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Tri varianty bobúľ: svetlý broskyňový, stredný oranžový a tmavý hnedý. Foto 5 je spoločné pre všetky. Foto 6 je iba broskyňové, foto 7 hnedé.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Spoločný záber farebných vyhotovení: broskyňová, oranžová, hnedá.",
+          "assignTo": [
+            "broskyňová",
+            "oranžová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuci_farebny_variant"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "023",
+      "verdict": "yes_after_fix",
+      "confidence": 0.97,
+      "currentFarby": "broskyňová [1-5] | hnedá [1,2,6,7]",
+      "proposedFarby": "broskyňová [2-5] | hnedá [1,2,6,7]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Farebné listy tvoria samotný produkt; nejde o lístie pri samostatnom kvete.",
+      "notes": "Foto 1 je iba hnedé vyhotovenie. Spoločné je foto 2; ostatné zábery tvoria dvojice toho istého modelu.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: broskyňová, hnedá.",
+          "assignTo": [
+            "broskyňová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "026",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "oranžová [1-7] | biela [8-12] | béžová [13-16]",
+      "proposedFarby": "oranžová [1,4,10,11] | bordová [2,5,6,10] | béžová [3,7,10,13] | biela [8,10,12,16] | žltá [9,10,14,15]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": "Doplnková zeleň",
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Päť vyhotovení tej istej jemnej halúzky. Na samostatnej fotke 10 sú viditeľné všetky, aj biela za žltou. Bordová a žltá chýbajú v metadátach.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: béžová.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: béžová.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: žltá.",
+          "assignTo": [
+            "žltá"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, bordová, béžová, biela, žltá.",
+          "assignTo": [
+            "oranžová",
+            "bordová",
+            "béžová",
+            "biela",
+            "žltá"
+          ]
+        },
+        {
+          "photo": 11,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 12,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 13,
+          "is": "Záber vyhotovenia: béžová.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 14,
+          "is": "Záber vyhotovenia: žltá.",
+          "assignTo": [
+            "žltá"
+          ]
+        },
+        {
+          "photo": 15,
+          "is": "Záber vyhotovenia: žltá.",
+          "assignTo": [
+            "žltá"
+          ]
+        },
+        {
+          "photo": 16,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuce_farebne_varianty",
+        "nespravna_subkategoria"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "027",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "oranžová [1-7] | biela [8-12] | béžová [13-16]",
+      "proposedFarby": "oranžová [1,4,10,11] | bordová [2,5,6,10] | krémová [3,7,10,13] | biela [8,10,12,16] | hnedá [9,10,14,15]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Päť vyhotovení rovnakého typu listovej halúzky. Foto 10 je spoločné. Tmavé hnedé listy na 9, 14 a 15 nie sú béžové; svetlé 3, 7 a 13 sú samostatný krémový variant.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, bordová, krémová, biela, hnedá.",
+          "assignTo": [
+            "oranžová",
+            "bordová",
+            "krémová",
+            "biela",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 11,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 12,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 13,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 14,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 15,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 16,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuce_farebne_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "028",
+      "verdict": "yes_after_fix",
+      "confidence": 0.91,
+      "currentFarby": "bordová [1-3] | zlatá [4-5] | hnedá [6-7] | oranžová [8-9]",
+      "proposedFarby": "bordová [1,3,9] | oranžová [2,7,8] | hnedá [4-6]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": "Doplnková zeleň",
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Tri farebné varianty. Foto 4 až 6 zobrazuje to isté hnedé vyhotovenie so svetlejšími okrajmi; samostatný zlatý variant nie je doložený. Bez spoločného záberu.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "umelo_rozdelena_farba",
+        "nespravna_subkategoria"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "031",
+      "verdict": "yes",
+      "confidence": 0.98,
+      "currentFarby": "oranžová [1-4] | zelená [5-7]",
+      "proposedFarby": "oranžová [1-4] | zelená [5-7]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelené sú priamo okvetné lístky na 5 až 7; nejde iba o lístie.",
+      "notes": "Mapovanie je prijateľné. Foto 2 je spoločné, ale môže zostať priradené iba oranžovej, ako povoľuje zadanie. V galérii zelenej použiť samostatné foto 5 až 7.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber oranžového a zeleného kvetu; ponechaný iba pri oranžovej.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "032",
+      "verdict": "yes_after_fix",
+      "confidence": 0.98,
+      "currentFarby": "zelená [1-4] | ružová [5-8] | biela [9-10]",
+      "proposedFarby": "zelená [1,3,4,9] | ružová [5,7-9] | biela [2,6,9,10]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je skutočná farba kvetných hlavičiek na 1, 3 a 4.",
+      "notes": "Foto 2 a 6 sú biele, nie zelené alebo ružové. Foto 9 je spoločné pre všetky farby.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Spoločný záber farebných vyhotovení: zelená, ružová, biela.",
+          "assignTo": [
+            "zelená",
+            "ružová",
+            "biela"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "035",
+      "verdict": "yes_after_fix",
+      "confidence": 0.98,
+      "currentFarby": "hnedá [1-4] | krémová [5-8] | zelená [9-10]",
+      "proposedFarby": "hnedá [1,3,4,6] | krémová [5-8] | zelená [2,6,9,10]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelené sú okvetné lístky kvetov, takže ide o platný farebný variant.",
+      "notes": "Foto 2 je zelené vyhotovenie. Foto 6 obsahuje všetky farby; ostatné zábery jednoznačne tvoria tri skupiny.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Spoločný záber farebných vyhotovení: hnedá, krémová, zelená.",
+          "assignTo": [
+            "hnedá",
+            "krémová",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "036",
+      "verdict": "yes_after_fix",
+      "confidence": 0.98,
+      "currentFarby": "fialová [1-4] | krémová [3,5,6,7]",
+      "proposedFarby": "fialová [1,3,4,7] | krémová [2,3,5,6]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená patrí iba lístiu.",
+      "notes": "Foto 2 a 7 sú vo Farby priradené opačne. Spoločné foto 3 ponechať pri oboch variantoch.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: fialová, krémová.",
+          "assignTo": [
+            "fialová",
+            "krémová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: fialová.",
+          "assignTo": [
+            "fialová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "248",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "marhuľová [1-4] | biela [1,2,5,6,7]",
+      "proposedFarby": "marhuľová [1,2,4,6] | biela [1,3,5,7]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Lístie a drobné doplnky netvoria samostatný farebný variant.",
+      "notes": "Foto 1 je spoločné. Foto 2 je iba marhuľové, foto 3 iba biele a foto 6 marhuľové. Názov aj popis možno ponechať.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: marhuľová, biela.",
+          "assignTo": [
+            "marhuľová",
+            "biela"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: marhuľová.",
+          "assignTo": [
+            "marhuľová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: marhuľová.",
+          "assignTo": [
+            "marhuľová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: marhuľová.",
+          "assignTo": [
+            "marhuľová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "250",
+      "verdict": "yes_after_fix",
+      "confidence": 0.96,
+      "currentFarby": "tmavočervená [1-4] | krémová [1,5,6,7,8,9,10] | svetloružová [1,11,12,13]",
+      "proposedFarby": "tmavočervená [1,4,9,11] | krémová [1,2,7,12] | broskyňová [1,5,8,10] | svetloružová [1,3,6,13]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Štyri farebné varianty. Broskyňové hlavičky na 5, 8 a 10 sú zreteľne odlíšené od krémových. Foto 1 je spoločné pre všetky.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: tmavočervená, krémová, broskyňová, svetloružová.",
+          "assignTo": [
+            "tmavočervená",
+            "krémová",
+            "broskyňová",
+            "svetloružová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: svetloružová.",
+          "assignTo": [
+            "svetloružová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: tmavočervená.",
+          "assignTo": [
+            "tmavočervená"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Záber vyhotovenia: svetloružová.",
+          "assignTo": [
+            "svetloružová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Záber vyhotovenia: tmavočervená.",
+          "assignTo": [
+            "tmavočervená"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Záber vyhotovenia: broskyňová.",
+          "assignTo": [
+            "broskyňová"
+          ]
+        },
+        {
+          "photo": 11,
+          "is": "Záber vyhotovenia: tmavočervená.",
+          "assignTo": [
+            "tmavočervená"
+          ]
+        },
+        {
+          "photo": 12,
+          "is": "Záber vyhotovenia: krémová.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 13,
+          "is": "Záber vyhotovenia: svetloružová.",
+          "assignTo": [
+            "svetloružová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravne_priradenie_fotiek",
+        "chybajuci_farebny_variant"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "254",
+      "verdict": "needs_human",
+      "confidence": 0.66,
+      "currentFarby": "modrá [1-2] | fialová [1,3] | ružová [1] | krémová [1] | žltá [1]",
+      "proposedFarby": null,
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": "Umelá ruža s rozkvitnutými kvetmi, púčikmi a listami na dlhej stonke. Vhodná do váz aj na skladanie kytíc.",
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": null,
+      "colorVariantCountNote": "Najmenej osem vizuálne odlíšiteľných farebných skupín; presný počet predajných variantov treba potvrdiť.",
+      "greenAssessment": "Na spoločnom zábere sú aj svetlozelené kvety, nielen listy. Ich samostatný variant treba potvrdiť.",
+      "notes": "Foto 1 obsahuje viac vyhotovení než uvedených päť. Okrem modrej a fialovej vidno žlté, krémové, zelené, červené a rôzne ružové až marhuľové kvety. Presný počet samostatných variantov nemožno spoľahlivo odvodiť z prekrývajúcich sa stoniek. Foto 2 potvrdzuje modrú, foto 3 fialovú. Neimportovať iba päť pôvodných variantov ani nevytvárať nové SKU odhadom.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločná fotografia mnohých farieb; assignTo je orientačný vizuálny zoznam, nie schválené predajné varianty.",
+          "assignTo": [
+            "modrá",
+            "fialová",
+            "ružová",
+            "krémová",
+            "žltá",
+            "zelená",
+            "červená",
+            "marhuľová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Samostatná modrá stopka.",
+          "assignTo": [
+            "modrá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Samostatná tmavofialová stopka.",
+          "assignTo": [
+            "fialová"
+          ]
+        }
+      ],
+      "issues": [
+        "neuplny_zoznam_farieb",
+        "chybaju_samostatne_fotky_variantov",
+        "farba_v_popise"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Pošlite zoznam predajných farieb/SKU a samostatný záber každej stopky zo spoločnej fotky 1."
+    },
+    {
+      "id": "048",
+      "verdict": "yes_after_fix",
+      "confidence": 0.87,
+      "currentFarby": "strieborná [1-2] | hnedá [2-5] | biela [5]",
+      "proposedFarby": "biela [1-2] | hnedá [2-5]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": "Prírodné šišky vhodné na vence, aranžmány a sezónnu výzdobu. V ponuke aj s povrchovou úpravou.",
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Na foto 1 a 2 je svetlý náter bez jasného kovového lesku, preto odporúčam biela. Foto 5 je hnedá šiška, nie ďalší biely variant. Rozdiely v otvorení a veľkosti šupín nepreukazujú odlišné SKU.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: biela, hnedá.",
+          "assignTo": [
+            "biela",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravny_nazov_farby",
+        "neexistujuci_farebny_variant"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "050",
+      "verdict": "yes",
+      "confidence": 0.84,
+      "currentFarby": "krémová [1] | okrová [1] | oranžová [2] | hrdzavá [2-3] | biela [3]",
+      "proposedFarby": "krémová [1] | okrová [1] | oranžová [2] | hrdzavá [2-3] | biela [3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Mapovanie zodpovedá fotografiám: krémová a okrová na 1, oranžová a hrdzavá na 2, hrdzavá a biela na 3. Okrová pôsobí tlmenejšie než oranžová; nie je dôvod zlúčiť ich iba podľa podobnosti. Spoločné zábery môžu zostať pri oboch viditeľných farbách.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: krémová, okrová.",
+          "assignTo": [
+            "krémová",
+            "okrová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, hrdzavá.",
+          "assignTo": [
+            "oranžová",
+            "hrdzavá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: hrdzavá, biela.",
+          "assignTo": [
+            "hrdzavá",
+            "biela"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "064",
+      "verdict": "yes",
+      "confidence": 0.97,
+      "currentFarby": "svetlosivá [1] | tmavosivá [1]",
+      "proposedFarby": "svetlosivá [1] | tmavosivá [1]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Na fotografii sú srdiečka rovnakého tvaru a motívu holubice s ružami v dvoch povrchových vyhotoveniach. Okolité ruže a nádoba sú rekvizity, nepridávať ich ako produkty ani varianty.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Dve srdiečka na zápichu: svetlosivé a tmavosivé so zvýrazneným reliéfom. Ostatné predmety sú rekvizity.",
+          "assignTo": [
+            "svetlosivá",
+            "tmavosivá"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "160",
+      "verdict": "no_split_needed",
+      "confidence": 0.98,
+      "currentFarby": "bronzová [1-2] | čierna [2-6] | zlatá [2,7,8] | biela [2,9,10]",
+      "proposedFarby": "bronzová [1-2] | čierna [2-6] | zlatá [2,7,8] | biela [2,9,10]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Najmenej tri modely. Samotný výber farby neurčuje dodaný výrobok.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Farby sú vizuálne priradené použiteľne, ale galéria mieša konštrukčne odlišné lampáše a svetelné zdroje. Rozdeliť minimálne na okrúhly model, hranatý model so svetelnou reťazou a hranatý model s LED sviečkou. Foto 2 je spoločný záber všetkých; po rozdelení nemá byť hlavnou fotkou žiadneho samostatného modelu.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Okrúhly bronzový lampáš s LED sviečkou.",
+          "assignTo": [
+            "bronzová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber rôznych modelov a farieb.",
+          "assignTo": [
+            "bronzová",
+            "čierna",
+            "zlatá",
+            "biela"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Čierny hranatý model bez krížovej mriežky so svetelnou reťazou.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Ten istý čierny model so svetelnou reťazou, položený nabok.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Čierny hranatý model s krížovou mriežkou a LED sviečkou.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Čierny model s krížovou mriežkou, položený nabok.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Patinované zlaté vyhotovenie so sviečkou.",
+          "assignTo": [
+            "zlatá"
+          ]
+        },
+        {
+          "photo": 8,
+          "is": "Patinované zlaté vyhotovenie, pohľad na strechu a vnútro.",
+          "assignTo": [
+            "zlatá"
+          ]
+        },
+        {
+          "photo": 9,
+          "is": "Biele vyhotovenie s krížovou mriežkou a sviečkou.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 10,
+          "is": "Biele vyhotovenie, položené nabok.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "viac_modelov_v_jednom_produkte",
+        "rozne_svetelne_zdroje"
+      ],
+      "splitPlan": [
+        {
+          "model": "Okrúhly lampáš s LED sviečkou",
+          "sourcePhotos": [
+            1,
+            2
+          ],
+          "farbyVZdrojovejGalerii": "bronzová [1-2]"
+        },
+        {
+          "model": "Hranatý lampáš so svetelnou reťazou",
+          "sourcePhotos": [
+            2,
+            3,
+            4
+          ],
+          "farbyVZdrojovejGalerii": "čierna [2-4]"
+        },
+        {
+          "model": "Hranatý lampáš s LED sviečkou",
+          "sourcePhotos": [
+            2,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "farbyVZdrojovejGalerii": "čierna [2,5,6] | zlatá [2,7,8] | biela [2,9,10]"
+        }
+      ],
+      "humanQuestion": null
+    },
+    {
+      "id": "161",
+      "verdict": "yes",
+      "confidence": 0.96,
+      "currentFarby": "čierna [1-2] | medená [1,3] | biela [1,4]",
+      "proposedFarby": "čierna [1-2] | medená [1,3] | biela [1,4]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Rovnaký hranatý typ s okennou mriežkou a LED sviečkou. Foto 1 správne patrí všetkým trom farbám; foto 2 až 4 jednotlivým variantom. Patina medeného rámu nie je ďalšia farba.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: čierna, medená, biela.",
+          "assignTo": [
+            "čierna",
+            "medená",
+            "biela"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: čierna.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: medená.",
+          "assignTo": [
+            "medená"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "165",
+      "verdict": "no_split_needed",
+      "confidence": 0.98,
+      "currentFarby": "čierna [1-2] | biela [1,3]",
+      "proposedFarby": "čierna [1-2] | biela [1,3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Dva modely s odlišnou strechou aj motívom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Čierny model má špicatú striešku a motív vážky. Biely má kupolovú striešku a motív vtáka pri kvetoch. Nie sú to iba dve farby totožného modelu. Rozdeliť na samostatné produkty, prípadne zaviesť skutočný variant modelu mimo poľa Farby.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber dvoch modelov, nie iba farebných variantov.",
+          "assignTo": [
+            "čierna",
+            "biela"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Čierny model so špicatou strechou a vážkou.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Biely model s kupolou a vtáčím motívom.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "viac_modelov_v_jednom_produkte",
+        "odlisny_dekor"
+      ],
+      "splitPlan": [
+        {
+          "model": "LED lampáš s motívom vážky",
+          "sourcePhotos": [
+            1,
+            2
+          ],
+          "farbyVZdrojovejGalerii": "čierna [1-2]"
+        },
+        {
+          "model": "LED lampáš s motívom vtáka",
+          "sourcePhotos": [
+            1,
+            3
+          ],
+          "farbyVZdrojovejGalerii": "biela [1,3]"
+        }
+      ],
+      "humanQuestion": null
+    },
+    {
+      "id": "170",
+      "verdict": "no_split_needed",
+      "confidence": 0.99,
+      "currentFarby": "čierna [1-3] | strieborná [1,4]",
+      "proposedFarby": "čierna [1-3] | strieborná [1,4]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Tri modely lampášov v dvoch farebných rodinách.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Na foto 2, 3 a 4 sú tri odlišné konštrukcie. Dva čierne modely nemožno vyberať jedinou hodnotou čierna. Rozdeliť podľa modelu; spoločné foto 1 použiť nanajvýš ako doplnkový prehľad.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber troch odlišných modelov.",
+          "assignTo": [
+            "čierna",
+            "strieborná"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Čierny zdobený model s oblúkovými oknami.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Čierny hranatý model s ornamentálnou mriežkou.",
+          "assignTo": [
+            "čierna"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Patinovaný strieborný hranatý model s obdĺžnikovou mriežkou.",
+          "assignTo": [
+            "strieborná"
+          ]
+        }
+      ],
+      "issues": [
+        "viac_modelov_v_jednom_produkte"
+      ],
+      "splitPlan": [
+        {
+          "model": "LED lampáš s oblúkovými oknami",
+          "sourcePhotos": [
+            1,
+            2
+          ],
+          "farbyVZdrojovejGalerii": "čierna [1-2]"
+        },
+        {
+          "model": "LED lampáš s ornamentálnou mriežkou",
+          "sourcePhotos": [
+            1,
+            3
+          ],
+          "farbyVZdrojovejGalerii": "čierna [1,3]"
+        },
+        {
+          "model": "LED lampáš s obdĺžnikovou mriežkou",
+          "sourcePhotos": [
+            1,
+            4
+          ],
+          "farbyVZdrojovejGalerii": "strieborná [1,4]"
+        }
+      ],
+      "humanQuestion": null
+    },
+    {
+      "id": "245",
+      "verdict": "yes_after_fix",
+      "confidence": 0.98,
+      "currentFarby": "hnedá [1-3] | fialová [1-3]",
+      "proposedFarby": "hnedá [1-3]",
+      "farbyChanged": true,
+      "proposedName": "Umelá kytica pivónie",
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model a jedno farebné vyhotovenie.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je lístie a výplň, nie ďalší variant.",
+      "notes": "Všetky fotografie zobrazujú rovnakú hnedú kyticu. Fialové sú iba drobné doplnky v nej, nie druhá samostatná kytica. Odstrániť fialový variant aj zavádzajúcu dvojicu farieb v názve.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "doplnok_zameneny_za_variant",
+        "zavadzajuci_nazov"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "246",
+      "verdict": "yes_after_fix",
+      "confidence": 0.94,
+      "currentFarby": "krémová [1-3] | zelená [1-3]",
+      "proposedFarby": "mix [1-3]",
+      "farbyChanged": true,
+      "proposedName": "Umelá kytica pivónie",
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model a jedno kombinované farebné vyhotovenie.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelené sú aj samotné kvety, nielen listy. Sú súčasťou tej istej kombinovanej kytice.",
+      "notes": "Kytica kombinuje krémové a zelené kvety v jednom vyhotovení. Nie je doložená oddelená celokrémová a celozelená kytica. Použiť jediný variant mix; v používateľskom označení možno spresniť krémovo-zelená, ale nevytvárať dve SKU.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: mix.",
+          "assignTo": [
+            "mix"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: mix.",
+          "assignTo": [
+            "mix"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: mix.",
+          "assignTo": [
+            "mix"
+          ]
+        }
+      ],
+      "issues": [
+        "farby_jedneho_vyrobku_zamenene_za_varianty",
+        "zavadzajuci_nazov"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "258",
+      "verdict": "yes",
+      "confidence": 0.98,
+      "currentFarby": "červená [1] | zelená [1-2] | modrá [1]",
+      "proposedFarby": "červená [1] | zelená [1-2] | modrá [1]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je farba rukoväti náradia, nie lístie.",
+      "notes": "Na foto 1 sú červené, zelené a modré nože rovnakého typu. Foto 2 je iba zelený nôž. Prekrytie skupinového záberu je správne.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: červená, zelená, modrá.",
+          "assignTo": [
+            "červená",
+            "zelená",
+            "modrá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "271",
+      "verdict": "yes",
+      "confidence": 0.96,
+      "currentFarby": "fuksiová [1-2] | fialová [1-2] | medená [1-2] | biela [1-2] | strieborná [1-2]",
+      "proposedFarby": "fuksiová [1-2] | fialová [1-2] | medená [1-2] | biela [1-2] | strieborná [1-2]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 5,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Obe fotografie ukazujú všetkých päť farieb drôtu. Spoločné zábery patria všetkým farbám; nejde o chybné prekrytie. Hrúbku, dĺžku ani balenie neodvodzovať z fotografie.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: fuksiová, fialová, medená, biela, strieborná.",
+          "assignTo": [
+            "fuksiová",
+            "fialová",
+            "medená",
+            "biela",
+            "strieborná"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: fuksiová, fialová, medená, biela, strieborná.",
+          "assignTo": [
+            "fuksiová",
+            "fialová",
+            "medená",
+            "biela",
+            "strieborná"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "122",
+      "verdict": "yes",
+      "confidence": 0.96,
+      "currentFarby": "oranžová [1-3] | modrá [1-3]",
+      "proposedFarby": "oranžová [1-3] | modrá [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Na všetkých fotografiách sú spolu oba farebné varianty rovnakého ryhovaného modelu. Oranžová je terakotovo ladená; názov farby možno ponechať. Spoločné priradenie je správne.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, modrá.",
+          "assignTo": [
+            "oranžová",
+            "modrá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, modrá.",
+          "assignTo": [
+            "oranžová",
+            "modrá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, modrá.",
+          "assignTo": [
+            "oranžová",
+            "modrá"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "123",
+      "verdict": "yes",
+      "confidence": 0.95,
+      "currentFarby": "hnedá [1-3] | biela [1-3]",
+      "proposedFarby": "hnedá [1-3] | biela [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Všetky tri fotografie ukazujú hnedé aj svetlo patinované vyhotovenie. Označenie biela pri svetlom variante je použiteľné; nejde o samostatný variant podľa odtieňa jednotlivých rebier.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: hnedá, biela.",
+          "assignTo": [
+            "hnedá",
+            "biela"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: hnedá, biela.",
+          "assignTo": [
+            "hnedá",
+            "biela"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: hnedá, biela.",
+          "assignTo": [
+            "hnedá",
+            "biela"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "125",
+      "verdict": "yes",
+      "confidence": 0.98,
+      "currentFarby": "biela [1-3] | zelená [1-3]",
+      "proposedFarby": "biela [1-3] | zelená [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je glazúra keramického obalu.",
+      "notes": "Rovnaký vlnovkový model v bielom a zelenom vyhotovení. Všetky fotografie obsahujú oba varianty, preto sú úplné prekryté rozsahy správne.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: biela, zelená.",
+          "assignTo": [
+            "biela",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: biela, zelená.",
+          "assignTo": [
+            "biela",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: biela, zelená.",
+          "assignTo": [
+            "biela",
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "126",
+      "verdict": "yes",
+      "confidence": 0.95,
+      "currentFarby": "krémová [1-3] | hnedá [1-3]",
+      "proposedFarby": "krémová [1-3] | hnedá [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Oba farebné varianty sú na všetkých záberoch. Zrnitá patina a svetlé rebrá nemenia počet variantov.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: krémová, hnedá.",
+          "assignTo": [
+            "krémová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: krémová, hnedá.",
+          "assignTo": [
+            "krémová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: krémová, hnedá.",
+          "assignTo": [
+            "krémová",
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "129",
+      "verdict": "yes",
+      "confidence": 0.98,
+      "currentFarby": "bordová [1-3] | zelená [1-3]",
+      "proposedFarby": "bordová [1-3] | zelená [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je povrch misky.",
+      "notes": "Obidve farebné vyhotovenia misky sú na každej fotografii. Nie je dôvod deliť model ani opravovať mapovanie.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: bordová, zelená.",
+          "assignTo": [
+            "bordová",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: bordová, zelená.",
+          "assignTo": [
+            "bordová",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: bordová, zelená.",
+          "assignTo": [
+            "bordová",
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "132",
+      "verdict": "yes",
+      "confidence": 0.98,
+      "currentFarby": "biela [1-2] | staroružová [1,3] | bordová [1,4] | zelená [1,5]",
+      "proposedFarby": "biela [1-2] | staroružová [1,3] | bordová [1,4] | zelená [1,5]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je glazúra kvetináča.",
+      "notes": "Foto 1 je spoločné pre všetky štyri farby; foto 2 až 5 zodpovedajú uvedeným farbám. Mapovanie aj model sú v poriadku.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: biela, staroružová, bordová, zelená.",
+          "assignTo": [
+            "biela",
+            "staroružová",
+            "bordová",
+            "zelená"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: staroružová.",
+          "assignTo": [
+            "staroružová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "136",
+      "verdict": "yes_after_fix",
+      "confidence": 0.97,
+      "currentFarby": "biela [1-2] | zelená [1,3] | ružová [1,4] | bordová [1,5]",
+      "proposedFarby": "biela [1-2] | zelená [1,3] | ružová [1,4] | bordová [1,5]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": "Zaoblený keramický kvetináč s pravidelným reliéfnym bodkovým vzorom a hladkou zúženou spodnou časťou. Lesklá glazúra zvýrazňuje štruktúru povrchu.",
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je glazúra kvetináča.",
+      "notes": "Farebné mapovanie je správne. Popis však uvádza matný povrch, hoci na fotografiách sú výrazné lesklé odrazy. Telo je zaoblené, nie striktne valcovité.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: biela, zelená, ružová, bordová.",
+          "assignTo": [
+            "biela",
+            "zelená",
+            "ružová",
+            "bordová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: bordová.",
+          "assignTo": [
+            "bordová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravny_popis_povrchu"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "137",
+      "verdict": "yes",
+      "confidence": 0.97,
+      "currentFarby": "zelená [1-3] | krémová [1-3]",
+      "proposedFarby": "zelená [1-3] | krémová [1-3]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je glazúra kvetináča.",
+      "notes": "Na každom zábere sú oba farebné varianty rovnakého lesklého modelu. Mapovanie ponechať.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: zelená, krémová.",
+          "assignTo": [
+            "zelená",
+            "krémová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: zelená, krémová.",
+          "assignTo": [
+            "zelená",
+            "krémová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: zelená, krémová.",
+          "assignTo": [
+            "zelená",
+            "krémová"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "142",
+      "verdict": "yes",
+      "confidence": 0.96,
+      "currentFarby": "oranžová [1-2] | zelená [1,3] | ružová [1,4] | hnedá [1,5]",
+      "proposedFarby": "oranžová [1-2] | zelená [1,3] | ružová [1,4] | hnedá [1,5]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je glazúra kvetináča.",
+      "notes": "Foto 1 je spoločné a foto 2 až 5 správne ukazujú jednotlivé varianty. Tmavý variant na 5 je veľmi tmavohnedý; odlesky nevytvárajú strieborný variant.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: oranžová, zelená, ružová, hnedá.",
+          "assignTo": [
+            "oranžová",
+            "zelená",
+            "ružová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: oranžová.",
+          "assignTo": [
+            "oranžová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: zelená.",
+          "assignTo": [
+            "zelená"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "143",
+      "verdict": "yes",
+      "confidence": 0.95,
+      "currentFarby": "zlatá [1-3] | strieborná [1,3,4]",
+      "proposedFarby": "zlatá [1-3] | strieborná [1,3,4]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Spoločné sú foto 1 a 3, samostatná zlatá je 2 a strieborná 4. Rovnaký tvar a textúra, mapovanie je správne. Rozmery z perspektívy neodhadovať.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: zlatá, strieborná.",
+          "assignTo": [
+            "zlatá",
+            "strieborná"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: zlatá.",
+          "assignTo": [
+            "zlatá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: zlatá, strieborná.",
+          "assignTo": [
+            "zlatá",
+            "strieborná"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: strieborná.",
+          "assignTo": [
+            "strieborná"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "144",
+      "verdict": "no_split_needed",
+      "confidence": 0.98,
+      "currentFarby": "krémová [1-5] | béžová [1,6] | sivá [1,7]",
+      "proposedFarby": "krémová [1-4] | béžová [1,5,6] | modrosivá [1,7]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Najmenej štyri modely podľa reliéfu; spolu šesť viditeľných kombinácií modelu a farby.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": "Tri širšie farebné rodiny naprieč odlišnými modelmi; nejde o tri zameniteľné varianty jedného výrobku.",
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Galéria obsahuje najmenej štyri odlišné reliéfy. Foto 2 a 4 opakuje zvislý vlnovkový model; foto 3 je ornamentálny model; foto 5 a 7 majú kruhové oblúky; foto 6 má štvorcový vzor. Na foto 1 je navyše krémové vyhotovenie kruhových oblúkov bez samostatného detailu. Farebné mapovanie je iba vizuálny opis pôvodnej galérie, nie schválenie spoločného produktu. Rozdeliť podľa reliéfu, potom nastaviť farby a prečíslovať nové galérie.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Šesť obalov so štyrmi reliéfmi; spoločná fotografia modelov aj farieb.",
+          "assignTo": [
+            "krémová",
+            "béžová",
+            "modrosivá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Krémový obal so zvislými vlnovkami.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Krémový obal s ornamentálnym vzorom.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Opakovaný záber krémového modelu zo záberu 2.",
+          "assignTo": [
+            "krémová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Béžový obal s reliéfom kruhových oblúkov.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 6,
+          "is": "Béžový obal so štvorcovým vzorom.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 7,
+          "is": "Modrosivý obal s reliéfom kruhových oblúkov.",
+          "assignTo": [
+            "modrosivá"
+          ]
+        }
+      ],
+      "issues": [
+        "viac_modelov_v_jednom_produkte",
+        "nespravne_priradenie_fotiek",
+        "chybajuca_samostatna_fotka",
+        "opakovany_zaber_modelu"
+      ],
+      "splitPlan": [
+        {
+          "model": "Zvislý vlnovkový reliéf",
+          "sourcePhotos": [
+            1,
+            2,
+            4
+          ],
+          "farbyVZdrojovejGalerii": "krémová [1,2,4]"
+        },
+        {
+          "model": "Ornamentálny reliéf",
+          "sourcePhotos": [
+            1,
+            3
+          ],
+          "farbyVZdrojovejGalerii": "krémová [1,3]"
+        },
+        {
+          "model": "Reliéf kruhových oblúkov",
+          "sourcePhotos": [
+            1,
+            5,
+            7
+          ],
+          "farbyVZdrojovejGalerii": "krémová [1] | béžová [1,5] | modrosivá [1,7]"
+        },
+        {
+          "model": "Štvorcový reliéf",
+          "sourcePhotos": [
+            1,
+            6
+          ],
+          "farbyVZdrojovejGalerii": "béžová [1,6]"
+        }
+      ],
+      "humanQuestion": null
+    },
+    {
+      "id": "145",
+      "verdict": "yes_after_fix",
+      "confidence": 0.91,
+      "currentFarby": "ružová [1-2] | biela [1,3] | olivová [1,4,5] | béžová [1]",
+      "proposedFarby": "ružová [1-2] | biela [1,3] | béžová [1,4] | olivová [1,5]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 4,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Olivová je skutočné vyhotovenie keramiky, nie doplnok.",
+      "notes": "Štyri samostatné farebné varianty. Svetlý khaki-béžový obal na foto 4 je odlišný od tmavého olivového na 5; nesmú byť zlúčené pod olivová. Označenie béžová ponecháva existujúcu svetlú farebnú položku.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: ružová, biela, béžová, olivová.",
+          "assignTo": [
+            "ružová",
+            "biela",
+            "béžová",
+            "olivová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: ružová.",
+          "assignTo": [
+            "ružová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: biela.",
+          "assignTo": [
+            "biela"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: béžová.",
+          "assignTo": [
+            "béžová"
+          ]
+        },
+        {
+          "photo": 5,
+          "is": "Záber vyhotovenia: olivová.",
+          "assignTo": [
+            "olivová"
+          ]
+        }
+      ],
+      "issues": [
+        "zlucene_farebne_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "147",
+      "verdict": "yes_after_fix",
+      "confidence": 0.93,
+      "currentFarby": "zelená [1-3] | béžová [1-4] | hnedá [1,4]",
+      "proposedFarby": "zelená [1-4] | béžová [1-4] | hnedá [1-4]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Zelená je základná glazúra, reliéf je zvýraznený iným odtieňom.",
+      "notes": "Každá fotografia obsahuje všetky tri vyhotovenia rovnakého ornamentálneho modelu. Svetlé béžové, hnedé aj zelené sú iba premiestňované. Doplniť chýbajúce priradenia; farby ponechať.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: zelená, béžová, hnedá.",
+          "assignTo": [
+            "zelená",
+            "béžová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: zelená, béžová, hnedá.",
+          "assignTo": [
+            "zelená",
+            "béžová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Spoločný záber farebných vyhotovení: zelená, béžová, hnedá.",
+          "assignTo": [
+            "zelená",
+            "béžová",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Spoločný záber farebných vyhotovení: zelená, béžová, hnedá.",
+          "assignTo": [
+            "zelená",
+            "béžová",
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "neuplne_priradenie_spolocnych_fotiek"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "151",
+      "verdict": "yes",
+      "confidence": 0.95,
+      "currentFarby": "tmavomodrá [1-2] | horčicová [1,3] | tmavozelená [1,4]",
+      "proposedFarby": "tmavomodrá [1-2] | horčicová [1,3] | tmavozelená [1,4]",
+      "farbyChanged": false,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Tmavozelená je glazúra kvetináča, nie dekorácia.",
+      "notes": "Foto 1 ukazuje tri varianty, ďalšie fotografie jednotlivé farby v správnom poradí. Rovnaký zaoblený model. Podobnosť s 152 sama osebe nestačí na zlúčenie produktov; môžu sa líšiť rozmermi.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: tmavomodrá, horčicová, tmavozelená.",
+          "assignTo": [
+            "tmavomodrá",
+            "horčicová",
+            "tmavozelená"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: tmavomodrá.",
+          "assignTo": [
+            "tmavomodrá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: horčicová.",
+          "assignTo": [
+            "horčicová"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: tmavozelená.",
+          "assignTo": [
+            "tmavozelená"
+          ]
+        }
+      ],
+      "issues": [],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "152",
+      "verdict": "yes_after_fix",
+      "confidence": 0.92,
+      "currentFarby": "zlatá [1-2] | tmavomodrá [1,3] | petrolejová [1,4]",
+      "proposedFarby": "horčicová [1-2] | tmavomodrá [1,3] | petrolejová [1,4]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 3,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Rozsahy sú správne. Foto 2 má horčicovú glazúru s tmavými priehlbinami, nie kovový zlatý povrch; zjednotiť označenie s vizuálne rovnakým odtieňom pri 151. Podobné modely 151 a 152 automaticky nezlučovať bez rozmerov.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Spoločný záber farebných vyhotovení: horčicová, tmavomodrá, petrolejová.",
+          "assignTo": [
+            "horčicová",
+            "tmavomodrá",
+            "petrolejová"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Záber vyhotovenia: horčicová.",
+          "assignTo": [
+            "horčicová"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: tmavomodrá.",
+          "assignTo": [
+            "tmavomodrá"
+          ]
+        },
+        {
+          "photo": 4,
+          "is": "Záber vyhotovenia: petrolejová.",
+          "assignTo": [
+            "petrolejová"
+          ]
+        }
+      ],
+      "issues": [
+        "nespravny_nazov_farby"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "153",
+      "verdict": "needs_human",
+      "confidence": 0.73,
+      "currentFarby": "oranžová [1-3] | sivá [1-3]",
+      "proposedFarby": "mix [1-3]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden dizajn a jedno kombinované farebné vyhotovenie, ale najmenej dve veľkosti.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Oranžová a sivomodrá tvoria glazúru toho istého obalu. Dve farby v metadátach nesmú vytvoriť dve farebné SKU. Foto 1 však ukazuje väčší a menší obal, foto 2 menší a foto 3 väčší. Treba rozhodnúť, či sa predáva sada alebo rozmerové varianty.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Väčší a menší obal s rovnakou kombinovanou glazúrou.",
+          "assignTo": [
+            "mix"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Menší obal, glazúra kombinuje oranžovú a sivomodrú.",
+          "assignTo": [
+            "mix"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Väčší obal s rovnakým farebným vyhotovením.",
+          "assignTo": [
+            "mix"
+          ]
+        }
+      ],
+      "issues": [
+        "farby_jedneho_vyrobku_zamenene_za_varianty",
+        "nejasna_predajna_jednotka",
+        "rozmerove_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Predáva sa sada oboch veľkostí, alebo každá veľkosť samostatne? Doplňte rozmery a príslušné SKU."
+    },
+    {
+      "id": "196",
+      "verdict": "yes_after_fix",
+      "confidence": 0.99,
+      "currentFarby": "šedá [1-2] | hnedá [2-3]",
+      "proposedFarby": "sivá [1-2] | hnedá [2-3]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model produktu; farebné vyhotovenia zostávajú pod jedným produktom.",
+      "realColorVariantCount": 2,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Vizuálne mapovanie je správne. Normalizovať názov farby šedá na sivá. Foto 2 patrí obom variantom.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Záber vyhotovenia: sivá.",
+          "assignTo": [
+            "sivá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Spoločný záber farebných vyhotovení: sivá, hnedá.",
+          "assignTo": [
+            "sivá",
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 3,
+          "is": "Záber vyhotovenia: hnedá.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "normalizacia_nazvu_farby"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "228",
+      "verdict": "needs_human",
+      "confidence": 0.71,
+      "currentFarby": "hnedá [1-2] | sivá [1-2]",
+      "proposedFarby": "hnedá [1-2]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden drevený dizajn v prírodnom hnedom vyhotovení, viac veľkostí.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Sivý dojem na foto 2 vzniká najmä pohľadom dovnútra a cez fóliu. Nie je doložený samostatný sivý farebný variant. Fotografie ukazujú odlišné veľkosti srdcového obalu; z galérie nie je jasné, či ide o sadu alebo samostatné položky.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Bočný pohľad na drevené srdcia rôznych veľkostí.",
+          "assignTo": [
+            "hnedá"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Vnorené srdcové obaly, pohľad na fóliu a vnútro; nie dôkaz sivej farebnej alternatívy.",
+          "assignTo": [
+            "hnedá"
+          ]
+        }
+      ],
+      "issues": [
+        "material_zameneny_za_variant",
+        "nejasna_predajna_jednotka",
+        "rozmerove_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Sú srdcia predávané ako sada alebo jednotlivo podľa rozmeru? Potvrďte tiež, či mimo týchto záberov existuje samostatný sivý variant."
+    },
+    {
+      "id": "230",
+      "verdict": "needs_human",
+      "confidence": 0.73,
+      "currentFarby": "hnedá [1-2] | krémová [1-2]",
+      "proposedFarby": "prírodná [1-2]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden typ košíka a jedno prírodné farebné vyhotovenie, dve veľkosti.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Svetlý pletený lem aj tmavšie vetvičky patria tomu istému košíku. Nejde o hnedý a krémový predajný variant. Viditeľné sú dve veľkosti; potvrdiť predajnú jednotku pred importom.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Bočný pohľad na košíky z vetvičiek so svetlým lemom.",
+          "assignTo": [
+            "prírodná"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Pohľad zhora na dve veľkosti s fóliou; svetlý lem je súčasť výrobku.",
+          "assignTo": [
+            "prírodná"
+          ]
+        }
+      ],
+      "issues": [
+        "farby_casti_vyrobku_zamenene_za_varianty",
+        "nejasna_predajna_jednotka",
+        "rozmerove_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Predáva sa sada dvoch košíkov alebo veľkosti samostatne? Doplňte rozmery/SKU."
+    },
+    {
+      "id": "239",
+      "verdict": "needs_human",
+      "confidence": 0.74,
+      "currentFarby": "hnedá [1-2] | krémová [1-2]",
+      "proposedFarby": "prírodná [1-2]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden dizajn srdcového košíka, jedno prírodné farebné vyhotovenie a viac veľkostí.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Hnedá kôra a krémový pletený lem sú na každej nádobe súčasne. Nie sú to samostatné farby produktu. Zábery ukazujú srdcia rôznych veľkostí; treba potvrdiť, či sa predávajú spolu alebo jednotlivo.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Pohľad zhora do sŕdc, viditeľné svetlé lemy a fólia.",
+          "assignTo": [
+            "prírodná"
+          ]
+        },
+        {
+          "photo": 2,
+          "is": "Bočný pohľad na tie isté typy sŕdc s tmavou kôrou a svetlým lemom.",
+          "assignTo": [
+            "prírodná"
+          ]
+        }
+      ],
+      "issues": [
+        "farby_casti_vyrobku_zamenene_za_varianty",
+        "nejasna_predajna_jednotka",
+        "rozmerove_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Ide o sadu sŕdc alebo o samostatné rozmerové SKU? Uveďte rozmery a predajnú jednotku."
+    },
+    {
+      "id": "268",
+      "verdict": "yes_after_fix",
+      "confidence": 0.97,
+      "currentFarby": "biela [1] | hnedá [1]",
+      "proposedFarby": "biela [1]",
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden model a jedno farebné vyhotovenie držiaka.",
+      "realColorVariantCount": 1,
+      "colorVariantCountNote": null,
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Biela je farba plastového držiaka, hnedá je vložená aranžovacia hmota. Fotografia neukazuje samostatný hnedý držiak. Vytvoriť iba jeden farebný variant; počet kusov v balení z fotografie nepreberať.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Balené biele držiaky s vloženou hnedou hmotou; farby patria rôznym častiam jedného výrobku.",
+          "assignTo": [
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "material_zameneny_za_variant"
+      ],
+      "splitPlan": [],
+      "humanQuestion": null
+    },
+    {
+      "id": "270",
+      "verdict": "needs_human",
+      "confidence": 0.68,
+      "currentFarby": "čierna [1] | biela [1]",
+      "proposedFarby": null,
+      "farbyChanged": true,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "productStructure": "Jeden typ motýľa; nejasné, či ide o farebné varianty alebo spoločný mix.",
+      "realColorVariantCount": null,
+      "colorVariantCountNote": "Dve viditeľné farby, ale počet predajných farebných možností môže byť jedna alebo dve.",
+      "greenAssessment": "Nevzťahuje sa; zelená nie je navrhnutá ako samostatný variant kvetu.",
+      "notes": "Viditeľné sú čierne a biele motýle rovnakého typu. Sú však pri spoločnom balení a etiketa uvádza obe farby. Bez potvrdenia predajnej jednotky nemožno rozhodnúť medzi dvoma voliteľnými farbami a jediným zmiešaným balením.",
+      "photoNotes": [
+        {
+          "photo": 1,
+          "is": "Čierne aj biele motýle pri spoločnom obale; assignTo opisuje viditeľné farby, nie potvrdené predajné varianty.",
+          "assignTo": [
+            "čierna",
+            "biela"
+          ]
+        }
+      ],
+      "issues": [
+        "nejasna_predajna_jednotka",
+        "nepotvrdene_samostatne_farebne_varianty"
+      ],
+      "splitPlan": [],
+      "humanQuestion": "Môže zákazník zvoliť samostatne čierne alebo biele balenie, alebo kupuje spoločný mix? Pri samostatných farbách ponechať pôvodné Farby, pri mixe použiť mix [1]."
+    }
+  ]
+}

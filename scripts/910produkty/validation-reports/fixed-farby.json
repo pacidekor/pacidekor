@@ -1,0 +1,68 @@
+[
+  {
+    "id": "001",
+    "oldFarby": "biela [1] | zelená [2-6]",
+    "newFarby": "biela [1-3] | zelená [4-6]",
+    "note": "reverted after pixel check: 1-3 cream, 4-6 sage green"
+  },
+  {
+    "id": "006",
+    "oldFarby": "prírodná [1-24]",
+    "newFarby": "bordová [1,9,17,18] | biela [2,15,19] | oranžová [3,8,11,12,14,23] | hnedá [4,10,13,20,21] | staroružová [5,7,16,22,24] | fialová [6,9,17]",
+    "note": "Rozdelené na 6 vintage odtieňov podľa spot sheetu (skupinové fotky zdieľané)."
+  },
+  {
+    "id": "008",
+    "oldFarby": "ružová [1-10] | oranžová [11-15] | krémová [16-21] | bordová [22]",
+    "newFarby": "krémová [6,8,13,16,18,21] | staroružová [1,7,9,12,17,19,22] | oranžová [1,3,4,5,10,14,20] | bordová [2,11,12,15]",
+    "note": "Opravené bloky farieb podľa skutočných odtieňov ruža-hortenzia 640."
+  },
+  {
+    "id": "011",
+    "oldFarby": "biela [1-5] | oranžová [6-10] | bordová [11-15] | hnedá [16-18]",
+    "newFarby": "biela [1,6,14] | tmavofialová [1,3,9,11,13] | staroružová [2,5,11] | oranžová [4,7,8,12,15,18] | hnedá [10,12,16,17]",
+    "note": "Nesprávne súvislé rozsahy 1–5/6–10 nahradené podľa spot sheetu GK032."
+  },
+  {
+    "id": "012",
+    "oldFarby": "zelená [1-3] | hnedá [3-7] | oranžová [3,8,9,10]",
+    "newFarby": "zelená [1,4,6,10] | oranžová [2,3,4,8] | bordová [4,5,7,9]",
+    "note": "Bez prekrývania na foto 3; skupinová 4 pre všetky tri odtiene."
+  },
+  {
+    "id": "131",
+    "oldFarby": "biela [1-2] | svetlomodrá [1,3] | béžová [1,4] | tmavozelená [1,5] | olivová [1,6]",
+    "newFarby": "biela [1-2] | svetlomodrá [1,3] | krémová [1,4] | tmavozelená [1,5] | svetlozelená [1,6]",
+    "note": "Skupinová 1 + jednotlivé varianty 2–6; krémová/svetlozelená namiesto béžová/olivová."
+  },
+  {
+    "id": "146",
+    "oldFarby": "červená [1-2] | bordová [1,3] | ružová [1,4,5] | zelená [1,6] | krémová [1,7] | biela [1]",
+    "newFarby": "biela [1,4] | červená [1-2] | vínová [1,3] | ružová [1,5] | zelená [1,6] | krémová [1,7]",
+    "note": "Skupinová 1 + fotky 2–7 podľa jednotlivých glazúr; opravené priradenie 3–7."
+  },
+  {
+    "id": "159",
+    "oldFarby": "biela [1-2] | čierna [2-3]",
+    "newFarby": "biela [1-2] | čierna [2-3]",
+    "note": "Foto 1 krémová, 2 obe farby, 3 čierna – nie biela na 3."
+  },
+  {
+    "id": "176",
+    "oldFarby": "biela [1-5] | červená [1,6] | zlatá [1] | žltá [1] | modrá [1]",
+    "newFarby": "strieborná [1-2] | žltá [1,3] | zlatá [1,4] | biela [1,5] | červená [1,6]",
+    "note": "5 SKU sprejov + skupinová 1; strieborná namiesto vymyslenej modrej."
+  },
+  {
+    "id": "241",
+    "oldFarby": "fialová [1-7] | ružová [1,8,9,10,11,12,13,14] | zelená [1,15,16,17,18,19,20,21] | hnedá [1,22,23,24,25,26,27,28]",
+    "newFarby": "biela [1,16,17,22] | zelená [1,12,20,21] | zeleno-ružová [1-4] | fialová [1,5,6,28] | modrá [7,8,27] | staroružová [9,10,26] | hnedá [11,13,23] | oranžová [14,15,25] | bordová [18,19,24]",
+    "note": "28 fotiek rozdelených na 9 odtieňov hortenzie podľa spot sheetu."
+  },
+  {
+    "id": "244",
+    "oldFarby": "biela [1-3] | zelená [1-3]",
+    "newFarby": "mix [1-3]",
+    "note": "Jedna kytica krémovo-zelená – zelená nie samostatný variant."
+  }
+]

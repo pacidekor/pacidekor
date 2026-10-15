@@ -1,0 +1,290 @@
+[
+  {
+    "id": 1,
+    "name": "Umelá kytica pivónie 267",
+    "description": "Bohato vrstvená kytica s realisticky pôsobiacimi kvetmi pivónie a doplnkovou zeleňou. Vhodná do vázy aj na ďalšie aranžovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      { "color": "biela", "photos": [1, 4, 5] },
+      { "color": "zelená", "photos": [2, 3, 6] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 2,
+    "name": "Umelá jesenná kytica dálie 139",
+    "description": "Bohatá kytica dálie v jesennom ladení s drobnými plodmi a listami. Skvelá na sezónne dekorácie interiéru.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "dália",
+    "groups": [
+      { "color": "krémová", "photos": [1, 2, 3, 5, 6] },
+      { "color": "hnedá", "photos": [1, 2, 4, 7] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 3,
+    "name": "Umelá kytica ruža mix GK028",
+    "description": "Bohatá kytica ruží s doplnkovou zeleňou a drobnými plodmi v prírodnom vintage vzhľade. Vhodná do váz aj na aranžovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      { "color": "bordová", "photos": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+      { "color": "broskyňová", "photos": [12] }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 4,
+    "name": "Umelá kytica ranunkulus 382",
+    "description": "Kytica s plnými kvetmi ranunkulusu, drobnou výplňou a listami. Vhodná ako samostatná dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ranunkulus",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2, 3, 5] },
+      { "color": "krémová", "photos": [1, 4, 6, 7] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 5,
+    "name": "Umelá kytica hrebíček 749",
+    "description": "Elegantná kytica s bohatými kvetmi a realistickou zeleňou. Vhodná do vázy aj ako súčasť aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "hrebíček",
+    "groups": [
+      { "color": "krémová", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 6,
+    "name": "Umelá kytica ruža mix GK029",
+    "description": "Bohatá kytica ruží vo vintage štýle s dekoratívnou zeleňou. Vhodná na trvácne aranžmány a interiérové dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+      }
+    ],
+    "confidence": 0.85,
+    "notes": "Jedna kytica s viacerými odtieňmi v jednom aranžmáne."
+  },
+  {
+    "id": 7,
+    "name": "Umelá kytica dálie 203",
+    "description": "Bohato kvitnúca kytica s realisticky spracovanými kvetmi dálie a zelenými listami. Vhodná do vázy aj do väčších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "dália",
+    "groups": [
+      { "color": "oranžová", "photos": [1, 2] },
+      { "color": "krémová", "photos": [3, 4, 9] },
+      { "color": "ružová", "photos": [5, 6, 7, 8] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 8,
+    "name": "Umelá kytica ruža a hortenzia 640",
+    "description": "Bohatá kytica kombinujúca ruže a hortenzie s dekoratívnym listím. Vhodná do vázy aj na zložitejšie aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža, hortenzia",
+    "groups": [
+      { "color": "ružová", "photos": [1, 2, 3, 4, 5, 11, 12, 13, 14, 15] },
+      { "color": "oranžová", "photos": [6, 7, 8, 9, 10] },
+      { "color": "krémová", "photos": [16, 17, 18, 19, 20, 21] },
+      { "color": "bordová", "photos": [22] }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 9,
+    "name": "Umelá ruža stopková GK020",
+    "description": "Elegantná ruža na dlhej stopke s detailnými kvetmi a listami. Ideálna do vysokých váz a spoločných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "groups": [
+      { "color": "oranžová", "photos": [1, 2, 3] },
+      { "color": "krémová", "photos": [4, 5, 6, 7] },
+      { "color": "hnedá", "photos": [8, 9, 10] },
+      { "color": "fialová", "photos": [11, 12, 13, 14, 15] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 10,
+    "name": "Umelá kytica ruža GK034",
+    "description": "Realisticky pôsobiaca kytica ruží s bohatou zeleňou a drobnými doplnkami. Skvelá voľba pre trvácne aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2, 3, 11, 12, 13, 14] },
+      { "color": "krémová", "photos": [4, 5, 6, 7, 8, 9, 10] },
+      { "color": "bordová", "photos": [15] }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 11,
+    "name": "Umelá kytica pivónie GK032",
+    "description": "Bohatá kytica pivónii s dekoračnou zeleňou a listami v sušenom vzhľade. Vhodná do vázy aj do väčších dekorácií.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      { "color": "biela", "photos": [1, 2, 3, 4, 13] },
+      { "color": "oranžová", "photos": [5, 6, 7, 8, 15] },
+      { "color": "bordová", "photos": [9, 10, 11, 12, 17] },
+      { "color": "hnedá", "photos": [14, 16, 18] }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 12,
+    "name": "Umelá zeleň Jucca 1845",
+    "description": "Realisticky pôsobiaca umelá zeleň s okrúhlymi listami vhodná do váz a dekoratívnych aranžmánov. Matný povrch pôsobí prirodzene.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnková zeleň",
+    "druh": "eukalyptus",
+    "groups": [
+      { "color": "zelená", "photos": [1, 2, 7] },
+      { "color": "hnedá", "photos": [3, 4, 5, 6, 7] },
+      { "color": "oranžová", "photos": [8, 9, 10, 7] }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 13,
+    "name": "Umelá kytica ruža GK026",
+    "description": "Elegantná kytica ruží s dekoračnou zeleňou v antickom vintage štýle. Ideálna do váz a kvetinových aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      { "color": "oranžová", "photos": [1, 2, 3, 4, 5, 16, 17, 18, 19, 20, 21] },
+      { "color": "bordová", "photos": [6, 7, 8, 9, 10, 11, 12, 13, 14, 15] }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 14,
+    "name": "Umelá protea stopková 589",
+    "description": "Detailne spracovaná kvetina s výrazným kvetom na dlhej členitej stonke. Vhodná do vysokých váz a dekoratívnych aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "protea",
+    "groups": [
+      { "color": "ružová", "photos": [1, 2, 7, 8, 9] },
+      { "color": "krémová", "photos": [3, 4, 5, 6, 10] }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 15,
+    "name": "Umelá kytica levanduľa",
+    "description": "Realistická kytica s husto osadenými kvetmi na dlhých stonkách. Vhodná ako samostatná dekorácia do vázy.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "levanduľa",
+    "groups": [
+      { "color": "biela", "photos": [1, 3, 4, 7] },
+      { "color": "krémová", "photos": [2, 5, 6] }
+    ],
+    "confidence": 0.88,
+    "notes": "Dávka Z 9.8.2026, priečinok bez názvu."
+  },
+  {
+    "id": 16,
+    "name": "Umelá dekoratívna halúzka s bobuľami",
+    "description": "Dekoratívna halúzka s drobnými plodmi vhodná do kytíc a aranžmánov. Prirodzený vzhľad vďaka kvalitnému spracovaniu.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "groups": [
+      { "color": "zelená", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 9.8.2026."
+  },
+  {
+    "id": 17,
+    "name": "Umelá halúzka s drobnými púčikmi",
+    "description": "Dekoratívna halúzka s hustými trsmi drobných púčikov a kontrastným olistením. Ideálna ako výplň do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "groups": [
+      { "color": "ružová", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.88,
+    "notes": "Dávka Z 9.8.2026."
+  },
+  {
+    "id": 18,
+    "name": "Umelá kytica ruží so zeleňou",
+    "description": "Kompaktná kytica ruží s bohatou zeleňou a dlhou stonkovou konštrukciou. Vhodná do vázy aj na aranžovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      { "color": "modrá", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.85,
+    "notes": "Dávka Z 9.8.2026. Kytica kombinuje viac odtieňov v jednom aranžmáne."
+  },
+  {
+    "id": 19,
+    "name": "Umelá halúzka so srdcovitými listami",
+    "description": "Realisticky spracovaná halúzka s bohatým olistením ideálna do váz a aranžmánov. Prirodzený vzhľad po dlhý čas.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "groups": [
+      { "color": "bordová", "photos": [1, 4, 7] },
+      { "color": "fialová", "photos": [2, 3] },
+      { "color": "zelená", "photos": [4, 5, 6] }
+    ],
+    "confidence": 0.86,
+    "notes": "Dávka Z 9.8.2026."
+  },
+  {
+    "id": 20,
+    "name": "Umelá vetvička s bobuľami",
+    "description": "Dekoratívna vetvička s drobnými lesklými bobuľami vhodná do kytíc a aranžmánov. Ohybná stonka umožňuje ľahké tvarovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "bobule",
+    "groups": [
+      { "color": "broskyňová", "photos": [1, 2, 5, 6, 7, 8, 9, 10] },
+      { "color": "hnedá", "photos": [3, 4, 7, 8] }
+    ],
+    "confidence": 0.88,
+    "notes": "Dávka Z 9.8.2026."
+  }
+]

@@ -1,0 +1,157 @@
+[
+  {
+    "id": 261,
+    "name": "Obojstranná montážna páska Fernanda Heavy Duty",
+    "description": "Silná obojstranná penová lepiaca páska určená na montáž obrazov a dekorácií na stenu.",
+    "category": "Aranž. materiál",
+    "subcategory": "Lepiace pásky",
+    "druh": "montážna páska",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 262,
+    "name": "Kovový aranžérsky klip",
+    "description": "Plochý kovový klip v tvare písmena V s výrezmi na koncoch na upevňovanie aranžmánov a dekorácií.",
+    "category": "Aranž. materiál",
+    "subcategory": "Držiaky a klipy",
+    "druh": "klip",
+    "groups": [{ "color": "strieborná", "photos": [1] }],
+    "confidence": 0.85,
+    "notes": ""
+  },
+  {
+    "id": 263,
+    "name": "Floristická páska guttaperča",
+    "description": "Pevná samolepiaca páska na ovíjanie stoniek a spevňovanie aranžmánov pri floristických prácach.",
+    "category": "Aranž. materiál",
+    "subcategory": "Floristické pásky",
+    "druh": "guttaperča",
+    "groups": [{ "color": "zelená", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 264,
+    "name": "Floristické lepidlo VICTORIA 50 ml",
+    "description": "Profesionálne lepidlo na aranžovanie živých aj umelých kvetov; po zaschnutí zostáva číre.",
+    "category": "Aranž. materiál",
+    "subcategory": "Lepidlá",
+    "druh": "floristické lepidlo",
+    "groups": [{ "color": "číra", "photos": [1] }],
+    "confidence": 0.94,
+    "notes": "Miriam Flowers / Victoria Floral Products."
+  },
+  {
+    "id": 265,
+    "name": "Sponky do zošívačky 24/6 YIZHIWANG",
+    "description": "Kovové sponky vhodné do ručnej kliešťovej zošívačky na spevňovanie materiálu pri aranžovaní.",
+    "category": "Aranž. materiál",
+    "subcategory": "Sponky",
+    "druh": "sponky 24/6",
+    "groups": [{ "color": "strieborná", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Model A-808."
+  },
+  {
+    "id": 266,
+    "name": "Kliešťová zošívačka",
+    "description": "Celokovová ručná zošívačka na rýchle a pevné spájanie materiálu pri dekorovaní a aranžovaní.",
+    "category": "Aranž. materiál",
+    "subcategory": "Zošívačky",
+    "druh": "kliešťová zošívačka",
+    "groups": [{ "color": "strieborná", "photos": [1] }],
+    "confidence": 0.94,
+    "notes": ""
+  },
+  {
+    "id": 267,
+    "name": "Plastový tŕň na sviečku do aranžovacej hmoty",
+    "description": "Floristický držiak s otvormi a štyrmi hrotmi na upevnenie sviečok do aranžovacej hmoty alebo vencových základov.",
+    "category": "Aranž. materiál",
+    "subcategory": "Floristické pomôcky",
+    "druh": "tŕň na sviečku",
+    "groups": [{ "color": "zelená", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 268,
+    "name": "Držiak na kyticu Victoria s aranžovacou hmotou",
+    "description": "Plastový držiak s klietkou a aranžovacou hmotou na tvorbu kytíc zo sušiny alebo umelých kvetov.",
+    "category": "Aranž. materiál",
+    "subcategory": "Držiaky na kytice",
+    "druh": "držiak s klietkou",
+    "groups": [
+      { "color": "biela", "photos": [1] },
+      { "color": "hnedá", "photos": [1] }
+    ],
+    "confidence": 0.91,
+    "notes": "Victoria Floral Products."
+  },
+  {
+    "id": 269,
+    "name": "Špendlíky s perleťovou hlavičkou flo-art",
+    "description": "Dekoratívne floristické špendlíky s okrúhlou perleťovou hlavičkou na aranžovanie a kreatívnu tvorbu.",
+    "category": "Aranž. materiál",
+    "subcategory": "Špendlíky",
+    "druh": "perleťové špendlíky",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 270,
+    "name": "Dekoračné motýle vyrezávané",
+    "description": "Ľahké dekoratívne motýle s jemne vyrezávanými krídlami vhodné na doplnenie aranžmánov a dekorácií.",
+    "category": "Aranž. materiál",
+    "subcategory": "Dekoračné prvky",
+    "druh": "motýl",
+    "groups": [
+      { "color": "čierna", "photos": [1] },
+      { "color": "biela", "photos": [1] }
+    ],
+    "confidence": 0.9,
+    "notes": "Balenie v priesvitnej krabičke."
+  },
+  {
+    "id": 271,
+    "name": "Dekoračný hliníkový drôt",
+    "description": "Metalický drôt na aranžovanie, ovíjanie stoniek a kreatívne dekorácie; kotúče jednotlivo balené fóliou.",
+    "category": "Aranž. materiál",
+    "subcategory": "Drôty",
+    "druh": "hliníkový drôt",
+    "groups": [
+      { "color": "fuksiová", "photos": [1, 2] },
+      { "color": "fialová", "photos": [1, 2] },
+      { "color": "medená", "photos": [1, 2] },
+      { "color": "biela", "photos": [1, 2] },
+      { "color": "strieborná", "photos": [1, 2] }
+    ],
+    "confidence": 0.94,
+    "notes": ""
+  },
+  {
+    "id": 272,
+    "name": "Dekoračný sprej Glanz-Silber AERO DESIGN",
+    "description": "Lesklý dekoračný sprej na povrchovú úpravu aranžérskeho materiálu a kreatívnych predmetov.",
+    "category": "Aranž. materiál",
+    "subcategory": "Spreje",
+    "druh": "dekoračný sprej",
+    "groups": [{ "color": "strieborná", "photos": [1] }],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 273,
+    "name": "Dekoračné kryštálové kamienky",
+    "description": "Priehľadné brúsené dekoračné kamienky do aranžmánov, sviečok a doplnkových dekorácií.",
+    "category": "Aranž. materiál",
+    "subcategory": "Výplne a kamienky",
+    "druh": "kryštály",
+    "groups": [{ "color": "číra", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": ""
+  }
+]

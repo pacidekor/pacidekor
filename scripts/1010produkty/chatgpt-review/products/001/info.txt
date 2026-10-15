@@ -1,0 +1,9 @@
+Názov: Kytica umelých pivoniek
+Popis: Bohatá kytica umelých pivoniek s viacvrstvovými kvetmi a realistickou zeleňou. Vhodná do vázy alebo ako súčasť aranžmánov.
+Farby: žltá [1,3,6,8] | ružová [2,4,8,9] | krémová [5,7,8,10]
+Druh: pivonka
+Kategória: Umelé kvety
+Subkategória: Kytice
+Zdrojová zložka: 1
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/1
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

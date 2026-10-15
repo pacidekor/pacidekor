@@ -1,0 +1,801 @@
+[
+  {
+    "id": "001",
+    "name": "Kytica umelých pivoniek",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "imageCount": 10,
+    "currentFarby": "žltá [1,3,6,8] | ružová [2,4,8,9] | krémová [5,7,8,10]",
+    "confidence": 0.95,
+    "draftNotes": "Tri farebné varianty; foto 8 je mix.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: žltá, ružová, krémová"
+      }
+    ],
+    "path": "products/001/",
+    "sheet": "products/001/_sheet.jpg",
+    "photos": [
+      "products/001/1.jpg",
+      "products/001/2.jpg",
+      "products/001/3.jpg",
+      "products/001/4.jpg",
+      "products/001/5.jpg",
+      "products/001/6.jpg",
+      "products/001/7.jpg",
+      "products/001/8.jpg",
+      "products/001/9.jpg",
+      "products/001/10.jpg"
+    ]
+  },
+  {
+    "id": "002",
+    "name": "Doplnková kytička drobných kvetov bielo-žltá",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "kytička",
+    "imageCount": 7,
+    "currentFarby": "biela [1,2,3,6] | žltá [1,4,5,7]",
+    "confidence": 0.92,
+    "draftNotes": "Rovnaký typ modelu ako 003 - zvážiť zlúčenie do jedného SKU s 4 farbami.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "Rovnaký typ modelu ako 003 - zvážiť zlúčenie do jedného SKU s 4 farbami."
+      }
+    ],
+    "path": "products/002/",
+    "sheet": "products/002/_sheet.jpg",
+    "photos": [
+      "products/002/1.jpg",
+      "products/002/2.jpg",
+      "products/002/3.jpg",
+      "products/002/4.jpg",
+      "products/002/5.jpg",
+      "products/002/6.jpg",
+      "products/002/7.jpg"
+    ]
+  },
+  {
+    "id": "003",
+    "name": "Doplnková kytička drobných kvetov ružovo-biela",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "kytička",
+    "imageCount": 7,
+    "currentFarby": "ružová [1,4,5,6] | biela [2,3,5,7]",
+    "confidence": 0.92,
+    "draftNotes": "Rovnaký typ modelu ako 002 - zvážiť zlúčenie.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "Rovnaký typ modelu ako 002 - zvážiť zlúčenie."
+      }
+    ],
+    "path": "products/003/",
+    "sheet": "products/003/_sheet.jpg",
+    "photos": [
+      "products/003/1.jpg",
+      "products/003/2.jpg",
+      "products/003/3.jpg",
+      "products/003/4.jpg",
+      "products/003/5.jpg",
+      "products/003/6.jpg",
+      "products/003/7.jpg"
+    ]
+  },
+  {
+    "id": "004",
+    "name": "Magnólia na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "magnólia",
+    "imageCount": 8,
+    "currentFarby": "ružová [1,2,5,7] | zelená [3,5,6] | lososová [4,5,8]",
+    "confidence": 0.95,
+    "draftNotes": "Tri farebné varianty; foto 5 je mix.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: ružová, zelená, lososová"
+      }
+    ],
+    "path": "products/004/",
+    "sheet": "products/004/_sheet.jpg",
+    "photos": [
+      "products/004/1.jpg",
+      "products/004/2.jpg",
+      "products/004/3.jpg",
+      "products/004/4.jpg",
+      "products/004/5.jpg",
+      "products/004/6.jpg",
+      "products/004/7.jpg",
+      "products/004/8.jpg"
+    ]
+  },
+  {
+    "id": "005",
+    "name": "Kytica umelých ruží",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "imageCount": 7,
+    "currentFarby": "krémová [1,2,3,4,6,7] | ružová [2,5,6]",
+    "confidence": 0.9,
+    "draftNotes": "Dve farebné varianty.",
+    "flags": [],
+    "path": "products/005/",
+    "sheet": "products/005/_sheet.jpg",
+    "photos": [
+      "products/005/1.jpg",
+      "products/005/2.jpg",
+      "products/005/3.jpg",
+      "products/005/4.jpg",
+      "products/005/5.jpg",
+      "products/005/6.jpg",
+      "products/005/7.jpg"
+    ]
+  },
+  {
+    "id": "006",
+    "name": "Kosatec na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kosatec",
+    "imageCount": 13,
+    "currentFarby": "biela [1,5,9,11] | modrá [2,5,8,10] | fialová [3,5,6,13] | žltá [4,5,7,12]",
+    "confidence": 0.96,
+    "draftNotes": "Štyri farebné varianty; foto 5 je mix.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: biela, modrá, fialová, žltá"
+      }
+    ],
+    "path": "products/006/",
+    "sheet": "products/006/_sheet.jpg",
+    "photos": [
+      "products/006/1.jpg",
+      "products/006/2.jpg",
+      "products/006/3.jpg",
+      "products/006/4.jpg",
+      "products/006/5.jpg",
+      "products/006/6.jpg",
+      "products/006/7.jpg",
+      "products/006/8.jpg",
+      "products/006/9.jpg",
+      "products/006/10.jpg",
+      "products/006/11.jpg",
+      "products/006/12.jpg",
+      "products/006/13.jpg"
+    ]
+  },
+  {
+    "id": "007",
+    "name": "Stračonôžka na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "stračonôžka",
+    "imageCount": 7,
+    "currentFarby": "oranžová [1,4,5,6] | krémová [2,3,5,7]",
+    "confidence": 0.93,
+    "draftNotes": "Dve farebné varianty; foto 5 je mix.",
+    "flags": [],
+    "path": "products/007/",
+    "sheet": "products/007/_sheet.jpg",
+    "photos": [
+      "products/007/1.jpg",
+      "products/007/2.jpg",
+      "products/007/3.jpg",
+      "products/007/4.jpg",
+      "products/007/5.jpg",
+      "products/007/6.jpg",
+      "products/007/7.jpg"
+    ]
+  },
+  {
+    "id": "008",
+    "name": "Orchidea cymbidium na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "orchidea",
+    "imageCount": 7,
+    "currentFarby": "ružová [1,2,5,7] | biela [1,3,4,6]",
+    "confidence": 0.95,
+    "draftNotes": "Dve farebné varianty; foto 1 je mix.",
+    "flags": [],
+    "path": "products/008/",
+    "sheet": "products/008/_sheet.jpg",
+    "photos": [
+      "products/008/1.jpg",
+      "products/008/2.jpg",
+      "products/008/3.jpg",
+      "products/008/4.jpg",
+      "products/008/5.jpg",
+      "products/008/6.jpg",
+      "products/008/7.jpg"
+    ]
+  },
+  {
+    "id": "009",
+    "name": "Echinacea na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "echinacea",
+    "imageCount": 13,
+    "currentFarby": "oranžová [1,5,8,13] | krémová [2,5,6,11] | biela [3,5,9,10] | zelenožltá [4,5,7,12]",
+    "confidence": 0.97,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: oranžová, krémová, biela, zelenožltá"
+      }
+    ],
+    "path": "products/009/",
+    "sheet": "products/009/_sheet.jpg",
+    "photos": [
+      "products/009/1.jpg",
+      "products/009/2.jpg",
+      "products/009/3.jpg",
+      "products/009/4.jpg",
+      "products/009/5.jpg",
+      "products/009/6.jpg",
+      "products/009/7.jpg",
+      "products/009/8.jpg",
+      "products/009/9.jpg",
+      "products/009/10.jpg",
+      "products/009/11.jpg",
+      "products/009/12.jpg",
+      "products/009/13.jpg"
+    ]
+  },
+  {
+    "id": "010",
+    "name": "Hortenzia na stonke krémová",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "hortenzia",
+    "imageCount": 3,
+    "currentFarby": "krémová [1-3]",
+    "confidence": 0.95,
+    "draftNotes": "Iný model ako 011 (iba krémová).",
+    "flags": [],
+    "path": "products/010/",
+    "sheet": "products/010/_sheet.jpg",
+    "photos": [
+      "products/010/1.jpg",
+      "products/010/2.jpg",
+      "products/010/3.jpg"
+    ]
+  },
+  {
+    "id": "011",
+    "name": "Hortenzia na stonke farebná",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "hortenzia",
+    "imageCount": 10,
+    "currentFarby": "biela [1,2,10] | modrá [1,3,6,9] | ružová [1,4,5,7,8]",
+    "confidence": 0.96,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: biela, modrá, ružová"
+      }
+    ],
+    "path": "products/011/",
+    "sheet": "products/011/_sheet.jpg",
+    "photos": [
+      "products/011/1.jpg",
+      "products/011/2.jpg",
+      "products/011/3.jpg",
+      "products/011/4.jpg",
+      "products/011/5.jpg",
+      "products/011/6.jpg",
+      "products/011/7.jpg",
+      "products/011/8.jpg",
+      "products/011/9.jpg",
+      "products/011/10.jpg"
+    ]
+  },
+  {
+    "id": "012",
+    "name": "Kytica pivoniek s papraďou",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "imageCount": 3,
+    "currentFarby": "biela [1-2] | krémová [2-3]",
+    "confidence": 0.9,
+    "draftNotes": "Iný model ako 001.",
+    "flags": [],
+    "path": "products/012/",
+    "sheet": "products/012/_sheet.jpg",
+    "photos": [
+      "products/012/1.jpg",
+      "products/012/2.jpg",
+      "products/012/3.jpg"
+    ]
+  },
+  {
+    "id": "013",
+    "name": "Kytica alstromérie",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "alstroméria",
+    "imageCount": 7,
+    "currentFarby": "ružová [1,2,4,7] | krémová [1,3,5,6]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/013/",
+    "sheet": "products/013/_sheet.jpg",
+    "photos": [
+      "products/013/1.jpg",
+      "products/013/2.jpg",
+      "products/013/3.jpg",
+      "products/013/4.jpg",
+      "products/013/5.jpg",
+      "products/013/6.jpg",
+      "products/013/7.jpg"
+    ]
+  },
+  {
+    "id": "014",
+    "name": "Kytica orchidey",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "orchidea",
+    "imageCount": 7,
+    "currentFarby": "biela [1,3,4,6] | ružová [1,2,5,7]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/014/",
+    "sheet": "products/014/_sheet.jpg",
+    "photos": [
+      "products/014/1.jpg",
+      "products/014/2.jpg",
+      "products/014/3.jpg",
+      "products/014/4.jpg",
+      "products/014/5.jpg",
+      "products/014/6.jpg",
+      "products/014/7.jpg"
+    ]
+  },
+  {
+    "id": "015",
+    "name": "Vetvička s bobuľami",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnky",
+    "druh": "bobule",
+    "imageCount": 7,
+    "currentFarby": "zelená [1,4,5,7] | ružová [2,3,5,6]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/015/",
+    "sheet": "products/015/_sheet.jpg",
+    "photos": [
+      "products/015/1.jpg",
+      "products/015/2.jpg",
+      "products/015/3.jpg",
+      "products/015/4.jpg",
+      "products/015/5.jpg",
+      "products/015/6.jpg",
+      "products/015/7.jpg"
+    ]
+  },
+  {
+    "id": "016",
+    "name": "Klinček na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "klinček",
+    "imageCount": 3,
+    "currentFarby": "krémová [1-3]",
+    "confidence": 0.93,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/016/",
+    "sheet": "products/016/_sheet.jpg",
+    "photos": [
+      "products/016/1.jpg",
+      "products/016/2.jpg",
+      "products/016/3.jpg"
+    ]
+  },
+  {
+    "id": "017",
+    "name": "Ruža na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "imageCount": 3,
+    "currentFarby": "biela [1-3]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/017/",
+    "sheet": "products/017/_sheet.jpg",
+    "photos": [
+      "products/017/1.jpg",
+      "products/017/2.jpg",
+      "products/017/3.jpg"
+    ]
+  },
+  {
+    "id": "018",
+    "name": "Žltá halúzka drobných kvetov",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "imageCount": 3,
+    "currentFarby": "žltá [1-3]",
+    "confidence": 0.9,
+    "draftNotes": "Pripomína akáciu/mimózu.",
+    "flags": [],
+    "path": "products/018/",
+    "sheet": "products/018/_sheet.jpg",
+    "photos": [
+      "products/018/1.jpg",
+      "products/018/2.jpg",
+      "products/018/3.jpg"
+    ]
+  },
+  {
+    "id": "019",
+    "name": "Kytica ruží a hortenzií",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "imageCount": 3,
+    "currentFarby": "staroružová [1-3]",
+    "confidence": 0.93,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/019/",
+    "sheet": "products/019/_sheet.jpg",
+    "photos": [
+      "products/019/1.jpg",
+      "products/019/2.jpg",
+      "products/019/3.jpg"
+    ]
+  },
+  {
+    "id": "020",
+    "name": "Kala na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kala",
+    "imageCount": 3,
+    "currentFarby": "biela [1-3]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/020/",
+    "sheet": "products/020/_sheet.jpg",
+    "photos": [
+      "products/020/1.jpg",
+      "products/020/2.jpg",
+      "products/020/3.jpg"
+    ]
+  },
+  {
+    "id": "021",
+    "name": "Kytica kál",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica kál",
+    "imageCount": 7,
+    "currentFarby": "biela [1,3,4,7] | krémová [2,5,6]",
+    "confidence": 0.88,
+    "draftNotes": "Rozdiel biela/krémová je jemný.",
+    "flags": [
+      {
+        "severity": "warn",
+        "reason": "nízka confidence 0.88"
+      }
+    ],
+    "path": "products/021/",
+    "sheet": "products/021/_sheet.jpg",
+    "photos": [
+      "products/021/1.jpg",
+      "products/021/2.jpg",
+      "products/021/3.jpg",
+      "products/021/4.jpg",
+      "products/021/5.jpg",
+      "products/021/6.jpg",
+      "products/021/7.jpg"
+    ]
+  },
+  {
+    "id": "022",
+    "name": "Viackvetá ruža na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "imageCount": 2,
+    "currentFarby": "biela [1-2]",
+    "confidence": 0.92,
+    "draftNotes": "Iný model ako 017.",
+    "flags": [],
+    "path": "products/022/",
+    "sheet": "products/022/_sheet.jpg",
+    "photos": [
+      "products/022/1.jpg",
+      "products/022/2.jpg"
+    ]
+  },
+  {
+    "id": "023",
+    "name": "Perovitá zeleň na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Listy",
+    "druh": "tráva",
+    "imageCount": 7,
+    "currentFarby": "krémová [1,2,5,6] | zelená [1,3,4,7]",
+    "confidence": 0.9,
+    "draftNotes": "Foto 1 ukazuje oba varianty.",
+    "flags": [],
+    "path": "products/023/",
+    "sheet": "products/023/_sheet.jpg",
+    "photos": [
+      "products/023/1.jpg",
+      "products/023/2.jpg",
+      "products/023/3.jpg",
+      "products/023/4.jpg",
+      "products/023/5.jpg",
+      "products/023/6.jpg",
+      "products/023/7.jpg"
+    ]
+  },
+  {
+    "id": "024",
+    "name": "Kotúč na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kotúč",
+    "imageCount": 3,
+    "currentFarby": "krémová [1-3]",
+    "confidence": 0.85,
+    "draftNotes": "Pripomína eryngium/kotúč.",
+    "flags": [
+      {
+        "severity": "warn",
+        "reason": "nízka confidence 0.85"
+      }
+    ],
+    "path": "products/024/",
+    "sheet": "products/024/_sheet.jpg",
+    "photos": [
+      "products/024/1.jpg",
+      "products/024/2.jpg",
+      "products/024/3.jpg"
+    ]
+  },
+  {
+    "id": "025",
+    "name": "Drobnokvet na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "drobnokvet",
+    "imageCount": 10,
+    "currentFarby": "ružová [1,7,8] | krémová [2,5,10] | lososová [3,6,9] | mix [4]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: ružová, krémová, lososová, mix"
+      }
+    ],
+    "path": "products/025/",
+    "sheet": "products/025/_sheet.jpg",
+    "photos": [
+      "products/025/1.jpg",
+      "products/025/2.jpg",
+      "products/025/3.jpg",
+      "products/025/4.jpg",
+      "products/025/5.jpg",
+      "products/025/6.jpg",
+      "products/025/7.jpg",
+      "products/025/8.jpg",
+      "products/025/9.jpg",
+      "products/025/10.jpg"
+    ]
+  },
+  {
+    "id": "026",
+    "name": "Veternica na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "veternica",
+    "imageCount": 10,
+    "currentFarby": "oranžová [1,6,8] | ružová [2,4,9] | žltá [3,5,10] | mix [7]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: oranžová, ružová, žltá, mix"
+      }
+    ],
+    "path": "products/026/",
+    "sheet": "products/026/_sheet.jpg",
+    "photos": [
+      "products/026/1.jpg",
+      "products/026/2.jpg",
+      "products/026/3.jpg",
+      "products/026/4.jpg",
+      "products/026/5.jpg",
+      "products/026/6.jpg",
+      "products/026/7.jpg",
+      "products/026/8.jpg",
+      "products/026/9.jpg",
+      "products/026/10.jpg"
+    ]
+  },
+  {
+    "id": "027",
+    "name": "Orchidea na stonke",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "orchidea",
+    "imageCount": 10,
+    "currentFarby": "biela [1,5,10] | ružová [2,7,8] | lososová [3,6,9] | mix [4]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: biela, ružová, lososová, mix"
+      }
+    ],
+    "path": "products/027/",
+    "sheet": "products/027/_sheet.jpg",
+    "photos": [
+      "products/027/1.jpg",
+      "products/027/2.jpg",
+      "products/027/3.jpg",
+      "products/027/4.jpg",
+      "products/027/5.jpg",
+      "products/027/6.jpg",
+      "products/027/7.jpg",
+      "products/027/8.jpg",
+      "products/027/9.jpg",
+      "products/027/10.jpg"
+    ]
+  },
+  {
+    "id": "028",
+    "name": "Kytica zelene s bielymi kvietkami",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "imageCount": 7,
+    "currentFarby": "mix [1-7]",
+    "confidence": 0.95,
+    "draftNotes": "Jeden model bez farebných variantov.",
+    "flags": [],
+    "path": "products/028/",
+    "sheet": "products/028/_sheet.jpg",
+    "photos": [
+      "products/028/1.jpg",
+      "products/028/2.jpg",
+      "products/028/3.jpg",
+      "products/028/4.jpg",
+      "products/028/5.jpg",
+      "products/028/6.jpg",
+      "products/028/7.jpg"
+    ]
+  },
+  {
+    "id": "029",
+    "name": "Kytica drobných fialových kvetov",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "imageCount": 3,
+    "currentFarby": "fialová [1-3]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/029/",
+    "sheet": "products/029/_sheet.jpg",
+    "photos": [
+      "products/029/1.jpg",
+      "products/029/2.jpg",
+      "products/029/3.jpg"
+    ]
+  },
+  {
+    "id": "030",
+    "name": "Kytica orchidey cymbidium",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "orchidea",
+    "imageCount": 10,
+    "currentFarby": "biela [2,7,8] | ružová [3,6,9] | zelená [4,5,10] | mix [1]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: biela, ružová, zelená, mix"
+      }
+    ],
+    "path": "products/030/",
+    "sheet": "products/030/_sheet.jpg",
+    "photos": [
+      "products/030/1.jpg",
+      "products/030/2.jpg",
+      "products/030/3.jpg",
+      "products/030/4.jpg",
+      "products/030/5.jpg",
+      "products/030/6.jpg",
+      "products/030/7.jpg",
+      "products/030/8.jpg",
+      "products/030/9.jpg",
+      "products/030/10.jpg"
+    ]
+  },
+  {
+    "id": "031",
+    "name": "Kytička bielych kvetov",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "kytička",
+    "imageCount": 3,
+    "currentFarby": "biela [1-3]",
+    "confidence": 0.95,
+    "draftNotes": "",
+    "flags": [],
+    "path": "products/031/",
+    "sheet": "products/031/_sheet.jpg",
+    "photos": [
+      "products/031/1.jpg",
+      "products/031/2.jpg",
+      "products/031/3.jpg"
+    ]
+  },
+  {
+    "id": "032",
+    "name": "Kytica ruží a orchideí",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "kytica",
+    "imageCount": 14,
+    "currentFarby": "žltá [1,6,8,12] | krémová [3,4,10] | ružová [5,9,11] | oranžová [2,7,13] | mix [14]",
+    "confidence": 0.95,
+    "draftNotes": "Štyri farebné varianty rovnakého modelu.",
+    "flags": [
+      {
+        "severity": "review",
+        "reason": "multi-color: žltá, krémová, ružová, oranžová, mix"
+      }
+    ],
+    "path": "products/032/",
+    "sheet": "products/032/_sheet.jpg",
+    "photos": [
+      "products/032/1.jpg",
+      "products/032/2.jpg",
+      "products/032/3.jpg",
+      "products/032/4.jpg",
+      "products/032/5.jpg",
+      "products/032/6.jpg",
+      "products/032/7.jpg",
+      "products/032/8.jpg",
+      "products/032/9.jpg",
+      "products/032/10.jpg",
+      "products/032/11.jpg",
+      "products/032/12.jpg",
+      "products/032/13.jpg",
+      "products/032/14.jpg"
+    ]
+  }
+]

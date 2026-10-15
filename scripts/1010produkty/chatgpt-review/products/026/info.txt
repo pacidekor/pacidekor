@@ -1,0 +1,9 @@
+Názov: Veternica na stonke
+Popis: Umelá veternica s viacerými kvetmi na jednej stonke, tmavým stredom a zelenými listami. Ideálna do vázy alebo jesenných aranžmánov.
+Farby: oranžová [1,6,8] | ružová [2,4,9] | žltá [3,5,10] | mix [7]
+Druh: veternica
+Kategória: Umelé kvety
+Subkategória: Stopkové kvety
+Zdrojová zložka: 26
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/26
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

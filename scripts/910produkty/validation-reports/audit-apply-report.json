@@ -1,0 +1,498 @@
+{
+  "applied": 41,
+  "skipped": 10,
+  "importIds": [
+    2,
+    4,
+    7,
+    9,
+    10,
+    19,
+    20,
+    23,
+    26,
+    27,
+    28,
+    31,
+    32,
+    35,
+    36,
+    48,
+    50,
+    64,
+    122,
+    123,
+    125,
+    126,
+    129,
+    132,
+    136,
+    137,
+    142,
+    143,
+    145,
+    147,
+    151,
+    152,
+    161,
+    196,
+    245,
+    246,
+    248,
+    250,
+    258,
+    268,
+    271
+  ],
+  "importIdsPadded": [
+    "002",
+    "004",
+    "007",
+    "009",
+    "010",
+    "019",
+    "020",
+    "023",
+    "026",
+    "027",
+    "028",
+    "031",
+    "032",
+    "035",
+    "036",
+    "048",
+    "050",
+    "064",
+    "122",
+    "123",
+    "125",
+    "126",
+    "129",
+    "132",
+    "136",
+    "137",
+    "142",
+    "143",
+    "145",
+    "147",
+    "151",
+    "152",
+    "161",
+    "196",
+    "245",
+    "246",
+    "248",
+    "250",
+    "258",
+    "268",
+    "271"
+  ],
+  "appliedDetails": [
+    {
+      "id": "002",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "krémová [1,2,4,5] | hnedá [1,3,6,7]"
+      }
+    },
+    {
+      "id": "004",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "hnedá [1,2,4,6] | krémová [1,3,5,7]"
+      }
+    },
+    {
+      "id": "007",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "oranžová [1,7,9] | krémová [3-5] | ružová [2,6,8]",
+        "description": "Bohato kvitnúca kytica s realisticky spracovanými kvetmi dálie a listami. Vhodná do vázy aj do väčších aranžmánov."
+      }
+    },
+    {
+      "id": "009",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "oranžová [1,9,12] | bordová [2,10,11] | hnedá [3,8,13] | krémová [4,7,14] | fialová [5,6,15]"
+      }
+    },
+    {
+      "id": "010",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "hnedá [1,4,14] | fialová [2,5,13] | bordová [3,11,15] | krémová [6,8,12] | oranžová [7,9,10]"
+      }
+    },
+    {
+      "id": "019",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "bordová [1,2,7] | olivová [2-4] | zelená [2,5,6]",
+        "subcategory": "Doplnková zeleň"
+      }
+    },
+    {
+      "id": "020",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "broskyňová [1,4-6] | oranžová [2,3,5,8] | hnedá [5,7,9,10]"
+      }
+    },
+    {
+      "id": "023",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "broskyňová [2-5] | hnedá [1,2,6,7]"
+      }
+    },
+    {
+      "id": "026",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "oranžová [1,4,10,11] | bordová [2,5,6,10] | béžová [3,7,10,13] | biela [8,10,12,16] | žltá [9,10,14,15]",
+        "subcategory": "Doplnková zeleň"
+      }
+    },
+    {
+      "id": "027",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "oranžová [1,4,10,11] | bordová [2,5,6,10] | krémová [3,7,10,13] | biela [8,10,12,16] | hnedá [9,10,14,15]"
+      }
+    },
+    {
+      "id": "028",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "bordová [1,3,9] | oranžová [2,7,8] | hnedá [4-6]",
+        "subcategory": "Doplnková zeleň"
+      }
+    },
+    {
+      "id": "031",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "032",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "zelená [1,3,4,9] | ružová [5,7-9] | biela [2,6,9,10]"
+      }
+    },
+    {
+      "id": "035",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "hnedá [1,3,4,6] | krémová [5-8] | zelená [2,6,9,10]"
+      }
+    },
+    {
+      "id": "036",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "fialová [1,3,4,7] | krémová [2,3,5,6]"
+      }
+    },
+    {
+      "id": "248",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "marhuľová [1,2,4,6] | biela [1,3,5,7]"
+      }
+    },
+    {
+      "id": "250",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "tmavočervená [1,4,9,11] | krémová [1,2,7,12] | broskyňová [1,5,8,10] | svetloružová [1,3,6,13]"
+      }
+    },
+    {
+      "id": "048",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "biela [1-2] | hnedá [2-5]",
+        "description": "Prírodné šišky vhodné na vence, aranžmány a sezónnu výzdobu. V ponuke aj s povrchovou úpravou."
+      }
+    },
+    {
+      "id": "050",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "064",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "161",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "245",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "hnedá [1-3]",
+        "name": "Umelá kytica pivónie"
+      }
+    },
+    {
+      "id": "246",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "mix [1-3]",
+        "name": "Umelá kytica pivónie"
+      }
+    },
+    {
+      "id": "258",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "271",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "122",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "123",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "125",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "126",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "129",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "132",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "136",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "biela [1-2] | zelená [1,3] | ružová [1,4] | bordová [1,5]",
+        "description": "Zaoblený keramický kvetináč s pravidelným reliéfnym bodkovým vzorom a hladkou zúženou spodnou časťou. Lesklá glazúra zvýrazňuje štruktúru povrchu."
+      }
+    },
+    {
+      "id": "137",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "142",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "143",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "145",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "ružová [1-2] | biela [1,3] | béžová [1,4] | olivová [1,5]"
+      }
+    },
+    {
+      "id": "147",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "zelená [1-4] | béžová [1-4] | hnedá [1-4]"
+      }
+    },
+    {
+      "id": "151",
+      "verdict": "yes",
+      "changes": {}
+    },
+    {
+      "id": "152",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "horčicová [1-2] | tmavomodrá [1,3] | petrolejová [1,4]"
+      }
+    },
+    {
+      "id": "196",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "sivá [1-2] | hnedá [2-3]"
+      }
+    },
+    {
+      "id": "268",
+      "verdict": "yes_after_fix",
+      "changes": {
+        "farby": "biela [1]"
+      }
+    }
+  ],
+  "skippedDetails": [
+    {
+      "id": "254",
+      "verdict": "needs_human",
+      "reason": "Foto 1 obsahuje viac vyhotovení než uvedených päť. Okrem modrej a fialovej vidno žlté, krémové, zelené, červené a rôzne ružové až marhuľové kvety. Presný počet samostatných variantov nemožno spoľahlivo odvodiť z prekrývajúcich sa stoniek. Foto 2 potvrdzuje modrú, foto 3 fialovú. Neimportovať iba päť pôvodných variantov ani nevytvárať nové SKU odhadom."
+    },
+    {
+      "id": "160",
+      "verdict": "no_split_needed",
+      "reason": "Farby sú vizuálne priradené použiteľne, ale galéria mieša konštrukčne odlišné lampáše a svetelné zdroje. Rozdeliť minimálne na okrúhly model, hranatý model so svetelnou reťazou a hranatý model s LED sviečkou. Foto 2 je spoločný záber všetkých; po rozdelení nemá byť hlavnou fotkou žiadneho samostatného modelu."
+    },
+    {
+      "id": "165",
+      "verdict": "no_split_needed",
+      "reason": "Čierny model má špicatú striešku a motív vážky. Biely má kupolovú striešku a motív vtáka pri kvetoch. Nie sú to iba dve farby totožného modelu. Rozdeliť na samostatné produkty, prípadne zaviesť skutočný variant modelu mimo poľa Farby."
+    },
+    {
+      "id": "170",
+      "verdict": "no_split_needed",
+      "reason": "Na foto 2, 3 a 4 sú tri odlišné konštrukcie. Dva čierne modely nemožno vyberať jedinou hodnotou čierna. Rozdeliť podľa modelu; spoločné foto 1 použiť nanajvýš ako doplnkový prehľad."
+    },
+    {
+      "id": "144",
+      "verdict": "no_split_needed",
+      "reason": "Galéria obsahuje najmenej štyri odlišné reliéfy. Foto 2 a 4 opakuje zvislý vlnovkový model; foto 3 je ornamentálny model; foto 5 a 7 majú kruhové oblúky; foto 6 má štvorcový vzor. Na foto 1 je navyše krémové vyhotovenie kruhových oblúkov bez samostatného detailu. Farebné mapovanie je iba vizuálny opis pôvodnej galérie, nie schválenie spoločného produktu. Rozdeliť podľa reliéfu, potom nastaviť farby a prečíslovať nové galérie."
+    },
+    {
+      "id": "153",
+      "verdict": "needs_human",
+      "reason": "Oranžová a sivomodrá tvoria glazúru toho istého obalu. Dve farby v metadátach nesmú vytvoriť dve farebné SKU. Foto 1 však ukazuje väčší a menší obal, foto 2 menší a foto 3 väčší. Treba rozhodnúť, či sa predáva sada alebo rozmerové varianty."
+    },
+    {
+      "id": "228",
+      "verdict": "needs_human",
+      "reason": "Sivý dojem na foto 2 vzniká najmä pohľadom dovnútra a cez fóliu. Nie je doložený samostatný sivý farebný variant. Fotografie ukazujú odlišné veľkosti srdcového obalu; z galérie nie je jasné, či ide o sadu alebo samostatné položky."
+    },
+    {
+      "id": "230",
+      "verdict": "needs_human",
+      "reason": "Svetlý pletený lem aj tmavšie vetvičky patria tomu istému košíku. Nejde o hnedý a krémový predajný variant. Viditeľné sú dve veľkosti; potvrdiť predajnú jednotku pred importom."
+    },
+    {
+      "id": "239",
+      "verdict": "needs_human",
+      "reason": "Hnedá kôra a krémový pletený lem sú na každej nádobe súčasne. Nie sú to samostatné farby produktu. Zábery ukazujú srdcia rôznych veľkostí; treba potvrdiť, či sa predávajú spolu alebo jednotlivo."
+    },
+    {
+      "id": "270",
+      "verdict": "needs_human",
+      "reason": "Viditeľné sú čierne a biele motýle rovnakého typu. Sú však pri spoločnom balení a etiketa uvádza obe farby. Bez potvrdenia predajnej jednotky nemožno rozhodnúť medzi dvoma voliteľnými farbami a jediným zmiešaným balením."
+    }
+  ],
+  "summary": {
+    "reviewed": 51,
+    "ok_as_is": 16,
+    "fix_farby": 31,
+    "fix_meta": 9,
+    "split_or_reject": 4,
+    "needs_human": 6,
+    "ready_after_fix": 25,
+    "verdictCounts": {
+      "yes_after_fix": 25,
+      "yes": 16,
+      "needs_human": 6,
+      "no_split_needed": 4
+    },
+    "photosReviewed": 290,
+    "productsOmitted": [],
+    "okAsIsIds": [
+      "031",
+      "050",
+      "064",
+      "161",
+      "258",
+      "271",
+      "122",
+      "123",
+      "125",
+      "126",
+      "129",
+      "132",
+      "137",
+      "142",
+      "143",
+      "151"
+    ],
+    "readyAfterFixIds": [
+      "002",
+      "004",
+      "007",
+      "009",
+      "010",
+      "019",
+      "020",
+      "023",
+      "026",
+      "027",
+      "028",
+      "032",
+      "035",
+      "036",
+      "248",
+      "250",
+      "048",
+      "245",
+      "246",
+      "136",
+      "145",
+      "147",
+      "152",
+      "196",
+      "268"
+    ],
+    "splitIds": [
+      "160",
+      "165",
+      "170",
+      "144"
+    ],
+    "needsHumanIds": [
+      "254",
+      "153",
+      "228",
+      "230",
+      "239",
+      "270"
+    ],
+    "countingNote": "Počty podľa verdict sú vzájomne výlučné a spolu tvoria 51. fix_farby a fix_meta sa môžu prekrývať a zahŕňajú aj zablokované produkty. fix_farby zahŕňa aj prípady, kde je aktuálne mapovanie nevyhovujúce a proposedFarby je null.",
+    "reviewMethod": "Vizuálna kontrola všetkých 51 súborov _sheet.jpg obsahujúcich všetkých 290 očíslovaných fotografií, porovnanie s info.txt a manifest.json, doplnené samostatnými fotografiami pri nejasnostiach. Automatické flagy sú podnet, nie dôkaz chyby.",
+    "metadataSource": "Názov a popis sú posudzované z info.txt. Poškodené názvy v manifest.json a hlavičkách prehľadov sa nepovažujú za aktuálne názvy produktu.",
+    "reviewOrder": "Najprv viacfarebné kvety, zeleň a ďalšie viacfarebné položky, potom keramika so spoločnými fotografiami, nakoniec ostatné položky.",
+    "schemaNotes": {
+      "confidence": "Odhad spoľahlivosti celkového rozhodnutia na škále 0 až 1. Neistota nad 20 % vedie k needs_human.",
+      "proposedNull": "Null pri proposedName/Description/Category/Subcategory znamená ponechať aktuálnu hodnotu. Null pri proposedFarby znamená, že nie je možné bezpečne schváliť úplné predajné mapovanie.",
+      "farbyChanged": "True znamená, že pôvodné Farby sa nesmú použiť bez opravy alebo ručného rozhodnutia. Neznamená, že sa zmena už vykonala.",
+      "no_split_needed": "Podľa definície v PROMPT.md znamená rozdeliť alebo vyradiť. Napriek názvu enumu neznamená schválenie jedného produktu.",
+      "realColorVariantCount": "Počet odlíšených farebných vyhotovení produktu. Pri jednom kombinovanom vyhotovení je 1. Null znamená neistý počet predajných možností; detaily sú v colorVariantCountNote.",
+      "photoIndices": "Všetky indexy vrátane splitPlan odkazujú na pôvodné 1.jpg až N.jpg. Po rozdelení produktov treba indexy prepočítať podľa novej galérie.",
+      "groupPhotos": "Spoločné fotografie sú spravidla priradené všetkým viditeľným variantom. Pri 031 je ponechané platné pôvodné priradenie iba jednej farbe. Fotografie viacerých kusov tej istej farby nevytvárajú nový variant.",
+      "humanProposals": "Pri needs_human sú aj vyplnené proposed* len návrh na potvrdenie. Pri 254 a 270 je photoNotes.assignTo iba vizuálny opis, nie importný zoznam SKU.",
+      "scope": "Vizuálny audit neoveruje skladové SKU, rozmery, ceny ani predajnú jednotku v externom systéme. Zmeny nie sú aplikované do pôvodných súborov ani do e-shopu."
+    }
+  }
+}

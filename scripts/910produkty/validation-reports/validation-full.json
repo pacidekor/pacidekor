@@ -1,0 +1,2830 @@
+{
+  "summary": {
+    "folderCount": 273,
+    "catalogCount": 273,
+    "issueCounts": {
+      "structural": 0,
+      "infoMissing": 0,
+      "badCategory": 0,
+      "unknownSubcategory": 49,
+      "emptyFarby": 0,
+      "farbyNoBracket": 0,
+      "photoIndexOob": 0,
+      "photoGaps": 0,
+      "uncoveredPhotos": 0,
+      "overlappingColors": 127,
+      "duplicateColorNames": 0,
+      "descHasColor": 0,
+      "descHasCount": 0,
+      "emDash": 0,
+      "stubName": 0,
+      "shortDesc": 0,
+      "duplicateNames": 0,
+      "lowConfidence": 0,
+      "videoMismatch": 0,
+      "catalogVsReady": 0,
+      "multiColorSuspect": 20,
+      "greenAsColorOnFlowers": 8
+    },
+    "totalIssueRows": 204,
+    "bySeverity": {
+      "error": 0,
+      "warn": 51,
+      "review": 28,
+      "info": 49
+    },
+    "kOvereniCount": 128
+  },
+  "structural": [],
+  "infoMissing": [],
+  "badCategory": [],
+  "unknownSubcategory": [
+    {
+      "id": "012",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "022",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "023",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "027",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "064",
+      "category": "Aranž. materiál",
+      "subcategory": "Zápichy"
+    },
+    {
+      "id": "072",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "080",
+      "category": "Aranž. materiál",
+      "subcategory": "Prízdoby"
+    },
+    {
+      "id": "095",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoračné prvky"
+    },
+    {
+      "id": "176",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "177",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "178",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace materiály"
+    },
+    {
+      "id": "179",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace materiály"
+    },
+    {
+      "id": "180",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "183",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "184",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "186",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoratívne prvky"
+    },
+    {
+      "id": "196",
+      "category": "Vencové základy",
+      "subcategory": "Prútené základy"
+    },
+    {
+      "id": "197",
+      "category": "Obalový materiál",
+      "subcategory": "Kôrové obaly"
+    },
+    {
+      "id": "198",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "203",
+      "category": "Vencové základy",
+      "subcategory": "Kôrové vence"
+    },
+    {
+      "id": "204",
+      "category": "Vencové základy",
+      "subcategory": "Kôrové vence"
+    },
+    {
+      "id": "205",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "206",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "207",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "210",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "211",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové obaly"
+    },
+    {
+      "id": "213",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "214",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "215",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové obaly"
+    },
+    {
+      "id": "224",
+      "category": "Vencové základy",
+      "subcategory": "Drevené základy"
+    },
+    {
+      "id": "255",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "256",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "257",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "258",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "259",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "260",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "261",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace pásky"
+    },
+    {
+      "id": "262",
+      "category": "Aranž. materiál",
+      "subcategory": "Držiaky a klipy"
+    },
+    {
+      "id": "263",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "264",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepidlá"
+    },
+    {
+      "id": "265",
+      "category": "Aranž. materiál",
+      "subcategory": "Sponky"
+    },
+    {
+      "id": "266",
+      "category": "Aranž. materiál",
+      "subcategory": "Zošívačky"
+    },
+    {
+      "id": "267",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pomôcky"
+    },
+    {
+      "id": "268",
+      "category": "Aranž. materiál",
+      "subcategory": "Držiaky na kytice"
+    },
+    {
+      "id": "269",
+      "category": "Aranž. materiál",
+      "subcategory": "Špendlíky"
+    },
+    {
+      "id": "270",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoračné prvky"
+    },
+    {
+      "id": "271",
+      "category": "Aranž. materiál",
+      "subcategory": "Drôty"
+    },
+    {
+      "id": "272",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "273",
+      "category": "Aranž. materiál",
+      "subcategory": "Výplne a kamienky"
+    }
+  ],
+  "emptyFarby": [],
+  "farbyNoBracket": [],
+  "photoIndexOob": [],
+  "photoGaps": [],
+  "uncoveredPhotos": [],
+  "overlappingColors": [
+    {
+      "id": "002",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "002",
+      "photo": 2,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "004",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "006",
+      "photo": 9,
+      "colors": [
+        "bordová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "006",
+      "photo": 17,
+      "colors": [
+        "bordová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "008",
+      "photo": 1,
+      "colors": [
+        "staroružová",
+        "oranžová"
+      ]
+    },
+    {
+      "id": "008",
+      "photo": 12,
+      "colors": [
+        "staroružová",
+        "bordová"
+      ]
+    },
+    {
+      "id": "011",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "tmavofialová"
+      ]
+    },
+    {
+      "id": "011",
+      "photo": 11,
+      "colors": [
+        "tmavofialová",
+        "staroružová"
+      ]
+    },
+    {
+      "id": "011",
+      "photo": 12,
+      "colors": [
+        "oranžová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "012",
+      "photo": 4,
+      "colors": [
+        "zelená",
+        "oranžová"
+      ]
+    },
+    {
+      "id": "012",
+      "photo": 4,
+      "colors": [
+        "zelená",
+        "bordová"
+      ]
+    },
+    {
+      "id": "019",
+      "photo": 2,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "020",
+      "photo": 5,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "020",
+      "photo": 6,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "023",
+      "photo": 1,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "023",
+      "photo": 2,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "036",
+      "photo": 3,
+      "colors": [
+        "fialová",
+        "krémová"
+      ]
+    },
+    {
+      "id": "048",
+      "photo": 2,
+      "colors": [
+        "strieborná",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "048",
+      "photo": 5,
+      "colors": [
+        "hnedá",
+        "biela"
+      ]
+    },
+    {
+      "id": "050",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "okrová"
+      ]
+    },
+    {
+      "id": "050",
+      "photo": 2,
+      "colors": [
+        "oranžová",
+        "hrdzavá"
+      ]
+    },
+    {
+      "id": "050",
+      "photo": 3,
+      "colors": [
+        "hrdzavá",
+        "biela"
+      ]
+    },
+    {
+      "id": "064",
+      "photo": 1,
+      "colors": [
+        "svetlosivá",
+        "tmavosivá"
+      ]
+    },
+    {
+      "id": "122",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "modrá"
+      ]
+    },
+    {
+      "id": "122",
+      "photo": 2,
+      "colors": [
+        "oranžová",
+        "modrá"
+      ]
+    },
+    {
+      "id": "122",
+      "photo": 3,
+      "colors": [
+        "oranžová",
+        "modrá"
+      ]
+    },
+    {
+      "id": "123",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "biela"
+      ]
+    },
+    {
+      "id": "123",
+      "photo": 2,
+      "colors": [
+        "hnedá",
+        "biela"
+      ]
+    },
+    {
+      "id": "123",
+      "photo": 3,
+      "colors": [
+        "hnedá",
+        "biela"
+      ]
+    },
+    {
+      "id": "125",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "125",
+      "photo": 2,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "125",
+      "photo": 3,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "126",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "126",
+      "photo": 2,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "126",
+      "photo": 3,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "129",
+      "photo": 1,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "129",
+      "photo": 2,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "129",
+      "photo": 3,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "131",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "svetlomodrá"
+      ]
+    },
+    {
+      "id": "131",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "krémová"
+      ]
+    },
+    {
+      "id": "131",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "tmavozelená"
+      ]
+    },
+    {
+      "id": "131",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "svetlozelená"
+      ]
+    },
+    {
+      "id": "132",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "staroružová"
+      ]
+    },
+    {
+      "id": "132",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "bordová"
+      ]
+    },
+    {
+      "id": "132",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "136",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "136",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "ružová"
+      ]
+    },
+    {
+      "id": "136",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "bordová"
+      ]
+    },
+    {
+      "id": "137",
+      "photo": 1,
+      "colors": [
+        "zelená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "137",
+      "photo": 2,
+      "colors": [
+        "zelená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "137",
+      "photo": 3,
+      "colors": [
+        "zelená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "142",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "142",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "ružová"
+      ]
+    },
+    {
+      "id": "142",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "143",
+      "photo": 1,
+      "colors": [
+        "zlatá",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "143",
+      "photo": 3,
+      "colors": [
+        "zlatá",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "144",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "béžová"
+      ]
+    },
+    {
+      "id": "144",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "sivá"
+      ]
+    },
+    {
+      "id": "145",
+      "photo": 1,
+      "colors": [
+        "ružová",
+        "biela"
+      ]
+    },
+    {
+      "id": "145",
+      "photo": 1,
+      "colors": [
+        "ružová",
+        "olivová"
+      ]
+    },
+    {
+      "id": "145",
+      "photo": 1,
+      "colors": [
+        "ružová",
+        "béžová"
+      ]
+    },
+    {
+      "id": "146",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "červená"
+      ]
+    },
+    {
+      "id": "146",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "vínová"
+      ]
+    },
+    {
+      "id": "146",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "ružová"
+      ]
+    },
+    {
+      "id": "146",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "146",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "krémová"
+      ]
+    },
+    {
+      "id": "147",
+      "photo": 1,
+      "colors": [
+        "zelená",
+        "béžová"
+      ]
+    },
+    {
+      "id": "147",
+      "photo": 2,
+      "colors": [
+        "zelená",
+        "béžová"
+      ]
+    },
+    {
+      "id": "147",
+      "photo": 3,
+      "colors": [
+        "zelená",
+        "béžová"
+      ]
+    },
+    {
+      "id": "147",
+      "photo": 1,
+      "colors": [
+        "zelená",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "147",
+      "photo": 4,
+      "colors": [
+        "béžová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "151",
+      "photo": 1,
+      "colors": [
+        "tmavomodrá",
+        "horčicová"
+      ]
+    },
+    {
+      "id": "151",
+      "photo": 1,
+      "colors": [
+        "tmavomodrá",
+        "tmavozelená"
+      ]
+    },
+    {
+      "id": "152",
+      "photo": 1,
+      "colors": [
+        "zlatá",
+        "tmavomodrá"
+      ]
+    },
+    {
+      "id": "152",
+      "photo": 1,
+      "colors": [
+        "zlatá",
+        "petrolejová"
+      ]
+    },
+    {
+      "id": "153",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "sivá"
+      ]
+    },
+    {
+      "id": "153",
+      "photo": 2,
+      "colors": [
+        "oranžová",
+        "sivá"
+      ]
+    },
+    {
+      "id": "153",
+      "photo": 3,
+      "colors": [
+        "oranžová",
+        "sivá"
+      ]
+    },
+    {
+      "id": "159",
+      "photo": 2,
+      "colors": [
+        "biela",
+        "čierna"
+      ]
+    },
+    {
+      "id": "160",
+      "photo": 2,
+      "colors": [
+        "bronzová",
+        "čierna"
+      ]
+    },
+    {
+      "id": "160",
+      "photo": 2,
+      "colors": [
+        "bronzová",
+        "zlatá"
+      ]
+    },
+    {
+      "id": "160",
+      "photo": 2,
+      "colors": [
+        "bronzová",
+        "biela"
+      ]
+    },
+    {
+      "id": "161",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "medená"
+      ]
+    },
+    {
+      "id": "161",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "biela"
+      ]
+    },
+    {
+      "id": "165",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "biela"
+      ]
+    },
+    {
+      "id": "170",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "176",
+      "photo": 1,
+      "colors": [
+        "strieborná",
+        "žltá"
+      ]
+    },
+    {
+      "id": "176",
+      "photo": 1,
+      "colors": [
+        "strieborná",
+        "zlatá"
+      ]
+    },
+    {
+      "id": "176",
+      "photo": 1,
+      "colors": [
+        "strieborná",
+        "biela"
+      ]
+    },
+    {
+      "id": "176",
+      "photo": 1,
+      "colors": [
+        "strieborná",
+        "červená"
+      ]
+    },
+    {
+      "id": "196",
+      "photo": 2,
+      "colors": [
+        "šedá",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "228",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "sivá"
+      ]
+    },
+    {
+      "id": "228",
+      "photo": 2,
+      "colors": [
+        "hnedá",
+        "sivá"
+      ]
+    },
+    {
+      "id": "230",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "230",
+      "photo": 2,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "239",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "239",
+      "photo": 2,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "241",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "241",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zeleno-ružová"
+      ]
+    },
+    {
+      "id": "241",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "fialová"
+      ]
+    },
+    {
+      "id": "245",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "245",
+      "photo": 2,
+      "colors": [
+        "hnedá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "245",
+      "photo": 3,
+      "colors": [
+        "hnedá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "246",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "246",
+      "photo": 2,
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "246",
+      "photo": 3,
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "248",
+      "photo": 1,
+      "colors": [
+        "marhuľová",
+        "biela"
+      ]
+    },
+    {
+      "id": "248",
+      "photo": 2,
+      "colors": [
+        "marhuľová",
+        "biela"
+      ]
+    },
+    {
+      "id": "250",
+      "photo": 1,
+      "colors": [
+        "tmavočervená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "250",
+      "photo": 1,
+      "colors": [
+        "tmavočervená",
+        "svetloružová"
+      ]
+    },
+    {
+      "id": "254",
+      "photo": 1,
+      "colors": [
+        "modrá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "254",
+      "photo": 1,
+      "colors": [
+        "modrá",
+        "ružová"
+      ]
+    },
+    {
+      "id": "254",
+      "photo": 1,
+      "colors": [
+        "modrá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "254",
+      "photo": 1,
+      "colors": [
+        "modrá",
+        "žltá"
+      ]
+    },
+    {
+      "id": "258",
+      "photo": 1,
+      "colors": [
+        "červená",
+        "zelená"
+      ]
+    },
+    {
+      "id": "258",
+      "photo": 1,
+      "colors": [
+        "červená",
+        "modrá"
+      ]
+    },
+    {
+      "id": "268",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "270",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "biela"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 1,
+      "colors": [
+        "fuksiová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 2,
+      "colors": [
+        "fuksiová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 1,
+      "colors": [
+        "fuksiová",
+        "medená"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 2,
+      "colors": [
+        "fuksiová",
+        "medená"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 1,
+      "colors": [
+        "fuksiová",
+        "biela"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 2,
+      "colors": [
+        "fuksiová",
+        "biela"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 1,
+      "colors": [
+        "fuksiová",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "271",
+      "photo": 2,
+      "colors": [
+        "fuksiová",
+        "strieborná"
+      ]
+    }
+  ],
+  "duplicateColorNames": [],
+  "descHasColor": [],
+  "descHasCount": [],
+  "emDash": [],
+  "stubName": [],
+  "shortDesc": [],
+  "duplicateNames": [],
+  "lowConfidence": [],
+  "videoMismatch": [],
+  "catalogVsReady": [],
+  "multiColorSuspect": [
+    {
+      "id": "006",
+      "name": "Umelá kytica ruža mix GK029",
+      "colors": [
+        "bordová[1,9,17,18]",
+        "biela[2,15,19]",
+        "oranžová[3,8,11,12,14,23]",
+        "hnedá[4,10,13,20,21]",
+        "staroružová[5,7,16,22,24]",
+        "fialová[6,9,17]"
+      ],
+      "images": 24
+    },
+    {
+      "id": "007",
+      "name": "Umelá kytica dálie 203",
+      "colors": [
+        "oranžová[1,2]",
+        "krémová[3,4,5]",
+        "ružová[6,7,8,9]"
+      ],
+      "images": 9
+    },
+    {
+      "id": "008",
+      "name": "Umelá kytica ruža a hortenzia 640",
+      "colors": [
+        "krémová[6,8,13,16,18,21]",
+        "staroružová[1,7,9,12,17,19,22]",
+        "oranžová[1,3,4,5,10,14,20]",
+        "bordová[2,11,12,15]"
+      ],
+      "images": 22
+    },
+    {
+      "id": "009",
+      "name": "Umelá ruža stopková GK020",
+      "colors": [
+        "oranžová[1,2,3]",
+        "krémová[4,5,6,7]",
+        "hnedá[8,9,10]",
+        "fialová[11,12,13,14,15]"
+      ],
+      "images": 15
+    },
+    {
+      "id": "010",
+      "name": "Umelá kytica ruža GK034",
+      "colors": [
+        "hnedá[1,2,3,4,5,6,7]",
+        "krémová[8,9,10,11,12,13,14]",
+        "bordová[15]"
+      ],
+      "images": 15
+    },
+    {
+      "id": "011",
+      "name": "Umelá kytica pivónie GK032",
+      "colors": [
+        "biela[1,6,14]",
+        "tmavofialová[1,3,9,11,13]",
+        "staroružová[2,5,11]",
+        "oranžová[4,7,8,12,15,18]",
+        "hnedá[10,12,16,17]"
+      ],
+      "images": 18
+    },
+    {
+      "id": "012",
+      "name": "Umelá zeleň Jucca 1845",
+      "colors": [
+        "zelená[1,4,6,10]",
+        "oranžová[2,3,4,8]",
+        "bordová[4,5,7,9]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "019",
+      "name": "Umelá halúzka so srdcovitými listami",
+      "colors": [
+        "bordová[1,2,3]",
+        "fialová[4,5]",
+        "zelená[2,6,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "026",
+      "name": "Umelá vetvička jemná zeleň",
+      "colors": [
+        "oranžová[1,2,3,4,5,6,7]",
+        "biela[8,9,10,11,12]",
+        "béžová[13,14,15,16]"
+      ],
+      "images": 16
+    },
+    {
+      "id": "027",
+      "name": "Umelá dekoračná halúzka s listami",
+      "colors": [
+        "oranžová[1,2,3,4,5,6,7]",
+        "biela[8,9,10,11,12]",
+        "béžová[13,14,15,16]"
+      ],
+      "images": 16
+    },
+    {
+      "id": "028",
+      "name": "Umelá vetvička ruscus",
+      "colors": [
+        "bordová[1,2,3]",
+        "zlatá[4,5]",
+        "hnedá[6,7]",
+        "oranžová[8,9]"
+      ],
+      "images": 9
+    },
+    {
+      "id": "032",
+      "name": "Chryzantéma ihličková na stopke",
+      "colors": [
+        "zelená[1,2,3,4]",
+        "ružová[5,6,7,8]",
+        "biela[9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "035",
+      "name": "Kytica chryzantémy pompon",
+      "colors": [
+        "hnedá[1,2,3,4]",
+        "krémová[5,6,7,8]",
+        "zelená[9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "131",
+      "name": "Keramický kvetináč matný",
+      "colors": [
+        "biela[1,2]",
+        "svetlomodrá[1,3]",
+        "krémová[1,4]",
+        "tmavozelená[1,5]",
+        "svetlozelená[1,6]"
+      ],
+      "images": 6
+    },
+    {
+      "id": "144",
+      "name": "Keramický kvetináč s reliéfnym vzorom",
+      "colors": [
+        "krémová[1,2,3,4,5]",
+        "béžová[1,6]",
+        "sivá[1,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "146",
+      "name": "Keramický kvetináč s kosoštvorcovým reliéfom",
+      "colors": [
+        "biela[1,4]",
+        "červená[1,2]",
+        "vínová[1,3]",
+        "ružová[1,5]",
+        "zelená[1,6]",
+        "krémová[1,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "160",
+      "name": "Dekoratívny LED lampáš",
+      "colors": [
+        "bronzová[1,2]",
+        "čierna[2,3,4,5,6]",
+        "zlatá[2,7,8]",
+        "biela[2,9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "176",
+      "name": "Floristický dekoračný sprej SPRING",
+      "colors": [
+        "strieborná[1,2]",
+        "žltá[1,3]",
+        "zlatá[1,4]",
+        "biela[1,5]",
+        "červená[1,6]"
+      ],
+      "images": 6
+    },
+    {
+      "id": "241",
+      "name": "Umelá hortenzia na stonke",
+      "colors": [
+        "biela[1,16,17,22]",
+        "zelená[1,12,20,21]",
+        "zeleno-ružová[1,2,3,4]",
+        "fialová[1,5,6,28]",
+        "modrá[7,8,27]",
+        "staroružová[9,10,26]",
+        "hnedá[11,13,23]",
+        "oranžová[14,15,25]",
+        "bordová[18,19,24]"
+      ],
+      "images": 28
+    },
+    {
+      "id": "250",
+      "name": "Sušená scabiosa na stonke",
+      "colors": [
+        "tmavočervená[1,2,3,4]",
+        "krémová[1,5,6,7,8,9,10]",
+        "svetloružová[1,11,12,13]"
+      ],
+      "images": 13
+    }
+  ],
+  "greenAsColorOnFlowers": [
+    {
+      "id": "001",
+      "name": "Umelá kytica pivónie 267",
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "012",
+      "name": "Umelá zeleň Jucca 1845",
+      "colors": [
+        "zelená",
+        "oranžová",
+        "bordová"
+      ]
+    },
+    {
+      "id": "019",
+      "name": "Umelá halúzka so srdcovitými listami",
+      "colors": [
+        "bordová",
+        "fialová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "031",
+      "name": "Umelá chryzantéma na stopke veľká",
+      "colors": [
+        "oranžová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "032",
+      "name": "Chryzantéma ihličková na stopke",
+      "colors": [
+        "zelená",
+        "ružová",
+        "biela"
+      ]
+    },
+    {
+      "id": "035",
+      "name": "Kytica chryzantémy pompon",
+      "colors": [
+        "hnedá",
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "241",
+      "name": "Umelá hortenzia na stonke",
+      "colors": [
+        "biela",
+        "zelená",
+        "zeleno-ružová",
+        "fialová",
+        "modrá",
+        "staroružová",
+        "hnedá",
+        "oranžová",
+        "bordová"
+      ]
+    },
+    {
+      "id": "246",
+      "name": "Umelá kytica pivónie - krémová",
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    }
+  ],
+  "kOvereni": [
+    {
+      "id": "002",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "004",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "006",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 9,
+      "colors": [
+        "bordová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "008",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "staroružová",
+        "oranžová"
+      ]
+    },
+    {
+      "id": "011",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "tmavofialová"
+      ]
+    },
+    {
+      "id": "012",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 4,
+      "colors": [
+        "zelená",
+        "oranžová"
+      ]
+    },
+    {
+      "id": "019",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 2,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "020",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 5,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "023",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "broskyňová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "036",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 3,
+      "colors": [
+        "fialová",
+        "krémová"
+      ]
+    },
+    {
+      "id": "048",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 2,
+      "colors": [
+        "strieborná",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "050",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "okrová"
+      ]
+    },
+    {
+      "id": "064",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "svetlosivá",
+        "tmavosivá"
+      ]
+    },
+    {
+      "id": "122",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "modrá"
+      ]
+    },
+    {
+      "id": "123",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "biela"
+      ]
+    },
+    {
+      "id": "125",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "126",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "129",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "bordová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "131",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "svetlomodrá"
+      ]
+    },
+    {
+      "id": "132",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "staroružová"
+      ]
+    },
+    {
+      "id": "136",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "137",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "zelená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "142",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "143",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "zlatá",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "144",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "béžová"
+      ]
+    },
+    {
+      "id": "145",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "ružová",
+        "biela"
+      ]
+    },
+    {
+      "id": "146",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "červená"
+      ]
+    },
+    {
+      "id": "147",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "zelená",
+        "béžová"
+      ]
+    },
+    {
+      "id": "151",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "tmavomodrá",
+        "horčicová"
+      ]
+    },
+    {
+      "id": "152",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "zlatá",
+        "tmavomodrá"
+      ]
+    },
+    {
+      "id": "153",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "oranžová",
+        "sivá"
+      ]
+    },
+    {
+      "id": "159",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 2,
+      "colors": [
+        "biela",
+        "čierna"
+      ]
+    },
+    {
+      "id": "160",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 2,
+      "colors": [
+        "bronzová",
+        "čierna"
+      ]
+    },
+    {
+      "id": "161",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "medená"
+      ]
+    },
+    {
+      "id": "165",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "biela"
+      ]
+    },
+    {
+      "id": "170",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "strieborná"
+      ]
+    },
+    {
+      "id": "176",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "strieborná",
+        "žltá"
+      ]
+    },
+    {
+      "id": "196",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 2,
+      "colors": [
+        "šedá",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "228",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "sivá"
+      ]
+    },
+    {
+      "id": "230",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "239",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "krémová"
+      ]
+    },
+    {
+      "id": "241",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "245",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "hnedá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "246",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "248",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "marhuľová",
+        "biela"
+      ]
+    },
+    {
+      "id": "250",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "tmavočervená",
+        "krémová"
+      ]
+    },
+    {
+      "id": "254",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "modrá",
+        "fialová"
+      ]
+    },
+    {
+      "id": "258",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "červená",
+        "zelená"
+      ]
+    },
+    {
+      "id": "268",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "biela",
+        "hnedá"
+      ]
+    },
+    {
+      "id": "270",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "čierna",
+        "biela"
+      ]
+    },
+    {
+      "id": "271",
+      "severity": "warn",
+      "reason": "prekrývajúce sa farby na fotke",
+      "photo": 1,
+      "colors": [
+        "fuksiová",
+        "fialová"
+      ]
+    },
+    {
+      "id": "001",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá kytica pivónie 267",
+      "colors": [
+        "biela",
+        "zelená"
+      ]
+    },
+    {
+      "id": "012",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá zeleň Jucca 1845",
+      "colors": [
+        "zelená",
+        "oranžová",
+        "bordová"
+      ]
+    },
+    {
+      "id": "019",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá halúzka so srdcovitými listami",
+      "colors": [
+        "bordová",
+        "fialová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "031",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá chryzantéma na stopke veľká",
+      "colors": [
+        "oranžová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "032",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Chryzantéma ihličková na stopke",
+      "colors": [
+        "zelená",
+        "ružová",
+        "biela"
+      ]
+    },
+    {
+      "id": "035",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Kytica chryzantémy pompon",
+      "colors": [
+        "hnedá",
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "241",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá hortenzia na stonke",
+      "colors": [
+        "biela",
+        "zelená",
+        "zeleno-ružová",
+        "fialová",
+        "modrá",
+        "staroružová",
+        "hnedá",
+        "oranžová",
+        "bordová"
+      ]
+    },
+    {
+      "id": "246",
+      "severity": "review",
+      "reason": "zelená ako farebný variant u kvetov (možno lístie)",
+      "name": "Umelá kytica pivónie - krémová",
+      "colors": [
+        "krémová",
+        "zelená"
+      ]
+    },
+    {
+      "id": "006",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá kytica ruža mix GK029",
+      "colors": [
+        "bordová[1,9,17,18]",
+        "biela[2,15,19]",
+        "oranžová[3,8,11,12,14,23]",
+        "hnedá[4,10,13,20,21]",
+        "staroružová[5,7,16,22,24]",
+        "fialová[6,9,17]"
+      ],
+      "images": 24
+    },
+    {
+      "id": "007",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá kytica dálie 203",
+      "colors": [
+        "oranžová[1,2]",
+        "krémová[3,4,5]",
+        "ružová[6,7,8,9]"
+      ],
+      "images": 9
+    },
+    {
+      "id": "008",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá kytica ruža a hortenzia 640",
+      "colors": [
+        "krémová[6,8,13,16,18,21]",
+        "staroružová[1,7,9,12,17,19,22]",
+        "oranžová[1,3,4,5,10,14,20]",
+        "bordová[2,11,12,15]"
+      ],
+      "images": 22
+    },
+    {
+      "id": "009",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá ruža stopková GK020",
+      "colors": [
+        "oranžová[1,2,3]",
+        "krémová[4,5,6,7]",
+        "hnedá[8,9,10]",
+        "fialová[11,12,13,14,15]"
+      ],
+      "images": 15
+    },
+    {
+      "id": "010",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá kytica ruža GK034",
+      "colors": [
+        "hnedá[1,2,3,4,5,6,7]",
+        "krémová[8,9,10,11,12,13,14]",
+        "bordová[15]"
+      ],
+      "images": 15
+    },
+    {
+      "id": "011",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá kytica pivónie GK032",
+      "colors": [
+        "biela[1,6,14]",
+        "tmavofialová[1,3,9,11,13]",
+        "staroružová[2,5,11]",
+        "oranžová[4,7,8,12,15,18]",
+        "hnedá[10,12,16,17]"
+      ],
+      "images": 18
+    },
+    {
+      "id": "012",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá zeleň Jucca 1845",
+      "colors": [
+        "zelená[1,4,6,10]",
+        "oranžová[2,3,4,8]",
+        "bordová[4,5,7,9]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "019",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá halúzka so srdcovitými listami",
+      "colors": [
+        "bordová[1,2,3]",
+        "fialová[4,5]",
+        "zelená[2,6,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "026",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá vetvička jemná zeleň",
+      "colors": [
+        "oranžová[1,2,3,4,5,6,7]",
+        "biela[8,9,10,11,12]",
+        "béžová[13,14,15,16]"
+      ],
+      "images": 16
+    },
+    {
+      "id": "027",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá dekoračná halúzka s listami",
+      "colors": [
+        "oranžová[1,2,3,4,5,6,7]",
+        "biela[8,9,10,11,12]",
+        "béžová[13,14,15,16]"
+      ],
+      "images": 16
+    },
+    {
+      "id": "028",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá vetvička ruscus",
+      "colors": [
+        "bordová[1,2,3]",
+        "zlatá[4,5]",
+        "hnedá[6,7]",
+        "oranžová[8,9]"
+      ],
+      "images": 9
+    },
+    {
+      "id": "032",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Chryzantéma ihličková na stopke",
+      "colors": [
+        "zelená[1,2,3,4]",
+        "ružová[5,6,7,8]",
+        "biela[9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "035",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Kytica chryzantémy pompon",
+      "colors": [
+        "hnedá[1,2,3,4]",
+        "krémová[5,6,7,8]",
+        "zelená[9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "131",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Keramický kvetináč matný",
+      "colors": [
+        "biela[1,2]",
+        "svetlomodrá[1,3]",
+        "krémová[1,4]",
+        "tmavozelená[1,5]",
+        "svetlozelená[1,6]"
+      ],
+      "images": 6
+    },
+    {
+      "id": "144",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Keramický kvetináč s reliéfnym vzorom",
+      "colors": [
+        "krémová[1,2,3,4,5]",
+        "béžová[1,6]",
+        "sivá[1,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "146",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Keramický kvetináč s kosoštvorcovým reliéfom",
+      "colors": [
+        "biela[1,4]",
+        "červená[1,2]",
+        "vínová[1,3]",
+        "ružová[1,5]",
+        "zelená[1,6]",
+        "krémová[1,7]"
+      ],
+      "images": 7
+    },
+    {
+      "id": "160",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Dekoratívny LED lampáš",
+      "colors": [
+        "bronzová[1,2]",
+        "čierna[2,3,4,5,6]",
+        "zlatá[2,7,8]",
+        "biela[2,9,10]"
+      ],
+      "images": 10
+    },
+    {
+      "id": "176",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Floristický dekoračný sprej SPRING",
+      "colors": [
+        "strieborná[1,2]",
+        "žltá[1,3]",
+        "zlatá[1,4]",
+        "biela[1,5]",
+        "červená[1,6]"
+      ],
+      "images": 6
+    },
+    {
+      "id": "241",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Umelá hortenzia na stonke",
+      "colors": [
+        "biela[1,16,17,22]",
+        "zelená[1,12,20,21]",
+        "zeleno-ružová[1,2,3,4]",
+        "fialová[1,5,6,28]",
+        "modrá[7,8,27]",
+        "staroružová[9,10,26]",
+        "hnedá[11,13,23]",
+        "oranžová[14,15,25]",
+        "bordová[18,19,24]"
+      ],
+      "images": 28
+    },
+    {
+      "id": "250",
+      "severity": "review",
+      "reason": "viac farieb + veľa fotiek – overiť mapovanie",
+      "name": "Sušená scabiosa na stonke",
+      "colors": [
+        "tmavočervená[1,2,3,4]",
+        "krémová[1,5,6,7,8,9,10]",
+        "svetloružová[1,11,12,13]"
+      ],
+      "images": 13
+    },
+    {
+      "id": "012",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "022",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "023",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "027",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Umelé kvety",
+      "subcategory": "Doplnková zeleň"
+    },
+    {
+      "id": "064",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Zápichy"
+    },
+    {
+      "id": "072",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "080",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Prízdoby"
+    },
+    {
+      "id": "095",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoračné prvky"
+    },
+    {
+      "id": "176",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "177",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "178",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace materiály"
+    },
+    {
+      "id": "179",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace materiály"
+    },
+    {
+      "id": "180",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "183",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "184",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "186",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoratívne prvky"
+    },
+    {
+      "id": "196",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Prútené základy"
+    },
+    {
+      "id": "197",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Kôrové obaly"
+    },
+    {
+      "id": "198",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Podklady"
+    },
+    {
+      "id": "203",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Kôrové vence"
+    },
+    {
+      "id": "204",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Kôrové vence"
+    },
+    {
+      "id": "205",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "206",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "207",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Drevené vence"
+    },
+    {
+      "id": "210",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "211",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové obaly"
+    },
+    {
+      "id": "213",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "214",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové kvetináče"
+    },
+    {
+      "id": "215",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Obalový materiál",
+      "subcategory": "Plechové obaly"
+    },
+    {
+      "id": "224",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Vencové základy",
+      "subcategory": "Drevené základy"
+    },
+    {
+      "id": "255",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "256",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "257",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "258",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Náradie"
+    },
+    {
+      "id": "259",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "260",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "261",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepiace pásky"
+    },
+    {
+      "id": "262",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Držiaky a klipy"
+    },
+    {
+      "id": "263",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pásky"
+    },
+    {
+      "id": "264",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Lepidlá"
+    },
+    {
+      "id": "265",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Sponky"
+    },
+    {
+      "id": "266",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Zošívačky"
+    },
+    {
+      "id": "267",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Floristické pomôcky"
+    },
+    {
+      "id": "268",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Držiaky na kytice"
+    },
+    {
+      "id": "269",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Špendlíky"
+    },
+    {
+      "id": "270",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Dekoračné prvky"
+    },
+    {
+      "id": "271",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Drôty"
+    },
+    {
+      "id": "272",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Spreje"
+    },
+    {
+      "id": "273",
+      "severity": "info",
+      "reason": "subkategória mimo pevného zoznamu (OK ak custom)",
+      "category": "Aranž. materiál",
+      "subcategory": "Výplne a kamienky"
+    }
+  ]
+}

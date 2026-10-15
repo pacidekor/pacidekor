@@ -1,0 +1,9 @@
+Názov: Kytica orchidey cymbidium
+Popis: Umelá kytica orchidey cymbidium s detailne vypracovanými kvetmi na viazaných stonkách. Vhodná do vázy alebo ako súčasť aranžmánov.
+Farby: biela [2,7,8] | ružová [3,6,9] | zelená [4,5,10] | mix [1]
+Druh: orchidea
+Kategória: Umelé kvety
+Subkategória: Kytice
+Zdrojová zložka: 30
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/30
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

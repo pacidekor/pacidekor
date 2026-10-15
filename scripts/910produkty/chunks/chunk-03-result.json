@@ -1,0 +1,350 @@
+[
+  {
+    "id": 41,
+    "name": "Sušená vetvička s bobuľami",
+    "description": "Tenká prírodná vetvička s drobnými okrúhlymi plodmi na stonke. Hodí sa do vázy aj do rustikálnych aranžmánov a interiérovej výzdoby.",
+    "category": "Sušina",
+    "subcategory": "Stopkové kvety",
+    "druh": "vetvička",
+    "groups": [
+      {
+        "color": "tmavá",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 42,
+    "name": "Sušené vetvičky s lesklými bobuľami",
+    "description": "Dekoratívne vetvičky s lesklými plodmi na pružnej stonke. Vhodné samostatne do vázy aj ako doplnok do kytíc a sezónnych aranžmánov.",
+    "category": "Sušina",
+    "subcategory": "Stopkové kvety",
+    "druh": "vetvička",
+    "groups": [
+      {
+        "color": "červená",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 43,
+    "name": "Sušená cédrová ruža na stopke",
+    "description": "Dekoratívny kvet v tvare ruže z prírodného materiálu na dlhej stonke. Pôsobí elegantne vo váze aj v celoročných aranžmánoch.",
+    "category": "Sušina",
+    "subcategory": "Stopkové kvety",
+    "druh": "cédrová ruža",
+    "groups": [
+      {
+        "color": "hnedá",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 44,
+    "name": "Sušené dekoračné paličky prírodné",
+    "description": "Zväzok tenkých rovných stebiel viazaných drôtom. Univerzálny doplnok na aranžovanie, vence a kreatívnu tvorbu.",
+    "category": "Sušina",
+    "subcategory": "Doplnky",
+    "druh": "paličky",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 45,
+    "name": "Sušená pampová tráva",
+    "description": "Vysoká dekoratívna tráva s jemným chumáčom na vrchole stonky. Vynikne vo vysokých vázach a vzdušných interiérových aranžmánoch.",
+    "category": "Sušina",
+    "subcategory": "Trávy",
+    "druh": "pampová tráva",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": ""
+  },
+  {
+    "id": 46,
+    "name": "Sušený ovos dekoračný",
+    "description": "Zväzok sušených klasov na tenkých stonkách viazaných v spodnej časti. Rustikálny prvok do kytíc, vencov a jesenných dekorácií.",
+    "category": "Sušina",
+    "subcategory": "Trávy",
+    "druh": "ovos",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 47,
+    "name": "Sušená pšenica zväzok",
+    "description": "Prírodný zväzok sušených klasov na dlhých stonkách. Obľúbená výplň do rustikálnych kytíc a stolových aranžmánov.",
+    "category": "Sušina",
+    "subcategory": "Trávy",
+    "druh": "pšenica",
+    "groups": [
+      {
+        "color": "béžová",
+        "photos": [1, 2, 3, 4]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 48,
+    "name": "Borovicové šišky dekoratívne",
+    "description": "Prírodné šišky vhodné na vence, aranžmány a sezónnu výzdobu. Dostupné v prírodnom prevedení aj s povrchovou úpravou.",
+    "category": "Sušina",
+    "subcategory": "Doplnky",
+    "druh": "šiška",
+    "groups": [
+      {
+        "color": "strieborná",
+        "photos": [1, 5]
+      },
+      {
+        "color": "hnedá",
+        "photos": [2, 3, 4, 5]
+      },
+      {
+        "color": "biela",
+        "photos": [4]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": "Foto 4 nie je na contact sheete, zaradené podľa miniatúry."
+  },
+  {
+    "id": 49,
+    "name": "Sušené dekoračné guličky prírodné",
+    "description": "Okrúhle prvky z prírodného materiálu s jemnou štruktúrou povrchu. Vhodné na lepenie do vencov, aranžmánov a drobných dekorácií.",
+    "category": "Sušina",
+    "subcategory": "Doplnky",
+    "druh": "gulička",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.87,
+    "notes": ""
+  },
+  {
+    "id": 50,
+    "name": "Zamatové dekoračné tekvičky",
+    "description": "Malé tekvice so zamatovým povrchom, rebami a krátkou stopkou. Jemný doplnok jesenných aranžmánov, vencov a stolovej výzdoby.",
+    "category": "Aranž. materiál",
+    "subcategory": "Doplnky",
+    "druh": "tekvica",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [1]
+      },
+      {
+        "color": "okrová",
+        "photos": [1]
+      },
+      {
+        "color": "oranžová",
+        "photos": [2]
+      },
+      {
+        "color": "hrdzavá",
+        "photos": [2, 3]
+      },
+      {
+        "color": "biela",
+        "photos": [3]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 51,
+    "name": "Borovicové šišky prírodné a zasnežené",
+    "description": "Dekoratívne šišky vhodné na vence, aranžmány a sezónnu tvorbu. K dispozícii prírodné aj bielo natreté prevedenie.",
+    "category": "Sušina",
+    "subcategory": "Doplnky",
+    "druh": "šiška",
+    "groups": [
+      {
+        "color": "hnedá",
+        "photos": [1]
+      },
+      {
+        "color": "biela",
+        "photos": [2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 52,
+    "name": "Keramická oválna miska s textúrou kôry",
+    "description": "Oválna nádoba s výraznou reliéfnou textúrou pripomínajúcou kôru stromu. Elegantný základ pre aranžmán alebo samostatná interiérová dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.86,
+    "notes": "Okolité rekvizity na fotke nie sú súčasťou produktu."
+  },
+  {
+    "id": 53,
+    "name": "Keramická oválna miska kamenný efekt",
+    "description": "Mierne hlboká oválna nádoba s hrubou matnou textúrou. Hodí sa na aranžovanie aj ako dekorácia do moderného interiéru.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 54,
+    "name": "Keramický kvetináč štvorcový kamenný efekt",
+    "description": "Hranatá nádoba s povrchom pripomínajúcim prírodný kameň. Vhodná ako základ pre aranžmán alebo samostatný dekoračný prvok.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 55,
+    "name": "Keramické srdce s anjelskými krídlami",
+    "description": "Dekorácia v tvare srdca s detailne modelovanými krídlami po obvode. Vhodná na aranžovanie aj ako samostatná ozdoba.",
+    "category": "Keramika",
+    "subcategory": "Dekorácie",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 56,
+    "name": "Keramické srdce s plastickou ružou",
+    "description": "Pamiatková dekorácia v tvare srdca s výrazným reliéfom kvetu na boku. Vhodná na pietne miesta aj do smútočných aranžmánov.",
+    "category": "Keramika",
+    "subcategory": "Dekorácie",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 57,
+    "name": "Keramické srdce s reliéfnym vzorom",
+    "description": "Miska v tvare srdca s ornamentálnym reliéfom na vonkajšom plášti. Jemná dekorácia vhodná na drobné aranžmány aj do interiéru.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 58,
+    "name": "Keramická miska v tvare spojených dlaní",
+    "description": "Dekorácia s realisticky stvárnenými dlanami tvoriacimi misku. Originálny doplnok interiéru vhodný aj na drobné aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Dekorácie",
+    "druh": "miska",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 59,
+    "name": "Keramické srdce s ornamentálnym reliéfom",
+    "description": "Nádoba v tvare srdca s bohatým reliéfnym vzorom po celom obvode. Štýlový základ pre aranžovanie alebo samostatná dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "bronzová",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 60,
+    "name": "Keramické srdce s plastickými ružami",
+    "description": "Dekoratívna nádoba v tvare srdca s jemným reliéfom kvetov na okraji. Vhodná na smútočné aj celoročné aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  }
+]

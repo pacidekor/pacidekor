@@ -1,0 +1,225 @@
+[
+  {
+    "id": 181,
+    "name": "Dekoratívny lampáš so srdiečkovým výrezom",
+    "description": "Kovový lampáš v tvare domčeka so špicatou strieškou, srdiečkovým výrezom a ozdobným mriežkovaním na oknách. Vhodný na čajovú sviečku alebo LED svetlo, s háčikom na zavesenie.",
+    "category": "Svietniky",
+    "subcategory": "Lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3, 4, 5] }],
+    "confidence": 0.91,
+    "notes": "Dva varianty mriežky na oknách (kríž a mriežka). Dávka Z 5.9.2026."
+  },
+  {
+    "id": 182,
+    "name": "Drevený lampáš domček s plechovou strieškou",
+    "description": "Dekoratívny drevený lampáš v tvare domčeka s plechovou strieškou a komínom, výrezmi v tvare srdca a okna a otvárateľnými dvierkami na vloženie sviečky.",
+    "category": "Svietniky",
+    "subcategory": "Lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "hnedá", "photos": [1, 2, 3] }],
+    "confidence": 0.92,
+    "notes": "Plechová strieška a komín v tmavej farbe. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 183,
+    "name": "Drevená oválna miska rustikálna",
+    "description": "Oválna drevená miska so zapusteným stredom, výraznou textúrou dreva a vyvýšeným okrajom. Vhodná ako podklad pre aranžovanie a dekoráciu.",
+    "category": "Aranž. materiál",
+    "subcategory": "Podklady",
+    "druh": "miska",
+    "groups": [{ "color": "hnedá", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "V zábere viac veľkostí. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 184,
+    "name": "Drevená obdĺžniková tácka rustikálna",
+    "description": "Obdĺžniková dekoratívna tácka s drsnou prírodnou textúrou dreva a mierne vyvýšenými okrajmi. Vhodná ako podklad pre aranžmány.",
+    "category": "Aranž. materiál",
+    "subcategory": "Podklady",
+    "druh": "tácka",
+    "groups": [{ "color": "hnedá", "photos": [1] }],
+    "confidence": 0.89,
+    "notes": "V zábere viac veľkostí. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 185,
+    "name": "Drevená latková debnička s igelitovou výstelkou",
+    "description": "Dekoratívna latková debnička s patinovaným povrchom a vnútornou igelitovou fóliou na aranžovanie kvetov alebo ako obal na kvetináč.",
+    "category": "Košíky",
+    "subcategory": "Dekoratívne košíky",
+    "druh": "debnička",
+    "groups": [{ "color": "bielo-hnedá", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Postaršený biely náter cez prírodné drevo. V zábere viac veľkostí. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 186,
+    "name": "Prútené srdce s čipkou na zavesenie",
+    "description": "Dekoratívne srdce z prúteného pletiva s jemnou čipkovou stuhou na zavesenie. Vhodné do interiéru a na sezónne aranžmány.",
+    "category": "Aranž. materiál",
+    "subcategory": "Dekoratívne prvky",
+    "druh": "srdce",
+    "groups": [{ "color": "prírodná", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 187,
+    "name": "Prútené hniezdo s plastovou fóliou",
+    "description": "Okrúhly aranžérsky základ z prírodného prútia v tvare hniezda s vnútornou plastovou fóliou na prácu s vlhkým aranžérskym materiálom.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "hniezdo",
+    "groups": [{ "color": "prírodná", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 188,
+    "name": "Plátky kôry v sieťke",
+    "description": "Prírodné dekoračné plátky z kôry stromu v sieťkovom balení na aranžovanie, kreatívnu tvorbu a rustikálne dekorácie.",
+    "category": "Sušina",
+    "subcategory": "Kôra",
+    "druh": "kôra",
+    "groups": [{ "color": "hnedá", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Balenie v plastovej sieťke. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 189,
+    "name": "Prútené hniezdo bielené s fóliou",
+    "description": "Okrúhle dekoratívne hniezdo z husto pleteného bieleného prútia s vnútornou plastovou fóliou na výsadbu a aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "hniezdo",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 190,
+    "name": "Prútený okrúhly kvetináč s fóliou",
+    "description": "Okrúhly kvetináč z prírodného prútia spevneného drôtom, s vnútornou plastovou výstelkou vhodný na sadenie a kvetinové aranžmány.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "kvetináč",
+    "groups": [{ "color": "sivohnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 191,
+    "name": "Prútený košík s bielym lemom a fóliou",
+    "description": "Okrúhly košík z prírodného prútia s ozdobným pleteným lemom na hornom okraji a vnútornou plastovou fóliou na výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "košík",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Biely pletený lem na okraji. V zábere dve veľkosti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 192,
+    "name": "Prútené hniezdo s fóliou",
+    "description": "Okrúhle košíky z prírodného prútia v tvare hniezda s vnútornou plastovou fóliou na aranžovanie a výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "hniezdo",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "V zábere dve veľkosti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 193,
+    "name": "Prútený cylindrický obal hniezdo s fóliou",
+    "description": "Valcovitý prútený obal v tvare hniezda s vnútornou plastovou fóliou, vhodný ako dekoračný kryt na kvetináč alebo základ aranžmánu.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "obal",
+    "groups": [{ "color": "hnedá", "photos": [1, 2, 3] }],
+    "confidence": 0.92,
+    "notes": "V zábere dve veľkosti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 194,
+    "name": "Prútený oválny obal s bielym lemom a fóliou",
+    "description": "Oválny prútený obal s ozdobným svetlým pleteným lemom na hornom okraji a vnútornou plastovou fóliou na výsadbu a aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "obal",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Svetlý pletený lem. V zábere dve veľkosti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 195,
+    "name": "Prútený oválny obal s fóliou",
+    "description": "Oválny dekoratívny obal z vrstveného prírodného prútia s vnútornou plastovou fóliou a vnútornou drevenou výstuhou na sadenie.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "obal",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "V zábere dve veľkosti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 196,
+    "name": "Prútený polmesiac na kovovom stojane s fóliou",
+    "description": "Dekoratívny prútený polmesiac na nízkom kovovom stojci s plastovou výplňou vhodný ako základ pre kvetinové aranžmány.",
+    "category": "Vencové základy",
+    "subcategory": "Prútené základy",
+    "druh": "polmesiac",
+    "groups": [
+      { "color": "šedá", "photos": [1, 3] },
+      { "color": "hnedá", "photos": [2, 3] }
+    ],
+    "confidence": 0.93,
+    "notes": "Kovový drôtený stojan. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 197,
+    "name": "Obal v tvare lodičky z kôry s fóliou",
+    "description": "Dekoratívny obal v tvare lodičky obložený kúskami prírodnej kôry s vnútornou plastovou fóliou na aranžovanie a výsadbu.",
+    "category": "Obalový materiál",
+    "subcategory": "Kôrové obaly",
+    "druh": "lodička",
+    "groups": [{ "color": "prírodná", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 198,
+    "name": "Nízka miska z kôry s fóliou",
+    "description": "Plytká rustikálna miska z vertikálne usporiadaných kúskov kôry s vnútornou ochrannou fóliou na kvetinové aranžmány.",
+    "category": "Aranž. materiál",
+    "subcategory": "Podklady",
+    "druh": "miska",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 199,
+    "name": "Oválny kvetináč z kôry s lanovými rúčkami a fóliou",
+    "description": "Oválny dekoratívny kvetináč z prírodnej kôry s lanovými rúčkami na bokoch a vnútornou plastovou fóliou na výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "kvetináč",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 200,
+    "name": "Drevené lodičky s fóliou",
+    "description": "Dekoratívne nádoby v tvare lodičky z drevených lamiel s vnútornou plastovou fóliou na aranžérske účely a výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Drevené obaly",
+    "druh": "lodička",
+    "groups": [{ "color": "prírodná", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "V zábere viac veľkostí, vhodné na vnorené usporiadanie. Dávka Z 5.9.2026."
+  }
+]

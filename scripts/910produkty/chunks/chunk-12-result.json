@@ -1,0 +1,231 @@
+[
+  {
+    "id": 221,
+    "name": "Brezová loďka vrstvená",
+    "description": "Dekoratívna nádoba v oválnom tvare loďky z vrstvených plátov brezovej kôry a dreva. Vhodná ako rustikálny základ pre kvetinové aranžmány.",
+    "category": "Košíky",
+    "subcategory": "Drevené košíky",
+    "druh": "loďka",
+    "groups": [{ "color": "prírodná", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 222,
+    "name": "Drevený oválny obal z kolíkov",
+    "description": "Dekoratívny oválny obal zo zvislých drevených kolíkov s vnútornou plastovou fóliou vhodnou na výsadbu alebo aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Drevené košíky",
+    "druh": "obal",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 223,
+    "name": "Prútené hniezdo s fóliou",
+    "description": "Dekoratívny košík v tvare hniezda z tenkých prírodných konárikov s vnútornou plastovou výstelkou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "hniezdo",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 224,
+    "name": "Biely dvojposchodový vencový základ",
+    "description": "Kruhový poschodový základ na aranžovanie zo zvislých drevených polienok s vnútornou plastovou fóliou. Vhodný na vence aj stolové aranžmány.",
+    "category": "Vencové základy",
+    "subcategory": "Drevené základy",
+    "druh": "veniec",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 225,
+    "name": "Drevené srdce so špagátom",
+    "description": "Dekoratívny kvetináč v tvare srdca z drevených latiek zviazaných špagátom, s vnútornou plastovou fóliou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Drevené košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 226,
+    "name": "Kôrové srdce s fóliou",
+    "description": "Dekoratívna nádoba v tvare srdca s bočnými stenami z prírodnej kôry a vnútornou plastovou fóliou určenou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 227,
+    "name": "Drevený kvetináč v tvare listu",
+    "description": "Dekoratívny kvetináč v tvare listu zo zvislých drevených polienok zviazaných prútím, s vnútornou plastovou fóliou.",
+    "category": "Košíky",
+    "subcategory": "Drevené košíky",
+    "druh": "kvetináč",
+    "groups": [{ "color": "prírodná", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 228,
+    "name": "Drevené srdce s fóliou",
+    "description": "Dekoratívny kvetináč v tvare srdca s rustikálnymi drevenými latkami a plastovou výstelkou vhodnou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Drevené košíky",
+    "druh": "srdce",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2] },
+      { "color": "sivá", "photos": [1, 2] }
+    ],
+    "confidence": 0.89,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 229,
+    "name": "Srdce z kôry s fóliou",
+    "description": "Dekoratívna nádoba v tvare srdca s bočnými stenami z prírodnej kôry a vnútornou plastovou fóliou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 230,
+    "name": "Oválny košík z vetvičiek",
+    "description": "Oválny dekoratívny košík z tenkých vetvičiek s pleteným horným lemom a vnútornou plastovou výstelkou na výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "košík",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2] },
+      { "color": "krémová", "photos": [1, 2] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 231,
+    "name": "Keramický kvetináč v tvare pňa",
+    "description": "Dekoratívny kvetináč s realistickou reliéfnou imitáciou kôry stromu a dutým vnútrom určeným na aranžovanie.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 232,
+    "name": "Keramická miska kamenná",
+    "description": "Dekoratívna keramická miska nepravidelného tvaru s hrubou pórovitou textúrou pripomínajúcou prírodný kameň a odtokovým otvorom.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [{ "color": "béžová", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 233,
+    "name": "Keramický črepník s motívom brezy",
+    "description": "Nízky valcovitý kvetináč s povrchovou úpravou imitujúcou brezovú kôru a odtokovým otvorom v spodnej časti.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "črepník",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 234,
+    "name": "Kôrová loďka",
+    "description": "Dekoratívna nádoba v tvare loďky s vonkajšou stranou z prírodnej kôry, určená ako základ pre kvetinové aranžmány.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "loďka",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 235,
+    "name": "Keramická miska rustikálna",
+    "description": "Okrúhla keramická miska s výrazne poréznym drsným povrchom pripomínajúcim prírodný kameň. Vhodná na aranžovanie aj dekoráciu.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [{ "color": "terakota", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 236,
+    "name": "Keramický kvetináč nepravidelný",
+    "description": "Nízky keramický kvetináč organického tvaru s rustikálnou textúrou a odtokovým otvorom v spodnej časti.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "terakota", "photos": [1, 2] }],
+    "confidence": 0.89,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 237,
+    "name": "Keramická miska v tvare kameňa",
+    "description": "Nízka okrúhla keramická miska s hrubou štruktúrovanou textúrou pripomínajúcou prírodný kameň a drenážnym otvorom.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 238,
+    "name": "Keramická miska pórovitá oválna",
+    "description": "Nízka oválna keramická miska s výrazne štruktúrovaným pórovitým povrchom vhodná na aranžovanie alebo interiérovú dekoráciu.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [{ "color": "horčicová", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 239,
+    "name": "Srdce z kôry s pleteným lemom",
+    "description": "Dekoratívne nádoby v tvare srdca s vonkajšou kôrou, pleteným horným okrajom a vnútornou plastovou fóliou.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "srdce",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2] },
+      { "color": "krémová", "photos": [1, 2] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 240,
+    "name": "Pletený košík guľatý biely",
+    "description": "Pletený košík guľatého tvaru z drevených pásov s vnútornou plastovou výstelkou určenou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Pletené košíky",
+    "druh": "košík",
+    "groups": [{ "color": "biela", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  }
+]

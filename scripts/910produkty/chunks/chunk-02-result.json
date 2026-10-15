@@ -1,0 +1,390 @@
+[
+  {
+    "id": 21,
+    "name": "Umelá olivová vetvička s plodmi",
+    "description": "Realisticky stvárnená vetvička s drobnými plodmi a tmavými listami. Vhodná do vázy aj do stredomorských aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "oliva",
+    "groups": [
+      {
+        "color": "bordová",
+        "photos": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 22,
+    "name": "Umelá papraď dekoratívna",
+    "description": "Jemne členená umelá papraď s bohatým listom na dlhej stonke. Hodí sa ako doplnok do kytíc, vencov a interiérových aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnková zeleň",
+    "druh": "papraď",
+    "groups": [
+      {
+        "color": "ružová",
+        "photos": [1, 2, 3, 4, 5]
+      }
+    ],
+    "confidence": 0.85,
+    "notes": ""
+  },
+  {
+    "id": 23,
+    "name": "Umelá halúzka s drobnými listami",
+    "description": "Dekoratívna halúzka s hustým listom a jemným tieňovaním. Vhodná ako výplň do kytíc, vencov a celoročných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnková zeleň",
+    "druh": "halúzka",
+    "groups": [
+      {
+        "color": "broskyňová",
+        "photos": [1, 2, 3, 4, 7]
+      },
+      {
+        "color": "hnedá",
+        "photos": [1, 2, 5, 6]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 24,
+    "name": "Umelá bobuľová halúzka s plodmi",
+    "description": "Dekoratívna halúzka s drobnými plodmi a listami v jesennom štýle. Určená na sezónne aranžmány a výzdobu interiéru.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "halúzka",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 2, 3, 4, 5, 6, 7]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 25,
+    "name": "Jesenný dekoračný zápich s tekvicami",
+    "description": "Sezónny zápich s umelými tekvicami, listím a jemnými doplnkami. Ideálny do vázy, košíka alebo ako súčasť jesennej výzdoby.",
+    "category": "Aranž. materiál",
+    "subcategory": "Doplnky",
+    "druh": "tekvica",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 26,
+    "name": "Umelá vetvička jemná zeleň",
+    "description": "Dekoratívna vetvička s jemne členeným listom a vzdušným vzhľadom. Vhodná do vázy aj ako doplnok do kytíc a vencov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "vetvička",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 2, 3, 8, 9, 10, 11]
+      },
+      {
+        "color": "biela",
+        "photos": [4, 5, 6, 7, 16]
+      },
+      {
+        "color": "béžová",
+        "photos": [12, 13, 14, 15]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 27,
+    "name": "Umelá dekoračná halúzka s listami",
+    "description": "Jemne tvarovaná halúzka s bohatým listovaním a prirodzeným dojmom. Hodí sa ako doplnok do kytíc a celoročných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Doplnková zeleň",
+    "druh": "halúzka",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 2, 3, 8, 9, 10, 11]
+      },
+      {
+        "color": "biela",
+        "photos": [4, 5, 6, 7, 16]
+      },
+      {
+        "color": "béžová",
+        "photos": [12, 13, 14, 15]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 28,
+    "name": "Umelá vetvička ruscus",
+    "description": "Dekoratívna vetvička s drobnými oválnymi listami na vetvenej stonke. Vhodná na dotvorenie kytíc a rôznych aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruscus",
+    "groups": [
+      {
+        "color": "bordová",
+        "photos": [1, 2, 9]
+      },
+      {
+        "color": "zlatá",
+        "photos": [3, 4]
+      },
+      {
+        "color": "hnedá",
+        "photos": [5, 6]
+      },
+      {
+        "color": "oranžová",
+        "photos": [7, 8]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 29,
+    "name": "Umelá vetvička páperová zeleň",
+    "description": "Elegantná vetvička s jemným páperovým listom na dlhej stonke. Dodá aranžmánu ľahkosť a výšku vo váze.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "vetvička",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 2, 5, 6, 7, 8]
+      },
+      {
+        "color": "hnedá",
+        "photos": [3, 4, 9]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": ""
+  },
+  {
+    "id": 30,
+    "name": "Umelá dekoratívna tráva na stopke",
+    "description": "Dlhá umelá stonka s jemnými strapcovitými klasy v štýle okrasnej trávy. Vhodná do vázy aj do moderných aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "tráva",
+    "groups": [
+      {
+        "color": "béžová",
+        "photos": [1, 4, 6]
+      },
+      {
+        "color": "hnedá",
+        "photos": [2, 3, 5]
+      }
+    ],
+    "confidence": 0.85,
+    "notes": ""
+  },
+  {
+    "id": 31,
+    "name": "Umelá chryzantéma na stopke veľká",
+    "description": "Realistická umelá kvetina s bohato vrstveným kvetom a listami na dlhej stonke. Vhodná do vyšších váz a väčších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "oranžová",
+        "photos": [1, 3, 4, 7]
+      },
+      {
+        "color": "zelená",
+        "photos": [2, 5, 6]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 32,
+    "name": "Chryzantéma ihličková na stopke",
+    "description": "Dekoratívny umelý kvet s dlhou stopkou a bohato vrstveným kvetom s úzkymi okvetnými lístkami. Vhodný do vysokých váz.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "zelená",
+        "photos": [1, 2, 9, 10]
+      },
+      {
+        "color": "ružová",
+        "photos": [3, 4, 7, 8]
+      },
+      {
+        "color": "biela",
+        "photos": [5, 6]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 33,
+    "name": "Chryzantéma na stopke ihličková",
+    "description": "Umelá kvetina s výrazným kvetom a prirodzene pôsobiacou stonkou s listami. Ideálna do vázy alebo ako dominantný prvok aranžmánu.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "fialová",
+        "photos": [1, 2, 3, 4]
+      },
+      {
+        "color": "biela",
+        "photos": [5, 6, 7, 8, 9]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 34,
+    "name": "Chryzantéma na stonke dekoratívna",
+    "description": "Realisticky pôsobiaca umelá kvetina s bohato vrstveným kvetom na dlhej stonke. Vhodná na samostatnú dekoráciu aj do kytíc.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.95,
+    "notes": ""
+  },
+  {
+    "id": 35,
+    "name": "Kytica chryzantémy pompon",
+    "description": "Dekoratívna kytica umelých chryzantém s husto vrstvenými kvetmi v guľatých tvaroch. Vhodná na celoročnú výzdobu interiéru.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "hnedá",
+        "photos": [1, 2, 7, 8]
+      },
+      {
+        "color": "krémová",
+        "photos": [3, 4, 5, 6]
+      },
+      {
+        "color": "zelená",
+        "photos": [9, 10]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 36,
+    "name": "Kytica chryzantémy na stopke",
+    "description": "Bohatá umelá kytica s viacerými kvetmi a listami na stonke. Vhodná do vázy alebo ako hotový aranžmán.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "chryzantéma",
+    "groups": [
+      {
+        "color": "fialová",
+        "photos": [1, 3, 5, 7]
+      },
+      {
+        "color": "krémová",
+        "photos": [2, 4, 5, 6]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": "Foto 5 zobrazuje obe varianty spolu."
+  },
+  {
+    "id": 37,
+    "name": "Sušená kytica prírodná zväzok",
+    "description": "Dekoratívny zväzok sušených rastlín previazaný jutovou stuhou. Vhodný do vázy alebo ako rustikálna samostatná dekorácia.",
+    "category": "Sušina",
+    "subcategory": "Kytice",
+    "druh": "sušené kvety",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 38,
+    "name": "Sušená kytica s ružami sola",
+    "description": "Dekoratívna kytica zo sušeného materiálu s ružovými kvetmi a prírodnou výplňou. Rukoväť je obalená jutovinou pre rustikálny efekt.",
+    "category": "Sušina",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 39,
+    "name": "Sušený amarant zväzok",
+    "description": "Zväzok sušených strapcovitých kvetov v prírodnom prevedení. Vhodný do vázy, kytíc a suchých aranžmánov.",
+    "category": "Sušina",
+    "subcategory": "Kytice",
+    "druh": "amarant",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 40,
+    "name": "Sušené limonium prírodné",
+    "description": "Jemný sušený kvet s bohatým vetvením a drobnými kvietkami. Ideálny ako vzdušná výplň do aranžmánov alebo dekorácia do vázy.",
+    "category": "Sušina",
+    "subcategory": "Stopkové kvety",
+    "druh": "limonium",
+    "groups": [
+      {
+        "color": "prírodná",
+        "photos": [1, 2, 3]
+      }
+    ],
+    "confidence": 0.94,
+    "notes": ""
+  }
+]

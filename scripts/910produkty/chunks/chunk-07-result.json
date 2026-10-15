@@ -1,0 +1,259 @@
+[
+  {
+    "id": 121,
+    "name": "Keramický kvetináč jamkovaný",
+    "description": "Okrúhly dekoratívny kvetináč s výraznou plastickou jamkovanou textúrou na celom povrchu. Rustikálny vzhľad vhodný ako obal na aranžmán aj do interiéru.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "hnedo-biela", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 122,
+    "name": "Keramický kvetináč s vertikálnym ryhovaním",
+    "description": "Valcovitý kvetináč s matným povrchom a výrazným zvislým ryhovaním v hornej časti, oddelenou vodorovným lemom od hladšej spodnej časti. Mierne kónický tvar.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "oranžová", "photos": [1, 2, 3] },
+      { "color": "modrá", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 123,
+    "name": "Keramický kvetináč rebrovaný",
+    "description": "Keramický obal s výrazným vertikálnym rebrovaním po celom obvode a mierne zúženou spodnou časťou. Vhodný ako dekoratívny črepník do interiéru.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2, 3] },
+      { "color": "biela", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.91,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 124,
+    "name": "Keramické koryto rustikálne",
+    "description": "Nízke oválne keramické koryto so zvetranou rustikálnou textúrou a nepravidelným okrajom. Vhodné na aranžovanie aj ako dekoratívny obal.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "koryto",
+    "groups": [{ "color": "terakota", "photos": [1, 2, 3, 4] }],
+    "confidence": 0.9,
+    "notes": "Rôzne veľkosti a jemne odlišná textúra povrchu. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 125,
+    "name": "Keramický kvetináč s vlnovkovým vzorom",
+    "description": "Kónický keramický kvetináč s plastickým vodorovným vlnovkovým reliéfom po celom obvode a matným povrchom. Moderný dizajn vhodný na črepník.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "biela", "photos": [1, 2, 3] },
+      { "color": "zelená", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 126,
+    "name": "Keramický kvetináč rebrovaný zrnitý",
+    "description": "Valcovitý kvetináč s výrazným zvislým rebrovaním a jemne zrnitou glazúrou na povrchu. Spodná časť je mierne zúžená.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "krémová", "photos": [1, 2, 3] },
+      { "color": "hnedá", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.91,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 127,
+    "name": "Keramický kvetináč rebrovaný",
+    "description": "Valcovitý kvetináč s vertikálnym rebrovaním a rustikálnou textúrou glazúry v ryhách. Elegantne zúžená spodná časť.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "krémovo-hnedá", "photos": [1] },
+      { "color": "olivová", "photos": [2] }
+    ],
+    "confidence": 0.9,
+    "notes": "V každej farbe dve veľkosti. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 128,
+    "name": "Keramický kvetináč s olivovou glazúrou",
+    "description": "Okrúhly kvetináč s dvojfarebným rustikálnym dizajnom: horná časť s lesklou glazúrou a nepravidelným okrajom, spodok s drsným matným povrchom.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "olivovozelená", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dve veľkosti rovnakej varianty. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 129,
+    "name": "Keramická miska nízka",
+    "description": "Nízka okrúhla keramická miska s hladkým matným povrchom a jednoduchým valcovým tvarom. Vhodná ako obal alebo dekoratívna nádoba.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [
+      { "color": "bordová", "photos": [1, 2, 3] },
+      { "color": "zelená", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 130,
+    "name": "Keramický kvetináč s dvojitým ryhovaním",
+    "description": "Valcovitý kvetináč s výrazným vertikálnym ryhovaním rozdeleným vodorovným lemom a rustikálnou patinou na povrchu.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "horčicovo-žltá", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dve veľkosti rovnakej varianty. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 131,
+    "name": "Keramický kvetináč matný",
+    "description": "Jednoduchý keramický kvetináč so zaobleným telom, hladkým matným povrchom bez dekoru a mierne zúženým dnom.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "biela", "photos": [1, 2] },
+      { "color": "svetlomodrá", "photos": [1, 3] },
+      { "color": "béžová", "photos": [1, 6] },
+      { "color": "tmavozelená", "photos": [1, 4] },
+      { "color": "olivová", "photos": [1, 5] }
+    ],
+    "confidence": 0.89,
+    "notes": "Na kontaktnej liste chýbajú náhľady fotiek 4 a 5. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 132,
+    "name": "Keramický kvetináč so šikmým reliéfom",
+    "description": "Valcovitý dekoratívny kvetináč so šikmým špirálovým reliéfnym vzorom na povrchu a matnou až polomatnou glazúrou. Jemne zúžená spodná časť.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "biela", "photos": [1, 2] },
+      { "color": "staroružová", "photos": [1, 3] },
+      { "color": "bordová", "photos": [1, 4] },
+      { "color": "zelená", "photos": [1, 5] }
+    ],
+    "confidence": 0.9,
+    "notes": "Na kontaktnej liste chýba náhľad fotografie 4. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 133,
+    "name": "Keramický kalich na podstavci",
+    "description": "Vysoká dekoratívna nádoba v tvare kalicha na ozdobnej nohe s výraznou antik patinou a hrubou textúrou povrchu. Vhodná ako váza alebo kvetináč.",
+    "category": "Keramika",
+    "subcategory": "Vázy",
+    "druh": "kalich",
+    "groups": [{ "color": "béžovo-sivá", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 134,
+    "name": "Keramický kvetináč rebrovaný patinovaný",
+    "description": "Dekoratívny keramický obal s vertikálnym rebrovaním a rustikálnou mramorovanou textúrou glazúry. Dostupný v okrúhlom aj oválnom tvare.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "béžovo-modrá", "photos": [1, 2, 3] }],
+    "confidence": 0.9,
+    "notes": "Dva tvary: okrúhly a oválny korytový. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 135,
+    "name": "Keramický kvetináč s reaktívnou glazúrou",
+    "description": "Okrúhly kvetináč s výrazným vertikálnym rebrovaním a lesklou reaktívnou glazúrou s prechodom odtieňov medzi spodnou a hornou časťou.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "oranžovo-modrá", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 136,
+    "name": "Keramický kvetináč s bodkovým reliéfom",
+    "description": "Valcovitý kvetináč s pravidelným reliéfnym bodkovým vzorom v hornej časti a hladkou zúženou spodnou časťou. Matný povrch.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "biela", "photos": [1, 2] },
+      { "color": "zelená", "photos": [1, 3] },
+      { "color": "ružová", "photos": [1, 5] },
+      { "color": "bordová", "photos": [1, 4] }
+    ],
+    "confidence": 0.9,
+    "notes": "Na kontaktnej liste chýba náhľad fotografie 4. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 137,
+    "name": "Keramický kvetináč lesklý",
+    "description": "Minimalistický keramický kvetináč s hladkým lesklým povrchom a ozdobne zúženou spodnou časťou na úzkom podstavci.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [
+      { "color": "zelená", "photos": [1, 2, 3] },
+      { "color": "krémová", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 138,
+    "name": "Keramický črepník rebrovaný",
+    "description": "Menší okrúhly keramický obal s vertikálnym rebrovaním po celom povrchu a mierne lesklou glazúrou. Vhodný na menšie rastliny.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "črepník",
+    "groups": [{ "color": "fialová", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 139,
+    "name": "Keramický obal s geometrickým reliéfom",
+    "description": "Menší valcovitý obal na črepník s plastickým geometrickým reliéfnym vzorom a lesklým kovovým okrajom na vrchu.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "obal",
+    "groups": [{ "color": "petrolejová", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Kovový okraj v bronzovom odtieni. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 140,
+    "name": "Keramický kvetináč vrúbkovaný",
+    "description": "Kónický keramický kvetináč s výrazným vertikálnym vrúbkovaním a rustikálnou mramorovanou textúrou povrchu.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "krémovo-modrá", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 30.8.2026."
+  }
+]

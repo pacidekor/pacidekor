@@ -1,0 +1,9 @@
+Názov: Doplnková kytička drobných kvetov ružovo-biela
+Popis: Umelá doplnková kytička s hustým trsom drobných hviezdičkovitých kvietkov. Vhodná ako výplňová zeleň alebo samostatná dekorácia.
+Farby: ružová [1,4,5,6] | biela [2,3,5,7]
+Druh: kytička
+Kategória: Umelé kvety
+Subkategória: Doplnky
+Zdrojová zložka: 3
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/3
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

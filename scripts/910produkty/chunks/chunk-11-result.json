@@ -1,0 +1,222 @@
+[
+  {
+    "id": 201,
+    "name": "Oválny kvetináč z kôry s fóliou",
+    "description": "Dekoratívny nízky oválny obal s povrchom z prírodnej kôry, horným lemom zo špagátu a vnútornou plastovou výstelkou vhodnou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "kvetináč",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 202,
+    "name": "Oválny košík z vetvičiek biely",
+    "description": "Dekoratívny oválny košík z bielych vetvičiek s plastovou fóliou vo vnútri, vhodný ako obal na aranžmán.",
+    "category": "Košíky",
+    "subcategory": "Dekoratívne košíky",
+    "druh": "košík",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 203,
+    "name": "Kôrový vencový základ s fóliou",
+    "description": "Okrúhly prstencový aranžérsky základ z vertikálnych latiek kôry s dutým stredom a vnútornou priehľadnou fóliou.",
+    "category": "Vencové základy",
+    "subcategory": "Kôrové vence",
+    "druh": "venec",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 204,
+    "name": "Kôrový venec s fóliou",
+    "description": "Kruhový základ na aranžovanie z hrubej prírodnej kôry s vystlaným vnútrom pre aranžérsku hmotu alebo výsadbu.",
+    "category": "Vencové základy",
+    "subcategory": "Kôrové vence",
+    "druh": "venec",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 205,
+    "name": "Drevený venec s kôrou a fóliou",
+    "description": "Robustný kruhový vencový základ s povrchom z prírodnej kôry, prstencovým tvarom a vnútornou plastovou výstelkou.",
+    "category": "Vencové základy",
+    "subcategory": "Drevené vence",
+    "druh": "venec",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 206,
+    "name": "Drevený venec z konárikov biely",
+    "description": "Okrúhly aranžérsky základ z bielych vertikálnych konárikov v tvare prstenca s vnútorným kanálikom a fóliovou výstelkou.",
+    "category": "Vencové základy",
+    "subcategory": "Drevené vence",
+    "druh": "venec",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 207,
+    "name": "Oválny drevený aranžérsky základ biely",
+    "description": "Nízky oválny základ z bielych drevených latiek s kruhovým otvorom v strede a bielou vnútornou výstelkou na aranžovanie.",
+    "category": "Vencové základy",
+    "subcategory": "Drevené vence",
+    "druh": "venec",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 208,
+    "name": "Drevená dekoračná miska s perleťovým vnútrom",
+    "description": "Okrúhla nízka miska so stenami z vertikálnych drevených kolíkov a hladkým vnútrom s perleťovým leskom.",
+    "category": "Košíky",
+    "subcategory": "Dekoratívne košíky",
+    "druh": "miska",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.9,
+    "notes": "Vo viacerých priemeroch. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 209,
+    "name": "Prútený košík z halúzok s fóliou",
+    "description": "Okrúhly rustikálny košík z prírodných vetvičiek s plastovou výstelkou vhodný na aranžovanie aj výsadbu.",
+    "category": "Košíky",
+    "subcategory": "Prírodné košíky",
+    "druh": "košík",
+    "groups": [{ "color": "hnedá", "photos": [1, 2, 3, 4, 5, 6] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 210,
+    "name": "Plechový obal s lanovými ušami Flowers & Garden",
+    "description": "Dekoratívna plechová nádoba s vrúbkovaným povrchom, reliéfnym štítkom na prednej strane a bočnými úchytmi z prírodného lana.",
+    "category": "Obalový materiál",
+    "subcategory": "Plechové kvetináče",
+    "druh": "obal",
+    "groups": [{ "color": "zelená", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": "Vintage povrch. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 211,
+    "name": "Plechový džbán s kvetinovým motívom",
+    "description": "Dekoratívny plechový džbán s potlačou lúčnych kvetov a motýľa, tenkým drôteným uchom a zúženým hrdlom.",
+    "category": "Obalový materiál",
+    "subcategory": "Plechové obaly",
+    "druh": "džbán",
+    "groups": [{ "color": "biela", "photos": [1] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 212,
+    "name": "Keramická váza so zlatým reliéfom",
+    "description": "Valcovitá keramická váza s plastickým vertikálnym reliéfom, zúženým hrdlom a širokým zlatým lemom.",
+    "category": "Keramika",
+    "subcategory": "Vázy",
+    "druh": "váza",
+    "groups": [{ "color": "zelená", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Matná tyrkysovo-zelená glazúra so zlatými akcentmi. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 213,
+    "name": "Plechový oválny obal s lanovými ušami Flowers & Garden",
+    "description": "Oválny plechový kvetináč s vrúbkovaným povrchom, reliéfnym logom na prednej strane a úchytmi z hrubého prírodného lana.",
+    "category": "Obalový materiál",
+    "subcategory": "Plechové kvetináče",
+    "druh": "obal",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 214,
+    "name": "Plechové kvetináče oválne s kvetinovým motívom",
+    "description": "Oválne kovové nádoby s drôtenými uškami, potlačou lúčnych kvetov a motýľov a galvanizovaným vnútrom.",
+    "category": "Obalový materiál",
+    "subcategory": "Plechové kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "biela", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Graduované veľkosti v jednej sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 215,
+    "name": "Plechový obal v tvare košíka Flowers Vintage Garden",
+    "description": "Plechová dekoratívna nádoba v tvare košíka s dvoma oblými ušami, patinovaným povrchom a ozdobným štítkom na prednej strane.",
+    "category": "Obalový materiál",
+    "subcategory": "Plechové obaly",
+    "druh": "obal",
+    "groups": [{ "color": "šedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Provence vintage štýl. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 216,
+    "name": "Kôrové srdce s fóliou",
+    "description": "Dekoratívny obal v tvare srdca z prírodnej kôry s vnútornou plastovou výstelkou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Kôrové košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 217,
+    "name": "Drevený obal z vetvičiek s fóliou",
+    "description": "Dekoratívny okrúhly obal z suchých vetvičiek s plastovou výstelkou vhodný na výsadbu alebo aranžmán.",
+    "category": "Košíky",
+    "subcategory": "Prírodné košíky",
+    "druh": "obal",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 218,
+    "name": "Drevené srdce s fóliou a lanom",
+    "description": "Kvetináč v tvare srdca z drevených latiek previazaný hrubým lanom, s plastovou fóliou vo vnútri.",
+    "category": "Košíky",
+    "subcategory": "Dekoratívne košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 219,
+    "name": "Drevené srdce s fóliou a šnúrou",
+    "description": "Rustikálny kvetináč v tvare srdca z drevených latiek s obviazaním šnúrou okolo pásu a vnútornou plastovou výstelkou.",
+    "category": "Košíky",
+    "subcategory": "Dekoratívne košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Dve veľkosti v sade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 220,
+    "name": "Prútený košík v tvare srdca s fóliou",
+    "description": "Plochý prútený košík v tvare srdca s dutým stredom a vnútornou plastovou fóliou na aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Prútené košíky",
+    "druh": "srdce",
+    "groups": [{ "color": "hnedá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Tmavé prútie, dve veľkosti v sade. Dávka Z 5.9.2026."
+  }
+]

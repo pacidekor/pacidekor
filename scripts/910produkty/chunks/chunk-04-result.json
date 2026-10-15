@@ -1,0 +1,326 @@
+[
+  {
+    "id": 61,
+    "name": "Keramická miska srdce",
+    "description": "Dekoračná miska v tvare srdca s hrubostenným telom a textúrovaným povrchom v kamennom vzhľade. Vhodná ako obal na aranžmán alebo samostatná interiérová dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 62,
+    "name": "Keramické srdce s anjelskými krídlami",
+    "description": "Dekoračná miska v tvare srdca s detailným reliéfom anjelských krídel po obvode. Vnútorná dutina je hladká, vhodná na aranžovanie alebo ako pietna dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2, 3, 4, 5]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": "Na kontaktnej liste chýba náhľad fotografie 4; v ponuke sú dve veľkosti rovnakej varianty."
+  },
+  {
+    "id": 63,
+    "name": "Keramické srdce s anjelským krídlom",
+    "description": "Dekoračná nádoba v tvare srdca s plastickým reliéfom anjelského krídla na boku a kamennou textúrou povrchu. Vhodná na kvetinové aranžmány a spomienkovú výzdobu.",
+    "category": "Keramika",
+    "subcategory": "Pietna dekorácia",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": "Akcent patinovaného kovového efektu na krídle."
+  },
+  {
+    "id": 64,
+    "name": "Srdiečko na zápichu",
+    "description": "Dekoračné srdiečko na tenkom kovovom zápichu s reliéfnym ornamentálnym vzorom. Určené na doplnenie kytíc, vencov a náhrobných aranžmánov.",
+    "category": "Aranž. materiál",
+    "subcategory": "Zápichy",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "svetlosivá",
+        "photos": [1]
+      },
+      {
+        "color": "tmavosivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": "Na jednej fotografii sú zobrazené dve farebné varianty produktu."
+  },
+  {
+    "id": 65,
+    "name": "Keramické srdce s ornamentom",
+    "description": "Dekoračná nádoba v tvare srdca s bohatým reliéfnym rastlinným ornamentom na vonkajšej strane a hladkým matným vnútrom. Vhodná ako obal alebo základ pre trvalé aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "bronzová",
+        "photos": [1, 2, 3, 4, 5]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": "Na kontaktnej liste chýba náhľad fotografie 4."
+  },
+  {
+    "id": 66,
+    "name": "Keramické srdce s kôrou",
+    "description": "Dekoračná miska v tvare srdca s vonkajšou textúrou imitujúcou bielu brezovú kôru a hladkým vnútrom. Hodí sa na drobné aranžmány aj samostatnú dekoráciu.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "biela",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 67,
+    "name": "Keramická miska loďka s anjelom",
+    "description": "Dekoračná miska v tvare loďky so štruktúrovaným povrchom, reliéfom ruží a postavičkou anjela na okraji. Vhodná ako základ pre aranžovanie alebo pietna dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "loďka",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 68,
+    "name": "Keramické srdce s plastickými ružami",
+    "description": "Dekoračná miska v tvare srdca s jemne štruktúrovaným povrchom a plastickou dekoráciou ruží pri spodnom cípe. Vhodná na kvetinové aranžmány a exteriérovú výzdobu.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 69,
+    "name": "Keramické srdce s reliéfom ruže",
+    "description": "Dekoračná miska v tvare srdca s kamennou textúrou a plastickým reliéfom ruže pozdĺž okraja. Dutina v strede slúži na drobný aranžmán alebo sviečku.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 70,
+    "name": "Keramický kvetináč hranatý",
+    "description": "Obdĺžnikový keramický kvetináč s výraznou nerovnomernou textúrou a betónovým vzhľadom. Matný povrch pôsobí prirodzene a rustikálne.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "hranatý",
+    "groups": [
+      {
+        "color": "sivobéžová",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 71,
+    "name": "Keramická oválna misa s ornamentom",
+    "description": "Dekoračná oválna misa s bohatým plastickým klasickým ornamentom po celom vonkajšom obvode a hladkým vnútrom. Elegantný doplnok na aranžovanie alebo samostatnú dekoráciu.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "ovál",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": "Dvojfarebný kontrast reliéfu a tela misy."
+  },
+  {
+    "id": 72,
+    "name": "Dekoratívny podklad s machom a srdcom",
+    "description": "Obdĺžnikový dekoratívny podklad pokrytý umelým machom so zapusteným keramickým srdcom s reliéfnym kvetinovým motívom. Vhodný ako základ pre spomienkové aranžmány.",
+    "category": "Aranž. materiál",
+    "subcategory": "Podklady",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.82,
+    "notes": "Okolité keramické ruže a list na fotografii sú rekvizity, nie súčasť produktu."
+  },
+  {
+    "id": 73,
+    "name": "Betónové srdce s nápisom",
+    "description": "Ploché dekoratívne srdce na obdĺžnikovom podstavci s vyrytým nápisom a rastlinným motívom. Kamenná textúra vhodná na pietnu výzdobu a aranžovanie.",
+    "category": "Keramika",
+    "subcategory": "Pietna dekorácia",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.89,
+    "notes": "Text na produkte: S láskou spomíname. Okolité ruže na snímke sú rekvizity."
+  },
+  {
+    "id": 74,
+    "name": "Anjelik s nápisom Spomíname s láskou",
+    "description": "Pietna betónová dekorácia v tvare modliaceho sa anjelika, ktorého krídla tvoria jemný srdcový obrys. Na krídle je umiestnený nápis, vhodné na hrob alebo do aranžmánu.",
+    "category": "Keramika",
+    "subcategory": "Pietna dekorácia",
+    "druh": "anjel",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 75,
+    "name": "Dekoratívna kniha so srdcovým výrezom",
+    "description": "Obdĺžniková dekorácia v tvare knihy s hlbokým srdcovým výrezom vpredu a bočnou textúrou pripomínajúcou stránky. Vhodná ako pietny predmet alebo podstavec pre sviečku.",
+    "category": "Keramika",
+    "subcategory": "Pietna dekorácia",
+    "druh": "kniha",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.88,
+    "notes": "Plastická dekorácia holubíc pri spodnom cípe srdca."
+  },
+  {
+    "id": 76,
+    "name": "Keramický kvetináč s anjelikom",
+    "description": "Malý cylindrický kvetináč s plastickým reliéfom spiaceho anjela s krídlami obopínajúcimi telo nádoby. Povrch imituje prirodzený kameň s jemnou patinou.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "anjel",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 77,
+    "name": "Betónový kvetináč srdce s kôrou",
+    "description": "Dekoračná nádoba v tvare srdca s detailnou vonkajšou textúrou stromovej kôry a hladkým vnútrom. Vhodná ako obal na kvety alebo samostatná rustikálna dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1, 2, 3, 4]
+      }
+    ],
+    "confidence": 0.92,
+    "notes": "Dve veľkostné varianty rovnakej farby."
+  },
+  {
+    "id": 78,
+    "name": "Betónový kvetináč srdce s kôrou",
+    "description": "Kvetináč v tvare srdca s výraznou vonkajšou textúrou drevenej kôry a hladkou vnútornou dutinou. Prírodný kamenný vzhľad vhodný na drobné aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "srdce",
+    "groups": [
+      {
+        "color": "sivobéžová",
+        "photos": [1, 2]
+      }
+    ],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 79,
+    "name": "Keramický anjel s kvetinovým reliéfom",
+    "description": "Štíhla keramická soška anjela s jemne rozprestretými krídlami a bohatým reliéfnym vzorom drobných kvetov na rúchu. Vhodná do interiéru aj na pietnu výzdobu.",
+    "category": "Keramika",
+    "subcategory": "Sošky",
+    "druh": "anjel",
+    "groups": [
+      {
+        "color": "krémová",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 80,
+    "name": "Dekoračné betónové ruže",
+    "description": "Drobné dekoratívne prvky v tvare ruží s detailnou kamennou textúrou. Obsahuje samostatné hlavičky aj varianty so stonkou a lístkom na aranžovanie a vence.",
+    "category": "Aranž. materiál",
+    "subcategory": "Prízdoby",
+    "druh": "ruža",
+    "groups": [
+      {
+        "color": "sivá",
+        "photos": [1]
+      }
+    ],
+    "confidence": 0.87,
+    "notes": "Na jednej fotografii sú zobrazené viaceré tvary rovnakej varianty."
+  }
+]

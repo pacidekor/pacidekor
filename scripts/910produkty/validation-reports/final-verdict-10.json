@@ -1,0 +1,459 @@
+{
+  "summary": {
+    "reviewed": 10,
+    "import_as_is_or_simple_fix": 6,
+    "split": 4,
+    "do_not_import": 0,
+    "still_blocked": 0,
+    "newProductsFromSplit": 13,
+    "totalProductRecordsAfterSplit": 19,
+    "importNowIds": [
+      "153",
+      "228",
+      "230",
+      "239",
+      "254",
+      "270"
+    ],
+    "splitFirstIds": [
+      "144",
+      "160",
+      "165",
+      "170"
+    ],
+    "splitCounts": {
+      "144": 4,
+      "160": 4,
+      "165": 2,
+      "170": 3
+    },
+    "indexing": "photos obsahuje pôvodné čísla súborov v ZIP-e v poradí novej galérie. proposedFarby a splitPlan.farby používajú tieto pôvodné 1-based indexy. importFarby je už prepočítané na 1-based pozície v novej galérii a je určené na priamy import. Napríklad pri 254 photos [2,3] znamená modrá [1] | fialová [2] v importFarby.",
+    "splitRule": "Pri finalVerdict split sa pôvodný produkt neimportuje. proposedFarby je null, pretože jediný spoločný riadok by spájal rôzne modely. Finálne Farby každého nového produktu sú v splitPlan. importNow false znamená najprv vykonať split, nie blokáciu.",
+    "metadataRule": "Null v proposedName/Description/Category/Subcategory znamená ponechať aktuálnu hodnotu. Pri split používať úplné metadáta jednotlivých položiek splitPlan. Všetky newId sú dočasné katalógové identifikátory.",
+    "defaultsRule": "single_sku pri 153, 228, 230 a 239 je rozhodnutie podľa výslovného defaultu v PROMPT.md. Nejde o tvrdenie o overenom počte kusov, rozmeroch ani predaji v sade. confidence vyjadruje istotu zvoleného katalógového postupu podľa zadania.",
+    "excludedVariants": [
+      {
+        "id": "144",
+        "note": "Krémový variant reliéfu kruhových oblúkov, dostupný iba na skupinovej foto 1, teraz neimportovať."
+      },
+      {
+        "id": "254",
+        "note": "Všetky farby bez samostatnej fotografie teraz neimportovať. Schválená je iba modrá a fialová."
+      }
+    ],
+    "scope": "Finálne rozhodnutia na prípravu importu. Žiadny produkt nebol týmto JSON-om fyzicky importovaný do e-shopu."
+  },
+  "products": [
+    {
+      "id": "144",
+      "finalVerdict": "split",
+      "confidence": 0.97,
+      "action": "split",
+      "proposedFarby": null,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "multiple_products",
+      "salesUnitNote": "Rozdeliť podľa reliéfu na štyri produkty. Model s kruhovými oblúkmi importovať s farebnými variantmi doloženými samostatnými fotografiami.",
+      "splitPlan": [
+        {
+          "newId": "144a",
+          "name": "Keramický kvetináč so zvislým vlnovkovým reliéfom",
+          "photos": [
+            2,
+            4
+          ],
+          "farby": "krémová [2,4]",
+          "importFarby": "krémová [1-2]",
+          "category": "Keramika",
+          "subcategory": "Kvetináče",
+          "description": "Keramický kvetináč so zvislým vlnovkovým reliéfom a jemne zúženou spodnou časťou. Vhodný ako dekoratívny obal na rastliny.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "144b",
+          "name": "Keramický kvetináč s ornamentálnym reliéfom",
+          "photos": [
+            3
+          ],
+          "farby": "krémová [3]",
+          "importFarby": "krémová [1]",
+          "category": "Keramika",
+          "subcategory": "Kvetináče",
+          "description": "Keramický kvetináč s ornamentálnym reliéfom pripomínajúcim dlaždicový motív. Vhodný na aranžovanie aj ako dekoratívny obal.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "144c",
+          "name": "Keramický kvetináč s reliéfom kruhových oblúkov",
+          "photos": [
+            5,
+            7
+          ],
+          "farby": "béžová [5] | modrosivá [7]",
+          "importFarby": "béžová [1] | modrosivá [2]",
+          "category": "Keramika",
+          "subcategory": "Kvetináče",
+          "description": "Keramický kvetináč s plastickým vzorom prepojených kruhových oblúkov. Vhodný ako dekoratívny obal do interiéru.",
+          "salesUnit": "color_variants",
+          "notes": "Importovať iba varianty z foto 5 a 7. Krémové vyhotovenie zo spoločnej foto 1 zatiaľ nezaradiť."
+        },
+        {
+          "newId": "144d",
+          "name": "Keramický kvetináč so štvorcovým reliéfom",
+          "photos": [
+            6
+          ],
+          "farby": "béžová [6]",
+          "importFarby": "béžová [1]",
+          "category": "Keramika",
+          "subcategory": "Kvetináče",
+          "description": "Keramický kvetináč s pravidelným štvorcovým reliéfom a oblúkovými detailmi. Vhodný ako dekoratívny obal na rastliny.",
+          "salesUnit": "single_sku",
+          "notes": null
+        }
+      ],
+      "importNow": false,
+      "notes": "Pôvodné ID 144 neimportovať ako spoločný produkt. Foto 2 a 4 zobrazuje ten istý vlnovkový model. Foto 1 je prehľad rôznych modelov a nebude súčasťou nových galérií. Krémový model s kruhovými oblúkmi, viditeľný iba na foto 1, teraz nezaradiť medzi predajné varianty; nejde o blokáciu ostatných modelov. Nevytvárať produkt podľa každého kusu v skupinovej fotke.",
+      "photos": [],
+      "importFarby": null,
+      "excludedPhotos": [
+        1
+      ]
+    },
+    {
+      "id": "160",
+      "finalVerdict": "split",
+      "confidence": 0.98,
+      "action": "split",
+      "proposedFarby": null,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "multiple_products",
+      "salesUnitNote": "Štyri modely podľa konštrukcie a svetelného zdroja. Model s krížovou mriežkou ponechať s farebnými variantmi.",
+      "splitPlan": [
+        {
+          "newId": "160a",
+          "name": "Okrúhly LED lampáš so sviečkou",
+          "photos": [
+            1
+          ],
+          "farby": "bronzová [1]",
+          "importFarby": "bronzová [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Dekoratívny lampáš s okrúhlym telom, ozdobnou strieškou a vnútornou LED sviečkou. Uško umožňuje zavesenie.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "160b",
+          "name": "Hranatý LED lampáš so svetelnou reťazou",
+          "photos": [
+            3,
+            4
+          ],
+          "farby": "čierna [3-4]",
+          "importFarby": "čierna [1-2]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Dekoratívny hranatý lampáš so svetelnou reťazou vo vnútri a strieškou s ozdobnými výrezmi. Vhodný na položenie alebo zavesenie.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "160c",
+          "name": "LED lampáš s krížovou mriežkou a sviečkou",
+          "photos": [
+            5,
+            6,
+            9,
+            10
+          ],
+          "farby": "čierna [5-6] | biela [9-10]",
+          "importFarby": "čierna [1-2] | biela [3-4]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Hranatý dekoratívny lampáš s krížovou mriežkou, ozdobnou strieškou a vnútornou LED sviečkou. Vhodný na položenie alebo zavesenie.",
+          "salesUnit": "color_variants",
+          "notes": null
+        },
+        {
+          "newId": "160d",
+          "name": "Patinovaný LED lampáš so sviečkou",
+          "photos": [
+            7,
+            8
+          ],
+          "farby": "zlatá [7-8]",
+          "importFarby": "zlatá [1-2]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Hranatý dekoratívny lampáš s patinovaným rámom, priehľadnými stenami bez krížovej mriežky a vnútornou LED sviečkou.",
+          "salesUnit": "single_sku",
+          "notes": null
+        }
+      ],
+      "importNow": false,
+      "notes": "Oproti predchádzajúcemu auditu spresniť rozdelenie na štyri produkty: zlatý model na 7 a 8 nemá krížovú mriežku. Rozdiel výrezu na streche pri čiernom a bielom modeli s krížovou mriežkou je dekoratívny detail, ich základná konštrukcia a typ sviečky sú zhodné. Spoločnú foto 2 vyradiť z nových galérií. Pôvodné ID 160 samostatne neimportovať.",
+      "photos": [],
+      "importFarby": null,
+      "excludedPhotos": [
+        2
+      ]
+    },
+    {
+      "id": "165",
+      "finalVerdict": "split",
+      "confidence": 0.99,
+      "action": "split",
+      "proposedFarby": null,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "multiple_products",
+      "salesUnitNote": "Rozdeliť na model so špicatou strechou a vážkou a model s kupolovou strechou a vtáčím motívom.",
+      "splitPlan": [
+        {
+          "newId": "165a",
+          "name": "LED lampáš s motívom vážky",
+          "photos": [
+            2
+          ],
+          "farby": "čierna [2]",
+          "importFarby": "čierna [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Dekoratívny LED lampáš so špicatou strieškou, motívom vážky a rastlinným ornamentom. Vhodný ako interiérová dekorácia.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "165b",
+          "name": "LED lampáš s vtáčím motívom",
+          "photos": [
+            3
+          ],
+          "farby": "biela [3]",
+          "importFarby": "biela [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Dekoratívny LED lampáš s kupolovou strieškou a vtáčím motívom pri kvetoch. Vhodný ako interiérová dekorácia.",
+          "salesUnit": "single_sku",
+          "notes": null
+        }
+      ],
+      "importNow": false,
+      "notes": "Odlišná konštrukcia strechy aj silueta dekoru. Nie sú to iba farebné varianty. Spoločnú foto 1 nepoužiť v nových galériách; každý produkt má samostatnú fotografiu.",
+      "photos": [],
+      "importFarby": null,
+      "excludedPhotos": [
+        1
+      ]
+    },
+    {
+      "id": "170",
+      "finalVerdict": "split",
+      "confidence": 0.99,
+      "action": "split",
+      "proposedFarby": null,
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "multiple_products",
+      "salesUnitNote": "Tri samostatné modely. Odlišné rámovanie a siluetu nemožno zredukovať na výber farby.",
+      "splitPlan": [
+        {
+          "newId": "170a",
+          "name": "LED lampáš so žiarovkou a oblúkovými oknami",
+          "photos": [
+            2
+          ],
+          "farby": "čierna [2]",
+          "importFarby": "čierna [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Dekoratívny lampáš s oblúkovými oknami, zdobenou strieškou a vnútornou žiarovkou so svetelnou reťazou.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "170b",
+          "name": "LED lampáš so žiarovkou a ornamentálnou mriežkou",
+          "photos": [
+            3
+          ],
+          "farby": "čierna [3]",
+          "importFarby": "čierna [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Hranatý dekoratívny lampáš s ornamentálnou mriežkou a vnútornou žiarovkou so svetelnou reťazou.",
+          "salesUnit": "single_sku",
+          "notes": null
+        },
+        {
+          "newId": "170c",
+          "name": "LED lampáš so žiarovkou a okennou mriežkou",
+          "photos": [
+            4
+          ],
+          "farby": "strieborná [4]",
+          "importFarby": "strieborná [1]",
+          "category": "Svietniky",
+          "subcategory": "LED lampáše",
+          "description": "Hranatý dekoratívny lampáš s okennou mriežkou, patinovaným rámom a vnútornou žiarovkou so svetelnou reťazou.",
+          "salesUnit": "single_sku",
+          "notes": null
+        }
+      ],
+      "importNow": false,
+      "notes": "Foto 2 a 3 ukazujú odlišné modely rovnakej farby. Foto 4 je ďalší model s okennou mriežkou. Foto 1 je spoločný prehľad, ktorý sa nebude importovať do nových galérií.",
+      "photos": [],
+      "importFarby": null,
+      "excludedPhotos": [
+        1
+      ]
+    },
+    {
+      "id": "153",
+      "finalVerdict": "import",
+      "confidence": 0.92,
+      "action": "fix_farby",
+      "proposedFarby": "mix [1-3]",
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "single_sku",
+      "salesUnitNote": "Jeden produkt bez výberu farby alebo veľkosti. Viacfarebná glazúra je povrch toho istého modelu.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Možné rozmerové varianty nepotvrdené. Zvolený katalógový default podľa PROMPT.md, nie fotografický dôkaz predaja v sade. Nevytvárať rozmerové varianty, nepridávať neoverené rozmery ani počet kusov. Mix označuje kombinovanú glazúru jedného vyhotovenia, nie zmiešané balenie. Názov aj popis ponechať.",
+      "photos": [
+        1,
+        2,
+        3
+      ],
+      "importFarby": "mix [1-3]",
+      "excludedPhotos": []
+    },
+    {
+      "id": "228",
+      "finalVerdict": "import",
+      "confidence": 0.9,
+      "action": "fix_farby",
+      "proposedFarby": "prírodná [1-2]",
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "single_sku",
+      "salesUnitNote": "Jeden drevený srdcový obal v prírodnom vyhotovení, bez samostatného sivého variantu.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Možné rozmerové varianty nepotvrdené. Zvolený katalógový default podľa PROMPT.md, nie fotografický dôkaz predaja v sade. Nevytvárať rozmerové varianty, nepridávať neoverené rozmery ani počet kusov. Sivý dojem na foto 2 vytvára vnútro a fólia; nie je dôkazom samostatného farebného vyhotovenia.",
+      "photos": [
+        1,
+        2
+      ],
+      "importFarby": "prírodná [1-2]",
+      "excludedPhotos": []
+    },
+    {
+      "id": "230",
+      "finalVerdict": "import",
+      "confidence": 0.93,
+      "action": "fix_farby",
+      "proposedFarby": "prírodná [1-2]",
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "single_sku",
+      "salesUnitNote": "Jeden typ košíka v prírodnom vyhotovení. Svetlý lem a tmavšie vetvičky patria tomu istému výrobku.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Možné rozmerové varianty nepotvrdené. Zvolený katalógový default podľa PROMPT.md, nie fotografický dôkaz predaja v sade. Nevytvárať rozmerové varianty, nepridávať neoverené rozmery ani počet kusov. Zrušiť samostatné hnedé a krémové farebné varianty.",
+      "photos": [
+        1,
+        2
+      ],
+      "importFarby": "prírodná [1-2]",
+      "excludedPhotos": []
+    },
+    {
+      "id": "239",
+      "finalVerdict": "import",
+      "confidence": 0.93,
+      "action": "fix_farby",
+      "proposedFarby": "prírodná [1-2]",
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "single_sku",
+      "salesUnitNote": "Jeden typ srdcového košíka. Kôra, pletený lem a fólia sú časti toho istého výrobku.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Možné rozmerové varianty nepotvrdené. Zvolený katalógový default podľa PROMPT.md, nie fotografický dôkaz predaja v sade. Nevytvárať rozmerové varianty, nepridávať neoverené rozmery ani počet kusov. Zrušiť samostatné hnedé a krémové farebné varianty; názov ani popis nemenia predajnú jednotku.",
+      "photos": [
+        1,
+        2
+      ],
+      "importFarby": "prírodná [1-2]",
+      "excludedPhotos": []
+    },
+    {
+      "id": "254",
+      "finalVerdict": "import",
+      "confidence": 0.98,
+      "action": "fix_farby",
+      "proposedFarby": "modrá [2] | fialová [3]",
+      "proposedName": null,
+      "proposedDescription": "Umelá ruža s rozkvitnutými kvetmi, púčikmi a listami na dlhej stonke. Vhodná do váz aj na skladanie kytíc.",
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "color_variants",
+      "salesUnitNote": "Jeden model ruže, importovať iba modrý a fialový variant doložený samostatnými fotografiami.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Spoločnú foto 1 vynechať z predajnej galérie, pretože ukazuje aj nezaradené farby. Ružová, krémová, žltá, zelená, červená a marhuľové či ďalšie ružové odtiene sú neimportované bez solo foto; presný zoznam ostatných variantov sa z prekrývajúcich kvetov nevytvára. Zelené listy nezakladajú farebný variant. Opraviť aj popis odstránením farby stonky. Po vytvorení galérie z pôvodných foto 2 a 3 použiť importFarby, nie pôvodné indexy.",
+      "photos": [
+        2,
+        3
+      ],
+      "importFarby": "modrá [1] | fialová [2]",
+      "excludedPhotos": [
+        1
+      ]
+    },
+    {
+      "id": "270",
+      "finalVerdict": "import",
+      "confidence": 0.94,
+      "action": "fix_farby",
+      "proposedFarby": "mix [1]",
+      "proposedName": null,
+      "proposedDescription": null,
+      "proposedCategory": null,
+      "proposedSubcategory": null,
+      "salesUnit": "mixed_pack",
+      "salesUnitNote": "Jeden predajný produkt ako zmiešané balenie bez možnosti samostatného výberu farby.",
+      "splitPlan": [],
+      "importNow": true,
+      "notes": "Spoločné balenie a etiketa uvádzajú obe farby; samostatné balenia podľa farieb nie sú doložené. Podľa zadania definitívne zvoliť mix, nevytvárať čiernu a bielu ako samostatné varianty. Počet kusov neodhadovať a nepridávať do popisu.",
+      "photos": [
+        1
+      ],
+      "importFarby": "mix [1]",
+      "excludedPhotos": []
+    }
+  ]
+}

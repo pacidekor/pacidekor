@@ -1,0 +1,9 @@
+Názov: Orchidea na stonke
+Popis: Elegantná umelá orchidea na dlhej stonke s otvorenými kvetmi a zelenými púčikmi na konci. Vhodná do vysokých váz alebo aranžmánov.
+Farby: biela [1,5,10] | ružová [2,7,8] | lososová [3,6,9] | mix [4]
+Druh: orchidea
+Kategória: Umelé kvety
+Subkategória: Stopkové kvety
+Zdrojová zložka: 27
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/27
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

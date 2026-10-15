@@ -1,0 +1,241 @@
+[
+  {
+    "id": 161,
+    "name": "LED lampáš s mriežkou a LED sviečkou",
+    "description": "Dekoratívny lampáš s presklenými stenami, ozdobnou kovovou mriežkou a vnútornou LED sviečkou. Vhodný na zavesenie alebo ako stolový svietnik.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [
+      { "color": "čierna", "photos": [1, 2] },
+      { "color": "medená", "photos": [1, 3] },
+      { "color": "biela", "photos": [1, 4] }
+    ],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 162,
+    "name": "LED lampáš patinovaný",
+    "description": "Dekoratívny lampáš so štvorhranným telom, mriežkou na skle a realistickou LED sviečkou. Patinovaný povrch so starožitným dojmom.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "bronzová", "photos": [1] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 163,
+    "name": "LED lampáš s guľovým sklom",
+    "description": "Dekoratívny lampáš s okrúhlym skleneným telom, kovovou konštrukciou a rúčkou na prenášanie alebo zavesenie. Vnútri LED sviečka s teplým svetlom.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "čierna", "photos": [1] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 164,
+    "name": "LED krb v tvare lampáša",
+    "description": "Dekoratívny LED lampáš s imitáciou horiaceho krbu a polienok. Dva varianty striešky s úchytom na zavesenie.",
+    "category": "Svietniky",
+    "subcategory": "LED krby",
+    "druh": "krb",
+    "groups": [{ "color": "čierna", "photos": [1, 2, 3] }],
+    "confidence": 0.94,
+    "notes": "Dva dizajny vrchnej časti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 165,
+    "name": "LED lampáš s vyrezávaným motívom",
+    "description": "Dekoratívny LED lampáš s vyrezávaným motívom na matnom skle, ktoré difúzne rozptyľuje svetlo. Vhodný do interiéru.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [
+      { "color": "čierna", "photos": [1, 2] },
+      { "color": "biela", "photos": [1, 3] }
+    ],
+    "confidence": 0.92,
+    "notes": "Motív vážky a kolibríka podľa varianty. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 166,
+    "name": "LED krb v tvare lampáša biely",
+    "description": "Dekoratívny LED krb v tvare lampáša s imitáciou horiacich polienok a efektom plameňa. Povrch so zvetraným rustikálnym dojmom.",
+    "category": "Svietniky",
+    "subcategory": "LED krby",
+    "druh": "krb",
+    "groups": [{ "color": "biela", "photos": [1] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 167,
+    "name": "LED lampáš s girlandou",
+    "description": "Dekoratívny lampáš s kovovou mriežkou a vnútornou micro LED girlandou. Tradičný tvar s komínovou strieškou a krúžkom na zavesenie.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "čierna", "photos": [1] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 168,
+    "name": "LED lampáš patinovaný s LED sviečkou",
+    "description": "Dekoratívny lampáš v starožitnom štýle s mriežkou na skle a vnútornou LED sviečkou. Krúžok na zavesenie.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "čierna", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Patinovaný bronzový odlesk na povrchu. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 169,
+    "name": "LED lampáš s LED sviečkami",
+    "description": "Dekoratívny lampáš s integrovanými LED sviečkami imitujúcimi mihotavý plameň. Rôzne dizajny striešky a mriežkovania na sklách.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [{ "color": "čierna", "photos": [1, 2, 3, 4, 5, 6] }],
+    "confidence": 0.9,
+    "notes": "Viac dizajnov striešky a mriežky v jednej rade. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 170,
+    "name": "LED lampáš so žiarovkou",
+    "description": "Dekoratívny lampáš s vnútornou LED žiarovkou naplnenou svetelnou girlandou. Rôzne tvary a ozdobné vzory na rámoch.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [
+      { "color": "čierna", "photos": [1, 2, 4] },
+      { "color": "strieborná", "photos": [1, 3] }
+    ],
+    "confidence": 0.91,
+    "notes": "Tri odlišné dizajny rámu. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 171,
+    "name": "LED lampáš so žiarovkou",
+    "description": "Dekoratívny lampáš s vnútornou LED žiarovkou a teplým svetelným efektom. Rôzne tvary striešky podľa varianty.",
+    "category": "Svietniky",
+    "subcategory": "LED lampáše",
+    "druh": "lampáš",
+    "groups": [
+      { "color": "čierna", "photos": [1, 2] },
+      { "color": "biela", "photos": [3] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 172,
+    "name": "Keramická váza rustikálna s uškom",
+    "description": "Vysoká keramická váza s výraznou rustikálnou textúrou, zužujúcim sa hrdlom a malým dekoratívnym úchytom na tele.",
+    "category": "Keramika",
+    "subcategory": "Vázy",
+    "druh": "váza",
+    "groups": [{ "color": "zelená", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Kovový odlesk v hornej časti. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 173,
+    "name": "Keramický kvetináč s uškami",
+    "description": "Rustikálny keramický kvetináč s dekoratívnymi uškami a výraznou glazúrou s prechodom medzi lesklou a matnou časťou. Starožitný vzhľad.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "olivová", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dva veľkostné varianty na spoločnej fotke. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 174,
+    "name": "Keramický kvetináč s reaktívnou glazúrou",
+    "description": "Cylindrický keramický kvetináč s lesklou glazúrou v hornej časti a efektom stekania na drsnú matnú spodnú časť.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "tmavozelená", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 175,
+    "name": "Keramický kvetináč rebrovaný rustikálny",
+    "description": "Keramický kvetináč s výrazným vertikálnym rebrovaním po celom obvode a rustikálnou metalickou povrchovou úpravou.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "olivová", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 176,
+    "name": "Floristický dekoračný sprej SPRING",
+    "description": "Profesionálny dekoračný sprej určený pre floristov na úpravu živých, suchých aj umelých kvetov a dekorácií. Rýchle schnutie.",
+    "category": "Aranž. materiál",
+    "subcategory": "Spreje",
+    "druh": "sprej",
+    "groups": [
+      { "color": "biela", "photos": [1, 2, 4, 5, 6] },
+      { "color": "červená", "photos": [1, 3] },
+      { "color": "zlatá", "photos": [1] },
+      { "color": "žltá", "photos": [1] },
+      { "color": "modrá", "photos": [1] }
+    ],
+    "confidence": 0.94,
+    "notes": "Florist Deco Spray. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 177,
+    "name": "Lesk na listy momo's",
+    "description": "Sprej na dodanie lesku listom rastlín. Vhodný pre aranžérov a starostlivosť o interiérovú zeleň.",
+    "category": "Aranž. materiál",
+    "subcategory": "Spreje",
+    "druh": "lesk",
+    "groups": [{ "color": "zelená", "photos": [1] }],
+    "confidence": 0.95,
+    "notes": "LEAFSHINE. Dávka Z 5.9.2026."
+  },
+  {
+    "id": 178,
+    "name": "Lepiace tyčinky do tavnej pištole",
+    "description": "Lepiace tyčinky do tavnej pištole určené na spájanie materiálov pri aranžovaní, dekorovaní a kreatívnej tvorbe.",
+    "category": "Aranž. materiál",
+    "subcategory": "Lepiace materiály",
+    "druh": "tyčinky",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 179,
+    "name": "Lepiace tyčinky do tavnej pištole",
+    "description": "Lepiace tyčinky do tavnej pištole určené na spájanie materiálov pri aranžovaní, dekorovaní a kreatívnej tvorbe.",
+    "category": "Aranž. materiál",
+    "subcategory": "Lepiace materiály",
+    "druh": "tyčinky",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.93,
+    "notes": "Dávka Z 5.9.2026."
+  },
+  {
+    "id": 180,
+    "name": "Tavná lepiaca pištoľ",
+    "description": "Ručná elektrická tavná pištoľ na rýchle lepenie materiálov pri aranžovaní a dekorovaní. Kovová opierka a napájací kábel.",
+    "category": "Aranž. materiál",
+    "subcategory": "Náradie",
+    "druh": "pištoľ",
+    "groups": [{ "color": "modrá", "photos": [1] }],
+    "confidence": 0.94,
+    "notes": "Dávka Z 5.9.2026."
+  }
+]

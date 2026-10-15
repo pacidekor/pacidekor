@@ -1,0 +1,262 @@
+[
+  {
+    "id": 241,
+    "name": "Umelá hortenzia na stonke",
+    "description": "Realisticky pôsobiaca umelá hortenzia na dlhej stonke s listami. Kvetenstvo tvoria drobné kvietky v guľovitom trse. Vhodná do vázy aj do aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "hortenzia",
+    "groups": [
+      { "color": "fialová", "photos": [1, 2, 3, 4, 5, 6, 7] },
+      { "color": "ružová", "photos": [1, 8, 9, 10, 11, 12, 13, 14] },
+      { "color": "zelená", "photos": [1, 15, 16, 17, 18, 19, 20, 21] },
+      { "color": "hnedá", "photos": [1, 22, 23, 24, 25, 26, 27, 28] }
+    ],
+    "confidence": 0.92,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 242,
+    "name": "Umelá kytica pivónie a hortenzie",
+    "description": "Bohatá kytica s plnými kvetmi pivónie a hortenzie doplnená zelenými listami na rozvetvenej stonke. Vhodná do vázy aj na ďalšie aranžovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka, hortenzia",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 243,
+    "name": "Umelá kytica pivónie",
+    "description": "Bohato vrstvená kytica s rozkvitnutými kvetmi pivónie a realistickými listami na dlhej stonke. Vhodná do vázy aj ako hotový aranžmán.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 244,
+    "name": "Umelá kytica pivónie",
+    "description": "Bohato vrstvená kytica s plnými kvetmi pivónie, púčikmi a listami na zviazanej stonke. Vhodná do vázy aj na sezónne dekorácie.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      { "color": "biela", "photos": [1, 2, 3] },
+      { "color": "zelená", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 245,
+    "name": "Umelá kytica pivónie",
+    "description": "Bohatá kytica s plnými kvetmi pivónie, drobnou výplňou a dekoratívnou zeleňou na rozvetvenej stonke. Vhodná do vázy aj na jesenné aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2, 3] },
+      { "color": "fialová", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 246,
+    "name": "Umelá kytica pivónie",
+    "description": "Bohato vrstvená kytica s plnými kvetmi pivónie a listami na dlhej stonke. Vhodná do vázy aj na celoročné aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "pivonka",
+    "groups": [
+      { "color": "krémová", "photos": [1, 2, 3] },
+      { "color": "zelená", "photos": [1, 2, 3] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 247,
+    "name": "Umelá kytica ruží",
+    "description": "Bohatá kytica s rozkvitnutými ružami, drobnou výplňou a zelenými listami na pevnej vetvenej stonke. Vhodná do vázy aj na svadobné aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [{ "color": "biela", "photos": [1, 2, 3, 4] }],
+    "confidence": 0.92,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 248,
+    "name": "Umelá kytica ruží",
+    "description": "Bohatá kytica ruží s plnými kvetmi, listami a drobnými bobuľovitými plodmi. Vhodná do vázy aj ako súčasť väčších aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "ruža",
+    "groups": [
+      { "color": "marhuľová", "photos": [1, 2, 3, 5] },
+      { "color": "biela", "photos": [1, 2, 4, 6, 7] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 249,
+    "name": "Umelá kytica mix",
+    "description": "Bohatá kytica s rôznymi druhmi kvetov a dekoratívnou zeleňou na dlhej stonke. Vhodná do vázy aj na jesenné a celoročné aranžmány.",
+    "category": "Umelé kvety",
+    "subcategory": "Kytice",
+    "druh": "mix",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 3, 4, 6, 7] },
+      { "color": "oranžová", "photos": [2, 5] }
+    ],
+    "confidence": 0.88,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 250,
+    "name": "Sušená scabiosa na stonke",
+    "description": "Sušené guľovité kvetinové hlavičky s výraznou členitou textúrou na dlhých prírodných stonkách. Vhodné do vázy aj do rustikálnych aranžmánov.",
+    "category": "Sušina",
+    "subcategory": "Stopkové kvety",
+    "druh": "scabiosa",
+    "groups": [
+      { "color": "tmavočervená", "photos": [1, 2, 3, 4] },
+      { "color": "krémová", "photos": [1, 5, 6, 7, 8, 9, 10] },
+      { "color": "svetloružová", "photos": [1, 11, 12, 13] }
+    ],
+    "confidence": 0.91,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 251,
+    "name": "Umelý bodliak zväzok",
+    "description": "Dekoratívny zväzok umelých bodliakov s charakteristickými pichľavými kvetmi na dlhých stonkách. Vhodný do vázy aj do kreatívnych aranžmánov.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "bodliak",
+    "groups": [
+      { "color": "hnedá", "photos": [1, 2, 8, 9, 10] },
+      { "color": "sivohnedá", "photos": [3, 4, 5, 6, 7] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 252,
+    "name": "Umelá ruža na stonke",
+    "description": "Umelá ruža s bohato vrstvenými kvetmi a listami na vrchu dlhej tenkej stonky. Vhodná do vysokých váz aj na ďalšie aranžovanie.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "groups": [
+      { "color": "fialová", "photos": [1, 3, 4, 5, 6] },
+      { "color": "modrá", "photos": [2] }
+    ],
+    "confidence": 0.91,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 253,
+    "name": "Závesný prútený košík",
+    "description": "Okrúhly závesný košík z prúteného pletiva s vnútornou plastovou fóliou a kovovou retiazkou na zavesenie. Vhodný na výsadbu aj aranžovanie.",
+    "category": "Košíky",
+    "subcategory": "Závesné košíky",
+    "druh": "prútený košík",
+    "groups": [{ "color": "sivá", "photos": [1, 2, 3] }],
+    "confidence": 0.92,
+    "notes": "Sada troch veľkostí. Dávka Z 10.9.2026."
+  },
+  {
+    "id": 254,
+    "name": "Umelá ruža na stonke",
+    "description": "Umelá ruža s viacerými rozkvitnutými kvetmi, púčikmi a listami na dlhej zelenej stonke. Vhodná do váz aj na skladanie kytíc.",
+    "category": "Umelé kvety",
+    "subcategory": "Stopkové kvety",
+    "druh": "ruža",
+    "groups": [
+      { "color": "modrá", "photos": [1, 3] },
+      { "color": "fialová", "photos": [1, 2] },
+      { "color": "ružová", "photos": [1] },
+      { "color": "krémová", "photos": [1] },
+      { "color": "žltá", "photos": [1] }
+    ],
+    "confidence": 0.89,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 255,
+    "name": "Aranžérske nože Victoria",
+    "description": "Profesionálne aranžérske nože s plastovou rúčkou a krátkou čepeľou určené na rezanie stoniek a aranžérske práce.",
+    "category": "Aranž. materiál",
+    "subcategory": "Náradie",
+    "druh": "nôž",
+    "groups": [{ "color": "žltá", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": "Victoria / Miriam Flowers. Dávka Z 10.9.2026."
+  },
+  {
+    "id": 256,
+    "name": "Nožnice na kvety TIGER",
+    "description": "Záhradnícke nožnice so špicatou čepeľou a ergonomicky tvarovanými rukoväťami na strihanie kvetov a aranžérske práce.",
+    "category": "Aranž. materiál",
+    "subcategory": "Náradie",
+    "druh": "nožnice",
+    "groups": [{ "color": "žltá", "photos": [1, 2, 3] }],
+    "confidence": 0.93,
+    "notes": "Flower Shears TIGER. Dávka Z 10.9.2026."
+  },
+  {
+    "id": 257,
+    "name": "Záhradný sekátor Victoria",
+    "description": "Profesionálny záhradný sekátor s kovovými čepeľami a pružinovým mechanizmom na strihanie stoniek pri aranžovaní.",
+    "category": "Aranž. materiál",
+    "subcategory": "Náradie",
+    "druh": "sekátor",
+    "groups": [{ "color": "žltá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Victoria / Miriam Flowers, súčasťou balenia náhradná pružina. Dávka Z 10.9.2026."
+  },
+  {
+    "id": 258,
+    "name": "Odlamovací nôž",
+    "description": "Ručný odlamovací nôž s výsuvnou čepeľou určený na rezanie pri aranžovaní a kreatívnej tvorbe.",
+    "category": "Aranž. materiál",
+    "subcategory": "Náradie",
+    "druh": "nôž",
+    "groups": [
+      { "color": "červená", "photos": [1] },
+      { "color": "zelená", "photos": [1, 2] },
+      { "color": "modrá", "photos": [1] }
+    ],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 259,
+    "name": "Floristická lepiaca páska",
+    "description": "Úzka samolepiaca páska určená na fixáciu a spevňovanie stoniek pri floristických a aranžérskych prácach.",
+    "category": "Aranž. materiál",
+    "subcategory": "Floristické pásky",
+    "druh": "lepiaca páska",
+    "groups": [{ "color": "biela", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": "Dávka Z 10.9.2026."
+  },
+  {
+    "id": 260,
+    "name": "Floristická páska guttaperča",
+    "description": "Pevná samolepiaca páska na ovíjanie stoniek a upevňovanie aranžmánov pri floristických prácach.",
+    "category": "Aranž. materiál",
+    "subcategory": "Floristické pásky",
+    "druh": "guttaperča",
+    "groups": [{ "color": "zelená", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": "Dávka Z 10.9.2026."
+  }
+]

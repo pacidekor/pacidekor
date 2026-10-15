@@ -1,0 +1,9 @@
+Názov: Kytica zelene s bielymi kvietkami
+Popis: Umelá výplňová kytica so zeleňou v štýle eukalyptu, zelenými guľovitými hlavičkami a drobnými krémovobielymi kvietkami.
+Farby: mix [1-7]
+Druh: kytica
+Kategória: Umelé kvety
+Subkategória: Kytice
+Zdrojová zložka: 28
+Zdrojová cesta: C:/Users/tomas/Desktop/projekty/pacidekor/pacidekornavrh1/public/NAHRATÉ 10.10.2026/PREFOTENÉ/28
+Dávka: NAHRATÉ 10.10.2026 / PREFOTENÉ

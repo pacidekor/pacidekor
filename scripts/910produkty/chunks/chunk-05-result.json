@@ -1,0 +1,222 @@
+[
+  {
+    "id": 81,
+    "name": "Keramické srdce s reliéfom ruží",
+    "description": "Dekoratívna nádoba v tvare srdca s ozdobným okrajom a plastickými ružami. Povrch má matnú kamennú textúru, vhodná na aranžovanie alebo ako kvetináč.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "srdce",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": "Okraj s jemným reliéfnym vzorom, dve perspektívy."
+  },
+  {
+    "id": 82,
+    "name": "Keramická miska s anjelom a krížom",
+    "description": "Ozdobná miska s reliéfom modliaceho sa anjela a kríža na prednej strane. Okraje doplnené plastikami ruží, vhodná ako pietna dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "miska",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": ""
+  },
+  {
+    "id": 83,
+    "name": "Keramický kríž s anjelskými krídlami",
+    "description": "Dekoratívna nádoba v tvare kríža so zdobením anjelských krídel po stranách. Kamenná textúra povrchu, vhodná ako základ pre smútočné aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "kríž",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.94,
+    "notes": ""
+  },
+  {
+    "id": 84,
+    "name": "Keramická kniha s ružami",
+    "description": "Dekoratívny predmet v tvare otvorenej knihy s dutinou na aranžovanie a reliéfom ruží na druhej strane. Povrch imituje prírodný kameň.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "kniha",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 85,
+    "name": "Keramická obdĺžniková miska s reliéfom",
+    "description": "Ozdobná miska obdĺžnikového tvaru s výrazným reliéfnym vzorom po celom vonkajšom obvode. Vnútro je hladké, vhodná na aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "miska",
+    "groups": [{ "color": "čierna", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Reliéf so zlatou patinou."
+  },
+  {
+    "id": 86,
+    "name": "Keramická kniha s ružami",
+    "description": "Dekoratívna nádoba v tvare otvorenej knihy s reliéfom ruží a dutinou na aranžovanie. Betónový vzhľad s hrubou textúrou.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "kniha",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.88,
+    "notes": "Okolité rekvizity na fotke nie sú súčasťou produktu."
+  },
+  {
+    "id": 87,
+    "name": "Keramický štvorcový kvetináč s reliéfom",
+    "description": "Štvorcový črepník s hustým reliéfnym kvetinovým vzorom na stenách a hladkým vnútrom. Vhodný na kvetinové aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "čierna", "photos": [1, 2, 3, 4, 5] }],
+    "confidence": 0.89,
+    "notes": "Na kontaktnom liste chýba náhľad fotky 4, predpoklad rovnakého variantu."
+  },
+  {
+    "id": 88,
+    "name": "Keramický spiaci anjel v krídle",
+    "description": "Dekoratívna figúrka spiaceho anjelika uloženého v krídle. Detailná kamenná textúra, vhodná ako pietna dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "anjel",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 89,
+    "name": "Keramický anjelik",
+    "description": "Malá dekoračná figúrka anjelika s kamennou textúrou. Vhodná ako samostatná dekorácia alebo doplnok aranžmánu.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "anjel",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.85,
+    "notes": "Fotky ukazujú dve pózy: sediacu a ležiacu."
+  },
+  {
+    "id": 90,
+    "name": "Keramické srdce Spomíname s ružou",
+    "description": "Pamätné srdce s reliéfnou ružou a nápisom Spomíname. Povrch s kamennou patinou, vhodné na hrob alebo smútočný aranžmán.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "srdce",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.94,
+    "notes": ""
+  },
+  {
+    "id": 91,
+    "name": "Keramická kniha s výrezom a ružami",
+    "description": "Dekoratívna keramika v tvare knihy s centrálnym výrezom na aranžovanie alebo sviečku a reliéfom ruží. Matný kamenný povrch.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "kniha",
+    "groups": [{ "color": "krémová", "photos": [1, 2] }],
+    "confidence": 0.92,
+    "notes": ""
+  },
+  {
+    "id": 92,
+    "name": "Keramický kvetináč anjelské krídla s krížom",
+    "description": "Dekoratívny kvetináč v tvare srdca obklopený anjelskými krídlami s ozdobným krížom na prednej strane. Vhodný na pietne aranžmány.",
+    "category": "Keramika",
+    "subcategory": "Smútočná dekorácia",
+    "druh": "kvetináč",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.93,
+    "notes": "Kombinácia kamenného stredu a metalických krídel."
+  },
+  {
+    "id": 93,
+    "name": "Keramický obdĺžnikový kvetináč s čipkou",
+    "description": "Obdĺžnikový ozdobný kvetináč s detailným bielym reliéfnym vzorom pripomínajúcim čipku. Vhodný do interiéru aj na aranžovanie.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 94,
+    "name": "Keramické srdce miska s ružami",
+    "description": "Dekoratívna miska v tvare srdca s reliéfnym povrchom a plastickými ružičkami na okraji. Hladké tmavé vnútro.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "srdce",
+    "groups": [{ "color": "sivá", "photos": [1, 2] }],
+    "confidence": 0.9,
+    "notes": "Metalické zdobenie ružičiek."
+  },
+  {
+    "id": 95,
+    "name": "Keramické ružičky na aranžovanie",
+    "description": "Dekoratívne ružičky s kamenným vzhľadom, vhodné na lepenie alebo doplnenie aranžmánov a smútočných dekorácií.",
+    "category": "Aranž. materiál",
+    "subcategory": "Dekoračné prvky",
+    "druh": "ruža",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.82,
+    "notes": "Na fotke viac kusov a rekvizít; produktová rada drobných ružičiek."
+  },
+  {
+    "id": 96,
+    "name": "Svietnik srdce na čajovú sviečku",
+    "description": "Dekoratívny svietnik v tvare srdca s výrezom na čajovú sviečku. Kamenný vzhľad s hladkým povrchom.",
+    "category": "Svietniky",
+    "subcategory": "Čajové sviečky",
+    "druh": "srdce",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.9,
+    "notes": ""
+  },
+  {
+    "id": 97,
+    "name": "Keramická miska v tvare listu",
+    "description": "Dekoratívna miska v tvare listu s detailným žilovaním a ozdobným okrajom. Vhodná ako základ pre aranžovanie alebo interiérová dekorácia.",
+    "category": "Keramika",
+    "subcategory": "Misky",
+    "druh": "list",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.91,
+    "notes": ""
+  },
+  {
+    "id": 98,
+    "name": "Keramický kvetináč rustikálny",
+    "description": "Dekoratívny kvetináč s výrazne nepravidelnou hrubou textúrou a rustikálnym vzhľadom. Vhodný na aranžovanie kvetov.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "hnedá", "photos": [1] }],
+    "confidence": 0.88,
+    "notes": "Dávka Z 30.8.2026."
+  },
+  {
+    "id": 99,
+    "name": "Keramický kvetináč s patinou",
+    "description": "Valcovitý dekoratívny kvetináč s rustikálnou textúrou a starožitným dojmom povrchu. Vhodný do interiéru aj exteriéru.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "zelená", "photos": [1] }],
+    "confidence": 0.87,
+    "notes": "Machový efekt na povrchu. Dávka Z 30.8.2026."
+  },
+  {
+    "id": 100,
+    "name": "Keramický kvetináč kamenný",
+    "description": "Valcovitý kvetináč s drsnou porézou textúrou pripomínajúcou prírodný kameň. Jednoduchý tvar vhodný na aranžovanie.",
+    "category": "Keramika",
+    "subcategory": "Kvetináče",
+    "druh": "kvetináč",
+    "groups": [{ "color": "sivá", "photos": [1] }],
+    "confidence": 0.89,
+    "notes": "Dávka Z 30.8.2026."
+  }
+]
