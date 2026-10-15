@@ -1,17 +1,9 @@
 "use client";
 
-import {
-  useDeferredValue,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-  useTransition,
-} from "react";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ListFilter } from "lucide-react";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
@@ -27,39 +19,24 @@ import {
   getAdminDruhyForCategory,
   getAdminSubcategoriesForCategory,
 } from "@/lib/admin-categories-store";
-import {
-  listingScrollKey,
-  peekListingScroll,
-  saveListingScroll,
-  takeListingScroll,
-  type ListingScrollSnapshot,
-} from "@/lib/listing-scroll";
-import { collectCatalogColorFilters, filterProducts } from "@/lib/products";
+import type { Product } from "@/lib/products";
 import {
   buildCategoryFilterHref,
+  filterColors,
   getSubcategoriesForCategory,
   parseCategoryFilters,
   type CategoryFilters,
 } from "@/lib/taxonomy";
 import { subscribeTaxonomy } from "@/lib/taxonomy-store";
-import { usePricedProducts } from "@/lib/use-priced-product";
+import { useCatalogPagedList } from "@/lib/use-catalog-paged-list";
 
 type CategoryProductBrowserProps = {
   categoryLabel: string;
   categorySlug: string;
-  products: import("@/lib/products").Product[];
+  initialProducts: Product[];
+  initialTotal: number;
+  initialHasMore: boolean;
 };
-
-/** First paint + each “load more” batch — keeps filter clicks snappy. */
-const PAGE_SIZE = 24;
-
-function toggleId(list: string[] | undefined, id: string): string[] | undefined {
-  const current = list ?? [];
-  const next = current.includes(id)
-    ? current.filter((item) => item !== id)
-    : [...current, id];
-  return next.length > 0 ? next : undefined;
-}
 
 function filtersFromSearchParams(
   searchParams: URLSearchParams,
@@ -79,13 +56,22 @@ function filtersKey(filters: CategoryFilters) {
   ].join("|");
 }
 
+function toggleId(list: string[] | undefined, id: string): string[] | undefined {
+  const current = list ?? [];
+  const next = current.includes(id)
+    ? current.filter((item) => item !== id)
+    : [...current, id];
+  return next.length > 0 ? next : undefined;
+}
+
 export function CategoryProductBrowser({
   categoryLabel,
   categorySlug,
-  products,
+  initialProducts,
+  initialTotal,
+  initialHasMore,
 }: CategoryProductBrowserProps) {
   const router = useRouter();
-  const pathname = usePathname();
   const searchParams = useSearchParams();
   const [, startTransition] = useTransition();
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -102,22 +88,10 @@ export function CategoryProductBrowser({
     getAdminDruhyForCategory(categoryLabel),
   );
 
-  // Optimistic filters — update UI immediately; URL syncs in background.
-  const [filters, setFilters] = useState<CategoryFilters>(() =>
-    filtersFromSearchParams(searchParams),
+  const filters = useMemo(
+    () => filtersFromSearchParams(searchParams),
+    [searchParams],
   );
-  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
-  const loadMoreRef = useRef<HTMLDivElement>(null);
-  const rootRef = useRef<HTMLDivElement>(null);
-  const applyingFiltersRef = useRef(false);
-  const filtersKeySnapshotRef = useRef(filtersKey(filters));
-  const visibleCountRef = useRef(visibleCount);
-  const pendingRestoreRef = useRef<(ListingScrollSnapshot & { visibleCount: number }) | null>(
-    null,
-  );
-  const didReadRestoreRef = useRef(false);
-
-  visibleCountRef.current = visibleCount;
 
   useEffect(() => {
     function refresh() {
@@ -133,169 +107,33 @@ export function CategoryProductBrowser({
     };
   }, [categoryLabel]);
 
-  // Back/forward / shared links — adopt URL when it diverges (skip our own replaces).
-  useEffect(() => {
-    if (applyingFiltersRef.current) {
-      applyingFiltersRef.current = false;
-      return;
-    }
-    const fromUrl = filtersFromSearchParams(searchParams);
-    setFilters((prev) =>
-      filtersKey(prev) === filtersKey(fromUrl) ? prev : fromUrl,
-    );
-  }, [searchParams]);
+  const key = `${categoryLabel}|${filtersKey(filters)}`;
 
-  const pricedProducts = usePricedProducts(products);
-
-  const colorFilters = useMemo(
-    () => collectCatalogColorFilters(pricedProducts),
-    [pricedProducts],
-  );
-
-  const filtered = useMemo(
-    () =>
-      filterProducts(pricedProducts, {
-        subcategoryId: filters.sub,
-        druhId: filters.druh,
-        colors: filters.farba,
-      }),
-    [pricedProducts, filters],
-  );
-
-  // Keep chip taps responsive while the heavy grid catches up.
-  const deferredFiltered = useDeferredValue(filtered);
-  const isFilterPending = filtered !== deferredFiltered;
-
-  // Read pending snapshot (from product click) and expand the lazy grid first.
-  useLayoutEffect(() => {
-    if (didReadRestoreRef.current) return;
-    didReadRestoreRef.current = true;
-    const key = listingScrollKey(pathname, filtersKey(filters));
-    const saved = peekListingScroll(key);
-    if (!saved) return;
-    const targetCount = Math.max(
-      PAGE_SIZE,
-      typeof saved.visibleCount === "number" ? saved.visibleCount : PAGE_SIZE,
-    );
-    pendingRestoreRef.current = { ...saved, visibleCount: targetCount };
-    if (targetCount > PAGE_SIZE) {
-      setVisibleCount(targetCount);
-    }
-  }, [pathname, filters]);
-
-  // After enough products are in the DOM, jump back to the product / scrollY.
-  useLayoutEffect(() => {
-    const pending = pendingRestoreRef.current;
-    if (!pending) return;
-    if (visibleCount < pending.visibleCount) return;
-
-    const key = listingScrollKey(pathname, filtersKeySnapshotRef.current);
-
-    function applyRestore() {
-      const still = pendingRestoreRef.current;
-      if (!still) return true;
-
-      if (still.productId) {
-        const el = document.querySelector(
-          `[data-product-id="${CSS.escape(still.productId)}"]`,
-        );
-        if (el) {
-          el.scrollIntoView({ block: "center" });
-          pendingRestoreRef.current = null;
-          takeListingScroll(key);
-          return true;
-        }
+  const {
+    products,
+    total,
+    hasMore,
+    loadingMore,
+    loadError,
+    rootRef,
+    loadMoreRef,
+    loadMore,
+  } = useCatalogPagedList({
+    initialProducts,
+    initialTotal,
+    initialHasMore,
+    filtersKey: key,
+    buildFilterParams: () => {
+      const params = new URLSearchParams();
+      params.set("kategoria", categoryLabel);
+      if (filters.sub) params.set("sub", filters.sub);
+      if (filters.druh) params.set("druh", filters.druh);
+      if (filters.farba?.length) {
+        params.set("farba", filters.farba.slice().sort().join(","));
       }
-
-      window.scrollTo(0, still.scrollY);
-      const tallEnough =
-        document.documentElement.scrollHeight >=
-        still.scrollY + window.innerHeight * 0.5;
-      if (!tallEnough) return false;
-
-      pendingRestoreRef.current = null;
-      takeListingScroll(key);
-      return true;
-    }
-
-    let tries = 0;
-    const run = () => {
-      if (applyRestore()) return;
-      tries += 1;
-      if (tries < 30) {
-        window.setTimeout(run, 50);
-      } else {
-        pendingRestoreRef.current = null;
-        takeListingScroll(key);
-      }
-    };
-
-    requestAnimationFrame(() => requestAnimationFrame(run));
-  }, [visibleCount, deferredFiltered.length, pathname]);
-
-  // Reset paging only when filters actually change (not on restore).
-  useEffect(() => {
-    const next = filtersKey(filters);
-    if (filtersKeySnapshotRef.current === next) return;
-    filtersKeySnapshotRef.current = next;
-    // Don't wipe a pending back-restore for the same visit.
-    if (!pendingRestoreRef.current) {
-      setVisibleCount(PAGE_SIZE);
-    }
-  }, [filters]);
-
-  // Save listing position only when opening a product (so Back can return here).
-  useEffect(() => {
-    function onClick(event: MouseEvent) {
-      if (event.defaultPrevented || event.button !== 0) return;
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-        return;
-      }
-      const target = event.target as Element | null;
-      const anchor = target?.closest?.("a[href]") as HTMLAnchorElement | null;
-      if (!anchor || !rootRef.current?.contains(anchor)) return;
-      const href = anchor.getAttribute("href") ?? "";
-      if (!href.includes("/produkt/")) return;
-
-      const productId =
-        anchor.closest("[data-product-id]")?.getAttribute("data-product-id") ??
-        undefined;
-
-      saveListingScroll(listingScrollKey(pathname, filtersKeySnapshotRef.current), {
-        scrollY: window.scrollY,
-        visibleCount: visibleCountRef.current,
-        productId: productId ?? undefined,
-        productHref: href,
-      });
-    }
-
-    document.addEventListener("click", onClick, true);
-    return () => document.removeEventListener("click", onClick, true);
-  }, [pathname]);
-
-  const visibleProducts = useMemo(
-    () => deferredFiltered.slice(0, visibleCount),
-    [deferredFiltered, visibleCount],
-  );
-  const hasMore = visibleCount < deferredFiltered.length;
-
-  useEffect(() => {
-    const node = loadMoreRef.current;
-    if (!node || !hasMore) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          setVisibleCount((count) =>
-            Math.min(count + PAGE_SIZE, deferredFiltered.length),
-          );
-        }
-      },
-      { rootMargin: "400px 0px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, [hasMore, deferredFiltered.length, visibleCount]);
+      return params;
+    },
+  });
 
   const activeFilterCount =
     (filters.sub ? 1 : 0) +
@@ -303,8 +141,6 @@ export function CategoryProductBrowser({
     (filters.farba?.length ?? 0);
 
   function applyFilters(next: CategoryFilters) {
-    applyingFiltersRef.current = true;
-    setFilters(next);
     const href = buildCategoryFilterHref(categorySlug, next);
     startTransition(() => {
       router.replace(href, { scroll: false });
@@ -315,7 +151,9 @@ export function CategoryProductBrowser({
     applyFilters({});
   }
 
-  if (products.length === 0) {
+  const colorFilterOptions = useMemo(() => filterColors, []);
+
+  if (initialTotal === 0 && !filters.sub && !filters.druh && !filters.farba?.length) {
     return (
       <div className="rounded-3xl bg-white px-6 py-12 text-center sm:px-10">
         <div className="mx-auto mb-5 w-full max-w-[120px] sm:max-w-[140px]">
@@ -347,7 +185,12 @@ export function CategoryProductBrowser({
   return (
     <div ref={rootRef}>
       <div className="mb-6 flex items-center justify-between gap-4">
-        <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{categoryLabel}</h1>
+        <div>
+          <h1 className="text-3xl text-[#2f2924] sm:text-4xl">{categoryLabel}</h1>
+          <p className="mt-1 text-sm text-[#2f2924]/55">
+            {total} {total === 1 ? "produkt" : total < 5 ? "produkty" : "produktov"}
+          </p>
+        </div>
 
         <div className="flex shrink-0 items-center gap-2">
           <CatalogGridDensityToggle
@@ -374,40 +217,34 @@ export function CategoryProductBrowser({
         </div>
       </div>
 
-      {deferredFiltered.length > 0 ? (
-        <div
-          className={
-            isFilterPending ? "opacity-70 transition-opacity" : undefined
-          }
-        >
+      {products.length > 0 ? (
+        <div>
           <div className={catalogGridClass(gridDensity)}>
-            {visibleProducts.map((product) => (
+            {products.map((product, index) => (
               <ProductCard
                 key={product.id}
                 product={product}
                 filterColorIds={filters.farba}
+                priority={index < 4}
               />
             ))}
           </div>
           {hasMore ? (
-            <div
-              ref={loadMoreRef}
-              className="flex justify-center py-10"
-              aria-hidden
-            >
+            <div ref={loadMoreRef} className="flex justify-center py-10">
               <button
                 type="button"
-                onClick={() =>
-                  setVisibleCount((count) =>
-                    Math.min(count + PAGE_SIZE, deferredFiltered.length),
-                  )
-                }
-                className="inline-flex h-11 cursor-pointer items-center rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
+                disabled={loadingMore}
+                onClick={() => void loadMore()}
+                className="inline-flex h-11 cursor-pointer items-center rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B] disabled:opacity-60"
               >
-                Zobraziť ďalšie (
-                {deferredFiltered.length - visibleCount})
+                {loadingMore
+                  ? "Načítavam…"
+                  : `Zobraziť ďalšie (${Math.max(0, total - products.length)})`}
               </button>
             </div>
+          ) : null}
+          {loadError ? (
+            <p className="pb-6 text-center text-sm text-[#9a4d3f]">{loadError}</p>
           ) : null}
         </div>
       ) : (
@@ -504,7 +341,7 @@ export function CategoryProductBrowser({
             </p>
             <div className="mt-3">
               <ColorFilterChips
-                colors={colorFilters}
+                colors={colorFilterOptions}
                 selected={filters.farba ?? []}
                 onToggle={(id) =>
                   applyFilters({

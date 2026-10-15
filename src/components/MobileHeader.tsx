@@ -1,6 +1,6 @@
 "use client";
 
-import { useDeferredValue, useEffect, useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Heart, LogOut, Mail, Phone, Search, User, X } from "lucide-react";
@@ -29,11 +29,8 @@ import {
   navItems,
 } from "@/lib/navigation";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
-import {
-  popularSearches,
-  searchProducts,
-  searchResultsHref,
-} from "@/lib/search";
+import { popularSearches, searchResultsHref } from "@/lib/search";
+import { useProductSearchSuggestions } from "@/lib/use-product-search-suggestions";
 
 type MenuView = "main" | "categories";
 
@@ -67,7 +64,6 @@ export function MobileHeader() {
   const [session, setSession] = useState<ClientSession | null>(null);
   const [account, setAccount] = useState<AccountSummary | null>(null);
   const [query, setQuery] = useState("");
-  const deferredQuery = useDeferredValue(query);
   const menuId = useId();
   const searchId = useId();
   const accountId = useId();
@@ -85,9 +81,11 @@ export function MobileHeader() {
           href: categoryHrefById(category.slug),
         }));
 
-  const trimmedQuery = deferredQuery.trim();
+  const trimmedQuery = query.trim();
   const isTyping = trimmedQuery.length > 0;
-  const suggestions = isTyping ? searchProducts(trimmedQuery) : [];
+  const { products: suggestions } = useProductSearchSuggestions(
+    isTyping ? query : "",
+  );
 
   function goToResults(rawQuery = query) {
     const next = rawQuery.trim();

@@ -1,0 +1,229 @@
+Product_Folder_Name,SKU,Declared_Color,Detected_Color,Status,Confidence,Reason
+IMP-249-001,IMP-249-001,"Modrozelená","The main product appears to have a greenish hue with some bluish undertones.",UNSURE,50,"The color is not distinctly identifiable as 'Modrozelená' due to potential lighting effects and the overall color complexity."
+IMP-249-001,IMP-249-001,"Medená","Copper brown",MATCH,90,"The main product color closely resembles the declared color 'Medená', which translates to copper."
+IMP-249-001,IMP-249-001,"Olivová","Muted green with yellowish undertones",MISMATCH,85,"The visible color of the main product does not match the declared color 'Olivová', as it appears more muted and yellowish rather than a true olive green."
+IMP-249-002,IMP-249-002,"Zelená","Grayish-green",MISMATCH,85,"The main product color appears to be grayish-green rather than the declared green ('Zelená')."
+IMP-249-002,IMP-249-002,"Biela","The main product appears to have a mix of green and white tones, but clarity is insufficient to determine an exact match.",UNSURE,50,"The image quality does not allow for a definitive assessment of the main product color."
+IMP-249-003,IMP-249-003,"Čierna","black",MATCH,95,"The main product color closely resembles the declared color 'Čierna' (black)."
+IMP-249-003,IMP-249-003,"Zelená","Black berries and green leaves",MISMATCH,90,"The main product color consists of black berries and green leaves, which do not match the declared color 'Zelená' (Green)."
+IMP-249-004,IMP-249-004,"Čierna","black",MATCH,95,"The main product color closely resembles the declared color 'Čierna'."
+IMP-249-004,IMP-249-004,"Zelená","black",MISMATCH,95,"The main product color is black, which does not match the declared color 'Zelená' (green)."
+IMP-249-005,IMP-249-005,"Červená","bright red",MATCH,95,"The main product color closely resembles the declared color 'Červená'."
+IMP-249-005,IMP-249-005,"Oranžová","A vibrant orange color with some variations in shade",MATCH,90,"The main product color closely resembles the declared color 'Oranžová'."
+IMP-249-005,IMP-249-005,"Medená","Copper brown",MATCH,90,"The main product color closely resembles the declared color 'Medená', which translates to copper."
+IMP-249-006,IMP-249-006,"Červená","bright red",MATCH,95,"The main product color closely resembles the declared color 'Červená'."
+IMP-249-006,IMP-249-006,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-007,IMP-249-007,"Žltá","A mix of yellow, orange, and red hues",MISMATCH,85,"The main product color includes orange and red tones, which do not match the declared color 'Žltá' (yellow)."
+IMP-249-007,IMP-249-007,Červená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-007,IMP-249-007,Čierna,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-008,IMP-249-008,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-008,IMP-249-008,Fialová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-008,IMP-249-008,Bordová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-008,IMP-249-008,Žltá,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-008,IMP-249-008,"Hnedá","brown",MATCH,90,"The main product color closely resembles the declared color 'Hnedá' (brown)."
+IMP-249-009,IMP-249-009,"Žltá","Yellow with hints of red",MISMATCH,85,"The main flower color has a significant presence of red, which does not match the declared color 'Žltá' (Yellow)."
+IMP-249-009,IMP-249-009,Biela,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-010,IMP-249-010,Fialová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-010,IMP-249-010,Ružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-010,IMP-249-010,Modrá,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-011,IMP-249-011,Modrozelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-011,IMP-249-011,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-011,IMP-249-011,Medená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-012,IMP-249-012,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-012,IMP-249-012,Medená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-013,IMP-249-013,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-013,IMP-249-013,Medená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-013,IMP-249-013,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-014,IMP-249-014,Medená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-014,IMP-249-014,Modrozelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-014,IMP-249-014,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-015,IMP-249-015,Červená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-015,IMP-249-015,Oranžová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-015,IMP-249-015,Čierna,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-016,IMP-249-016,Ružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-016,IMP-249-016,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-017,IMP-249-017,Staroružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-017,IMP-249-017,Fialová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-018,IMP-249-018,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-018,IMP-249-018,Medená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-018,IMP-249-018,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-019,IMP-249-019,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-019,IMP-249-019,Oranžová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-019,IMP-249-019,Bordová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-020,IMP-249-020,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-021,IMP-249-021,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1011. Please try agai"
+IMP-249-021,IMP-249-021,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1011. Please try agai"
+IMP-249-021,IMP-249-021,Bordová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1011. Please try agai"
+IMP-249-022,IMP-249-022,Červená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-022,IMP-249-022,Hnedá,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-023,IMP-249-023,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1012. Please try agai"
+IMP-249-023,IMP-249-023,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1011. Please try agai"
+IMP-249-024,IMP-249-024,"Zelená","Muted green with a bluish tint",MISMATCH,85,"The detected color is a muted green with a bluish tint, which does not exactly match the declared color 'Zelená'."
+IMP-249-024,IMP-249-024,Bordová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-024,IMP-249-024,Fialová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-024,IMP-249-024,Olivová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-025,IMP-249-025,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-026,IMP-249-026,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-026,IMP-249-026,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-027,IMP-249-027,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-028,IMP-249-028,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-029,IMP-249-029,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-030,IMP-249-030,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 199167, Requested 1007. Please try agai"
+IMP-249-030,IMP-249-030,"Ružová","Light pink with hints of peach and cream",MISMATCH,85,"The main flower color does not match the declared color 'Ružová', as it appears to have a mix of light pink, peach, and cream tones."
+IMP-249-030,IMP-249-030,Biela,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1005. Please try agai"
+IMP-249-031,IMP-249-031,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-032,IMP-249-032,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-032,IMP-249-032,Okrová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-033,IMP-249-033,Staroružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-033,IMP-249-033,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-034,IMP-249-034,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-035,IMP-249-035,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1006. Please try agai"
+IMP-249-035,IMP-249-035,Bordová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-036,IMP-249-036,Biela,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-036,IMP-249-036,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-037,IMP-249-037,Staroružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1010. Please try agai"
+IMP-249-037,IMP-249-037,Zelená,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1007. Please try agai"
+IMP-249-038,IMP-249-038,Krémová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"
+IMP-249-039,IMP-249-039,Staroružová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1009. Please try agai"
+IMP-249-039,IMP-249-039,Biela,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1005. Please try agai"
+IMP-249-039,IMP-249-039,Oranžová,,UNSURE,0,"API Error: OpenAI API error 429: {
+    ''error'': {
+        ''message'': ''Rate limit reached for gpt-4o-mini in organization org-y8kZ3QEEs793wH6YtCqJcQc1 on tokens per min (TPM): Limit 200000, Used 200000, Requested 1008. Please try agai"

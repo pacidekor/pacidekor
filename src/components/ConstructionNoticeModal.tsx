@@ -9,6 +9,8 @@ import { SHOW_CONSTRUCTION_NOTICE } from "@/lib/shop-flags";
 
 export { SHOW_CONSTRUCTION_NOTICE };
 
+const CONSTRUCTION_DISMISSED_KEY = "pacidekor-construction-notice-dismissed";
+
 export function ConstructionNoticeModal() {
   const titleId = useId();
   const [open, setOpen] = useState(false);
@@ -23,6 +25,13 @@ export function ConstructionNoticeModal() {
 
     async function show() {
       setMounted(true);
+      try {
+        if (sessionStorage.getItem(CONSTRUCTION_DISMISSED_KEY) === "1") {
+          return;
+        }
+      } catch {
+        /* private mode — still show */
+      }
       const customer = await fetchClientCustomer();
       if (cancelled) return;
 
@@ -47,6 +56,11 @@ export function ConstructionNoticeModal() {
   }, [open]);
 
   function dismiss() {
+    try {
+      sessionStorage.setItem(CONSTRUCTION_DISMISSED_KEY, "1");
+    } catch {
+      /* ignore */
+    }
     setVisible(false);
     window.setTimeout(() => {
       setOpen(false);

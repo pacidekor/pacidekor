@@ -5,6 +5,7 @@ import {
   clearAccountCartCache,
   mergeGuestCartIntoAccount,
   hydrateAccountCart,
+  hydrateGuestCartCatalog,
 } from "@/lib/cart";
 import {
   bootstrapFavoritesPreview,
@@ -46,6 +47,7 @@ export function AccountDataSync() {
       } else {
         clearAccountCartCache();
         clearFavoritesCache();
+        void hydrateGuestCartCatalog();
       }
     }
 

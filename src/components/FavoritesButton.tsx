@@ -6,9 +6,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Check, Heart, ShoppingCart, Trash2, X } from "lucide-react";
 import { addLinesToCart } from "@/lib/cart";
+import { ensureCatalogProducts } from "@/lib/ensure-catalog-products";
 import {
   FAVORITES_EVENT,
   favoriteCountLabel,
+  getFavoriteIdsSnapshot,
   getFavoriteProducts,
   toggleFavorite,
 } from "@/lib/favorites";
@@ -102,16 +104,24 @@ export function FavoritesButton() {
   const isWholesale = useIsWholesale();
 
   useEffect(() => {
-    function sync() {
+    let cancelled = false;
+
+    async function sync() {
+      await ensureCatalogProducts(getFavoriteIdsSnapshot());
+      if (cancelled) return;
       startTransition(() => {
         setProducts(getFavoriteProducts());
       });
     }
 
-    sync();
-    window.addEventListener(FAVORITES_EVENT, sync);
+    void sync();
+    const onEvent = () => {
+      void sync();
+    };
+    window.addEventListener(FAVORITES_EVENT, onEvent);
     return () => {
-      window.removeEventListener(FAVORITES_EVENT, sync);
+      cancelled = true;
+      window.removeEventListener(FAVORITES_EVENT, onEvent);
     };
   }, []);
 

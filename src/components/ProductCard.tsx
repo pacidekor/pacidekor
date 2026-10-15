@@ -20,11 +20,14 @@ type ProductCardProps = {
   product: Product;
   /** Active color filter IDs — preview switches to the matching variant. */
   filterColorIds?: string[];
+  /** Above-the-fold listing cards — eager LCP image. */
+  priority?: boolean;
 };
 
 export const ProductCard = memo(function ProductCard({
   product,
   filterColorIds,
+  priority = false,
 }: ProductCardProps) {
   const priced = usePricedProduct(product);
   const colors = priced.colors ?? [];
@@ -65,13 +68,27 @@ export const ProductCard = memo(function ProductCard({
         };
 
   const hoverImage = preview.hoverImage ?? null;
+  const [canHoverSwap, setCanHoverSwap] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const sync = () => setCanHoverSwap(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+
+  const showHoverImage = Boolean(hoverImage && canHoverSwap);
 
   return (
-    <article className="flex min-w-0 flex-col" data-product-id={product.id}>
+    <article
+      className="@container/card flex min-w-0 flex-col"
+      data-product-id={product.id}
+    >
       <div className="relative aspect-square overflow-hidden rounded-3xl bg-white">
         <Link
           href={href}
-          className={`group absolute inset-0${hoverImage ? "" : " transition-opacity hover:opacity-95"}`}
+          className={`group absolute inset-0${showHoverImage ? "" : " transition-opacity hover:opacity-95"}`}
         >
           <Image
             key={preview.image}
@@ -80,9 +97,12 @@ export const ProductCard = memo(function ProductCard({
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
             quality={75}
-            className={`object-cover${hoverImage ? " transition-opacity duration-700 ease-out group-hover:opacity-0" : ""}`}
+            // Listings pass priority for above-the-fold cards (avoids default lazy LCP).
+            priority={priority}
+            loading={priority ? undefined : "lazy"}
+            className={`object-cover${showHoverImage ? " transition-opacity duration-700 ease-out group-hover:opacity-0" : ""}`}
           />
-          {hoverImage ? (
+          {showHoverImage && hoverImage ? (
             <Image
               key={hoverImage}
               src={hoverImage}
@@ -90,6 +110,7 @@ export const ProductCard = memo(function ProductCard({
               fill
               sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 20vw"
               quality={75}
+              loading="lazy"
               className="object-cover opacity-0 transition-opacity duration-700 ease-out group-hover:opacity-100"
               aria-hidden
             />
@@ -172,7 +193,10 @@ export const ProductCard = memo(function ProductCard({
         {priced.name}
       </Link>
 
-      <ProductCardActions product={priced} />
+      <ProductCardActions
+        product={priced}
+        colorId={selectedColorId}
+      />
     </article>
   );
 });

@@ -48,6 +48,8 @@ function sortSoldOutLast(list: Product[]): Product[] {
   });
 }
 
+const PAGE_SIZE = 24;
+
 function collectionFilterKey(category?: string, colors: string[] = []) {
   return `${category ?? ""}|${colors.slice().sort().join(",")}`;
 }
@@ -83,11 +85,17 @@ export function ProductCollectionBrowser({
   const [selectedCategory, setSelectedCategory] = useState<string | undefined>();
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [inventoryTick, setInventoryTick] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
   const rootRef = useRef<HTMLDivElement>(null);
+  const loadMoreRef = useRef<HTMLDivElement>(null);
   const didReadRestoreRef = useRef(false);
   const filterKeyRef = useRef(collectionFilterKey(undefined, []));
+  const visibleCountRef = useRef(visibleCount);
   const pendingScrollYRef = useRef<number | null>(null);
   const pendingProductIdRef = useRef<string | null>(null);
+  const pendingVisibleCountRef = useRef<number | null>(null);
+
+  visibleCountRef.current = visibleCount;
 
   useEffect(() => {
     if (!listenInventory && !sortOut) return;
@@ -118,10 +126,12 @@ export function ProductCollectionBrowser({
     return sortOut ? sortSoldOutLast(next) : next;
   }, [products, selectedCategory, selectedColors, sortOut, inventoryTick]);
 
-  filterKeyRef.current = collectionFilterKey(
-    selectedCategory,
-    selectedColors,
-  );
+  useEffect(() => {
+    const key = collectionFilterKey(selectedCategory, selectedColors);
+    if (filterKeyRef.current === key) return;
+    filterKeyRef.current = key;
+    setVisibleCount(PAGE_SIZE);
+  }, [selectedCategory, selectedColors]);
 
   useLayoutEffect(() => {
     if (didReadRestoreRef.current) return;
@@ -132,6 +142,14 @@ export function ProductCollectionBrowser({
     if (!saved) return;
     pendingScrollYRef.current = saved.scrollY;
     pendingProductIdRef.current = saved.productId ?? null;
+    const targetCount = Math.max(
+      PAGE_SIZE,
+      typeof saved.visibleCount === "number" ? saved.visibleCount : PAGE_SIZE,
+    );
+    pendingVisibleCountRef.current = targetCount;
+    if (targetCount > PAGE_SIZE) {
+      setVisibleCount(targetCount);
+    }
   }, [pathname]);
 
   useLayoutEffect(() => {
@@ -140,6 +158,10 @@ export function ProductCollectionBrowser({
     }
 
     const key = listingScrollKey(pathname);
+    const needed = pendingVisibleCountRef.current ?? PAGE_SIZE;
+    if (visibleCount < needed && visibleCount < filtered.length) {
+      return;
+    }
 
     function applyRestore() {
       const productId = pendingProductIdRef.current;
@@ -151,6 +173,7 @@ export function ProductCollectionBrowser({
           el.scrollIntoView({ block: "center" });
           pendingScrollYRef.current = null;
           pendingProductIdRef.current = null;
+          pendingVisibleCountRef.current = null;
           takeListingScroll(key);
           return true;
         }
@@ -164,6 +187,7 @@ export function ProductCollectionBrowser({
       if (!tallEnough) return false;
       pendingScrollYRef.current = null;
       pendingProductIdRef.current = null;
+      pendingVisibleCountRef.current = null;
       takeListingScroll(key);
       return true;
     }
@@ -177,12 +201,13 @@ export function ProductCollectionBrowser({
       } else {
         pendingScrollYRef.current = null;
         pendingProductIdRef.current = null;
+        pendingVisibleCountRef.current = null;
         takeListingScroll(key);
       }
     };
 
     requestAnimationFrame(() => requestAnimationFrame(run));
-  }, [pathname, filtered.length]);
+  }, [pathname, filtered.length, visibleCount]);
 
   useEffect(() => {
     function onClick(event: MouseEvent) {
@@ -202,6 +227,7 @@ export function ProductCollectionBrowser({
 
       saveListingScroll(listingScrollKey(pathname), {
         scrollY: window.scrollY,
+        visibleCount: visibleCountRef.current,
         productId: productId ?? undefined,
         productHref: href,
       });
@@ -211,12 +237,37 @@ export function ProductCollectionBrowser({
     return () => document.removeEventListener("click", onClick, true);
   }, [pathname]);
 
+  const visibleProducts = useMemo(
+    () => filtered.slice(0, visibleCount),
+    [filtered, visibleCount],
+  );
+  const hasMore = visibleCount < filtered.length;
+
+  useEffect(() => {
+    const node = loadMoreRef.current;
+    if (!node || !hasMore) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setVisibleCount((count) =>
+            Math.min(count + PAGE_SIZE, filtered.length),
+          );
+        }
+      },
+      { rootMargin: "400px 0px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [hasMore, filtered.length, visibleCount]);
+
   const activeFilterCount =
     (selectedCategory ? 1 : 0) + selectedColors.length;
 
   function clearFilters() {
     setSelectedCategory(undefined);
     setSelectedColors([]);
+    setVisibleCount(PAGE_SIZE);
   }
 
   if (products.length === 0 && emptyState) {
@@ -263,16 +314,37 @@ export function ProductCollectionBrowser({
       </div>
 
       {filtered.length > 0 ? (
-        <div className={catalogGridClass(gridDensity)}>
-          {filtered.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              filterColorIds={
-                selectedColors.length > 0 ? selectedColors : undefined
-              }
-            />
-          ))}
+        <div>
+          <div className={catalogGridClass(gridDensity)}>
+            {visibleProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                filterColorIds={
+                  selectedColors.length > 0 ? selectedColors : undefined
+                }
+              />
+            ))}
+          </div>
+          {hasMore ? (
+            <div
+              ref={loadMoreRef}
+              className="flex justify-center py-10"
+              aria-hidden
+            >
+              <button
+                type="button"
+                onClick={() =>
+                  setVisibleCount((count) =>
+                    Math.min(count + PAGE_SIZE, filtered.length),
+                  )
+                }
+                className="inline-flex h-11 cursor-pointer items-center rounded-full border border-black/10 bg-white px-5 text-sm font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/40 hover:text-[#75825B]"
+              >
+                Zobraziť ďalšie ({filtered.length - visibleCount})
+              </button>
+            </div>
+          ) : null}
         </div>
       ) : (
         <div className="rounded-3xl bg-white px-6 py-12 text-center sm:px-10">

@@ -56,7 +56,7 @@ import {
 } from "@/lib/taxonomy";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
-import { useCartItems } from "@/lib/use-cart";
+import { useCartItemsState } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 /** Accumulate stock deltas while clicking; flush one server call after pause. */
@@ -102,7 +102,7 @@ function CartLine({
   onRemove: () => void;
   isWholesale: boolean;
 }) {
-  const { product, quantity } = item;
+  const { product, quantity, unavailable } = item;
   const deferredQuantity = useDeferredValue(quantity);
   const lineTotalNet =
     audienceNetFromCatalogPrice(product.price, isWholesale) * deferredQuantity;
@@ -115,6 +115,34 @@ function CartLine({
       ? Math.max(orderMultiple, remaining + quantity)
       : undefined;
   const maxQty = alignMaxToOrderMultiple(rawMax, orderMultiple);
+
+  if (unavailable) {
+    return (
+      <li className="flex items-center gap-3.5 py-5 sm:gap-5">
+        <div className="relative size-20 shrink-0 overflow-hidden rounded-2xl bg-[#f3efe9] sm:size-28" />
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-2">
+            <div className="min-w-0">
+              <p className="font-heading text-base font-semibold text-[#2f2924] sm:text-lg">
+                Produkt už nie je v ponuke
+              </p>
+              <p className="mt-1 text-sm text-[#9a4d3f]">
+                Túto položku odstráňte z košíka. Cena sa do súčtu nezapočítava.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onRemove}
+              aria-label="Odstrániť nedostupný produkt"
+              className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-xl text-[#2f2924]/40 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+            >
+              <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
+            </button>
+          </div>
+        </div>
+      </li>
+    );
+  }
 
   return (
     <li className="flex items-center gap-3.5 py-5 sm:gap-5">
@@ -431,8 +459,30 @@ function EmptyCart() {
   );
 }
 
+function CartLoading() {
+  return (
+    <div className="overflow-hidden rounded-3xl border border-black/6 bg-white px-6 py-16 text-center sm:px-10">
+      <div className="mx-auto h-10 w-10 animate-pulse rounded-full bg-[#75825B]/25" />
+      <p className="mt-5 text-sm text-[#2f2924]/60">Načítavam košík…</p>
+    </div>
+  );
+}
+
+function CartError({ message }: { message: string }) {
+  return (
+    <div className="overflow-hidden rounded-3xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-6 py-12 text-center sm:px-10">
+      <p className="font-heading text-xl font-semibold text-[#9a4d3f]">
+        Košík sa nepodarilo načítať
+      </p>
+      <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-[#9a4d3f]/85">
+        {message}
+      </p>
+    </div>
+  );
+}
+
 export function CartView() {
-  const items = useCartItems();
+  const { items, loading, error } = useCartItemsState();
   const deferredItems = useDeferredValue(items);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const isWholesale = useIsWholesale();
@@ -454,7 +504,7 @@ export function CartView() {
   function updateQuantity(productId: string, next: number) {
     // Always read latest cart — React `items` can lag behind rapid stepper clicks.
     const item = readCartItems().find((entry) => entry.product.id === productId);
-    if (!item) return;
+    if (!item || item.unavailable) return;
 
     const multiple = getProductOrderMultiple(item.product.attributes?.packaging);
     const clamped = snapQuantityToMultiple(next, multiple);
@@ -516,12 +566,23 @@ export function CartView() {
     }
   }
 
+  if (loading && items.length === 0) {
+    return <CartLoading />;
+  }
+
+  if (error && items.length === 0) {
+    return <CartError message={error} />;
+  }
+
   if (items.length === 0) {
     return <EmptyCart />;
   }
 
-  const subtotal = cartSubtotalForAudience(deferredItems, isWholesale);
-  const count = cartItemCount(items);
+  const subtotal = cartSubtotalForAudience(
+    deferredItems.filter((item) => !item.unavailable),
+    isWholesale,
+  );
+  const count = cartItemCount(items.filter((item) => !item.unavailable));
 
   return (
     <div className="grid gap-6 lg:grid-cols-[minmax(0,3fr)_minmax(16rem,1fr)] lg:items-start lg:gap-8">

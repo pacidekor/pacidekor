@@ -1,5 +1,5 @@
 import { AccountDataSync } from "@/components/AccountDataSync";
-import { ChatFab } from "@/components/ChatFab";
+import { ChatFabLazy } from "@/components/ChatFabLazy";
 import { ConstructionNoticeModal } from "@/components/ConstructionNoticeModal";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
 import { Footer } from "@/components/Footer";
@@ -10,7 +10,6 @@ import { ProductCatalogProvider } from "@/components/ProductCatalogProvider";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { listTaxonomy } from "@/lib/categories-server";
 import { listDiscounts } from "@/lib/discounts-server";
-import { listProducts } from "@/lib/products-server";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 
 /** Align with catalog ISR pages — shared layout payload is cacheable. */
@@ -21,18 +20,14 @@ export default async function SiteLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [products, discounts, taxonomy] = await Promise.all([
-    listProducts(),
+  // Taxonomy + discounts only — full catalog must not ship on every page.
+  const [discounts, taxonomy] = await Promise.all([
     listDiscounts(),
     listTaxonomy(),
   ]);
 
   return (
-    <ProductCatalogProvider
-      products={products}
-      discounts={discounts}
-      taxonomy={taxonomy}
-    >
+    <ProductCatalogProvider discounts={discounts} taxonomy={taxonomy}>
       <JsonLd data={[organizationJsonLd(), websiteJsonLd()]} />
       <AccountDataSync />
       <ScrollToTop />
@@ -44,7 +39,7 @@ export default async function SiteLayout({
         {children}
       </div>
       <Footer />
-      <ChatFab />
+      <ChatFabLazy />
       <CookieConsent />
       <ConstructionNoticeModal />
     </ProductCatalogProvider>

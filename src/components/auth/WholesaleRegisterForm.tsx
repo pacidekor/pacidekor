@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { ArrowLeft, Check } from "lucide-react";
 import { AuthBrandLink, AuthSplitShell } from "@/components/auth/AuthSplitShell";
+import { CompanyIcoLookup } from "@/components/auth/CompanyIcoLookup";
 import { EmailVerificationStep } from "@/components/auth/EmailVerificationStep";
 import { PasswordField } from "@/components/PasswordField";
 import { registerWholesale } from "@/lib/actions/auth";
@@ -13,7 +14,6 @@ import {
   icoError,
   phoneError,
   sanitizeCompany,
-  sanitizeIco,
   sanitizePhone,
   sanitizeZip,
   zipError,
@@ -105,6 +105,7 @@ export function WholesaleRegisterForm({
   const [phase, setPhase] = useState<"form" | "verify" | "done">("form");
   const [pending, setPending] = useState(false);
   const [panelHeight, setPanelHeight] = useState<number | null>(null);
+  const [icoVerified, setIcoVerified] = useState(false);
 
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -134,7 +135,13 @@ export function WholesaleRegisterForm({
 
   function validateStep(): string | null {
     if (step === 0) {
-      return companyError(data.company) || icoError(data.ico);
+      return (
+        companyError(data.company) ||
+        icoError(data.ico) ||
+        (!icoVerified
+          ? "Vyberte firmu zo zoznamu podľa IČO (overenie v registri)."
+          : null)
+      );
     }
     if (step === 1) {
       if (!data.name.trim()) return "Zadajte kontaktnú osobu.";
@@ -349,24 +356,32 @@ export function WholesaleRegisterForm({
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label htmlFor="vo-ico" className={labelClass}>
-                  IČO
-                </label>
-                <input
-                  id="vo-ico"
-                  type="text"
-                  inputMode="numeric"
-                  maxLength={8}
-                  value={data.ico}
-                  onChange={(event) =>
-                    patch("ico", sanitizeIco(event.target.value))
-                  }
-                  className={fieldClass}
-                  placeholder="12345678"
-                  tabIndex={step === 0 ? 0 : -1}
-                />
-              </div>
+              <CompanyIcoLookup
+                ico={data.ico}
+                dic={data.dic}
+                fieldClass={fieldClass}
+                labelClass={labelClass}
+                tabIndex={step === 0 ? 0 : -1}
+                onIcoChange={(value) => {
+                  patch("ico", value);
+                  setIcoVerified(false);
+                }}
+                onVerifiedChange={setIcoVerified}
+                onSelect={(selection) => {
+                  setData((prev) => ({
+                    ...prev,
+                    ico: selection.ico,
+                    company: sanitizeCompany(selection.name),
+                    dic: selection.dic ?? prev.dic,
+                    street: selection.street?.trim() || prev.street,
+                    city: selection.city?.trim() || prev.city,
+                    zip: selection.zip
+                      ? sanitizeZip(selection.zip)
+                      : prev.zip,
+                  }));
+                  setIcoVerified(true);
+                }}
+              />
               <div>
                 <label htmlFor="vo-dic" className={labelClass}>
                   DIČ{" "}
@@ -380,7 +395,7 @@ export function WholesaleRegisterForm({
                   value={data.dic}
                   onChange={(event) => patch("dic", event.target.value)}
                   className={fieldClass}
-                  placeholder="SK1234567890"
+                  placeholder="1234567890"
                   tabIndex={step === 0 ? 0 : -1}
                 />
               </div>

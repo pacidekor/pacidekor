@@ -22,6 +22,8 @@ type AddToCartButtonProps = {
   colorId?: string;
   disabled?: boolean;
   size?: "card" | "page";
+  /** Card listings: open quantity modal instead of adding immediately. */
+  onOpenQuantityPicker?: () => void;
 };
 
 const RESET_MS = 1800;
@@ -32,6 +34,7 @@ export function AddToCartButton({
   colorId,
   disabled = false,
   size = "card",
+  onOpenQuantityPicker,
 }: AddToCartButtonProps) {
   const [added, setAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -44,6 +47,11 @@ export function AddToCartButton({
 
   function handleClick() {
     if (added || disabled) return;
+
+    if (onOpenQuantityPicker) {
+      onOpenQuantityPicker();
+      return;
+    }
 
     const multiple = getProductOrderMultiple(product.attributes?.packaging);
     let rawQty = quantity;
@@ -110,7 +118,7 @@ export function AddToCartButton({
       aria-live="polite"
       className={
         isCard
-          ? `inline-flex h-9 shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full px-2.5 text-white transition-[background-color,transform] duration-300 sm:gap-1.5 sm:px-4 ${
+          ? `hidden size-9 shrink-0 items-center justify-center overflow-hidden rounded-full text-white transition-[background-color,transform] duration-300 md:inline-flex md:size-10 @[15rem]/card:md:h-10 @[15rem]/card:md:w-auto @[15rem]/card:md:gap-2 @[15rem]/card:md:px-4 ${
               disabled
                 ? "cursor-not-allowed bg-[#2f2924]/25"
                 : added
@@ -127,10 +135,10 @@ export function AddToCartButton({
       }
     >
       <span
-        className={`relative grid place-items-center ${isCard ? "size-4" : "size-5"}`}
+        className={`relative grid place-items-center ${isCard ? "size-4 md:size-[1.125rem]" : "size-5"}`}
       >
         <ShoppingCart
-          className={`${isCard ? "size-4" : "size-5"} transition-all duration-300 ease-out ${
+          className={`${isCard ? "size-4 md:size-[1.125rem]" : "size-5"} transition-all duration-300 ease-out ${
             added
               ? "scale-50 rotate-12 opacity-0"
               : "scale-100 rotate-0 opacity-100"
@@ -139,7 +147,7 @@ export function AddToCartButton({
           aria-hidden
         />
         <Check
-          className={`absolute ${isCard ? "size-4" : "size-5"} transition-all duration-300 ease-out ${
+          className={`absolute ${isCard ? "size-4 md:size-[1.125rem]" : "size-5"} transition-all duration-300 ease-out ${
             added
               ? "scale-100 rotate-0 opacity-100"
               : "scale-50 -rotate-12 opacity-0"
@@ -152,7 +160,7 @@ export function AddToCartButton({
       <span
         className={`relative grid ${
           isCard
-            ? "hidden min-w-[4.5rem] place-items-center text-xs font-medium min-[380px]:grid sm:min-w-[5rem] sm:text-sm"
+            ? "hidden min-w-[5rem] place-items-center text-sm font-medium @[15rem]/card:md:grid"
             : "min-w-[5.5rem] place-items-center"
         }`}
       >

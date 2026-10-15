@@ -6,12 +6,13 @@ import { CategoryProductBrowser } from "@/components/CategoryProductBrowser";
 import { JsonLd } from "@/components/JsonLd";
 import { listTaxonomy } from "@/lib/categories-server";
 import { toSlug } from "@/lib/navigation";
-import { getProductsByCategory } from "@/lib/products";
-import { listPricedProducts } from "@/lib/products-server";
+import { listPricedProductsPage } from "@/lib/products-server";
 import { breadcrumbJsonLd, pageMetadata } from "@/lib/seo";
+import { parseCategoryFilters } from "@/lib/taxonomy";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 };
 
 /** ISR — admin taxonomy/product writes still bust cache via revalidatePath. */
@@ -54,8 +55,9 @@ export async function generateMetadata({
   });
 }
 
-export default async function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const rawSearch = await searchParams;
 
   const aliasTarget = CATEGORY_SLUG_ALIASES[slug];
   if (aliasTarget) {
@@ -68,8 +70,17 @@ export default async function CategoryPage({ params }: PageProps) {
     notFound();
   }
 
-  const allProducts = await listPricedProducts();
-  const categoryProducts = getProductsByCategory(allProducts, category.label);
+  const filters = parseCategoryFilters(rawSearch);
+  const page = await listPricedProductsPage({
+    filters: {
+      category: category.label,
+      subcategoryId: filters.sub,
+      druhId: filters.druh,
+      colors: filters.farba,
+    },
+    offset: 0,
+    limit: 24,
+  });
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -102,7 +113,9 @@ export default async function CategoryPage({ params }: PageProps) {
         <CategoryProductBrowser
           categoryLabel={category.label}
           categorySlug={category.id}
-          products={categoryProducts}
+          initialProducts={page.products}
+          initialTotal={page.total}
+          initialHasMore={page.hasMore}
         />
       </Suspense>
     </main>

@@ -1,7 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronRight } from "lucide-react";
@@ -22,22 +21,22 @@ type BannerSlide = {
 
 const slides: BannerSlide[] = [
   {
-    desktopSrc: "/bannery/bannery_squooshed/bannerdusickydesktop.webp",
-    mobileSrc: "/bannery/bannery_squooshed/bannerdusickymobile.webp",
+    desktopSrc: "/bannery/display/bannerdusickydesktop.webp",
+    mobileSrc: "/bannery/display/bannerdusickymobile.webp",
     href: "/produkty",
     alt: "PACIDEKOR - Dušičky: pietne aranžmány a dekorácie",
     ctaLabel: "Všetky produkty",
   },
   {
-    desktopSrc: "/bannery/bannery_squooshed/bannervsetkodesktop.webp",
-    mobileSrc: "/bannery/bannery_squooshed/bannervsetkomobile.webp",
+    desktopSrc: "/bannery/display/bannervsetkodesktop.webp",
+    mobileSrc: "/bannery/display/bannervsetkomobile.webp",
     href: "/registracia/velkoobchod",
     alt: "PACIDEKOR - umelé kvety, krása ktorá vydrží",
     ctaLabel: "Registrácia",
   },
   {
-    desktopSrc: "/bannery/bannery_squooshed/bannerdopravadesktop.webp",
-    mobileSrc: "/bannery/bannery_squooshed/bannerdopravamobile.webp",
+    desktopSrc: "/bannery/display/bannerdopravadesktop.webp",
+    mobileSrc: "/bannery/display/bannerdopravamobile.webp",
     href: "/produkty",
     alt: "PACIDEKOR - expedícia do 24 hodín",
     ctaLabel: "Všetky produkty",
@@ -47,6 +46,8 @@ const slides: BannerSlide[] = [
 const AUTO_MS = 5000;
 const SWIPE_THRESHOLD_RATIO = 0.18;
 const TRANSITION = "transform 480ms cubic-bezier(0.22, 1, 0.36, 1)";
+/** Desktop banner intrinsic ratio (spacer Image replacement). */
+const DESKTOP_BANNER_ASPECT = "12940 / 2515";
 
 type DragState = {
   startX: number;
@@ -54,27 +55,100 @@ type DragState = {
   pointerId: number;
 };
 
+function BannerSlideMedia({
+  slide,
+  alt,
+  priority,
+  objectPositionClass,
+}: {
+  slide: BannerSlide;
+  alt: string;
+  priority?: boolean;
+  objectPositionClass?: string;
+}) {
+  return (
+    <picture className="absolute inset-0 block h-full w-full">
+      <source media="(min-width: 768px)" srcSet={slide.desktopSrc} />
+      {/* eslint-disable-next-line @next/next/no-img-element -- picture/srcset; Image Optimization is off */}
+      <img
+        src={slide.mobileSrc}
+        alt={alt}
+        className={`absolute inset-0 h-full w-full object-cover ${objectPositionClass ?? ""}`}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
+        // Sync decode for LCP slide — async can delay paint after bytes arrive.
+        decoding={priority ? "sync" : "async"}
+        draggable={false}
+      />
+    </picture>
+  );
+}
+
 export function HeroBanner() {
   const router = useRouter();
   const count = slides.length;
   const loop = count > 1;
+  /** Loop track starts on the first real slide (index 1), not the leading clone. */
+  const initialTrackIndex = loop ? 1 : 0;
 
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const widthRef = useRef(0);
   const dragRef = useRef<DragState | null>(null);
-  const trackIndexRef = useRef(loop ? 1 : 0);
+  const trackIndexRef = useRef(initialTrackIndex);
   const didDragRef = useRef(false);
   const animatingRef = useRef(false);
   const hoverPausedRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  /** Defer ±1 preload until after first paint so LCP is not bandwidth-contended. */
+  const [preloadAdjacent, setPreloadAdjacent] = useState(false);
 
   const trackSlides = loop
     ? [slides[count - 1], ...slides, slides[0]]
     : slides;
   const lastTrack = trackSlides.length - 1;
   const activeSlide = slides[activeIndex];
+  const stepPercent = 100 / trackSlides.length;
+
+  const loadRealIndexes = useMemo(() => {
+    const set = new Set<number>([activeIndex]);
+    if (preloadAdjacent && count > 1) {
+      set.add((activeIndex + 1) % count);
+      set.add((activeIndex - 1 + count) % count);
+    }
+    return set;
+  }, [activeIndex, count, preloadAdjacent]);
+
+  useEffect(() => {
+    let cancelled = false;
+    const arm = () => {
+      if (!cancelled) setPreloadAdjacent(true);
+    };
+    const ric = (
+      window as Window & {
+        requestIdleCallback?: (
+          cb: () => void,
+          opts?: { timeout: number },
+        ) => number;
+        cancelIdleCallback?: (id: number) => void;
+      }
+    ).requestIdleCallback;
+    if (typeof ric === "function") {
+      const id = ric(arm, { timeout: 1200 });
+      return () => {
+        cancelled = true;
+        (
+          window as Window & { cancelIdleCallback?: (id: number) => void }
+        ).cancelIdleCallback?.(id);
+      };
+    }
+    const t = window.setTimeout(arm, 400);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(t);
+    };
+  }, []);
 
   const toRealIndex = useCallback(
     (trackIndex: number) => {
@@ -261,7 +335,7 @@ export function HeroBanner() {
       role="region"
       aria-roledescription="carousel"
       aria-label="Banner"
-      className={`group relative isolate aspect-[2/1] w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] md:aspect-auto ${
+      className={`group relative isolate w-full overflow-hidden rounded-3xl select-none touch-none [-webkit-user-drag:none] ${
         loop ? "cursor-grab active:cursor-grabbing" : "cursor-pointer"
       }`}
       onPointerDown={onPointerDown}
@@ -282,17 +356,16 @@ export function HeroBanner() {
         if (href) router.push(href);
       }}
     >
-      <Image
-        src="/bannery/bannery_squooshed/bannerdusickydesktop.webp"
-        alt=""
-        width={12940}
-        height={2515}
-        priority
-        quality={100}
-        sizes="80vw"
+      {/* Aspect lock without downloading a hidden desktop spacer image */}
+      <div
+        className="pointer-events-none w-full md:hidden"
+        style={{ aspectRatio: "2 / 1" }}
         aria-hidden
-        draggable={false}
-        className="pointer-events-none invisible hidden h-auto w-full md:block"
+      />
+      <div
+        className="pointer-events-none hidden w-full md:block"
+        style={{ aspectRatio: DESKTOP_BANNER_ASPECT }}
+        aria-hidden
       />
 
       <div
@@ -303,10 +376,17 @@ export function HeroBanner() {
           ref={trackRef}
           className="flex h-full will-change-transform select-none [-webkit-user-drag:none]"
           draggable={false}
-          style={{ width: `${trackSlides.length * 100}%` }}
+          style={{
+            width: `${trackSlides.length * 100}%`,
+            // SSR + first paint must show the first real slide, not the leading clone.
+            transform: `translate3d(${-initialTrackIndex * stepPercent}%, 0, 0)`,
+          }}
         >
           {trackSlides.map((slide, index) => {
             const realIndex = toRealIndex(index);
+            const shouldLoad = loadRealIndexes.has(realIndex);
+            // Priority only on the cell that is visible before JS measure() runs.
+            const isPriority = index === initialTrackIndex;
             return (
               <div
                 key={`${slide.desktopSrc}-${index}`}
@@ -315,26 +395,14 @@ export function HeroBanner() {
                 aria-hidden={realIndex !== activeIndex}
                 draggable={false}
               >
-                <Image
-                  src={slide.mobileSrc}
-                  alt={realIndex === activeIndex ? slide.alt : ""}
-                  fill
-                  priority={realIndex === 0}
-                  quality={100}
-                  sizes="94vw"
-                  draggable={false}
-                  className={`object-cover md:hidden ${slide.objectPositionClass ?? ""}`}
-                />
-                <Image
-                  src={slide.desktopSrc}
-                  alt={realIndex === activeIndex ? slide.alt : ""}
-                  fill
-                  priority={realIndex === 0}
-                  quality={100}
-                  sizes="80vw"
-                  draggable={false}
-                  className={`hidden object-cover md:block ${slide.objectPositionClass ?? ""}`}
-                />
+                {shouldLoad ? (
+                  <BannerSlideMedia
+                    slide={slide}
+                    alt={realIndex === activeIndex ? slide.alt : ""}
+                    priority={isPriority}
+                    objectPositionClass={slide.objectPositionClass}
+                  />
+                ) : null}
               </div>
             );
           })}

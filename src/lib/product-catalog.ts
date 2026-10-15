@@ -12,6 +12,17 @@ export function setProductCatalog(products: Product[]) {
   listeners.forEach((listener) => listener());
 }
 
+/** Merge a subset into the live catalog (cart / favorites without full layout payload). */
+export function mergeProductsIntoCatalog(products: Product[]) {
+  if (products.length === 0) return;
+  const byId = new Map(catalog.map((product) => [product.id, product]));
+  for (const product of products) {
+    byId.set(product.id, product);
+  }
+  catalog = Array.from(byId.values());
+  listeners.forEach((listener) => listener());
+}
+
 export function subscribeProductCatalog(listener: () => void) {
   listeners.add(listener);
   return () => {

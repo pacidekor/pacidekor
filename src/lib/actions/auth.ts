@@ -38,6 +38,7 @@ import {
   sendPasswordChangedEmail,
   sendPasswordResetEmail,
 } from "@/lib/auth-emails";
+import { assertSkIcoExists } from "@/lib/sk-company-registry";
 
 async function siteOrigin() {
   const h = await headers();
@@ -130,6 +131,11 @@ export async function registerWholesale(
   const validationError = validateWholesaleInput(input);
   if (validationError) {
     return { ok: false, error: validationError };
+  }
+
+  const registry = await assertSkIcoExists(input.ico);
+  if (!registry.ok) {
+    return { ok: false, error: registry.error };
   }
 
   const email = normalizeEmail(input.email);

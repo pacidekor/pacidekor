@@ -6,6 +6,10 @@ import {
   toggleFavoriteAction,
 } from "@/lib/actions/favorites";
 import type { Product } from "@/lib/products";
+import {
+  ensureCatalogProducts,
+  isCatalogProductKnownUnavailable,
+} from "@/lib/ensure-catalog-products";
 import { findCatalogProductsByIds } from "@/lib/product-catalog";
 import { productCountLabel } from "@/lib/product-count";
 
@@ -130,6 +134,7 @@ export async function hydrateFavorites(): Promise<string[]> {
     return [];
   }
   setFavoriteIdsSnapshot(result.data, userId);
+  await ensureCatalogProducts(result.data);
   return result.data;
 }
 
@@ -178,8 +183,33 @@ export async function toggleFavorite(productId: string): Promise<boolean> {
   return nextActive;
 }
 
+function unavailableFavoriteStub(productId: string): Product {
+  return {
+    id: productId,
+    slug: "",
+    name: "Produkt už nie je v ponuke",
+    description: "",
+    price: "0",
+    image: "/banner1.webp",
+    category: "",
+    details: [],
+    inStock: false,
+  };
+}
+
 export function getFavoriteProducts(): Product[] {
-  return findCatalogProductsByIds(favoriteIdsCache);
+  const found = findCatalogProductsByIds(favoriteIdsCache);
+  const byId = new Map(found.map((product) => [product.id, product]));
+  return favoriteIdsCache
+    .map((id) => {
+      const product = byId.get(id);
+      if (product) return product;
+      if (isCatalogProductKnownUnavailable(id)) {
+        return unavailableFavoriteStub(id);
+      }
+      return null;
+    })
+    .filter((product): product is Product => product !== null);
 }
 
 export function favoriteCountLabel(count: number) {

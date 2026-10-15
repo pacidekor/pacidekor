@@ -5,7 +5,7 @@ import { BestsellerySection } from "@/components/BestsellerySection";
 import { HeroBanner } from "@/components/HeroBanner";
 import { NewsletterSection } from "@/components/NewsletterSection";
 import { NovinkySection } from "@/components/NovinkySection";
-import { listPricedProducts } from "@/lib/products-server";
+import { listHomepageSectionProducts } from "@/lib/products-server";
 import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, pageMetadata } from "@/lib/seo";
 
 export const revalidate = 120;
@@ -19,8 +19,7 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default async function Home() {
-  // One priced catalog for homepage sections (shares React.cache with layout).
-  const products = await listPricedProducts();
+  const { newest, bestsellers, akcia } = await listHomepageSectionProducts(5);
 
   return (
     <main className="flex flex-1 flex-col py-6">
@@ -29,10 +28,10 @@ export default async function Home() {
         aranžérskym materiálom
       </h1>
       <HeroBanner />
-      <NovinkySection products={products} />
+      <NovinkySection products={newest} />
       <BenefitsBar />
-      <AkciaSection />
-      <BestsellerySection products={products} />
+      <AkciaSection products={akcia} />
+      <BestsellerySection products={bestsellers} />
       <NewsletterSection />
     </main>
   );

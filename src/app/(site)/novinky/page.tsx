@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
-import { getNewestProducts } from "@/lib/products";
-import { listPricedProducts } from "@/lib/products-server";
+import { Suspense } from "react";
+import { CollectionCatalogBrowser } from "@/components/CollectionCatalogBrowser";
+import { parseProduktySearchParams } from "@/lib/produkty-url";
+import { listPricedProductsPage } from "@/lib/products-server";
 import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 120;
@@ -14,9 +15,21 @@ export const metadata: Metadata = pageMetadata({
   path: "/novinky",
 });
 
-export default async function NovinkyPage() {
-  const all = await listPricedProducts();
-  const products = getNewestProducts(all);
+type PageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
+
+export default async function NovinkyPage({ searchParams }: PageProps) {
+  const raw = await searchParams;
+  const { colors } = parseProduktySearchParams(raw);
+  const page = await listPricedProductsPage({
+    filters: {
+      collection: "novinky",
+      colors: colors.length > 0 ? colors : undefined,
+    },
+    offset: 0,
+    limit: 24,
+  });
 
   return (
     <main className="flex flex-1 flex-col py-6 pb-14">
@@ -30,7 +43,19 @@ export default async function NovinkyPage() {
         <span className="text-[#2f2924]">Novinky</span>
       </nav>
 
-      <ProductCollectionBrowser title="Novinky" products={products} />
+      <Suspense
+        fallback={
+          <p className="text-sm text-[#2f2924]/55">Načítavam produkty…</p>
+        }
+      >
+        <CollectionCatalogBrowser
+          title="Novinky"
+          collection="novinky"
+          initialProducts={page.products}
+          initialTotal={page.total}
+          initialHasMore={page.hasMore}
+        />
+      </Suspense>
     </main>
   );
 }

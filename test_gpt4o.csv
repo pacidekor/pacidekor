@@ -1,0 +1,13 @@
+Product_Folder_Name,SKU,Declared_Color,Detected_Color,Status,Confidence,Reason
+IMP-249-001,IMP-249-001,"Modrozelená","bluish-green",MATCH,95,"The main product color appears to be a bluish-green, which matches the declared color 'Modrozelená'."
+IMP-249-001,IMP-249-001,"Medená","coppery brown",MATCH,95,"The main product color closely resembles the declared color 'Medená' (copper)."
+IMP-249-001,IMP-249-001,"Olivová","olive green",MATCH,95,"The main product color appears to be olive green, which matches the declared color 'Olivová'."
+IMP-249-002,IMP-249-002,"Zelená","green with a frosted appearance",MATCH,95,"The main product color appears to be green, consistent with the declared color 'Zelená'."
+IMP-249-002,IMP-249-002,"Biela","green with white accents",MISMATCH,95,"The main product color appears predominantly green with some white accents, not entirely white as declared."
+IMP-249-003,IMP-249-003,"Čierna","black",MATCH,95,"The main product color appears to be black, matching the declared color."
+IMP-249-003,IMP-249-003,"Zelená","black",MISMATCH,100,"The main product color is black, which does not match the declared color 'Zelená' (green)."
+IMP-249-004,IMP-249-004,"Čierna","dark black",MATCH,95,"The main product color appears to be a dark black, consistent with the declared color 'Čierna'."
+IMP-249-004,IMP-249-004,"Zelená","dark purple or black",MISMATCH,100,"The main product color is dark purple or black, not green as declared."
+IMP-249-005,IMP-249-005,"Červená","red",MATCH,95,"The main product color appears to be red, which matches the declared color 'Červená'."
+IMP-249-005,IMP-249-005,"Oranžová","orange",MATCH,95,"The main product color appears to be orange, matching the declared color 'Oranžová'."
+IMP-249-005,IMP-249-005,"Medená","coppery brown",MATCH,95,"The main product color appears to be a coppery brown, which aligns with the declared color 'Medená'."

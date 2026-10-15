@@ -26,43 +26,33 @@ function CardPrice({
     ? formatAudiencePriceExVat(originalPrice, isWholesale)
     : undefined;
   const inc = formatAudiencePriceIncVat(price, isWholesale);
-  const incOriginal = originalPrice
-    ? formatAudiencePriceIncVat(originalPrice, isWholesale)
-    : undefined;
 
   if (originalPrice && exVatOriginal) {
     return (
-      <div className="min-w-0 shrink">
-        <div className="flex flex-wrap items-baseline gap-x-1.5 gap-y-0 whitespace-nowrap">
-          <span className="font-sans text-[11px] text-[#2f2924]/45 line-through sm:text-sm">
+      <div className="flex min-w-0 items-baseline justify-between gap-x-2 gap-y-0.5 md:flex-col md:items-start md:justify-start md:gap-0">
+        <div className="flex min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-0">
+          <span className="font-sans text-lg font-bold whitespace-nowrap text-[#c45c4a] sm:text-xl">
+            {exVat}
+            <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
+          </span>
+          <span className="font-sans text-[11px] whitespace-nowrap text-[#2f2924]/45 line-through sm:text-sm">
             {exVatOriginal}
           </span>
-          <span className="font-sans text-lg font-bold text-[#c45c4a] sm:text-xl">
-            {exVat}
-            <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
-              / ks
-            </span>
-          </span>
         </div>
-        <div className="mt-0.5 flex flex-wrap items-baseline gap-x-1.5 gap-y-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs">
-          <span className="line-through">{incOriginal}</span>
-          <span>
-            {inc} <span className="font-normal">s DPH</span>
-          </span>
-        </div>
+        <span className="shrink-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs md:mt-0.5">
+          {inc} s DPH
+        </span>
       </div>
     );
   }
 
   return (
-    <div className="min-w-0 shrink">
-      <span className="block whitespace-nowrap font-sans text-lg font-semibold text-[#2f2924] sm:text-xl">
+    <div className="flex min-w-0 items-baseline justify-between gap-x-2 md:flex-col md:items-start md:justify-start md:gap-0">
+      <span className="whitespace-nowrap font-sans text-lg font-semibold text-[#2f2924] sm:text-xl">
         {exVat}
-        <span className="ml-1 text-[10px] font-medium text-[#2f2924]/45 sm:text-xs">
-          / ks
-        </span>
+        <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
       </span>
-      <span className="mt-0.5 block whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs">
+      <span className="shrink-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs md:mt-0.5">
         {inc} s DPH
       </span>
     </div>

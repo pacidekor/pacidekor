@@ -37,7 +37,8 @@ export function ProductCatalogProvider({
   taxonomy = EMPTY_TAXONOMY,
   children,
 }: {
-  products: Product[];
+  /** Optional — omit on public storefront to avoid shipping the full catalog. */
+  products?: Product[];
   discounts?: ProductDiscount[];
   taxonomy?: TaxonomyStore;
   children: React.ReactNode;
@@ -60,6 +61,8 @@ export function ProductCatalogProvider({
   );
 
   useLayoutEffect(() => {
+    // Only hydrate when a page intentionally provides products (account/admin).
+    if (products === undefined) return;
     setProductCatalog(applyDiscountsToProducts(products, liveDiscounts));
   }, [products, liveDiscounts]);
 

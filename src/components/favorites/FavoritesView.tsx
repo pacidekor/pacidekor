@@ -6,27 +6,43 @@ import { useRouter } from "next/navigation";
 import { ShoppingCart } from "lucide-react";
 import { ProductCollectionBrowser } from "@/components/ProductCollectionBrowser";
 import { addLinesToCart } from "@/lib/cart";
-import { FAVORITES_EVENT, getFavoriteProducts } from "@/lib/favorites";
+import { ensureCatalogProducts } from "@/lib/ensure-catalog-products";
+import {
+  FAVORITES_EVENT,
+  getFavoriteIdsSnapshot,
+  getFavoriteProducts,
+} from "@/lib/favorites";
 import type { Product } from "@/lib/products";
 
 export function FavoritesView() {
   const router = useRouter();
   const [items, setItems] = useState<Product[]>([]);
-  const [hydrated, setHydrated] = useState(false);
+  const [status, setStatus] = useState<"loading" | "ready" | "error">(
+    "loading",
+  );
   const [flash, setFlash] = useState<string | null>(null);
 
   useEffect(() => {
-    function sync() {
+    let cancelled = false;
+
+    async function sync() {
+      setStatus((prev) => (prev === "ready" ? prev : "loading"));
+      const result = await ensureCatalogProducts(getFavoriteIdsSnapshot());
+      if (cancelled) return;
       setItems(getFavoriteProducts());
-      setHydrated(true);
+      setStatus(result.ok ? "ready" : "error");
     }
 
-    sync();
-    window.addEventListener(FAVORITES_EVENT, sync);
-    window.addEventListener("storage", sync);
+    void sync();
+    const onEvent = () => {
+      void sync();
+    };
+    window.addEventListener(FAVORITES_EVENT, onEvent);
+    window.addEventListener("storage", onEvent);
     return () => {
-      window.removeEventListener(FAVORITES_EVENT, sync);
-      window.removeEventListener("storage", sync);
+      cancelled = true;
+      window.removeEventListener(FAVORITES_EVENT, onEvent);
+      window.removeEventListener("storage", onEvent);
     };
   }, []);
 
@@ -50,10 +66,24 @@ export function FavoritesView() {
     router.push("/kosik");
   }
 
-  if (!hydrated) {
+  if (status === "loading" && items.length === 0) {
     return (
-      <div className="flex justify-center py-16">
+      <div className="flex flex-col items-center justify-center py-16">
         <div className="h-10 w-10 animate-pulse rounded-full bg-[#75825B]/25" />
+        <p className="mt-4 text-sm text-[#2f2924]/55">Načítavam obľúbené…</p>
+      </div>
+    );
+  }
+
+  if (status === "error" && items.length === 0) {
+    return (
+      <div className="rounded-3xl border border-[#c45c4a]/25 bg-[#f3e8e6] px-6 py-12 text-center">
+        <p className="font-heading text-xl text-[#9a4d3f]">
+          Obľúbené sa nepodarilo načítať
+        </p>
+        <p className="mt-2 text-sm text-[#9a4d3f]/85">
+          Skúste obnoviť stránku.
+        </p>
       </div>
     );
   }

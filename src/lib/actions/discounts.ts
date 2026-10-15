@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { mapDiscountRow } from "@/lib/discounts-server";
 import type { ProductDiscount } from "@/lib/discounts";
 import type {
@@ -58,6 +58,7 @@ async function requireAdmin() {
 }
 
 function revalidateDiscountPaths() {
+  revalidateTag("storefront-catalog", "max");
   revalidatePath("/", "layout");
   revalidatePath("/akcia");
   revalidatePath("/produkty");

@@ -1,14 +1,29 @@
-"use client";
-
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { ProductCarousel } from "@/components/ProductCarousel";
-import { useAkciaProducts } from "@/lib/use-akcia-products";
+import type { Product } from "@/lib/products";
+import {
+  buildAkciaProducts,
+  listPricedProducts,
+} from "@/lib/products-server";
+import { listDiscounts } from "@/lib/discounts-server";
 
-export function AkciaSection() {
-  const products = useAkciaProducts();
+type AkciaSectionProps = {
+  /** When provided (e.g. homepage), skips an extra catalog fetch. */
+  products?: Product[];
+};
 
-  if (products.length === 0) return null;
+export async function AkciaSection({ products }: AkciaSectionProps = {}) {
+  let list = products;
+  if (!list) {
+    const [all, discounts] = await Promise.all([
+      listPricedProducts(),
+      listDiscounts(),
+    ]);
+    list = buildAkciaProducts(all, discounts, 5);
+  }
+
+  if (list.length === 0) return null;
 
   return (
     <section className="mt-14 w-full">
@@ -24,7 +39,7 @@ export function AkciaSection() {
         </Link>
       </div>
 
-      <ProductCarousel products={products} />
+      <ProductCarousel products={list} />
     </section>
   );
 }

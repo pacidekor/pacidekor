@@ -1,6 +1,6 @@
 import "server-only";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { toSlug } from "@/lib/navigation";
 import type {
   ProductActionResult,
@@ -58,6 +58,7 @@ function revalidateProductPaths(options?: {
 }) {
   try {
     // Storefront only — admin list updates from client state after save.
+    revalidateTag("storefront-catalog", "max");
     revalidatePath("/", "layout");
     revalidatePath("/produkty");
     revalidatePath("/novinky");

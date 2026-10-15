@@ -10,6 +10,11 @@ import {
 } from "@/lib/actions/cart";
 import { getCachedClientAuthenticated } from "@/lib/client-auth";
 import { adjustStockAction } from "@/lib/actions/inventory";
+import {
+  ensureCatalogProducts,
+  isCatalogProductKnownUnavailable,
+  type EnsureCatalogResult,
+} from "@/lib/ensure-catalog-products";
 import { findCatalogProductById } from "@/lib/product-catalog";
 import {
   applyInventoryLocally,
@@ -46,6 +51,8 @@ export type CartItem = {
   product: Product;
   quantity: number;
   colorId?: string;
+  /** Product missing from catalog after resolve (removed / inactive). */
+  unavailable?: boolean;
 };
 
 type StoredCartLine = {
@@ -60,6 +67,8 @@ type StoredCartLine = {
 };
 
 let accountCartCache: CartLineDto[] | null = null;
+type AccountCartHydration = "idle" | "pending" | "ready" | "error";
+let accountCartHydration: AccountCartHydration = "idle";
 
 function notify() {
   if (typeof window === "undefined") return;
@@ -68,6 +77,12 @@ function notify() {
 
 function useAccountCart() {
   return getCachedClientAuthenticated() === true && accountCartCache !== null;
+}
+
+export function getAccountCartHydrationState(): AccountCartHydration {
+  if (getCachedClientAuthenticated() !== true) return "idle";
+  if (accountCartCache !== null) return "ready";
+  return accountCartHydration;
 }
 
 function readStored(): StoredCartLine[] {
@@ -146,31 +161,70 @@ function toStoredLine(
 
 function lineToCartItemFromStored(line: StoredCartLine): CartItem {
   const live = findCatalogProductById(line.productId);
+  if (live) {
+    return {
+      product: live,
+      quantity: line.quantity,
+      colorId: line.colorId,
+    };
+  }
+  if (isCatalogProductKnownUnavailable(line.productId)) {
+    return {
+      product: unavailableStub(line.productId),
+      quantity: line.quantity,
+      colorId: line.colorId,
+      unavailable: true,
+    };
+  }
+  // Snapshot while products resolve — avoid empty cart flash.
   return {
-    product:
-      live ??
-      ({
-        id: line.productId,
-        slug: line.slug,
-        name: line.name,
-        description: "",
-        price: line.price,
-        image: line.image,
-        category: line.category,
-        details: [],
-      } satisfies Product),
+    product: {
+      id: line.productId,
+      slug: line.slug,
+      name: line.name,
+      description: "",
+      price: line.price,
+      image: line.image,
+      category: line.category,
+      details: [],
+    } satisfies Product,
     quantity: line.quantity,
     colorId: line.colorId,
   };
 }
 
+function unavailableStub(productId: string): Product {
+  return {
+    id: productId,
+    slug: "",
+    name: "Produkt už nie je v ponuke",
+    description: "",
+    price: "0",
+    image: "/banner1.webp",
+    category: "",
+    details: [],
+    inStock: false,
+  };
+}
+
 function dtoToCartItem(line: CartLineDto): CartItem | null {
   const product = findCatalogProductById(line.productId);
-  if (!product) return null;
+  if (product) {
+    return {
+      product,
+      quantity: line.quantity,
+      colorId: line.colorId,
+    };
+  }
+  // Still resolving — omit so UI can show loading instead of empty cart.
+  if (!isCatalogProductKnownUnavailable(line.productId)) {
+    return null;
+  }
   return {
-    product,
+    product: unavailableStub(line.productId),
     quantity: line.quantity,
     colorId: line.colorId,
+    unavailable: true,
   };
 }
 
@@ -269,13 +323,31 @@ export function readCartItems(): CartItem[] {
   return readStored().map(lineToCartItemFromStored);
 }
 
+/** Resolve live catalog rows for guest localStorage cart (batched by-ids). */
+export async function hydrateGuestCartCatalog(): Promise<EnsureCatalogResult> {
+  const ids = readStored().map((line) => line.productId);
+  if (ids.length === 0) {
+    return { ok: true, unavailableIds: [] };
+  }
+  const result = await ensureCatalogProducts(ids);
+  notify();
+  return result;
+}
+
 export async function hydrateAccountCart(): Promise<CartItem[]> {
+  accountCartHydration = "pending";
+  notify();
   const result = await listCartAction();
   if (!result.ok) {
     accountCartCache = null;
+    accountCartHydration = "error";
     notify();
     return readStored().map(lineToCartItemFromStored);
   }
+  const ensure = await ensureCatalogProducts(
+    result.data.map((line) => line.productId),
+  );
+  accountCartHydration = ensure.ok ? "ready" : "error";
   setAccountCart(result.data);
   return readCartItems();
 }
@@ -291,13 +363,20 @@ export async function mergeGuestCartIntoAccount(): Promise<CartItem[]> {
     throw new Error(result.error);
   }
 
+  accountCartHydration = "pending";
+  notify();
   clearStoredGuestCart();
+  const ensure = await ensureCatalogProducts(
+    result.data.map((line) => line.productId),
+  );
+  accountCartHydration = ensure.ok ? "ready" : "error";
   setAccountCart(result.data);
   return readCartItems();
 }
 
 export function clearAccountCartCache() {
   accountCartCache = null;
+  accountCartHydration = "idle";
   notify();
 }
 

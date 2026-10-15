@@ -1,14 +1,11 @@
 "use client";
 
-import { useDeferredValue, useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { ProductSearchResults } from "@/components/ProductSearchResults";
-import {
-  popularSearches,
-  searchProducts,
-  searchResultsHref,
-} from "@/lib/search";
+import { popularSearches, searchResultsHref } from "@/lib/search";
+import { useProductSearchSuggestions } from "@/lib/use-product-search-suggestions";
 
 function ClearIcon() {
   return (
@@ -23,15 +20,16 @@ export function DesktopSearch() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const deferredQuery = useDeferredValue(query);
   const panelId = useId();
   const wrapRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const blurTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const trimmed = deferredQuery.trim();
+  const trimmed = query.trim();
   const isTyping = trimmed.length > 0;
-  const suggestions = isTyping ? searchProducts(trimmed) : [];
+  const { products: suggestions } = useProductSearchSuggestions(
+    isTyping ? query : "",
+  );
 
   function goToResults(rawQuery = query) {
     const next = rawQuery.trim();

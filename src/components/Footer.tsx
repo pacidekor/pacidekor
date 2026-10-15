@@ -207,20 +207,30 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="REZIT"
-              className="group relative inline-block self-start sm:self-auto"
+              className="group relative inline-block h-6 self-start sm:h-7 sm:self-auto"
+              style={{ aspectRatio: "4044 / 794" }}
             >
+              {/* Intrinsic size reserves layout; lazy avoids early contention with catalog LCP. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/rezitsignature1dark.webp"
                 alt="REZIT"
-                className="h-6 w-auto transition-opacity duration-500 ease-in-out group-hover:opacity-0 sm:h-7"
+                width={4044}
+                height={794}
+                loading="lazy"
+                decoding="async"
+                className="h-full w-auto max-w-none transition-opacity duration-500 ease-in-out group-hover:opacity-0"
               />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/rezitsignature2dark.webp"
                 alt=""
                 aria-hidden
-                className="pointer-events-none absolute top-0 left-0 h-6 w-auto opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100 sm:h-7"
+                width={4044}
+                height={794}
+                loading="lazy"
+                decoding="async"
+                className="pointer-events-none absolute top-0 left-0 h-full w-auto max-w-none opacity-0 transition-opacity duration-500 ease-in-out group-hover:opacity-100"
               />
             </a>
           </div>

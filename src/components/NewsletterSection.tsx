@@ -35,12 +35,13 @@ export function NewsletterSection() {
     >
       <div className="pointer-events-none absolute inset-0 select-none" aria-hidden>
         <Image
-          src="/nlcta.webp"
+          src="/nlcta-display.webp"
           alt=""
           fill
           draggable={false}
-          sizes="80vw"
-          quality={90}
+          sizes="(max-width: 768px) 94vw, 80vw"
+          quality={85}
+          loading="lazy"
           className="object-cover"
         />
       </div>
