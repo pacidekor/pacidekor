@@ -77,6 +77,11 @@ export type ProductRow = {
   druh_id: string | null;
   color_ids: string[];
   color_image_map: Record<string, number[]>;
+  /**
+   * Gallery URLs explicitly shared by several colors. null / column absent = product not
+   * reviewed (legacy gallery order). Optional: column may not exist before the migration is applied.
+   */
+  shared_image_urls?: string[] | null;
   packaging: PackagingJson[];
   details: ProductDetailJson[];
   images: string[];

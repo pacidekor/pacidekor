@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:gallery": "node --experimental-strip-types --test src/lib/product-gallery-order.test.mjs"
   },
   "dependencies": {
     "@react-pdf/renderer": "^4.9.0",

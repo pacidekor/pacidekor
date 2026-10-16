@@ -1,3 +1,4 @@
+import { orderProductGallery } from "@/lib/product-gallery-order";
 import type { ProductAttributes, TaxonomyValue } from "@/lib/taxonomy";
 import { filterColors, getFilterColorById } from "@/lib/taxonomy";
 import type {
@@ -44,6 +45,11 @@ export type Product = {
   colors?: ProductColor[];
   /** colorId → 0-based indexes into getProductGallery(product) */
   colorImageMap?: Record<string, number[]>;
+  /**
+   * Gallery photos explicitly marked as shared by several colors (URLs, so they survive
+   * reordering). undefined = product not reviewed → legacy gallery order; [] = reviewed, none shared.
+   */
+  sharedImageUrls?: string[];
   details: ProductDetail[];
   /** Seed availability – live stock is tracked in inventory storage. */
   inStock?: boolean;
@@ -627,6 +633,11 @@ export function mapProductRow(row: ProductRow): Product {
       colorImageMap && Object.keys(colorImageMap).length > 0
         ? colorImageMap
         : undefined,
+    sharedImageUrls: Array.isArray(row.shared_image_urls)
+      ? row.shared_image_urls.filter(
+          (url): url is string => typeof url === "string" && url.length > 0,
+        )
+      : undefined,
     details: asDetails(row.details),
     inStock: row.in_stock,
     stockQuantity: row.stock_quantity ?? undefined,
@@ -713,13 +724,31 @@ export function resolveColorImageIndexes(
   return fallback[colorId] ?? [];
 }
 
-/** Selected color images first, then the rest of the gallery (no duplicates). */
+/**
+ * Detail gallery order – single source for main gallery, thumbnails and zoom.
+ * Reviewed products (explicit `sharedImageUrls` + complete color map): selected color's own
+ * photos → other colors' own photos (product color order) → shared → general.
+ * Everything else keeps the legacy order below.
+ */
 export function getGalleryForColor(
   product: Product,
   colorId?: string,
 ): string[] {
   const gallery = getProductGallery(product);
   if (!colorId || gallery.length === 0) return gallery;
+
+  const ordered = orderProductGallery(
+    {
+      images: gallery,
+      colorIds: product.colors?.map((color) => color.id) ?? [],
+      colorImageMap: product.colorImageMap,
+      sharedImageUrls: product.sharedImageUrls,
+    },
+    colorId,
+  );
+  if (ordered.mode === "variant-first") {
+    return ordered.indexes.map((index) => gallery[index]!);
+  }
 
   const preferred = resolveColorImageIndexes(product, colorId);
   if (preferred.length === 0) return gallery;
