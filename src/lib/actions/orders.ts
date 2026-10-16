@@ -40,6 +40,7 @@ import {
 } from "@/lib/shipping";
 import type { ProductDiscountRow } from "@/lib/supabase/database.types";
 import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
+import { validateOrderLineColor } from "@/lib/order-line-color";
 
 export type OrderActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -204,7 +205,7 @@ export async function createOrderAction(
     const productIds = [...new Set(input.items.map((line) => line.productId))];
     const { data: products, error: productsError } = await db
       .from("products")
-      .select("id, slug, name, price, in_stock, stock_quantity")
+      .select("id, slug, name, price, in_stock, stock_quantity, color_ids")
       .in("id", productIds);
 
     if (productsError) {
@@ -268,6 +269,15 @@ export async function createOrderAction(
       );
       if (!Number.isFinite(unitNet) || unitNet < 0) {
         return { ok: false, error: `Neplatná cena produktu ${product.name}.` };
+      }
+
+      const colorCheck = validateOrderLineColor(
+        product.name,
+        product.color_ids,
+        line.colorId,
+      );
+      if (!colorCheck.ok) {
+        return { ok: false, error: colorCheck.message };
       }
 
       // VO = katalóg; maloobchod / verejnosť = +50 %. Objednávka a GoPay = bez DPH.

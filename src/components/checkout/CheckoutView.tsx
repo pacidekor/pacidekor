@@ -41,6 +41,7 @@ import {
 } from "@/lib/shipping";
 import { createOrderAction } from "@/lib/actions/orders";
 import { clearCart } from "@/lib/cart";
+import { validateOrderLineColor } from "@/lib/order-line-color";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { useCartItems } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
@@ -574,6 +575,21 @@ export function CheckoutView() {
     setError(null);
 
     try {
+      for (const item of items) {
+        if (item.unavailable) continue;
+        const colorIds = (item.product.colors ?? []).map((c) => c.id);
+        const colorCheck = validateOrderLineColor(
+          item.product.name,
+          colorIds,
+          item.colorId,
+        );
+        if (!colorCheck.ok) {
+          setError(colorCheck.message);
+          setSubmitting(false);
+          return;
+        }
+      }
+
       const result = await createOrderAction({
         name: form.name,
         email: form.email,

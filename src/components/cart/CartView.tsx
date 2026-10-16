@@ -17,9 +17,11 @@ import {
   MIN_ORDER_TOTAL,
   readCartItems,
   removeFromCart,
+  setCartLineColor,
   setCartQuantity,
   type CartItem,
 } from "@/lib/cart";
+import { isCartLineColorValid } from "@/lib/order-line-color";
 import {
   promoDiscountAmount,
   readAppliedPromo,
@@ -95,14 +97,19 @@ function CartLine({
   item,
   onQuantityChange,
   onRemove,
+  onSelectColor,
   isWholesale,
 }: {
   item: CartItem;
   onQuantityChange: (quantity: number) => void;
   onRemove: () => void;
+  onSelectColor: (colorId: string) => void;
   isWholesale: boolean;
 }) {
-  const { product, quantity, unavailable } = item;
+  const { product, quantity, unavailable, colorId } = item;
+  const colorOptions = product.colors ?? [];
+  const needsColorReselect =
+    !unavailable && !isCartLineColorValid(colorOptions, colorId);
   const deferredQuantity = useDeferredValue(quantity);
   const lineTotalNet =
     audienceNetFromCatalogPrice(product.price, isWholesale) * deferredQuantity;
@@ -184,6 +191,43 @@ function CartLine({
             <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
           </button>
         </div>
+
+        {needsColorReselect ? (
+          <div className="mt-3 rounded-xl border border-[#9a4d3f]/25 bg-[#9a4d3f]/06 px-3 py-2.5">
+            <p className="text-sm text-[#9a4d3f]">
+              {colorOptions.length > 0
+                ? "Vybraná farba už nie je v ponuke. Zvoľte platnú farbu — položka a množstvo zostávajú v košíku."
+                : "Tento produkt už nemá farebné varianty, ale v košíku zostal starý výber farby. Odstráňte výber farby — položka zostane v košíku."}
+            </p>
+            {colorOptions.length > 0 ? (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {colorOptions.map((color) => (
+                  <button
+                    key={color.id}
+                    type="button"
+                    onClick={() => onSelectColor(color.id)}
+                    className="inline-flex h-9 cursor-pointer items-center gap-2 rounded-lg border border-black/10 bg-white px-2.5 text-xs font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/50"
+                  >
+                    <span
+                      className="size-3.5 rounded-full border border-black/10"
+                      style={{ backgroundColor: color.hex }}
+                      aria-hidden
+                    />
+                    {color.label}
+                  </button>
+                ))}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => onSelectColor("")}
+                className="mt-2 inline-flex h-9 cursor-pointer items-center rounded-lg border border-black/10 bg-white px-3 text-xs font-medium text-[#2f2924] transition-colors hover:border-[#75825B]/50"
+              >
+                Odstrániť neplatný výber farby
+              </button>
+            )}
+          </div>
+        ) : null}
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 sm:mt-4">
           <QuantityStepper
@@ -284,7 +328,13 @@ function CartSummary({
     : 0;
   const afterDiscount = Math.max(0, subtotal - discount);
   const freeShipping = afterDiscount >= FREE_SHIPPING_THRESHOLD;
-  const canCheckout = ORDERS_ENABLED && meetsMinOrder(subtotal);
+  const hasInvalidColor = items.some(
+    (item) =>
+      !item.unavailable &&
+      !isCartLineColorValid(item.product.colors, item.colorId),
+  );
+  const canCheckout =
+    ORDERS_ENABLED && meetsMinOrder(subtotal) && !hasInvalidColor;
   const remainingMinOrder = amountToMinOrder(subtotal);
   const [templateOpen, setTemplateOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
@@ -375,7 +425,12 @@ function CartSummary({
             <p className="mb-3 text-xs leading-snug text-[#2f2924]/50">
               Táto funkcia zatiaľ nie je sprístupnená.
             </p>
-          ) : !canCheckout ? (
+          ) : hasInvalidColor ? (
+            <p className="mb-3 text-xs leading-snug text-[#9a4d3f]">
+              Niektoré položky majú neplatný výber farby. Zvoľte platnú farbu v
+              košíku pred pokračovaním k pokladni.
+            </p>
+          ) : !meetsMinOrder(subtotal) ? (
             <p className="mb-3 text-xs leading-snug text-[#2f2924]/50">
               Minimálna objednávka {formatPrice(MIN_ORDER_TOTAL)}, chýba{" "}
               {formatPrice(remainingMinOrder)}.
@@ -526,6 +581,12 @@ export function CartView() {
     }
   }
 
+  function selectColor(productId: string, colorId: string) {
+    void setCartLineColor(productId, colorId).catch(() => {
+      /* keep previous selection; server/guest write failed */
+    });
+  }
+
   function removeItem(productId: string) {
     const item = readCartItems().find((entry) => entry.product.id === productId);
     if (!item) {
@@ -611,6 +672,7 @@ export function CartView() {
               onQuantityChange={(quantity) =>
                 updateQuantity(item.product.id, quantity)
               }
+              onSelectColor={(colorId) => selectColor(item.product.id, colorId)}
               onRemove={() => removeItem(item.product.id)}
             />
           ))}

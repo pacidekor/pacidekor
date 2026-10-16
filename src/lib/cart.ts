@@ -503,6 +503,70 @@ export async function removeFromCart(productId: string): Promise<CartItem[]> {
   return setCartQuantity(productId, 0);
 }
 
+/**
+ * Update only the color selection for an existing cart line.
+ * Pass empty string to clear colorId (e.g. leftover Mix on a product that no longer has colors).
+ * Does not change quantity and does not remove the line (no silent remap elsewhere).
+ */
+export async function setCartLineColor(
+  productId: string,
+  colorId: string,
+): Promise<CartItem[]> {
+  const nextColor = colorId.trim();
+  const colorOrUndefined = nextColor || undefined;
+
+  if (getCachedClientAuthenticated() === true) {
+    if (accountCartCache === null) {
+      const items = readCartItems();
+      const current = items.find((item) => item.product.id === productId);
+      if (!current || current.unavailable) return items;
+      const result = await upsertCartItemAction({
+        productId,
+        quantity: current.quantity,
+        colorId: colorOrUndefined,
+      });
+      if (!result.ok) throw new Error(result.error);
+      const listed = await listCartAction();
+      if (listed.ok) setAccountCart(listed.data);
+      return readCartItems();
+    }
+
+    const currentQty = lineQty(accountCartCache, productId);
+    if (currentQty < 1) return readCartItems();
+    const snapshot = accountCartCache;
+    // patchAccountCartLine uses `colorId ?? prev.colorId` — empty must clear explicitly.
+    const patched = snapshot.map((line) =>
+      line.productId === productId
+        ? { productId, quantity: currentQty, colorId: colorOrUndefined }
+        : line,
+    );
+    setAccountCart(patched);
+    enqueueAccountCartWrite(async () => {
+      const result = await upsertCartItemAction({
+        productId,
+        quantity: currentQty,
+        colorId: colorOrUndefined,
+      });
+      if (!result.ok) {
+        setAccountCart(snapshot);
+        window.alert(result.error);
+      }
+    });
+    return readCartItems();
+  }
+
+  const lines = readStored();
+  const index = lines.findIndex((line) => line.productId === productId);
+  if (index < 0) return readCartItems();
+  const current = lines[index]!;
+  const { colorId: _drop, ...rest } = current;
+  lines[index] = colorOrUndefined
+    ? { ...rest, colorId: colorOrUndefined }
+    : { ...rest };
+  writeStored(lines);
+  return lines.map(lineToCartItemFromStored);
+}
+
 export async function clearCart() {
   if (getCachedClientAuthenticated() === true) {
     const snapshot = accountCartCache;
