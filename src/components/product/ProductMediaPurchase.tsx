@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { ProductDetailsCards } from "@/components/product/ProductDetailsCards";
 import { ProductImageGallery } from "@/components/product/ProductImageGallery";
 import { ProductPurchase } from "@/components/product/ProductPurchase";
+import { firstOrderableColorId } from "@/lib/order-line-color";
 import {
   getGalleryForColor,
   resolveProductColorForFilters,
@@ -16,15 +17,21 @@ type ProductMediaPurchaseProps = {
 };
 
 function resolveInitialColor(product: Product, initialColorId?: string) {
-  const fallback = product.colors?.[0]?.id ?? "";
-  if (!initialColorId) return fallback;
+  const colorIds =
+    product.attributes?.colors ?? product.colors?.map((c) => c.id) ?? [];
+  const firstAvailable =
+    firstOrderableColorId(colorIds, product.unavailableColorIds) ||
+    product.colors?.[0]?.id ||
+    "";
+  if (!initialColorId) return firstAvailable;
 
+  // Explicit URL/cart choice: keep for photo browsing even if sold out (no silent remap).
   if (product.colors?.some((color) => color.id === initialColorId)) {
     return initialColorId;
   }
 
   return (
-    resolveProductColorForFilters(product, [initialColorId]) ?? fallback
+    resolveProductColorForFilters(product, [initialColorId]) ?? firstAvailable
   );
 }
 

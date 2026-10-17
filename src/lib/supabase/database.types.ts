@@ -82,6 +82,11 @@ export type ProductRow = {
    * reviewed (legacy gallery order). Optional: column may not exist before the migration is applied.
    */
   shared_image_urls?: string[] | null;
+  /**
+   * Color IDs that stay visible but cannot be ordered. Empty / absent = none blocked.
+   * Optional until migration `20261017_products_unavailable_color_ids` is applied.
+   */
+  unavailable_color_ids?: string[];
   packaging: PackagingJson[];
   details: ProductDetailJson[];
   images: string[];
@@ -109,6 +114,7 @@ export type ProductInsert = {
   druh_id?: string | null;
   color_ids?: string[];
   color_image_map?: Record<string, number[]>;
+  unavailable_color_ids?: string[];
   packaging?: PackagingJson[];
   details?: ProductDetailJson[];
   images?: string[];

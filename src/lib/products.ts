@@ -51,6 +51,11 @@ export type Product = {
    */
   sharedImageUrls?: string[];
   details: ProductDetail[];
+  /**
+   * Color IDs that remain visible but cannot be ordered (sold out per color).
+   * Empty / undefined = none blocked by this flag.
+   */
+  unavailableColorIds?: string[];
   /** Seed availability – live stock is tracked in inventory storage. */
   inStock?: boolean;
   stockQuantity?: number;
@@ -346,6 +351,7 @@ export function migrateProductColorFields(input: {
   colorIds: string[];
   colorImageMap: Record<string, number[]>;
   migration: Map<string, string>;
+  unavailableColorIds?: string[];
 }) {
   const nextIds: string[] = [];
   const nextMap: Record<string, number[]> = {};
@@ -361,9 +367,18 @@ export function migrateProductColorFields(input: {
     nextMap[mapped] = [...new Set(merged)].sort((a, b) => a - b);
   }
 
+  const nextUnavailable: string[] = [];
+  for (const id of input.unavailableColorIds ?? []) {
+    const mapped = input.migration.get(id) ?? id;
+    if (nextIds.includes(mapped) && !nextUnavailable.includes(mapped)) {
+      nextUnavailable.push(mapped);
+    }
+  }
+
   return {
     colorIds: nextIds,
     colorImageMap: nextMap,
+    unavailableColorIds: nextUnavailable,
   };
 }
 
@@ -638,6 +653,11 @@ export function mapProductRow(row: ProductRow): Product {
           (url): url is string => typeof url === "string" && url.length > 0,
         )
       : undefined,
+    unavailableColorIds: Array.isArray(row.unavailable_color_ids)
+      ? row.unavailable_color_ids.filter(
+          (id): id is string => typeof id === "string" && id.length > 0,
+        )
+      : [],
     details: asDetails(row.details),
     inStock: row.in_stock,
     stockQuantity: row.stock_quantity ?? undefined,

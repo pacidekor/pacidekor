@@ -120,6 +120,7 @@ type ProductOverride = {
   druhId?: string;
   attributes: ProductAttributes;
   colorImageMap?: Record<string, number[]>;
+  unavailableColorIds?: string[];
   details: ProductDetail[];
   markAsNew: boolean;
   inVypredaj: boolean;
@@ -166,6 +167,11 @@ function normalizeOverride(value: ProductOverride): ProductOverride {
           : undefined,
     },
     colorImageMap: value.colorImageMap,
+    unavailableColorIds: (() => {
+      const colorSet = new Set(value.attributes.colors ?? []);
+      const ids = value.unavailableColorIds ?? [];
+      return ids.filter((id) => colorSet.has(id));
+    })(),
     details: DEFAULT_PRODUCT_DETAILS,
     markAsNew: value.markAsNew,
     inVypredaj: value.inVypredaj,
@@ -413,6 +419,7 @@ export function AdminProductsManager({
         attributes: normalized.attributes,
         images,
         colorImageMap: normalized.colorImageMap,
+        unavailableColorIds: normalized.unavailableColorIds,
         inStock: stock.inStock,
         stockQuantity: stock.inStock ? stock.quantity : null,
         details: normalized.details,
@@ -1036,6 +1043,9 @@ function ProductEditor({
   const [colorImageMap, setColorImageMap] = useState<
     Record<string, number[]>
   >(() => product.colorImageMap ?? {});
+  const [unavailableColorIds, setUnavailableColorIds] = useState<string[]>(
+    () => product.unavailableColorIds ?? [],
+  );
   const [customPickerOpen, setCustomPickerOpen] = useState(false);
   const [customDraftHex, setCustomDraftHex] = useState("#d4a0a8");
   const [customDraftHexSecondary, setCustomDraftHexSecondary] =
@@ -1089,6 +1099,7 @@ function ProductEditor({
       druhId: product.druhId ?? "",
       colors: product.attributes?.colors ?? [],
       colorImageMap: product.colorImageMap ?? {},
+      unavailableColorIds: product.unavailableColorIds ?? [],
       packaging: product.attributes?.packaging ?? [],
       inStock: initialInventory.inStock,
       stockQuantity:
@@ -1147,6 +1158,7 @@ function ProductEditor({
       druhId,
       colors,
       colorImageMap,
+      unavailableColorIds,
       packaging,
       inStock,
       stockQuantity,
@@ -1244,6 +1256,9 @@ function ProductEditor({
                 : undefined,
           },
           colorImageMap,
+          unavailableColorIds: unavailableColorIds.filter((id) =>
+            colors.includes(id),
+          ),
           details: DEFAULT_PRODUCT_DETAILS,
           markAsNew,
           inVypredaj,
@@ -1321,7 +1336,15 @@ function ProductEditor({
         delete next[id];
         return next;
       });
+      setUnavailableColorIds((prev) => prev.filter((item) => item !== id));
     }
+  }
+
+  function toggleColorAvailability(id: string) {
+    if (!colors.includes(id)) return;
+    setUnavailableColorIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
   }
 
   function toggleColorImage(colorId: string, imageIndex: number) {
@@ -1923,55 +1946,69 @@ function ProductEditor({
                     const selected = colors.includes(color.id);
                     const assignedCount =
                       colorImageMap[color.id]?.length ?? 0;
+                    const soldOut = unavailableColorIds.includes(color.id);
                     return (
                       <div
                         key={color.id}
-                        className={`flex items-center gap-1 rounded-xl border border-black/10 pr-1 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
+                        className={`flex flex-col rounded-xl border border-black/10 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
                           selected ? "bg-[#e8ebe2]/60" : ""
                         }`}
                       >
-                        <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-2.5 py-2">
-                          <input
-                            type="checkbox"
-                            checked={selected}
-                            onChange={() => toggleColor(color.id)}
-                            className="size-4 shrink-0 accent-[#75825B]"
-                          />
-                          {color.hex ? (
-                            <span
-                              className="size-3.5 shrink-0 rounded-full border border-black/10"
-                              style={{ backgroundColor: color.hex }}
-                              aria-hidden
+                        <div className="flex items-center gap-1 pr-1">
+                          <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-2.5 py-2">
+                            <input
+                              type="checkbox"
+                              checked={selected}
+                              onChange={() => toggleColor(color.id)}
+                              className="size-4 shrink-0 accent-[#75825B]"
                             />
-                          ) : null}
-                          <span className="min-w-0 truncate">{color.label}</span>
-                        </label>
-                        {selected ? (
-                          <button
-                            type="button"
-                            disabled={images.length === 0}
-                            onClick={() => setColorImagesEditorId(color.id)}
-                            className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-white hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
-                            aria-label={`Priradiť fotky k farbe ${color.label}`}
-                            title={
-                              images.length === 0
-                                ? "Najprv nahrajte fotky"
-                                : assignedCount > 0
-                                  ? `${assignedCount} fotiek`
-                                  : "Priradiť fotky"
-                            }
-                          >
-                            <MoreHorizontal
-                              className="size-4"
-                              strokeWidth={1.75}
-                              aria-hidden
-                            />
-                            {assignedCount > 0 ? (
-                              <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
-                                {assignedCount}
-                              </span>
+                            {color.hex ? (
+                              <span
+                                className="size-3.5 shrink-0 rounded-full border border-black/10"
+                                style={{ backgroundColor: color.hex }}
+                                aria-hidden
+                              />
                             ) : null}
-                          </button>
+                            <span className="min-w-0 truncate">{color.label}</span>
+                          </label>
+                          {selected ? (
+                            <button
+                              type="button"
+                              disabled={images.length === 0}
+                              onClick={() => setColorImagesEditorId(color.id)}
+                              className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-white hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
+                              aria-label={`Priradiť fotky k farbe ${color.label}`}
+                              title={
+                                images.length === 0
+                                  ? "Najprv nahrajte fotky"
+                                  : assignedCount > 0
+                                    ? `${assignedCount} fotiek`
+                                    : "Priradiť fotky"
+                              }
+                            >
+                              <MoreHorizontal
+                                className="size-4"
+                                strokeWidth={1.75}
+                                aria-hidden
+                              />
+                              {assignedCount > 0 ? (
+                                <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
+                                  {assignedCount}
+                                </span>
+                              ) : null}
+                            </button>
+                          ) : null}
+                        </div>
+                        {selected ? (
+                          <label className="flex cursor-pointer items-center gap-2 border-t border-black/5 px-2.5 py-1.5 text-xs text-[#2f2924]/70">
+                            <input
+                              type="checkbox"
+                              checked={soldOut}
+                              onChange={() => toggleColorAvailability(color.id)}
+                              className="size-3.5 shrink-0 accent-[#c45c4a]"
+                            />
+                            Vypredané (fotky ostanú)
+                          </label>
                         ) : null}
                       </div>
                     );
@@ -2265,56 +2302,70 @@ function ProductEditor({
                       {customColors.map((color) => {
                         const assignedCount =
                           colorImageMap[color.id]?.length ?? 0;
+                        const soldOut = unavailableColorIds.includes(color.id);
                         return (
                           <li
                             key={color.id}
-                            className="flex items-center gap-1 rounded-xl border border-black/8 bg-white py-1 pr-1 pl-2.5"
+                            className="flex flex-col rounded-xl border border-black/8 bg-white"
                           >
-                            <span
-                              className="size-3.5 shrink-0 rounded-full border border-black/10"
-                              style={colorSwatchStyle(color)}
-                              aria-hidden
-                            />
-                            <span className="min-w-0 flex-1 truncate text-sm text-[#2f2924]">
-                              {color.label}
-                            </span>
-                            <button
-                              type="button"
-                              disabled={images.length === 0}
-                              onClick={() => setColorImagesEditorId(color.id)}
-                              className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
-                              aria-label={`Priradiť fotky k farbe ${color.label}`}
-                              title={
-                                images.length === 0
-                                  ? "Najprv nahrajte fotky"
-                                  : assignedCount > 0
-                                    ? `${assignedCount} fotiek`
-                                    : "Priradiť fotky"
-                              }
-                            >
-                              <MoreHorizontal
-                                className="size-4"
-                                strokeWidth={1.75}
+                            <div className="flex items-center gap-1 py-1 pr-1 pl-2.5">
+                              <span
+                                className="size-3.5 shrink-0 rounded-full border border-black/10"
+                                style={colorSwatchStyle(color)}
                                 aria-hidden
                               />
-                              {assignedCount > 0 ? (
-                                <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
-                                  {assignedCount}
-                                </span>
-                              ) : null}
-                            </button>
-                            <button
-                              type="button"
-                              onClick={() => toggleColor(color.id)}
-                              className="inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#fee2e2] hover:text-[#b91c1c]"
-                              aria-label={`Odstrániť farbu ${color.label}`}
-                            >
-                              <Trash2
-                                className="size-3.5"
-                                strokeWidth={1.75}
-                                aria-hidden
+                              <span className="min-w-0 flex-1 truncate text-sm text-[#2f2924]">
+                                {color.label}
+                              </span>
+                              <button
+                                type="button"
+                                disabled={images.length === 0}
+                                onClick={() => setColorImagesEditorId(color.id)}
+                                className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#e8ebe2] hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
+                                aria-label={`Priradiť fotky k farbe ${color.label}`}
+                                title={
+                                  images.length === 0
+                                    ? "Najprv nahrajte fotky"
+                                    : assignedCount > 0
+                                      ? `${assignedCount} fotiek`
+                                      : "Priradiť fotky"
+                                }
+                              >
+                                <MoreHorizontal
+                                  className="size-4"
+                                  strokeWidth={1.75}
+                                  aria-hidden
+                                />
+                                {assignedCount > 0 ? (
+                                  <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
+                                    {assignedCount}
+                                  </span>
+                                ) : null}
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => toggleColor(color.id)}
+                                className="inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-[#fee2e2] hover:text-[#b91c1c]"
+                                aria-label={`Odstrániť farbu ${color.label}`}
+                              >
+                                <Trash2
+                                  className="size-3.5"
+                                  strokeWidth={1.75}
+                                  aria-hidden
+                                />
+                              </button>
+                            </div>
+                            <label className="flex cursor-pointer items-center gap-2 border-t border-black/5 px-2.5 py-1.5 text-xs text-[#2f2924]/70">
+                              <input
+                                type="checkbox"
+                                checked={soldOut}
+                                onChange={() =>
+                                  toggleColorAvailability(color.id)
+                                }
+                                className="size-3.5 shrink-0 accent-[#c45c4a]"
                               />
-                            </button>
+                              Vypredané (fotky ostanú)
+                            </label>
                           </li>
                         );
                       })}
@@ -2628,6 +2679,7 @@ function serializeEditorSnapshot(value: {
   druhId: string;
   colors: string[];
   colorImageMap: Record<string, number[]>;
+  unavailableColorIds: string[];
   packaging: PackagingOption[];
   inStock: boolean;
   stockQuantity: string;
@@ -2646,6 +2698,7 @@ function serializeEditorSnapshot(value: {
     druhId: value.druhId,
     colors: [...value.colors].sort(),
     colorImageMap: value.colorImageMap,
+    unavailableColorIds: [...value.unavailableColorIds].sort(),
     packaging: [...value.packaging]
       .map((item) => ({
         id: item.id,

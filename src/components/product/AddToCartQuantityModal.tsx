@@ -15,6 +15,10 @@ import {
   previewInventoryDelta,
   setInventory,
 } from "@/lib/inventory";
+import {
+  isColorOrderable,
+  isProductOrderableByColors,
+} from "@/lib/order-line-color";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import {
   audienceNetFromCatalogPrice,
@@ -58,7 +62,19 @@ export function AddToCartQuantityModal({
 
   const isWholesale = useIsWholesale();
   const inventory = useProductInventory(product);
-  const available = isInventoryAvailable(inventory);
+  const inventoryAvailable = isInventoryAvailable(inventory);
+  const colorIds =
+    product.attributes?.colors ?? product.colors?.map((c) => c.id);
+  const productOrderable = isProductOrderableByColors({
+    productInStock: inventoryAvailable,
+    colorIds,
+    unavailableColorIds: product.unavailableColorIds,
+  });
+  const selectedOk =
+    !colorId ||
+    !colorIds?.length ||
+    isColorOrderable(colorId, colorIds, product.unavailableColorIds);
+  const available = productOrderable && selectedOk;
   const stockMax = inventoryMaxOrderable(inventory);
   const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
   const packagingOption = getPrimaryPackagingOption(

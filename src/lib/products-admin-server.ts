@@ -140,6 +140,20 @@ function normalizeColorImageMap(
   return result;
 }
 
+function normalizeUnavailableColorIds(
+  unavailable: string[] | undefined,
+  colorIds: string[],
+): string[] {
+  if (!Array.isArray(unavailable) || unavailable.length === 0) return [];
+  const allowed = new Set(colorIds);
+  const next: string[] = [];
+  for (const id of unavailable) {
+    if (typeof id !== "string" || !id.trim()) continue;
+    if (allowed.has(id) && !next.includes(id)) next.push(id);
+  }
+  return next;
+}
+
 function toInsertPayload(
   input: ProductUpsertInput,
   slug: string,
@@ -164,6 +178,10 @@ function toInsertPayload(
     color_image_map: normalizeColorImageMap(
       input.colorImageMap,
       images.length,
+      colorIds,
+    ),
+    unavailable_color_ids: normalizeUnavailableColorIds(
+      input.unavailableColorIds,
       colorIds,
     ),
     packaging,
@@ -202,6 +220,10 @@ function toUpdatePayload(
     color_image_map: normalizeColorImageMap(
       input.colorImageMap,
       images.length,
+      colorIds,
+    ),
+    unavailable_color_ids: normalizeUnavailableColorIds(
+      input.unavailableColorIds,
       colorIds,
     ),
     packaging,

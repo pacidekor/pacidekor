@@ -205,7 +205,9 @@ export async function createOrderAction(
     const productIds = [...new Set(input.items.map((line) => line.productId))];
     const { data: products, error: productsError } = await db
       .from("products")
-      .select("id, slug, name, price, in_stock, stock_quantity, color_ids")
+      .select(
+        "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids",
+      )
       .in("id", productIds);
 
     if (productsError) {
@@ -275,6 +277,7 @@ export async function createOrderAction(
         product.name,
         product.color_ids,
         line.colorId,
+        product.unavailable_color_ids,
       );
       if (!colorCheck.ok) {
         return { ok: false, error: colorCheck.message };

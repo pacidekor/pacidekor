@@ -582,6 +582,7 @@ export function CheckoutView() {
           item.product.name,
           colorIds,
           item.colorId,
+          item.product.unavailableColorIds,
         );
         if (!colorCheck.ok) {
           setError(colorCheck.message);

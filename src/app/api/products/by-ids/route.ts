@@ -21,6 +21,7 @@ function slimProduct(product: Product) {
     stockQuantity: product.stockQuantity,
     attributes: product.attributes,
     colors: product.colors,
+    unavailableColorIds: product.unavailableColorIds ?? [],
   };
 }
 

@@ -7,6 +7,10 @@ import { AddToCartQuantityModal } from "@/components/product/AddToCartQuantityMo
 import type { Product } from "@/lib/products";
 import { useProductInventory } from "@/lib/use-product-inventory";
 import { isInventoryAvailable } from "@/lib/inventory";
+import {
+  isColorOrderable,
+  isProductOrderableByColors,
+} from "@/lib/order-line-color";
 
 type ProductCardActionsProps = {
   product: Product;
@@ -19,7 +23,19 @@ export function ProductCardActions({
   colorId,
 }: ProductCardActionsProps) {
   const inventory = useProductInventory(product);
-  const available = isInventoryAvailable(inventory);
+  const inventoryAvailable = isInventoryAvailable(inventory);
+  const colorIds =
+    product.attributes?.colors ?? product.colors?.map((c) => c.id);
+  const productOrderable = isProductOrderableByColors({
+    productInStock: inventoryAvailable,
+    colorIds,
+    unavailableColorIds: product.unavailableColorIds,
+  });
+  const selectedOk =
+    !colorId ||
+    !colorIds?.length ||
+    isColorOrderable(colorId, colorIds, product.unavailableColorIds);
+  const available = productOrderable && selectedOk;
   const [modalOpen, setModalOpen] = useState(false);
 
   return (

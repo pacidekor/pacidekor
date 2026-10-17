@@ -35,7 +35,7 @@ export const STOREFRONT_CATALOG_TAG = "storefront-catalog";
  * Full row still comes from getProductBySlug / getProductById on PDP & admin editor.
  */
 const STOREFRONT_LIST_COLUMNS =
-  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
 
 function mapStorefrontListRow(row: Partial<ProductRow>): Product {
   return mapProductRow({
@@ -78,7 +78,7 @@ export const listProducts = cache(async (): Promise<Product[]> => {
  * Open editor → getProductById for full row.
  */
 const ADMIN_LIST_COLUMNS =
-  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
 
 export async function listProductsForAdmin(): Promise<Product[]> {
   const supabase = createPublicClient();

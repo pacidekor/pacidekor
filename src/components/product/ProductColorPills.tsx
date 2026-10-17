@@ -14,16 +14,20 @@ type ProductColorPillsProps = {
   colors: ProductColor[];
   selectedColorId: string;
   onSelect: (colorId: string) => void;
+  /** Color IDs that stay clickable for photos but are sold out. */
+  unavailableColorIds?: string[];
 };
 
 function ColorPillButton({
   color,
   selected,
+  soldOut,
   onSelect,
   measureRef,
 }: {
   color: ProductColor;
   selected: boolean;
+  soldOut?: boolean;
   onSelect: (colorId: string) => void;
   measureRef?: (el: HTMLButtonElement | null) => void;
 }) {
@@ -33,6 +37,9 @@ function ColorPillButton({
       type="button"
       onClick={() => onSelect(color.id)}
       aria-pressed={selected}
+      aria-label={
+        soldOut ? `${color.label} — Vypredané` : color.label
+      }
       className={`inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
         selected
           ? "border-[#75825B] bg-[#75825B] text-white"
@@ -46,7 +53,18 @@ function ColorPillButton({
         style={colorSwatchStyle(color)}
         aria-hidden
       />
-      {color.label}
+      <span className="inline-flex items-center gap-1.5">
+        {color.label}
+        {soldOut ? (
+          <span
+            className={`text-[11px] font-semibold tracking-wide uppercase ${
+              selected ? "text-white/85" : "text-[#c45c4a]"
+            }`}
+          >
+            Vypredané
+          </span>
+        ) : null}
+      </span>
     </button>
   );
 }
@@ -55,7 +73,9 @@ export function ProductColorPills({
   colors,
   selectedColorId,
   onSelect,
+  unavailableColorIds = [],
 }: ProductColorPillsProps) {
+  const unavailable = new Set(unavailableColorIds);
   const containerRef = useRef<HTMLDivElement>(null);
   const expandMeasureRef = useRef<HTMLButtonElement>(null);
   const pillElsRef = useRef<(HTMLButtonElement | null)[]>([]);
@@ -143,6 +163,7 @@ export function ProductColorPills({
               key={`measure-${color.id}`}
               color={color}
               selected={false}
+              soldOut={unavailable.has(color.id)}
               onSelect={() => undefined}
               measureRef={(el) => {
                 pillElsRef.current[index] = el;
@@ -165,6 +186,7 @@ export function ProductColorPills({
               key={color.id}
               color={color}
               selected={selectedColorId === color.id}
+              soldOut={unavailable.has(color.id)}
               onSelect={onSelect}
             />
           ))}

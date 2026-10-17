@@ -23,6 +23,7 @@ type ApiProduct = {
   stockQuantity?: number;
   attributes?: Product["attributes"];
   colors?: Product["colors"];
+  unavailableColorIds?: string[];
 };
 
 export type EnsureCatalogResult = {
@@ -47,6 +48,7 @@ function toProduct(row: ApiProduct): Product {
     stockQuantity: row.stockQuantity,
     attributes: row.attributes,
     colors: row.colors,
+    unavailableColorIds: row.unavailableColorIds ?? [],
     description: "",
     details: [],
   };

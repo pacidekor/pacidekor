@@ -19,6 +19,8 @@ export type ProductUpsertInput = {
   attributes?: ProductAttributes;
   images: string[];
   colorImageMap?: Record<string, number[]>;
+  /** Color IDs blocked for purchase; must be subset of attributes.colors. */
+  unavailableColorIds?: string[];
   inStock: boolean;
   stockQuantity?: number | null;
   details?: Product["details"];

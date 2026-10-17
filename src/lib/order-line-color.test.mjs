@@ -2,7 +2,11 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  firstOrderableColorId,
   isCartLineColorValid,
+  isColorOrderable,
+  isProductOrderableByColors,
+  migrateUnavailableColorIds,
   validateOrderLineColor,
 } from "./order-line-color.ts";
 
@@ -56,4 +60,116 @@ test("isCartLineColorValid mirrors validate for storefront color options", () =>
   assert.equal(isCartLineColorValid(options, "ruzova"), true);
   assert.equal(isCartLineColorValid([], undefined), true);
   assert.equal(isCartLineColorValid([], MIX), false);
+});
+
+test("one unavailable color is rejected; other colors still ok", () => {
+  const unavailable = ["ruzova"];
+  const blocked = validateOrderLineColor(
+    "Hortenzia",
+    ["biela", "ruzova", "zelena"],
+    "ruzova",
+    unavailable,
+  );
+  assert.equal(blocked.ok, false);
+  if (!blocked.ok) assert.equal(blocked.code, "color_unavailable");
+
+  const ok = validateOrderLineColor(
+    "Hortenzia",
+    ["biela", "ruzova", "zelena"],
+    "biela",
+    unavailable,
+  );
+  assert.equal(ok.ok, true);
+  assert.equal(isColorOrderable("biela", ["biela", "ruzova"], unavailable), true);
+  assert.equal(isColorOrderable("ruzova", ["biela", "ruzova"], unavailable), false);
+});
+
+test("all colors unavailable → product not orderable; empty unavailable keeps legacy", () => {
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: true,
+      colorIds: ["biela", "ruzova"],
+      unavailableColorIds: ["biela", "ruzova"],
+    }),
+    false,
+  );
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: true,
+      colorIds: ["biela", "ruzova"],
+      unavailableColorIds: [],
+    }),
+    true,
+  );
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: true,
+      colorIds: [],
+      unavailableColorIds: ["biela"],
+    }),
+    true,
+  );
+});
+
+test("product-level OOS overrides color availability", () => {
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: false,
+      colorIds: ["biela"],
+      unavailableColorIds: [],
+    }),
+    false,
+  );
+});
+
+test("product without colors follows productInStock only", () => {
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: true,
+      colorIds: null,
+      unavailableColorIds: [],
+    }),
+    true,
+  );
+  assert.equal(
+    isProductOrderableByColors({
+      productInStock: false,
+      colorIds: undefined,
+    }),
+    false,
+  );
+});
+
+test("firstOrderableColorId skips unavailable", () => {
+  assert.equal(
+    firstOrderableColorId(["ruzova", "biela"], ["ruzova"]),
+    "biela",
+  );
+  assert.equal(firstOrderableColorId(["ruzova"], ["ruzova"]), "");
+});
+
+test("cart line with unavailable color requires explicit reselect", () => {
+  const options = ["biela", "ruzova"].map((id) => ({ id }));
+  assert.equal(isCartLineColorValid(options, "ruzova", ["ruzova"]), false);
+  assert.equal(isCartLineColorValid(options, "biela", ["ruzova"]), true);
+});
+
+test("rename migration remaps unavailable flag; removed color drops flag", () => {
+  const migration = new Map([
+    ["custom:aaa:Stara", "custom:bbb:Nova"],
+  ]);
+  assert.deepEqual(
+    migrateUnavailableColorIds({
+      unavailableColorIds: ["custom:aaa:Stara", "ruzova", "gone"],
+      colorIds: ["custom:bbb:Nova", "biela"],
+      migration,
+    }),
+    ["custom:bbb:Nova"],
+  );
+});
+
+test("empty unavailable_color_ids preserves prior membership behaviour", () => {
+  const r = validateOrderLineColor("X", ["biela"], "biela", []);
+  assert.equal(r.ok, true);
+  assert.equal(isCartLineColorValid([{ id: "biela" }], "biela", undefined), true);
 });

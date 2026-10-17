@@ -108,8 +108,13 @@ function CartLine({
 }) {
   const { product, quantity, unavailable, colorId } = item;
   const colorOptions = product.colors ?? [];
+  const unavailableColorIds = product.unavailableColorIds ?? [];
   const needsColorReselect =
-    !unavailable && !isCartLineColorValid(colorOptions, colorId);
+    !unavailable &&
+    !isCartLineColorValid(colorOptions, colorId, unavailableColorIds);
+  const reselectOptions = colorOptions.filter(
+    (color) => !unavailableColorIds.includes(color.id),
+  );
   const deferredQuantity = useDeferredValue(quantity);
   const lineTotalNet =
     audienceNetFromCatalogPrice(product.price, isWholesale) * deferredQuantity;
@@ -195,13 +200,15 @@ function CartLine({
         {needsColorReselect ? (
           <div className="mt-3 rounded-xl border border-[#9a4d3f]/25 bg-[#9a4d3f]/06 px-3 py-2.5">
             <p className="text-sm text-[#9a4d3f]">
-              {colorOptions.length > 0
-                ? "Vybraná farba už nie je v ponuke. Zvoľte platnú farbu — položka a množstvo zostávajú v košíku."
-                : "Tento produkt už nemá farebné varianty, ale v košíku zostal starý výber farby. Odstráňte výber farby — položka zostane v košíku."}
+              {reselectOptions.length > 0
+                ? "Vybraná farba už nie je dostupná. Zvoľte inú dostupnú farbu — položka a množstvo zostávajú v košíku."
+                : colorOptions.length > 0
+                  ? "Všetky farby tohto produktu sú vypredané. Položku odstráňte z košíka."
+                  : "Tento produkt už nemá farebné varianty, ale v košíku zostal starý výber farby. Odstráňte výber farby — položka zostane v košíku."}
             </p>
-            {colorOptions.length > 0 ? (
+            {reselectOptions.length > 0 ? (
               <div className="mt-2 flex flex-wrap gap-2">
-                {colorOptions.map((color) => (
+                {reselectOptions.map((color) => (
                   <button
                     key={color.id}
                     type="button"
@@ -331,7 +338,11 @@ function CartSummary({
   const hasInvalidColor = items.some(
     (item) =>
       !item.unavailable &&
-      !isCartLineColorValid(item.product.colors, item.colorId),
+      !isCartLineColorValid(
+        item.product.colors,
+        item.colorId,
+        item.product.unavailableColorIds,
+      ),
   );
   const canCheckout =
     ORDERS_ENABLED && meetsMinOrder(subtotal) && !hasInvalidColor;

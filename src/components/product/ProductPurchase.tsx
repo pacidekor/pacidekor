@@ -11,6 +11,11 @@ import {
   inventoryMaxOrderable,
   isInventoryAvailable,
 } from "@/lib/inventory";
+import {
+  firstOrderableColorId,
+  isColorOrderable,
+  isProductOrderableByColors,
+} from "@/lib/order-line-color";
 import type { Product } from "@/lib/products";
 import {
   alignMaxToOrderMultiple,
@@ -36,7 +41,14 @@ export function ProductPurchase({
 }: ProductPurchaseProps) {
   const isWholesale = useIsWholesale();
   const inventory = useProductInventory(product);
-  const available = isInventoryAvailable(inventory);
+  const inventoryAvailable = isInventoryAvailable(inventory);
+  const colorIds = product.attributes?.colors ?? product.colors?.map((c) => c.id);
+  const productOrderableByColors = isProductOrderableByColors({
+    productInStock: inventoryAvailable,
+    colorIds,
+    unavailableColorIds: product.unavailableColorIds,
+  });
+  const available = productOrderableByColors;
   const stockMax = inventoryMaxOrderable(inventory);
   const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
   const packagingOption = getPrimaryPackagingOption(
@@ -49,16 +61,28 @@ export function ProductPurchase({
     ? formatPackagingDeliveryHintShort(packagingOption)
     : null;
   const maxQty = alignMaxToOrderMultiple(stockMax, orderMultiple);
-  const canOrderPack =
-    available && (typeof maxQty !== "number" || maxQty >= orderMultiple);
-
   const [quantity, setQuantity] = useState(orderMultiple);
   const [restockOpen, setRestockOpen] = useState(false);
   const [internalColor, setInternalColor] = useState(
-    product.colors?.[0]?.id ?? "",
+    () =>
+      firstOrderableColorId(colorIds, product.unavailableColorIds) ||
+      product.colors?.[0]?.id ||
+      "",
   );
   const selectedColor = controlledColor ?? internalColor;
   const setSelectedColor = onSelectColor ?? setInternalColor;
+  const hasColors = Boolean(product.colors && product.colors.length > 0);
+  const selectedColorOrderable = hasColors
+    ? isColorOrderable(
+        selectedColor,
+        colorIds,
+        product.unavailableColorIds,
+      )
+    : true;
+  const canOrderPack =
+    available &&
+    selectedColorOrderable &&
+    (typeof maxQty !== "number" || maxQty >= orderMultiple);
 
   useEffect(() => {
     if (!canOrderPack) {
@@ -73,8 +97,6 @@ export function ProductPurchase({
       ) || orderMultiple,
     );
   }, [canOrderPack, maxQty, orderMultiple]);
-
-  const hasColors = Boolean(product.colors && product.colors.length > 0);
 
   const purchaseActions = (
     <div className="flex w-full items-center gap-3 sm:w-auto">
@@ -134,6 +156,7 @@ export function ProductPurchase({
           colors={product.colors!}
           selectedColorId={selectedColor}
           onSelect={setSelectedColor}
+          unavailableColorIds={product.unavailableColorIds}
         />
       ) : null}
 
