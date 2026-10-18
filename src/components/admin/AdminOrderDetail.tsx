@@ -23,7 +23,14 @@ import { lockPageScroll } from "@/lib/lock-page-scroll";
 function orderLineCodeLabel(
   sku: string | undefined,
   colorId: string | undefined,
+  selectionAxisLabel?: string,
+  selectionValueLabel?: string,
 ) {
+  if (selectionValueLabel) {
+    const axis = selectionAxisLabel?.trim() || "Výber";
+    const selection = `${axis}: ${selectionValueLabel}`;
+    return sku ? `${sku} (${selection})` : selection;
+  }
   if (!sku) return null;
   if (!colorId) return sku;
   const color = colorsFromIds([colorId])[0];
@@ -198,11 +205,13 @@ export function AdminOrderDetail({
                   const codeLabel = orderLineCodeLabel(
                     product?.sku,
                     line.colorId,
+                    line.selectionAxisLabel,
+                    line.selectionValueLabel,
                   );
 
                   return (
                     <li
-                      key={`${order.id}-${line.productId}-${line.colorId ?? ""}`}
+                      key={`${order.id}-${line.productId}-${line.colorId ?? ""}-${line.variantId ?? ""}`}
                       className="flex items-center gap-3.5 rounded-xl border border-black/8 bg-[#faf8f5] px-3.5 py-3"
                     >
                       <span className="relative size-14 shrink-0 overflow-hidden rounded-lg bg-[#e8ebe2]">

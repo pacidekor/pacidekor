@@ -26,6 +26,66 @@ import {
   collectReferencedImageUrls,
   storagePathsNotReferenced,
 } from "@/lib/product-image-refs";
+import {
+  computeVariantSummary,
+  derivedCatalogPriceFromSummary,
+  discountIsPercentCompatible,
+  normalizeTextVariants,
+  pruneVariantImageUrls,
+  type TextVariant,
+  type VariantMode,
+} from "@/lib/product-variants";
+import { formatPrice, parsePrice } from "@/lib/price";
+import { getDiscountStatus } from "@/lib/discounts";
+
+/** Block custom mode while an absolute (non-percent) product discount is active or scheduled. */
+async function assertNoAbsoluteDiscountConflict(
+  db: ReturnType<typeof createServiceClient>,
+  productId: string,
+): Promise<string | null> {
+  const { data, error } = await db
+    .from("product_discounts")
+    .select(
+      "id, original_price, sale_price, discount_percent, active, starts_at, ends_at",
+    )
+    .eq("product_id", productId)
+    .maybeSingle();
+  if (error) {
+    return `Nepodarilo sa overiť zľavu produktu (${error.message}).`;
+  }
+  if (!data) return null;
+
+  const status = getDiscountStatus({
+    id: data.id,
+    productId,
+    originalPrice: data.original_price,
+    salePrice: data.sale_price,
+    discountPercent: data.discount_percent,
+    showOnAkciaPage: true,
+    active: data.active,
+    startsAt: data.starts_at ?? undefined,
+    endsAt: data.ends_at ?? undefined,
+    createdAt: "",
+    updatedAt: "",
+  });
+  if (status !== "active" && status !== "scheduled") return null;
+
+  if (
+    discountIsPercentCompatible({
+      originalPrice: data.original_price,
+      salePrice: data.sale_price,
+      discountPercent: data.discount_percent,
+    })
+  ) {
+    return null;
+  }
+
+  return (
+    "Produkt má aktívnu alebo naplánovanú absolútnu zľavu (sale price). " +
+    "Pred prechodom na vlastné varianty ju upravte na percentuálnu, vypnite, " +
+    "alebo odstráňte — zľavu automaticky nemažeme."
+  );
+}
 
 async function requireAdmin() {
   const supabase = await createAdminClient();
@@ -158,21 +218,199 @@ function normalizeUnavailableColorIds(
   return next;
 }
 
+function resolveMode(input: ProductUpsertInput): VariantMode {
+  if (input.variantMode === "custom") return "custom";
+  if (input.variantMode === "colors") return "colors";
+  if (input.variantMode === "none") return "none";
+  const colors = input.attributes?.colors ?? [];
+  return colors.length > 0 ? "colors" : "none";
+}
+
+function buildVariantFields(
+  input: ProductUpsertInput,
+  images: string[],
+  existing?: Pick<
+    ProductRow,
+    "variant_mode" | "price" | "price_before_custom"
+  > | null,
+): {
+  mode: VariantMode;
+  variants: TextVariant[];
+  axisLabel: string | null;
+  defaultVariantId: string | null;
+  price: string;
+  priceBeforeCustom: string | null;
+  summaryCounts: {
+    variant_total_count: number;
+    variant_orderable_count: number;
+    variant_min_price_cents: number | null;
+    variant_price_varies: boolean;
+  };
+  error?: string;
+} {
+  const mode = resolveMode(input);
+  const axisLabel =
+    mode === "custom" ? input.variantAxisLabel?.trim() || null : null;
+  let variants =
+    mode === "custom"
+      ? pruneVariantImageUrls(
+          normalizeTextVariants(input.textVariants ?? [], images),
+          images,
+        )
+      : [];
+
+  if (mode === "custom") {
+    if (!axisLabel) {
+      return {
+        mode,
+        variants,
+        axisLabel,
+        defaultVariantId: null,
+        price: input.price?.trim() || "0,00 €",
+        priceBeforeCustom: existing?.price_before_custom ?? null,
+        summaryCounts: {
+          variant_total_count: 0,
+          variant_orderable_count: 0,
+          variant_min_price_cents: null,
+          variant_price_varies: false,
+        },
+        error: "Zadajte názov výberu (napr. Veľkosť).",
+      };
+    }
+    if (variants.length === 0) {
+      return {
+        mode,
+        variants,
+        axisLabel,
+        defaultVariantId: null,
+        price: input.price?.trim() || "0,00 €",
+        priceBeforeCustom: existing?.price_before_custom ?? null,
+        summaryCounts: {
+          variant_total_count: 0,
+          variant_orderable_count: 0,
+          variant_min_price_cents: null,
+          variant_price_varies: false,
+        },
+        error: "Pridajte aspoň jednu vlastnú variantu.",
+      };
+    }
+  }
+
+  let defaultVariantId =
+    mode === "custom" ? input.defaultVariantId?.trim() || null : null;
+  if (
+    defaultVariantId &&
+    !variants.some((v) => v.id === defaultVariantId)
+  ) {
+    defaultVariantId = variants[0]?.id ?? null;
+  } else if (mode === "custom" && !defaultVariantId && variants[0]) {
+    defaultVariantId = variants[0].id;
+  }
+
+  const summary = computeVariantSummary(
+    mode,
+    variants,
+    axisLabel,
+    defaultVariantId,
+  );
+
+  const prevMode = isVariantModeSafe(existing?.variant_mode)
+    ? existing!.variant_mode!
+    : null;
+  let priceBeforeCustom = existing?.price_before_custom ?? null;
+  let price = input.price?.trim() || existing?.price || "0,00 €";
+
+  if (mode === "custom") {
+    if (prevMode !== "custom" && existing?.price) {
+      priceBeforeCustom = existing.price;
+    }
+    const derived = derivedCatalogPriceFromSummary(summary);
+    if (derived) price = derived;
+  } else if (prevMode === "custom") {
+    const explicit = input.priceAfterModeSwitch?.trim() || input.price?.trim();
+    if (!explicit) {
+      return {
+        mode,
+        variants,
+        axisLabel,
+        defaultVariantId,
+        price,
+        priceBeforeCustom,
+        summaryCounts: {
+          variant_total_count: summary.totalCount,
+          variant_orderable_count: summary.orderableCount,
+          variant_min_price_cents: summary.minPriceCents,
+          variant_price_varies: summary.priceVaries,
+        },
+        error:
+          "Pri opustení vlastných variant zadajte cenu bez DPH, ktorá bude platiť.",
+      };
+    }
+    const parsed = parsePrice(explicit);
+    if (!Number.isFinite(parsed) || parsed < 0) {
+      return {
+        mode,
+        variants,
+        axisLabel,
+        defaultVariantId,
+        price,
+        priceBeforeCustom,
+        summaryCounts: {
+          variant_total_count: summary.totalCount,
+          variant_orderable_count: summary.orderableCount,
+          variant_min_price_cents: summary.minPriceCents,
+          variant_price_varies: summary.priceVaries,
+        },
+        error: "Neplatná cena po zmene režimu.",
+      };
+    }
+    price = formatPrice(parsed);
+    priceBeforeCustom = null;
+  }
+
+  return {
+    mode,
+    variants,
+    axisLabel: mode === "custom" ? axisLabel : null,
+    defaultVariantId: mode === "custom" ? defaultVariantId : null,
+    price,
+    priceBeforeCustom: mode === "custom" ? priceBeforeCustom : null,
+    summaryCounts: {
+      variant_total_count: mode === "custom" ? summary.totalCount : 0,
+      variant_orderable_count: mode === "custom" ? summary.orderableCount : 0,
+      variant_min_price_cents:
+        mode === "custom" ? summary.minPriceCents : null,
+      variant_price_varies: mode === "custom" ? summary.priceVaries : false,
+    },
+  };
+}
+
+function isVariantModeSafe(value: unknown): value is VariantMode {
+  return value === "none" || value === "colors" || value === "custom";
+}
+
 function toInsertPayload(
   input: ProductUpsertInput,
   slug: string,
-): ProductInsert {
+): ProductInsert | { error: string } {
   const colorIds = input.attributes?.colors ?? [];
   const packaging = normalizePackaging(input.attributes?.packaging);
   const images = input.images.map((src) => src.trim()).filter(Boolean);
   const markAsNew = input.markAsNew !== false;
+  const variantFields = buildVariantFields(input, images, null);
+  if (variantFields.error) return { error: variantFields.error };
+
+  const mode = variantFields.mode;
+  // Persist inactive text_variants only when provided on create in custom mode.
+  const textVariantsJson =
+    mode === "custom" ? variantFields.variants : input.textVariants ?? null;
 
   return {
     slug,
     name: input.name.trim(),
     description: input.description.trim(),
     sku: input.sku?.trim() || generateProductSku(),
-    price: input.price?.trim() || "0,00 €",
+    price: variantFields.price,
     original_price: input.originalPrice?.trim() || null,
     discount: input.discount ?? null,
     category: input.category,
@@ -199,19 +437,42 @@ function toInsertPayload(
     new_until: markAsNew ? computeNewUntil() : null,
     in_vypredaj: Boolean(input.inVypredaj),
     is_bestseller: Boolean(input.isBestseller),
+    variant_mode: mode,
+    variant_axis_label:
+      mode === "custom" ? variantFields.axisLabel : input.variantAxisLabel ?? null,
+    text_variants: textVariantsJson,
+    default_variant_id:
+      mode === "custom" ? variantFields.defaultVariantId : null,
+    variant_total_count: variantFields.summaryCounts.variant_total_count,
+    variant_orderable_count: variantFields.summaryCounts.variant_orderable_count,
+    variant_min_price_cents: variantFields.summaryCounts.variant_min_price_cents,
+    variant_price_varies: variantFields.summaryCounts.variant_price_varies,
+    price_before_custom: variantFields.priceBeforeCustom,
   };
 }
 
 function toUpdatePayload(
   input: ProductUpsertInput,
   slug: string,
-  existing: Pick<ProductRow, "is_new" | "new_until"> | null,
-): ProductUpdate {
+  existing: Pick<
+    ProductRow,
+    | "is_new"
+    | "new_until"
+    | "variant_mode"
+    | "price"
+    | "price_before_custom"
+    | "text_variants"
+    | "variant_axis_label"
+  > | null,
+): ProductUpdate | { error: string } {
   const colorIds = input.attributes?.colors ?? [];
   const packaging = normalizePackaging(input.attributes?.packaging);
   const images = input.images.map((src) => src.trim()).filter(Boolean);
   const markAsNew = Boolean(input.markAsNew);
+  const variantFields = buildVariantFields(input, images, existing);
+  if (variantFields.error) return { error: variantFields.error };
 
+  const mode = variantFields.mode;
   const payload: ProductUpdate = {
     slug,
     name: input.name.trim(),
@@ -236,9 +497,26 @@ function toUpdatePayload(
     stock_quantity: input.inStock
       ? (input.stockQuantity ?? null)
       : null,
+    variant_mode: mode,
+    price: variantFields.price,
+    price_before_custom: variantFields.priceBeforeCustom,
+    variant_total_count: variantFields.summaryCounts.variant_total_count,
+    variant_orderable_count:
+      variantFields.summaryCounts.variant_orderable_count,
+    variant_min_price_cents:
+      variantFields.summaryCounts.variant_min_price_cents,
+    variant_price_varies: variantFields.summaryCounts.variant_price_varies,
   };
 
-  if (input.price?.trim()) payload.price = input.price.trim();
+  if (mode === "custom") {
+    payload.text_variants = variantFields.variants;
+    payload.variant_axis_label = variantFields.axisLabel;
+    payload.default_variant_id = variantFields.defaultVariantId;
+  } else {
+    // Keep inactive text_variants / axis label in DB — only clear active pointers.
+    payload.default_variant_id = null;
+  }
+
   if (input.originalPrice !== undefined) {
     payload.original_price = input.originalPrice?.trim() || null;
   }
@@ -287,18 +565,41 @@ export async function upsertProductAdmin(
     if (input.id) {
       const { data: existing } = await db
         .from("products")
-        .select("slug, is_new, new_until")
+        .select(
+          "slug, is_new, new_until, variant_mode, price, price_before_custom, text_variants, variant_axis_label",
+        )
         .eq("id", input.id)
         .maybeSingle();
 
       const previousSlug =
         (existing as Pick<ProductRow, "slug"> | null)?.slug ?? undefined;
 
+      const mode = resolveMode(input);
+      if (mode === "custom") {
+        const discountBlock = await assertNoAbsoluteDiscountConflict(
+          db,
+          input.id,
+        );
+        if (discountBlock) return { ok: false, error: discountBlock };
+      }
+
       const updatePayload = toUpdatePayload(
         input,
         slug,
-        (existing as Pick<ProductRow, "is_new" | "new_until"> | null) ?? null,
+        (existing as Pick<
+          ProductRow,
+          | "is_new"
+          | "new_until"
+          | "variant_mode"
+          | "price"
+          | "price_before_custom"
+          | "text_variants"
+          | "variant_axis_label"
+        > | null) ?? null,
       );
+      if ("error" in updatePayload) {
+        return { ok: false, error: updatePayload.error };
+      }
       const { data, error } = await db
         .from("products")
         .update(updatePayload)
@@ -322,6 +623,9 @@ export async function upsertProductAdmin(
     }
 
     const payload = toInsertPayload(input, slug);
+    if ("error" in payload) {
+      return { ok: false, error: payload.error };
+    }
     const { data, error } = await db
       .from("products")
       .insert(payload)

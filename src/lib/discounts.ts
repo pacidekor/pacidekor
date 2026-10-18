@@ -17,7 +17,8 @@ export type ProductDiscount = {
   id: string;
   productId: string;
   originalPrice: string;
-  salePrice: string;
+  /** Absolute sale; null when the discount is percent-only (custom variants). */
+  salePrice: string | null;
   discountPercent: number;
   showOnAkciaPage: boolean;
   active: boolean;
@@ -26,6 +27,14 @@ export type ProductDiscount = {
   createdAt: string;
   updatedAt: string;
 };
+
+/** Effective catalog sale string for a discount row (percent or absolute). */
+export function resolveDiscountSalePrice(discount: ProductDiscount): string {
+  if (discount.salePrice != null && String(discount.salePrice).trim()) {
+    return discount.salePrice;
+  }
+  return computeSalePrice(discount.originalPrice, discount.discountPercent);
+}
 
 export const DISCOUNT_STATUS_META: Record<
   DiscountStatus,
@@ -149,7 +158,7 @@ export function applyDiscountToProduct(
   if (isDiscountEffectivelyActive(discount, now)) {
     return {
       ...product,
-      price: discount.salePrice,
+      price: resolveDiscountSalePrice(discount),
       originalPrice: discount.originalPrice,
       discount: discount.discountPercent,
     };

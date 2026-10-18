@@ -1,5 +1,10 @@
 "use server";
 
+import {
+  cartLineOptionKeyFromParts,
+  migrateLegacyCartOptionKey,
+  parseCartLineOptionKey,
+} from "@/lib/cart-line-key";
 import { createCustomerClient } from "@/lib/supabase/server";
 import type { CartItemRow } from "@/lib/supabase/database.types";
 
@@ -7,6 +12,9 @@ export type CartLineInput = {
   productId: string;
   quantity: number;
   colorId?: string;
+  variantId?: string;
+  /** Prefer when known; otherwise derived from colorId/variantId. */
+  lineOptionKey?: string;
 };
 
 export type CartActionResult<T = undefined> =
@@ -17,17 +25,19 @@ export type CartLineDto = {
   productId: string;
   quantity: number;
   colorId?: string;
+  variantId?: string;
+  lineOptionKey: string;
 };
 
 async function requireCustomer() {
   const supabase = await createCustomerClient();
-  // Cookie session only — avoids Auth API roundtrip on every cart click.
+  // Prefer getUser() so identity comes from Auth server, not only cookie parse.
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const user = session?.user;
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
 
-  if (!user) {
+  if (userError || !user) {
     return { ok: false as const, error: "Nie ste prihlásený.", supabase };
   }
 
@@ -48,12 +58,40 @@ async function requireCustomer() {
   return { ok: true as const, supabase, userId: user.id };
 }
 
-function mapRows(rows: CartItemRow[] | null): CartLineDto[] {
-  return (rows ?? []).map((row) => ({
+function resolveOptionKey(input: {
+  lineOptionKey?: string;
+  colorId?: string | null;
+  variantId?: string | null;
+}): string {
+  if (typeof input.lineOptionKey === "string") {
+    return input.lineOptionKey.trim();
+  }
+  return cartLineOptionKeyFromParts({
+    colorId: input.colorId,
+    variantId: input.variantId,
+  });
+}
+
+function mapRow(row: CartItemRow): CartLineDto {
+  const key =
+    typeof row.line_option_key === "string"
+      ? row.line_option_key
+      : migrateLegacyCartOptionKey(row.color_id);
+  const selection = parseCartLineOptionKey(key);
+  return {
     productId: row.product_id,
     quantity: row.quantity,
-    colorId: row.color_id ?? undefined,
-  }));
+    lineOptionKey: key,
+    colorId:
+      selection.kind === "color"
+        ? selection.colorId
+        : row.color_id ?? undefined,
+    variantId: selection.kind === "variant" ? selection.variantId : undefined,
+  };
+}
+
+function mapRows(rows: CartItemRow[] | null): CartLineDto[] {
+  return (rows ?? []).map(mapRow);
 }
 
 async function listLines(
@@ -85,25 +123,33 @@ export async function upsertCartItemAction(
   if (!auth.ok) return { ok: false, error: auth.error };
 
   const quantity = Math.max(1, Math.floor(input.quantity));
+  const lineOptionKey = resolveOptionKey(input);
+  const selection = parseCartLineOptionKey(lineOptionKey);
+  const colorId =
+    selection.kind === "color" ? selection.colorId : null;
+
   const { error } = await auth.supabase.from("cart_items").upsert(
     {
       user_id: auth.userId,
       product_id: input.productId,
       quantity,
-      color_id: input.colorId?.trim() || null,
+      color_id: colorId,
+      line_option_key: lineOptionKey,
     },
-    { onConflict: "user_id,product_id" },
+    { onConflict: "user_id,product_id,line_option_key" },
   );
 
   if (error) return { ok: false, error: error.message };
-  // Skip full re-list — client keeps optimistic cart; hydrate refreshes later.
   return {
     ok: true,
     data: [
       {
         productId: input.productId,
         quantity,
-        colorId: input.colorId?.trim() || undefined,
+        lineOptionKey,
+        colorId: colorId ?? undefined,
+        variantId:
+          selection.kind === "variant" ? selection.variantId : undefined,
       },
     ],
   };
@@ -112,17 +158,20 @@ export async function upsertCartItemAction(
 export async function setCartItemQuantityAction(
   productId: string,
   quantity: number,
+  lineOptionKey = "",
 ): Promise<CartActionResult<CartLineDto[]>> {
   const auth = await requireCustomer();
   if (!auth.ok) return { ok: false, error: auth.error };
 
+  const key = lineOptionKey.trim();
   const qty = Math.floor(quantity);
   if (qty < 1) {
     const { error } = await auth.supabase
       .from("cart_items")
       .delete()
       .eq("user_id", auth.userId)
-      .eq("product_id", productId);
+      .eq("product_id", productId)
+      .eq("line_option_key", key);
     if (error) return { ok: false, error: error.message };
     return { ok: true, data: [] };
   }
@@ -131,19 +180,31 @@ export async function setCartItemQuantityAction(
     .from("cart_items")
     .update({ quantity: qty })
     .eq("user_id", auth.userId)
-    .eq("product_id", productId);
+    .eq("product_id", productId)
+    .eq("line_option_key", key);
 
   if (error) return { ok: false, error: error.message };
+  const selection = parseCartLineOptionKey(key);
   return {
     ok: true,
-    data: [{ productId, quantity: qty }],
+    data: [
+      {
+        productId,
+        quantity: qty,
+        lineOptionKey: key,
+        colorId: selection.kind === "color" ? selection.colorId : undefined,
+        variantId:
+          selection.kind === "variant" ? selection.variantId : undefined,
+      },
+    ],
   };
 }
 
 export async function removeCartItemAction(
   productId: string,
+  lineOptionKey = "",
 ): Promise<CartActionResult<CartLineDto[]>> {
-  return setCartItemQuantityAction(productId, 0);
+  return setCartItemQuantityAction(productId, 0, lineOptionKey);
 }
 
 export async function clearCartAction(): Promise<
@@ -161,43 +222,58 @@ export async function clearCartAction(): Promise<
   return { ok: true, data: [] };
 }
 
-/** Merge guest localStorage lines into the account cart (add quantities). */
+/**
+ * Merge guest lines into the account cart exactly once per mergeId
+ * (Postgres function: operation row + cart writes in one transaction).
+ */
 export async function mergeGuestCartAction(
   guestLines: CartLineInput[],
+  mergeId: string,
 ): Promise<CartActionResult<CartLineDto[]>> {
   const auth = await requireCustomer();
   if (!auth.ok) return { ok: false, error: auth.error };
 
-  const existing = await listLines(auth.supabase, auth.userId);
-  if (!existing.ok) return existing;
-
-  const byId = new Map(
-    existing.data.map((line) => [line.productId, line] as const),
-  );
-
-  for (const guest of guestLines) {
-    const qty = Math.max(1, Math.floor(guest.quantity));
-    const prev = byId.get(guest.productId);
-    byId.set(guest.productId, {
-      productId: guest.productId,
-      quantity: (prev?.quantity ?? 0) + qty,
-      colorId: guest.colorId ?? prev?.colorId,
-    });
+  const id = mergeId.trim();
+  if (!id) {
+    return { ok: false, error: "Chýba identifikátor zlúčenia košíka." };
   }
 
-  const upserts = [...byId.values()].map((line) => ({
-    user_id: auth.userId,
-    product_id: line.productId,
-    quantity: line.quantity,
-    color_id: line.colorId?.trim() || null,
-  }));
+  const payload = guestLines.map((guest) => {
+    const lineOptionKey = resolveOptionKey(guest);
+    const selection = parseCartLineOptionKey(lineOptionKey);
+    return {
+      product_id: guest.productId,
+      quantity: Math.max(1, Math.floor(guest.quantity)),
+      line_option_key: lineOptionKey,
+      color_id:
+        selection.kind === "color"
+          ? selection.colorId
+          : guest.colorId?.trim() || null,
+    };
+  });
 
-  if (upserts.length > 0) {
-    const { error } = await auth.supabase
-      .from("cart_items")
-      .upsert(upserts, { onConflict: "user_id,product_id" });
-    if (error) return { ok: false, error: error.message };
-  }
+  const { data, error } = await auth.supabase.rpc("merge_guest_cart_lines", {
+    p_merge_id: id,
+    p_lines: payload,
+  });
 
-  return listLines(auth.supabase, auth.userId);
+  if (error) return { ok: false, error: error.message };
+
+  const rows = Array.isArray(data) ? data : [];
+  return {
+    ok: true,
+    data: rows.map((row: Record<string, unknown>) =>
+      mapRow({
+        product_id: String(row.product_id),
+        quantity: Number(row.quantity) || 1,
+        color_id:
+          typeof row.color_id === "string" ? row.color_id : null,
+        line_option_key:
+          typeof row.line_option_key === "string" ? row.line_option_key : "",
+        user_id: auth.userId,
+        created_at: "",
+        updated_at: "",
+      } as CartItemRow),
+    ),
+  };
 }

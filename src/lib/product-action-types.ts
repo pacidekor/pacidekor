@@ -1,5 +1,6 @@
 import type { Product } from "@/lib/products";
 import type { ProductAttributes } from "@/lib/taxonomy";
+import type { TextVariant, VariantMode } from "@/lib/product-variants";
 
 export type ProductActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -27,4 +28,10 @@ export type ProductUpsertInput = {
   markAsNew?: boolean;
   inVypredaj?: boolean;
   isBestseller?: boolean;
+  variantMode?: VariantMode;
+  variantAxisLabel?: string | null;
+  textVariants?: TextVariant[];
+  defaultVariantId?: string | null;
+  /** When leaving custom: explicit catalog price for the new mode. */
+  priceAfterModeSwitch?: string | null;
 };

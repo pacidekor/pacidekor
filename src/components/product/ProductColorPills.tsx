@@ -6,6 +6,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
+import { ProductAxisLabel } from "@/components/product/ProductAxisLabel";
 import { colorSwatchStyle, type ProductColor } from "@/lib/products";
 
 const GAP_PX = 8;
@@ -154,7 +155,7 @@ export function ProductColorPills({
 
   return (
     <div>
-      <p className="font-sans text-sm font-semibold text-[#2f2924]">Farba</p>
+      <ProductAxisLabel>Farba</ProductAxisLabel>
 
       <div ref={containerRef} className="relative mt-3">
         <div aria-hidden style={measureRowStyle}>

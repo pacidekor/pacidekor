@@ -6,6 +6,13 @@ import type {
   ProductDetailJson,
   ProductRow,
 } from "@/lib/supabase/database.types";
+import {
+  isVariantMode,
+  normalizeTextVariants,
+  orderGalleryForTextVariant,
+  type TextVariant,
+  type VariantMode,
+} from "@/lib/product-variants";
 
 export type ProductDetail = {
   title: string;
@@ -56,6 +63,17 @@ export type Product = {
    * Empty / undefined = none blocked by this flag.
    */
   unavailableColorIds?: string[];
+  /** Selection axis: none | colors | custom */
+  variantMode?: VariantMode;
+  variantAxisLabel?: string;
+  /** Full variants — detail / by-ids only; omit on slim list when possible. */
+  textVariants?: TextVariant[];
+  defaultVariantId?: string;
+  variantTotalCount?: number;
+  variantOrderableCount?: number;
+  variantMinPriceCents?: number;
+  variantPriceVaries?: boolean;
+  priceBeforeCustom?: string;
   /** Seed availability – live stock is tracked in inventory storage. */
   inStock?: boolean;
   stockQuantity?: number;
@@ -675,7 +693,33 @@ export function mapProductRow(row: ProductRow): Product {
     createdAt: row.created_at,
     archivedAt: row.archived_at ?? null,
     redirectToProductId: row.redirect_to_product_id ?? null,
+    variantMode: resolveVariantMode(row, colorIds),
+    variantAxisLabel: row.variant_axis_label?.trim() || undefined,
+    textVariants: normalizeTextVariants(row.text_variants, images),
+    defaultVariantId: row.default_variant_id?.trim() || undefined,
+    variantTotalCount:
+      typeof row.variant_total_count === "number"
+        ? row.variant_total_count
+        : undefined,
+    variantOrderableCount:
+      typeof row.variant_orderable_count === "number"
+        ? row.variant_orderable_count
+        : undefined,
+    variantMinPriceCents:
+      typeof row.variant_min_price_cents === "number"
+        ? row.variant_min_price_cents
+        : undefined,
+    variantPriceVaries: Boolean(row.variant_price_varies),
+    priceBeforeCustom: row.price_before_custom?.trim() || undefined,
   };
+}
+
+function resolveVariantMode(
+  row: ProductRow,
+  colorIds: string[],
+): VariantMode {
+  if (isVariantMode(row.variant_mode)) return row.variant_mode;
+  return colorIds.length > 0 ? "colors" : "none";
 }
 
 /** True when the row is archived for public catalog purposes. */
@@ -795,6 +839,22 @@ export function getGalleryForColor(
     .filter(Boolean);
   const tail = gallery.filter((_, index) => !preferredSet.has(index));
   return [...head, ...tail];
+}
+
+/** PDP gallery for custom text variants (URL refs; shared last). */
+export function getGalleryForTextVariant(
+  product: Product,
+  variantId?: string,
+): string[] {
+  const gallery = getProductGallery(product);
+  const variant = variantId
+    ? product.textVariants?.find((v) => v.id === variantId)
+    : undefined;
+  return orderGalleryForTextVariant({
+    images: gallery,
+    sharedImageUrls: product.sharedImageUrls,
+    variantImageUrls: variant?.imageUrls,
+  });
 }
 
 export function getColorPreviewImages(

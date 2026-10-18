@@ -36,10 +36,26 @@ export const STOREFRONT_CATALOG_TAG = "storefront-catalog";
  * Storefront catalog cards / nav / related — skips heavy text (description, details).
  * Full row still comes from getProductBySlug / getProductById on PDP & admin editor.
  */
-const STOREFRONT_LIST_COLUMNS_BASE =
+const STOREFRONT_LIST_COLUMNS_CORE =
   "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
 
+const STOREFRONT_VARIANT_SUMMARY_COLUMNS =
+  "variant_mode, variant_axis_label, variant_total_count, variant_orderable_count, variant_min_price_cents, variant_price_varies, default_variant_id";
+
+/** List payload: summary only — never full text_variants. */
+const STOREFRONT_LIST_COLUMNS_BASE = `${STOREFRONT_LIST_COLUMNS_CORE}, ${STOREFRONT_VARIANT_SUMMARY_COLUMNS}`;
+
 const STOREFRONT_LIST_COLUMNS = `${STOREFRONT_LIST_COLUMNS_BASE}, archived_at, redirect_to_product_id`;
+
+function isVariantSchemaMissing(message: string | undefined) {
+  const m = (message ?? "").toLowerCase();
+  return (
+    m.includes("variant_mode") ||
+    m.includes("text_variants") ||
+    m.includes("variant_total_count") ||
+    m.includes("line_option_key")
+  );
+}
 
 /** Public catalog: only live (non-archived) rows. */
 function notArchivedQuery<T extends { is: (col: string, val: null) => T }>(
@@ -72,15 +88,18 @@ async function fetchStorefrontProducts(): Promise<Product[]> {
     );
   }
 
-  if (!isArchiveSchemaMissing(primary.error.message)) {
+  if (
+    !isArchiveSchemaMissing(primary.error.message) &&
+    !isVariantSchemaMissing(primary.error.message)
+  ) {
     console.error("listProducts:", primary.error.message);
     return [];
   }
 
-  // Pre-migration compatibility: no archive columns yet → full catalog.
+  // Pre-migration: retry without variant and/or archive columns.
   const legacy = await supabase
     .from("products")
-    .select(STOREFRONT_LIST_COLUMNS_BASE)
+    .select(STOREFRONT_LIST_COLUMNS_CORE)
     .order("created_at", { ascending: false });
 
   if (legacy.error) {
@@ -185,6 +204,9 @@ export const listPricedProductsUnstable = unstable_cache(
 );
 
 /** Lean fetch for cart / favorites resolution (max 100 ids). */
+/** Cart / by-ids: include full text_variants for custom selection + pricing. */
+const STOREFRONT_BY_IDS_COLUMNS = `${STOREFRONT_LIST_COLUMNS}, text_variants, price_before_custom`;
+
 export async function listPricedProductsByIds(
   ids: string[],
 ): Promise<Product[]> {
@@ -198,17 +220,20 @@ export async function listPricedProductsByIds(
   const primary = await notArchivedQuery(
     supabase
       .from("products")
-      .select(STOREFRONT_LIST_COLUMNS)
+      .select(STOREFRONT_BY_IDS_COLUMNS)
       .in("id", unique),
   );
 
   let rows: Partial<ProductRow>[] | null = null;
   if (!primary.error) {
     rows = primary.data as Partial<ProductRow>[] | null;
-  } else if (isArchiveSchemaMissing(primary.error.message)) {
+  } else if (
+    isArchiveSchemaMissing(primary.error.message) ||
+    isVariantSchemaMissing(primary.error.message)
+  ) {
     const legacy = await supabase
       .from("products")
-      .select(STOREFRONT_LIST_COLUMNS_BASE)
+      .select(STOREFRONT_LIST_COLUMNS_CORE)
       .in("id", unique);
     if (legacy.error) {
       console.error("listPricedProductsByIds:", legacy.error.message);

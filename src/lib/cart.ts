@@ -8,6 +8,16 @@ import {
   upsertCartItemAction,
   type CartLineDto,
 } from "@/lib/actions/cart";
+import {
+  cartLineCompositeKey,
+  cartLineOptionKeyFromParts,
+  migrateLegacyCartOptionKey,
+  parseCartLineOptionKey,
+} from "@/lib/cart-line-key";
+import {
+  subtractMergeLines,
+  unionMergeLines,
+} from "@/lib/cart-merge-safety";
 import { getCachedClientAuthenticated } from "@/lib/client-auth";
 import { adjustStockAction } from "@/lib/actions/inventory";
 import {
@@ -33,6 +43,10 @@ import {
 } from "@/lib/price";
 import type { Product } from "@/lib/products";
 import {
+  catalogNetForTextVariant,
+  findTextVariant,
+} from "@/lib/product-variants";
+import {
   getProductOrderMultiple,
   snapQuantityToMultiple,
 } from "@/lib/taxonomy";
@@ -46,17 +60,32 @@ export {
 };
 
 export const CART_KEY = "pacidekor-cart";
+/**
+ * Pending guest snapshot + stable mergeId (localStorage — survives reload
+ * and closed tabs) until the server confirms the operation.
+ */
+export const CART_MERGE_PENDING_KEY = "pacidekor-cart-merge-pending";
 export const CART_EVENT = "pacidekor:cart-changed";
+/** Bump when stored shape changes (line_option_key). */
+export const CART_STORAGE_VERSION = 2;
+
+type PendingGuestMerge = {
+  mergeId: string;
+  lines: StoredCartLine[];
+};
 
 export type CartItem = {
   product: Product;
   quantity: number;
   colorId?: string;
+  variantId?: string;
+  lineOptionKey: string;
   /** Product missing from catalog after resolve (removed / inactive). */
   unavailable?: boolean;
 };
 
 type StoredCartLine = {
+  v?: number;
   productId: string;
   quantity: number;
   slug: string;
@@ -65,6 +94,8 @@ type StoredCartLine = {
   image: string;
   category: string;
   colorId?: string;
+  variantId?: string;
+  lineOptionKey: string;
 };
 
 let accountCartCache: CartLineDto[] | null = null;
@@ -86,6 +117,47 @@ export function getAccountCartHydrationState(): AccountCartHydration {
   return accountCartHydration;
 }
 
+function normalizeStoredLine(row: Partial<StoredCartLine>): StoredCartLine | null {
+  if (
+    typeof row.productId !== "string" ||
+    typeof row.quantity !== "number" ||
+    !Number.isFinite(row.quantity) ||
+    row.quantity < 1 ||
+    typeof row.slug !== "string" ||
+    typeof row.name !== "string" ||
+    typeof row.price !== "string" ||
+    typeof row.image !== "string" ||
+    typeof row.category !== "string"
+  ) {
+    return null;
+  }
+
+  const colorId =
+    typeof row.colorId === "string" && row.colorId ? row.colorId : undefined;
+  const variantId =
+    typeof row.variantId === "string" && row.variantId
+      ? row.variantId
+      : undefined;
+  const lineOptionKey =
+    typeof row.lineOptionKey === "string"
+      ? row.lineOptionKey
+      : migrateLegacyCartOptionKey(colorId);
+
+  return {
+    v: CART_STORAGE_VERSION,
+    productId: row.productId,
+    quantity: Math.floor(row.quantity),
+    slug: row.slug,
+    name: row.name,
+    price: row.price,
+    image: row.image,
+    category: row.category,
+    colorId,
+    variantId,
+    lineOptionKey,
+  };
+}
+
 function readStored(): StoredCartLine[] {
   if (typeof window === "undefined") return [];
   try {
@@ -93,39 +165,10 @@ function readStored(): StoredCartLine[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as unknown;
     if (!Array.isArray(parsed)) return [];
-
     return parsed.flatMap((item) => {
       if (!item || typeof item !== "object") return [];
-      const row = item as Partial<StoredCartLine>;
-      if (
-        typeof row.productId !== "string" ||
-        typeof row.quantity !== "number" ||
-        !Number.isFinite(row.quantity) ||
-        row.quantity < 1 ||
-        typeof row.slug !== "string" ||
-        typeof row.name !== "string" ||
-        typeof row.price !== "string" ||
-        typeof row.image !== "string" ||
-        typeof row.category !== "string"
-      ) {
-        return [];
-      }
-
-      return [
-        {
-          productId: row.productId,
-          quantity: Math.floor(row.quantity),
-          slug: row.slug,
-          name: row.name,
-          price: row.price,
-          image: row.image,
-          category: row.category,
-          colorId:
-            typeof row.colorId === "string" && row.colorId
-              ? row.colorId
-              : undefined,
-        },
-      ];
+      const line = normalizeStoredLine(item as Partial<StoredCartLine>);
+      return line ? [line] : [];
     });
   } catch {
     return [];
@@ -143,41 +186,107 @@ function clearStoredGuestCart() {
   window.localStorage.removeItem(CART_KEY);
 }
 
+function readPendingMerge(): PendingGuestMerge | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = window.localStorage.getItem(CART_MERGE_PENDING_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as PendingGuestMerge;
+    if (
+      !parsed ||
+      typeof parsed.mergeId !== "string" ||
+      !parsed.mergeId.trim() ||
+      !Array.isArray(parsed.lines)
+    ) {
+      return null;
+    }
+    const lines = parsed.lines.flatMap((item) => {
+      if (!item || typeof item !== "object") return [];
+      const line = normalizeStoredLine(item as Partial<StoredCartLine>);
+      return line ? [line] : [];
+    });
+    if (lines.length === 0) return null;
+    return { mergeId: parsed.mergeId.trim(), lines };
+  } catch {
+    return null;
+  }
+}
+
+function writePendingMerge(pending: PendingGuestMerge) {
+  if (typeof window === "undefined") return;
+  window.localStorage.setItem(CART_MERGE_PENDING_KEY, JSON.stringify(pending));
+}
+
+function clearPendingMerge() {
+  if (typeof window === "undefined") return;
+  window.localStorage.removeItem(CART_MERGE_PENDING_KEY);
+}
+
+function newMergeId(): string {
+  if (typeof crypto !== "undefined" && crypto.randomUUID) {
+    return crypto.randomUUID();
+  }
+  return `merge_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+}
+
 function toStoredLine(
   product: Product,
   quantity: number,
-  colorId?: string,
+  opts: { colorId?: string; variantId?: string; lineOptionKey?: string },
 ): StoredCartLine {
+  const lineOptionKey =
+    opts.lineOptionKey ??
+    cartLineOptionKeyFromParts({
+      colorId: opts.colorId,
+      variantId: opts.variantId,
+    });
+  const selection = parseCartLineOptionKey(lineOptionKey);
   return {
+    v: CART_STORAGE_VERSION,
     productId: product.id,
     quantity,
     slug: product.slug,
     name: product.name,
-    price: product.price,
+    price: catalogPriceForSelection(product, selection),
     image: product.image,
     category: product.category,
-    colorId: colorId || undefined,
+    colorId: selection.kind === "color" ? selection.colorId : undefined,
+    variantId: selection.kind === "variant" ? selection.variantId : undefined,
+    lineOptionKey,
   };
+}
+
+export function catalogPriceForSelection(
+  product: Product,
+  selection: ReturnType<typeof parseCartLineOptionKey>,
+): string {
+  if (selection.kind === "variant") {
+    const v = findTextVariant(product.textVariants, selection.variantId);
+    if (v) {
+      return catalogNetForTextVariant(v.priceCents, product.discount);
+    }
+  }
+  return product.price;
 }
 
 function lineToCartItemFromStored(line: StoredCartLine): CartItem {
   const live = findCatalogProductById(line.productId);
+  const base = {
+    quantity: line.quantity,
+    colorId: line.colorId,
+    variantId: line.variantId,
+    lineOptionKey: line.lineOptionKey,
+  };
   if (live) {
-    return {
-      product: live,
-      quantity: line.quantity,
-      colorId: line.colorId,
-    };
+    return { product: live, ...base };
   }
   if (isCatalogProductKnownUnavailable(line.productId)) {
     return {
       product: unavailableStub(line.productId),
-      quantity: line.quantity,
-      colorId: line.colorId,
+      ...base,
       unavailable: true,
     };
   }
-  // Snapshot while products resolve — avoid empty cart flash.
   return {
     product: {
       id: line.productId,
@@ -189,8 +298,7 @@ function lineToCartItemFromStored(line: StoredCartLine): CartItem {
       category: line.category,
       details: [],
     } satisfies Product,
-    quantity: line.quantity,
-    colorId: line.colorId,
+    ...base,
   };
 }
 
@@ -210,21 +318,17 @@ function unavailableStub(productId: string): Product {
 
 function dtoToCartItem(line: CartLineDto): CartItem | null {
   const product = findCatalogProductById(line.productId);
-  if (product) {
-    return {
-      product,
-      quantity: line.quantity,
-      colorId: line.colorId,
-    };
-  }
-  // Still resolving — omit so UI can show loading instead of empty cart.
-  if (!isCatalogProductKnownUnavailable(line.productId)) {
-    return null;
-  }
-  return {
-    product: unavailableStub(line.productId),
+  const base = {
     quantity: line.quantity,
     colorId: line.colorId,
+    variantId: line.variantId,
+    lineOptionKey: line.lineOptionKey,
+  };
+  if (product) return { product, ...base };
+  if (!isCatalogProductKnownUnavailable(line.productId)) return null;
+  return {
+    product: unavailableStub(line.productId),
+    ...base,
     unavailable: true,
   };
 }
@@ -234,77 +338,96 @@ function setAccountCart(lines: CartLineDto[]) {
   notify();
 }
 
-/** Serializes account cart writes so rapid clicks don't race. */
 let accountCartWriteChain: Promise<void> = Promise.resolve();
 
 function enqueueAccountCartWrite(task: () => Promise<void>) {
   accountCartWriteChain = accountCartWriteChain.then(task).catch(() => {});
 }
 
-/** Coalesce rapid qty changes — only the latest value hits the server. */
 const QUANTITY_SYNC_MS = 280;
 const pendingQuantitySync = new Map<
   string,
   { qty: number; timer: ReturnType<typeof setTimeout> }
 >();
 
-function scheduleAccountQuantitySync(productId: string, qty: number) {
-  const existing = pendingQuantitySync.get(productId);
+function scheduleAccountQuantitySync(
+  productId: string,
+  lineOptionKey: string,
+  qty: number,
+) {
+  const syncKey = cartLineCompositeKey(productId, lineOptionKey);
+  const existing = pendingQuantitySync.get(syncKey);
   if (existing) clearTimeout(existing.timer);
 
   const timer = setTimeout(() => {
-    const pending = pendingQuantitySync.get(productId);
-    pendingQuantitySync.delete(productId);
+    const pending = pendingQuantitySync.get(syncKey);
+    pendingQuantitySync.delete(syncKey);
     const targetQty = pending?.qty ?? qty;
 
     enqueueAccountCartWrite(async () => {
-      // Newer click scheduled again while we were queued — let that timer write.
-      if (pendingQuantitySync.has(productId)) return;
-
-      const result = await setCartItemQuantityAction(productId, targetQty);
+      if (pendingQuantitySync.has(syncKey)) return;
+      const result = await setCartItemQuantityAction(
+        productId,
+        targetQty,
+        lineOptionKey,
+      );
       if (!result.ok) {
-        if (lineQty(accountCartCache ?? [], productId) === targetQty) {
+        if (lineQty(accountCartCache ?? [], productId, lineOptionKey) === targetQty) {
           const listed = await listCartAction();
           if (listed.ok) setAccountCart(listed.data);
         }
         window.alert(result.error);
-        return;
       }
-
-      // Optimistic cache is source of truth — never apply a stale confirm.
     });
   }, QUANTITY_SYNC_MS);
 
-  pendingQuantitySync.set(productId, { qty, timer });
+  pendingQuantitySync.set(syncKey, { qty, timer });
 }
 
 function patchAccountCartLine(
   lines: CartLineDto[],
   productId: string,
+  lineOptionKey: string,
   quantity: number,
-  colorId?: string,
 ): CartLineDto[] {
+  const selection = parseCartLineOptionKey(lineOptionKey);
   if (quantity < 1) {
-    return lines.filter((line) => line.productId !== productId);
+    return lines.filter(
+      (line) =>
+        !(line.productId === productId && line.lineOptionKey === lineOptionKey),
+    );
   }
 
-  const index = lines.findIndex((line) => line.productId === productId);
+  const index = lines.findIndex(
+    (line) =>
+      line.productId === productId && line.lineOptionKey === lineOptionKey,
+  );
+  const nextLine: CartLineDto = {
+    productId,
+    quantity,
+    lineOptionKey,
+    colorId: selection.kind === "color" ? selection.colorId : undefined,
+    variantId: selection.kind === "variant" ? selection.variantId : undefined,
+  };
   if (index >= 0) {
     const next = lines.slice();
-    const prev = next[index]!;
-    next[index] = {
-      productId,
-      quantity,
-      colorId: colorId ?? prev.colorId,
-    };
+    next[index] = nextLine;
     return next;
   }
-
-  return [{ productId, quantity, colorId }, ...lines];
+  return [nextLine, ...lines];
 }
 
-function lineQty(lines: CartLineDto[], productId: string) {
-  return lines.find((line) => line.productId === productId)?.quantity ?? 0;
+function lineQty(
+  lines: CartLineDto[],
+  productId: string,
+  lineOptionKey: string,
+) {
+  return (
+    lines.find(
+      (line) =>
+        line.productId === productId && line.lineOptionKey === lineOptionKey,
+    )?.quantity ?? 0
+  );
 }
 
 export function readGuestCartLines(): CartLineDto[] {
@@ -312,6 +435,8 @@ export function readGuestCartLines(): CartLineDto[] {
     productId: line.productId,
     quantity: line.quantity,
     colorId: line.colorId,
+    variantId: line.variantId,
+    lineOptionKey: line.lineOptionKey,
   }));
 }
 
@@ -324,13 +449,11 @@ export function readCartItems(): CartItem[] {
   return readStored().map(lineToCartItemFromStored);
 }
 
-/** Resolve live catalog rows for guest localStorage cart (batched by-ids). */
 export async function hydrateGuestCartCatalog(): Promise<EnsureCatalogResult> {
   const ids = readStored().map((line) => line.productId);
   if (ids.length === 0) {
     return { ok: true, unavailableIds: [] };
   }
-  // Reconcile (not ensure-only): drop pre-archive catalog rows still in memory.
   const result = await reconcileCatalogProducts(ids);
   notify();
   return result;
@@ -354,26 +477,97 @@ export async function hydrateAccountCart(): Promise<CartItem[]> {
   return readCartItems();
 }
 
+let mergeGuestInFlight: Promise<CartItem[]> | null = null;
+
+function storedToMergeInput(lines: StoredCartLine[]) {
+  return lines.map((line) => ({
+    productId: line.productId,
+    quantity: line.quantity,
+    colorId: line.colorId,
+    variantId: line.variantId,
+    lineOptionKey: line.lineOptionKey,
+  }));
+}
+
+async function finishPendingGuestMerge(
+  pending: PendingGuestMerge,
+): Promise<CartItem[]> {
+  const guest = storedToMergeInput(pending.lines);
+
+  try {
+    const result = await mergeGuestCartAction(guest, pending.mergeId);
+    if (!result.ok) {
+      throw new Error(result.error);
+    }
+    // Confirmed: drop pending and strip restored snapshot qty from live guest
+    // so a later merge does not re-send them under a new mergeId. Mid-flight
+    // extras beyond the snapshot remain for a subsequent merge.
+    clearPendingMerge();
+    writeStored(subtractMergeLines(readStored(), pending.lines));
+    accountCartHydration = "pending";
+    notify();
+    const ensure = await reconcileCatalogProducts(
+      result.data.map((line) => line.productId),
+    );
+    accountCartHydration = ensure.ok ? "ready" : "error";
+    setAccountCart(result.data);
+    return readCartItems();
+  } catch (error) {
+    // Keep the same mergeId for retry. Restore snapshot ∪ mid-flight live
+    // so guest content remains visible until a later successful confirm.
+    const restored = unionMergeLines(pending.lines, readStored());
+    writeStored(restored);
+    writePendingMerge(pending);
+    throw error;
+  }
+}
+
+/**
+ * Merge guest localStorage cart into the signed-in account cart.
+ * - Aborts without touching guest if the account cart cannot be listed.
+ * - Stable mergeId + DB transaction: retries never double-add.
+ * - Pending snapshot in localStorage survives reload / closed tabs.
+ * - Mid-flight guest adds stay in the live cart key after success.
+ */
 export async function mergeGuestCartIntoAccount(): Promise<CartItem[]> {
-  const guest = readGuestCartLines();
-  if (guest.length === 0) {
-    return hydrateAccountCart();
-  }
+  if (mergeGuestInFlight) return mergeGuestInFlight;
 
-  const result = await mergeGuestCartAction(guest);
-  if (!result.ok) {
-    throw new Error(result.error);
-  }
+  mergeGuestInFlight = (async () => {
+    const existingPending = readPendingMerge();
+    const guestStored = readStored();
 
-  accountCartHydration = "pending";
-  notify();
-  clearStoredGuestCart();
-  const ensure = await reconcileCatalogProducts(
-    result.data.map((line) => line.productId),
-  );
-  accountCartHydration = ensure.ok ? "ready" : "error";
-  setAccountCart(result.data);
-  return readCartItems();
+    if (guestStored.length === 0 && !existingPending) {
+      return hydrateAccountCart();
+    }
+
+    // Resume interrupted merge with the same mergeId (lost response / reload).
+    if (existingPending) {
+      // Live guest may contain mid-flight adds and/or a restored snapshot.
+      // Only the pending.lines payload is sent; live extras stay local until
+      // a subsequent merge after this one confirms.
+      return finishPendingGuestMerge(existingPending);
+    }
+
+    // Gate: never start a new merge if account cart cannot be loaded.
+    const listed = await listCartAction();
+    if (!listed.ok) {
+      throw new Error(listed.error);
+    }
+
+    const pending: PendingGuestMerge = {
+      mergeId: newMergeId(),
+      lines: guestStored,
+    };
+    writePendingMerge(pending);
+    // Clear live key so concurrent sync cannot re-submit; new guest adds
+    // during flight land in an empty live cart and survive after confirm.
+    clearStoredGuestCart();
+    return finishPendingGuestMerge(pending);
+  })().finally(() => {
+    mergeGuestInFlight = null;
+  });
+
+  return mergeGuestInFlight;
 }
 
 export function clearAccountCartCache() {
@@ -382,11 +576,28 @@ export function clearAccountCartCache() {
   notify();
 }
 
+export type AddToCartOptions = {
+  colorId?: string;
+  variantId?: string;
+  lineOptionKey?: string;
+};
+
 export async function addToCart(
   product: Product,
   quantity = 1,
-  colorId?: string,
+  colorIdOrOpts?: string | AddToCartOptions,
 ): Promise<CartItem[]> {
+  const opts: AddToCartOptions =
+    typeof colorIdOrOpts === "string"
+      ? { colorId: colorIdOrOpts }
+      : colorIdOrOpts ?? {};
+  const lineOptionKey =
+    opts.lineOptionKey ??
+    cartLineOptionKeyFromParts({
+      colorId: opts.colorId,
+      variantId: opts.variantId,
+    });
+
   const multiple = getProductOrderMultiple(product.attributes?.packaging);
   const qty = snapQuantityToMultiple(
     Math.max(1, Math.floor(quantity)),
@@ -395,12 +606,13 @@ export async function addToCart(
   if (qty <= 0) return readCartItems();
 
   if (getCachedClientAuthenticated() === true) {
-    // Not hydrated yet — must wait for server (rare; AccountDataSync usually ran).
     if (accountCartCache === null) {
       const result = await upsertCartItemAction({
         productId: product.id,
         quantity: qty,
-        colorId,
+        lineOptionKey,
+        colorId: opts.colorId,
+        variantId: opts.variantId,
       });
       if (!result.ok) throw new Error(result.error);
       const listed = await listCartAction();
@@ -410,51 +622,50 @@ export async function addToCart(
     }
 
     const snapshot = accountCartCache;
-    const nextQty = lineQty(snapshot, product.id) + qty;
+    const nextQty = lineQty(snapshot, product.id, lineOptionKey) + qty;
     setAccountCart(
-      patchAccountCartLine(snapshot, product.id, nextQty, colorId),
+      patchAccountCartLine(snapshot, product.id, lineOptionKey, nextQty),
     );
 
     enqueueAccountCartWrite(async () => {
       const result = await upsertCartItemAction({
         productId: product.id,
         quantity: nextQty,
-        colorId,
+        lineOptionKey,
+        colorId: opts.colorId,
+        variantId: opts.variantId,
       });
       if (!result.ok) {
-        if (lineQty(accountCartCache ?? [], product.id) === nextQty) {
+        if (lineQty(accountCartCache ?? [], product.id, lineOptionKey) === nextQty) {
           setAccountCart(
             patchAccountCartLine(
               accountCartCache ?? snapshot,
               product.id,
-              lineQty(snapshot, product.id),
-              colorId,
+              lineOptionKey,
+              lineQty(snapshot, product.id, lineOptionKey),
             ),
           );
         }
         window.alert(result.error);
-        return;
       }
-      // Keep optimistic cache — do not re-apply possibly stale server qty.
     });
 
     return readCartItems();
   }
 
   const lines = readStored();
-  const index = lines.findIndex((line) => line.productId === product.id);
+  const index = lines.findIndex(
+    (line) =>
+      line.productId === product.id && line.lineOptionKey === lineOptionKey,
+  );
 
   if (index >= 0) {
     const current = lines[index]!;
-    lines[index] = {
-      ...toStoredLine(
-        product,
-        current.quantity + qty,
-        colorId ?? current.colorId,
-      ),
-    };
+    lines[index] = toStoredLine(product, current.quantity + qty, {
+      lineOptionKey,
+    });
   } else {
-    lines.push(toStoredLine(product, qty, colorId));
+    lines.push(toStoredLine(product, qty, { lineOptionKey }));
   }
 
   writeStored(lines);
@@ -464,6 +675,7 @@ export async function addToCart(
 export async function setCartQuantity(
   productId: string,
   quantity: number,
+  lineOptionKey = "",
 ): Promise<CartItem[]> {
   let qty = Math.floor(quantity);
   if (qty > 0) {
@@ -474,99 +686,78 @@ export async function setCartQuantity(
 
   if (getCachedClientAuthenticated() === true) {
     if (accountCartCache === null) {
-      const result = await setCartItemQuantityAction(productId, qty);
+      const result = await setCartItemQuantityAction(
+        productId,
+        qty,
+        lineOptionKey,
+      );
       if (!result.ok) throw new Error(result.error);
       const listed = await listCartAction();
       if (listed.ok) setAccountCart(listed.data);
       return readCartItems();
     }
 
-    setAccountCart(patchAccountCartLine(accountCartCache, productId, qty));
-    scheduleAccountQuantitySync(productId, qty);
+    setAccountCart(
+      patchAccountCartLine(accountCartCache, productId, lineOptionKey, qty),
+    );
+    scheduleAccountQuantitySync(productId, lineOptionKey, qty);
     return readCartItems();
   }
 
   const lines = readStored();
 
   if (qty < 1) {
-    const next = lines.filter((line) => line.productId !== productId);
+    const next = lines.filter(
+      (line) =>
+        !(line.productId === productId && line.lineOptionKey === lineOptionKey),
+    );
     writeStored(next);
     return next.map(lineToCartItemFromStored);
   }
 
   const next = lines.map((line) =>
-    line.productId === productId ? { ...line, quantity: qty } : line,
+    line.productId === productId && line.lineOptionKey === lineOptionKey
+      ? { ...line, quantity: qty }
+      : line,
   );
   writeStored(next);
   return next.map(lineToCartItemFromStored);
 }
 
-export async function removeFromCart(productId: string): Promise<CartItem[]> {
-  return setCartQuantity(productId, 0);
+export async function removeFromCart(
+  productId: string,
+  lineOptionKey = "",
+): Promise<CartItem[]> {
+  return setCartQuantity(productId, 0, lineOptionKey);
 }
 
 /**
- * Update only the color selection for an existing cart line.
- * Pass empty string to clear colorId (e.g. leftover Mix on a product that no longer has colors).
- * Does not change quantity and does not remove the line (no silent remap elsewhere).
+ * Change color on a line: identity moves to c:{newColor}.
+ * Merges quantity into an existing line with that color when present.
  */
 export async function setCartLineColor(
   productId: string,
   colorId: string,
+  fromLineOptionKey = "",
 ): Promise<CartItem[]> {
   const nextColor = colorId.trim();
-  const colorOrUndefined = nextColor || undefined;
+  const toKey = cartLineOptionKeyFromParts({ colorId: nextColor || undefined });
+  if (toKey === fromLineOptionKey) return readCartItems();
 
-  if (getCachedClientAuthenticated() === true) {
-    if (accountCartCache === null) {
-      const items = readCartItems();
-      const current = items.find((item) => item.product.id === productId);
-      if (!current || current.unavailable) return items;
-      const result = await upsertCartItemAction({
-        productId,
-        quantity: current.quantity,
-        colorId: colorOrUndefined,
-      });
-      if (!result.ok) throw new Error(result.error);
-      const listed = await listCartAction();
-      if (listed.ok) setAccountCart(listed.data);
-      return readCartItems();
-    }
+  const items = readCartItems();
+  const current = items.find(
+    (item) =>
+      item.product.id === productId &&
+      item.lineOptionKey === fromLineOptionKey,
+  );
+  if (!current || current.unavailable) return items;
 
-    const currentQty = lineQty(accountCartCache, productId);
-    if (currentQty < 1) return readCartItems();
-    const snapshot = accountCartCache;
-    // patchAccountCartLine uses `colorId ?? prev.colorId` — empty must clear explicitly.
-    const patched = snapshot.map((line) =>
-      line.productId === productId
-        ? { productId, quantity: currentQty, colorId: colorOrUndefined }
-        : line,
-    );
-    setAccountCart(patched);
-    enqueueAccountCartWrite(async () => {
-      const result = await upsertCartItemAction({
-        productId,
-        quantity: currentQty,
-        colorId: colorOrUndefined,
-      });
-      if (!result.ok) {
-        setAccountCart(snapshot);
-        window.alert(result.error);
-      }
-    });
-    return readCartItems();
-  }
-
-  const lines = readStored();
-  const index = lines.findIndex((line) => line.productId === productId);
-  if (index < 0) return readCartItems();
-  const current = lines[index]!;
-  const { colorId: _drop, ...rest } = current;
-  lines[index] = colorOrUndefined
-    ? { ...rest, colorId: colorOrUndefined }
-    : { ...rest };
-  writeStored(lines);
-  return lines.map(lineToCartItemFromStored);
+  const qty = current.quantity;
+  await removeFromCart(productId, fromLineOptionKey);
+  return addToCart(current.product, qty, {
+    colorId: nextColor || undefined,
+    lineOptionKey: toKey,
+  });
 }
 
 export async function clearCart() {
@@ -589,12 +780,10 @@ export type CartFillLine = {
   product: Product;
   quantity: number;
   colorId?: string;
+  variantId?: string;
+  lineOptionKey?: string;
 };
 
-/**
- * Replace the whole cart in one optimistic step (history repeat / templates).
- * UI updates immediately; Supabase cart + stock sync run in the background.
- */
 export function replaceCartContents(lines: CartFillLine[]): number {
   const current = readCartItems();
 
@@ -637,11 +826,23 @@ export function replaceCartContents(lines: CartFillLine[]): number {
   }
 
   if (getCachedClientAuthenticated() === true) {
-    const nextDto: CartLineDto[] = accepted.map((line) => ({
-      productId: line.product.id,
-      quantity: line.quantity,
-      colorId: line.colorId,
-    }));
+    const nextDto: CartLineDto[] = accepted.map((line) => {
+      const lineOptionKey =
+        line.lineOptionKey ??
+        cartLineOptionKeyFromParts({
+          colorId: line.colorId,
+          variantId: line.variantId,
+        });
+      const selection = parseCartLineOptionKey(lineOptionKey);
+      return {
+        productId: line.product.id,
+        quantity: line.quantity,
+        lineOptionKey,
+        colorId: selection.kind === "color" ? selection.colorId : undefined,
+        variantId:
+          selection.kind === "variant" ? selection.variantId : undefined,
+      };
+    });
     setAccountCart(nextDto);
 
     const snapshot = nextDto;
@@ -655,7 +856,9 @@ export function replaceCartContents(lines: CartFillLine[]): number {
         const result = await upsertCartItemAction({
           productId: line.productId,
           quantity: line.quantity,
+          lineOptionKey: line.lineOptionKey,
           colorId: line.colorId,
+          variantId: line.variantId,
         });
         if (!result.ok) {
           window.alert(result.error);
@@ -669,7 +872,11 @@ export function replaceCartContents(lines: CartFillLine[]): number {
 
   writeStored(
     accepted.map((line) =>
-      toStoredLine(line.product, line.quantity, line.colorId),
+      toStoredLine(line.product, line.quantity, {
+        colorId: line.colorId,
+        variantId: line.variantId,
+        lineOptionKey: line.lineOptionKey,
+      }),
     ),
   );
   return accepted.length;
@@ -680,10 +887,6 @@ export type AddLinesToCartResult = {
   skipped: number;
 };
 
-/**
- * Add lines on top of the current cart (favorites → cart).
- * Skips sold-out items. Optimistic UI + background sync.
- */
 export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
   let added = 0;
   let skipped = 0;
@@ -719,7 +922,11 @@ export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
       });
     }
 
-    void addToCart(line.product, qty, line.colorId).catch(() => {
+    void addToCart(line.product, qty, {
+      colorId: line.colorId,
+      variantId: line.variantId,
+      lineOptionKey: line.lineOptionKey,
+    }).catch(() => {
       applyInventoryLocally(line.product.id, previous);
     });
     added += 1;
@@ -728,24 +935,29 @@ export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
   return { added, skipped };
 }
 
-/** Number of distinct products (cart lines), not total pieces. */
 export function cartItemCount(items: CartItem[]) {
   return items.length;
 }
 
-/** Total quantity across all lines (ks). */
 export function cartPieceCount(items: CartItem[]) {
   return items.reduce((sum, item) => sum + item.quantity, 0);
 }
 
+export function cartLineUnitCatalogPrice(item: CartItem): string {
+  return catalogPriceForSelection(
+    item.product,
+    parseCartLineOptionKey(item.lineOptionKey),
+  );
+}
+
 export function cartSubtotal(items: CartItem[]) {
   return items.reduce(
-    (sum, item) => sum + parsePrice(item.product.price) * item.quantity,
+    (sum, item) =>
+      sum + parsePrice(cartLineUnitCatalogPrice(item)) * item.quantity,
     0,
   );
 }
 
-/** Medzisúčet v cenách pre dané publikum (VO = katalóg, inak +50 %). */
 export function cartSubtotalForAudience(
   items: CartItem[],
   isWholesale: boolean,
@@ -753,8 +965,18 @@ export function cartSubtotalForAudience(
   return items.reduce(
     (sum, item) =>
       sum +
-      audienceNetFromCatalogPrice(item.product.price, isWholesale) *
+      audienceNetFromCatalogPrice(cartLineUnitCatalogPrice(item), isWholesale) *
         item.quantity,
     0,
   );
+}
+
+/** Sum quantities of all lines for one product (stock ceiling). */
+export function cartProductPieceTotal(
+  items: CartItem[],
+  productId: string,
+): number {
+  return items
+    .filter((item) => item.product.id === productId)
+    .reduce((sum, item) => sum + item.quantity, 0);
 }

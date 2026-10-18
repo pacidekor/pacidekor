@@ -26,7 +26,14 @@ import { colorsFromIds } from "@/lib/products";
 function orderLineCodeLabel(
   sku: string | undefined,
   colorId: string | undefined,
+  selectionAxisLabel?: string,
+  selectionValueLabel?: string,
 ) {
+  if (selectionValueLabel) {
+    const axis = selectionAxisLabel?.trim() || "Výber";
+    const selection = `${axis}: ${selectionValueLabel}`;
+    return sku ? `${sku} (${selection})` : selection;
+  }
   if (!sku) return null;
   if (!colorId) return sku;
   const color = colorsFromIds([colorId])[0];
@@ -186,6 +193,8 @@ export function AccountOrderDetail({
                 const codeLabel = orderLineCodeLabel(
                   product?.sku,
                   line.colorId,
+                  line.selectionAxisLabel,
+                  line.selectionValueLabel,
                 );
 
                 return (

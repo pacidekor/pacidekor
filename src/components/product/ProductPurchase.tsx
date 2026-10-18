@@ -6,6 +6,7 @@ import { BellIcon } from "@/components/icons/BellIcon";
 import { ProductPriceDisplay } from "@/components/ProductPriceDisplay";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { ProductColorPills } from "@/components/product/ProductColorPills";
+import { ProductVariantPills } from "@/components/product/ProductVariantPills";
 import { RestockNotifyModal } from "@/components/product/RestockNotifyModal";
 import {
   inventoryMaxOrderable,
@@ -17,6 +18,12 @@ import {
   isProductOrderableByColors,
 } from "@/lib/order-line-color";
 import type { Product } from "@/lib/products";
+import {
+  catalogNetForTextVariant,
+  firstOrderableVariant,
+  formatCentsAsPrice,
+  findTextVariant,
+} from "@/lib/product-variants";
 import {
   alignMaxToOrderMultiple,
   formatPackagingDeliveryHint,
@@ -32,23 +39,35 @@ type ProductPurchaseProps = {
   product: Product;
   selectedColor?: string;
   onSelectColor?: (colorId: string) => void;
+  selectedVariantId?: string;
+  onSelectVariant?: (variantId: string) => void;
 };
 
 export function ProductPurchase({
   product,
   selectedColor: controlledColor,
   onSelectColor,
+  selectedVariantId: controlledVariant,
+  onSelectVariant,
 }: ProductPurchaseProps) {
   const isWholesale = useIsWholesale();
   const inventory = useProductInventory(product);
   const inventoryAvailable = isInventoryAvailable(inventory);
+  const isCustom = product.variantMode === "custom";
+  const variants = product.textVariants ?? [];
   const colorIds = product.attributes?.colors ?? product.colors?.map((c) => c.id);
+
   const productOrderableByColors = isProductOrderableByColors({
     productInStock: inventoryAvailable,
-    colorIds,
+    colorIds: isCustom ? [] : colorIds,
     unavailableColorIds: product.unavailableColorIds,
   });
-  const available = productOrderableByColors;
+  const hasOrderableVariant =
+    !isCustom || variants.some((v) => v.available);
+  const available =
+    inventoryAvailable &&
+    (isCustom ? hasOrderableVariant : productOrderableByColors);
+
   const stockMax = inventoryMaxOrderable(inventory);
   const orderMultiple = getProductOrderMultiple(product.attributes?.packaging);
   const packagingOption = getPrimaryPackagingOption(
@@ -69,9 +88,20 @@ export function ProductPurchase({
       product.colors?.[0]?.id ||
       "",
   );
+  const [internalVariant, setInternalVariant] = useState(
+    () =>
+      firstOrderableVariant(variants, product.defaultVariantId)?.id ??
+      variants[0]?.id ??
+      "",
+  );
+
   const selectedColor = controlledColor ?? internalColor;
   const setSelectedColor = onSelectColor ?? setInternalColor;
-  const hasColors = Boolean(product.colors && product.colors.length > 0);
+  const selectedVariantId = controlledVariant ?? internalVariant;
+  const setSelectedVariant = onSelectVariant ?? setInternalVariant;
+
+  const hasColors =
+    !isCustom && Boolean(product.colors && product.colors.length > 0);
   const selectedColorOrderable = hasColors
     ? isColorOrderable(
         selectedColor,
@@ -79,10 +109,32 @@ export function ProductPurchase({
         product.unavailableColorIds,
       )
     : true;
+  const selectedVariant = findTextVariant(variants, selectedVariantId);
+  const selectedVariantOrderable = isCustom
+    ? Boolean(selectedVariant?.available)
+    : true;
+
   const canOrderPack =
     available &&
     selectedColorOrderable &&
+    selectedVariantOrderable &&
     (typeof maxQty !== "number" || maxQty >= orderMultiple);
+
+  // Custom: variant net ± percent discount (same math as order-line-selection).
+  // product.price already includes discount for none/colors modes.
+  const displayPrice =
+    isCustom && selectedVariant
+      ? catalogNetForTextVariant(
+          selectedVariant.priceCents,
+          product.discount,
+        )
+      : product.price;
+  const displayOriginalPrice =
+    isCustom && selectedVariant && product.discount
+      ? formatCentsAsPrice(selectedVariant.priceCents)
+      : isCustom
+        ? undefined
+        : product.originalPrice;
 
   useEffect(() => {
     if (!canOrderPack) {
@@ -111,7 +163,8 @@ export function ProductPurchase({
       <AddToCartButton
         product={product}
         quantity={quantity}
-        colorId={selectedColor || undefined}
+        colorId={isCustom ? undefined : selectedColor || undefined}
+        variantId={isCustom ? selectedVariantId || undefined : undefined}
         disabled={!canOrderPack}
         size="page"
       />
@@ -143,14 +196,23 @@ export function ProductPurchase({
 
   const priceDisplay = (
     <ProductPriceDisplay
-      price={product.price}
-      originalPrice={product.originalPrice}
+      price={displayPrice}
+      originalPrice={displayOriginalPrice}
       variant="pdp"
     />
   );
 
   return (
     <div className="mt-6 flex flex-col gap-4">
+      {isCustom && variants.length > 0 ? (
+        <ProductVariantPills
+          axisLabel={product.variantAxisLabel || "Varianta"}
+          variants={variants}
+          selectedVariantId={selectedVariantId}
+          onSelect={setSelectedVariant}
+        />
+      ) : null}
+
       {hasColors ? (
         <ProductColorPills
           colors={product.colors!}
@@ -184,7 +246,7 @@ export function ProductPurchase({
         open={restockOpen}
         onClose={() => setRestockOpen(false)}
         product={product}
-        colorId={selectedColor || undefined}
+        colorId={isCustom ? undefined : selectedColor || undefined}
       />
     </div>
   );
@@ -211,7 +273,6 @@ function StockLine({
         canOrderPack ? "text-[#2f2924]/55" : "font-medium text-[#c45c4a]"
       }`}
     >
-      {/* Mobil: balenie vľavo, sklad vpravo */}
       <div className="flex items-baseline justify-between gap-3 sm:hidden">
         {packagingHintShort ? (
           <span className="min-w-0">{packagingHintShort}</span>
@@ -227,7 +288,6 @@ function StockLine({
         </span>
       </div>
 
-      {/* Desktop: jeden riadok bez medzery okolo · */}
       <p className="hidden text-right sm:block">
         {packagingHint ? (
           <>

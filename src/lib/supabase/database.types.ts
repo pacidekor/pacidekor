@@ -108,6 +108,16 @@ export type ProductRow = {
    * Optional until the same migration is applied.
    */
   redirect_to_product_id?: string | null;
+  /** none | colors | custom — optional until migration 20261019. */
+  variant_mode?: string;
+  variant_axis_label?: string | null;
+  text_variants?: unknown;
+  default_variant_id?: string | null;
+  variant_total_count?: number;
+  variant_orderable_count?: number;
+  variant_min_price_cents?: number | null;
+  variant_price_varies?: boolean;
+  price_before_custom?: string | null;
 };
 
 export type ProductInsert = {
@@ -136,6 +146,15 @@ export type ProductInsert = {
   is_bestseller?: boolean;
   created_at?: string;
   updated_at?: string;
+  variant_mode?: string;
+  variant_axis_label?: string | null;
+  text_variants?: unknown;
+  default_variant_id?: string | null;
+  variant_total_count?: number;
+  variant_orderable_count?: number;
+  variant_min_price_cents?: number | null;
+  variant_price_varies?: boolean;
+  price_before_custom?: string | null;
 };
 
 export type ProductUpdate = Partial<Omit<ProductInsert, "id">>;
@@ -144,7 +163,7 @@ export type ProductDiscountRow = {
   id: string;
   product_id: string;
   original_price: string;
-  sale_price: string;
+  sale_price: string | null;
   discount_percent: number;
   show_on_akcia_page: boolean;
   active: boolean;
@@ -158,7 +177,7 @@ export type ProductDiscountInsert = {
   id?: string;
   product_id: string;
   original_price: string;
-  sale_price: string;
+  sale_price?: string | null;
   discount_percent: number;
   show_on_akcia_page?: boolean;
   active?: boolean;
@@ -251,6 +270,8 @@ export type CartItemRow = {
   product_id: string;
   quantity: number;
   color_id: string | null;
+  /** "" | c:{colorId} | v:{variantId} — optional until migration 20261019. */
+  line_option_key?: string;
   updated_at: string;
   created_at: string;
 };
@@ -260,6 +281,7 @@ export type CartItemInsert = {
   product_id: string;
   quantity: number;
   color_id?: string | null;
+  line_option_key?: string;
   updated_at?: string;
   created_at?: string;
 };
@@ -359,6 +381,9 @@ export type OrderItemRow = {
   unit_price: string;
   quantity: number;
   color_id: string | null;
+  variant_id?: string | null;
+  selection_axis_label?: string | null;
+  selection_value_label?: string | null;
   created_at: string;
 };
 
@@ -656,6 +681,10 @@ export type Database = {
       next_invoice_number: {
         Args: Record<string, never>;
         Returns: string;
+      };
+      merge_guest_cart_lines: {
+        Args: { p_merge_id: string; p_lines: unknown };
+        Returns: unknown;
       };
     };
     Enums: {

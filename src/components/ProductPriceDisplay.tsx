@@ -10,28 +10,34 @@ type ProductPriceDisplayProps = {
   price: string;
   originalPrice?: string;
   variant?: "card" | "pdp" | "inline";
+  /** Show "od …" when custom variant prices differ. */
+  fromPrice?: boolean;
 };
 
 function CardPrice({
   price,
   originalPrice,
   isWholesale,
+  fromPrice,
 }: {
   price: string;
   originalPrice?: string;
   isWholesale: boolean;
+  fromPrice?: boolean;
 }) {
   const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
     ? formatAudiencePriceExVat(originalPrice, isWholesale)
     : undefined;
   const inc = formatAudiencePriceIncVat(price, isWholesale);
+  const prefix = fromPrice ? "od " : "";
 
   if (originalPrice && exVatOriginal) {
     return (
       <div className="flex min-w-0 items-baseline justify-between gap-x-2 gap-y-0.5 md:flex-col md:items-start md:justify-start md:gap-0">
         <div className="flex min-w-0 flex-wrap items-baseline gap-x-1.5 gap-y-0">
           <span className="font-sans text-lg font-bold whitespace-nowrap text-[#c45c4a] sm:text-xl">
+            {prefix}
             {exVat}
             <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
           </span>
@@ -40,6 +46,7 @@ function CardPrice({
           </span>
         </div>
         <span className="shrink-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs md:mt-0.5">
+          {prefix}
           {inc} s DPH
         </span>
       </div>
@@ -49,10 +56,12 @@ function CardPrice({
   return (
     <div className="flex min-w-0 items-baseline justify-between gap-x-2 md:flex-col md:items-start md:justify-start md:gap-0">
       <span className="whitespace-nowrap font-sans text-lg font-semibold text-[#2f2924] sm:text-xl">
+        {prefix}
         {exVat}
         <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
       </span>
       <span className="shrink-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs md:mt-0.5">
+        {prefix}
         {inc} s DPH
       </span>
     </div>
@@ -163,6 +172,7 @@ export function ProductPriceDisplay({
   price,
   originalPrice,
   variant = "card",
+  fromPrice = false,
 }: ProductPriceDisplayProps) {
   const isWholesale = useIsWholesale();
 
@@ -191,6 +201,7 @@ export function ProductPriceDisplay({
       price={price}
       originalPrice={originalPrice}
       isWholesale={isWholesale}
+      fromPrice={fromPrice}
     />
   );
 }

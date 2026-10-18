@@ -439,7 +439,8 @@ export function AdminDiscountsManager() {
                         </p>
                         <p className="font-medium tabular-nums text-[#2f2924] lg:w-[6.5rem] lg:shrink-0 lg:text-right">
                           <span className="lg:hidden">Akciová: </span>
-                          {discount.salePrice}
+                          {discount.salePrice ??
+                            `−${discount.discountPercent}%`}
                         </p>
                         <p className="font-semibold tabular-nums text-[#75825B] lg:w-14 lg:shrink-0 lg:text-right">
                           -{discount.discountPercent}%

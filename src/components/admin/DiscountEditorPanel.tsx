@@ -43,7 +43,8 @@ function filterProductsBySearch(products: Product[], rawQuery: string) {
   return filterProductsBySearchQuery(products, rawQuery);
 }
 
-function priceInputValue(price: string) {
+function priceInputValue(price: string | null | undefined) {
+  if (price == null) return "";
   return price.replace(/\s/g, "").replace("€", "").trim();
 }
 

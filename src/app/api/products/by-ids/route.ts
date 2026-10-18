@@ -22,6 +22,14 @@ function slimProduct(product: Product) {
     attributes: product.attributes,
     colors: product.colors,
     unavailableColorIds: product.unavailableColorIds ?? [],
+    variantMode: product.variantMode,
+    variantAxisLabel: product.variantAxisLabel,
+    textVariants: product.textVariants,
+    defaultVariantId: product.defaultVariantId,
+    variantTotalCount: product.variantTotalCount,
+    variantOrderableCount: product.variantOrderableCount,
+    variantMinPriceCents: product.variantMinPriceCents,
+    variantPriceVaries: product.variantPriceVaries,
   };
 }
 

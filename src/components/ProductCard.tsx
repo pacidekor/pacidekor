@@ -12,6 +12,7 @@ import {
   resolveProductColorForFilters,
   type Product,
 } from "@/lib/products";
+import { formatVariantCountLabel } from "@/lib/product-variants";
 import { usePricedProduct } from "@/lib/use-priced-product";
 
 const MAX_CARD_SWATCHES = 5;
@@ -32,6 +33,14 @@ export const ProductCard = memo(function ProductCard({
   const priced = usePricedProduct(product);
   const colors = priced.colors ?? [];
   const showSwatches = colors.length > 1;
+  const variantCountBadge =
+    priced.variantMode === "custom"
+      ? formatVariantCountLabel(
+          typeof priced.variantTotalCount === "number"
+            ? priced.variantTotalCount
+            : (priced.textVariants?.length ?? 0),
+        )
+      : null;
 
   const filterKey = filterColorIds?.join(",") ?? "";
   const preferredColorId = useMemo(
@@ -182,6 +191,13 @@ export const ProductCard = memo(function ProductCard({
               </span>
             ) : null}
           </div>
+        ) : variantCountBadge ? (
+          <span
+            className="absolute bottom-3 left-3 z-10 inline-flex h-7 max-w-[calc(100%-1.5rem)] items-center truncate rounded-full bg-white/85 px-2.5 text-xs font-semibold text-[#2f2924] shadow-[0_2px_10px_rgba(47,41,36,0.12)] backdrop-blur-sm sm:h-[1.875rem] sm:px-3 sm:text-sm"
+            aria-label={variantCountBadge}
+          >
+            {variantCountBadge}
+          </span>
         ) : null}
       </div>
 

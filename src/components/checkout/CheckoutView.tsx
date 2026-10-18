@@ -612,6 +612,7 @@ export function CheckoutView() {
           productId: item.product.id,
           quantity: item.quantity,
           colorId: item.colorId,
+          variantId: item.variantId,
         })),
       });
 

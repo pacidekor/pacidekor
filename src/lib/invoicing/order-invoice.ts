@@ -58,11 +58,20 @@ function customerAddressFromOrder(order: Order) {
     .join(", ");
 }
 
+/** Invoice / doklad line text including selection snapshot when present. */
+export function orderLineInvoiceDescription(
+  line: Order["items"][number],
+): string {
+  if (!line.selectionValueLabel) return line.name;
+  const axis = line.selectionAxisLabel?.trim() || "Výber";
+  return `${line.name} (${axis}: ${line.selectionValueLabel})`;
+}
+
 function buildItemsFromOrder(order: Order): InvoicePdfLineItem[] {
   const items: InvoicePdfLineItem[] = order.items.map((line) => {
     const unit = parsePrice(line.unitPrice);
     return {
-      description: line.name,
+      description: orderLineInvoiceDescription(line),
       quantity: line.quantity,
       unitPriceExVat: unit,
       lineTotalExVat: unit * line.quantity,

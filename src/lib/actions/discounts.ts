@@ -18,7 +18,7 @@ export type DiscountUpsertInput = {
   id?: string;
   productId: string;
   originalPrice: string;
-  salePrice: string;
+  salePrice: string | null;
   discountPercent: number;
   showOnAkciaPage: boolean;
   active: boolean;
@@ -95,10 +95,41 @@ export async function upsertDiscountAction(
   const auth = await requireAdmin();
   if (!auth.ok) return { ok: false, error: auth.error };
 
+  const { data: productRow } = await auth.supabase
+    .from("products")
+    .select("variant_mode")
+    .eq("id", input.productId)
+    .maybeSingle();
+  if (productRow?.variant_mode === "custom") {
+    const { discountIsPercentCompatible } = await import(
+      "@/lib/product-variants"
+    );
+    const saleForCheck =
+      input.salePrice == null ? null : input.salePrice.trim();
+    if (
+      !discountIsPercentCompatible({
+        originalPrice: input.originalPrice.trim(),
+        salePrice: saleForCheck,
+        discountPercent: input.discountPercent,
+      })
+    ) {
+      return {
+        ok: false,
+        error:
+          "Pri produkte s vlastnými variantami je povolená len percentuálna zľava (sale price musí odpovedať percentu). Absolútnu zľavu uložiť nemožno.",
+      };
+    }
+  }
+
+  const salePriceNormalized =
+    input.salePrice == null || !String(input.salePrice).trim()
+      ? null
+      : input.salePrice.trim();
+
   const payload: ProductDiscountUpdate = {
     product_id: input.productId,
     original_price: input.originalPrice.trim(),
-    sale_price: input.salePrice.trim(),
+    sale_price: salePriceNormalized,
     discount_percent: Math.min(100, Math.max(0, Math.round(input.discountPercent))),
     show_on_akcia_page: input.showOnAkciaPage,
     active: input.active,
@@ -124,7 +155,7 @@ export async function upsertDiscountAction(
   const insertPayload: ProductDiscountInsert = {
     product_id: input.productId,
     original_price: input.originalPrice.trim(),
-    sale_price: input.salePrice.trim(),
+    sale_price: salePriceNormalized,
     discount_percent: Math.min(
       100,
       Math.max(0, Math.round(input.discountPercent)),

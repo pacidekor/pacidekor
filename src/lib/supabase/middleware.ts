@@ -9,6 +9,13 @@ import type { Database } from "@/lib/supabase/database.types";
 
 /** Routes that need session refresh / auth gates. Public catalog skips getUser. */
 function needsAuthSession(pathname: string) {
+  // Public storefront APIs must not block on Auth (isolated harness + cold anon).
+  if (
+    pathname.startsWith("/api/products") ||
+    pathname.startsWith("/api/search")
+  ) {
+    return false;
+  }
   return (
     pathname.startsWith("/ucet") ||
     pathname.startsWith("/admin") ||

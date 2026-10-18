@@ -33,6 +33,10 @@ export type OrderItem = {
   quantity: number;
   unitPrice: string;
   colorId?: string;
+  variantId?: string;
+  /** Snapshot at order time (Farba / Veľkosť…). */
+  selectionAxisLabel?: string;
+  selectionValueLabel?: string;
 };
 
 export type Order = {

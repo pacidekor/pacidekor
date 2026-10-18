@@ -20,6 +20,7 @@ type AddToCartButtonProps = {
   product: Product;
   quantity?: number;
   colorId?: string;
+  variantId?: string;
   disabled?: boolean;
   size?: "card" | "page";
   /** Card listings: open quantity modal instead of adding immediately. */
@@ -32,6 +33,7 @@ export function AddToCartButton({
   product,
   quantity = 1,
   colorId,
+  variantId,
   disabled = false,
   size = "card",
   onOpenQuantityPicker,
@@ -77,7 +79,7 @@ export function AddToCartButton({
 
     void (async () => {
       try {
-        await addToCart(product, qty, colorId);
+        await addToCart(product, qty, { colorId, variantId });
       } catch {
         applyInventoryLocally(product.id, previous);
         return;

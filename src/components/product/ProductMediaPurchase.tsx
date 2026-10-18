@@ -8,9 +8,11 @@ import { ProductPurchase } from "@/components/product/ProductPurchase";
 import { firstOrderableColorId } from "@/lib/order-line-color";
 import {
   getGalleryForColor,
+  getGalleryForTextVariant,
   resolveProductColorForFilters,
   type Product,
 } from "@/lib/products";
+import { firstOrderableVariant } from "@/lib/product-variants";
 
 type ProductMediaPurchaseProps = {
   product: Product;
@@ -25,7 +27,6 @@ function resolveInitialColor(product: Product, initialColorId?: string) {
     "";
   if (!initialColorId) return firstAvailable;
 
-  // Explicit URL/cart choice: keep for photo browsing even if sold out (no silent remap).
   if (product.colors?.some((color) => color.id === initialColorId)) {
     return initialColorId;
   }
@@ -44,24 +45,46 @@ function colorIdFromSearchParams(searchParams: URLSearchParams) {
 export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
   const searchParams = useSearchParams();
   const farbaFromUrl = colorIdFromSearchParams(searchParams);
+  const isCustom = product.variantMode === "custom";
+  const variants = product.textVariants ?? [];
 
   const [selectedColor, setSelectedColor] = useState(() =>
     resolveInitialColor(product, farbaFromUrl),
+  );
+  const [selectedVariantId, setSelectedVariantId] = useState(
+    () =>
+      firstOrderableVariant(variants, product.defaultVariantId)?.id ??
+      variants[0]?.id ??
+      "",
   );
 
   useEffect(() => {
     setSelectedColor(resolveInitialColor(product, farbaFromUrl));
   }, [product, farbaFromUrl]);
 
-  const gallery = getGalleryForColor(
-    product,
-    selectedColor || undefined,
-  );
+  useEffect(() => {
+    setSelectedVariantId(
+      firstOrderableVariant(
+        product.textVariants ?? [],
+        product.defaultVariantId,
+      )?.id ??
+        product.textVariants?.[0]?.id ??
+        "",
+    );
+  }, [product]);
+
+  const gallery = isCustom
+    ? getGalleryForTextVariant(product, selectedVariantId || undefined)
+    : getGalleryForColor(product, selectedColor || undefined);
 
   return (
     <>
       <ProductImageGallery
-        key={selectedColor || "default"}
+        key={
+          isCustom
+            ? `v:${selectedVariantId || "default"}`
+            : selectedColor || "default"
+        }
         images={gallery}
         alt={product.name}
         discount={product.discount}
@@ -78,6 +101,8 @@ export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
           product={product}
           selectedColor={selectedColor}
           onSelectColor={setSelectedColor}
+          selectedVariantId={selectedVariantId}
+          onSelectVariant={setSelectedVariantId}
         />
         <ProductDetailsCards />
       </div>

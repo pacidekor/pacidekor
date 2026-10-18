@@ -11,6 +11,7 @@ import { PromoCodeField, AppliedPromoLine } from "@/components/cart/PromoCodeFie
 import {
   amountToMinOrder,
   cartItemCount,
+  cartLineUnitCatalogPrice,
   cartSubtotalForAudience,
   formatPrice,
   meetsMinOrder,
@@ -106,18 +107,28 @@ function CartLine({
   onSelectColor: (colorId: string) => void;
   isWholesale: boolean;
 }) {
-  const { product, quantity, unavailable, colorId } = item;
+  const { product, quantity, unavailable, colorId, variantId } = item;
   const colorOptions = product.colors ?? [];
   const unavailableColorIds = product.unavailableColorIds ?? [];
+  const isCustom = product.variantMode === "custom";
+  const variant = variantId
+    ? product.textVariants?.find((v) => v.id === variantId)
+    : undefined;
   const needsColorReselect =
     !unavailable &&
+    !isCustom &&
     !isCartLineColorValid(colorOptions, colorId, unavailableColorIds);
+  const needsVariantReselect =
+    !unavailable &&
+    isCustom &&
+    (!variantId || !variant || !variant.available);
   const reselectOptions = colorOptions.filter(
     (color) => !unavailableColorIds.includes(color.id),
   );
   const deferredQuantity = useDeferredValue(quantity);
+  const unitCatalog = cartLineUnitCatalogPrice(item);
   const lineTotalNet =
-    audienceNetFromCatalogPrice(product.price, isWholesale) * deferredQuantity;
+    audienceNetFromCatalogPrice(unitCatalog, isWholesale) * deferredQuantity;
   const lineTotalInc = priceIncludingVat(lineTotalNet);
   const inventory = getInventoryForProduct(product);
   const remaining = inventoryMaxOrderable(inventory);
@@ -186,6 +197,20 @@ function CartLine({
             <p className="mt-1 truncate text-sm text-[#2f2924]/55">
               {product.category}
             </p>
+            {isCustom && variant ? (
+              <p className="mt-1 text-sm text-[#2f2924]/70">
+                {product.variantAxisLabel ?? "Varianta"}:{" "}
+                <span className="font-medium text-[#2f2924]">{variant.label}</span>
+              </p>
+            ) : null}
+            {!isCustom && colorId && colorOptions.length > 0 ? (
+              <p className="mt-1 text-sm text-[#2f2924]/70">
+                Farba:{" "}
+                <span className="font-medium text-[#2f2924]">
+                  {colorOptions.find((c) => c.id === colorId)?.label ?? colorId}
+                </span>
+              </p>
+            ) : null}
           </div>
           <button
             type="button"
@@ -196,6 +221,22 @@ function CartLine({
             <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
           </button>
         </div>
+
+        {needsVariantReselect ? (
+          <div className="mt-3 rounded-xl border border-[#9a4d3f]/25 bg-[#9a4d3f]/06 px-3 py-2.5">
+            <p className="text-sm text-[#9a4d3f]">
+              Vybraná varianta už nie je dostupná. Otvorte produkt a zvoľte novú
+              variantu — starý výber neprepisujeme automaticky.
+            </p>
+            <Link
+              href={productHref(product.slug)}
+              prefetch={false}
+              className="mt-2 inline-flex text-sm font-semibold text-[#75825B] underline-offset-2 hover:underline"
+            >
+              Prejsť na produkt
+            </Link>
+          </div>
+        ) : null}
 
         {needsColorReselect ? (
           <div className="mt-3 rounded-xl border border-[#9a4d3f]/25 bg-[#9a4d3f]/06 px-3 py-2.5">
@@ -567,9 +608,13 @@ export function CartView() {
     });
   }, []);
 
-  function updateQuantity(productId: string, next: number) {
+  function updateQuantity(productId: string, lineOptionKey: string, next: number) {
     // Always read latest cart — React `items` can lag behind rapid stepper clicks.
-    const item = readCartItems().find((entry) => entry.product.id === productId);
+    const item = readCartItems().find(
+      (entry) =>
+        entry.product.id === productId &&
+        entry.lineOptionKey === lineOptionKey,
+    );
     if (!item || item.unavailable) return;
 
     const multiple = getProductOrderMultiple(item.product.attributes?.packaging);
@@ -583,7 +628,7 @@ export function CartView() {
     if (!preview.ok) return;
 
     applyInventoryLocally(item.product.id, preview.entry);
-    void setCartQuantity(productId, clamped).catch(() => {
+    void setCartQuantity(productId, clamped, lineOptionKey).catch(() => {
       applyInventoryLocally(item.product.id, previous);
     });
 
@@ -592,16 +637,24 @@ export function CartView() {
     }
   }
 
-  function selectColor(productId: string, colorId: string) {
-    void setCartLineColor(productId, colorId).catch(() => {
+  function selectColor(
+    productId: string,
+    fromLineOptionKey: string,
+    colorId: string,
+  ) {
+    void setCartLineColor(productId, colorId, fromLineOptionKey).catch(() => {
       /* keep previous selection; server/guest write failed */
     });
   }
 
-  function removeItem(productId: string) {
-    const item = readCartItems().find((entry) => entry.product.id === productId);
+  function removeItem(productId: string, lineOptionKey: string) {
+    const item = readCartItems().find(
+      (entry) =>
+        entry.product.id === productId &&
+        entry.lineOptionKey === lineOptionKey,
+    );
     if (!item) {
-      void removeFromCart(productId);
+      void removeFromCart(productId, lineOptionKey);
       return;
     }
 
@@ -617,7 +670,7 @@ export function CartView() {
       applyInventoryLocally(item.product.id, preview.entry);
     }
 
-    void removeFromCart(productId).catch(() => {
+    void removeFromCart(productId, lineOptionKey).catch(() => {
       applyInventoryLocally(item.product.id, previous);
     });
 
@@ -677,14 +730,18 @@ export function CartView() {
         <ul className="divide-y divide-black/6 px-5 sm:px-7">
           {items.map((item) => (
             <CartLine
-              key={item.product.id}
+              key={`${item.product.id}:${item.lineOptionKey}`}
               item={item}
               isWholesale={isWholesale}
               onQuantityChange={(quantity) =>
-                updateQuantity(item.product.id, quantity)
+                updateQuantity(item.product.id, item.lineOptionKey, quantity)
               }
-              onSelectColor={(colorId) => selectColor(item.product.id, colorId)}
-              onRemove={() => removeItem(item.product.id)}
+              onSelectColor={(colorId) =>
+                selectColor(item.product.id, item.lineOptionKey, colorId)
+              }
+              onRemove={() =>
+                removeItem(item.product.id, item.lineOptionKey)
+              }
             />
           ))}
         </ul>

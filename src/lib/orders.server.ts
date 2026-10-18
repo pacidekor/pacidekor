@@ -49,6 +49,9 @@ export type OrderItemRow = {
   unit_price: string;
   quantity: number;
   color_id: string | null;
+  variant_id?: string | null;
+  selection_axis_label?: string | null;
+  selection_value_label?: string | null;
 };
 
 function shippingLabel(id: string) {
@@ -113,6 +116,9 @@ export function mapDbOrderToOrder(
         quantity: item.quantity,
         unitPrice: item.unit_price,
         colorId: item.color_id ?? undefined,
+        variantId: item.variant_id ?? undefined,
+        selectionAxisLabel: item.selection_axis_label ?? undefined,
+        selectionValueLabel: item.selection_value_label ?? undefined,
       }),
     ),
     shippingCost: formatPrice(Number(row.shipping_cost_eur)),

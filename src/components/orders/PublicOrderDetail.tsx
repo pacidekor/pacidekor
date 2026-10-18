@@ -69,7 +69,7 @@ export function PublicOrderDetail({ order }: { order: Order }) {
 
               return (
                 <li
-                  key={`${order.id}-${line.productId}-${line.colorId ?? ""}`}
+                  key={`${order.id}-${line.productId}-${line.colorId ?? ""}-${line.variantId ?? ""}`}
                   className="flex items-center gap-3.5 py-5 sm:gap-5"
                 >
                   {href ? (
@@ -105,6 +105,12 @@ export function PublicOrderDetail({ order }: { order: Order }) {
                         {category ? (
                           <p className="mt-1 truncate text-sm text-[#2f2924]/55">
                             {category}
+                          </p>
+                        ) : null}
+                        {line.selectionValueLabel ? (
+                          <p className="mt-1 truncate text-sm text-[#2f2924]/70">
+                            {line.selectionAxisLabel ?? "Výber"}:{" "}
+                            {line.selectionValueLabel}
                           </p>
                         ) : null}
                       </div>

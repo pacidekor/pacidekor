@@ -41,7 +41,9 @@ import {
 } from "@/lib/shipping";
 import type { ProductDiscountRow } from "@/lib/supabase/database.types";
 import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
-import { validateOrderLineColor } from "@/lib/order-line-color";
+import { resolveCatalogUnitNetForSelection } from "@/lib/order-line-selection";
+import { isVariantMode, normalizeTextVariants } from "@/lib/product-variants";
+import { colorsFromIds } from "@/lib/products";
 
 export type OrderActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -51,6 +53,7 @@ export type CreateOrderLineInput = {
   productId: string;
   quantity: number;
   colorId?: string;
+  variantId?: string;
 };
 
 export type CreateOrderInput = {
@@ -117,17 +120,6 @@ async function paymentCallbackBaseUrl() {
   }
 
   return getSiteUrl();
-}
-
-/** Match storefront catalog: active product discount sale price wins over DB price. */
-function resolveCatalogUnitNet(
-  catalogPrice: string,
-  discount: ProductDiscount | undefined,
-) {
-  if (discount && isDiscountEffectivelyActive(discount)) {
-    return parsePrice(discount.salePrice);
-  }
-  return parsePrice(catalogPrice);
 }
 
 function validateCreateOrderInput(input: CreateOrderInput): string | null {
@@ -205,9 +197,9 @@ export async function createOrderAction(
 
     const productIds = [...new Set(input.items.map((line) => line.productId))];
     const orderProductColumnsWithArchive =
-      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, archived_at";
+      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, archived_at, variant_mode, variant_axis_label, text_variants, images";
     const orderProductColumnsBase =
-      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids";
+      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, variant_mode, variant_axis_label, text_variants, images";
     let products: Array<{
       id: string;
       slug: string;
@@ -218,6 +210,10 @@ export async function createOrderAction(
       color_ids: string[] | null;
       unavailable_color_ids?: string[] | null;
       archived_at?: string | null;
+      variant_mode?: string | null;
+      variant_axis_label?: string | null;
+      text_variants?: unknown;
+      images?: string[] | null;
     }> | null = null;
 
     const productsPrimary = await db
@@ -273,9 +269,47 @@ export async function createOrderAction(
       unitPrice: string;
       quantity: number;
       colorId?: string;
+      variantId?: string;
+      selectionAxisLabel?: string;
+      selectionValueLabel?: string;
     }> = [];
 
     let subtotal = 0;
+
+    // Sum quantities per product before stock check (cannot bypass via split lines).
+    const qtyByProduct = new Map<string, number>();
+    for (const line of input.items) {
+      const quantity = Math.max(1, Math.floor(line.quantity));
+      qtyByProduct.set(
+        line.productId,
+        (qtyByProduct.get(line.productId) ?? 0) + quantity,
+      );
+    }
+
+    for (const [productId, totalQty] of qtyByProduct) {
+      const product = productMap.get(productId);
+      if (!product) {
+        return { ok: false, error: "Jeden z produktov v košíku už neexistuje." };
+      }
+      if (product.archived_at) {
+        return {
+          ok: false,
+          error: `${product.name} už nie je v ponuke.`,
+        };
+      }
+      if (!product.in_stock) {
+        return { ok: false, error: `${product.name} nie je na sklade.` };
+      }
+      if (
+        product.stock_quantity != null &&
+        product.stock_quantity < totalQty
+      ) {
+        return {
+          ok: false,
+          error: `Nedostatok skladu pre ${product.name}.`,
+        };
+      }
+    }
 
     for (const line of input.items) {
       const product = productMap.get(line.productId);
@@ -283,44 +317,40 @@ export async function createOrderAction(
         return { ok: false, error: "Jeden z produktov v košíku už neexistuje." };
       }
 
-      // Archive ≠ out of stock. Reject archived ids; never silent-remap to merge target.
-      if (product.archived_at) {
-        return {
-          ok: false,
-          error: `${product.name} už nie je v ponuke.`,
-        };
-      }
-
       const quantity = Math.max(1, Math.floor(line.quantity));
-      if (!product.in_stock) {
-        return { ok: false, error: `${product.name} nie je na sklade.` };
-      }
-      if (
-        product.stock_quantity != null &&
-        product.stock_quantity < quantity
-      ) {
-        return {
-          ok: false,
-          error: `Nedostatok skladu pre ${product.name}.`,
-        };
+      const colorIds = product.color_ids ?? [];
+      const mode = isVariantMode(product.variant_mode)
+        ? product.variant_mode
+        : colorIds.length > 0
+          ? "colors"
+          : "none";
+      const images = Array.isArray(product.images)
+        ? product.images.filter(Boolean)
+        : [];
+      const textVariants = normalizeTextVariants(product.text_variants, images);
+      const colorMeta = colorsFromIds(colorIds);
+
+      const selection = resolveCatalogUnitNetForSelection({
+        productName: product.name,
+        mode,
+        productPrice: product.price,
+        colorIds,
+        unavailableColorIds: product.unavailable_color_ids,
+        textVariants,
+        axisLabel: product.variant_axis_label,
+        colorId: line.colorId,
+        variantId: line.variantId,
+        discount: discountByProductId.get(product.id),
+        resolveColorLabel: (id) =>
+          colorMeta.find((c) => c.id === id)?.label ?? null,
+      });
+      if (!selection.ok) {
+        return { ok: false, error: selection.message };
       }
 
-      const unitNet = resolveCatalogUnitNet(
-        product.price,
-        discountByProductId.get(product.id),
-      );
+      const unitNet = selection.catalogUnitNet;
       if (!Number.isFinite(unitNet) || unitNet < 0) {
         return { ok: false, error: `Neplatná cena produktu ${product.name}.` };
-      }
-
-      const colorCheck = validateOrderLineColor(
-        product.name,
-        product.color_ids,
-        line.colorId,
-        product.unavailable_color_ids,
-      );
-      if (!colorCheck.ok) {
-        return { ok: false, error: colorCheck.message };
       }
 
       // VO = katalóg; maloobchod / verejnosť = +50 %. Objednávka a GoPay = bez DPH.
@@ -332,7 +362,10 @@ export async function createOrderAction(
         productName: product.name,
         unitPrice,
         quantity,
-        colorId: line.colorId?.trim() || undefined,
+        colorId: selection.snapshot.colorId,
+        variantId: selection.snapshot.variantId,
+        selectionAxisLabel: selection.snapshot.axisLabel ?? undefined,
+        selectionValueLabel: selection.snapshot.valueLabel ?? undefined,
       });
     }
 
@@ -454,6 +487,9 @@ export async function createOrderAction(
         unit_price: line.unitPrice,
         quantity: line.quantity,
         color_id: line.colorId ?? null,
+        variant_id: line.variantId ?? null,
+        selection_axis_label: line.selectionAxisLabel ?? null,
+        selection_value_label: line.selectionValueLabel ?? null,
       })),
     );
 
@@ -462,10 +498,11 @@ export async function createOrderAction(
       return { ok: false, error: itemsError.message };
     }
 
-    for (const line of orderLines) {
+    // One stock adjust per product (sum of all color/variant lines).
+    for (const [productId, totalQty] of qtyByProduct) {
       const { error: stockError } = await db.rpc("adjust_product_stock", {
-        p_product_id: line.productId,
-        p_delta: -line.quantity,
+        p_product_id: productId,
+        p_delta: -totalQty,
       });
 
       if (stockError) {
