@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronLeft, ChevronRight, Heart, LogOut, Mail, Phone, Search, User, X } from "lucide-react";
@@ -30,9 +30,10 @@ import {
 } from "@/lib/navigation";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { popularSearches, searchResultsHref } from "@/lib/search";
+import { buildCategoryFilterHref } from "@/lib/taxonomy";
 import { useProductSearchSuggestions } from "@/lib/use-product-search-suggestions";
 
-type MenuView = "main" | "categories";
+type MenuView = "main" | "categories" | "category";
 
 type AccountSummary = {
   displayName: string;
@@ -56,6 +57,7 @@ export function MobileHeader() {
   const taxonomy = useTaxonomy();
   const [menuOpen, setMenuOpen] = useState(false);
   const [menuView, setMenuView] = useState<MenuView>("main");
+  const [activeCategoryId, setActiveCategoryId] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
@@ -80,6 +82,44 @@ export function MobileHeader() {
           label: category.label,
           href: categoryHrefById(category.slug),
         }));
+
+  const subsByCategory = useMemo(() => {
+    const map = new Map<
+      string,
+      { id: string; label: string; sortOrder: number }[]
+    >();
+    for (const sub of taxonomy.subcategories) {
+      const list = map.get(sub.categoryId) ?? [];
+      list.push({
+        id: sub.id,
+        label: sub.label,
+        sortOrder: sub.sortOrder,
+      });
+      map.set(sub.categoryId, list);
+    }
+    const cleaned = new Map<string, { id: string; label: string }[]>();
+    for (const [categoryId, list] of map) {
+      cleaned.set(
+        categoryId,
+        [...list]
+          .sort(
+            (a, b) =>
+              a.sortOrder - b.sortOrder ||
+              a.label.localeCompare(b.label, "sk"),
+          )
+          .map(({ id, label }) => ({ id, label })),
+      );
+    }
+    return cleaned;
+  }, [taxonomy.subcategories]);
+
+  const activeCategory = activeCategoryId
+    ? (navCategories.find((category) => category.id === activeCategoryId) ??
+      null)
+    : null;
+  const activeSubs = activeCategoryId
+    ? (subsByCategory.get(activeCategoryId) ?? [])
+    : [];
 
   const trimmedQuery = query.trim();
   const isTyping = trimmedQuery.length > 0;
@@ -127,6 +167,7 @@ export function MobileHeader() {
     setAccountOpen(false);
     setSelectedAccount(null);
     setMenuView("main");
+    setActiveCategoryId(null);
   }, [pathname]);
 
   useEffect(() => {
@@ -138,7 +179,10 @@ export function MobileHeader() {
 
   useEffect(() => {
     if (!menuOpen) {
-      const timeout = window.setTimeout(() => setMenuView("main"), 280);
+      const timeout = window.setTimeout(() => {
+        setMenuView("main");
+        setActiveCategoryId(null);
+      }, 280);
       return () => window.clearTimeout(timeout);
     }
   }, [menuOpen]);
@@ -150,6 +194,11 @@ export function MobileHeader() {
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        if (menuOpen && menuView === "category") {
+          setMenuView("categories");
+          setActiveCategoryId(null);
+          return;
+        }
         if (menuOpen && menuView === "categories") {
           setMenuView("main");
           return;
@@ -173,6 +222,11 @@ export function MobileHeader() {
   }, [menuOpen, menuView, searchOpen, cartOpen, accountOpen, selectedAccount]);
 
   const closeMenu = () => setMenuOpen(false);
+
+  function openCategory(categoryId: string) {
+    setActiveCategoryId(categoryId);
+    setMenuView("category");
+  }
 
   const linkClass =
     "flex items-center justify-between gap-3 rounded-2xl px-3 py-[clamp(0.85rem,2.8vw,1.15rem)] text-[clamp(1.2rem,4.6vw,1.55rem)] font-medium leading-snug text-[#2f2924] transition-colors hover:bg-black/5";
@@ -355,7 +409,9 @@ export function MobileHeader() {
             className={`absolute inset-0 overflow-y-auto bg-[#e8ebe2] px-[calc((100vw-var(--content-width))/2)] py-[clamp(1.25rem,4vw,2rem)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               menuView === "categories"
                 ? "translate-x-0"
-                : "pointer-events-none translate-x-full"
+                : menuView === "category"
+                  ? "pointer-events-none -translate-x-1/4"
+                  : "pointer-events-none translate-x-full"
             }`}
             aria-hidden={menuView !== "categories"}
           >
@@ -369,19 +425,94 @@ export function MobileHeader() {
             </button>
 
             <ul className="space-y-0.5 pb-8">
-              {navCategories.map(({ id, label, href }) => (
-                <li key={id}>
+              {navCategories.map(({ id, label, href }) => {
+                const hasSubs = (subsByCategory.get(id)?.length ?? 0) > 0;
+
+                if (hasSubs) {
+                  return (
+                    <li key={id}>
+                      <button
+                        type="button"
+                        onClick={() => openCategory(id)}
+                        className={`${linkClass} w-full cursor-pointer text-left`}
+                      >
+                        <span>{label}</span>
+                        <ChevronRight
+                          className="size-[1.15em] shrink-0 opacity-45"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
+                      </button>
+                    </li>
+                  );
+                }
+
+                return (
+                  <li key={id}>
+                    <Link
+                      href={href}
+                      prefetch={false}
+                      onClick={closeMenu}
+                      className={linkClass}
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {/* Category detail: subcategories */}
+          <div
+            className={`absolute inset-0 overflow-y-auto bg-[#e8ebe2] px-[calc((100vw-var(--content-width))/2)] py-[clamp(1.25rem,4vw,2rem)] transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              menuView === "category"
+                ? "translate-x-0"
+                : "pointer-events-none translate-x-full"
+            }`}
+            aria-hidden={menuView !== "category"}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setMenuView("categories");
+                setActiveCategoryId(null);
+              }}
+              className="mb-2 inline-flex cursor-pointer items-center gap-1.5 rounded-2xl px-3 py-2.5 text-[clamp(0.95rem,3.5vw,1.1rem)] font-medium text-[#2f2924]/65 transition-colors hover:bg-black/5 hover:text-[#2f2924]"
+            >
+              <ChevronLeft className="size-5" strokeWidth={1.75} aria-hidden />
+              Späť
+            </button>
+
+            {activeCategory ? (
+              <ul className="space-y-0.5 pb-8">
+                <li>
                   <Link
-                    href={href}
+                    href={activeCategory.href}
                     prefetch={false}
                     onClick={closeMenu}
                     className={linkClass}
                   >
-                    {label}
+                    Zobraziť všetko
                   </Link>
                 </li>
-              ))}
-            </ul>
+
+                {activeSubs.map((sub) => (
+                  <li key={sub.id}>
+                    <Link
+                      href={buildCategoryFilterHref(activeCategory.id, {
+                        sub: sub.id,
+                      })}
+                      prefetch={false}
+                      onClick={closeMenu}
+                      className={linkClass}
+                    >
+                      {sub.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
           </div>
         </div>
       </div>
