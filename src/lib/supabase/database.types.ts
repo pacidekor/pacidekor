@@ -98,6 +98,16 @@ export type ProductRow = {
   is_bestseller: boolean;
   created_at: string;
   updated_at: string;
+  /**
+   * When set, product is hidden from public catalog. Optional until migration
+   * `20261018_products_archive_redirect` is applied.
+   */
+  archived_at?: string | null;
+  /**
+   * Merge redirect target. Only valid together with archived_at.
+   * Optional until the same migration is applied.
+   */
+  redirect_to_product_id?: string | null;
 };
 
 export type ProductInsert = {

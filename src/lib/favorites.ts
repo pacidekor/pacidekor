@@ -7,7 +7,7 @@ import {
 } from "@/lib/actions/favorites";
 import type { Product } from "@/lib/products";
 import {
-  ensureCatalogProducts,
+  reconcileCatalogProducts,
   isCatalogProductKnownUnavailable,
 } from "@/lib/ensure-catalog-products";
 import { findCatalogProductsByIds } from "@/lib/product-catalog";
@@ -134,7 +134,7 @@ export async function hydrateFavorites(): Promise<string[]> {
     return [];
   }
   setFavoriteIdsSnapshot(result.data, userId);
-  await ensureCatalogProducts(result.data);
+  await reconcileCatalogProducts(result.data);
   return result.data;
 }
 

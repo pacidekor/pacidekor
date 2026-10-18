@@ -22,6 +22,10 @@ import type {
 } from "@/lib/supabase/database.types";
 import { createAdminClient, createServiceClient } from "@/lib/supabase/server";
 import type { ProductAttributes } from "@/lib/taxonomy";
+import {
+  collectReferencedImageUrls,
+  storagePathsNotReferenced,
+} from "@/lib/product-image-refs";
 
 async function requireAdmin() {
   const supabase = await createAdminClient();
@@ -346,13 +350,6 @@ export async function upsertProductAdmin(
   }
 }
 
-function storagePathFromPublicUrl(url: string) {
-  const marker = "/storage/v1/object/public/product-images/";
-  const index = url.indexOf(marker);
-  if (index === -1) return null;
-  return decodeURIComponent(url.slice(index + marker.length));
-}
-
 export async function deleteProductAdmin(
   productId: string,
 ): Promise<ProductActionResult> {
@@ -361,11 +358,44 @@ export async function deleteProductAdmin(
     if (!auth.ok) return { ok: false, error: auth.error };
 
     const db = createServiceClient();
-    const { data: existing } = await db
+    const { data: existing, error: loadError } = await db
       .from("products")
       .select("slug, images")
       .eq("id", productId)
       .maybeSingle();
+
+    if (loadError) {
+      return {
+        ok: false,
+        error: `Nepodarilo sa načítať produkt pred mazaním (${loadError.message}). Mazanie zrušené.`,
+      };
+    }
+
+    const images = (existing?.images as string[] | null) ?? [];
+
+    // Do not delete Storage objects still referenced by another product
+    // (active or archived — e.g. after a merge copied source URLs onto the target).
+    // Fail closed: any reference-read error / incomplete page → no delete at all.
+    let urlsStillUsed = new Set<string>();
+    if (images.length > 0) {
+      const refs = await collectReferencedImageUrls(async (from, to) => {
+        const page = await db
+          .from("products")
+          .select("id, images, shared_image_urls", { count: "exact" })
+          .neq("id", productId)
+          .order("id", { ascending: true })
+          .range(from, to);
+        return {
+          data: page.data,
+          error: page.error,
+          total: typeof page.count === "number" ? page.count : null,
+        };
+      });
+      if (!refs.ok) {
+        return { ok: false, error: refs.error };
+      }
+      urlsStillUsed = refs.urls;
+    }
 
     const { error } = await db.from("products").delete().eq("id", productId);
 
@@ -373,10 +403,7 @@ export async function deleteProductAdmin(
       return { ok: false, error: error.message };
     }
 
-    const images = (existing?.images as string[] | null) ?? [];
-    const paths = images
-      .map((url) => storagePathFromPublicUrl(url))
-      .filter((path): path is string => Boolean(path));
+    const paths = storagePathsNotReferenced(images, urlsStillUsed);
 
     if (paths.length > 0) {
       await db.storage.from("product-images").remove(paths);

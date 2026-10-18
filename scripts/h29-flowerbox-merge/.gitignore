@@ -1,0 +1,10 @@
+# Nested / staging junk from verification packs
+_pack*/
+_zip_staging/
+h29-verify-pack/
+*.zip
+results/app-pdp-target.html
+results/proxy-*.log
+results/next-*.log
+results/browser-zoom-fallback.png
+node_modules/

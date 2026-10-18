@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "id": "browser.pdp.loaded",
+      "status": "PASS",
+      "detail": "title=Sada 2 okrúhlych flowerboxov so šnúrkou | PACIDEKOR hasName=true"
+    },
+    {
+      "id": "browser.color.switch",
+      "status": "PASS",
+      "detail": "before=Bordová=true after=Biela=true imgChanged=false states=[\"Bordová=false\",\"Biela=true\",\"Svetloružová=false\"]"
+    },
+    {
+      "id": "browser.zoom.open",
+      "status": "PASS",
+      "detail": "dialog=true close=true"
+    }
+  ]
+}

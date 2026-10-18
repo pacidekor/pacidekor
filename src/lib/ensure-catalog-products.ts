@@ -3,6 +3,7 @@
 import {
   findCatalogProductById,
   mergeProductsIntoCatalog,
+  removeProductsFromCatalog,
 } from "@/lib/product-catalog";
 import type { Product } from "@/lib/products";
 
@@ -28,7 +29,7 @@ type ApiProduct = {
 
 export type EnsureCatalogResult = {
   ok: boolean;
-  /** IDs that were requested but not returned (removed / inactive). */
+  /** IDs that were requested but not returned (removed / inactive / archived). */
   unavailableIds: string[];
 };
 
@@ -60,8 +61,22 @@ const unavailableIds = new Set<string>();
 /** Coalesce identical in-flight batches. */
 const inFlight = new Map<string, Promise<EnsureCatalogResult>>();
 
-function batchKey(ids: string[]) {
-  return [...ids].sort().join(",");
+function batchKey(ids: string[], mode: "ensure" | "reconcile") {
+  return `${mode}:${[...ids].sort().join(",")}`;
+}
+
+async function fetchByIds(ids: string[]): Promise<{
+  ok: boolean;
+  products: Product[];
+}> {
+  const res = await fetch(
+    `/api/products/by-ids?ids=${encodeURIComponent(ids.join(","))}`,
+  );
+  if (!res.ok) {
+    return { ok: false, products: [] };
+  }
+  const data = (await res.json()) as { products?: ApiProduct[] };
+  return { ok: true, products: (data.products ?? []).map(toProduct) };
 }
 
 /**
@@ -80,21 +95,16 @@ export async function ensureCatalogProducts(
   }
 
   const missing = unique.slice(0, MAX_IDS_PER_REQUEST);
-  const key = batchKey(missing);
+  const key = batchKey(missing, "ensure");
   const existing = inFlight.get(key);
   if (existing) return existing;
 
   const promise = (async (): Promise<EnsureCatalogResult> => {
     try {
-      const res = await fetch(
-        `/api/products/by-ids?ids=${encodeURIComponent(missing.join(","))}`,
-      );
-      if (!res.ok) {
+      const { ok, products } = await fetchByIds(missing);
+      if (!ok) {
         return { ok: false, unavailableIds: [] };
       }
-
-      const data = (await res.json()) as { products?: ApiProduct[] };
-      const products = (data.products ?? []).map(toProduct);
       mergeProductsIntoCatalog(products);
 
       const found = new Set(products.map((product) => product.id));
@@ -104,6 +114,57 @@ export async function ensureCatalogProducts(
       return { ok: true, unavailableIds: notFound };
     } catch {
       // Network error — allow retry later (do not mark unavailable).
+      return { ok: false, unavailableIds: [] };
+    } finally {
+      inFlight.delete(key);
+    }
+  })();
+
+  inFlight.set(key, promise);
+  return promise;
+}
+
+/**
+ * Re-validate cart/favorites ids against live by-ids (excludes archived).
+ * Handles clients that still hold a pre-archive catalog row — removes it and
+ * marks unavailable without remapping productId / color / price.
+ */
+export async function reconcileCatalogProducts(
+  ids: string[],
+): Promise<EnsureCatalogResult> {
+  const unique = [
+    ...new Set(ids.map((id) => id.trim()).filter(Boolean)),
+  ].slice(0, MAX_IDS_PER_REQUEST);
+
+  if (unique.length === 0) {
+    return { ok: true, unavailableIds: [] };
+  }
+
+  const key = batchKey(unique, "reconcile");
+  const existing = inFlight.get(key);
+  if (existing) return existing;
+
+  const promise = (async (): Promise<EnsureCatalogResult> => {
+    try {
+      const { ok, products } = await fetchByIds(unique);
+      if (!ok) {
+        return { ok: false, unavailableIds: [] };
+      }
+      mergeProductsIntoCatalog(products);
+
+      const found = new Set(products.map((product) => product.id));
+      const notFound = unique.filter((id) => !found.has(id));
+      for (const id of notFound) {
+        unavailableIds.add(id);
+      }
+      // Clear unavailable flag for ids that are live again (e.g. after revert).
+      for (const id of found) {
+        unavailableIds.delete(id);
+      }
+      removeProductsFromCatalog(notFound);
+
+      return { ok: true, unavailableIds: notFound };
+    } catch {
       return { ok: false, unavailableIds: [] };
     } finally {
       inFlight.delete(key);

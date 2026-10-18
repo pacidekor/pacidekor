@@ -39,6 +39,16 @@ export function findCatalogProductsByIds(ids: string[]) {
   return catalog.filter((product) => idSet.has(product.id));
 }
 
+/** Drop stale catalog rows (e.g. after archive) so cart/favorites resolve as unavailable. */
+export function removeProductsFromCatalog(ids: string[]) {
+  if (ids.length === 0) return;
+  const drop = new Set(ids);
+  const next = catalog.filter((product) => !drop.has(product.id));
+  if (next.length === catalog.length) return;
+  catalog = next;
+  listeners.forEach((listener) => listener());
+}
+
 export function patchProductInCatalog(
   productId: string,
   patch: Partial<Product>,

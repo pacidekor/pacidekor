@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { Suspense } from "react";
 import { JsonLd } from "@/components/JsonLd";
 import { ProductMediaPurchase } from "@/components/product/ProductMediaPurchase";
@@ -14,8 +14,8 @@ import { listDiscounts } from "@/lib/discounts-server";
 import { categoryHrefById, categoryHref } from "@/lib/navigation";
 import { audienceNetPrice, parsePrice, priceIncludingVat } from "@/lib/price";
 import {
-  getProductBySlug,
   listRelatedProducts,
+  resolveStorefrontProductBySlug,
 } from "@/lib/products-server";
 import {
   breadcrumbJsonLd,
@@ -34,16 +34,24 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const [product, discounts] = await Promise.all([
-    getProductBySlug(slug),
+  const [resolution, discounts] = await Promise.all([
+    resolveStorefrontProductBySlug(slug),
     listDiscounts(),
   ]);
 
-  if (!product) {
+  if (resolution.kind === "redirect") {
+    return pageMetadata({
+      title: "Presmerovanie",
+      description: "Produkt bol zlúčený.",
+      path: `/produkt/${resolution.toSlug}`,
+    });
+  }
+
+  if (resolution.kind !== "product") {
     return { title: "Produkt nenájdený" };
   }
 
-  const priced = applyDiscountToProduct(product, discounts);
+  const priced = applyDiscountToProduct(resolution.product, discounts);
   const description =
     priced.description?.trim() ||
     `${priced.name} - umelé kvety a dekorácie v ponuke PACIDEKOR.`;
@@ -59,16 +67,23 @@ export async function generateMetadata({
 export default async function ProductPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const [rawProduct, discounts, relatedRaw, taxonomy] = await Promise.all([
-    getProductBySlug(slug),
+  const [resolution, discounts, taxonomy] = await Promise.all([
+    resolveStorefrontProductBySlug(slug),
     listDiscounts(),
-    listRelatedProducts(slug),
     listTaxonomy(),
   ]);
 
-  if (!rawProduct) {
+  if (resolution.kind === "redirect") {
+    // Temporary 307 for first merge activation — permanentRedirect (308) later.
+    redirect(`/produkt/${resolution.toSlug}`);
+  }
+
+  if (resolution.kind !== "product") {
     notFound();
   }
+
+  const rawProduct = resolution.product;
+  const relatedRaw = await listRelatedProducts(rawProduct.slug);
 
   const product = applyDiscountToProduct(rawProduct, discounts);
   const related = applyDiscountsToProducts(relatedRaw, discounts);

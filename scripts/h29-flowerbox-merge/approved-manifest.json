@@ -1,0 +1,67 @@
+{
+  "decision": "H29 flowerbox merge — approved product shape",
+  "target": {
+    "productId": "12e00cb2-7707-430b-b4e0-f5821fa4fc93",
+    "sku": "IMP-NEJ-083",
+    "slug": "okruhly-flowerbox-so-snurkou-mix-farieb",
+    "name": "Sada 2 okrúhlych flowerboxov so šnúrkou",
+    "keep": ["productId", "sku", "slug", "price", "packaging", "stock_quantity", "in_stock", "unavailable_color_ids"]
+  },
+  "sources": [
+    {
+      "productId": "5451a149-4bd0-4292-8d71-f6edea24cb3d",
+      "sku": "IMP-NEJ-082",
+      "slug": "sada-2-okruhlych-flowerboxov-kraft-so-snurkou",
+      "colorId": "hneda"
+    },
+    {
+      "productId": "3fb3a76c-7c51-4bcb-8f0c-8fa52090c6e7",
+      "sku": "IMP-NEJ-071",
+      "slug": "sada-okruhlych-flowerboxov-so-snurkou-kremova",
+      "colorId": "kremova"
+    }
+  ],
+  "outOfScope": ["IMP-NEJ-073", "IMP-NEJ-104", "IMP-NEJ-102", "IMP-NEJ-101", "IMP-NEJ-088"],
+  "colorIds": [
+    "custom:800020:Bordov%C3%A1",
+    "biela",
+    "custom:ffb6c1:Svetloru%C5%BEov%C3%A1",
+    "hneda",
+    "kremova"
+  ],
+  "colorImageMap": {
+    "custom:800020:Bordov%C3%A1": [4, 5, 6],
+    "biela": [7, 8, 9],
+    "custom:ffb6c1:Svetloru%C5%BEov%C3%A1": [1, 2, 3],
+    "hneda": [10, 13, 11, 12],
+    "kremova": [14, 15]
+  },
+  "sharedImageUrls": [
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/47ae6d17acfe-4.webp"
+  ],
+  "unavailableColorIds": [],
+  "images": [
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/47ae6d17acfe-4.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/1196184e5d82-3.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/a6f128ee4198-1.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/6baf233020b3-2.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/66b9932cbdc4-5.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/eeac94a4de03-6.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/126e84c4275e-7.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/57f107b2fc68-8.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/36df2e9746f4-9.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/ea35852b339c-10.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/d0b99d30c9d8-1.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/2ffd41f3c102-2.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/40bf878fc55c-3.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/1061b0726fa2-4.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/71/1630a0a7794a-1.webp",
+    "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/71/eb9cf7b33832-2.webp"
+  ],
+  "notes": [
+    "Indexes 0–9 unchanged from target; 10–13 from 082; 14–15 from 071.",
+    "Main/hover = images[0]/images[1]. Shared = only images[0] URL.",
+    "No Mix colorId. No new color IDs. Do not invent dimensions.",
+    "Availability: all sources had unavailable_color_ids=[]; keep []."
+  ]
+}

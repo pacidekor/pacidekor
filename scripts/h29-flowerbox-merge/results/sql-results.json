@@ -1,0 +1,136 @@
+{
+  "environment": {
+    "kind": "local-postgres-isolated",
+    "database": "h29_verify",
+    "host": "127.0.0.1",
+    "port": "54329",
+    "user": "postgres",
+    "note": "Synthetic copies only; production untouched"
+  },
+  "results": [
+    {
+      "id": "sql.migration+seed",
+      "status": "PASS",
+      "detail": "Migration applied; 3 synthetic copies seeded",
+      "at": "2026-10-18T10:37:08.251Z"
+    },
+    {
+      "id": "sql.constraint.self_redirect",
+      "status": "PASS",
+      "detail": "Self-redirect rejected with expected cause",
+      "at": "2026-10-18T10:37:08.321Z"
+    },
+    {
+      "id": "sql.constraint.redirect_requires_archived",
+      "status": "PASS",
+      "detail": "Redirect without archive rejected with expected cause",
+      "at": "2026-10-18T10:37:08.389Z"
+    },
+    {
+      "id": "sql.trigger.archive_target",
+      "status": "PASS",
+      "detail": "Archiving redirect target rejected with expected cause",
+      "at": "2026-10-18T10:37:08.679Z"
+    },
+    {
+      "id": "sql.trigger.invalid_target_chain",
+      "status": "PASS",
+      "detail": "Redirect to archived/chained target rejected with expected cause",
+      "at": "2026-10-18T10:37:09.526Z"
+    },
+    {
+      "id": "sql.activate.happy",
+      "status": "PASS",
+      "detail": "Target merged (16 exact URLs + maps + shared); 082+071 archived; order_items readable",
+      "at": "2026-10-18T10:37:10.005Z"
+    },
+    {
+      "id": "sql.capture.in_transaction",
+      "status": "PASS",
+      "detail": "Activation test-mvdoy7sl: in-tx snapshot + revert write-once",
+      "at": "2026-10-18T10:37:10.312Z"
+    },
+    {
+      "id": "sql.capture.no_overwrite",
+      "status": "PASS",
+      "detail": "Repeat activation id refused; backup-post unchanged",
+      "at": "2026-10-18T10:37:10.380Z"
+    },
+    {
+      "id": "sql.activate.guard_miss_no_writes",
+      "status": "PASS",
+      "detail": "Guard miss (expected cause) rolled back; all three rows unchanged",
+      "at": "2026-10-18T10:37:10.906Z"
+    },
+    {
+      "id": "sql.activate.mid_archive_rollback",
+      "status": "PASS",
+      "detail": "Self-redirect failure rolled back target change too",
+      "at": "2026-10-18T10:37:11.379Z"
+    },
+    {
+      "id": "sql.revert.happy",
+      "status": "PASS",
+      "detail": "Revert from activation folder restored exact backup-pre",
+      "at": "2026-10-18T10:37:12.104Z"
+    },
+    {
+      "id": "sql.revert.later_edit_blocked",
+      "status": "PASS",
+      "detail": "Later edit blocked revert (expected cause); no partial writes",
+      "at": "2026-10-18T10:37:12.974Z"
+    },
+    {
+      "id": "sql.revert.null_timestamps_refused",
+      "status": "PASS",
+      "detail": "Unfilled post_*_updated_at refused before any writes",
+      "at": "2026-10-18T10:37:13.219Z"
+    },
+    {
+      "id": "sql.guards.match_expected",
+      "status": "PASS",
+      "detail": "Fresh seed matches approved expected-pre (no auto-rewrite)",
+      "at": "2026-10-18T10:37:13.446Z"
+    },
+    {
+      "id": "sql.guards.mismatch_stops",
+      "status": "PASS",
+      "detail": "Mismatch prints diffs and exits 1 without rewriting expected-pre",
+      "at": "2026-10-18T10:37:13.520Z"
+    }
+  ],
+  "beforeActivateSample": [
+    {
+      "sku": "IMP-NEJ-071",
+      "name": "Sada okrúhlych flowerboxov so šnúrkou – krémová",
+      "archived": false,
+      "images_n": 2,
+      "redirect": null,
+      "images_md5": "ce1e3b47f1d51a727ab013d6cbf9be34",
+      "updated_at": "2026-10-16 18:35:11.959842+02"
+    },
+    {
+      "sku": "IMP-NEJ-082",
+      "name": "Sada 2 okrúhlych flowerboxov kraft so šnúrkou",
+      "archived": false,
+      "images_n": 4,
+      "redirect": null,
+      "images_md5": "c5fe470c1c38b0b5d4fb3c805bff66a5",
+      "updated_at": "2026-09-26 16:34:01.090115+02"
+    },
+    {
+      "sku": "IMP-NEJ-083",
+      "name": "Okrúhly flowerbox so šnúrkou – mix farieb",
+      "archived": false,
+      "images_n": 10,
+      "redirect": null,
+      "images_md5": "292f1c05eb7e5f5a5deb44c6431060fd",
+      "updated_at": "2026-10-16 14:31:47.416479+02"
+    }
+  ],
+  "postActivateUpdatedAt": {
+    "target": "2026-10-18 12:37:10.202607+02",
+    "082": "2026-10-18 12:37:10.202607+02",
+    "071": "2026-10-18 12:37:10.202607+02"
+  }
+}

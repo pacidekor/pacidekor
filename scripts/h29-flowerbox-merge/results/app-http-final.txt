@@ -1,0 +1,9 @@
+redirect082=307 -> /produkt/okruhly-flowerbox-so-snurkou-mix-farieb
+redirect071=307 -> /produkt/okruhly-flowerbox-so-snurkou-mix-farieb
+pdp083=200
+list=total:1 only 083 (api/products/list?q=flowerbox)
+byIds=only 083 (archived omitted)
+orderReject=uz nie je v ponuke (kraft archived id)
+browser=pdp+color+zoom PASS
+build=H29WT next build --webpack EXIT=0 ELAPSED_MS=104839
+env=NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:3002

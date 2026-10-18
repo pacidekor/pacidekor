@@ -10,11 +10,13 @@ import {
 } from "@/lib/discounts";
 import { listDiscounts, mapDiscountRow } from "@/lib/discounts-server";
 import { listTaxonomy } from "@/lib/categories-server";
+import { isArchiveSchemaMissing } from "@/lib/product-archive-schema";
 import {
   filterProducts,
   getBestsellerProducts,
   getNewestProducts,
   getRelatedProducts,
+  isProductArchived,
   mapProductRow,
   productColorMatchesFilter,
   type AuthSideSlide,
@@ -34,8 +36,17 @@ export const STOREFRONT_CATALOG_TAG = "storefront-catalog";
  * Storefront catalog cards / nav / related — skips heavy text (description, details).
  * Full row still comes from getProductBySlug / getProductById on PDP & admin editor.
  */
-const STOREFRONT_LIST_COLUMNS =
+const STOREFRONT_LIST_COLUMNS_BASE =
   "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+
+const STOREFRONT_LIST_COLUMNS = `${STOREFRONT_LIST_COLUMNS_BASE}, archived_at, redirect_to_product_id`;
+
+/** Public catalog: only live (non-archived) rows. */
+function notArchivedQuery<T extends { is: (col: string, val: null) => T }>(
+  query: T,
+): T {
+  return query.is("archived_at", null);
+}
 
 function mapStorefrontListRow(row: Partial<ProductRow>): Product {
   return mapProductRow({
@@ -48,23 +59,44 @@ function mapStorefrontListRow(row: Partial<ProductRow>): Product {
 
 async function fetchStorefrontProducts(): Promise<Product[]> {
   const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select(STOREFRONT_LIST_COLUMNS)
-    .order("created_at", { ascending: false });
+  const primary = await notArchivedQuery(
+    supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS)
+      .order("created_at", { ascending: false }),
+  );
 
-  if (error) {
-    console.error("listProducts:", error.message);
+  if (!primary.error) {
+    return ((primary.data as Partial<ProductRow>[] | null) ?? []).map(
+      mapStorefrontListRow,
+    );
+  }
+
+  if (!isArchiveSchemaMissing(primary.error.message)) {
+    console.error("listProducts:", primary.error.message);
     return [];
   }
 
-  return ((data as Partial<ProductRow>[] | null) ?? []).map(mapStorefrontListRow);
+  // Pre-migration compatibility: no archive columns yet → full catalog.
+  const legacy = await supabase
+    .from("products")
+    .select(STOREFRONT_LIST_COLUMNS_BASE)
+    .order("created_at", { ascending: false });
+
+  if (legacy.error) {
+    console.error("listProducts:", legacy.error.message);
+    return [];
+  }
+
+  return ((legacy.data as Partial<ProductRow>[] | null) ?? []).map(
+    mapStorefrontListRow,
+  );
 }
 
 /** Cross-request cache for API routes / search (Hobby-friendly, 120s). */
 export const listProductsUnstable = unstable_cache(
   fetchStorefrontProducts,
-  ["storefront-products-v1"],
+  ["storefront-products-v2"],
   { revalidate: 120, tags: [STOREFRONT_CATALOG_TAG] },
 );
 
@@ -77,22 +109,38 @@ export const listProducts = cache(async (): Promise<Product[]> => {
  * Admin list / dashboard — skips heavy text fields (description, details, color maps).
  * Open editor → getProductById for full row.
  */
-const ADMIN_LIST_COLUMNS =
+const ADMIN_LIST_COLUMNS_BASE =
   "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+
+const ADMIN_LIST_COLUMNS = `${ADMIN_LIST_COLUMNS_BASE}, archived_at, redirect_to_product_id`;
 
 export async function listProductsForAdmin(): Promise<Product[]> {
   const supabase = createPublicClient();
-  const { data, error } = await supabase
+  // Admin must see archived rows (no archived_at filter).
+  let data: Partial<ProductRow>[] | null = null;
+  const primary = await supabase
     .from("products")
     .select(ADMIN_LIST_COLUMNS)
     .order("created_at", { ascending: false });
 
-  if (error) {
-    console.error("listProductsForAdmin:", error.message);
+  if (primary.error && isArchiveSchemaMissing(primary.error.message)) {
+    const legacy = await supabase
+      .from("products")
+      .select(ADMIN_LIST_COLUMNS_BASE)
+      .order("created_at", { ascending: false });
+    if (legacy.error) {
+      console.error("listProductsForAdmin:", legacy.error.message);
+      return [];
+    }
+    data = legacy.data as Partial<ProductRow>[] | null;
+  } else if (primary.error) {
+    console.error("listProductsForAdmin:", primary.error.message);
     return [];
+  } else {
+    data = primary.data as Partial<ProductRow>[] | null;
   }
 
-  return ((data as Partial<ProductRow>[] | null) ?? []).map((row) => {
+  return (data ?? []).map((row) => {
     const images = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
     return mapProductRow({
       description: "",
@@ -132,7 +180,7 @@ export const listPricedProductsUnstable = unstable_cache(
     ).map(mapDiscountRow);
     return applyDiscountsToProducts(products, discounts);
   },
-  ["storefront-priced-v1"],
+  ["storefront-priced-v2"],
   { revalidate: 120, tags: [STOREFRONT_CATALOG_TAG] },
 );
 
@@ -147,19 +195,32 @@ export async function listPricedProductsByIds(
   if (unique.length === 0) return [];
 
   const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select(STOREFRONT_LIST_COLUMNS)
-    .in("id", unique);
+  const primary = await notArchivedQuery(
+    supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS)
+      .in("id", unique),
+  );
 
-  if (error) {
-    console.error("listPricedProductsByIds:", error.message);
+  let rows: Partial<ProductRow>[] | null = null;
+  if (!primary.error) {
+    rows = primary.data as Partial<ProductRow>[] | null;
+  } else if (isArchiveSchemaMissing(primary.error.message)) {
+    const legacy = await supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS_BASE)
+      .in("id", unique);
+    if (legacy.error) {
+      console.error("listPricedProductsByIds:", legacy.error.message);
+      return [];
+    }
+    rows = legacy.data as Partial<ProductRow>[] | null;
+  } else {
+    console.error("listPricedProductsByIds:", primary.error.message);
     return [];
   }
 
-  const products = ((data as Partial<ProductRow>[] | null) ?? []).map(
-    mapStorefrontListRow,
-  );
+  const products = (rows ?? []).map(mapStorefrontListRow);
   const discounts = await listDiscounts();
   return applyDiscountsToProducts(products, discounts);
 }
@@ -196,22 +257,38 @@ export type StorefrontListPage = {
 };
 
 /** Slim catalog index for filter/sort + pagination (not full card payload). */
+const INDEX_COLUMNS_BASE =
+  "id, category, color_ids, created_at, subcategory_id, druh_id, is_new, new_until, in_vypredaj, is_bestseller";
+
 export const listStorefrontProductIndex = unstable_cache(
   async (): Promise<StorefrontProductIndexRow[]> => {
     const supabase = createPublicClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select(
-        "id, category, color_ids, created_at, subcategory_id, druh_id, is_new, new_until, in_vypredaj, is_bestseller",
-      )
-      .order("created_at", { ascending: false });
+    const primary = await notArchivedQuery(
+      supabase
+        .from("products")
+        .select(`${INDEX_COLUMNS_BASE}, archived_at`)
+        .order("created_at", { ascending: false }),
+    );
 
-    if (error) {
-      console.error("listStorefrontProductIndex:", error.message);
+    let data: Partial<ProductRow>[] | null = null;
+    if (!primary.error) {
+      data = primary.data as Partial<ProductRow>[] | null;
+    } else if (isArchiveSchemaMissing(primary.error.message)) {
+      const legacy = await supabase
+        .from("products")
+        .select(INDEX_COLUMNS_BASE)
+        .order("created_at", { ascending: false });
+      if (legacy.error) {
+        console.error("listStorefrontProductIndex:", legacy.error.message);
+        return [];
+      }
+      data = legacy.data as Partial<ProductRow>[] | null;
+    } else {
+      console.error("listStorefrontProductIndex:", primary.error.message);
       return [];
     }
 
-    return ((data as Partial<ProductRow>[] | null) ?? []).map((row) => ({
+    return (data ?? []).map((row) => ({
       id: String(row.id ?? ""),
       category: String(row.category ?? ""),
       colorIds: Array.isArray(row.color_ids)
@@ -227,7 +304,7 @@ export const listStorefrontProductIndex = unstable_cache(
       isBestseller: Boolean(row.is_bestseller),
     }));
   },
-  ["storefront-product-index-v2"],
+  ["storefront-product-index-v3"],
   { revalidate: 120, tags: [STOREFRONT_CATALOG_TAG] },
 );
 
@@ -365,20 +442,34 @@ export async function listPricedProductsPage(options: {
 export const listPricedProductsByCategory = cache(
   async (categoryLabel: string): Promise<Product[]> => {
     const supabase = createPublicClient();
-    const { data, error } = await supabase
-      .from("products")
-      .select(STOREFRONT_LIST_COLUMNS)
-      .eq("category", categoryLabel)
-      .order("created_at", { ascending: false });
+    const primary = await notArchivedQuery(
+      supabase
+        .from("products")
+        .select(STOREFRONT_LIST_COLUMNS)
+        .eq("category", categoryLabel)
+        .order("created_at", { ascending: false }),
+    );
 
-    if (error) {
-      console.error("listPricedProductsByCategory:", error.message);
+    let rows: Partial<ProductRow>[] | null = null;
+    if (!primary.error) {
+      rows = primary.data as Partial<ProductRow>[] | null;
+    } else if (isArchiveSchemaMissing(primary.error.message)) {
+      const legacy = await supabase
+        .from("products")
+        .select(STOREFRONT_LIST_COLUMNS_BASE)
+        .eq("category", categoryLabel)
+        .order("created_at", { ascending: false });
+      if (legacy.error) {
+        console.error("listPricedProductsByCategory:", legacy.error.message);
+        return [];
+      }
+      rows = legacy.data as Partial<ProductRow>[] | null;
+    } else {
+      console.error("listPricedProductsByCategory:", primary.error.message);
       return [];
     }
 
-    const products = ((data as Partial<ProductRow>[] | null) ?? []).map(
-      mapStorefrontListRow,
-    );
+    const products = (rows ?? []).map(mapStorefrontListRow);
     const discounts = await listDiscounts();
     return applyDiscountsToProducts(products, discounts);
   },
@@ -423,6 +514,9 @@ export const listHomepageSectionProducts = cache(
   },
 );
 
+/**
+ * Raw slug lookup — includes archived rows (needed for redirect before notFound).
+ */
 export const getProductBySlug = cache(
   async (slug: string): Promise<Product | undefined> => {
     const supabase = createPublicClient();
@@ -459,6 +553,49 @@ export async function getProductById(
   return data ? mapProductRow(data as ProductRow) : undefined;
 }
 
+export type StorefrontSlugResolution =
+  | { kind: "product"; product: Product }
+  | {
+      kind: "redirect";
+      /** Temporary (307) for first merge activation; permanent later. */
+      temporary: true;
+      fromSlug: string;
+      toSlug: string;
+      toProductId: string;
+    }
+  | { kind: "not_found" };
+
+/**
+ * Resolve a public PDP slug: live product, temporary redirect to merge target,
+ * or not_found. Looks up archived rows; never silently remaps cart/order ids.
+ */
+export async function resolveStorefrontProductBySlug(
+  slug: string,
+): Promise<StorefrontSlugResolution> {
+  const product = await getProductBySlug(slug);
+  if (!product) return { kind: "not_found" };
+
+  if (!isProductArchived(product)) {
+    return { kind: "product", product };
+  }
+
+  const targetId = product.redirectToProductId?.trim();
+  if (!targetId) return { kind: "not_found" };
+
+  const target = await getProductById(targetId);
+  if (!target || isProductArchived(target) || !target.slug?.trim()) {
+    return { kind: "not_found" };
+  }
+
+  return {
+    kind: "redirect",
+    temporary: true,
+    fromSlug: slug,
+    toSlug: target.slug,
+    toProductId: target.id,
+  };
+}
+
 /**
  * Related cards for PDP — same category only (smaller query than full catalog).
  */
@@ -473,22 +610,38 @@ export async function listRelatedProducts(
   }
 
   const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select(STOREFRONT_LIST_COLUMNS)
-    .eq("category", product.category)
-    .order("created_at", { ascending: false })
-    .limit(Math.max(count * 4, 24));
+  const primary = await notArchivedQuery(
+    supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS)
+      .eq("category", product.category)
+      .order("created_at", { ascending: false })
+      .limit(Math.max(count * 4, 24)),
+  );
 
-  if (error) {
-    console.error("listRelatedProducts:", error.message);
+  let rows: Partial<ProductRow>[] | null = null;
+  if (!primary.error) {
+    rows = primary.data as Partial<ProductRow>[] | null;
+  } else if (isArchiveSchemaMissing(primary.error.message)) {
+    const legacy = await supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS_BASE)
+      .eq("category", product.category)
+      .order("created_at", { ascending: false })
+      .limit(Math.max(count * 4, 24));
+    if (legacy.error) {
+      console.error("listRelatedProducts:", legacy.error.message);
+      const products = await listProducts();
+      return getRelatedProducts(products, slug, count);
+    }
+    rows = legacy.data as Partial<ProductRow>[] | null;
+  } else {
+    console.error("listRelatedProducts:", primary.error.message);
     const products = await listProducts();
     return getRelatedProducts(products, slug, count);
   }
 
-  const products = ((data as Partial<ProductRow>[] | null) ?? []).map(
-    mapStorefrontListRow,
-  );
+  const products = (rows ?? []).map(mapStorefrontListRow);
   return getRelatedProducts(products, slug, count);
 }
 
@@ -540,18 +693,36 @@ function uniqueSlidesByImage(products: Product[]): AuthSideSlide[] {
 /** Unique main product slides for auth side panel slideshow. */
 export async function listAuthSideSlides(limit = 16): Promise<AuthSideSlide[]> {
   const supabase = createPublicClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select(STOREFRONT_LIST_COLUMNS)
-    .in("category", [AUTH_SIDE_PRIMARY_CATEGORY, AUTH_SIDE_ACCENT_CATEGORY])
-    .order("created_at", { ascending: false });
+  const primary = await notArchivedQuery(
+    supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS)
+      .in("category", [AUTH_SIDE_PRIMARY_CATEGORY, AUTH_SIDE_ACCENT_CATEGORY])
+      .order("created_at", { ascending: false }),
+  );
 
-  const products = error
-    ? await listProducts()
-    : ((data as Partial<ProductRow>[] | null) ?? []).map(mapStorefrontListRow);
-
-  if (error) {
-    console.error("listAuthSideSlides:", error.message);
+  let products: Product[];
+  if (!primary.error) {
+    products = ((primary.data as Partial<ProductRow>[] | null) ?? []).map(
+      mapStorefrontListRow,
+    );
+  } else if (isArchiveSchemaMissing(primary.error.message)) {
+    const legacy = await supabase
+      .from("products")
+      .select(STOREFRONT_LIST_COLUMNS_BASE)
+      .in("category", [AUTH_SIDE_PRIMARY_CATEGORY, AUTH_SIDE_ACCENT_CATEGORY])
+      .order("created_at", { ascending: false });
+    if (legacy.error) {
+      console.error("listAuthSideSlides:", legacy.error.message);
+      products = await listProducts();
+    } else {
+      products = ((legacy.data as Partial<ProductRow>[] | null) ?? []).map(
+        mapStorefrontListRow,
+      );
+    }
+  } else {
+    console.error("listAuthSideSlides:", primary.error.message);
+    products = await listProducts();
   }
 
   const flowers = uniqueSlidesByImage(

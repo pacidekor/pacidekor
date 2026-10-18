@@ -29,6 +29,7 @@ import {
   type ProductDiscount,
 } from "@/lib/discounts";
 import { mapDiscountRow } from "@/lib/discounts-server";
+import { isArchiveSchemaMissing } from "@/lib/product-archive-schema";
 import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { getSiteUrl } from "@/lib/seo";
 import {
@@ -203,15 +204,46 @@ export async function createOrderAction(
     }
 
     const productIds = [...new Set(input.items.map((line) => line.productId))];
-    const { data: products, error: productsError } = await db
+    const orderProductColumnsWithArchive =
+      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, archived_at";
+    const orderProductColumnsBase =
+      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids";
+    let products: Array<{
+      id: string;
+      slug: string;
+      name: string;
+      price: string;
+      in_stock: boolean;
+      stock_quantity: number | null;
+      color_ids: string[] | null;
+      unavailable_color_ids?: string[] | null;
+      archived_at?: string | null;
+    }> | null = null;
+
+    const productsPrimary = await db
       .from("products")
-      .select(
-        "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids",
-      )
+      .select(orderProductColumnsWithArchive)
       .in("id", productIds);
 
-    if (productsError) {
-      return { ok: false, error: productsError.message };
+    if (
+      productsPrimary.error &&
+      isArchiveSchemaMissing(
+        productsPrimary.error.message,
+        productsPrimary.error.code,
+      )
+    ) {
+      const legacy = await db
+        .from("products")
+        .select(orderProductColumnsBase)
+        .in("id", productIds);
+      if (legacy.error) {
+        return { ok: false, error: legacy.error.message };
+      }
+      products = legacy.data;
+    } else if (productsPrimary.error) {
+      return { ok: false, error: productsPrimary.error.message };
+    } else {
+      products = productsPrimary.data;
     }
 
     const { data: discountRows, error: discountsError } = await db
@@ -249,6 +281,14 @@ export async function createOrderAction(
       const product = productMap.get(line.productId);
       if (!product) {
         return { ok: false, error: "Jeden z produktov v košíku už neexistuje." };
+      }
+
+      // Archive ≠ out of stock. Reject archived ids; never silent-remap to merge target.
+      if (product.archived_at) {
+        return {
+          ok: false,
+          error: `${product.name} už nie je v ponuke.`,
+        };
       }
 
       const quantity = Math.max(1, Math.floor(line.quantity));

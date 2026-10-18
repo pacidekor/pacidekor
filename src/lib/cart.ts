@@ -12,6 +12,7 @@ import { getCachedClientAuthenticated } from "@/lib/client-auth";
 import { adjustStockAction } from "@/lib/actions/inventory";
 import {
   ensureCatalogProducts,
+  reconcileCatalogProducts,
   isCatalogProductKnownUnavailable,
   type EnsureCatalogResult,
 } from "@/lib/ensure-catalog-products";
@@ -329,7 +330,8 @@ export async function hydrateGuestCartCatalog(): Promise<EnsureCatalogResult> {
   if (ids.length === 0) {
     return { ok: true, unavailableIds: [] };
   }
-  const result = await ensureCatalogProducts(ids);
+  // Reconcile (not ensure-only): drop pre-archive catalog rows still in memory.
+  const result = await reconcileCatalogProducts(ids);
   notify();
   return result;
 }
@@ -344,7 +346,7 @@ export async function hydrateAccountCart(): Promise<CartItem[]> {
     notify();
     return readStored().map(lineToCartItemFromStored);
   }
-  const ensure = await ensureCatalogProducts(
+  const ensure = await reconcileCatalogProducts(
     result.data.map((line) => line.productId),
   );
   accountCartHydration = ensure.ok ? "ready" : "error";
@@ -366,7 +368,7 @@ export async function mergeGuestCartIntoAccount(): Promise<CartItem[]> {
   accountCartHydration = "pending";
   notify();
   clearStoredGuestCart();
-  const ensure = await ensureCatalogProducts(
+  const ensure = await reconcileCatalogProducts(
     result.data.map((line) => line.productId),
   );
   accountCartHydration = ensure.ok ? "ready" : "error";

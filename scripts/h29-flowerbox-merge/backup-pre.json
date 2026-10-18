@@ -1,0 +1,91 @@
+{
+  "immutable": true,
+  "note": "Exact pre-merge values of every field H29 activate changes. Do not rewrite after activation. Used by build-revert-from-backup.mjs / revert.sql restore literals.",
+  "capturedFrom": "expected-pre.json + approved-manifest.json images (seed-identical)",
+  "target": {
+    "id": "12e00cb2-7707-430b-b4e0-f5821fa4fc93",
+    "sku": "IMP-NEJ-083",
+    "slug": "okruhly-flowerbox-so-snurkou-mix-farieb",
+    "name": "Okrúhly flowerbox so šnúrkou – mix farieb",
+    "price": "5,90 €",
+    "packaging": [{ "id": "krabica", "pieces": 2 }],
+    "in_stock": true,
+    "stock_quantity": null,
+    "color_ids": [
+      "custom:800020:Bordov%C3%A1",
+      "biela",
+      "custom:ffb6c1:Svetloru%C5%BEov%C3%A1"
+    ],
+    "color_image_map": {
+      "biela": [7, 8, 9],
+      "custom:800020:Bordov%C3%A1": [4, 5, 6],
+      "custom:ffb6c1:Svetloru%C5%BEov%C3%A1": [1, 2, 3]
+    },
+    "shared_image_urls": [
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/47ae6d17acfe-4.webp"
+    ],
+    "unavailable_color_ids": [],
+    "images": [
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/47ae6d17acfe-4.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/1196184e5d82-3.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/a6f128ee4198-1.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/6baf233020b3-2.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/66b9932cbdc4-5.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/eeac94a4de03-6.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/126e84c4275e-7.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/57f107b2fc68-8.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/36df2e9746f4-9.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/83/ea35852b339c-10.webp"
+    ],
+    "images_md5": "292f1c05eb7e5f5a5deb44c6431060fd",
+    "updated_at": "2026-10-16 12:31:47.416479+00",
+    "archived_at": null,
+    "redirect_to_product_id": null
+  },
+  "source082": {
+    "id": "5451a149-4bd0-4292-8d71-f6edea24cb3d",
+    "sku": "IMP-NEJ-082",
+    "slug": "sada-2-okruhlych-flowerboxov-kraft-so-snurkou",
+    "name": "Sada 2 okrúhlych flowerboxov kraft so šnúrkou",
+    "price": "5,90 €",
+    "packaging": [{ "id": "krabica", "pieces": 2 }],
+    "in_stock": true,
+    "stock_quantity": null,
+    "color_ids": ["hneda"],
+    "color_image_map": { "hneda": [3] },
+    "shared_image_urls": null,
+    "unavailable_color_ids": [],
+    "images": [
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/d0b99d30c9d8-1.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/2ffd41f3c102-2.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/40bf878fc55c-3.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/82/1061b0726fa2-4.webp"
+    ],
+    "images_md5": "c5fe470c1c38b0b5d4fb3c805bff66a5",
+    "updated_at": "2026-09-26 14:34:01.090115+00",
+    "archived_at": null,
+    "redirect_to_product_id": null
+  },
+  "source071": {
+    "id": "3fb3a76c-7c51-4bcb-8f0c-8fa52090c6e7",
+    "sku": "IMP-NEJ-071",
+    "slug": "sada-okruhlych-flowerboxov-so-snurkou-kremova",
+    "name": "Sada okrúhlych flowerboxov so šnúrkou – krémová",
+    "price": "5,90 €",
+    "packaging": [{ "id": "krabica", "pieces": 2 }],
+    "in_stock": true,
+    "stock_quantity": null,
+    "color_ids": ["kremova"],
+    "color_image_map": { "kremova": [1, 0] },
+    "shared_image_urls": [],
+    "unavailable_color_ids": [],
+    "images": [
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/71/1630a0a7794a-1.webp",
+      "https://skytsyfjowwyzpvhidco.supabase.co/storage/v1/object/public/product-images/bulk-nej/71/eb9cf7b33832-2.webp"
+    ],
+    "images_md5": "ce1e3b47f1d51a727ab013d6cbf9be34",
+    "updated_at": "2026-10-16 16:35:11.959842+00",
+    "archived_at": null,
+    "redirect_to_product_id": null
+  }
+}

@@ -68,6 +68,13 @@ export type Product = {
   /** Admin flag: listed in Bestsellery (homepage + /bestsellery). */
   isBestseller?: boolean;
   createdAt?: string;
+  /**
+   * ISO timestamp when archived (hidden from public catalog).
+   * Undefined / null = active. Archive ≠ out of stock.
+   */
+  archivedAt?: string | null;
+  /** Live merge target product id when archivedAt is set. */
+  redirectToProductId?: string | null;
 };
 
 /** Legacy per-product detail cards – storefront uses fixed purchase benefits instead. */
@@ -666,7 +673,16 @@ export function mapProductRow(row: ProductRow): Product {
     inVypredaj: row.in_vypredaj,
     isBestseller: Boolean(row.is_bestseller),
     createdAt: row.created_at,
+    archivedAt: row.archived_at ?? null,
+    redirectToProductId: row.redirect_to_product_id ?? null,
   };
+}
+
+/** True when the row is archived for public catalog purposes. */
+export function isProductArchived(
+  product: Pick<Product, "archivedAt"> | null | undefined,
+): boolean {
+  return Boolean(product?.archivedAt);
 }
 
 function asColorImageMap(
