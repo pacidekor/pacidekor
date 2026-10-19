@@ -33,7 +33,7 @@ function slimProduct(product: Product) {
   };
 }
 
-export async function GET(request: Request) {
+async function handleByIds(request: Request) {
   const { searchParams } = new URL(request.url);
   const raw = searchParams.get("ids")?.trim() ?? "";
   const ids = [
@@ -62,4 +62,14 @@ export async function GET(request: Request) {
       },
     },
   );
+}
+
+export async function GET(request: Request) {
+  return handleByIds(request);
+}
+
+/** OpenNext/CF sometimes probes HEAD; mirror GET to avoid intermittent 405. */
+export async function HEAD(request: Request) {
+  const res = await handleByIds(request);
+  return new NextResponse(null, { status: res.status, headers: res.headers });
 }
