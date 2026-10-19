@@ -1,4 +1,4 @@
-import { getRuntimeEnv } from "@/lib/runtime-env";
+import { getRuntimeEnv, getRuntimeEnvAsync } from "@/lib/runtime-env";
 
 export function getSupabaseEnv() {
   // MUST read process.env.NEXT_PUBLIC_* directly first so Next.js inlines them
@@ -24,11 +24,22 @@ export function getSupabaseEnv() {
   return { url, anonKey };
 }
 
+/** Sync — OK on Vercel/Node. On CF Server Actions prefer getSupabaseServiceRoleKeyAsync. */
 export function getSupabaseServiceRoleKey() {
   const serviceKey = getRuntimeEnv("SUPABASE_SERVICE_ROLE_KEY");
   if (!serviceKey) {
     throw new Error(
-      "Chýba SUPABASE_SERVICE_ROLE_KEY (Vercel/CF Worker Variables).",
+      "Chýba SUPABASE_SERVICE_ROLE_KEY (Vercel env / CF Worker → Settings → Variables and Secrets — runtime, nie len Build).",
+    );
+  }
+  return serviceKey;
+}
+
+export async function getSupabaseServiceRoleKeyAsync() {
+  const serviceKey = await getRuntimeEnvAsync("SUPABASE_SERVICE_ROLE_KEY");
+  if (!serviceKey) {
+    throw new Error(
+      "Chýba SUPABASE_SERVICE_ROLE_KEY (Vercel env / CF Worker → Settings → Variables and Secrets — runtime, nie len Build).",
     );
   }
   return serviceKey;

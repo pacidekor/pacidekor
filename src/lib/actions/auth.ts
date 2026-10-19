@@ -24,7 +24,12 @@ import {
   sanitizeZip,
   zipError,
 } from "@/lib/form-validation";
-import { createAdminClient, createCustomerClient, createServiceClient } from "@/lib/supabase/server";
+import {
+  createAdminClient,
+  createCustomerClient,
+  createServiceClient,
+  createServiceClientAsync,
+} from "@/lib/supabase/server";
 import type { ProfileRow, ProfileUpdate } from "@/lib/supabase/database.types";
 import {
   issueAndSendEmailVerifyCode,
@@ -339,7 +344,7 @@ export async function loginAdmin(
 
   let adminEmail: string | null = null;
   try {
-    const service = createServiceClient();
+    const service = await createServiceClientAsync();
     const { data: profile } = await service
       .from("profiles")
       .select("email, role, username")
@@ -355,9 +360,11 @@ export async function loginAdmin(
     console.error("loginAdmin service client:", detail || error);
     return {
       ok: false,
-      error: detail.includes("SUPABASE")
-        ? "Na Cloudflare Workeri chýbajú Supabase premenné (Settings → Variables and Secrets). Po úprave deploy s --keep-vars."
-        : "Prihlásenie administrátora nie je nakonfigurované.",
+      error: detail.includes("SUPABASE_SERVICE_ROLE_KEY")
+        ? "Chýba SUPABASE_SERVICE_ROLE_KEY v runtime Variables Workera (nie Build variables). Workers → pacidekor → Settings → Variables and Secrets."
+        : detail.includes("SUPABASE")
+          ? "Na Cloudflare Workeri chýbajú Supabase premenné v runtime (Settings → Variables and Secrets). Po úprave deploy s --keep-vars."
+          : "Prihlásenie administrátora nie je nakonfigurované.",
     };
   }
 

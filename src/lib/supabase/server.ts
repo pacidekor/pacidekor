@@ -4,7 +4,9 @@ import { cookies } from "next/headers";
 import {
   getSupabaseEnv,
   getSupabaseServiceRoleKey,
+  getSupabaseServiceRoleKeyAsync,
 } from "@/lib/supabase/env";
+import { ensureCloudflareEnv } from "@/lib/runtime-env";
 import {
   AUTH_COOKIE_OPTIONS,
   getAuthCookieName,
@@ -62,6 +64,23 @@ export function createPublicClient() {
 export function createServiceClient() {
   const { url } = getSupabaseEnv();
   const serviceKey = getSupabaseServiceRoleKey();
+
+  return createSupabaseClient<Database>(url, serviceKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  });
+}
+
+/**
+ * Prefer in Server Actions / CF — pulls Worker secrets via async Cloudflare context
+ * before constructing the service-role client.
+ */
+export async function createServiceClientAsync() {
+  await ensureCloudflareEnv();
+  const { url } = getSupabaseEnv();
+  const serviceKey = await getSupabaseServiceRoleKeyAsync();
 
   return createSupabaseClient<Database>(url, serviceKey, {
     auth: {
