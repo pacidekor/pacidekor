@@ -32,7 +32,7 @@ if (fs.existsSync(lockPath) || onVercel || !onCloudflare) {
   run("npx next build");
 }
 
-// Cloudflare CI only (when invoked as `npm run build:cf`)
+// Cloudflare CI only (outer `npm run build` / `build:cf`)
 
 fs.writeFileSync(lockPath, "1");
 try {
