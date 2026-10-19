@@ -35,3 +35,8 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+// Cloudflare / OpenNext local bindings (no-op on Vercel)
+import { initOpenNextCloudflareForDev } from "@opennextjs/cloudflare";
+initOpenNextCloudflareForDev();
+
