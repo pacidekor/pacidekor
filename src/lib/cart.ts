@@ -26,7 +26,10 @@ import {
   isCatalogProductKnownUnavailable,
   type EnsureCatalogResult,
 } from "@/lib/ensure-catalog-products";
-import { findCatalogProductById } from "@/lib/product-catalog";
+import {
+  findCatalogProductById,
+  mergeProductsIntoCatalog,
+} from "@/lib/product-catalog";
 import {
   applyInventoryLocally,
   getInventoryForProduct,
@@ -101,6 +104,8 @@ type StoredCartLine = {
 let accountCartCache: CartLineDto[] | null = null;
 type AccountCartHydration = "idle" | "pending" | "ready" | "error";
 let accountCartHydration: AccountCartHydration = "idle";
+/** Bumps on every account-cart write so in-flight hydrate cannot clobber optimistic adds. */
+let accountCartEpoch = 0;
 
 function notify() {
   if (typeof window === "undefined") return;
@@ -334,6 +339,7 @@ function dtoToCartItem(line: CartLineDto): CartItem | null {
 }
 
 function setAccountCart(lines: CartLineDto[]) {
+  accountCartEpoch += 1;
   accountCartCache = lines;
   notify();
 }
@@ -460,20 +466,29 @@ export async function hydrateGuestCartCatalog(): Promise<EnsureCatalogResult> {
 }
 
 export async function hydrateAccountCart(): Promise<CartItem[]> {
+  const epochAtStart = accountCartEpoch;
   accountCartHydration = "pending";
   notify();
   const result = await listCartAction();
   if (!result.ok) {
-    accountCartCache = null;
+    if (accountCartEpoch === epochAtStart) {
+      accountCartCache = null;
+    }
     accountCartHydration = "error";
     notify();
-    return readStored().map(lineToCartItemFromStored);
+    return readCartItems();
   }
   const ensure = await reconcileCatalogProducts(
     result.data.map((line) => line.productId),
   );
   accountCartHydration = ensure.ok ? "ready" : "error";
-  setAccountCart(result.data);
+  // Optimistic addToCart may have run while we awaited the server list —
+  // keep the newer local cache; background upsert will reconcile.
+  if (accountCartEpoch === epochAtStart) {
+    setAccountCart(result.data);
+  } else {
+    notify();
+  }
   return readCartItems();
 }
 
@@ -606,18 +621,47 @@ export async function addToCart(
   if (qty <= 0) return readCartItems();
 
   if (getCachedClientAuthenticated() === true) {
+    // Badge/count resolve via catalog — register product before optimistic patch
+    // so readCartItems() includes the new line instantly (like favorites).
+    mergeProductsIntoCatalog([product]);
+
     if (accountCartCache === null) {
-      const result = await upsertCartItemAction({
-        productId: product.id,
-        quantity: qty,
-        lineOptionKey,
-        colorId: opts.colorId,
-        variantId: opts.variantId,
+      // Hydration still running — seed optimistic line so UI updates now.
+      const optimisticQty = qty;
+      setAccountCart(
+        patchAccountCartLine([], product.id, lineOptionKey, optimisticQty),
+      );
+
+      enqueueAccountCartWrite(async () => {
+        const result = await upsertCartItemAction({
+          productId: product.id,
+          quantity: optimisticQty,
+          lineOptionKey,
+          colorId: opts.colorId,
+          variantId: opts.variantId,
+        });
+        if (!result.ok) {
+          window.alert(result.error);
+          const listed = await listCartAction();
+          if (listed.ok) {
+            await reconcileCatalogProducts(
+              listed.data.map((line) => line.productId),
+            );
+            setAccountCart(listed.data);
+          }
+          return;
+        }
+        const listed = await listCartAction();
+        if (listed.ok) {
+          await reconcileCatalogProducts(
+            listed.data.map((line) => line.productId),
+          );
+          setAccountCart(listed.data);
+        } else {
+          setAccountCart(result.data);
+        }
       });
-      if (!result.ok) throw new Error(result.error);
-      const listed = await listCartAction();
-      if (listed.ok) setAccountCart(listed.data);
-      else setAccountCart(result.data);
+
       return readCartItems();
     }
 
