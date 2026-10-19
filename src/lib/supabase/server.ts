@@ -1,7 +1,10 @@
 import { createServerClient } from "@supabase/ssr";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
-import { getSupabaseEnv } from "@/lib/supabase/env";
+import {
+  getSupabaseEnv,
+  getSupabaseServiceRoleKey,
+} from "@/lib/supabase/env";
 import {
   AUTH_COOKIE_OPTIONS,
   getAuthCookieName,
@@ -58,11 +61,7 @@ export function createPublicClient() {
 /** Service-role client for privileged admin ops (e.g. delete Auth user). */
 export function createServiceClient() {
   const { url } = getSupabaseEnv();
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!serviceKey) {
-    throw new Error("Chýba SUPABASE_SERVICE_ROLE_KEY v .env.local");
-  }
+  const serviceKey = getSupabaseServiceRoleKey();
 
   return createSupabaseClient<Database>(url, serviceKey, {
     auth: {

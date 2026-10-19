@@ -11,7 +11,11 @@ const nextConfig: NextConfig = {
       // Vercel Functions hard-cap request bodies at 4.5 MB; admin uploads bypass
       // Server Actions and go straight to Supabase Storage from the browser.
       bodySizeLimit: "4mb",
-      allowedOrigins: ["pacidekor.sk", "www.pacidekor.sk"],
+      allowedOrigins: [
+        "pacidekor.sk",
+        "www.pacidekor.sk",
+        "pacidekor.tomas-8a7.workers.dev",
+      ],
     },
   },
   serverExternalPackages: ["sharp"],

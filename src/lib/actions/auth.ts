@@ -350,10 +350,14 @@ export async function loginAdmin(
     if (profile?.email) {
       adminEmail = profile.email;
     }
-  } catch {
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : "";
+    console.error("loginAdmin service client:", detail || error);
     return {
       ok: false,
-      error: "Prihlásenie administrátora nie je nakonfigurované.",
+      error: detail.includes("SUPABASE")
+        ? "Na Cloudflare Workeri chýbajú Supabase premenné (Settings → Variables and Secrets). Po úprave deploy s --keep-vars."
+        : "Prihlásenie administrátora nie je nakonfigurované.",
     };
   }
 
