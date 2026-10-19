@@ -37,8 +37,14 @@ export async function updateSession(request: NextRequest) {
 
   let supabaseResponse = NextResponse.next({ request });
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // Direct NEXT_PUBLIC_* first (inlined at build); CF runtime fallback if Build vars missing.
+  let url = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+  let anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY?.trim();
+  if (!url || !anonKey) {
+    const { getRuntimeEnv } = await import("@/lib/runtime-env");
+    url = url || getRuntimeEnv("NEXT_PUBLIC_SUPABASE_URL");
+    anonKey = anonKey || getRuntimeEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY");
+  }
 
   if (!url || !anonKey) {
     return supabaseResponse;

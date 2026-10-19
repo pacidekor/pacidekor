@@ -1,13 +1,16 @@
 /**
  * Read env on Node/Vercel (`process.env`) and optionally Cloudflare Workers
  * (`getCloudflareContext().env`). Never load OpenNext on Vercel.
+ *
+ * Note: do NOT skip on NEXT_RUNTIME=edge — OpenNext on CF may set that, and
+ * Worker Variables still live on getCloudflareContext().env.
  */
 export function getRuntimeEnv(name: string): string | undefined {
   const fromProcess = process.env[name]?.trim();
   if (fromProcess) return fromProcess;
 
-  // Vercel / local Node — only process.env
-  if (process.env.VERCEL || process.env.NEXT_RUNTIME === "edge") {
+  // Vercel — only process.env (OpenNext must not load there)
+  if (process.env.VERCEL) {
     return undefined;
   }
 
