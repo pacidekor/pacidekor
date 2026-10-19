@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "opennextjs-cloudflare build",
-    "build:next": "next build",
+    "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test:gallery": "node --experimental-strip-types --test src/lib/product-gallery-order.test.mjs",
