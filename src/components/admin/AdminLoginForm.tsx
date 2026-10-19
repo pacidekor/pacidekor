@@ -19,16 +19,21 @@ export function AdminLoginForm() {
     setError("");
     setPending(true);
 
-    const result = await loginAdmin(username, password);
-    setPending(false);
-
-    if (!result.ok) {
-      setError(result.error);
-      return;
+    try {
+      const result = await loginAdmin(username, password);
+      if (!result.ok) {
+        setError(result.error);
+        return;
+      }
+      router.replace("/admin");
+      router.refresh();
+    } catch {
+      setError(
+        "Prihlásenie zlyhalo (server neodpovedal). Skús znova alebo skontroluj CF Worker Variables.",
+      );
+    } finally {
+      setPending(false);
     }
-
-    router.replace("/admin");
-    router.refresh();
   }
 
   return (
