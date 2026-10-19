@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/smart-build.mjs",
-    "build:next": "next build",
+    "build": "next build",
+    "build:cf": "node scripts/smart-build.mjs",
     "start": "next start",
     "lint": "eslint",
     "test:gallery": "node --experimental-strip-types --test src/lib/product-gallery-order.test.mjs",

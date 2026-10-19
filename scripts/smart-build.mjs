@@ -27,9 +27,12 @@ function run(command) {
   process.exit(result.status === null ? 1 : result.status);
 }
 
+// Default / Vercel / nested OpenNext call → plain Next build only
 if (fs.existsSync(lockPath) || onVercel || !onCloudflare) {
   run("npx next build");
 }
+
+// Cloudflare CI only (when invoked as `npm run build:cf`)
 
 fs.writeFileSync(lockPath, "1");
 try {
