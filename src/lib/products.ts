@@ -13,6 +13,7 @@ import {
   type TextVariant,
   type VariantMode,
 } from "@/lib/product-variants";
+import { mapMediaUrls } from "@/lib/media-url";
 
 export type ProductDetail = {
   title: string;
@@ -642,12 +643,23 @@ function asDetails(value: unknown): ProductDetail[] {
 }
 
 export function mapProductRow(row: ProductRow): Product {
-  const images = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
+  const imagesRaw = Array.isArray(row.images)
+    ? row.images.filter((u): u is string => typeof u === "string" && Boolean(u))
+    : [];
+  // Prefer R2/media CDN when NEXT_PUBLIC_MEDIA_BASE_URL is set; DB may still
+  // hold Supabase Storage URLs until a later batch rewrite.
+  const images = mapMediaUrls(imagesRaw);
   const [image = "", hoverImage, ...extraImages] = images;
   const colorIds = row.color_ids ?? [];
   const packaging = asPackaging(row.packaging);
   const colors = colorsFromIds(colorIds);
   const colorImageMap = asColorImageMap(row.color_image_map, images.length);
+  const textVariants = normalizeTextVariants(row.text_variants, imagesRaw).map(
+    (variant) => ({
+      ...variant,
+      imageUrls: mapMediaUrls(variant.imageUrls),
+    }),
+  );
 
   return {
     id: row.id,
@@ -674,8 +686,10 @@ export function mapProductRow(row: ProductRow): Product {
         ? colorImageMap
         : undefined,
     sharedImageUrls: Array.isArray(row.shared_image_urls)
-      ? row.shared_image_urls.filter(
-          (url): url is string => typeof url === "string" && url.length > 0,
+      ? mapMediaUrls(
+          row.shared_image_urls.filter(
+            (url): url is string => typeof url === "string" && url.length > 0,
+          ),
         )
       : undefined,
     unavailableColorIds: Array.isArray(row.unavailable_color_ids)
@@ -695,7 +709,7 @@ export function mapProductRow(row: ProductRow): Product {
     redirectToProductId: row.redirect_to_product_id ?? null,
     variantMode: resolveVariantMode(row, colorIds),
     variantAxisLabel: row.variant_axis_label?.trim() || undefined,
-    textVariants: normalizeTextVariants(row.text_variants, images),
+    textVariants,
     defaultVariantId: row.default_variant_id?.trim() || undefined,
     variantTotalCount:
       typeof row.variant_total_count === "number"

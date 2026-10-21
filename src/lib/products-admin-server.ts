@@ -710,6 +710,14 @@ export async function deleteProductAdmin(
     const paths = storagePathsNotReferenced(images, urlsStillUsed);
 
     if (paths.length > 0) {
+      // Prefer R2 when media CDN is live; also attempt Supabase cleanup for
+      // legacy objects still referenced by absolute supabase.co URLs.
+      try {
+        const { deleteProductImageKeys } = await import("@/lib/r2-product-images");
+        await deleteProductImageKeys(paths);
+      } catch {
+        /* Vercel / no binding */
+      }
       await db.storage.from("product-images").remove(paths);
     }
 

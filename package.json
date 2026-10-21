@@ -11,7 +11,12 @@
     "test:gallery": "node --experimental-strip-types --test src/lib/product-gallery-order.test.mjs",
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy -- --keep-vars",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "smoke:cf": "node scripts/smoke-cf.mjs",
+    "dns:cutover-help": "node scripts/print-dns-cutover.mjs",
+    "cf:attach-domains": "node scripts/cf-attach-domains.mjs",
+    "cf:setup-r2": "node scripts/cf-setup-r2.mjs",
+    "sync:product-images-r2": "node scripts/sync-product-images-to-r2.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.12",

@@ -167,8 +167,35 @@ export async function collectReferencedImageUrls(
 export function storagePathFromPublicUrl(url: string) {
   const marker = "/storage/v1/object/public/product-images/";
   const index = url.indexOf(marker);
-  if (index === -1) return null;
-  return decodeURIComponent(url.slice(index + marker.length));
+  if (index !== -1) {
+    return decodeURIComponent(url.slice(index + marker.length));
+  }
+
+  // R2 / media CDN: https://media.pacidekor.sk/{userId}/{uuid}.webp
+  const mediaBase = (
+    typeof process !== "undefined"
+      ? process.env.NEXT_PUBLIC_MEDIA_BASE_URL
+      : undefined
+  )
+    ?.trim()
+    .replace(/\/$/, "");
+  if (mediaBase && url.startsWith(`${mediaBase}/`)) {
+    return decodeURIComponent(url.slice(mediaBase.length + 1).split("?")[0] ?? "");
+  }
+
+  try {
+    const parsed = new URL(url);
+    if (
+      parsed.hostname === "media.pacidekor.sk" ||
+      parsed.hostname.endsWith(".r2.dev")
+    ) {
+      return decodeURIComponent(parsed.pathname.replace(/^\//, ""));
+    }
+  } catch {
+    /* not a URL */
+  }
+
+  return null;
 }
 
 /** Paths that are safe to remove from Storage (not referenced elsewhere). */

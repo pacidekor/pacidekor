@@ -29,5 +29,11 @@
   ],
   "observability": {
     "enabled": true
-  }
+  },
+  "r2_buckets": [
+    {
+      "binding": "PRODUCT_IMAGES",
+      "bucket_name": "pacidekor-product-images"
+    }
+  ]
 }
