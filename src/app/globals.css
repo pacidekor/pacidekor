@@ -82,6 +82,17 @@ button,
   }
 }
 
+@keyframes nav-sub-fade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes chat-typing-dot {
   0%,
   60%,
