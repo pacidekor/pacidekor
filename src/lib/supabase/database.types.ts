@@ -87,6 +87,11 @@ export type ProductRow = {
    * Optional until migration `20261017_products_unavailable_color_ids` is applied.
    */
   unavailable_color_ids?: string[];
+  /**
+   * colorId → qty. Missing/null = unlimited; 0 = sold out.
+   * Optional until migration `20261021_product_color_stock`.
+   */
+  color_stock?: Record<string, number | null>;
   packaging: PackagingJson[];
   details: ProductDetailJson[];
   images: string[];
@@ -135,6 +140,7 @@ export type ProductInsert = {
   color_ids?: string[];
   color_image_map?: Record<string, number[]>;
   unavailable_color_ids?: string[];
+  color_stock?: Record<string, number | null>;
   packaging?: PackagingJson[];
   details?: ProductDetailJson[];
   images?: string[];
@@ -364,6 +370,7 @@ export type OrderRow = {
   packeta_point_name: string | null;
   packeta_packet_id: string | null;
   gopay_payment_id: string | null;
+  warehouse_stock_decremented_at?: string | null;
   subtotal_eur: number;
   discount_eur: number;
   promo_code: string | null;

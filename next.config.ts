@@ -34,6 +34,17 @@ const nextConfig: NextConfig = {
         hostname: "skytsyfjowwyzpvhidco.supabase.co",
         pathname: "/storage/v1/object/public/**",
       },
+      // R2 public / custom domain (after Enable R2 + sync)
+      {
+        protocol: "https",
+        hostname: "media.pacidekor.sk",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "*.r2.dev",
+        pathname: "/**",
+      },
     ],
   },
 };

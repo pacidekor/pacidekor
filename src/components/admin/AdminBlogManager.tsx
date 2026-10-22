@@ -35,6 +35,8 @@ import {
   saveBlogPostAction,
 } from "@/lib/actions/blog";
 import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
+import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
+import { AdminBlogListSkeleton } from "@/components/admin/AdminSkeleton";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { toSlug } from "@/lib/navigation";
 
@@ -72,12 +74,7 @@ export function AdminBlogManager() {
   }
 
   if (!hydrated) {
-    return (
-      <div>
-        <div className="h-16 animate-pulse rounded-2xl bg-white/60" />
-        <div className="mt-5 h-64 animate-pulse rounded-2xl bg-white/60" />
-      </div>
-    );
+    return <AdminBlogListSkeleton />;
   }
 
   return (
@@ -680,8 +677,9 @@ function CoverImageField({
               type="button"
               onClick={() => onChange("")}
               disabled={uploading}
-              className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/55 transition-colors hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
             >
+              <Trash2 className="size-3.5" aria-hidden />
               Odstrániť
             </button>
           ) : null}
@@ -951,8 +949,9 @@ function SlideOver({
                 type="button"
                 onClick={() => setDeleteOpen(true)}
                 disabled={exiting}
-                className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:opacity-40"
+                className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:opacity-40"
               >
+                <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
                 {deleteLabel ?? "Odstrániť"}
               </button>
             ) : null}
@@ -960,8 +959,9 @@ function SlideOver({
               type="button"
               onClick={onSave}
               disabled={!canSave || exiting}
-              className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+              className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:flex-none sm:min-w-[12rem] sm:px-8"
             >
+              <AdminSaveIcon />
               Uložiť
             </button>
           </div>

@@ -36,6 +36,7 @@ import {
   type CustomerStatus,
   type CustomerType,
 } from "@/lib/customers";
+import { AdminCustomersListSkeleton } from "@/components/admin/AdminSkeleton";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 
 type StatusFilter = "all" | CustomerStatus;
@@ -213,12 +214,7 @@ export function AdminCustomersManager({
   }
 
   if (!hydrated) {
-    return (
-      <div>
-        <div className="h-16 animate-pulse rounded-2xl bg-white/60" />
-        <div className="mt-5 h-64 animate-pulse rounded-2xl bg-white/60" />
-      </div>
-    );
+    return <AdminCustomersListSkeleton />;
   }
 
   return (

@@ -6,15 +6,12 @@ import { createPortal } from "react-dom";
 import { Check, ShoppingCart, X } from "lucide-react";
 import { QuantityStepper } from "@/components/QuantityStepper";
 import { ProductVariantPills } from "@/components/product/ProductVariantPills";
-import { adjustStockAction } from "@/lib/actions/inventory";
 import { addToCart } from "@/lib/cart";
 import {
-  applyInventoryLocally,
   getInventoryForProduct,
   inventoryMaxOrderable,
   isInventoryAvailable,
   previewInventoryDelta,
-  setInventory,
 } from "@/lib/inventory";
 import {
   isColorOrderable,
@@ -236,12 +233,10 @@ export function AddToCartQuantityModal({
         typeof maxQty === "number" ? maxQty : undefined,
       ) || orderMultiple;
 
-    const previous = getInventoryForProduct(product);
     const previewDelta = previewInventoryDelta(product, -qty);
     if (!previewDelta.ok) return;
 
     setSubmitting(true);
-    applyInventoryLocally(product.id, previewDelta.entry);
 
     try {
       await addToCart(product, qty, {
@@ -249,26 +244,12 @@ export function AddToCartQuantityModal({
         variantId: isCustom ? selectedVariantId : undefined,
       });
     } catch {
-      applyInventoryLocally(product.id, previous);
       setSubmitting(false);
       return;
     }
 
     setSubmitting(false);
     setAdded(true);
-
-    if (previewDelta.needsServerSync) {
-      void adjustStockAction(product.id, -qty).then((result) => {
-        if (!result.ok) {
-          applyInventoryLocally(product.id, previous);
-          return;
-        }
-        setInventory(product.id, {
-          inStock: result.data.inStock,
-          quantity: result.data.stockQuantity,
-        });
-      });
-    }
 
     closeTimerRef.current = setTimeout(() => {
       onCloseRef.current();

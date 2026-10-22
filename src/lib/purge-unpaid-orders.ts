@@ -35,26 +35,8 @@ export async function purgeUnpaidOrdersOlderThan24h(): Promise<PurgeUnpaidSummar
 
   for (const order of list) {
     try {
-      const { data: items, error: itemsError } = await db
-        .from("order_items")
-        .select("product_id, quantity")
-        .eq("order_id", order.id);
-
-      if (itemsError) throw new Error(itemsError.message);
-
-      for (const item of items ?? []) {
-        const { error: stockError } = await db.rpc("adjust_product_stock", {
-          p_product_id: item.product_id,
-          p_delta: item.quantity,
-        });
-        if (stockError) {
-          console.error(
-            "purgeUnpaid stock restore:",
-            order.order_number,
-            stockError.message,
-          );
-        }
-      }
+      // Stock is deducted only on Packeta label print — unpaid orders never
+      // reach that step, so there is nothing to restore here.
 
       if (order.promo_code) {
         const { data: promo } = await db

@@ -37,7 +37,7 @@ export const STOREFRONT_CATALOG_TAG = "storefront-catalog";
  * Full row still comes from getProductBySlug / getProductById on PDP & admin editor.
  */
 const STOREFRONT_LIST_COLUMNS_CORE =
-  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, color_image_map, unavailable_color_ids, color_stock, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
 
 const STOREFRONT_VARIANT_SUMMARY_COLUMNS =
   "variant_mode, variant_axis_label, variant_total_count, variant_orderable_count, variant_min_price_cents, variant_price_varies, default_variant_id";
@@ -129,7 +129,7 @@ export const listProducts = cache(async (): Promise<Product[]> => {
  * Open editor → getProductById for full row.
  */
 const ADMIN_LIST_COLUMNS_BASE =
-  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, unavailable_color_ids, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at";
+  "id, slug, name, sku, price, original_price, discount, category, subcategory_id, druh_id, color_ids, unavailable_color_ids, color_stock, packaging, images, in_stock, stock_quantity, is_new, new_until, in_vypredaj, is_bestseller, created_at, updated_at, variant_mode, variant_axis_label, text_variants, variant_total_count, variant_orderable_count, default_variant_id";
 
 const ADMIN_LIST_COLUMNS = `${ADMIN_LIST_COLUMNS_BASE}, archived_at, redirect_to_product_id`;
 

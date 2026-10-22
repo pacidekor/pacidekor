@@ -14,6 +14,10 @@ import {
   type VariantMode,
 } from "@/lib/product-variants";
 import { mapMediaUrls } from "@/lib/media-url";
+import {
+  mergeColorStockWithUnavailable,
+  parseColorStock,
+} from "@/lib/warehouse-stock";
 
 export type ProductDetail = {
   title: string;
@@ -64,6 +68,11 @@ export type Product = {
    * Empty / undefined = none blocked by this flag.
    */
   unavailableColorIds?: string[];
+  /**
+   * Per-color stock qty. Missing key / null = unlimited; 0 = sold out.
+   * Kept in sync with unavailableColorIds on warehouse save.
+   */
+  colorStock?: Record<string, number | null>;
   /** Selection axis: none | colors | custom */
   variantMode?: VariantMode;
   variantAxisLabel?: string;
@@ -697,6 +706,16 @@ export function mapProductRow(row: ProductRow): Product {
           (id): id is string => typeof id === "string" && id.length > 0,
         )
       : [],
+    colorStock: (() => {
+      const parsed = parseColorStock(
+        (row as ProductRow & { color_stock?: unknown }).color_stock,
+      );
+      return mergeColorStockWithUnavailable({
+        colorIds,
+        colorStock: parsed,
+        unavailableColorIds: row.unavailable_color_ids,
+      });
+    })(),
     details: asDetails(row.details),
     inStock: row.in_stock,
     stockQuantity: row.stock_quantity ?? undefined,
@@ -728,8 +747,8 @@ export function mapProductRow(row: ProductRow): Product {
   };
 }
 
-function resolveVariantMode(
-  row: ProductRow,
+export function resolveVariantMode(
+  row: Pick<ProductRow, "variant_mode"> | { variant_mode?: string | null },
   colorIds: string[],
 ): VariantMode {
   if (isVariantMode(row.variant_mode)) return row.variant_mode;

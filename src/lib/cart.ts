@@ -19,7 +19,6 @@ import {
   unionMergeLines,
 } from "@/lib/cart-merge-safety";
 import { getCachedClientAuthenticated } from "@/lib/client-auth";
-import { adjustStockAction } from "@/lib/actions/inventory";
 import {
   ensureCatalogProducts,
   reconcileCatalogProducts,
@@ -30,12 +29,7 @@ import {
   findCatalogProductById,
   mergeProductsIntoCatalog,
 } from "@/lib/product-catalog";
-import {
-  applyInventoryLocally,
-  getInventoryForProduct,
-  previewInventoryDelta,
-  setInventory,
-} from "@/lib/inventory";
+import { previewInventoryDelta } from "@/lib/inventory";
 import {
   amountToMinOrder,
   audienceNetFromCatalogPrice,
@@ -829,43 +823,11 @@ export type CartFillLine = {
 };
 
 export function replaceCartContents(lines: CartFillLine[]): number {
-  const current = readCartItems();
-
-  for (const item of current) {
-    const restore = previewInventoryDelta(item.product, item.quantity);
-    if (restore.ok) {
-      applyInventoryLocally(item.product.id, restore.entry);
-      if (restore.needsServerSync) {
-        void adjustStockAction(item.product.id, item.quantity).then((result) => {
-          if (!result.ok) return;
-          setInventory(item.product.id, {
-            inStock: result.data.inStock,
-            quantity: result.data.stockQuantity,
-          });
-        });
-      }
-    }
-  }
-
   const accepted: CartFillLine[] = [];
   for (const line of lines) {
     const qty = Math.max(1, Math.floor(line.quantity));
-    const previous = getInventoryForProduct(line.product);
     const preview = previewInventoryDelta(line.product, -qty);
     if (!preview.ok) continue;
-    applyInventoryLocally(line.product.id, preview.entry);
-    if (preview.needsServerSync) {
-      void adjustStockAction(line.product.id, -qty).then((result) => {
-        if (!result.ok) {
-          applyInventoryLocally(line.product.id, previous);
-          return;
-        }
-        setInventory(line.product.id, {
-          inStock: result.data.inStock,
-          quantity: result.data.stockQuantity,
-        });
-      });
-    }
     accepted.push({ ...line, quantity: qty });
   }
 
@@ -945,33 +907,16 @@ export function addLinesToCart(lines: CartFillLine[]): AddLinesToCartResult {
       skipped += 1;
       continue;
     }
-    const previous = getInventoryForProduct(line.product);
     const preview = previewInventoryDelta(line.product, -qty);
     if (!preview.ok) {
       skipped += 1;
       continue;
     }
 
-    applyInventoryLocally(line.product.id, preview.entry);
-    if (preview.needsServerSync) {
-      void adjustStockAction(line.product.id, -qty).then((result) => {
-        if (!result.ok) {
-          applyInventoryLocally(line.product.id, previous);
-          return;
-        }
-        setInventory(line.product.id, {
-          inStock: result.data.inStock,
-          quantity: result.data.stockQuantity,
-        });
-      });
-    }
-
     void addToCart(line.product, qty, {
       colorId: line.colorId,
       variantId: line.variantId,
       lineOptionKey: line.lineOptionKey,
-    }).catch(() => {
-      applyInventoryLocally(line.product.id, previous);
     });
     added += 1;
   }

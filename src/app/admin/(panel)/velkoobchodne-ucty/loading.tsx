@@ -1,21 +1,15 @@
 import {
-  AdminHeaderSkeleton,
+  AdminCustomersListSkeleton,
   AdminLoadingShell,
-  AdminSearchFilterSkeleton,
-  AdminTableSkeleton,
 } from "@/components/admin/AdminSkeleton";
 
-export default function AdminVelkoobchodLoading() {
+export default function AdminVelkoobchodneUctyLoading() {
   return (
     <AdminLoadingShell>
-      <AdminHeaderSkeleton
-        titleClassName="h-8 w-56 sm:h-9"
+      <AdminCustomersListSkeleton
+        titleClassName="h-8 w-52 sm:h-9"
         descriptionClassName="mt-3 h-4 w-full max-w-lg"
       />
-      <div className="mt-5">
-        <AdminSearchFilterSkeleton />
-        <AdminTableSkeleton rows={8} />
-      </div>
     </AdminLoadingShell>
   );
 }

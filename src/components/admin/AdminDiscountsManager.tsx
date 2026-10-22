@@ -11,6 +11,7 @@ import {
   Search,
 } from "lucide-react";
 import { DiscountEditorPanel } from "@/components/admin/DiscountEditorPanel";
+import { AdminDiscountsListSkeleton } from "@/components/admin/AdminSkeleton";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
@@ -98,10 +99,13 @@ export function AdminDiscountsManager() {
 
   useEffect(() => {
     setList(readDiscounts());
-    void listPromoCodesAction().then((result) => {
-      if (result.ok) setPromos(result.data);
-    });
-    setHydrated(true);
+    void listPromoCodesAction()
+      .then((result) => {
+        if (result.ok) setPromos(result.data);
+      })
+      .finally(() => {
+        setHydrated(true);
+      });
     return () => {
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
     };
@@ -290,12 +294,7 @@ export function AdminDiscountsManager() {
   }
 
   if (!hydrated) {
-    return (
-      <div>
-        <div className="h-16 animate-pulse rounded-2xl bg-white/60" />
-        <div className="mt-5 h-64 animate-pulse rounded-2xl bg-white/60" />
-      </div>
-    );
+    return <AdminDiscountsListSkeleton />;
   }
 
   return (

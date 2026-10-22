@@ -2,14 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, ShoppingCart } from "lucide-react";
-import { adjustStockAction } from "@/lib/actions/inventory";
 import { addToCart } from "@/lib/cart";
-import {
-  applyInventoryLocally,
-  getInventoryForProduct,
-  previewInventoryDelta,
-  setInventory,
-} from "@/lib/inventory";
+import { previewInventoryDelta } from "@/lib/inventory";
 import type { Product } from "@/lib/products";
 import {
   getProductOrderMultiple,
@@ -71,36 +65,19 @@ export function AddToCartButton({
     const qty =
       snapQuantityToMultiple(rawQty, multiple) || Math.max(1, multiple);
 
-    const previous = getInventoryForProduct(product);
     const preview = previewInventoryDelta(product, -qty);
     if (!preview.ok) return;
-
-    applyInventoryLocally(product.id, preview.entry);
 
     void (async () => {
       try {
         await addToCart(product, qty, { colorId, variantId });
       } catch {
-        applyInventoryLocally(product.id, previous);
         return;
       }
 
       setAdded(true);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
       timeoutRef.current = setTimeout(() => setAdded(false), RESET_MS);
-
-      if (preview.needsServerSync) {
-        void adjustStockAction(product.id, -qty).then((result) => {
-          if (!result.ok) {
-            applyInventoryLocally(product.id, previous);
-            return;
-          }
-          setInventory(product.id, {
-            inStock: result.data.inStock,
-            quantity: result.data.stockQuantity,
-          });
-        });
-      }
     })();
   }
 

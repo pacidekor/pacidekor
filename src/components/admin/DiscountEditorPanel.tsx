@@ -10,7 +10,7 @@ import {
   type UIEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { Info, Search, X } from "lucide-react";
+import { Info, Search, Trash2, X } from "lucide-react";
 import { formatPrice, parsePrice } from "@/lib/price";
 import type { AdminPromoCode } from "@/lib/actions/promo";
 import {
@@ -20,6 +20,7 @@ import {
   getProductForDiscount,
   type ProductDiscount,
 } from "@/lib/discounts";
+import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { normalizePromoCode } from "@/lib/promo";
 import type { Product } from "@/lib/products";
@@ -918,8 +919,9 @@ export function DiscountEditorPanel({
                     setDeleteOpen(true);
                   }}
                   disabled={exiting}
-                  className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                  className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
                 >
+                  <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
                   Odstrániť
                 </button>
               ) : null}
@@ -928,16 +930,18 @@ export function DiscountEditorPanel({
                   type="button"
                   onClick={onEnd}
                   disabled={exiting}
-                  className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-black/10 px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 disabled:cursor-not-allowed disabled:opacity-40"
                 >
+                  <X className="size-4" strokeWidth={1.75} aria-hidden />
                   Ukončiť zľavu
                 </button>
               ) : null}
               <button
                 type="submit"
                 disabled={!canSave || exiting || saving}
-                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+                className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
               >
+                <AdminSaveIcon />
                 Uložiť
               </button>
             </div>
@@ -973,8 +977,9 @@ export function DiscountEditorPanel({
                   type="button"
                   onClick={saveAndClose}
                   disabled={!canSave || exiting || saving}
-                  className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
+                  <AdminSaveIcon />
                   Uložiť zmeny
                 </button>
               </div>

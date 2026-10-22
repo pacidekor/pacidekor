@@ -21,6 +21,11 @@ export type TextVariant = {
   /** Wholesale net price in eurocents (integer). */
   priceCents: number;
   available: boolean;
+  /**
+   * Pieces on hand. `null` / omitted = unlimited.
+   * `0` = sold out (available should be false).
+   */
+  stockQuantity?: number | null;
   sortOrder: number;
   /** URLs that must belong to product.images */
   imageUrls: string[];
@@ -81,10 +86,26 @@ export function normalizeTextVariant(
     }
   }
 
-  const available = row.available !== false;
   const sortOrder = Number.isFinite(Number(row.sortOrder))
     ? Math.floor(Number(row.sortOrder))
     : 0;
+
+  let stockQuantity: number | null | undefined;
+  if ("stockQuantity" in row || "stock_quantity" in row) {
+    const raw = row.stockQuantity ?? row.stock_quantity;
+    if (raw === null || raw === undefined || raw === "") {
+      stockQuantity = null;
+    } else {
+      const n = Math.floor(Number(raw));
+      stockQuantity = Number.isFinite(n) ? Math.max(0, n) : null;
+    }
+  }
+
+  // Derive availability from stock when present; else legacy available flag.
+  const available =
+    stockQuantity !== undefined
+      ? stockQuantity === null || stockQuantity > 0
+      : row.available !== false;
 
   const allowed = new Set(productImageUrls);
   const imageUrls: string[] = [];
@@ -106,6 +127,7 @@ export function normalizeTextVariant(
     label,
     priceCents,
     available,
+    ...(stockQuantity !== undefined ? { stockQuantity } : {}),
     sortOrder,
     imageUrls,
   };

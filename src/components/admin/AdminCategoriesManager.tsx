@@ -8,7 +8,6 @@ import {
   ChevronRight,
   FolderTree,
   ImagePlus,
-  Pencil,
   Plus,
   Search,
   Trash2,
@@ -31,6 +30,8 @@ import { uploadCompressedAdminImage } from "@/lib/admin-image-upload";
 import { getProductCatalog } from "@/lib/product-catalog";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { useTaxonomy } from "@/components/ProductCatalogProvider";
+import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
+import { AdminCategoriesListSkeleton } from "@/components/admin/AdminSkeleton";
 
 function productCountForCategory(label: string) {
   return getProductCatalog().filter((product) => product.category === label)
@@ -178,12 +179,7 @@ export function AdminCategoriesManager() {
   }
 
   if (!hydrated) {
-    return (
-      <div>
-        <div className="h-16 animate-pulse rounded-2xl bg-white/60" />
-        <div className="mt-5 h-64 animate-pulse rounded-2xl bg-white/60" />
-      </div>
-    );
+    return <AdminCategoriesListSkeleton />;
   }
 
   return (
@@ -597,8 +593,13 @@ function CategoryEditor({
                         type="button"
                         onClick={() => setImage("")}
                         disabled={busy}
-                        className="inline-flex h-9 cursor-pointer items-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/60 transition-colors hover:border-[#c45c4a]/30 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="inline-flex h-9 cursor-pointer items-center gap-1.5 rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924]/60 transition-colors hover:border-[#c45c4a]/30 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
                       >
+                        <Trash2
+                          className="size-3.5"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
                         Odstrániť
                       </button>
                     ) : null}
@@ -665,15 +666,8 @@ function CategoryEditor({
                     {subs.map((sub, index) => (
                       <li
                         key={sub.id ?? `new-${index}`}
-                        className="flex items-center gap-2"
+                        className="flex h-11 items-stretch overflow-hidden rounded-xl border border-black/10 bg-[#faf8f5] transition-colors focus-within:border-[#75825B] focus-within:bg-white"
                       >
-                        <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#e8ebe2] text-[#75825B]">
-                          <Pencil
-                            className="size-3.5"
-                            strokeWidth={1.75}
-                            aria-hidden
-                          />
-                        </span>
                         <input
                           type="text"
                           value={sub.label}
@@ -682,13 +676,13 @@ function CategoryEditor({
                           }
                           disabled={busy}
                           placeholder="Názov subkategórie"
-                          className="h-11 min-w-0 flex-1 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                          className="min-w-0 flex-1 bg-transparent px-3.5 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 disabled:opacity-60"
                         />
                         <button
                           type="button"
                           onClick={() => removeSub(index)}
                           disabled={busy}
-                          className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                          className="inline-flex w-11 shrink-0 cursor-pointer items-center justify-center border-l border-black/10 text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
                           aria-label="Odstrániť subkategóriu"
                         >
                           <Trash2
@@ -736,15 +730,8 @@ function CategoryEditor({
                     {druhy.map((druh, index) => (
                       <li
                         key={druh.id ?? `new-druh-${index}`}
-                        className="flex items-center gap-2"
+                        className="flex h-11 items-stretch overflow-hidden rounded-xl border border-black/10 bg-[#faf8f5] transition-colors focus-within:border-[#75825B] focus-within:bg-white"
                       >
-                        <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#e8ebe2] text-[#75825B]">
-                          <Pencil
-                            className="size-3.5"
-                            strokeWidth={1.75}
-                            aria-hidden
-                          />
-                        </span>
                         <input
                           type="text"
                           value={druh.label}
@@ -753,13 +740,13 @@ function CategoryEditor({
                           }
                           disabled={busy}
                           placeholder="Názov druhu"
-                          className="h-11 min-w-0 flex-1 rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B] focus:bg-white disabled:opacity-60"
+                          className="min-w-0 flex-1 bg-transparent px-3.5 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 disabled:opacity-60"
                         />
                         <button
                           type="button"
                           onClick={() => removeDruh(index)}
                           disabled={busy}
-                          className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
+                          className="inline-flex w-11 shrink-0 cursor-pointer items-center justify-center border-l border-black/10 text-[#2f2924]/40 transition-colors hover:bg-[#c45c4a]/10 hover:text-[#c45c4a] disabled:cursor-not-allowed disabled:opacity-40"
                           aria-label="Odstrániť druh"
                         >
                           <Trash2
@@ -793,8 +780,9 @@ function CategoryEditor({
                 type="button"
                 onClick={saveAndClose}
                 disabled={!label.trim() || busy}
-                className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+                className="inline-flex h-11 w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
               >
+                <AdminSaveIcon />
                 {saving ? "Ukladám…" : "Uložiť"}
               </button>
             </div>

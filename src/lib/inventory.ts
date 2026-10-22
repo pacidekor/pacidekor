@@ -1,5 +1,4 @@
 import type { Product } from "@/lib/products";
-import { adjustStockAction } from "@/lib/actions/inventory";
 import {
   findCatalogProductById,
   patchProductInCatalog,
@@ -139,8 +138,8 @@ export function applyInventoryLocally(
 }
 
 /**
- * Optimistic local stock change, then background Supabase sync.
- * Rolls local state back if the server rejects the delta.
+ * Availability check only — warehouse stock is deducted on Packeta label print,
+ * not when adding to cart.
  */
 export async function adjustInventory(
   product: Product,
@@ -150,23 +149,7 @@ export async function adjustInventory(
   if (!preview.ok) {
     return { ok: false, entry: preview.entry, error: "Nedostatok skladu." };
   }
-
-  if (!preview.needsServerSync) {
-    return { ok: true, entry: preview.entry };
-  }
-
-  const previous = getInventoryForProduct(product);
-  applyInventoryLocally(product.id, preview.entry);
-
-  void adjustStockAction(product.id, delta).then((result) => {
-    if (!result.ok) {
-      applyInventoryLocally(product.id, previous);
-      return;
-    }
-    applyStockToCatalog(product.id, result.data);
-  });
-
-  return { ok: true, entry: preview.entry };
+  return { ok: true, entry: getInventoryForProduct(product) };
 }
 
 /** Keep admin UI / local mirrors in sync after product save. */

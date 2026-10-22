@@ -34,13 +34,10 @@ import {
   subscribeClientAuth,
 } from "@/lib/client-auth";
 import type { Customer } from "@/lib/customers";
-import { adjustStockAction } from "@/lib/actions/inventory";
 import {
-  applyInventoryLocally,
   getInventoryForProduct,
   inventoryMaxOrderable,
   previewInventoryDelta,
-  setInventory,
 } from "@/lib/inventory";
 import { productHref } from "@/lib/products";
 import { productCountLabel } from "@/lib/product-count";
@@ -61,38 +58,6 @@ import { ORDERS_ENABLED } from "@/lib/shop-flags";
 import { FREE_SHIPPING_THRESHOLD } from "@/lib/shipping";
 import { useCartItemsState } from "@/lib/use-cart";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
-
-/** Accumulate stock deltas while clicking; flush one server call after pause. */
-const STOCK_SYNC_MS = 320;
-const pendingStockDelta = new Map<
-  string,
-  { delta: number; timer: ReturnType<typeof setTimeout> }
->();
-
-function scheduleStockSync(product: CartItem["product"], delta: number) {
-  const existing = pendingStockDelta.get(product.id);
-  if (existing) clearTimeout(existing.timer);
-
-  const nextDelta = (existing?.delta ?? 0) + delta;
-  const timer = setTimeout(() => {
-    pendingStockDelta.delete(product.id);
-    if (nextDelta === 0) return;
-
-    void adjustStockAction(product.id, nextDelta).then((result) => {
-      if (!result.ok) {
-        const undo = previewInventoryDelta(product, -nextDelta);
-        if (undo.ok) applyInventoryLocally(product.id, undo.entry);
-        return;
-      }
-      setInventory(product.id, {
-        inStock: result.data.inStock,
-        quantity: result.data.stockQuantity,
-      });
-    });
-  }, STOCK_SYNC_MS);
-
-  pendingStockDelta.set(product.id, { delta: nextDelta, timer });
-}
 
 function CartLine({
   item,
@@ -623,18 +588,10 @@ export function CartView() {
     const delta = clamped - item.quantity;
     if (delta === 0) return;
 
-    const previous = getInventoryForProduct(item.product);
     const preview = previewInventoryDelta(item.product, -delta);
     if (!preview.ok) return;
 
-    applyInventoryLocally(item.product.id, preview.entry);
-    void setCartQuantity(productId, clamped, lineOptionKey).catch(() => {
-      applyInventoryLocally(item.product.id, previous);
-    });
-
-    if (preview.needsServerSync) {
-      scheduleStockSync(item.product, -delta);
-    }
+    void setCartQuantity(productId, clamped, lineOptionKey);
   }
 
   function selectColor(
@@ -658,37 +615,7 @@ export function CartView() {
       return;
     }
 
-    const pending = pendingStockDelta.get(productId);
-    if (pending) {
-      clearTimeout(pending.timer);
-      pendingStockDelta.delete(productId);
-    }
-
-    const previous = getInventoryForProduct(item.product);
-    const preview = previewInventoryDelta(item.product, item.quantity);
-    if (preview.ok) {
-      applyInventoryLocally(item.product.id, preview.entry);
-    }
-
-    void removeFromCart(productId, lineOptionKey).catch(() => {
-      applyInventoryLocally(item.product.id, previous);
-    });
-
-    if (preview.ok && preview.needsServerSync) {
-      const flushDelta = (pending?.delta ?? 0) + item.quantity;
-      if (flushDelta !== 0) {
-        void adjustStockAction(item.product.id, flushDelta).then((result) => {
-          if (!result.ok) {
-            applyInventoryLocally(item.product.id, previous);
-            return;
-          }
-          setInventory(item.product.id, {
-            inStock: result.data.inStock,
-            quantity: result.data.stockQuantity,
-          });
-        });
-      }
-    }
+    void removeFromCart(productId, lineOptionKey);
   }
 
   if (loading && items.length === 0) {

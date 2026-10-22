@@ -498,20 +498,8 @@ export async function createOrderAction(
       return { ok: false, error: itemsError.message };
     }
 
-    // One stock adjust per product (sum of all color/variant lines).
-    for (const [productId, totalQty] of qtyByProduct) {
-      const { error: stockError } = await db.rpc("adjust_product_stock", {
-        p_product_id: productId,
-        p_delta: -totalQty,
-      });
-
-      if (stockError) {
-        return {
-          ok: false,
-          error: `Objednávka bola uložená, ale sklad sa nepodarilo upraviť: ${stockError.message}`,
-        };
-      }
-    }
+    // Warehouse stock is deducted when Packeta label is printed
+    // (see printPacketaLabelAction → decrementWarehouseStockForOrder).
 
     if (promoCode) {
       const { data: promo } = await db
@@ -783,6 +771,17 @@ export async function printPacketaLabelAction(
 
     if (updateError) {
       return { ok: false, error: updateError.message };
+    }
+
+    const { decrementWarehouseStockForOrder } = await import(
+      "@/lib/warehouse-order-stock"
+    );
+    const stockResult = await decrementWarehouseStockForOrder(db, order.dbId);
+    if (!stockResult.ok) {
+      return {
+        ok: false,
+        error: `Štítok sa vytvoril, ale sklad sa nepodarilo strhnúť: ${stockResult.error}`,
+      };
     }
 
     const pdfBase64 = await fetchPacketaLabelPdfBase64(packetId);

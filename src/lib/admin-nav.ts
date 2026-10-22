@@ -7,6 +7,7 @@ import {
   Package,
   ShoppingCart,
   Users,
+  Warehouse,
   type LucideIcon,
 } from "lucide-react";
 
@@ -20,6 +21,7 @@ export const adminNavItems: AdminNavItem[] = [
   { href: "/admin", label: "Prehľad", icon: LayoutDashboard },
   { href: "/admin/objednavky", label: "Objednávky", icon: ShoppingCart },
   { href: "/admin/produkty", label: "Produkty", icon: Package },
+  { href: "/admin/sklad", label: "Sklad", icon: Warehouse },
   { href: "/admin/kategorie", label: "Kategórie", icon: FolderTree },
   { href: "/admin/zakaznici", label: "Zákazníci", icon: Users },
   { href: "/admin/zlavy", label: "Zľavy", icon: BadgePercent },

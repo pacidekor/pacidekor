@@ -12,6 +12,7 @@ import {
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Check,
   ChevronDown,
@@ -26,6 +27,7 @@ import {
   Search,
   MoreHorizontal,
   Trash2,
+  Warehouse,
   X,
 } from "lucide-react";
 import { formatPrice, formatPriceExVat, parsePrice } from "@/lib/price";
@@ -37,6 +39,7 @@ import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
+import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
 import {
   AdminCustomVariantsDrawer,
   AdminCustomVariantsSummary,
@@ -234,9 +237,12 @@ const CUSTOM_COLOR_PRESETS = [
 export function AdminProductsManager({
   initialProducts,
   initialStockFilter = "all",
+  initialEditProductId,
 }: {
   initialProducts: Product[];
   initialStockFilter?: StockFilter;
+  /** Open product editor on mount (e.g. deep-link from Sklad). */
+  initialEditProductId?: string;
 }) {
   const taxonomy = useTaxonomy();
   const isDesktop = useIsDesktopMd();
@@ -257,6 +263,7 @@ export function AdminProductsManager({
   const [page, setPage] = useState(1);
   const [inventoryTick, setInventoryTick] = useState(0);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const autoEditOpenedRef = useRef(false);
 
   useEffect(() => {
     setStockFilter(initialStockFilter);
@@ -464,8 +471,8 @@ export function AdminProductsManager({
       });
 
       setInventory(saved.id, {
-        inStock: stock.inStock,
-        quantity: stock.inStock ? stock.quantity : null,
+        inStock: saved.inStock !== false,
+        quantity: saved.stockQuantity ?? null,
       });
 
       showSavedToast();
@@ -528,6 +535,24 @@ export function AdminProductsManager({
     setEditingId(productId);
     setEditorLoading(false);
   }
+
+  useEffect(() => {
+    const id = initialEditProductId?.trim();
+    if (!id || autoEditOpenedRef.current) return;
+    autoEditOpenedRef.current = true;
+    void openEdit(id);
+    // Drop ?edit= from the URL so refresh / back doesn't re-open the drawer.
+    try {
+      const url = new URL(window.location.href);
+      if (url.searchParams.has("edit")) {
+        url.searchParams.delete("edit");
+        window.history.replaceState({}, "", url.pathname + url.search + url.hash);
+      }
+    } catch {
+      /* ignore */
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- open once on mount from deep-link
+  }, [initialEditProductId]);
 
   const categoryOptions = [
     { value: "all", label: "Všetky kategórie" },
@@ -1026,7 +1051,7 @@ function ProductEditor({
   ) => void | Promise<boolean | void>;
   onDelete?: () => void | Promise<boolean | void>;
 }) {
-  const initialInventory = getInventoryForProduct(product);
+  const router = useRouter();
   const [entered, setEntered] = useState(false);
   const [exiting, setExiting] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -1087,10 +1112,6 @@ function ProductEditor({
   const [packaging, setPackaging] = useState<PackagingOption[]>(
     product.attributes?.packaging ?? [],
   );
-  const [inStock, setInStock] = useState(initialInventory.inStock);
-  const [stockQuantity, setStockQuantity] = useState(
-    initialInventory.quantity != null ? String(initialInventory.quantity) : "",
-  );
   const [variantEditor, setVariantEditor] = useState<AdminVariantEditorValue>(
     () => ({
       variantMode:
@@ -1104,6 +1125,7 @@ function ProductEditor({
     }),
   );
   const [discardOpen, setDiscardOpen] = useState(false);
+  const [leaveToSklad, setLeaveToSklad] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [colorImagesEditorId, setColorImagesEditorId] = useState<string | null>(
     null,
@@ -1136,11 +1158,6 @@ function ProductEditor({
       colorImageMap: product.colorImageMap ?? {},
       unavailableColorIds: product.unavailableColorIds ?? [],
       packaging: product.attributes?.packaging ?? [],
-      inStock: initialInventory.inStock,
-      stockQuantity:
-        initialInventory.quantity != null
-          ? String(initialInventory.quantity)
-          : "",
       markAsNew: isNew ? true : isActiveNewProduct(product),
       inVypredaj: Boolean(product.inVypredaj),
       isBestseller: Boolean(product.isBestseller),
@@ -1195,8 +1212,6 @@ function ProductEditor({
       colorImageMap,
       unavailableColorIds,
       packaging,
-      inStock,
-      stockQuantity,
       markAsNew,
       inVypredaj,
       isBestseller,
@@ -1233,7 +1248,30 @@ function ProductEditor({
       return;
     }
     if (isDirty) {
+      setLeaveToSklad(false);
       setDiscardOpen(true);
+      return;
+    }
+    closePanel();
+  }
+
+  function goToWarehouse() {
+    if (isNew || exiting || saving) return;
+    const href = `/admin/sklad?product=${encodeURIComponent(product.id)}`;
+    if (isDirty) {
+      setLeaveToSklad(true);
+      setDiscardOpen(true);
+      return;
+    }
+    router.push(href);
+  }
+
+  function confirmDiscard() {
+    if (leaveToSklad) {
+      const href = `/admin/sklad?product=${encodeURIComponent(product.id)}`;
+      setDiscardOpen(false);
+      setLeaveToSklad(false);
+      router.push(href);
       return;
     }
     closePanel();
@@ -1259,8 +1297,13 @@ function ProductEditor({
   async function saveAndClose() {
     if (exiting || saving || uploading || !images[0] || !name.trim()) return;
     const [main = "", hover, ...extras] = images;
-    const qtyRaw = stockQuantity.trim();
-    const qty = qtyRaw === "" ? null : Number.parseInt(qtyRaw, 10);
+    // Stock is managed in /admin/sklad — keep existing values on product save.
+    const stock = isNew
+      ? { inStock: true, quantity: null as number | null }
+      : {
+          inStock: product.inStock !== false,
+          quantity: product.stockQuantity ?? null,
+        };
     setSaving(true);
     try {
       const result = await onSave(
@@ -1305,11 +1348,7 @@ function ProductEditor({
           priceAfterModeSwitch:
             variantEditor.priceAfterModeSwitch || undefined,
         },
-        {
-          inStock,
-          quantity:
-            inStock && qty != null && !Number.isNaN(qty) && qty > 0 ? qty : null,
-        },
+        stock,
       );
       if (result === false) return;
       closePanel();
@@ -1956,42 +1995,6 @@ function ProductEditor({
                 </button>
               </div>
 
-              <div className="rounded-xl border border-black/8 bg-[#faf8f5] px-4 py-3">
-                <div className="flex flex-wrap items-center gap-3">
-                  <label className="flex shrink-0 cursor-pointer items-center gap-2.5 text-sm font-medium text-[#2f2924]">
-                    <input
-                      type="checkbox"
-                      checked={inStock}
-                      onChange={(event) => setInStock(event.target.checked)}
-                      className="size-4 accent-[#75825B]"
-                    />
-                    Je na sklade?
-                  </label>
-                  {inStock ? (
-                    <input
-                      type="number"
-                      min={1}
-                      inputMode="numeric"
-                      value={stockQuantity}
-                      onChange={(event) =>
-                        setStockQuantity(event.target.value.replace(/\D/g, ""))
-                      }
-                      placeholder="Počet ks (voliteľné)"
-                      aria-label="Počet kusov na sklade"
-                      className="h-10 min-w-0 flex-1 rounded-xl border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
-                    />
-                  ) : (
-                    <p className="text-xs text-[#2f2924]/45">
-                      Produkt sa zákazníkom zobrazí ako vypredaný.
-                    </p>
-                  )}
-                </div>
-                {inStock ? (
-                  <p className="mt-2 text-xs text-[#2f2924]/45">
-                    Prázdne pole = neobmedzený počet kusov (sklad sa nepočíta).
-                  </p>
-                ) : null}
-              </div>
             </section>
 
             <section className="min-w-0 space-y-5">
@@ -2588,27 +2591,46 @@ function ProductEditor({
         </div>
 
         <div className="relative z-10 shrink-0 border-t border-black/6 bg-white px-4 py-4 sm:px-6">
-          <div className="flex flex-col gap-2.5 sm:flex-row sm:items-center">
-            {onDelete ? (
-              <button
-                type="button"
-                onClick={() => {
-                  setDiscardOpen(false);
-                  setDeleteOpen(true);
-                }}
-                disabled={exiting || saving}
-                className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
-              >
-                <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
-                Odstrániť produkt
-              </button>
-            ) : null}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex flex-wrap items-center gap-2.5">
+              {onDelete ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDiscardOpen(false);
+                    setLeaveToSklad(false);
+                    setDeleteOpen(true);
+                  }}
+                  disabled={exiting || saving}
+                  className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/30 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8 disabled:cursor-not-allowed disabled:opacity-40 sm:w-auto"
+                >
+                  <Trash2 className="size-4" strokeWidth={1.75} aria-hidden />
+                  Odstrániť produkt
+                </button>
+              ) : null}
+              {!isNew ? (
+                <button
+                  type="button"
+                  onClick={goToWarehouse}
+                  disabled={exiting || saving}
+                  className="inline-flex h-11 cursor-pointer items-center justify-center gap-1.5 rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <Warehouse
+                    className="size-3.5"
+                    strokeWidth={1.75}
+                    aria-hidden
+                  />
+                  Upraviť sklad
+                </button>
+              ) : null}
+            </div>
             <button
               type="button"
               onClick={saveAndClose}
               disabled={!images[0] || !name.trim() || exiting || saving || uploading}
-              className="inline-flex h-11 w-full cursor-pointer items-center justify-center rounded-xl bg-[#75825B] text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:min-w-[12rem] sm:px-8"
+              className="inline-flex h-11 min-w-0 flex-1 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40 sm:ml-auto sm:w-auto sm:flex-none sm:min-w-[12rem] sm:px-8"
             >
+              <AdminSaveIcon />
               {saving ? "Ukladám…" : "Uložiť"}
             </button>
           </div>
@@ -2630,24 +2652,42 @@ function ProductEditor({
               Máte neuložené zmeny
             </h3>
             <p className="mt-2 text-sm leading-relaxed text-[#2f2924]/65">
-              Ak panel zatvoríte, úpravy sa stratia. Chcete ich zahodiť?
+              {leaveToSklad
+                ? "Úpravy produktu ešte nie sú uložené. Chcete pokračovať do skladu bez uloženia?"
+                : "Ak panel zatvoríte, úpravy sa stratia. Chcete ich zahodiť?"}
             </p>
             <div className="mt-5 flex items-center gap-2.5">
               <button
                 type="button"
-                onClick={closePanel}
+                onClick={confirmDiscard}
                 className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-4 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60"
               >
-                Zahodiť zmeny
+                {leaveToSklad ? "Pokračovať" : "Zahodiť zmeny"}
               </button>
-              <button
-                type="button"
-                onClick={saveAndClose}
-                disabled={!images[0] || !name.trim() || exiting || saving || uploading}
-                className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
-              >
-                {saving ? "Ukladám…" : "Uložiť zmeny"}
-              </button>
+              {leaveToSklad ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDiscardOpen(false);
+                    setLeaveToSklad(false);
+                  }}
+                  className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                >
+                  Zostať
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={saveAndClose}
+                  disabled={
+                    !images[0] || !name.trim() || exiting || saving || uploading
+                  }
+                  className="inline-flex h-10 w-1/2 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <AdminSaveIcon />
+                  {saving ? "Ukladám…" : "Uložiť zmeny"}
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -2838,8 +2878,6 @@ function serializeEditorSnapshot(value: {
   colorImageMap: Record<string, number[]>;
   unavailableColorIds: string[];
   packaging: PackagingOption[];
-  inStock: boolean;
-  stockQuantity: string;
   markAsNew: boolean;
   inVypredaj: boolean;
   isBestseller: boolean;
@@ -2863,8 +2901,6 @@ function serializeEditorSnapshot(value: {
         label: item.label?.trim() || undefined,
       }))
       .sort((a, b) => a.id.localeCompare(b.id)),
-    inStock: value.inStock,
-    stockQuantity: value.stockQuantity.trim(),
     markAsNew: value.markAsNew,
     inVypredaj: value.inVypredaj,
     isBestseller: value.isBestseller,
