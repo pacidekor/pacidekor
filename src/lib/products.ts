@@ -915,22 +915,7 @@ export function getProductGallery(product: Product): string[] {
   ].filter(Boolean);
 }
 
-export function getRelatedProducts(
-  allProducts: Product[],
-  slug: string,
-  count = 4,
-) {
-  const others = allProducts.filter((product) => product.slug !== slug);
-  const start = allProducts.findIndex((product) => product.slug === slug);
-  const offset = start >= 0 ? start % Math.max(others.length, 1) : 0;
-  const related: Product[] = [];
-
-  for (let i = 0; i < Math.min(count, others.length); i++) {
-    related.push(others[(offset + i) % others.length]);
-  }
-
-  return related;
-}
+export { getRelatedProducts } from "@/lib/related-products";
 
 export function productHref(
   slug: string,

@@ -123,7 +123,9 @@ function revalidateProductPaths(options?: {
   try {
     // Storefront only — admin list updates from client state after save.
     revalidateTag("storefront-catalog", "max");
-    revalidatePath("/", "layout");
+    // Product edits affect the home page, not the shared site layout (which
+    // loads only taxonomy and discounts). Keep unrelated pages/layout cached.
+    revalidatePath("/");
     revalidatePath("/produkty");
     revalidatePath("/novinky");
     revalidatePath("/akcia");

@@ -15,7 +15,7 @@ type ProductColorPillsProps = {
   colors: ProductColor[];
   selectedColorId: string;
   onSelect: (colorId: string) => void;
-  /** Color IDs that stay clickable for photos but are sold out. */
+  /** Sold-out colors remain visible but cannot be selected. */
   unavailableColorIds?: string[];
 };
 
@@ -36,35 +36,29 @@ function ColorPillButton({
     <button
       ref={measureRef}
       type="button"
+      disabled={soldOut}
       onClick={() => onSelect(color.id)}
       aria-pressed={selected}
       aria-label={
         soldOut ? `${color.label} — Vypredané` : color.label
       }
-      className={`inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-        selected
-          ? "border-[#75825B] bg-[#75825B] text-white"
-          : "border-[#2f2924]/15 bg-white text-[#2f2924] hover:border-[#75825B]/50"
+      className={`inline-flex shrink-0 items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+        soldOut
+          ? "cursor-not-allowed border-gray-200 bg-gray-100 text-gray-400"
+          : selected
+          ? "cursor-pointer border-[#75825B] bg-[#75825B] text-white"
+          : "cursor-pointer border-[#2f2924]/15 bg-white text-[#2f2924] hover:border-[#75825B]/50"
       }`}
     >
       <span
         className={`size-3.5 rounded-full border ${
-          selected ? "border-white" : "border-black/10"
+          soldOut ? "grayscale opacity-40 border-black/10" : selected ? "border-white" : "border-black/10"
         }`}
         style={colorSwatchStyle(color)}
         aria-hidden
       />
       <span className="inline-flex items-center gap-1.5">
         {color.label}
-        {soldOut ? (
-          <span
-            className={`text-[11px] font-semibold tracking-wide uppercase ${
-              selected ? "text-white/85" : "text-[#c45c4a]"
-            }`}
-          >
-            Vypredané
-          </span>
-        ) : null}
       </span>
     </button>
   );

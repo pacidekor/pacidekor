@@ -666,8 +666,9 @@ export async function listRelatedProducts(
     return getRelatedProducts(products, slug, count);
   }
 
-  const products = (rows ?? []).map(mapStorefrontListRow);
-  return getRelatedProducts(products, slug, count);
+  // Selection depends only on slug/order. Normalize galleries and variants only
+  // for the cards we actually render, preserving the existing recommendation order.
+  return getRelatedProducts(rows ?? [], slug, count).map(mapStorefrontListRow);
 }
 
 /** Auth slideshow: mostly flowers, occasional ceramics — never candles/grave goods. */
