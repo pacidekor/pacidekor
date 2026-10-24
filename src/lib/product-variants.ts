@@ -29,6 +29,11 @@ export type TextVariant = {
   sortOrder: number;
   /** URLs that must belong to product.images */
   imageUrls: string[];
+  /**
+   * Optional colors for this size/option (product stays in `custom` mode).
+   * Photos stay on the text variant — not per color.
+   */
+  colorIds?: string[];
 };
 
 export type VariantCatalogSummary = {
@@ -122,6 +127,18 @@ export function normalizeTextVariant(
     }
   }
 
+  const colorIdsRaw = Array.isArray(row.colorIds)
+    ? row.colorIds
+    : Array.isArray(row.color_ids)
+      ? row.color_ids
+      : [];
+  const colorIds: string[] = [];
+  for (const c of colorIdsRaw) {
+    if (typeof c !== "string") continue;
+    const colorId = c.trim();
+    if (colorId && !colorIds.includes(colorId)) colorIds.push(colorId);
+  }
+
   return {
     id,
     label,
@@ -130,7 +147,22 @@ export function normalizeTextVariant(
     ...(stockQuantity !== undefined ? { stockQuantity } : {}),
     sortOrder,
     imageUrls,
+    ...(colorIds.length > 0 ? { colorIds } : {}),
   };
+}
+
+/** Union of color ids across custom text variants (for product.attributes.colors). */
+export function collectTextVariantColorIds(
+  variants: TextVariant[] | null | undefined,
+): string[] {
+  const out: string[] = [];
+  for (const variant of variants ?? []) {
+    for (const id of variant.colorIds ?? []) {
+      const trimmed = id.trim();
+      if (trimmed && !out.includes(trimmed)) out.push(trimmed);
+    }
+  }
+  return out;
 }
 
 export function normalizeTextVariants(

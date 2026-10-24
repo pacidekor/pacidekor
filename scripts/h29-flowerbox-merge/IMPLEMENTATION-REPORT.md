@@ -1,6 +1,6 @@
 # H29 — implementace + aktivační balíček (lokálně)
 
-**Produkce:** migrace / deploy / sloučení **nespuštěny**. H29 datově neuzavřeno.
+**Produkce:** **uzavřeno 2026-10-18** — migrace aplikována, commit `55fe3f5` v Production, data aktivována (`activations/prod-20261018-142539-c85fd6/`). Detail: `results/H29-PRODUCTION-CLOSEOUT.md`.
 
 ## Schválená podoba cíle IMP-NEJ-083
 

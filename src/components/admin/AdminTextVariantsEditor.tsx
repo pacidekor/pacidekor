@@ -1,13 +1,42 @@
 "use client";
 
-import { useEffect, useId, useState, type ReactNode } from "react";
-import { ChevronDown, ImagePlus, Pencil, Plus, X } from "lucide-react";
+import { useEffect, useId, useMemo, useState, type ReactNode } from "react";
+import { ChevronDown, ImagePlus, Pencil, Plus, Trash2, X } from "lucide-react";
+import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
 import type { TextVariant, VariantMode } from "@/lib/product-variants";
 import {
   eurosToCents,
   formatCentsAsPrice,
   parsePriceToCents,
 } from "@/lib/product-variants";
+import {
+  colorSwatchStyle,
+  parseCustomColorId,
+  resolveCustomColorId,
+  searchCatalogCustomColors,
+  suggestColorName,
+  suggestSplitColorName,
+  type CatalogCustomColor,
+  type ProductColor,
+} from "@/lib/products";
+import { filterColors } from "@/lib/taxonomy";
+
+const CUSTOM_COLOR_PRESETS = [
+  "#f5f2ec",
+  "#e8d9c4",
+  "#d4a0a8",
+  "#c9959a",
+  "#b43c3c",
+  "#6e2c3a",
+  "#d4894a",
+  "#e0c35a",
+  "#6b7f5a",
+  "#5a7a9a",
+  "#7a5f8a",
+  "#8a6a4a",
+  "#9a9a96",
+  "#2f2924",
+] as const;
 
 export type AdminVariantEditorValue = {
   variantMode: VariantMode;
@@ -26,12 +55,26 @@ export type CustomVariantsDraft = {
   defaultVariantId: string;
 };
 
+export type VariantColorOption = {
+  id: string;
+  label: string;
+  color?: ProductColor;
+};
+
 type EditorProps = {
   value: CustomVariantsDraft;
   onChange: (next: CustomVariantsDraft) => void;
   images: string[];
   /** Seed price for newly added custom variants. */
   productPrice: string;
+  /** Product-level + taxonomy colors available to assign on a variant. */
+  colorOptions?: VariantColorOption[];
+  /** Ensure a newly picked color is also on the product `colors` list. */
+  onEnsureProductColor?: (colorId: string) => void;
+  /** Catalog of existing custom colors (dedupe by hex/label). */
+  catalogCustomColors?: CatalogCustomColor[];
+  /** Current product color ids (for resolveCustomColorId). */
+  existingProductColorIds?: string[];
 };
 
 const MODE_OPTIONS = [
@@ -64,6 +107,7 @@ export function cloneCustomVariantsDraft(
     textVariants: value.textVariants.map((variant) => ({
       ...variant,
       imageUrls: [...variant.imageUrls],
+      colorIds: variant.colorIds ? [...variant.colorIds] : undefined,
     })),
   };
 }
@@ -175,7 +219,7 @@ export function AdminCustomVariantsSummary({
   const empty = value.textVariants.length === 0;
   return (
     <div className="rounded-xl border border-black/10 bg-[#faf8f5] px-3.5 py-3">
-      <div className="flex items-start gap-3">
+      <div className="flex items-center gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-sm font-medium text-[#2f2924]">Vlastné varianty</p>
           <p className="mt-1 text-sm leading-snug text-[#2f2924]/65">
@@ -185,16 +229,16 @@ export function AdminCustomVariantsSummary({
         <button
           type="button"
           onClick={onOpen}
-          className="inline-flex size-9 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-black/10 bg-white text-[#75825B] transition-colors hover:bg-[#e8ebe2]"
+          className="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white text-[#75825B] transition-colors hover:bg-[#e8ebe2]"
           aria-label={
             empty ? "Nastaviť vlastné varianty" : "Upraviť vlastné varianty"
           }
           title={empty ? "Nastaviť" : "Upraviť"}
         >
           {empty ? (
-            <Plus className="size-4" strokeWidth={1.75} aria-hidden />
+            <Plus className="size-5" strokeWidth={1.75} aria-hidden />
           ) : (
-            <Pencil className="size-4" strokeWidth={1.75} aria-hidden />
+            <Pencil className="size-5" strokeWidth={1.75} aria-hidden />
           )}
         </button>
       </div>
@@ -208,6 +252,10 @@ export function AdminCustomVariantsDrawer({
   applied,
   images,
   productPrice,
+  colorOptions,
+  onEnsureProductColor,
+  catalogCustomColors,
+  existingProductColorIds,
   onCancel,
   onApply,
 }: {
@@ -215,6 +263,10 @@ export function AdminCustomVariantsDrawer({
   applied: AdminVariantEditorValue;
   images: string[];
   productPrice: string;
+  colorOptions?: VariantColorOption[];
+  onEnsureProductColor?: (colorId: string) => void;
+  catalogCustomColors?: CatalogCustomColor[];
+  existingProductColorIds?: string[];
   onCancel: () => void;
   onApply: (draft: CustomVariantsDraft) => void;
 }) {
@@ -308,6 +360,10 @@ export function AdminCustomVariantsDrawer({
             onChange={setDraft}
             images={images}
             productPrice={productPrice}
+            colorOptions={colorOptions}
+            onEnsureProductColor={onEnsureProductColor}
+            catalogCustomColors={catalogCustomColors}
+            existingProductColorIds={existingProductColorIds}
           />
         </div>
 
@@ -469,6 +525,12 @@ function variantCollapsedMeta(
   const parts = [formatCentsAsPrice(variant.priceCents)];
   if (!variant.available) parts.push("neobjednateľná");
   if (isDefault) parts.push("predvolená");
+  const colorCount = variant.colorIds?.length ?? 0;
+  if (colorCount > 0) {
+    parts.push(
+      colorCount === 1 ? "1 farba" : colorCount < 5 ? `${colorCount} farby` : `${colorCount} farieb`,
+    );
+  }
   if (variant.imageUrls.length > 0) {
     parts.push(
       variant.imageUrls.length === 1
@@ -485,10 +547,129 @@ export function AdminTextVariantsEditor({
   onChange,
   images,
   productPrice,
+  colorOptions,
+  onEnsureProductColor,
+  catalogCustomColors = [],
+  existingProductColorIds = [],
 }: EditorProps) {
   const { textVariants } = value;
   const [photosPickerId, setPhotosPickerId] = useState<string | null>(null);
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [customPickerVariantId, setCustomPickerVariantId] = useState<
+    string | null
+  >(null);
+  const [customDraftHex, setCustomDraftHex] = useState("#d4a0a8");
+  const [customDraftHexSecondary, setCustomDraftHexSecondary] =
+    useState("#f5f2ec");
+  const [customDraftSplit, setCustomDraftSplit] = useState(false);
+  const [customDraftLabel, setCustomDraftLabel] = useState(() =>
+    suggestColorName("#d4a0a8"),
+  );
+  const [customLabelTouched, setCustomLabelTouched] = useState(false);
+  const [customLabelFocused, setCustomLabelFocused] = useState(false);
+
+  const customLabelSuggestions = useMemo(
+    () =>
+      customLabelFocused
+        ? searchCatalogCustomColors(catalogCustomColors, customDraftLabel)
+        : [],
+    [catalogCustomColors, customDraftLabel, customLabelFocused],
+  );
+
+  const resolvedColorOptions = useMemo(() => {
+    const byId = new Map<string, VariantColorOption>();
+    for (const color of filterColors) {
+      if (!color.hex) continue;
+      byId.set(color.id, {
+        id: color.id,
+        label: color.label,
+        color: {
+          id: color.id,
+          label: color.label,
+          hex: color.hex,
+        },
+      });
+    }
+    for (const option of colorOptions ?? []) {
+      byId.set(option.id, option);
+    }
+    // Include colors already on variants even if not in product list yet
+    for (const variant of textVariants) {
+      for (const id of variant.colorIds ?? []) {
+        if (byId.has(id)) continue;
+        const parsed = parseCustomColorId(id);
+        byId.set(
+          id,
+          parsed
+            ? { id, label: parsed.label, color: parsed }
+            : { id, label: id },
+        );
+      }
+    }
+    return [...byId.values()];
+  }, [colorOptions, textVariants]);
+
+  function customDraftSuggestedLabel(
+    hex = customDraftHex,
+    split = customDraftSplit,
+    hexSecondary = customDraftHexSecondary,
+  ) {
+    return split
+      ? suggestSplitColorName(hex, hexSecondary)
+      : suggestColorName(hex);
+  }
+
+  function resetCustomDraft() {
+    setCustomDraftHex("#d4a0a8");
+    setCustomDraftHexSecondary("#f5f2ec");
+    setCustomDraftSplit(false);
+    setCustomDraftLabel(suggestColorName("#d4a0a8"));
+    setCustomLabelTouched(false);
+    setCustomLabelFocused(false);
+  }
+
+  function applyCatalogCustomColor(color: CatalogCustomColor) {
+    setCustomDraftHex(color.hex);
+    setCustomDraftHexSecondary(color.hexSecondary ?? "#f5f2ec");
+    setCustomDraftSplit(Boolean(color.hexSecondary));
+    setCustomDraftLabel(color.label);
+    setCustomLabelTouched(true);
+    setCustomLabelFocused(false);
+  }
+
+  function toggleVariantColor(variantId: string, colorId: string) {
+    const variant = textVariants.find((item) => item.id === variantId);
+    if (!variant) return;
+    const current = variant.colorIds ?? [];
+    const selected = current.includes(colorId);
+    const nextIds = selected
+      ? current.filter((id) => id !== colorId)
+      : [...current, colorId];
+    updateVariant(variantId, {
+      colorIds: nextIds.length > 0 ? nextIds : undefined,
+    });
+    if (!selected) onEnsureProductColor?.(colorId);
+  }
+
+  function addCustomColorToVariant(variantId: string) {
+    const label =
+      customDraftLabel.trim() || customDraftSuggestedLabel();
+    const id = resolveCustomColorId({
+      hex: customDraftHex,
+      label,
+      hexSecondary: customDraftSplit ? customDraftHexSecondary : undefined,
+      registry: catalogCustomColors,
+      existingColorIds: existingProductColorIds,
+    });
+    onEnsureProductColor?.(id);
+    const variant = textVariants.find((item) => item.id === variantId);
+    const current = variant?.colorIds ?? [];
+    if (!current.includes(id)) {
+      updateVariant(variantId, { colorIds: [...current, id] });
+    }
+    setCustomPickerVariantId(null);
+    resetCustomDraft();
+  }
 
   function updateVariant(id: string, patch: Partial<TextVariant>) {
     onChange({
@@ -527,10 +708,27 @@ export function AdminTextVariantsEditor({
     });
     if (photosPickerId === id) setPhotosPickerId(null);
     if (expandedId === id) setExpandedId(null);
+    if (customPickerVariantId === id) {
+      setCustomPickerVariantId(null);
+      resetCustomDraft();
+    }
   }
 
   function toggleExpanded(id: string) {
-    setExpandedId((current) => (current === id ? null : id));
+    setExpandedId((current) => {
+      if (current === id) {
+        if (customPickerVariantId === id) {
+          setCustomPickerVariantId(null);
+          resetCustomDraft();
+        }
+        return null;
+      }
+      if (customPickerVariantId != null && customPickerVariantId !== id) {
+        setCustomPickerVariantId(null);
+        resetCustomDraft();
+      }
+      return id;
+    });
   }
 
   const photosPickerVariant =
@@ -574,7 +772,7 @@ export function AdminTextVariantsEditor({
 
         {textVariants.length === 0 ? (
           <p className="rounded-xl border border-dashed border-black/15 bg-[#faf8f5] px-4 py-5 text-sm text-[#9a4d3f]">
-            Zatiaľ žiadna varianta — pridajte aspoň jednu.
+            Zatiaľ žiadna varianta - pridajte aspoň jednu.
           </p>
         ) : null}
 
@@ -735,46 +933,367 @@ export function AdminTextVariantsEditor({
 
                     <div>
                       <p className="text-sm font-medium text-[#2f2924]">
+                        Farby tejto varianty
+                      </p>
+                      <p className="mt-0.5 text-xs text-[#2f2924]/45">
+                        Voliteľné - napr. veľkosť S v niekoľkých farbách. Fotky
+                        ostávajú na variante, nie na farbe.
+                      </p>
+                      <div className="mt-3 grid grid-cols-2 gap-1.5">
+                        {(() => {
+                          const selectedIds = variant.colorIds ?? [];
+                          const renderOption = (option: VariantColorOption) => {
+                            const selected = selectedIds.includes(option.id);
+                            return (
+                              <label
+                                key={option.id}
+                                className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-black/10 px-2.5 py-2 text-sm text-[#2f2924] transition-colors hover:bg-white ${
+                                  selected ? "bg-white" : "bg-white/70"
+                                }`}
+                              >
+                                <input
+                                  type="checkbox"
+                                  checked={selected}
+                                  onChange={() =>
+                                    toggleVariantColor(variant.id, option.id)
+                                  }
+                                  className="size-4 shrink-0 accent-[#75825B]"
+                                />
+                                {option.color ? (
+                                  <span
+                                    className="size-3.5 shrink-0 rounded-full border border-black/10"
+                                    style={colorSwatchStyle(option.color)}
+                                    aria-hidden
+                                  />
+                                ) : null}
+                                <span className="min-w-0 truncate">
+                                  {option.label}
+                                </span>
+                              </label>
+                            );
+                          };
+
+                          return (
+                            <>
+                              {resolvedColorOptions.map(renderOption)}
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  const opening =
+                                    customPickerVariantId !== variant.id;
+                                  setCustomPickerVariantId(
+                                    opening ? variant.id : null,
+                                  );
+                                  resetCustomDraft();
+                                }}
+                                className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-dashed px-2.5 py-2 text-left text-sm font-medium transition-colors ${
+                                  customPickerVariantId === variant.id
+                                    ? "border-[#75825B] bg-[#e8ebe2]/60 text-[#2f2924]"
+                                    : "border-[#2f2924]/20 bg-white text-[#2f2924] hover:border-[#75825B]/50 hover:bg-[#e8ebe2]/40"
+                                }`}
+                              >
+                                <span
+                                  className="inline-flex size-3.5 shrink-0 items-center justify-center rounded-full border border-black/15 bg-[conic-gradient(from_0deg,#b43c3c,#e0c35a,#6b7f5a,#5a7a9a,#7a5f8a,#d4a0a8,#b43c3c)]"
+                                  aria-hidden
+                                />
+                                Vlastná
+                              </button>
+                            </>
+                          );
+                        })()}
+                      </div>
+
+                      {customPickerVariantId === variant.id ? (
+                        <div className="mt-3 space-y-3 rounded-xl border border-black/8 bg-[#faf8f5] p-3">
+                          <p className="text-xs font-medium tracking-wide text-[#2f2924]/55 uppercase">
+                            Nová vlastná farba
+                          </p>
+                          <p className="text-xs leading-relaxed text-[#2f2924]/55">
+                            Vyberte HEX a zadajte vlastný názov (napr. Svetlo
+                            fialová). Návrh názvu z katalógu môžete prepísať.
+                          </p>
+
+                          <label className="flex cursor-pointer items-center gap-2.5 text-sm text-[#2f2924]">
+                            <input
+                              type="checkbox"
+                              checked={customDraftSplit}
+                              onChange={(event) => {
+                                const split = event.target.checked;
+                                setCustomDraftSplit(split);
+                                if (!customLabelTouched) {
+                                  setCustomDraftLabel(
+                                    customDraftSuggestedLabel(
+                                      customDraftHex,
+                                      split,
+                                      customDraftHexSecondary,
+                                    ),
+                                  );
+                                }
+                              }}
+                              className="size-4 accent-[#75825B]"
+                            />
+                            Dve farby (split)
+                            <span
+                              className="size-4 rounded-full border border-black/10"
+                              style={colorSwatchStyle({
+                                hex: customDraftHex,
+                                hexSecondary: customDraftSplit
+                                  ? customDraftHexSecondary
+                                  : undefined,
+                              })}
+                              aria-hidden
+                            />
+                          </label>
+
+                          <div className="flex flex-wrap items-start gap-4">
+                            <div className="space-y-2">
+                              <p className="text-[11px] font-medium tracking-wide text-[#2f2924]/45 uppercase">
+                                {customDraftSplit ? "Farba 1" : "Farba"}
+                              </p>
+                              <div className="flex flex-wrap items-center gap-3">
+                                <label className="relative size-11 shrink-0 cursor-pointer overflow-hidden rounded-full border border-black/10 shadow-sm">
+                                  <span
+                                    className="absolute inset-0"
+                                    style={{ backgroundColor: customDraftHex }}
+                                    aria-hidden
+                                  />
+                                  <input
+                                    type="color"
+                                    value={customDraftHex}
+                                    onChange={(event) => {
+                                      const hex = event.target.value;
+                                      setCustomDraftHex(hex);
+                                      if (!customLabelTouched) {
+                                        setCustomDraftLabel(
+                                          customDraftSuggestedLabel(hex),
+                                        );
+                                      }
+                                    }}
+                                    className="absolute inset-0 cursor-pointer opacity-0"
+                                    aria-label="Vybrať prvú farbu"
+                                  />
+                                </label>
+                                <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+                                  {CUSTOM_COLOR_PRESETS.map((hex) => (
+                                    <button
+                                      key={`a-${hex}`}
+                                      type="button"
+                                      onClick={() => {
+                                        setCustomDraftHex(hex);
+                                        if (!customLabelTouched) {
+                                          setCustomDraftLabel(
+                                            customDraftSuggestedLabel(hex),
+                                          );
+                                        }
+                                      }}
+                                      className={`size-7 cursor-pointer rounded-full border transition-transform hover:scale-105 ${
+                                        customDraftHex.toLowerCase() ===
+                                        hex.toLowerCase()
+                                          ? "border-[#2f2924] ring-2 ring-[#75825B]/35"
+                                          : "border-black/10"
+                                      }`}
+                                      style={{ backgroundColor: hex }}
+                                      aria-label={`Predvoľba ${hex}`}
+                                    />
+                                  ))}
+                                </div>
+                              </div>
+                            </div>
+
+                            {customDraftSplit ? (
+                              <div className="space-y-2">
+                                <p className="text-[11px] font-medium tracking-wide text-[#2f2924]/45 uppercase">
+                                  Farba 2
+                                </p>
+                                <div className="flex flex-wrap items-center gap-3">
+                                  <label className="relative size-11 shrink-0 cursor-pointer overflow-hidden rounded-full border border-black/10 shadow-sm">
+                                    <span
+                                      className="absolute inset-0"
+                                      style={{
+                                        backgroundColor:
+                                          customDraftHexSecondary,
+                                      }}
+                                      aria-hidden
+                                    />
+                                    <input
+                                      type="color"
+                                      value={customDraftHexSecondary}
+                                      onChange={(event) => {
+                                        const hex = event.target.value;
+                                        setCustomDraftHexSecondary(hex);
+                                        if (!customLabelTouched) {
+                                          setCustomDraftLabel(
+                                            customDraftSuggestedLabel(
+                                              customDraftHex,
+                                              true,
+                                              hex,
+                                            ),
+                                          );
+                                        }
+                                      }}
+                                      className="absolute inset-0 cursor-pointer opacity-0"
+                                      aria-label="Vybrať druhú farbu"
+                                    />
+                                  </label>
+                                  <div className="flex min-w-0 flex-1 flex-wrap gap-1.5">
+                                    {CUSTOM_COLOR_PRESETS.map((hex) => (
+                                      <button
+                                        key={`b-${hex}`}
+                                        type="button"
+                                        onClick={() => {
+                                          setCustomDraftHexSecondary(hex);
+                                          if (!customLabelTouched) {
+                                            setCustomDraftLabel(
+                                              customDraftSuggestedLabel(
+                                                customDraftHex,
+                                                true,
+                                                hex,
+                                              ),
+                                            );
+                                          }
+                                        }}
+                                        className={`size-7 cursor-pointer rounded-full border transition-transform hover:scale-105 ${
+                                          customDraftHexSecondary.toLowerCase() ===
+                                          hex.toLowerCase()
+                                            ? "border-[#2f2924] ring-2 ring-[#75825B]/35"
+                                            : "border-black/10"
+                                        }`}
+                                        style={{ backgroundColor: hex }}
+                                        aria-label={`Predvoľba ${hex}`}
+                                      />
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+                            ) : null}
+                          </div>
+
+                          <div>
+                            <p className="mb-1.5 text-sm font-medium text-[#2f2924]">
+                              Názov farby
+                            </p>
+                            <div className="relative">
+                              <input
+                                type="text"
+                                value={customDraftLabel}
+                                onChange={(event) => {
+                                  setCustomLabelTouched(true);
+                                  setCustomDraftLabel(event.target.value);
+                                }}
+                                onFocus={() => setCustomLabelFocused(true)}
+                                onBlur={() => {
+                                  window.setTimeout(
+                                    () => setCustomLabelFocused(false),
+                                    120,
+                                  );
+                                }}
+                                className="h-10 w-full rounded-xl border border-black/10 bg-white px-3 text-sm text-[#2f2924] outline-none transition-colors placeholder:text-[#2f2924]/35 focus:border-[#75825B]"
+                                placeholder="Napr. Bordová - nájdite existujúcu farbu"
+                                autoComplete="off"
+                              />
+                              {customLabelSuggestions.length > 0 ? (
+                                <ul className="absolute top-[calc(100%+0.35rem)] z-20 max-h-52 w-full overflow-y-auto rounded-xl border border-black/10 bg-white py-1 shadow-[0_16px_40px_rgba(47,41,36,0.14)]">
+                                  {customLabelSuggestions.map((color) => (
+                                    <li key={color.id}>
+                                      <button
+                                        type="button"
+                                        onMouseDown={(event) =>
+                                          event.preventDefault()
+                                        }
+                                        onClick={() =>
+                                          applyCatalogCustomColor(color)
+                                        }
+                                        className="flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left text-sm text-[#2f2924] transition-colors hover:bg-[#faf8f5]"
+                                      >
+                                        <span
+                                          className="size-4 shrink-0 rounded-full border border-black/10"
+                                          style={colorSwatchStyle(color)}
+                                          aria-hidden
+                                        />
+                                        <span className="min-w-0 flex-1 truncate font-medium">
+                                          {color.label}
+                                        </span>
+                                        <span className="shrink-0 text-[11px] text-[#2f2924]/45">
+                                          {color.usageCount}× v katalógu
+                                        </span>
+                                      </button>
+                                    </li>
+                                  ))}
+                                </ul>
+                              ) : null}
+                            </div>
+                            <p className="mt-1.5 text-xs leading-relaxed text-[#2f2924]/45">
+                              Začnite písať názov - ak farba už existuje, vyberte
+                              ju a znovu sa nevytvorí duplicita.
+                            </p>
+                          </div>
+
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setCustomPickerVariantId(null);
+                                resetCustomDraft();
+                              }}
+                              className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-xl border border-black/10 bg-white px-3 text-sm font-medium text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60"
+                            >
+                              Zrušiť
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() =>
+                                addCustomColorToVariant(variant.id)
+                              }
+                              className="inline-flex h-10 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-3 text-sm font-medium text-white transition-opacity hover:opacity-90"
+                            >
+                              Pridať farbu
+                            </button>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+
+                    <div>
+                      <p className="text-sm font-medium text-[#2f2924]">
                         Fotky
                       </p>
                       <p className="mt-0.5 text-xs text-[#2f2924]/45">
-                        Voliteľné — inak sa použijú fotky produktu.
+                        Voliteľné - inak sa použijú fotky produktu.
                       </p>
-                      <div className="mt-3 flex flex-wrap items-center gap-3">
-                        {variant.imageUrls.slice(0, 3).map((url) => (
-                          <span
-                            key={url}
-                            className="relative size-14 overflow-hidden rounded-xl border border-black/10 bg-white"
-                          >
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img
-                              src={url}
-                              alt=""
-                              className="size-full object-cover"
-                            />
-                          </span>
-                        ))}
-                        {photoCount > 3 ? (
-                          <span className="text-sm text-[#2f2924]/55">
-                            +{photoCount - 3}
-                          </span>
-                        ) : null}
-                        <button
-                          type="button"
-                          onClick={() => setPhotosPickerId(variant.id)}
-                          disabled={images.length === 0}
-                          className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-dashed border-[#75825B]/40 bg-white px-4 text-sm font-medium text-[#75825B] transition-colors hover:border-[#75825B] hover:bg-[#e8ebe2]/45 disabled:cursor-not-allowed disabled:opacity-45"
+                      <button
+                        type="button"
+                        onClick={() => setPhotosPickerId(variant.id)}
+                        disabled={images.length === 0}
+                        className={`mt-3 flex h-12 w-full cursor-pointer items-center gap-3 rounded-xl border px-4 text-left transition-colors disabled:cursor-not-allowed disabled:opacity-45 ${
+                          photoCount > 0
+                            ? "border-[#75825B]/35 bg-white hover:bg-[#e8ebe2]/45"
+                            : "border-dashed border-[#75825B]/40 bg-white hover:border-[#75825B] hover:bg-[#e8ebe2]/45"
+                        }`}
+                      >
+                        <ImagePlus
+                          className="size-4 shrink-0 text-[#75825B]"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
+                        <span className="min-w-0 flex-1 text-sm font-medium text-[#2f2924]">
+                          {photoCount > 0 ? "Upraviť fotky" : "Zvoliť fotky"}
+                        </span>
+                        <span
+                          className={`shrink-0 text-sm ${
+                            photoCount > 0
+                              ? "font-medium text-[#75825B]"
+                              : "text-[#2f2924]/45"
+                          }`}
                         >
-                          <ImagePlus
-                            className="size-4"
-                            strokeWidth={1.75}
-                            aria-hidden
-                          />
                           {photoCount > 0
-                            ? `Upraviť fotky (${photoCount})`
-                            : "Určiť fotky"}
-                        </button>
-                      </div>
+                            ? photoCount === 1
+                              ? "1 fotka"
+                              : photoCount < 5
+                                ? `${photoCount} fotky`
+                                : `${photoCount} fotiek`
+                            : "Žiadne zvolené"}
+                        </span>
+                      </button>
                       {images.length === 0 ? (
                         <p className="mt-2 text-xs text-[#2f2924]/45">
                           Najprv pridajte fotky v sekcii Médiá.
@@ -782,20 +1301,26 @@ export function AdminTextVariantsEditor({
                       ) : null}
                     </div>
 
-                    <div className="flex flex-wrap items-center gap-2.5 border-t border-black/6 pt-4">
-                      <button
-                        type="button"
-                        onClick={() => setExpandedId(null)}
-                        className="inline-flex h-11 flex-1 cursor-pointer items-center justify-center rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:flex-none sm:min-w-[10rem]"
-                      >
-                        Uložiť variantu
-                      </button>
+                    <div className="flex items-center justify-between gap-2.5 border-t border-black/6 pt-4">
                       <button
                         type="button"
                         onClick={() => removeVariant(variant.id)}
-                        className="inline-flex h-11 cursor-pointer items-center justify-center rounded-xl border border-[#c45c4a]/25 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8"
+                        className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl border border-[#c45c4a]/25 px-4 text-sm font-medium text-[#c45c4a] transition-colors hover:bg-[#c45c4a]/8"
                       >
+                        <Trash2
+                          className="size-4"
+                          strokeWidth={1.75}
+                          aria-hidden
+                        />
                         Odstrániť
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setExpandedId(null)}
+                        className="inline-flex h-11 cursor-pointer items-center justify-center gap-2 rounded-xl bg-[#75825B] px-4 text-sm font-medium text-white transition-opacity hover:opacity-90 sm:min-w-[10rem]"
+                      >
+                        <AdminSaveIcon />
+                        Uložiť variantu
                       </button>
                     </div>
                   </div>

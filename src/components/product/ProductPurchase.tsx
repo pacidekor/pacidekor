@@ -103,19 +103,43 @@ export function ProductPurchase({
   const selectedVariantId = controlledVariant ?? internalVariant;
   const setSelectedVariant = onSelectVariant ?? setInternalVariant;
 
+  const selectedVariant = findTextVariant(variants, selectedVariantId);
+  const variantColorIds = selectedVariant?.colorIds ?? [];
+  const customHasColors = isCustom && variantColorIds.length > 0;
   const hasColors =
-    !isCustom && Boolean(product.colors && product.colors.length > 0);
+    customHasColors ||
+    (!isCustom && Boolean(product.colors && product.colors.length > 0));
+  const activeColorIds = customHasColors ? variantColorIds : colorIds;
+  const visibleColors = customHasColors
+    ? (product.colors ?? []).filter((c) => variantColorIds.includes(c.id))
+    : product.colors;
   const selectedColorOrderable = hasColors
     ? isColorOrderable(
         selectedColor,
-        colorIds,
+        activeColorIds,
         product.unavailableColorIds,
       )
     : true;
-  const selectedVariant = findTextVariant(variants, selectedVariantId);
   const selectedVariantOrderable = isCustom
     ? Boolean(selectedVariant?.available)
     : true;
+
+  const variantColorKey = variantColorIds.join("\0");
+
+  // Keep selected color valid when switching size variants
+  useEffect(() => {
+    if (!variantColorKey) return;
+    const ids = variantColorKey.split("\0").filter(Boolean);
+    if (ids.includes(selectedColor)) return;
+    const next =
+      firstOrderableColorId(ids, product.unavailableColorIds) || ids[0] || "";
+    if (next) setSelectedColor(next);
+  }, [
+    selectedColor,
+    setSelectedColor,
+    variantColorKey,
+    product.unavailableColorIds,
+  ]);
 
   const canOrderPack =
     available &&
@@ -167,7 +191,9 @@ export function ProductPurchase({
         onAddOverride={onPreviewAdd}
         product={product}
         quantity={quantity}
-        colorId={isCustom ? undefined : selectedColor || undefined}
+        colorId={
+          hasColors ? selectedColor || undefined : undefined
+        }
         variantId={isCustom ? selectedVariantId || undefined : undefined}
         disabled={!canOrderPack}
         size="page"
@@ -219,9 +245,9 @@ export function ProductPurchase({
         />
       ) : null}
 
-      {hasColors ? (
+      {hasColors && visibleColors && visibleColors.length > 0 ? (
         <ProductColorPills
-          colors={product.colors!}
+          colors={visibleColors}
           selectedColorId={selectedColor}
           onSelect={setSelectedColor}
           unavailableColorIds={product.unavailableColorIds}
@@ -252,7 +278,7 @@ export function ProductPurchase({
         open={restockOpen}
         onClose={() => setRestockOpen(false)}
         product={product}
-        colorId={isCustom ? undefined : selectedColor || undefined}
+        colorId={hasColors ? selectedColor || undefined : undefined}
       />
     </div>
   );

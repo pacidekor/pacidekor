@@ -32,8 +32,9 @@ import {
 } from "lucide-react";
 import { formatPrice, formatPriceExVat, parsePrice } from "@/lib/price";
 import {
+  adminProductMatchesSearch,
   normalizeSearchText,
-  productMatchesSearchQuery,
+  scoreAdminProductSearch,
 } from "@/lib/search";
 import { ImageLightbox } from "@/components/ImageLightbox";
 import { FilterChip } from "@/components/FilterChip";
@@ -47,7 +48,9 @@ import {
   AdminCustomVariantsSummary,
   AdminVariantModePicker,
   type AdminVariantEditorValue,
+  type VariantColorOption,
 } from "@/components/admin/AdminTextVariantsEditor";
+import { collectTextVariantColorIds } from "@/lib/product-variants";
 import { useTaxonomy } from "@/components/ProductCatalogProvider";
 import {
   ADMIN_CATEGORIES_EVENT,
@@ -300,7 +303,8 @@ export function AdminProductsManager({
 
   const filtered = useMemo(() => {
     void inventoryTick;
-    const q = query.trim().toLowerCase();
+    const q = query.trim();
+    const hasQuery = q.length > 0;
 
     const list = products.filter((product) => {
       if (categoryFilter !== "all" && product.category !== categoryFilter) {
@@ -348,8 +352,8 @@ export function AdminProductsManager({
         if (available && !isLow) return false;
       }
 
-      if (!q) return true;
-      return productMatchesSearchQuery(product, q);
+      if (!hasQuery) return true;
+      return adminProductMatchesSearch(product, q);
     });
 
     const createdTime = (product: Product) => {
@@ -364,21 +368,44 @@ export function AdminProductsManager({
       return Number.isFinite(value) ? value : 0;
     };
 
-    return [...list].sort((a, b) => {
+    const scored = hasQuery
+      ? list.map((product) => ({
+          product,
+          score: scoreAdminProductSearch(q, product),
+        }))
+      : list.map((product) => ({ product, score: 0 }));
+
+    scored.sort((a, b) => {
+      if (hasQuery && a.score !== b.score) return b.score - a.score;
+
       switch (sortBy) {
         case "oldest":
-          return createdTime(a) - createdTime(b) || a.name.localeCompare(b.name, "sk");
+          return (
+            createdTime(a.product) - createdTime(b.product) ||
+            a.product.name.localeCompare(b.product.name, "sk")
+          );
         case "price_asc":
-          return priceValue(a) - priceValue(b) || a.name.localeCompare(b.name, "sk");
+          return (
+            priceValue(a.product) - priceValue(b.product) ||
+            a.product.name.localeCompare(b.product.name, "sk")
+          );
         case "price_desc":
-          return priceValue(b) - priceValue(a) || a.name.localeCompare(b.name, "sk");
+          return (
+            priceValue(b.product) - priceValue(a.product) ||
+            a.product.name.localeCompare(b.product.name, "sk")
+          );
         case "name_asc":
-          return a.name.localeCompare(b.name, "sk");
+          return a.product.name.localeCompare(b.product.name, "sk");
         case "newest":
         default:
-          return createdTime(b) - createdTime(a) || a.name.localeCompare(b.name, "sk");
+          return (
+            createdTime(b.product) - createdTime(a.product) ||
+            a.product.name.localeCompare(b.product.name, "sk")
+          );
       }
     });
+
+    return scored.map((item) => item.product);
   }, [
     products,
     query,
@@ -1323,7 +1350,14 @@ export function ProductEditor({
           subcategoryId: subcategoryId || undefined,
           druhId: druhId || undefined,
           attributes: {
-            colors: colors.length > 0 ? colors : undefined,
+            colors: (() => {
+              const fromVariants =
+                variantEditor.variantMode === "custom"
+                  ? collectTextVariantColorIds(variantEditor.textVariants)
+                  : [];
+              const saved = [...new Set([...colors, ...fromVariants])];
+              return saved.length > 0 ? saved : undefined;
+            })(),
             packaging:
               packaging.filter((item) => item.pieces > 0).length > 0
                 ? packaging
@@ -1338,9 +1372,15 @@ export function ProductEditor({
                 : undefined,
           },
           colorImageMap,
-          unavailableColorIds: unavailableColorIds.filter((id) =>
-            colors.includes(id),
-          ),
+          unavailableColorIds: (() => {
+            const allowed = new Set([
+              ...colors,
+              ...(variantEditor.variantMode === "custom"
+                ? collectTextVariantColorIds(variantEditor.textVariants)
+                : []),
+            ]);
+            return unavailableColorIds.filter((id) => allowed.has(id));
+          })(),
           details: DEFAULT_PRODUCT_DETAILS,
           markAsNew,
           inVypredaj,
@@ -2043,7 +2083,7 @@ export function ProductEditor({
                   }}
                   productPrice={price}
                   infoHint={
-                    <InfoHint text="Bez variant = jedna cena. Farby = výber farieb. Vlastné varianty = veľkosti/ceny cez tužku (Použiť do produktu, Uložiť do DB). Prepnutie režimu nemaže neaktívne dáta farieb ani vlastných variant." />
+                    <InfoHint text="Bez variant = jedna cena. Farby = výber farieb s fotkami. Vlastné varianty = veľkosti/ceny (a voliteľne farby na každej variante; fotky ostávajú na variante). Prepnutie režimu nemaže neaktívne dáta." />
                   }
                 />
 
@@ -2112,83 +2152,95 @@ export function ProductEditor({
                   ) : null}
                 </legend>
                 <div className="mt-3 grid grid-cols-2 gap-1.5">
-                  {filterColors.map((color) => {
-                    const selected = colors.includes(color.id);
-                    const assignedCount =
-                      colorImageMap[color.id]?.length ?? 0;
-                    return (
-                      <div
-                        key={color.id}
-                        className={`flex items-center gap-1 rounded-xl border border-black/10 pr-1 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
-                          selected ? "bg-[#e8ebe2]/60" : ""
-                        }`}
-                      >
-                        <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-2.5 py-2">
-                          <input
-                            type="checkbox"
-                            checked={selected}
-                            onChange={() => toggleColor(color.id)}
-                            className="size-4 shrink-0 accent-[#75825B]"
-                          />
-                          {color.hex ? (
-                            <span
-                              className="size-3.5 shrink-0 rounded-full border border-black/10"
-                              style={{ backgroundColor: color.hex }}
-                              aria-hidden
+                  {(() => {
+                    const renderColorRow = (
+                      color: (typeof filterColors)[number],
+                    ) => {
+                      const selected = colors.includes(color.id);
+                      const assignedCount =
+                        colorImageMap[color.id]?.length ?? 0;
+                      return (
+                        <div
+                          key={color.id}
+                          className={`flex items-center gap-1 rounded-xl border border-black/10 pr-1 text-sm text-[#2f2924] transition-colors hover:bg-[#e8ebe2]/60 ${
+                            selected ? "bg-[#e8ebe2]/60" : ""
+                          }`}
+                        >
+                          <label className="flex min-w-0 flex-1 cursor-pointer items-center gap-2.5 px-2.5 py-2">
+                            <input
+                              type="checkbox"
+                              checked={selected}
+                              onChange={() => toggleColor(color.id)}
+                              className="size-4 shrink-0 accent-[#75825B]"
                             />
-                          ) : null}
-                          <span className="min-w-0 truncate">{color.label}</span>
-                        </label>
-                        {selected ? (
-                          <button
-                            type="button"
-                            disabled={images.length === 0}
-                            onClick={() => setColorImagesEditorId(color.id)}
-                            className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-white hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
-                            aria-label={`Priradiť fotky k farbe ${color.label}`}
-                            title={
-                              images.length === 0
-                                ? "Najprv nahrajte fotky"
-                                : assignedCount > 0
-                                  ? `${assignedCount} fotiek`
-                                  : "Priradiť fotky"
-                            }
-                          >
-                            <MoreHorizontal
-                              className="size-4"
-                              strokeWidth={1.75}
-                              aria-hidden
-                            />
-                            {assignedCount > 0 ? (
-                              <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
-                                {assignedCount}
-                              </span>
+                            {color.hex ? (
+                              <span
+                                className="size-3.5 shrink-0 rounded-full border border-black/10"
+                                style={{ backgroundColor: color.hex }}
+                                aria-hidden
+                              />
                             ) : null}
-                          </button>
-                        ) : null}
-                      </div>
+                            <span className="min-w-0 truncate">
+                              {color.label}
+                            </span>
+                          </label>
+                          {selected ? (
+                            <button
+                              type="button"
+                              disabled={images.length === 0}
+                              onClick={() => setColorImagesEditorId(color.id)}
+                              className="relative inline-flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-[#2f2924]/45 transition-colors hover:bg-white hover:text-[#2f2924] disabled:cursor-not-allowed disabled:opacity-35"
+                              aria-label={`Priradiť fotky k farbe ${color.label}`}
+                              title={
+                                images.length === 0
+                                  ? "Najprv nahrajte fotky"
+                                  : assignedCount > 0
+                                    ? `${assignedCount} fotiek`
+                                    : "Priradiť fotky"
+                              }
+                            >
+                              <MoreHorizontal
+                                className="size-4"
+                                strokeWidth={1.75}
+                                aria-hidden
+                              />
+                              {assignedCount > 0 ? (
+                                <span className="absolute -top-0.5 -right-0.5 flex size-3.5 items-center justify-center rounded-full bg-[#75825B] text-[9px] font-semibold text-white">
+                                  {assignedCount}
+                                </span>
+                              ) : null}
+                            </button>
+                          ) : null}
+                        </div>
+                      );
+                    };
+
+                    return (
+                      <>
+                        {filterColors.map(renderColorRow)}
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setCustomPickerOpen((open) => !open);
+                            if (!customPickerOpen) {
+                              resetCustomDraft();
+                            }
+                          }}
+                          className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-dashed px-2.5 py-2 text-left text-sm font-medium transition-colors ${
+                            customPickerOpen
+                              ? "border-[#75825B] bg-[#e8ebe2]/60 text-[#2f2924]"
+                              : "border-[#2f2924]/20 bg-white text-[#2f2924] hover:border-[#75825B]/50 hover:bg-[#e8ebe2]/40"
+                          }`}
+                        >
+                          <span
+                            className="inline-flex size-3.5 shrink-0 items-center justify-center rounded-full border border-black/15 bg-[conic-gradient(from_0deg,#b43c3c,#e0c35a,#6b7f5a,#5a7a9a,#7a5f8a,#d4a0a8,#b43c3c)]"
+                            aria-hidden
+                          />
+                          Vlastná
+                        </button>
+                      </>
                     );
-                  })}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCustomPickerOpen((open) => !open);
-                      if (!customPickerOpen) {
-                        resetCustomDraft();
-                      }
-                    }}
-                    className={`flex cursor-pointer items-center gap-2.5 rounded-xl border border-dashed px-2.5 py-2 text-left text-sm font-medium transition-colors ${
-                      customPickerOpen
-                        ? "border-[#75825B] bg-[#e8ebe2]/60 text-[#2f2924]"
-                        : "border-[#2f2924]/20 bg-white text-[#2f2924] hover:border-[#75825B]/50 hover:bg-[#e8ebe2]/40"
-                    }`}
-                  >
-                    <span
-                      className="inline-flex size-3.5 items-center justify-center rounded-full border border-black/15 bg-[conic-gradient(from_0deg,#b43c3c,#e0c35a,#6b7f5a,#5a7a9a,#7a5f8a,#d4a0a8,#b43c3c)]"
-                      aria-hidden
-                    />
-                    Vlastná
-                  </button>
+                  })()}
                 </div>
 
                 {customPickerOpen ? (
@@ -2710,6 +2762,36 @@ export function ProductEditor({
         applied={variantEditor}
         images={images}
         productPrice={price}
+        colorOptions={(() => {
+          const options: VariantColorOption[] = [];
+          const seen = new Set<string>();
+          for (const color of filterColors) {
+            if (!color.hex) continue;
+            seen.add(color.id);
+            options.push({
+              id: color.id,
+              label: color.label,
+              color: { id: color.id, label: color.label, hex: color.hex },
+            });
+          }
+          for (const resolved of colorsFromIds(colors)) {
+            if (seen.has(resolved.id)) continue;
+            seen.add(resolved.id);
+            options.push({
+              id: resolved.id,
+              label: resolved.label,
+              color: resolved,
+            });
+          }
+          return options;
+        })()}
+        onEnsureProductColor={(colorId) => {
+          setColors((prev) =>
+            prev.includes(colorId) ? prev : [...prev, colorId],
+          );
+        }}
+        catalogCustomColors={catalogCustomColors}
+        existingProductColorIds={colors}
         onCancel={() => setCustomVariantsDrawerOpen(false)}
         onApply={(draft) => {
           setVariantEditor((prev) => ({
@@ -2718,6 +2800,16 @@ export function ProductEditor({
             textVariants: draft.textVariants,
             defaultVariantId: draft.defaultVariantId,
           }));
+          const fromVariants = collectTextVariantColorIds(draft.textVariants);
+          if (fromVariants.length > 0) {
+            setColors((prev) => {
+              const next = [...prev];
+              for (const id of fromVariants) {
+                if (!next.includes(id)) next.push(id);
+              }
+              return next;
+            });
+          }
           setCustomVariantsDrawerOpen(false);
         }}
       />

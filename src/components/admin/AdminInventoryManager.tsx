@@ -28,7 +28,10 @@ import { adminImageThumbUrl } from "@/lib/admin-image-url";
 import { lockPageScroll } from "@/lib/lock-page-scroll";
 import { colorSwatchStyle, productHref, type Product } from "@/lib/products";
 import type { VariantMode } from "@/lib/product-variants";
-import { productMatchesSearchQuery } from "@/lib/search";
+import {
+  adminProductMatchesSearch,
+  scoreAdminProductSearch,
+} from "@/lib/search";
 import { getProductOrderMultiple } from "@/lib/taxonomy";
 import {
   buildWarehouseLines,
@@ -189,8 +192,10 @@ export function AdminInventoryManager({
   const isDirty = draftSnapshot(draft) !== baseline;
 
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return products.filter((product) => {
+    const q = query.trim();
+    const hasQuery = q.length > 0;
+
+    const list = products.filter((product) => {
       if (product.archivedAt) return false;
       const mode = productMode(product);
       const summary = summarizeWarehouse({
@@ -212,9 +217,23 @@ export function AdminInventoryManager({
         return false;
       }
 
-      if (!q) return true;
-      return productMatchesSearchQuery(product, q);
+      if (!hasQuery) return true;
+      return adminProductMatchesSearch(product, q);
     });
+
+    if (!hasQuery) return list;
+
+    return list
+      .map((product) => ({
+        product,
+        score: scoreAdminProductSearch(q, product),
+      }))
+      .sort(
+        (a, b) =>
+          b.score - a.score ||
+          a.product.name.localeCompare(b.product.name, "sk"),
+      )
+      .map((item) => item.product);
   }, [products, query, stockFilter]);
 
   const pageCount = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));

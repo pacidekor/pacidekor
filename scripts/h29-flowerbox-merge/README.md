@@ -1,6 +1,6 @@
 # H29 — flowerbox merge (IMP-NEJ-083 ← 082 + 071)
 
-**Stav:** lokální implementace + aktivační balíček. Produkční migrace / deploy / sloučení **nespouštět** z této etapy.
+**Stav:** **CLOSED v produkci** (2026-10-18) — migrace + deploy `55fe3f5` + aktivace `prod-20261018-142539-c85fd6`. Viz `results/H29-PRODUCTION-CLOSEOUT.md`.
 
 ## Pořadí budoucího nasazení
 

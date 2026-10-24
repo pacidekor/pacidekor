@@ -1,12 +1,17 @@
 /**
  * Unified cart line identity.
- * Namespaces: "" (none) | "c:{colorId}" | "v:{variantId}"
+ * Namespaces:
+ *   "" (none)
+ *   "c:{colorId}"
+ *   "v:{variantId}"
+ *   "vc:{variantId}|{colorId}" — custom text variant + color
  */
 
 export type CartLineSelection =
   | { kind: "none" }
   | { kind: "color"; colorId: string }
-  | { kind: "variant"; variantId: string };
+  | { kind: "variant"; variantId: string }
+  | { kind: "variantColor"; variantId: string; colorId: string };
 
 export function normalizeSelectionId(value: string | null | undefined): string {
   return (value ?? "").trim();
@@ -20,6 +25,12 @@ export function cartLineOptionKey(selection: CartLineSelection): string {
     if (!id) return "";
     return `c:${id}`;
   }
+  if (selection.kind === "variantColor") {
+    const variantId = normalizeSelectionId(selection.variantId);
+    const colorId = normalizeSelectionId(selection.colorId);
+    if (!variantId || !colorId) return "";
+    return `vc:${variantId}|${colorId}`;
+  }
   const id = normalizeSelectionId(selection.variantId);
   if (!id) return "";
   return `v:${id}`;
@@ -30,6 +41,16 @@ export function parseCartLineOptionKey(
 ): CartLineSelection {
   const raw = (key ?? "").trim();
   if (!raw) return { kind: "none" };
+  if (raw.startsWith("vc:")) {
+    const body = raw.slice(3);
+    const pipe = body.indexOf("|");
+    if (pipe <= 0) return { kind: "none" };
+    const variantId = body.slice(0, pipe).trim();
+    const colorId = body.slice(pipe + 1).trim();
+    return variantId && colorId
+      ? { kind: "variantColor", variantId, colorId }
+      : { kind: "none" };
+  }
   if (raw.startsWith("c:")) {
     const colorId = raw.slice(2).trim();
     return colorId ? { kind: "color", colorId } : { kind: "none" };
@@ -42,14 +63,17 @@ export function parseCartLineOptionKey(
   return { kind: "none" };
 }
 
-/** Build option key from optional color / variant fields (exactly one axis). */
+/** Build option key from optional color / variant fields. */
 export function cartLineOptionKeyFromParts(input: {
   colorId?: string | null;
   variantId?: string | null;
 }): string {
   const variantId = normalizeSelectionId(input.variantId);
-  if (variantId) return cartLineOptionKey({ kind: "variant", variantId });
   const colorId = normalizeSelectionId(input.colorId);
+  if (variantId && colorId) {
+    return cartLineOptionKey({ kind: "variantColor", variantId, colorId });
+  }
+  if (variantId) return cartLineOptionKey({ kind: "variant", variantId });
   if (colorId) return cartLineOptionKey({ kind: "color", colorId });
   return "";
 }

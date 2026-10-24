@@ -240,6 +240,14 @@ function toStoredLine(
       variantId: opts.variantId,
     });
   const selection = parseCartLineOptionKey(lineOptionKey);
+  const colorId =
+    selection.kind === "color" || selection.kind === "variantColor"
+      ? selection.colorId
+      : undefined;
+  const variantId =
+    selection.kind === "variant" || selection.kind === "variantColor"
+      ? selection.variantId
+      : undefined;
   return {
     v: CART_STORAGE_VERSION,
     productId: product.id,
@@ -249,8 +257,8 @@ function toStoredLine(
     price: catalogPriceForSelection(product, selection),
     image: product.image,
     category: product.category,
-    colorId: selection.kind === "color" ? selection.colorId : undefined,
-    variantId: selection.kind === "variant" ? selection.variantId : undefined,
+    colorId,
+    variantId,
     lineOptionKey,
   };
 }
@@ -259,7 +267,7 @@ export function catalogPriceForSelection(
   product: Product,
   selection: ReturnType<typeof parseCartLineOptionKey>,
 ): string {
-  if (selection.kind === "variant") {
+  if (selection.kind === "variant" || selection.kind === "variantColor") {
     const v = findTextVariant(product.textVariants, selection.variantId);
     if (v) {
       return catalogNetForTextVariant(v.priceCents, product.discount);
@@ -406,8 +414,14 @@ function patchAccountCartLine(
     productId,
     quantity,
     lineOptionKey,
-    colorId: selection.kind === "color" ? selection.colorId : undefined,
-    variantId: selection.kind === "variant" ? selection.variantId : undefined,
+    colorId:
+      selection.kind === "color" || selection.kind === "variantColor"
+        ? selection.colorId
+        : undefined,
+    variantId:
+      selection.kind === "variant" || selection.kind === "variantColor"
+        ? selection.variantId
+        : undefined,
   };
   if (index >= 0) {
     const next = lines.slice();
@@ -844,9 +858,14 @@ export function replaceCartContents(lines: CartFillLine[]): number {
         productId: line.product.id,
         quantity: line.quantity,
         lineOptionKey,
-        colorId: selection.kind === "color" ? selection.colorId : undefined,
+        colorId:
+          selection.kind === "color" || selection.kind === "variantColor"
+            ? selection.colorId
+            : undefined,
         variantId:
-          selection.kind === "variant" ? selection.variantId : undefined,
+          selection.kind === "variant" || selection.kind === "variantColor"
+            ? selection.variantId
+            : undefined,
       };
     });
     setAccountCart(nextDto);

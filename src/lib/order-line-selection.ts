@@ -2,10 +2,7 @@
  * Server-side validation of cart/checkout selection (color or text variant).
  */
 
-import {
-  validateOrderLineColor,
-  type OrderLineColorCheck,
-} from "@/lib/order-line-color";
+import { validateOrderLineColor, type OrderLineColorCheck } from "@/lib/order-line-color";
 import {
   applyPercentToVariantNet,
   centsToEuros,
@@ -100,6 +97,38 @@ export function resolveCatalogUnitNetForSelection(input: {
       };
     }
 
+    const variantColorIds = variant.colorIds ?? [];
+    const colorId = (input.colorId ?? "").trim();
+    if (variantColorIds.length > 0) {
+      if (!colorId) {
+        return {
+          ok: false,
+          code: "color_required",
+          message: `Vyberte farbu pre ${name}.`,
+        };
+      }
+      if (!variantColorIds.includes(colorId)) {
+        return {
+          ok: false,
+          code: "color_invalid",
+          message: `Vybraná farba pre ${name} už nie je dostupná. Vyberte znova.`,
+        };
+      }
+      const colorCheck = validateOrderLineColor(
+        name,
+        variantColorIds,
+        colorId,
+        input.unavailableColorIds,
+      );
+      if (!colorCheck.ok) {
+        return {
+          ok: false,
+          code: colorCheck.code,
+          message: colorCheck.message,
+        };
+      }
+    }
+
     let unitNet = centsToEuros(variant.priceCents);
     if (discount) {
       unitNet = centsToEuros(
@@ -107,13 +136,19 @@ export function resolveCatalogUnitNetForSelection(input: {
       );
     }
 
+    const colorPart =
+      colorId && variantColorIds.includes(colorId)
+        ? ` · ${colorLabel(colorId, input.resolveColorLabel)}`
+        : "";
+
     return {
       ok: true,
       catalogUnitNet: unitNet,
       snapshot: {
         axisLabel: input.axisLabel?.trim() || "Varianta",
-        valueLabel: variant.label,
+        valueLabel: `${variant.label}${colorPart}`,
         variantId: variant.id,
+        ...(colorId && variantColorIds.includes(colorId) ? { colorId } : {}),
       },
     };
   }

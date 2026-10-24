@@ -324,6 +324,117 @@ export function productMatchesSearchQuery(
   return scoreProductSearch(q, product, options) > 0;
 }
 
+/**
+ * Admin Produkty / Sklad — name + SKU focused.
+ * Unlike storefront search, ignores color/category-only hits and uses AND
+ * for multi-word queries so the typed product rises to the top.
+ */
+export function scoreAdminProductSearch(
+  query: string,
+  product: Product,
+): number {
+  const q = normalizeSearchText(query);
+  if (!q) return 0;
+
+  const name = normalizeSearchText(product.name);
+  const nameTokens = tokenize(product.name);
+  const queryTokens = tokenize(query);
+  const sku = normalizeSearchText(product.sku ?? "");
+  const skuCode = normalizeSearchCode(product.sku ?? "");
+  const qCode = normalizeSearchCode(query);
+  const id = normalizeSearchText(product.id ?? "");
+
+  if (name === q) return 1000;
+  if (sku && (sku === q || (qCode.length >= 2 && skuCode === qCode))) {
+    return 990;
+  }
+  if (id && id === q) return 985;
+
+  if (name.startsWith(q) && q.length >= 2) return 960;
+  if (q.length >= 2 && name.includes(q)) {
+    // Earlier substring in the name ranks higher
+    return 920 - Math.min(100, name.indexOf(q));
+  }
+
+  if (sku && q.length >= 2) {
+    if (sku.startsWith(q) || (qCode.length >= 2 && skuCode.startsWith(qCode))) {
+      return 900;
+    }
+    if (sku.includes(q) || (qCode.length >= 2 && skuCode.includes(qCode))) {
+      return 860;
+    }
+  }
+
+  if (id && q.length >= 3 && id.includes(q)) return 820;
+
+  function tokenHitsField(token: string): boolean {
+    if (token.length < 1) return false;
+    if (name.includes(token) || (sku && sku.includes(token))) return true;
+    if (qCode.length >= 2 && skuCode.includes(normalizeSearchCode(token))) {
+      return true;
+    }
+    for (const nt of nameTokens) {
+      if (nt === token) return true;
+      if (nt.startsWith(token) && token.length >= 2) return true;
+      if (token.startsWith(nt) && nt.length >= 3) return true;
+      if (stemsMatchTight(token, nt)) return true;
+    }
+    return false;
+  }
+
+  // Multi-word: every token must hit name/SKU (precise AND)
+  if (queryTokens.length > 1) {
+    if (queryTokens.every(tokenHitsField)) {
+      const joined = queryTokens.join(" ");
+      if (name.includes(joined)) return 880;
+      return 840;
+    }
+    return 0;
+  }
+
+  // Single token — prefix / stem on any name word
+  const token = queryTokens[0] ?? q;
+  if (tokenHitsField(token)) {
+    if (nameTokens[0] && (nameTokens[0].startsWith(token) || stemsMatchTight(token, nameTokens[0]))) {
+      return 800;
+    }
+    return 760;
+  }
+
+  return 0;
+}
+
+export function adminProductMatchesSearch(
+  product: Product,
+  query: string,
+): boolean {
+  const q = query.trim();
+  if (!q) return true;
+  return scoreAdminProductSearch(q, product) > 0;
+}
+
+/** Filter + rank for admin Produkty / Sklad search bars. */
+export function filterAdminProductsBySearch(
+  products: Product[],
+  query: string,
+): Product[] {
+  const q = query.trim();
+  if (!q) return products;
+
+  return products
+    .map((product) => ({
+      product,
+      score: scoreAdminProductSearch(q, product),
+    }))
+    .filter((item) => item.score > 0)
+    .sort(
+      (a, b) =>
+        b.score - a.score ||
+        a.product.name.localeCompare(b.product.name, "sk"),
+    )
+    .map((item) => item.product);
+}
+
 /** Filter + rank any product list (admin pickers, šablóny, …). */
 export function filterProductsBySearchQuery(
   products: Product[],
