@@ -4,6 +4,7 @@ import {
   formatAudiencePriceExVat,
   formatAudiencePriceIncVat,
 } from "@/lib/price";
+import { salesUnitLabel, type SalesPackaging } from "@/lib/sales-unit";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 
 type ProductPriceDisplayProps = {
@@ -12,17 +13,20 @@ type ProductPriceDisplayProps = {
   variant?: "card" | "pdp" | "inline";
   /** Show "od …" when custom variant prices differ. */
   fromPrice?: boolean;
+  packaging?: SalesPackaging[];
 };
 
 function CardPrice({
   price,
   originalPrice,
   isWholesale,
+  unit,
   fromPrice,
 }: {
   price: string;
   originalPrice?: string;
   isWholesale: boolean;
+  unit: string;
   fromPrice?: boolean;
 }) {
   const exVat = formatAudiencePriceExVat(price, isWholesale);
@@ -39,7 +43,7 @@ function CardPrice({
           <span className="font-sans text-lg font-bold whitespace-nowrap text-[#c45c4a] sm:text-xl">
             {prefix}
             {exVat}
-            <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
+            <span className="ml-1 font-medium text-[#2f2924]/45">/ {unit}</span>
           </span>
           <span className="font-sans text-[11px] whitespace-nowrap text-[#2f2924]/45 line-through sm:text-sm">
             {exVatOriginal}
@@ -58,7 +62,7 @@ function CardPrice({
       <span className="whitespace-nowrap font-sans text-lg font-semibold text-[#2f2924] sm:text-xl">
         {prefix}
         {exVat}
-        <span className="ml-1 font-medium text-[#2f2924]/45">/ ks</span>
+        <span className="ml-1 font-medium text-[#2f2924]/45">/ {unit}</span>
       </span>
       <span className="shrink-0 whitespace-nowrap text-[10px] text-[#2f2924]/45 sm:text-xs md:mt-0.5">
         {prefix}
@@ -72,10 +76,12 @@ function PdpPrice({
   price,
   originalPrice,
   isWholesale,
+  unit,
 }: {
   price: string;
   originalPrice?: string;
   isWholesale: boolean;
+  unit: string;
 }) {
   const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
@@ -97,7 +103,7 @@ function PdpPrice({
             {exVatOriginal}
           </span>
           <span className="text-sm font-medium text-[#2f2924]/55">
-            bez DPH / ks
+            bez DPH / {unit}
           </span>
         </div>
       ) : (
@@ -106,7 +112,7 @@ function PdpPrice({
             {exVat}
           </p>
           <span className="text-sm font-medium text-[#2f2924]/55">
-            bez DPH / ks
+            bez DPH / {unit}
           </span>
         </div>
       )}
@@ -131,10 +137,12 @@ function InlinePrice({
   price,
   originalPrice,
   isWholesale,
+  unit,
 }: {
   price: string;
   originalPrice?: string;
   isWholesale: boolean;
+  unit: string;
 }) {
   const exVat = formatAudiencePriceExVat(price, isWholesale);
   const exVatOriginal = originalPrice
@@ -150,7 +158,7 @@ function InlinePrice({
       <span className="inline-flex flex-col gap-0.5">
         <span>
           <span className="mr-1.5 line-through">{exVatOriginal}</span>
-          <span className="font-semibold text-[#c45c4a]">{exVat}</span>
+          <span className="font-semibold text-[#c45c4a]">{exVat} / {unit}</span>
         </span>
         <span className="text-xs text-[#2f2924]/45">
           <span className="mr-1 line-through">{incOriginal}</span>
@@ -162,7 +170,7 @@ function InlinePrice({
 
   return (
     <span className="inline-flex flex-col gap-0.5">
-      <span className="font-semibold text-[#2f2924]">{exVat}</span>
+      <span className="font-semibold text-[#2f2924]">{exVat} / {unit}</span>
       <span className="text-xs text-[#2f2924]/45">{inc} s DPH</span>
     </span>
   );
@@ -173,7 +181,9 @@ export function ProductPriceDisplay({
   originalPrice,
   variant = "card",
   fromPrice = false,
+  packaging,
 }: ProductPriceDisplayProps) {
+  const unit = salesUnitLabel(packaging);
   const isWholesale = useIsWholesale();
 
   if (variant === "pdp") {
@@ -181,6 +191,7 @@ export function ProductPriceDisplay({
       <PdpPrice
         price={price}
         originalPrice={originalPrice}
+        unit={unit}
         isWholesale={isWholesale}
       />
     );
@@ -191,6 +202,7 @@ export function ProductPriceDisplay({
       <InlinePrice
         price={price}
         originalPrice={originalPrice}
+        unit={unit}
         isWholesale={isWholesale}
       />
     );
@@ -200,6 +212,7 @@ export function ProductPriceDisplay({
     <CardPrice
       price={price}
       originalPrice={originalPrice}
+      unit={unit}
       isWholesale={isWholesale}
       fromPrice={fromPrice}
     />

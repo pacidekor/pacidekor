@@ -34,6 +34,7 @@ import {
 } from "@/lib/taxonomy";
 import { useIsWholesale } from "@/lib/use-is-wholesale";
 import { useProductInventory } from "@/lib/use-product-inventory";
+import { salesUnitLabel } from "@/lib/sales-unit";
 
 type ProductPurchaseProps = {
   product: Product;
@@ -41,6 +42,7 @@ type ProductPurchaseProps = {
   onSelectColor?: (colorId: string) => void;
   selectedVariantId?: string;
   onSelectVariant?: (variantId: string) => void;
+  onPreviewAdd?: (quantity: number) => void;
 };
 
 export function ProductPurchase({
@@ -49,6 +51,7 @@ export function ProductPurchase({
   onSelectColor,
   selectedVariantId: controlledVariant,
   onSelectVariant,
+  onPreviewAdd,
 }: ProductPurchaseProps) {
   const isWholesale = useIsWholesale();
   const inventory = useProductInventory(product);
@@ -161,6 +164,7 @@ export function ProductPurchase({
       />
 
       <AddToCartButton
+        onAddOverride={onPreviewAdd}
         product={product}
         quantity={quantity}
         colorId={isCustom ? undefined : selectedColor || undefined}
@@ -191,11 +195,13 @@ export function ProductPurchase({
       orderMultiple={orderMultiple}
       packagingHint={packagingHint}
       packagingHintShort={packagingHintShort}
+      unit={salesUnitLabel(product.attributes?.packaging)}
     />
   );
 
   const priceDisplay = (
     <ProductPriceDisplay
+      packaging={product.attributes?.packaging}
       price={displayPrice}
       originalPrice={displayOriginalPrice}
       variant="pdp"
@@ -259,6 +265,7 @@ function StockLine({
   orderMultiple,
   packagingHint,
   packagingHintShort,
+  unit,
 }: {
   available: boolean;
   canOrderPack: boolean;
@@ -266,6 +273,7 @@ function StockLine({
   orderMultiple: number;
   packagingHint: string | null;
   packagingHintShort: string | null;
+  unit: string;
 }) {
   return (
     <div
@@ -282,7 +290,7 @@ function StockLine({
         <span className="shrink-0 text-right">
           {available
             ? typeof stockMax === "number"
-              ? `Na sklade: ${stockMax} ks`
+              ? `Na sklade: ${stockMax} ${unit === "sada" ? "sád" : "ks"}`
               : "Na sklade"
             : "Momentálne nie je na sklade"}
         </span>
@@ -299,14 +307,14 @@ function StockLine({
         ) : null}
         {available
           ? typeof stockMax === "number"
-            ? `Na sklade: ${stockMax} ks`
+            ? `Na sklade: ${stockMax} ${unit === "sada" ? "sád" : "ks"}`
             : "Na sklade"
           : "Momentálne nie je na sklade"}
       </p>
 
       {available && !canOrderPack && orderMultiple > 1 ? (
         <p className="mt-0.5 text-right">
-          Nedostatok skladu na celé balenie ({orderMultiple} ks).
+          Nedostatok skladu na celé balenie ({orderMultiple} {unit === "sada" ? "sád" : "ks"}).
         </p>
       ) : null}
     </div>

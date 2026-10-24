@@ -19,6 +19,8 @@ type AddToCartButtonProps = {
   size?: "card" | "page";
   /** Card listings: open quantity modal instead of adding immediately. */
   onOpenQuantityPicker?: () => void;
+  /** Isolated preview: replace persistence with a local cart callback. */
+  onAddOverride?: (quantity: number) => void;
 };
 
 const RESET_MS = 1800;
@@ -31,6 +33,7 @@ export function AddToCartButton({
   disabled = false,
   size = "card",
   onOpenQuantityPicker,
+  onAddOverride,
 }: AddToCartButtonProps) {
   const [added, setAdded] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -64,6 +67,11 @@ export function AddToCartButton({
 
     const qty =
       snapQuantityToMultiple(rawQty, multiple) || Math.max(1, multiple);
+
+    if (onAddOverride) {
+      onAddOverride(qty);
+      return;
+    }
 
     const preview = previewInventoryDelta(product, -qty);
     if (!preview.ok) return;

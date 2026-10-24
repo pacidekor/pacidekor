@@ -44,6 +44,8 @@ import { createAdminClient, createCustomerClient, createServiceClient } from "@/
 import { resolveCatalogUnitNetForSelection } from "@/lib/order-line-selection";
 import { isVariantMode, normalizeTextVariants } from "@/lib/product-variants";
 import { colorsFromIds } from "@/lib/products";
+import { salesOrderName, type SalesPackaging } from "@/lib/sales-unit";
+import { getProductOrderMultiple } from "@/lib/taxonomy";
 
 export type OrderActionResult<T = undefined> =
   | { ok: true; data: T }
@@ -197,14 +199,15 @@ export async function createOrderAction(
 
     const productIds = [...new Set(input.items.map((line) => line.productId))];
     const orderProductColumnsWithArchive =
-      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, archived_at, variant_mode, variant_axis_label, text_variants, images";
+      "id, slug, name, price, packaging, in_stock, stock_quantity, color_ids, unavailable_color_ids, archived_at, variant_mode, variant_axis_label, text_variants, images";
     const orderProductColumnsBase =
-      "id, slug, name, price, in_stock, stock_quantity, color_ids, unavailable_color_ids, variant_mode, variant_axis_label, text_variants, images";
+      "id, slug, name, price, packaging, in_stock, stock_quantity, color_ids, unavailable_color_ids, variant_mode, variant_axis_label, text_variants, images";
     let products: Array<{
       id: string;
       slug: string;
       name: string;
       price: string;
+      packaging?: SalesPackaging[] | null;
       in_stock: boolean;
       stock_quantity: number | null;
       color_ids: string[] | null;
@@ -319,6 +322,10 @@ export async function createOrderAction(
 
       const quantity = Math.max(1, Math.floor(line.quantity));
       const colorIds = product.color_ids ?? [];
+      const multiple = getProductOrderMultiple(product.packaging);
+      if (quantity % multiple !== 0) {
+        return { ok: false, error: `${product.name}: objednávajte v násobkoch ${multiple}.` };
+      }
       const mode = isVariantMode(product.variant_mode)
         ? product.variant_mode
         : colorIds.length > 0
@@ -359,7 +366,7 @@ export async function createOrderAction(
       subtotal += unitAmount * quantity;
       orderLines.push({
         productId: product.id,
-        productName: product.name,
+        productName: salesOrderName(product.name, product.packaging),
         unitPrice,
         quantity,
         colorId: selection.snapshot.colorId,

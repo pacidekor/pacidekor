@@ -16,6 +16,7 @@ import { firstOrderableVariant } from "@/lib/product-variants";
 
 type ProductMediaPurchaseProps = {
   product: Product;
+  onPreviewAdd?: (quantity: number) => void;
 };
 
 function resolveInitialColor(product: Product, initialColorId?: string) {
@@ -42,7 +43,7 @@ function colorIdFromSearchParams(searchParams: URLSearchParams) {
   return raw.split(",")[0] || undefined;
 }
 
-export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
+export function ProductMediaPurchase({ product, onPreviewAdd }: ProductMediaPurchaseProps) {
   const searchParams = useSearchParams();
   const farbaFromUrl = colorIdFromSearchParams(searchParams);
   const isCustom = product.variantMode === "custom";
@@ -98,6 +99,7 @@ export function ProductMediaPurchase({ product }: ProductMediaPurchaseProps) {
           {product.description}
         </p>
         <ProductPurchase
+          onPreviewAdd={onPreviewAdd}
           product={product}
           selectedColor={selectedColor}
           onSelectColor={setSelectedColor}

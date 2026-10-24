@@ -22,6 +22,7 @@ import {
 } from "@/lib/chat/history";
 
 type ChatProductCard = {
+  packaging?: import("@/lib/sales-unit").SalesPackaging[];
   id: string;
   slug: string;
   name: string;
@@ -127,6 +128,7 @@ function ProductCards({ products }: { products: ChatProductCard[] }) {
               </span>
               <span className="mt-1 flex flex-wrap items-baseline gap-1.5 text-xs">
                 <ProductPriceDisplay
+                  packaging={product.packaging}
                   price={product.price}
                   originalPrice={product.originalPrice}
                   variant="inline"

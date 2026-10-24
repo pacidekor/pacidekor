@@ -1,5 +1,7 @@
 "use client";
 
+import { salesUnitLabel, salesContentsLabel } from "@/lib/sales-unit";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useDeferredValue, useEffect, useState } from "react";
@@ -243,6 +245,7 @@ function CartLine({
         ) : null}
 
         <div className="mt-3 flex flex-wrap items-center justify-between gap-3 sm:mt-4">
+          <span className="text-xs text-[#2f2924]/60">{salesContentsLabel(product.attributes?.packaging)}</span>
           <QuantityStepper
             value={quantity}
             onChange={onQuantityChange}
@@ -263,7 +266,7 @@ function CartLine({
             <p className="mt-0.5 text-xs text-[#2f2924]/45">
               {formatPrice(lineTotalInc)} s DPH
               {deferredQuantity > 1
-                ? ` · ${formatAudiencePriceExVat(product.price, isWholesale)} / ks`
+                ? ` · ${formatAudiencePriceExVat(product.price, isWholesale)} / ${salesUnitLabel(product.attributes?.packaging)}`
                 : ""}
             </p>
           </div>

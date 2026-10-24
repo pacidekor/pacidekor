@@ -62,6 +62,7 @@ export function ProductCardActions({
 
       <div className="flex min-w-0 items-center justify-between gap-1.5 md:gap-2">
         <ProductPriceDisplay
+          packaging={product.attributes?.packaging}
           price={product.price}
           originalPrice={product.originalPrice}
           variant="card"

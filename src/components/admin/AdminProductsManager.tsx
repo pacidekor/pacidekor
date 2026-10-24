@@ -40,6 +40,8 @@ import { FilterChip } from "@/components/FilterChip";
 import { FilterSheet } from "@/components/FilterSheet";
 import { FilterSheetFooter } from "@/components/FilterSheetFooter";
 import { AdminSaveIcon } from "@/components/admin/AdminSaveIcon";
+import { ProductSalesSettings } from "@/components/admin/ProductSalesSettings";
+import { getSetSize, salesUnitLabel } from "@/lib/sales-unit";
 import {
   AdminCustomVariantsDrawer,
   AdminCustomVariantsSummary,
@@ -1033,13 +1035,14 @@ export function AdminProductsManager({
   );
 }
 
-function ProductEditor({
+export function ProductEditor({
   product,
   isNew = false,
   catalogCustomColors,
   onClose,
   onSave,
   onDelete,
+  previewMode = false,
 }: {
   product: Product;
   isNew?: boolean;
@@ -1050,6 +1053,7 @@ function ProductEditor({
     stock: { inStock: boolean; quantity: number | null },
   ) => void | Promise<boolean | void>;
   onDelete?: () => void | Promise<boolean | void>;
+  previewMode?: boolean;
 }) {
   const router = useRouter();
   const [entered, setEntered] = useState(false);
@@ -1488,6 +1492,7 @@ function ProductEditor({
   }
 
   async function onFileSelected(event: ChangeEvent<HTMLInputElement>) {
+    if (previewMode) return;
     const files = Array.from(event.target.files ?? []);
     event.target.value = "";
     if (files.length === 0 || uploading) return;
@@ -1771,14 +1776,14 @@ function ProductEditor({
                   aria-hidden={variantEditor.variantMode === "custom"}
                 >
                   <div
-                    className={`w-full min-w-[14rem] transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                    className={`w-full min-w-0 transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                       variantEditor.variantMode === "custom"
                         ? "pointer-events-none translate-x-2 opacity-0"
                         : "translate-x-0 opacity-100"
                     }`}
                   >
                     <FieldLabel
-                      label="Cena bez DPH"
+                      label={`Cena bez DPH / ${salesUnitLabel(packaging)}`}
                       hint={
                         variantEditor.priceBeforeCustom &&
                         price !== variantEditor.priceBeforeCustom
@@ -2515,10 +2520,15 @@ function ProductEditor({
                 </div>
               </div>
 
+              <ProductSalesSettings
+                packaging={packaging}
+                onChange={setPackaging}
+                hint={<InfoHint text="Kus: cena a sklad za jeden kus. Sada: cena a sklad za celú sadu. Formát dodania určuje odber po kusoch alebo sadách. Pri prepnutí sa cena neprepočíta a formát dodania sa vymaže; skontrolujte cenu, sklad a rozpracované objednávky." />}
+              />
               <fieldset>
                 <legend className="flex items-center gap-1.5 text-sm font-medium text-[#2f2924]">
                   Formát dodania
-                  <InfoHint text="Zaškrtnite spôsob balenia a uveďte počet kusov v danej jednotke." />
+                  <InfoHint text="Minimálny odber a násobok objednávky. Pri sade ide o počet celých sád, nie o obsah sady." />
                 </legend>
                 <div className="mt-3 flex flex-col gap-2">
                   {packagingFormats.map((format) => {
@@ -2573,11 +2583,11 @@ function ProductEditor({
                                 setPackagingPieces(format.id, e.target.value)
                               }
                               onClick={(event) => event.stopPropagation()}
-                              placeholder="Počet ks"
+                              placeholder={getSetSize(packaging) ? "Počet sád" : "Počet ks"}
                               className="h-9 w-28 cursor-text rounded-lg border border-black/10 bg-white px-2.5 text-sm text-[#2f2924] outline-none placeholder:text-[#2f2924]/35 focus:border-[#75825B]/50"
                             />
                             <span className="text-xs text-[#2f2924]/45">
-                              ks
+                              {getSetSize(packaging) ? "sád" : "ks"}
                             </span>
                           </span>
                         ) : null}
@@ -2608,7 +2618,7 @@ function ProductEditor({
                   Odstrániť produkt
                 </button>
               ) : null}
-              {!isNew ? (
+              {!isNew && !previewMode ? (
                 <button
                   type="button"
                   onClick={goToWarehouse}

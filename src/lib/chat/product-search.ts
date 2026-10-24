@@ -13,6 +13,7 @@ import {
 import { filterColors } from "@/lib/taxonomy";
 
 export type ChatProductCard = {
+  packaging?: import("@/lib/sales-unit").SalesPackaging[];
   id: string;
   slug: string;
   name: string;
@@ -252,6 +253,7 @@ function toCard(product: Product, preferredColorId?: string): ChatProductCard {
     name: product.name,
     price: product.price,
     originalPrice: product.originalPrice,
+    packaging: product.attributes?.packaging,
     discount: product.discount,
     image: preview.image,
     category: product.category,

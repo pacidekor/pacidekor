@@ -1,4 +1,5 @@
 import { toSlug, type CategoryLabel } from "@/lib/navigation";
+import { getSetSize, SET_PACKAGING_ID } from "@/lib/sales-unit";
 
 export type TaxonomyValue = {
   id: string;
@@ -180,6 +181,7 @@ export function getProductOrderMultiple(
   packaging: PackagingOption[] | undefined | null,
 ): number {
   const steps = (packaging ?? [])
+    .filter((item) => item.id !== SET_PACKAGING_ID)
     .map((item) => Math.floor(Number(item.pieces) || 0))
     .filter((pieces) => pieces > 1);
   if (steps.length === 0) return 1;
@@ -189,6 +191,8 @@ export function getProductOrderMultiple(
 export function getPrimaryPackagingOption(
   packaging: PackagingOption[] | undefined | null,
 ): PackagingOption | null {
+  const setSize = getSetSize(packaging);
+  if (setSize !== null) return { id: SET_PACKAGING_ID, pieces: setSize };
   const options = (packaging ?? []).filter(
     (item) => Math.floor(Number(item.pieces) || 0) > 1,
   );
@@ -202,6 +206,7 @@ export function getPrimaryPackagingOption(
 export function formatPackagingDeliveryHint(
   option: PackagingOption,
 ): string {
+  if (option.id === SET_PACKAGING_ID) return `Sada obsahuje ${option.pieces} ks`;
   const format = getPackagingFormatById(option.id);
   const label = (option.label?.trim() || format?.label || "balenie").toLowerCase();
   const pieces = Math.floor(Number(option.pieces) || 0);
@@ -219,6 +224,7 @@ export function formatPackagingDeliveryHint(
 export function formatPackagingDeliveryHintShort(
   option: PackagingOption,
 ): string {
+  if (option.id === SET_PACKAGING_ID) return `Sada ${option.pieces} ks`;
   const format = getPackagingFormatById(option.id);
   const name = option.label?.trim() || format?.label || "Balenie";
   const pieces = Math.floor(Number(option.pieces) || 0);

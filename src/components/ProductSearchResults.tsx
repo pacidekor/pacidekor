@@ -69,6 +69,7 @@ export function ProductSearchResults({
               </span>
               <span className="mt-0.5 block text-sm text-[#2f2924]/55">
                 <ProductPriceDisplay
+                  packaging={product.attributes?.packaging}
                   price={product.price}
                   originalPrice={product.originalPrice}
                   variant="inline"

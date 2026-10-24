@@ -1,6 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Run the isolated sales-unit demo alongside the existing local application.
+  distDir: process.env.PACIDEKOR_SALES_PREVIEW === "1" ? ".next-sales-preview" : ".next",
   // Avoid picking C:\Users\tomas\package-lock.json as Turbopack root
   turbopack: {
     root: process.cwd(),

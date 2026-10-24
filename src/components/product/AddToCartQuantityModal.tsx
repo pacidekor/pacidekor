@@ -1,5 +1,7 @@
 "use client";
 
+import { salesUnitLabel } from "@/lib/sales-unit";
+
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
@@ -320,7 +322,7 @@ export function AddToCartQuantityModal({
                       unitEx
                     )}
                     <span className="ml-1.5 text-sm font-medium text-[#2f2924]/45">
-                      / ks
+                      / {salesUnitLabel(product.attributes?.packaging)}
                     </span>
                   </p>
                   <p className="mt-1 text-sm text-[#2f2924]/50 sm:text-base">
@@ -376,7 +378,7 @@ export function AddToCartQuantityModal({
               <span className="text-base font-semibold text-[#2f2924]">
                 Celkom{" "}
                 <span className="font-medium text-[#2f2924]/55">
-                  ({quantity}&nbsp;ks)
+                  ({quantity}&nbsp;{salesUnitLabel(product.attributes?.packaging) === "sada" ? "sád" : "ks"})
                 </span>
               </span>
               <div className="text-right">
